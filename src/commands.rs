@@ -29,8 +29,15 @@ impl ChatCommand {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SceneCommand {
+    /// Raw client-reported coordinates, not a movement intent or camera mapping.
+    PositionReport {
+        projected: [f64; 3],
+        rotation: [f64; 3],
+    },
+    /// Minimal delta-tick target pin, not a direct pickup opcode or movement.
+    TargetPin { target: u32 },
     /// Zero clears the target. Outbound 0x18 is not an inbound scene manifest.
     LookAt { target: u32 },
     /// Destination subindex is assigned by the server, not chosen by the client.
@@ -44,6 +51,33 @@ pub enum SceneCommand {
 impl SceneCommand {
     pub fn encode(self) -> io::Result<Vec<u8>> {
         match self {
+            Self::PositionReport {
+                projected,
+                rotation,
+            } => {
+                // The source broadcasts these doubles to peers as six f32s.
+                // Reject values that would overflow that downstream conversion.
+                if projected
+                    .iter()
+                    .chain(rotation.iter())
+                    .any(|value| !value.is_finite() || value.abs() > f64::from(f32::MAX))
+                {
+                    return Err(io::Error::new(
+                        io::ErrorKind::InvalidInput,
+                        "position report values must be finite and fit in f32",
+                    ));
+                }
+                let mut bytes = vec![0x42, 0x00, 0x02];
+                for value in projected.into_iter().chain(rotation) {
+                    bytes.extend(value.to_be_bytes());
+                }
+                Ok(bytes)
+            }
+            Self::TargetPin { target } => {
+                let mut bytes = vec![0x42, 0x04, 0x00];
+                bytes.extend(target.to_be_bytes());
+                Ok(bytes)
+            }
             Self::LookAt { target } => {
                 let mut bytes = vec![0x18];
                 bytes.extend(target.to_be_bytes());
@@ -81,7 +115,54 @@ impl SceneCommand {
 mod tests {
     use super::*;
     #[test]
+    fn position_report_uses_big_endian_doubles_and_only_flag_two() {
+        let values = [100.5, 200.25, -300.125, 0.25, -0.5, 0.75];
+        let bytes = SceneCommand::PositionReport {
+            projected: [values[0], values[1], values[2]],
+            rotation: [values[3], values[4], values[5]],
+        }
+        .encode()
+        .unwrap();
+        assert_eq!(bytes.len(), 51);
+        assert_eq!(&bytes[..3], &[0x42, 0, 2]);
+        for (chunk, expected) in bytes[3..].chunks_exact(8).zip(values) {
+            assert_eq!(f64::from_be_bytes(chunk.try_into().unwrap()), expected);
+        }
+        for invalid in [
+            f64::NAN,
+            f64::INFINITY,
+            f64::NEG_INFINITY,
+            f64::MAX,
+            -f64::MAX,
+        ] {
+            for rotation_invalid in [false, true] {
+                assert!(
+                    SceneCommand::PositionReport {
+                        projected: if rotation_invalid {
+                            [0.0; 3]
+                        } else {
+                            [invalid; 3]
+                        },
+                        rotation: if rotation_invalid {
+                            [invalid; 3]
+                        } else {
+                            [0.0; 3]
+                        },
+                    }
+                    .encode()
+                    .is_err()
+                );
+            }
+        }
+    }
+    #[test]
     fn source_layouts_and_slot_bounds_are_explicit() {
+        assert_eq!(
+            SceneCommand::TargetPin { target: 0x70000000 }
+                .encode()
+                .unwrap(),
+            [0x42, 4, 0, 0x70, 0, 0, 0]
+        );
         assert_eq!(
             ChatCommand::DropGear {
                 source_slot: 5,

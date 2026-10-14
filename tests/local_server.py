@@ -34,7 +34,7 @@ def run(*args: str, **kwargs) -> subprocess.CompletedProcess:
                           stderr=subprocess.STDOUT, text=True, timeout=120, **kwargs)
 
 
-async def seed(dsn: str) -> int:
+async def seed(dsn: str, username: str = USERNAME) -> int:
     import asyncpg
     from openshores.core.accounts import default_store, _wire_password
     from openshores.core.config import Config
@@ -43,7 +43,7 @@ async def seed(dsn: str) -> int:
     from openshores.root import first_run
 
     store = default_store()
-    store.create(USERNAME, _wire_password(PASSWORD))
+    store.create(username, _wire_password(PASSWORD))
     conn = await asyncpg.connect(dsn)
     try:
         await first_run(Config.load(), conn)
@@ -58,7 +58,7 @@ async def seed(dsn: str) -> int:
             VALUES ($1,$2,1,$3,0,0,1000,100,100,100,100,100,100,
                     0,0,0,1,1,0,$4,$5,$5) RETURNING "id"
         ''', "Rust Explorer", _default_dna(), int(globe["id"]), bytes(1), int(time.time() * 1000))
-        store.add_avatar(USERNAME, int(avatar))
+        store.add_avatar(username, int(avatar))
         return int(avatar)
     finally:
         await conn.close()
@@ -66,8 +66,8 @@ async def seed(dsn: str) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop]")
+    if action not in ("move", "drop", "pickup", "position", "peer") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer]")
     binary = str(ROOT / "target/debug/openshores-client")
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
@@ -82,6 +82,7 @@ def main() -> None:
         socket_dir.mkdir()
         data = runtime / "postgres"
         server = None
+        observer = None
         postgres_started = False
         previous_directory = Path.cwd()
         previous_env = os.environ.copy()
@@ -114,6 +115,7 @@ def main() -> None:
             os.chdir(runtime)
             print("Generating the reference world and synthetic avatar", flush=True)
             avatar = asyncio.run(seed(dsn))
+            observer_avatar = asyncio.run(seed(dsn, "rust-local-observer")) if action == "peer" else None
             for sock in reservations:
                 sock.close()
             print(f"Starting actual reference server on loopback; avatar={avatar}", flush=True)
@@ -126,7 +128,18 @@ def main() -> None:
                         raise RuntimeError("reference server failed to start:\n" + log_path.read_text()[-8000:])
                     time.sleep(0.2)
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
-                action_args = ["--drop-gear", "5", "0"] if action == "drop" else ["--move-gear", "5", "0", "1"]
+                if observer_avatar is not None:
+                    observer = subprocess.Popen([sys.executable, str(ROOT / "tests/local_peer.py"),
+                        str(login), str(scene), str(chat), str(observer_avatar), str(avatar),
+                        str(runtime / "peer.ready"), str(runtime / "peer.frames")])
+                    deadline = time.monotonic() + 40
+                    while not (runtime / "peer.ready").exists():
+                        assert observer.poll() is None and time.monotonic() < deadline, "observer bootstrap failed"
+                        time.sleep(0.1)
+                action_args = (["--position-report", "12.5", "-3.25", "1001", "0.25", "-0.5", "0.75"] if action in ("position", "peer") else
+                               ["--pickup-target", "0x70000000"] if action == "pickup" else
+                               ["--drop-gear", "5", "0"] if action == "drop" else
+                               ["--move-gear", "5", "0", "1"])
                 result = run(binary, "login", USERNAME, f"127.0.0.1:{login}",
                              "--avatar", str(avatar), "--scene-port", str(scene),
                              "--chat-port", str(chat), "--watch-seconds", "3",
@@ -137,6 +150,15 @@ def main() -> None:
                 assert "Scene initialized" in result.stdout
                 assert PASSWORD not in result.stdout
                 assert "client ACK for" in log_path.read_text(), "reference server did not observe init ACK"
+                if observer is not None:
+                    assert observer.wait(timeout=20) == 0
+                    peer_replay = run(binary, "inspect-scene", str(runtime / "peer.frames")).stdout
+                    sender_line = next(line for line in peer_replay.splitlines() if line.startswith(f"{avatar:#010x} Person "))
+                    assert "position: [12.5, -3.25, 1001.0]" in sender_line and "rotation: [0.25, -0.5, 0.75]" in sender_line, sender_line
+                    print("Rust replay decoded the peer-observed transform", flush=True)
+                    # Observer lifecycle changes manifests/entity counts; the
+                    # single-avatar baseline assertions below do not apply.
+                    return
                 async def verify_capture():
                     from openshores.protocol.framing import read_framed, encode_size
                     from openshores.protocol.stream import QDS
@@ -150,6 +172,11 @@ def main() -> None:
                     assert len(packets) > 100
                     assert any(p == bytes([0x2A]) + avatar.to_bytes(4, "big") for p in packets)
                     assert any(p[0] == 0x38 for p in packets)
+                    manifests = [p for p in packets if p[0] == 0x18 and len(p) >= 8 and p[5] == 1]
+                    if action == "pickup":
+                        final_ids = [int.from_bytes(manifests[-1][i:i+4], "big")
+                                     for i in range(8, len(manifests[-1]), 4)]
+                        assert 0x70000000 not in final_ids
                     active = initialized = False
                     for index, packet in enumerate(packets):
                         active |= packet[0] == 0x2A
@@ -239,17 +266,40 @@ def main() -> None:
                 moved = "slot_type: 1, subindex: 0, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 1,"
                 original = "slot_type: 5, subindex: 0, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 1,"
                 assert original in player_line, player_line
-                assert original not in watched_player, watched_player
+                if action in ("move", "drop"):
+                    assert original not in watched_player, watched_player
                 if action == "move":
                     assert moved in watched_player, watched_player
-                else:
+                elif action == "drop":
                     assert "declared_slots: 6" in watched_player, watched_player
                     dropped = [line for line in watched_replay.stdout.splitlines()
                                if " Item " in line and "commodity_id: 1," in line]
                     assert len(dropped) == 1, watched_replay.stdout
                     assert "parent=Some(" in dropped[0] and "transform=Some(" in dropped[0], dropped[0]
-                assert "Observed player gear (latest received batch):" in watched.stdout
-                print(f"Explicit gear {action} confirmed by server-originated inventory/world refresh", flush=True)
+                elif action == "pickup":
+                    assert original in watched_player, watched_player
+                    assert "declared_slots: 8" in watched_player and "commodity_id: 130" in watched_player, watched_player
+                    assert "PICKUP target=0x70000000" in log_path.read_text(), log_path.read_text()[-8000:]
+                if action == "position":
+                    assert original in watched_player and "declared_slots: 7" in watched_player
+                    async def verify_position():
+                        import asyncpg
+                        conn = await asyncpg.connect(dsn)
+                        try:
+                            deadline = time.monotonic() + 10
+                            while True:
+                                row = await conn.fetchrow('SELECT "locX", "locY", "locZ" FROM "a_Person" WHERE "id"=$1', avatar)
+                                if tuple(row) == (12.5, -3.25, 1001.0):
+                                    return
+                                assert time.monotonic() < deadline, tuple(row)
+                                await asyncio.sleep(0.1)
+                        finally:
+                            await conn.close()
+                    asyncio.run(verify_position())
+                    print("Rust position report persisted by reference server; inventory unchanged", flush=True)
+                else:
+                    assert "Observed player gear (latest received batch):" in watched.stdout
+                    print(f"Explicit gear {action} confirmed by server-originated inventory/world refresh", flush=True)
                 print(f"Local ongoing session: {updates} post-bootstrap packets applied and replayed", flush=True)
                 print("Full local reference-server integration passed", flush=True)
         except BaseException as error:
@@ -260,6 +310,9 @@ def main() -> None:
                 print(log_path.read_text()[-8000:], file=sys.stderr)
             raise
         finally:
+            if observer is not None and observer.poll() is None:
+                observer.terminate()
+                observer.wait(timeout=10)
             for sock in reservations:
                 sock.close()
             if server is not None and server.poll() is None:

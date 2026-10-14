@@ -2,6 +2,7 @@
 import asyncio
 from pathlib import Path
 import sys
+import struct
 from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -11,10 +12,16 @@ from openshores.network.scene.operations.lookat import handle_0x18_lookat
 from openshores.network.scene.operations.gear import handle_0x60_move_gear_slot
 from openshores.protocol.atoms.item_seed import _pack_auitem_seed_body
 from openshores.database.journal import get_queue
+from openshores.protocol.delta_tick import parse
 
 
 async def main():
     assert get_queue() is None, "offline fixture must not have a database journal"
+    tick = parse(bytes([0x42, 4, 0, 0x70, 0, 0, 0]))
+    assert tick == {"flags": 0x0400, "auid_400": 0x70000000, "_consumed": 7}
+    report = parse(bytes([0x42, 0, 2]) + struct.pack(">6d", 100.5, 200.25, -300.125, 0.25, -0.5, 0.75))
+    assert report == {"flags": 2, "projected": (100.5, 200.25, -300.125),
+                      "rotation": (0.25, -0.5, 0.75), "_consumed": 51}
     session = SimpleNamespace(player_auid=42, lookat_target_auid=0, lookat_since_ts=0,
         augear=[[5, 0, 1, _pack_auitem_seed_body(1, 1)],
                 [1, 0, 1, _pack_auitem_seed_body(1, 5)]])

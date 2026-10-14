@@ -153,6 +153,12 @@ pub struct WatchedScene {
     pub end: WatchEnd,
 }
 
+#[derive(Clone, Copy, Debug)]
+pub struct ScheduledCommand {
+    pub after: Duration,
+    pub command: crate::commands::SceneCommand,
+}
+
 impl Session {
     /// Inventory drop requests belong to the authenticated chat channel.
     /// A completed write is not an acknowledgement or optimistic state change.
@@ -197,13 +203,36 @@ impl Session {
     }
     /// Receive and apply updates for a bounded duration, preserving the complete
     /// capture. Timeout/EOF mid-frame is an error, never a successful idle stop.
-    pub fn watch(mut self, duration: Duration) -> io::Result<WatchedScene> {
+    pub fn watch(self, duration: Duration) -> io::Result<WatchedScene> {
+        self.watch_with_commands(duration, &[])
+    }
+
+    /// Bounded same-channel commands interleaved with incoming state updates.
+    pub fn watch_with_commands(
+        mut self,
+        duration: Duration,
+        commands: &[ScheduledCommand],
+    ) -> io::Result<WatchedScene> {
         if duration.is_zero() || duration > Duration::from_secs(60) {
             return Err(invalid(
                 "scene watch duration must be positive and at most 60 seconds",
             ));
         }
-        let deadline = Instant::now()
+        if commands.len() > 16 {
+            return Err(invalid("scheduled command budget exceeded"));
+        }
+        let mut previous = Duration::ZERO;
+        for scheduled in commands {
+            scheduled.command.encode()?;
+            if scheduled.after < previous || scheduled.after >= duration {
+                return Err(invalid(
+                    "scheduled commands must be ordered and precede watch end",
+                ));
+            }
+            previous = scheduled.after;
+        }
+        let started = Instant::now();
+        let deadline = started
             .checked_add(duration)
             .ok_or_else(|| invalid("invalid watch deadline"))?;
         let mut state = crate::world::WorldState::default();
@@ -211,16 +240,42 @@ impl Session {
             state.ingest(packet)?;
         }
         let mut updates_received = 0;
-        let end = loop {
-            self.world.deadline = deadline;
+        let mut next_command = 0;
+        let end = 'watch: loop {
+            if Instant::now() >= deadline {
+                break WatchEnd::DurationElapsed;
+            }
+            while next_command < commands.len() && started.elapsed() >= commands[next_command].after
+            {
+                let Some(left) = deadline
+                    .checked_duration_since(Instant::now())
+                    .filter(|left| !left.is_zero())
+                else {
+                    break 'watch WatchEnd::DurationElapsed;
+                };
+                self.send_command(
+                    commands[next_command].command,
+                    left.min(Duration::from_secs(1)),
+                )?;
+                next_command += 1;
+            }
+            let wake = commands
+                .get(next_command)
+                .map(|command| started + command.after)
+                .unwrap_or(deadline)
+                .min(deadline);
+            self.world.deadline = wake;
             // A frame begun before the watch boundary gets one fixed, bounded
             // completion grace. Slow peers cannot renew this per byte.
-            self.world.continuation_deadline = deadline.checked_add(Duration::from_millis(100));
+            self.world.continuation_deadline = wake.checked_add(Duration::from_millis(100));
             let before = self.world.received;
             let payload = match read_frame(&mut self.world, 16 * 1024 * 1024) {
                 Ok(payload) => payload,
                 Err(error) if self.world.received == before => match error.kind() {
                     io::ErrorKind::TimedOut | io::ErrorKind::WouldBlock => {
+                        if Instant::now() < deadline {
+                            continue;
+                        }
                         break WatchEnd::DurationElapsed;
                     }
                     io::ErrorKind::UnexpectedEof => break WatchEnd::ServerClosed,
@@ -557,6 +612,79 @@ mod tests {
                 .send_chat_command(command, Duration::from_secs(1))
                 .is_err()
         );
+    }
+
+    #[test]
+    fn scheduled_commands_interleave_with_inbound_frames() {
+        use crate::commands::SceneCommand;
+        let (session, mut peer, _initial, _chat) = watch_fixture();
+        let commands = [
+            ScheduledCommand {
+                after: Duration::ZERO,
+                command: SceneCommand::TargetPin { target: 42 },
+            },
+            ScheduledCommand {
+                after: Duration::from_millis(40),
+                command: SceneCommand::TargetPin { target: 0 },
+            },
+        ];
+        let server = std::thread::spawn(move || {
+            peer.set_read_timeout(Some(Duration::from_secs(1))).unwrap();
+            assert_eq!(
+                read_frame(&mut peer, 100).unwrap(),
+                commands[0].command.encode().unwrap()
+            );
+            write_frame(&mut peer, &[0xfe, 7]).unwrap();
+            assert_eq!(
+                read_frame(&mut peer, 100).unwrap(),
+                commands[1].command.encode().unwrap()
+            );
+            write_frame(&mut peer, &[0xfe, 8]).unwrap();
+            peer.shutdown(std::net::Shutdown::Write).unwrap();
+        });
+        let result = session
+            .watch_with_commands(Duration::from_millis(200), &commands)
+            .unwrap();
+        server.join().unwrap();
+        assert_eq!(result.end, WatchEnd::ServerClosed);
+        assert_eq!(result.capture.packets, vec![vec![0xfe, 7], vec![0xfe, 8]]);
+        assert_eq!(result.updates_received, 2);
+    }
+
+    #[test]
+    fn invalid_schedules_fail_before_writing_commands() {
+        let pin = crate::commands::SceneCommand::TargetPin { target: 42 };
+        for commands in [
+            vec![ScheduledCommand {
+                after: Duration::from_secs(1),
+                command: pin,
+            }],
+            vec![
+                ScheduledCommand {
+                    after: Duration::from_millis(50),
+                    command: pin,
+                },
+                ScheduledCommand {
+                    after: Duration::ZERO,
+                    command: pin,
+                },
+            ],
+            vec![
+                ScheduledCommand {
+                    after: Duration::ZERO,
+                    command: pin
+                };
+                17
+            ],
+        ] {
+            let (session, mut peer, _initial, _chat) = watch_fixture();
+            assert!(
+                session
+                    .watch_with_commands(Duration::from_millis(100), &commands)
+                    .is_err()
+            );
+            assert_eq!(peer.read(&mut [0]).unwrap(), 0);
+        }
     }
 
     #[test]

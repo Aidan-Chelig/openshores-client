@@ -47,6 +47,8 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut look_at = None;
     let mut move_gear = None;
     let mut drop_gear = None;
+    let mut pickup_target = None;
+    let mut position_report = None;
     let mut options = args[1..].iter();
     while let Some(arg) = options.next() {
         if arg == "--password-stdin" && !from_stdin {
@@ -60,6 +62,20 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 return Err("--watch-seconds must be in 1..=60".into());
             }
             watch_seconds = Some(seconds);
+        } else if arg == "--position-report" && position_report.is_none() {
+            let mut values = [0.0; 6];
+            for value in &mut values {
+                *value = options
+                    .next()
+                    .ok_or("--position-report requires X Y Z RX RY RZ")?
+                    .parse::<f64>()?;
+            }
+            let command = openshores_client::commands::SceneCommand::PositionReport {
+                projected: [values[0], values[1], values[2]],
+                rotation: [values[3], values[4], values[5]],
+            };
+            command.encode()?;
+            position_report = Some(command);
         } else if arg == "--look-at" && look_at.is_none() {
             let value = options
                 .next()
@@ -70,6 +86,19 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 value.parse::<u32>()?
             };
             look_at = Some(openshores_client::commands::SceneCommand::LookAt { target });
+        } else if arg == "--pickup-target" && pickup_target.is_none() {
+            let value = options
+                .next()
+                .ok_or("--pickup-target requires a nonzero numeric item ID")?;
+            let target = if let Some(hex) = value.strip_prefix("0x") {
+                u32::from_str_radix(hex, 16)?
+            } else {
+                value.parse::<u32>()?
+            };
+            if target == 0 {
+                return Err("--pickup-target requires a nonzero item ID".into());
+            }
+            pickup_target = Some(target);
         } else if arg == "--drop-gear" && drop_gear.is_none() {
             let source_slot = options
                 .next()
@@ -132,10 +161,25 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
             return Err("usage: login USERNAME [IP:PORT] [--password-stdin]".into());
         }
     }
+    if position_report.is_some()
+        && (pickup_target.is_some() || drop_gear.is_some() || move_gear.is_some())
+    {
+        return Err("--position-report cannot be combined with pickup or gear move/drop".into());
+    }
+    if pickup_target.is_some() && (drop_gear.is_some() || move_gear.is_some()) {
+        return Err("--pickup-target cannot be combined with gear move/drop".into());
+    }
+    if pickup_target.is_some() && watch_seconds.is_none_or(|seconds| seconds < 3) {
+        return Err("--pickup-target requires --watch-seconds 3..=60".into());
+    }
     if drop_gear.is_some() && move_gear.is_some() {
         return Err("--drop-gear and --move-gear cannot be combined: cross-channel execution order is not guaranteed".into());
     }
-    if (look_at.is_some() || move_gear.is_some() || drop_gear.is_some())
+    if (look_at.is_some()
+        || move_gear.is_some()
+        || drop_gear.is_some()
+        || pickup_target.is_some()
+        || position_report.is_some())
         && (avatar_id.is_none() || watch_seconds.is_none())
     {
         return Err("gameplay commands require --avatar and --watch-seconds".into());
@@ -219,7 +263,42 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                     println!("Sent local chat command: {command:?} (not an acknowledgement).");
                 }
                 let (world, state) = if let Some(seconds) = watch_seconds {
-                    let watched = session.watch(Duration::from_secs(seconds))?;
+                    let watched = if let Some(target) = pickup_target {
+                        use openshores_client::{
+                            commands::SceneCommand, local_scene::ScheduledCommand,
+                        };
+                        let schedule: Vec<_> = [0, 500, 1000, 1500, 2000]
+                            .into_iter()
+                            .map(|milliseconds| ScheduledCommand {
+                                after: Duration::from_millis(milliseconds),
+                                command: SceneCommand::TargetPin {
+                                    target: if milliseconds == 2000 { 0 } else { target },
+                                },
+                            })
+                            .collect();
+                        println!(
+                            "Local pickup target-pin test profile: {target:#010x}; four pins at 500 ms intervals, then clear (not an acknowledgement)."
+                        );
+                        session.watch_with_commands(Duration::from_secs(seconds), &schedule)?
+                    } else if let Some(command) = position_report {
+                        use openshores_client::local_scene::ScheduledCommand;
+                        let schedule = [
+                            ScheduledCommand {
+                                after: Duration::ZERO,
+                                command,
+                            },
+                            ScheduledCommand {
+                                after: Duration::from_millis(500),
+                                command,
+                            },
+                        ];
+                        println!(
+                            "Local position-report test profile: {command:?}; two reports 500 ms apart (not an acknowledgement)."
+                        );
+                        session.watch_with_commands(Duration::from_secs(seconds), &schedule)?
+                    } else {
+                        session.watch(Duration::from_secs(seconds))?
+                    };
                     println!(
                         "Local scene watch ended: {:?}; {} post-bootstrap packets applied.",
                         watched.end, watched.updates_received
@@ -245,7 +324,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 );
                 println!("Scene packet counts: {:?}", world.packet_counts);
                 print_world(&state)?;
-                if (move_gear.is_some() || drop_gear.is_some())
+                if (move_gear.is_some() || drop_gear.is_some() || pickup_target.is_some())
                     && let Some(gear) = state
                         .entities
                         .get(&id)
@@ -911,6 +990,12 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
+                "Raw local position-report test (requires --avatar and --watch-seconds):\n       --position-report X Y Z RX RY RZ\n       Finite raw wire coordinates/rotation, not walking controls; cannot combine with pickup/move/drop\n"
+            );
+            println!(
+                "Local reference-server pickup test profile:\n       --pickup-target NUMERIC_ITEM_ID\n       Requires --avatar and --watch-seconds 3..60; cannot combine with move/drop\n"
+            );
+            println!(
                 "Top-level local inventory drop (requires --avatar and --watch-seconds):\n       --drop-gear SRC_SLOT SRC_SUB\n       Slot range: 1..9; subindex: 0..15; cannot combine with --move-gear\n"
             );
             println!(
@@ -962,6 +1047,81 @@ mod tests {
 
     #[test]
     fn invalid_gameplay_arguments_fail_before_password_or_network() {
+        for flags in [
+            vec!["--position-report", "0", "0", "1001", "0", "0", "0"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--position-report",
+                "NaN",
+                "0",
+                "0",
+                "0",
+                "0",
+                "0",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--position-report",
+                "0",
+                "0",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--position-report",
+                "0",
+                "0",
+                "1001",
+                "0",
+                "0",
+                "0",
+                "--drop-gear",
+                "5",
+                "0",
+            ],
+            vec!["--pickup-target", "42"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--pickup-target",
+                "42",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--pickup-target",
+                "0",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--pickup-target",
+                "42",
+                "--drop-gear",
+                "5",
+                "0",
+            ],
+        ] {
+            let args: Vec<String> = std::iter::once("Explorer")
+                .chain(flags)
+                .map(str::to_owned)
+                .collect();
+            assert!(login_command(&args).is_err());
+        }
         for flags in [
             vec!["--drop-gear", "5", "0"],
             vec![

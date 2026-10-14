@@ -46,12 +46,21 @@ Top-level gear drops are supported separately with `--drop-gear SRC_SLOT SRC_SUB
 Drop requests use the authenticated chat channel; the resulting world item and
 inventory removal are applied only from server updates. Move and drop flags
 cannot be combined because cross-channel ordering is not guaranteed. Nested
-container drops and pickup requests remain unimplemented.
+container drops and reconstructed pickup controls remain unimplemented.
+
+For a single-avatar local reference server, `--pickup-target NUMERIC_ITEM_ID`
+adds a bounded pickup interoperability profile (requires `--watch-seconds 3..60`).
+It sends four minimal scene-input target pins at 500 ms intervals, then clears
+the pin, while still receiving updates. This tests the reference server's hold
+trigger, not original mouse controls, input cadence or range behavior. It cannot
+be combined with gear move/drop flags. Inventory and visibility are updated only
+from server messages; cached item identity is not erased just because visibility
+changes.
 
 World-state replay also recognizes dropped-item atoms (`DaItem`, `0x11`), their
 parent/transforms, subtype identity and supported commodity/name/quality fields.
 Unknown item variants and weapon/container tails remain available as raw bytes;
-pickup requests, nested drops and item rendering are not implemented.
+reconstructed pickup controls, nested drops and item rendering are not implemented.
 Supported gear-only player updates now expose slot/subindex identities, explicit
 empty slots and nested item trees. These are the latest received gear batches,
 not an inferred authoritative inventory snapshot. The supported citizen bootstrap
@@ -322,3 +331,18 @@ containers and blueprint formats are still under investigation.
 
 Bevy is the preferred future 3D renderer; GPUI remains a UI candidate. See
 [experience fidelity](docs/experience.md) for the current direction.
+
+For a disposable local avatar, `login` also accepts
+`--position-report X Y Z RX RY RZ` with `--avatar` and `--watch-seconds`.
+These are raw wire coordinates/rotation, not camera angles or walking controls.
+Values must be finite and fit in f32; pickup/move/drop combinations are rejected.
+This local test profile sends two identical reports 500 ms apart, accommodating
+the reference server's first-occurrence opcode logging branch.
+The server broadcasts reports to other players, not the sender, so sending one
+does not optimistically change the local scene. Test persistence in isolation:
+
+```sh
+cargo build --offline
+nix develop .#server-test --command python tests/local_server.py position
+nix develop .#server-test --command python tests/local_server.py peer
+```

@@ -911,3 +911,86 @@ Both local modes passed: drop produced six gear entries and 51 decoded/visible
 entities including the new world item; move retained seven gear entries with
 the commodity in its server-assigned destination. Captured replay matched each
 live result. Rust tests and Clippy passed in default and viewer configurations.
+
+### Minimal target-pin pickup profile and scheduled scene commands
+
+`protocol/delta_tick.py` establishes scene `0x42` with u16 flag `0x0400` and
+u32 `auid_400`. `network/scene/connection.py` forwards that field to
+`network/pickup.py::_try_pickup_from_target_pin`, which requires repeated pins
+spanning a 0.3-second hold and applies its own debounce/gear checks. Look-at alone
+does not request pickup. `SceneCommand::TargetPin` emits only that seven-byte
+layout, with no movement, rotation, weapon triggers or guessed input fields.
+
+`Session::watch_with_commands` interleaves bounded scheduled scene writes and
+incoming state using socket deadlines, not blocking sleeps. At most 16 ordered
+commands must precede watch end, with writes capped by remaining watch time.
+Idle timer expiry wakes the next scheduled command; complete incoming frames
+continue through normal validation/capture. A frame started before a timer gets
+a fixed 100-ms completion grace, never a renewable per-byte timeout. Partial
+frame failures remain errors. Plain `watch` delegates with an empty schedule.
+
+CLI `--pickup-target ID` is explicitly a local test profile: pins at 0, 500,
+1000 and 1500 ms, then target zero at 2000 ms. It requires a nonzero target,
+an explicit authenticated avatar and a 3..60-second watch; move/drop combinations
+are rejected. These timings are not reconstructed original client cadence or
+mouse gestures. The reference helper's actor fallback only resolves a sole live
+avatar; this profile is tested on a single-avatar disposable server, not claimed
+as multiplayer-ready. The helper's target-pin path differs from its look-at
+range check, so original pickup range/selection rules remain unestablished.
+
+Rust tests verify exact target-pin bytes, interleaved inbound frames, command
+order and schedule bounds, plus pre-I/O CLI validation. The Python delta parser
+independently checks the payload fields/consumed length. Local integration's
+`pickup` mode verifies commodity 130 is added to an eight-entry gear batch, the
+final manifest excludes its world ID and capture replay matches received state.
+The cached item remains known: manifest removal controls visibility, not an
+invented deletion rule. No optimistic inventory mutation or guessed acknowledgement
+is added. Movement and game UI input remain future milestones.
+All three isolated local workflows passed after the scheduler change: pickup
+returned eight gear entries and a manifest excluding the target, move relocated
+the original item, and drop spawned the corresponding world item. Each full
+capture replayed successfully. Both Rust test configurations and Clippy passed.
+
+### Raw position-report wire primitive
+
+`SceneCommand::PositionReport` emits `0x42`, big-endian flags `0x0002`,
+then projected coordinates and rotation as six big-endian f64 values. The
+supplied `protocol/delta_tick.py` parser establishes that layout independently.
+The scene handler uses projected coordinates as its reported world position,
+marks session position dirty, stores rotation and broadcasts a six-f32 transform
+to other live avatars, explicitly excluding the sender. A successful write is
+therefore not a self-transform acknowledgement. The Rust command neither mutates
+cached state nor includes local-coordinate, speed, pose or trigger flags.
+
+All values must be finite and fit in f32, matching the downstream peer encoding.
+Tests cover byte order, exact 51-byte length, field order and rejection of NaN,
+infinities and overflow in both triples. The Python source parser checks the
+same profile. No camera mapping, coordinate units, collision or locomotion
+simulation is claimed.
+
+CLI `--position-report X Y Z RX RY RZ` requires an authenticated avatar and
+bounded watch, validates before credentials/network and rejects pickup/move/drop
+combinations. Its explicit local test profile schedules two identical reports
+500 ms apart. This accommodates a supplied-server quirk: the first occurrence
+of each opcode enters an `if op not in handle_scene._ai_seen_ops` logging branch,
+and its `elif op == 0x42` gameplay branch only runs on subsequent occurrences.
+This is not evidence of original-client cadence or an acknowledgement rule.
+
+Disposable-server `position` integration passed: Rust reported
+`(12.5, -3.25, 1001.0)`, and a read-only query of the owned database verified those
+exact persisted coordinates after disconnect. Seven-entry inventory stayed
+unchanged; inbound capture replay and the 56 terrain samples still matched.
+Rotation is source-parser verified but not yet observed through another live
+peer; the sender receives no transform echo. All 67 headless and 76
+viewer-enabled Rust tests passed, as did Clippy in both configurations.
+
+Two-avatar `peer` integration also passed. A Python source-protocol observer
+authenticates a second synthetic account from `127.0.0.2` to the loopback-bound
+server, avoiding its per-IP connection routing. It retains redirect/world/chat
+channels, waits for initialized manifest and captures inbound traffic under
+packet/byte/time budgets. The Rust sender's report reaches that observer as
+`0x12` with the exact six-f32 transform; Rust `inspect-scene` replays the capture
+and verifies both `(12.5, -3.25, 1001.0)` and `(0.25, -0.5, 0.75)` on the sender.
+The observer closes after verification and is cleaned up on harness failure.
+This establishes peer-visible raw transform interoperability, not multiplayer
+camera controls, original rotation convention or simulated walking.
