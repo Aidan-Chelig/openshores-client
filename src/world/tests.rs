@@ -1,5 +1,6 @@
 use super::*;
 use crate::protocol::write_frame;
+use std::collections::BTreeSet;
 
 #[test]
 fn commodity_rows_are_not_atoms_and_failed_updates_are_atomic() {

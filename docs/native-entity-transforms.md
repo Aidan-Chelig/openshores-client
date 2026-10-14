@@ -851,7 +851,12 @@ nodes/transforms and unrelated ancestry unresolved. A bounded traversal rejects
 cycles even if callers mutate the public entity map directly. This operates on
 the current source-profile raw local fields; it does not choose a native frame
 profile or broaden graphical visibility to unverified nested entity kinds.
-The world implementation and tests now live under `src/world/`.
+The world implementation and tests now live under `src/world/`. The source
+profile is further separated into `atom.rs` (opcode/prefix/body decoding),
+`state.rs` (sparse entity state and scene ingestion) and `capture.rs` (bounded
+capture replay), with the existing public API re-exported by a small `mod.rs`.
+These files explicitly label the source-server profile; refactoring does not
+select the patched-native protocol or change receive-order merge behavior.
 
 The standalone codec tests all 256 flag combinations under three explicit
 QDataStream configurations, every truncated prefix, trailing-field boundaries,
