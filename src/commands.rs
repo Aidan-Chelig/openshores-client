@@ -31,6 +31,9 @@ impl ChatCommand {
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum SceneCommand {
+    /// Raw ten-byte pose state; zero auxiliary fields avoid weapon triggers.
+    /// Pose values are not assigned animation or keyboard meanings here.
+    PoseReport { poses: [u8; 10] },
     /// Raw client-reported coordinates, not a movement intent or camera mapping.
     PositionReport {
         projected: [f64; 3],
@@ -51,6 +54,12 @@ pub enum SceneCommand {
 impl SceneCommand {
     pub fn encode(self) -> io::Result<Vec<u8>> {
         match self {
+            Self::PoseReport { poses } => {
+                let mut bytes = vec![0x42, 0x00, 0x08];
+                bytes.extend(poses);
+                bytes.extend([0; 6]);
+                Ok(bytes)
+            }
             Self::PositionReport {
                 projected,
                 rotation,
@@ -114,6 +123,15 @@ impl SceneCommand {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn pose_report_preserves_all_ten_bytes_and_neutral_auxiliary_fields() {
+        let poses = [0, 1, 2, 3, 4, 5, 6, 7, 0x73, 0xff];
+        let bytes = SceneCommand::PoseReport { poses }.encode().unwrap();
+        assert_eq!(bytes.len(), 19);
+        assert_eq!(&bytes[..3], &[0x42, 0, 8]);
+        assert_eq!(&bytes[3..13], &poses);
+        assert_eq!(&bytes[13..], &[0; 6]);
+    }
     #[test]
     fn position_report_uses_big_endian_doubles_and_only_flag_two() {
         let values = [100.5, 200.25, -300.125, 0.25, -0.5, 0.75];

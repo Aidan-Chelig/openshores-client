@@ -22,6 +22,10 @@ async def main():
     report = parse(bytes([0x42, 0, 2]) + struct.pack(">6d", 100.5, 200.25, -300.125, 0.25, -0.5, 0.75))
     assert report == {"flags": 2, "projected": (100.5, 200.25, -300.125),
                       "rotation": (0.25, -0.5, 0.75), "_consumed": 51}
+    poses = [0, 1, 2, 3, 4, 5, 6, 7, 0x73, 0xff]
+    pose_report = parse(bytes([0x42, 0, 8, *poses]) + bytes(6))
+    assert pose_report == {"flags": 8, "poses": poses, "flag08_i16": 0,
+                           "flag08_i32": 0, "_consumed": 19}
     session = SimpleNamespace(player_auid=42, lookat_target_auid=0, lookat_since_ts=0,
         augear=[[5, 0, 1, _pack_auitem_seed_body(1, 1)],
                 [1, 0, 1, _pack_auitem_seed_body(1, 5)]])

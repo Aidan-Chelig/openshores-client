@@ -994,3 +994,17 @@ and verifies both `(12.5, -3.25, 1001.0)` and `(0.25, -0.5, 0.75)` on the sender
 The observer closes after verification and is cleaned up on harness failure.
 This establishes peer-visible raw transform interoperability, not multiplayer
 camera controls, original rotation convention or simulated walking.
+
+### Neutral raw pose-report primitive
+
+The source delta parser defines flag `0x0008` as ten pose bytes, then a signed
+i16 and signed i32. The scene handler tracks the first pose byte, but also
+examines the auxiliary integers for weapon fire/reload triggers (`0x73`/`0x89`,
+including low-byte matches). `SceneCommand::PoseReport` therefore emits exactly
+19 bytes with both auxiliary fields fixed at zero. It preserves all ten raw
+pose bytes without assigning animation names or controls. Rust byte-layout tests
+and the supplied Python parser verify the fields and consumed length. This is
+a library primitive, not yet a server-observed pose transition or an animation
+system; head tilt is not inferred from the overloaded outbound auxiliary field.
+All 68 headless and 77 viewer-enabled Rust tests and both Clippy configurations
+passed after this addition; the offline source-parser check passed too.
