@@ -1,8 +1,10 @@
 //! Stateful RxUpdateBase ordering, starting after the identity stage.
+mod adapter;
 use crate::{
     atom_position::{FloatEncoding, PackedPosition},
     protocol::QtReader,
 };
+pub use adapter::{NativeBaseReceiveAdapter, NativeBaseReceiveFields};
 use std::io;
 
 /// Required operations on the already selected atom. Inner effect/controller

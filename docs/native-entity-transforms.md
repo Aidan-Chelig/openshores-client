@@ -835,6 +835,17 @@ stage; a truncated packed position does not reset status. Concrete effects,
 controllers, ownerful position adapters and full-world integration remain
 unfinished; this module does not claim those callbacks are already implemented.
 
+`NativeBaseReceiveAdapter` now supplies concrete status/time/motion assignments
+and the real effect/controller list receivers. `NativeBaseReceiveFields` keeps
+unobserved scalar fields as None rather than inventing constructor defaults.
+The adapter requires a position closure that completes ChangePos and conditional
+`0xa0` reset, plus explicit per-effect wall-clock/adjustment observations.
+Unresolved positions return errors before status reset or later reception.
+Tests receive both real nonempty layers and sparse omissions into this adapter,
+verify precision/time/status/list retention and prevent later effects after an
+unresolved position. Qt locks, signal wiring, class post-update effects and the
+full native owner/session integration still need concrete implementations.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence
