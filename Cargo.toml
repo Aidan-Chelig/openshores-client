@@ -1,0 +1,10 @@
+[package]
+name = "openshores-client"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+
+[dependencies]
+rpassword = "7.5.4"
+sha1 = "0.10.7"
+zeroize = "1.9.0"

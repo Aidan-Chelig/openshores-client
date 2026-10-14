@@ -147,6 +147,15 @@
           '';
         };
 
+        # Full reference-server integration tests use a disposable local DB.
+        devShells.server-test = mkShell {
+          packages = [
+            rustToolchain
+            pkgs.postgresql
+            (pkgs.python313.withPackages (ps: with ps; [ asyncpg numpy uvloop ]))
+          ];
+        };
+
         devShells.default = mkShell {
           shellHook = ''
             export LD_LIBRARY_PATH="${goldbergEmu}/lib:$LD_LIBRARY_PATH:${
@@ -165,6 +174,7 @@
               ]
             }"
             export LIBCLANG_PATH="${pkgs.libclang.lib}/lib"
+            export GHIDRA_INSTALL_DIR="${pkgs.ghidra}/lib/ghidra"
           '';
 
           # 👇 we can just use `rustToolchain` here:
@@ -204,6 +214,16 @@
             libjack2
             just
             bacon
+
+            # REA reverse-engineering toolchain. Hopper is macOS-only and IDA
+            # must be supplied separately under its commercial license.
+            nodejs_24
+            ghidra
+            jadx
+            binwalk
+            unblob
+            python3Packages.pwntools
+            radare2
 
           ];
         };
