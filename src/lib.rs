@@ -5,9 +5,12 @@ pub mod har;
 pub mod local_scene;
 pub mod login;
 pub mod model;
+pub mod model_audit;
 pub mod model_preview;
 pub mod protocol;
 pub mod qt_resources;
 pub mod scene;
 pub mod terrain;
+#[cfg(feature = "viewer")]
+pub mod viewer;
 pub mod world;

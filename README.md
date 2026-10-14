@@ -72,6 +72,44 @@ existing outputs. These are debugging views, not previews of the final game's
 appearance. `inspect-model` also reports actual UV counts and raw-coordinate
 bounds. `tests/reference_models.py` verifies both exports for all 209 valid models.
 
+For structural diagnostics before renderer integration:
+
+```sh
+cargo run -- audit-model gin.3dsN
+```
+
+This reports unused vertices, degenerate triangles, raw-index edge incidence,
+material coverage/ambiguities, UV counts, and extension-record presence. It does
+not weld seams, repair geometry, select fallback materials, or establish how the
+original client renders those records. Audits are independently checked for all
+618 decoded meshes.
+
+The optional Bevy inspector opens an interactive 3D window:
+
+```sh
+nix develop
+cargo run --offline --features viewer -- view-model gin.3dsN
+```
+
+Drag with the left mouse button to orbit, scroll to zoom, press `W` to toggle
+wireframe, `L` to toggle lighting, `R` to reset the camera, and `Esc` to quit.
+It centers/scales a display-only copy and defaults to modern lit, double-sided
+geometry with generated flat normals. Append `--unlit` to start unlit. Original materials, textures,
+transforms, normals, UVs and animation remain unapplied. These are inspection
+controls, not reconstructed game controls. No login or server connection occurs.
+Without `--features viewer`, the client remains headless and Bevy is not built.
+
+For bounded graphics smoke checks, append `--smoke-frames 90`. This exits after
+90 application updates, not a guarantee of 90 presented frames. Requires a
+working local graphics driver/display; there is no silent headless fallback.
+
+```sh
+cargo test --offline --features viewer
+cargo clippy --offline --features viewer --all-targets -- -D warnings
+```
+
+Bevy is pinned to 0.19.1 to retain this repo's Rust 1.95 toolchain compatibility.
+
 `inspect-gd` defaults to the server's GD file and lists its 83 construction
 processes. The full Windows client's GD uses a different layout and is rejected
 by this initial reader.

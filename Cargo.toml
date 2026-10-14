@@ -4,8 +4,13 @@ version = "0.1.0"
 edition = "2024"
 rust-version = "1.95"
 
+[features]
+default = []
+viewer = ["dep:bevy"]
+
 [dependencies]
 flate2 = "1.1.10"
 rpassword = "7.5.4"
 sha1 = "0.10.7"
 zeroize = "1.9.0"
+bevy = { version = "=0.19.1", optional = true, default-features = false, features = ["std", "default_app", "multi_threaded", "bevy_window", "bevy_winit", "bevy_camera", "bevy_color", "bevy_mesh", "bevy_light", "bevy_render", "bevy_core_pipeline", "bevy_pbr", "bevy_gizmos", "bevy_gizmos_render", "x11", "wayland"] }

@@ -462,3 +462,90 @@ extreme finite coordinates, invalid indices/non-finite positions, untrusted
 names, and writer failures. The previous five invalid-root models remain
 rejected. `inspect-model` now displays UV counts rather than just presence,
 and reports the raw-coordinate bounds.
+
+### Structural model audit
+
+`src/model_audit.rs` and `audit-model INPUT` inspect already-decoded geometry;
+this is diagnostic implementation work, not new binary/runtime evidence.
+Material group names match raw material-name bytes exactly. Missing and
+duplicate names remain visible rather than selecting a default or first match.
+Face-assignment occurrence counts report uncovered and overlapping assignments.
+Vertices referenced by faces, repeated triangle indices, and f64 zero cross
+products provide raw-coordinate degeneracy diagnostics.
+
+Edges use unordered original index pairs, counting distinct incident faces;
+self-edges are omitted and each triangle contributes at most once to an edge.
+One incident face is reported as a boundary, more than two as nonmanifold.
+These are **index topology**, not welded geometric topology or a collision
+verdict. Split positions/texture seams can create apparent boundaries; the
+audit never merges vertices, changes winding, removes faces, or computes
+normals. UV counts and extension presence are metadata only, not proof of their
+mapping or shading semantics. Geometry validation and a three-million-work-unit
+budget bound traversal and allocation, including manually constructed models.
+
+Python independently matches all audit fields across all 209 valid models and
+618 meshes. Aggregate observations: 64 unreferenced vertices, five triangles
+with repeated indices, 142 f64-zero-area triangles, 49,228 raw-index boundary
+edges, and 157 edges with more than two incident triangles. All faces have one
+material-group assignment; there are no missing or ambiguous referenced
+material names in this inventory. 79,666 faces have N-extension records.
+The same five invalid-root models remain rejected before auditing.
+
+Synthetic tests cover ambiguous/missing names, overlapping/unassigned faces,
+repeated indices, unused positions, per-triangle edge deduplication, invalid
+material face references, empty models and assignment-budget exhaustion.
+The audit does not mutate the decoded model, preview/export, or reference data.
+
+### Optional interactive Bevy inspector
+
+`viewer` is an opt-in Cargo feature; default/headless builds do not compile Bevy.
+`view-model INPUT` decodes a local supported model before starting the Rust
+window and has no login/network path. Bevy 0.19.1 is pinned because its declared
+MSRV matches Rust 1.95. Bevy 0.20's declared MSRV is 1.97.1, so the existing
+toolchain was preserved rather than upgraded for this diagnostic tool. The
+viewer uses only the required app, window, rendering, mesh/material, gizmo and
+X11/Wayland features—no audio, GPUI, remote plugins or external scene assets.
+
+`src/viewer.rs` creates a display-only copy, centering with f64 bounds and
+uniformly fitting the largest raw-axis span to two units. Source geometry,
+triangle order and indices are unchanged. Raw axes are retained; the Z-up orbit
+camera, distance limits and controls are diagnostic design choices. The default
+is now a neutral double-sided physically based material (roughness 0.55,
+metallic 0), ambient light, a shadow-casting directional key and a cool fill.
+Reinhard tonemapping is used in lit mode; `--unlit` or L selects unlit rendering
+with no tonemapping. These choices do not interpret source materials, UVs,
+normals, smoothing or animation and do not claim original shading fidelity.
+Each display triangle is expanded to three vertices with a winding-derived
+flat normal, calculated with f64 intermediates. Degenerate triangles remain
+present with a finite Z normal fallback. Source geometry is never rewritten.
+Mesh transforms/master scale and original shaders remain unapplied.
+
+Controls: left-drag orbit, line/pixel-aware wheel zoom, W wire toggle, L lighting
+toggle, R camera reset (preserving lighting/wire modes),
+Escape quit. The window title identifies the raw-geometry inspector and shows
+those controls. Optional `--smoke-frames N` (1..=3600) exits after N application
+updates; these are not necessarily presented graphics frames. Invalid limits
+are rejected before creating the app, and failure exits propagate.
+
+Verification: full viewer-enabled build/tests/Clippy succeed. CPU tests check
+normalization at extreme finite source coordinates, source/index preservation,
+invalid input, and ECS mesh/material/camera setup without a window/GPU. A
+bounded SUV smoke run opened the local window using Vulkan on the AMD Radeon
+AI PRO R9700 (RADV GFX1201, Mesa 26.2.4) and exited normally. The driver emitted
+its existing non-conformance/testing warning. This establishes initialization
+and bounded execution, not pixel parity or manual verification of every control.
+No original executable was run and no OpenShores server was contacted.
+
+The mesh/camera integration follows the selected Bevy crate's official custom
+mesh/orbit examples; the original OpenShores rendering obligations remain
+separate. This is not a claim that a diagnostic camera/shader reproduces the
+game experience.
+
+Modern lighting is explicitly permitted while faithful shading is deferred.
+Normal-generation tests cover opposite windings and degenerate triangles;
+CPU-only ECS tests exercise lit/unlit material switching. CLI tests cover flag
+ordering, duplicate options and bounded smoke limits. Lighting integration uses
+the [official Bevy 0.19.1 lighting example](https://github.com/bevyengine/bevy/blob/v0.19.1/examples/3d/lighting.rs).
+All 41 viewer-enabled tests and 37 default/headless tests pass, as do both
+Clippy configurations. Bounded local GPU runs in lit and unlit modes exit
+successfully; this is a renderer smoke check, not a visual-fidelity assertion.

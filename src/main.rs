@@ -237,10 +237,81 @@ fn print_world(world: &openshores_client::world::WorldState) -> io::Result<()> {
     Ok(())
 }
 
+#[cfg(any(feature = "viewer", test))]
+fn viewer_options(args: &[String]) -> Result<(Option<u32>, bool), Box<dyn std::error::Error>> {
+    let mut frames = None;
+    let mut unlit = false;
+    let mut options = args.iter();
+    while let Some(option) = options.next() {
+        match option.as_str() {
+            "--unlit" if !unlit => unlit = true,
+            "--smoke-frames" if frames.is_none() => {
+                let count: u32 = options
+                    .next()
+                    .ok_or("--smoke-frames requires a count")?
+                    .parse()?;
+                if !(1..=3600).contains(&count) {
+                    return Err("smoke frame limit must be 1..=3600".into());
+                }
+                frames = Some(count);
+            }
+            _ => return Err(format!("unknown or duplicate viewer option: {option}").into()),
+        }
+    }
+    Ok((frames, unlit))
+}
+
 fn run() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = env::args().skip(1).collect();
     match args.first().map(String::as_str) {
         Some("login") => login_command(&args[1..])?,
+        Some("view-model") => {
+            #[cfg(feature = "viewer")]
+            {
+                if args.len() < 2 {
+                    return Err("usage: view-model MODEL_FILE [--unlit] [--smoke-frames N]".into());
+                }
+                let (frames, unlit) = viewer_options(&args[2..])?;
+                let mut data = Vec::new();
+                fs::File::open(&args[1])?
+                    .take(64 * 1024 * 1024 + 1)
+                    .read_to_end(&mut data)?;
+                let variant = openshores_client::model::ModelVariant::from_name(&args[1])?;
+                let model = openshores_client::model::Model::decode(&data, variant)?;
+                openshores_client::viewer::run(&model, frames, unlit)?;
+            }
+            #[cfg(not(feature = "viewer"))]
+            return Err("the offline viewer is optional; run cargo run --features viewer -- view-model MODEL_FILE".into());
+        }
+        Some("audit-model") if args.len() == 2 => {
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(64 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let variant = openshores_client::model::ModelVariant::from_name(&args[1])?;
+            let model = openshores_client::model::Model::decode(&data, variant)?;
+            let reports = openshores_client::model_audit::audit(&model)?;
+            for (index, report) in reports.iter().enumerate() {
+                println!(
+                    "{index}: unused={}; repeated={}; zero_area={}; boundary={}; nonmanifold={}; unassigned={}; overlapping={}; missing_material={}; ambiguous_material={}; uvs={:?}; extensions={}",
+                    report.unused_vertices,
+                    report.repeated_index_faces,
+                    report.zero_area_faces,
+                    report.boundary_edges,
+                    report.nonmanifold_edges,
+                    report.unassigned_faces,
+                    report.multiply_assigned_faces,
+                    report.missing_material_groups,
+                    report.ambiguous_material_groups,
+                    report.uv_count,
+                    report.extension_faces
+                );
+            }
+            println!(
+                "Audited {} meshes. Raw-index topology and exact material names only; no welding, repair, default materials or rendering assumptions.",
+                reports.len()
+            );
+        }
         Some("export-model" | "preview-model") if args.len() == 3 => {
             let mut data = Vec::new();
             fs::File::open(&args[1])?
@@ -568,7 +639,10 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
-                "Raw-coordinate model commands:\n       cargo run -- inspect-model MODEL_FILE\n       cargo run -- verify-models DLL VERSION\n       cargo run -- export-model MODEL_FILE NEW_OBJ_FILE\n       cargo run -- preview-model MODEL_FILE NEW_SVG_FILE\n"
+                "Optional offline Bevy preview:\n       cargo run --features viewer -- view-model MODEL_FILE [--unlit] [--smoke-frames 1..3600]\n"
+            );
+            println!(
+                "Raw-coordinate model commands:\n       cargo run -- inspect-model MODEL_FILE\n       cargo run -- audit-model MODEL_FILE\n       cargo run -- verify-models DLL VERSION\n       cargo run -- export-model MODEL_FILE NEW_OBJ_FILE\n       cargo run -- preview-model MODEL_FILE NEW_SVG_FILE\n"
             );
             println!(
                 "Qt resource commands (version must be established from registration code):\n       cargo run -- inspect-qt DLL VERSION\n       cargo run -- verify-qt DLL VERSION\n       cargo run -- extract-qt DLL VERSION POOL_INDEX ENTRY_INDEX NEW_OUTPUT_FILE\n"
@@ -592,6 +666,35 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn viewer_flags_are_bounded_and_order_independent() {
+        let args = |values: &[&str]| {
+            values
+                .iter()
+                .map(|value| value.to_string())
+                .collect::<Vec<_>>()
+        };
+        assert_eq!(viewer_options(&args(&[])).unwrap(), (None, false));
+        assert_eq!(
+            viewer_options(&args(&["--unlit", "--smoke-frames", "90"])).unwrap(),
+            (Some(90), true)
+        );
+        assert_eq!(
+            viewer_options(&args(&["--smoke-frames", "90", "--unlit"])).unwrap(),
+            (Some(90), true)
+        );
+        for values in [
+            vec!["--unlit", "--unlit"],
+            vec!["--smoke-frames"],
+            vec!["--smoke-frames", "0"],
+            vec!["--smoke-frames", "3601"],
+            vec!["--surprise"],
+            vec!["--smoke-frames", "1", "--smoke-frames", "2"],
+        ] {
+            assert!(viewer_options(&args(&values)).is_err());
+        }
+    }
 
     #[test]
     fn stdin_password_preserves_spaces_and_unicode() {
