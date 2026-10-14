@@ -806,8 +806,16 @@ that suppresses the later one. Effects use an unsigned-byte count and append
 only when the native fieldwise comparison finds no match. The controller list
 is allocated if absent, receives Append, and is disposed/reset to null if empty
 afterward. Effect/controller inner formats and their complete state semantics
-remain unported. Focused REA `RxUpdateBase` corroboration is currently running;
-these findings are independent static assembly observations, not execution.
+remain unported. The complete focused REA `RxUpdateBase` result is retained as
+[native-rx-update-base.json](evidence/native-rx-update-base.json), Evidence
+`ev_b9b2543b6a3e2bb6238a0170df4a6a6884e13523a30e0f4cd7ac0e8a29a0dcae`
+(651197ms, Ghidra 12.1.2, same immutable patched target digest). Full pseudocode
+review corroborates these assembly observations, including the unconditional
+status reset, separate effect/controller branches and controller disposal.
+Decompiler `char` on the decrementing effect count does not imply a signed
+negative-count rejection; the assembly uses byte zero tests and decrements.
+Neither evidence source observed execution or establishes the called inner
+effect/controller readers' packet formats.
 
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
