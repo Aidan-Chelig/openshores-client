@@ -12,6 +12,18 @@ impl NativeNormalSubatoms {
         lookup: &NativeRecoveryLookup,
         retired: &NativeRetiredAtoms,
     ) -> io::Result<NativeCacheNode> {
+        self.check_unowned_candidate(handle, has_owner, lookup, retired)?;
+        self.nodes
+            .remove(&handle)
+            .ok_or_else(|| invalid("unknown native candidate handle"))
+    }
+    pub(super) fn check_unowned_candidate(
+        &self,
+        handle: u32,
+        has_owner: bool,
+        lookup: &NativeRecoveryLookup,
+        retired: &NativeRetiredAtoms,
+    ) -> io::Result<()> {
         if has_owner
             || lookup.references_handle(handle)
             || retired.started_at(handle).is_some()
@@ -22,9 +34,10 @@ impl NativeNormalSubatoms {
         {
             return Err(invalid("native candidate is still owned or referenced"));
         }
-        self.nodes
-            .remove(&handle)
-            .ok_or_else(|| invalid("unknown native candidate handle"))
+        if !self.nodes.contains_key(&handle) {
+            return Err(invalid("unknown native candidate handle"));
+        }
+        Ok(())
     }
     /// Admit a caller-constructed candidate by its explicit stable object
     /// handle. Does not register its wire ID, infer parent memberships, create

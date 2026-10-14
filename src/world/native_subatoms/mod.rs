@@ -1,5 +1,6 @@
 //! Explicit native normal-subatom context; not complete AuEther orchestration.
 mod arrival;
+mod candidate_position;
 mod lifecycle;
 mod receiving;
 pub use lifecycle::{

@@ -891,6 +891,17 @@ damaging the retained object/owner list. This joins dynamic candidate storage
 to existing owner lifecycle; class signals, full packet callbacks, unknown
 class constructors and client-session/network wiring are still unfinished.
 
+`apply_candidate_position_at` now joins decoded packed positions to dynamically
+inserted, explicitly unowned candidate graph state before owner addition. It
+uses the established unowned ChangePos branch: a parent change copies locally
+and restarts movement state without managed reparenting, index creation or
+registration. Shared candidate-safety checks reject owner/map/list/retirement
+references before mutation. Tests decode a double-precision parent-changing
+record into confirmed Item constructor state, preserve orientation and raw
+status 5 until the separate base status stage, and verify no owner lists or
+mutation on indexed/owned rejection. Conditional `0xa0` reset and concrete full
+packet owner binding remain explicit follow-up work.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence
