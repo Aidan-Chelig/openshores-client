@@ -1,4 +1,4 @@
-use super::{NativeItemCommon, common::bounded_string};
+use super::{NativeItemCommon, NativeWeapon, common::bounded_string};
 use crate::protocol::QtReader;
 use std::io;
 
@@ -6,6 +6,15 @@ use std::io;
 pub enum NativeItemExtension {
     Plain,
     Ammo,
+    Weapon(NativeWeapon),
+    WeaponAmmo {
+        weapon: NativeWeapon,
+        fields_80: [u8; 4],
+    },
+    WeaponState {
+        weapon: NativeWeapon,
+        field_80: u8,
+    },
     State {
         field_4c: u8,
     },
@@ -21,6 +30,9 @@ impl NativeItemExtension {
             Self::Plain => 1,
             Self::State { .. } => 6,
             Self::Ammo => 7,
+            Self::Weapon(_) => 8,
+            Self::WeaponAmmo { .. } => 9,
+            Self::WeaponState { .. } => 12,
             Self::StateMessage { .. } => 17,
         }
     }
@@ -41,7 +53,7 @@ impl NativeItemValue {
         let length = input.remaining();
         let mut record = QtReader::new(input.remaining_bytes());
         let type_id = record.read_u8()?;
-        if !matches!(type_id, 1 | 6 | 7 | 17) {
+        if !matches!(type_id, 1 | 6 | 7 | 8 | 9 | 12 | 17) {
             return Ok(None);
         }
         let common = NativeItemCommon::read(&mut record)?;
@@ -51,6 +63,20 @@ impl NativeItemValue {
                 field_4c: record.read_u8()?,
             },
             7 => NativeItemExtension::Ammo,
+            8 => NativeItemExtension::Weapon(NativeWeapon::read(&mut record)?),
+            9 => NativeItemExtension::WeaponAmmo {
+                weapon: NativeWeapon::read(&mut record)?,
+                fields_80: [
+                    record.read_u8()?,
+                    record.read_u8()?,
+                    record.read_u8()?,
+                    record.read_u8()?,
+                ],
+            },
+            12 => NativeItemExtension::WeaponState {
+                weapon: NativeWeapon::read(&mut record)?,
+                field_80: record.read_u8()?,
+            },
             17 => NativeItemExtension::StateMessage {
                 field_4c: record.read_u8()?,
                 field_50: bounded_string(&mut record)?,

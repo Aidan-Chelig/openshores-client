@@ -2,7 +2,7 @@
 use super::positions;
 use openshores_client::{
     protocol::QtReader,
-    world::native_item::{NativeItemCommon, NativeItemExtension, NativeItemValue},
+    world::native_item::{NativeItemCommon, NativeItemExtension, NativeItemValue, NativeWeapon},
 };
 
 fn hex(bytes: &[u8]) -> String {
@@ -30,6 +30,17 @@ pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
             Some(item) => {
                 let extension = match &item.extension {
                     NativeItemExtension::Plain | NativeItemExtension::Ammo => "{}".into(),
+                    NativeItemExtension::Weapon(weapon) => weapon_json(weapon),
+                    NativeItemExtension::WeaponAmmo { weapon, fields_80 } => format!(
+                        "{{\"weapon\":{},\"fields_80_hex\":\"{}\"}}",
+                        weapon_json(weapon),
+                        hex(fields_80)
+                    ),
+                    NativeItemExtension::WeaponState { weapon, field_80 } => format!(
+                        "{{\"weapon\":{},\"field_80\":{}}}",
+                        weapon_json(weapon),
+                        field_80
+                    ),
                     NativeItemExtension::State { field_4c } => {
                         format!("{{\"field_4c\":{field_4c}}}")
                     }
@@ -60,6 +71,47 @@ fn string_hex(value: Option<&str>) -> String {
     value
         .map(|value| format!("\"{}\"", hex(value.as_bytes())))
         .unwrap_or("null".into())
+}
+
+fn weapon_json(weapon: &NativeWeapon) -> String {
+    let fields = weapon.fresh_fields();
+    // Raw wire groups remain separate from reconstructed overlapping destinations.
+    let groups = weapon
+        .groups
+        .iter()
+        .map(|group| {
+            group
+                .as_ref()
+                .map(|group| {
+                    format!(
+                        "[{}, {}, {}, {}, {}, {}]",
+                        group.byte_0,
+                        group.short_1,
+                        group.variable_2,
+                        group.short_3,
+                        group.byte_4,
+                        group.short_5
+                    )
+                })
+                .unwrap_or("null".into())
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    format!(
+        "{{\"flags\":{},\"field_4c\":{},\"wire_field_66\":{},\"groups\":[{}],\"fresh_field_50\":{},\"fresh_field_5c\":{},\"fresh_field_6c\":{},\"fresh_field_78\":{},\"consumed_bytes\":{}}}",
+        weapon.flags,
+        weapon.field_4c,
+        weapon
+            .wire_field_66
+            .map(|field| field.to_string())
+            .unwrap_or("null".into()),
+        groups,
+        fields.field_50,
+        fields.field_5c,
+        fields.field_6c,
+        fields.field_78,
+        weapon.consumed_bytes
+    )
 }
 
 fn common_json(item: &NativeItemCommon, tail: &[u8]) -> String {

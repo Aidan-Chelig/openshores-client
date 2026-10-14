@@ -128,7 +128,7 @@ fn body_flags_plain_dispatch_and_ownership_precedence_are_atomic() {
         }
     }
     for subtype in 0..=u8::MAX {
-        if matches!(subtype, 1 | 6 | 7 | 17) {
+        if matches!(subtype, 1 | 6 | 7 | 8 | 9 | 12 | 17) {
             continue;
         }
         let bytes = [0x81, subtype, 0xde, 0xad];

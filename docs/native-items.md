@@ -2,9 +2,15 @@
 
 Target: `reference/openshores-full/OpenShores.exe`, SHA-256
 `285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
-This is static GNU disassembly evidence, not target execution. A focused
-REA/Ghidra query for `_ZN6AuItemlsER11QDataStream` is running with output
-selected as `target/native-item-common.json`; it is not yet validated evidence.
+This is static evidence, not target execution. The complete focused REA/Ghidra
+result for `_ZN6AuItemlsER11QDataStream` is retained in
+[`evidence/native-item-common.json`](evidence/native-item-common.json), Evidence
+`ev_03b5f17ef6c3315249c13db5e06f90e6c3ebccf005908bfd988bebb74f9f256b`,
+Ghidra 12.1.2, 664065 ms. It corroborates the common-reader branch order and
+defaults below. Its recovered operator spelling contains a placeholder and
+the QString helper prototype omits the length argument; original disassembly,
+not those recovered names/prototypes, establishes actual stream direction and
+the omitted-name empty-string behavior.
 
 `AuItem::ls` spans `0x1414d07a0..0x1414d095f`. Its wire order is:
 
@@ -56,10 +62,10 @@ StateMessage adds that byte and a QString at 0x50; Ammo adds nothing.
 `NativeItemValue` preserves the subtype even when two share the same layout.
 Factory type 8 constructs AuItemWeapon through its constructor; it is **not**
 an Ammo alias just because a sequential disassembly window reaches the next
-case. Weapon layouts, including ammunition and weapon-state variants, remain
-unimplemented rather than being decoded as common-only records.
+case. Weapon layouts, including ammunition and weapon-state variants, now have
+separate extension readers; see [native weapons](native-weapons.md).
 
-`NativeItemBody` decodes these four types, omission of the item value, and
+`NativeItemBody` decodes these seven types, omission of the item value, and
 the native ownership branches: 0x80 reads an ID and two QStrings at offsets
 0x3dc/0x3e0/0x3e8; otherwise 0x40 writes sentinel ID 1 without resetting the
 strings; otherwise ownership remains unchanged. Flag 0x20 replaces boolean
@@ -85,15 +91,15 @@ Unit tests exhaust all 256 flags, truncations, signed extremes, normalization,
 surrogate pairs, and name safety bounds; these are synthetic layout checks,
 not a Qt/original-runtime oracle or full native session compatibility.
 Body tests also exhaust all 256 outer flags, ownership precedence and omission,
-all 252 unimplemented subtype IDs, truncations, and base-layer dispatch guards.
+all 249 unimplemented subtype IDs, truncations, and base-layer dispatch guards.
 `just test-native-items` additionally pins the native reader anchors to the
 target digest and checks 256 independent Python struct/UTF-16 fixtures through
 the Rust command, plus malformed and overbudget diagnostics. Static checks also
-pin all four factory/vtable bindings, subtype and outer-reader call sites.
+pin all seven factory/vtable bindings, subtype and outer-reader call sites.
 The value diagnostic additionally verifies 36 independent subtype fixtures and
 byte-exact preservation of all unsupported type IDs.
 
-## Next trace: weapons
+## Weapon trace
 
 GNU disassembly of `AuItemWeapon::ls`, `0x1414d0a80..0x1414d0d44`,
 establishes a second flag byte and mandatory signed short at 0x4c after the
@@ -103,7 +109,7 @@ Do not infer an ordinary repeated-group schema: the group selected by bit 8
 reads into **0x6c** at `0x1414d0c71` or `0x1414d0d1f`, overlapping a field
 also used by bit 4, rather than into 0x78. The omitted bit-8 branch clears
 0x78 but not 0x6c. Narrow reads also write only part of 32-bit storage.
-These are static observations requiring careful reconstruction of fresh
-constructor state, wire values and final memory effects before implementation.
+The implementation keeps original wire groups separate from final known
+fields and applies these overlaps in native order on fresh constructor state.
 WeaponAmmo calls this reader then reads four bytes at 0x80..0x83;
 WeaponState calls it then reads one byte at 0x80. Neither is common-only.
