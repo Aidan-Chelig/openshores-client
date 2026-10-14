@@ -43,8 +43,18 @@ epoch across a 16-bit wrap boundary. Any Rust port must receive explicit clock
 and adjustment observations instead of deriving time from packet identity or
 monotonic movement timers. The x86-64 addition wraps at 64 bits.
 
-This establishes field layout/order, not effect rendering, names for unknown
-fields, global adjustment semantics or Qt malformed-stream parity. Next work:
-implement bounded decoding with explicit clock inputs,
-reused temporary state and native subset deduplication; connect it to ordered
-base reception. Controller wire formats remain a separate unresolved layer.
+`world::native_effect` now decodes these fixed-size flag fields into a reusable
+value with explicit clock/adjustment inputs. Initialization follows the reviewed
+RxUpdateBase temporary, including float defaults of one at `0x08`/`0x40`.
+Incomplete inputs leave that value and reader unchanged (Rust safety, not Qt
+malformed-stream parity). Non-finite floats remain raw, not prematurely rendered.
+The explicit append-key comparison follows the native subset and IEEE behavior.
+Tests cover all 256 flags, every truncated record, sparse reuse, explicit pair
+zeroing, 64-bit clock wrap, non-nearest time reconstruction and NaN/signed-zero
+comparison. These are synthetic Rust tests backed by static evidence, not a
+native runtime oracle.
+
+Effect rendering, unknown-field meanings and global adjustment semantics remain
+unestablished. Next work: bounded counted-list reception with reused temporary
+state and subset deduplication; connect it to ordered base reception. Controller
+wire formats remain a separate unresolved layer.
