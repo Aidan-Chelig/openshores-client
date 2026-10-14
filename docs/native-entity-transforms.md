@@ -764,6 +764,19 @@ double precision, opaque byte preservation, unresolved outcomes, partial replay
 on missing objects and pre-mutation frame-budget rejection. This is opt-in
 position-stage replay, not complete native packet/world reconstruction.
 
+`NativeCapture::replay_resolved_positions` extends that replay with fallible
+caller-selected wire-ID-to-handle resolution. It invokes the resolved receiver,
+while outcome IDs remain the captured wire identities. The original direct-ID
+replay delegates to this implementation, preserving its API and budget/error
+rules. Resolution failures identify the failing frame, retain earlier outcomes
+and state, and stop before later lookups. Position omissions still skip caller
+resolution entirely. No lookup-map fallback, object creation or replacement is
+inferred from a capture.
+Alias capture tests use an explicit routed lookup from wire ID 1 to handle 10,
+verify exact raw payload preservation, skip a no-position frame, and stop on a
+missing wire ID before a later update can overwrite prior position. A separate
+test retains an unresolved reparent outcome without moving the aliased object.
+
 An additional failure regression fills the tocker budget before replay: the
 failing reparent frame retains its new position, parent membership, timer and
 successful ticker write, while returning only earlier completed outcomes.

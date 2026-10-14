@@ -58,6 +58,24 @@ impl NativeCapture {
         receiver: &mut NativePositionReceiver<'_, O>,
         mut context: impl FnMut(usize, &NativeAtomPrefix<'_>) -> (DestinationContext, Instant),
     ) -> Result<NativePositionReplay, NativePositionReplayError> {
+        self.replay_resolved_positions(receiver, |index, prefix| {
+            let (destination, now) = context(index, prefix);
+            Ok((prefix.base.id, destination, now))
+        })
+    }
+
+    /// Existing-object replay with fallible caller resolution of wire ID to
+    /// object handle. Resolution runs only for position-bearing frames, after
+    /// budget preflight. Errors carry prior outcomes and stop before later
+    /// lookups. This does not choose a native map policy or construct objects.
+    pub fn replay_resolved_positions<O: ReparentRegistrationContext>(
+        &self,
+        receiver: &mut NativePositionReceiver<'_, O>,
+        mut context: impl FnMut(
+            usize,
+            &NativeAtomPrefix<'_>,
+        ) -> io::Result<(u32, DestinationContext, Instant)>,
+    ) -> Result<NativePositionReplay, NativePositionReplayError> {
         let hard = CaptureLimits::default();
         let mut total = 0usize;
         if self.frames.len() > hard.frames
@@ -91,8 +109,10 @@ impl NativeCapture {
                 base: base.clone(),
                 remainder: frame.remainder(),
             };
-            let (destination, now) = context(index, &prefix);
-            match receiver.apply_at(&prefix, destination, now) {
+            let outcome = context(index, &prefix).and_then(|(handle, destination, now)| {
+                receiver.apply_resolved_at(&prefix, handle, destination, now)
+            });
+            match outcome {
                 Ok(Some(outcome)) => replay.positions.push(ReplayedNativePosition {
                     frame: index,
                     id: base.id,
