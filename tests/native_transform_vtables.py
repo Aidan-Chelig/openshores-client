@@ -106,3 +106,10 @@ for opcode, cls in native_classes.items():
     value = False if code[:3] == b"\x31\xc0\xc3" else True if code[:6] == b"\xb8\x01\x00\x00\x00\xc3" else None
     assert value == (opcode in (0x03, 0x12, 0x1A, 0x1C)), (opcode, cls, predicate, value)
 print("Native environment boundaries: all 23 predicate bindings and constant return values verified.")
+for opcode, cls in native_classes.items():
+    vtable = symbols[f"_ZTV{len(cls)}{cls}"]
+    predicate = pointer(vtable + 16 + 0x7B8)
+    code = struct.pack("<Q", pointer(predicate))
+    value = False if code[:3] == b"\x31\xc0\xc3" else True if code[:6] == b"\xb8\x01\x00\x00\x00\xc3" else None
+    assert value == (opcode in (0x03, 0x12)), (opcode, cls, predicate, value)
+print("Native instance-universe predicate: all 23 bindings verified; distinct from environment boundaries and Universe opcode.")

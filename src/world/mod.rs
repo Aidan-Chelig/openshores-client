@@ -416,6 +416,7 @@ pub mod native_atom;
 pub mod native_capture;
 pub mod native_item;
 pub mod native_prefix;
+pub mod native_subatoms;
 mod placement;
 #[cfg(test)]
 mod tests;

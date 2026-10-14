@@ -204,11 +204,53 @@ projection/cancellation order, finite safety boundary and reconstructed final
 `AuPoint::CalculateRotation` algorithm. No generic Euler extraction is used
 as a substitute for that native algorithm.
 
-The next focused REA/Ghidra request is `_ZNK6DaAtom8TickTockEv` at
-`0x140b40610`, with complete output selected as `target/native-tick-tock.json`.
-It is pending, not validated evidence. This is the actual old-null-parent
-callback, whose global registration/scheduling behavior must be reconstructed
-before its obligation can be fulfilled by Rust hierarchy orchestration.
+The focused REA/Ghidra request for `_ZNK6DaAtom8TickTockEv` at
+`0x140b40610` completed in 646283 ms. Complete output is preserved in
+[native-tick-tock.json](evidence/native-tick-tock.json), evidence
+`ev_ace3aec82502ecbfb99baadb630d900cb65fd9e074a0dc7d26f5cc65de91a59a`.
+This is static reconstruction, not observed target execution. The global byte
+at offset `0x49b`, bit 1, enables elapsed-time logging; it does not disable
+scheduling. `MustNotTickTock` releases both registrations. Otherwise virtual
+slot `0x2a8` controls the ticker request, gated by a resolved solar system and
+`IsTickingContents`; virtual slot `0x2c8` supplies a signed integer for the
+tocker request, where zero, missing solar system, or nonzero solar-system byte
+`0x3a9` causes release. Request paths dispatch global virtual slots `0x50`
+and `0x60` with atom ID, atom type and solar-system ID (plus the raw signed
+integer for the latter). Exact registration implementation, interval units,
+class overrides and scheduler execution remain unported. Terminal-flow
+limitations at release calls are not proof those calls cannot return.
+
+## Explicit normal-subatom invalidation
+
+`src/world/native_subatoms/` implements the local ChangePos cache obligation
+over explicit caller-established nodes and owner child sets. It does not yet
+construct AuEther indexes from network records or implement reparenting.
+
+GNU static observations in the same digest-bound patched executable:
+
+- `AuEther::ListNormalSubatoms` (`0x1408c6400`) first requires the parent-lock
+  map entry; child-set lookup occurs at `0x1408c64a4`, then AppendNormal at
+  `0x1408c64b9`. Parent node presence alone does not establish availability.
+- `DaAtomList::AppendNormal` (`0x140b78910`) tests the raw signed field at
+  child offset `0x1c` at `0x140b7896a`; only zero-field members are appended.
+  Its meaning and wire source remain unknown, so Rust requires it explicitly.
+- List invalidation (`0x140b77920`) repeats that check and excludes members
+  whose virtual `IsInstanceUniverse` slot `0x7b8` returns true. All 23 atom
+  vtables are checked by `tests/native_transform_vtables.py`: only Arena and
+  Designer return true. This differs from CanRenderEnv and does not exclude
+  the actual Universe atom kind.
+- Base invalidation (`0x140b436e0`) checks cached flag `0x1d8`, clears it
+  before listing descendants, and stops immediately if it was already false.
+  A directly invalidated root bypasses the list eligibility filters.
+
+The iterative Rust traversal preserves those gates, including cycles and
+shared descendants. Local position updates restart only the updated node's
+timer and fulfill descendant invalidation only when its preceding cache gate
+was true. Managed parent changes return an explicit proposal without mutating
+nodes or indexes. Constructor budgets and missing-reference rejection are Rust
+safety policy; ordered sets do not claim native hash iteration or concurrent
+lock-interleaving parity. Synthetic tests cover filters, unavailable lists,
+invalid caches, cycles, double precision and atomic errors.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
@@ -216,8 +258,8 @@ AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`
 instead of taking the local-copy path. Otherwise it copies parent and local
 matrix, restarts a movement timer at `0x140b44e65`, and invalidates the cached
 environment matrix and normal descendants when that cache was valid. These
-are GNU static observations; reparenting and movement semantics are not yet
-ported. Native RxUpdateBase initializes a fresh AuAtomPos before reading it,
+are GNU static observations; the local-copy/timer/cache branch is ported,
+but managed reparenting remains explicit and unimplemented. Native RxUpdateBase initializes a fresh AuAtomPos before reading it,
 so an omitted packed parent there starts null, not automatically the entity's
 previous parent. The field-only codec retains omission separately and does not
 pretend to implement these state effects.

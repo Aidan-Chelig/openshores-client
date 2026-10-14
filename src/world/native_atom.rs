@@ -34,6 +34,11 @@ pub enum NativeAtomKind {
 }
 
 impl NativeAtomKind {
+    /// Native IsInstanceUniverse predicate, not the Universe opcode or the
+    /// distinct CanRenderEnvironment predicate. True only for Arena/Designer.
+    pub fn is_instance_universe(self) -> bool {
+        matches!(self, Self::Arena | Self::Designer)
+    }
     /// Static CanRenderEnvironment vtable bindings in the selected patched image.
     /// This is a parent-boundary predicate, not its EnvTransform implementation.
     pub fn can_render_environment(self) -> bool {
