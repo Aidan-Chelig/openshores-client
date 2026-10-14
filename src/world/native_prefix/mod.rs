@@ -37,6 +37,23 @@ impl NativeBasePrefix {
         let length = input.remaining();
         let mut record = QtReader::new(input.remaining_bytes());
         let identity = NativeIdentityPrefix::read(&mut record)?;
+        let prefix = Self::read_after_identity(&mut record, identity, encoding)?;
+        input.skip(length - record.remaining())?;
+        Ok(prefix)
+    }
+
+    /// Read RxUpdateBase's established leading fields after RxUpdateId and
+    /// object selection. Identity is already consumed by the caller. Failure
+    /// preserves this reader, not any earlier identity/state assignment.
+    /// `consumed_bytes` includes the twelve-byte identity for compatibility
+    /// with combined-prefix payload offsets.
+    pub fn read_after_identity(
+        input: &mut QtReader<'_>,
+        identity: NativeIdentityPrefix,
+        encoding: FloatEncoding,
+    ) -> io::Result<Self> {
+        let length = input.remaining();
+        let mut record = QtReader::new(input.remaining_bytes());
         let id = identity.id;
         let timestamp_ms = identity.timestamp_ms;
         let flags = record.read_u8()?;
@@ -62,8 +79,9 @@ impl NativeBasePrefix {
         } else {
             TailKind::TypeSpecific
         };
-        let consumed_bytes = length - record.remaining();
-        input.skip(consumed_bytes)?;
+        let base_bytes = length - record.remaining();
+        let consumed_bytes = 12 + base_bytes;
+        input.skip(base_bytes)?;
         Ok(Self {
             id,
             timestamp_ms,
@@ -111,6 +129,16 @@ mod tests {
             assert_eq!(prefix.modified_ms, (flags & 4 != 0).then_some(222));
             assert_eq!(prefix.in_motion, flags & 0x20 != 0);
             assert_eq!(prefix.consumed_bytes, prefix_length);
+            let mut staged = QtReader::new(&bytes);
+            let identity = NativeIdentityPrefix::read(&mut staged).unwrap();
+            let staged_prefix = NativeBasePrefix::read_after_identity(
+                &mut staged,
+                identity,
+                FloatEncoding::TypeWidths,
+            )
+            .unwrap();
+            assert_eq!(staged_prefix, prefix);
+            assert_eq!(staged.remaining_bytes(), input.remaining_bytes());
             assert_eq!(prefix.position.is_some(), flags & 1 != 0);
             assert_eq!(input.read_u32().unwrap(), 0xdeadbeef);
             if let Some(position) = prefix.position {
@@ -131,6 +159,19 @@ mod tests {
                 let mut input = QtReader::new(&bytes[..length]);
                 assert!(NativeBasePrefix::read(&mut input, FloatEncoding::TypeWidths).is_err());
                 assert_eq!(input.remaining(), length);
+                if length >= 12 {
+                    let mut staged = QtReader::new(&bytes[..length]);
+                    let identity = NativeIdentityPrefix::read(&mut staged).unwrap();
+                    assert!(
+                        NativeBasePrefix::read_after_identity(
+                            &mut staged,
+                            identity,
+                            FloatEncoding::TypeWidths,
+                        )
+                        .is_err()
+                    );
+                    assert_eq!(staged.remaining_bytes(), &bytes[12..length]);
+                }
             }
         }
     }

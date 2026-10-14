@@ -806,6 +806,18 @@ Body slot `0x2e0` is invoked on the retained object with an is-new argument,
 not necessarily on the incoming opcode's candidate class. Later type-specific
 design/species/cache/catalog side effects remain outside the position receiver.
 
+`NativeBasePrefix::read_after_identity` now permits the same decoding-stage
+boundary: callers consume `NativeIdentityPrefix`, perform object selection/time
+assignment, then decode the leading base fields without rereading identity.
+The combined `read` API delegates to these stages and remains atomic on failure.
+The staged API leaves previously consumed identity intact on malformed base
+input; it does not undo earlier caller state mutations. Its `consumed_bytes`
+still includes the twelve identity bytes for existing payload-offset users.
+All 256 base flags exercise combined/staged equivalence and every truncated
+base prefix checks that only the completed identity stage remains consumed.
+This exposes the required boundary, not a completed packet receiver or Qt
+malformed-stream behavior emulation.
+
 Independent GNU disassembly of `AuEther::FindAtomA` (symbol
 `_ZNK7AuEther9FindAtomAERK4AuId`, `0x1408c5b50..0x1408c5c2c`) on the same
 immutable patched executable establishes primary-map (`this+0`) lookup followed
