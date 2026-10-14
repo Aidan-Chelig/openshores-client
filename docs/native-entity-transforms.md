@@ -670,6 +670,16 @@ invalid-order rejection. These are synthetic adapter tests, not native execution
 Native queue lookup, clock profile, world index observations, derived destructor
 effects and owner scheduler invocation still need connection to the Rust client.
 
+The lifecycle integration regression now runs actual Rust replacement through
+the retention table and two cleanup calls: the first protects the old handle
+and restarts its timer; the second selects and disposes it after the fixture
+queue observation changes. It verifies the new routed handle, assigned owner,
+own list and position survive, and released registration records remain released.
+The test's disposal callback removes a plain graph node only; it is explicitly
+not a port of native derived destructor side effects. Age/queue observations
+are synthetic and do not claim clock or scheduler parity. This connects the
+implemented stages without supplying invented defaults to the production adapter.
+
 ## Existing native wire-position receiver
 
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's
