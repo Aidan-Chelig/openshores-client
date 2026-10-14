@@ -21,6 +21,20 @@ impl NativeNormalSubatoms {
         runaways: &mut NativeRunaways,
         lookup: &NativeRecoveryLookup,
     ) -> io::Result<NativeFreshOwnerEstablished> {
+        self.establish_fresh_atom_owner_with_assignment(id, handle, runaways, lookup, |_, _| {})
+    }
+
+    /// Shared tail with assignment of the caller-held owner reference after
+    /// index creation and before FixRunaways. Callback sees pre-recovery state.
+    /// Preflight errors occur before assignment or any hierarchy writes.
+    pub fn establish_fresh_atom_owner_with_assignment(
+        &mut self,
+        id: u32,
+        handle: u32,
+        runaways: &mut NativeRunaways,
+        lookup: &NativeRecoveryLookup,
+        assign_owner: impl FnOnce(&Self, u32),
+    ) -> io::Result<NativeFreshOwnerEstablished> {
         if id == 0 {
             return Err(invalid("native atom registration rejects null ID"));
         }
@@ -97,8 +111,8 @@ impl NativeNormalSubatoms {
                 children: BTreeSet::new(),
             },
         );
-        // Establishing this list is the explicit modeled owner-availability
-        // transition, not a guessed pointer field. Recovery sees it immediately.
+        // Native stores owner 0x350 after creating both indexes, before recovery.
+        assign_owner(self, handle);
         let recovery = self.fix_runaways_in_maps(id, runaways, lookup)?;
         Ok(NativeFreshOwnerEstablished {
             parent_membership_inserted,
@@ -108,5 +122,7 @@ impl NativeNormalSubatoms {
     }
 }
 
+#[cfg(test)]
+mod lifecycle_tests;
 #[cfg(test)]
 mod tests;

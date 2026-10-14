@@ -543,6 +543,19 @@ Owner-pointer assignment is represented by the explicit modeled availability
 transition; raw pointers, locks, atom construction/map insertion, same-object
 re-add policy and replacement/removal remain outside this fresh-tail helper.
 
+`establish_fresh_atom_owner_with_assignment` adds an explicit assignment point
+for caller-held owner metadata: after parent attachment/own index creation,
+before FixRunaways. Its callback sees the new empty own set before recovery;
+validation failures never call it. The original graph-only helper delegates
+without external assignment. This ordering follows the retained AddAtomLocked
+owner-field store and subsequent FixRunaways call, not a native runtime trace.
+A separate lifecycle test removes an old parent handle, supplies a new routed
+map explicitly, assigns the new handle's owner and recovers queued children.
+Previously listed but unqueued children are not magically restored; all object
+positions/caches remain unchanged and released registrations stay released.
+This connects the removal and fresh-tail adapters, but does not implement the
+intervening replacement status-6, TickTock and timed-retention steps.
+
 ## Existing native wire-position receiver
 
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's

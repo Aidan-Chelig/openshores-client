@@ -1,7 +1,7 @@
 use super::*;
 use crate::world::native_atom::NativeAtomKind;
 
-fn node(kind: NativeAtomKind, parent: u32) -> NativeCacheNode {
+pub(super) fn node(kind: NativeAtomKind, parent: u32) -> NativeCacheNode {
     let mut position = NativePositionState::default();
     position.position.parent = parent;
     position.environment_cache_valid = true;
