@@ -1,9 +1,11 @@
 //! Patched DtClient::ReadPacket atom dispatch, distinct from reference opcodes.
+mod construction;
 use super::native_prefix::{NativeBasePrefix, TailKind};
 use crate::{
     atom_position::{FloatEncoding, NativePositionState, PositionChange},
     protocol::QtReader,
 };
+pub use construction::NativeBaseAtomInitialization;
 use std::io;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

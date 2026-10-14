@@ -29,7 +29,7 @@ native person/item/globe are `0x05/0x16/0x24`, whereas the current reference
 writers use `0x12/0x11/0x1f`. Native `0x12` constructs a designer, not a
 person. Local-server tests never established those profiles were identical.
 
-`src/world/native_atom.rs` now supplies a separate native kind table and
+`src/world/native_atom/mod.rs` now supplies a separate native kind table and
 unframed atom-prefix dispatcher. It uses the established scene type-width
 encoding and preserves the remainder without calling source-profile body
 decoders. Unknown/non-atom opcodes remain unclassified. This is not yet wired
@@ -736,10 +736,14 @@ No constructor, body decoding or automatic packet-driven replacement is inferred
 
 ## Native object construction investigation
 
-A focused REA analysis of the default base constructor `_ZN6DaAtomC2Ev` at
-`0x14184a920` is running, with complete output reserved as
-`target/native-base-atom-constructor.json`. This is pending corroboration, not
-completed evidence. Independent GNU full-function review through the normal
+The focused REA analysis of the default base constructor `_ZN6DaAtomC2Ev` at
+`0x14184a920` completed in 655826ms. Complete evidence is retained as
+[native-base-atom-constructor.json](evidence/native-base-atom-constructor.json),
+Evidence `ev_07e78390a2b30475edca11a4fe7e5e553ead74a59b2c2ab6c897e731d07ede70`,
+bound to the patched executable digest above. Full Ghidra 12.1.2 pseudocode was
+reviewed and corroborates the independently inspected GNU constructor stores.
+This is static reconstruction, not execution of the supplied client.
+Independent GNU full-function review through the normal
 return at `0x14184ac5a` shows initial ID `0x14 = 0`, owner `0x350 = 0`, position
 parent `0x210 = 0`, identity local matrix at `0x218`, zero orientation fields
 at `0x1f8..0x208` and invalid movement-timer words at `0x320`.
@@ -749,11 +753,22 @@ This matters to normal-subatom filtering and TickTock eligibility; existing
 explicitly supplied graph snapshots must not silently acquire zero constructor
 status. Hash-pinned static checks cover the relevant stores and constants.
 
-These are base-constructor observations, not established defaults for every
-derived atom class or the post-receive status transition. Rust fresh object
-construction remains pending full REA review and derived-constructor/receiver
-integration. Current NativePositionState::default remains an explicit primitive
-baseline, not a claim to represent the entire native constructor.
+`NativeBaseAtomInitialization::from_default_base_constructor` now exposes the
+established lifecycle/position subset: null wire ID, raw status 5, absent owner,
+zero received-time storage, null parent, identity local and environment matrices,
+explicit zero orientation, false environment-cache validity and invalid movement
+time. NativePositionState::default retains its separate unobserved-orientation
+baseline; constructor initialization does not silently change existing snapshots.
+Tests check every matrix element, known zero versus unknown orientation, invalid
+timer versus a first unowned position update's restarted timer, and retained raw
+status/owner/ID while applying that position-only stage.
+
+Native atom dispatch and construction now live under `world/native_atom/`, with
+the constructor model/tests in their own subfolder. This is not the entire
+native allocation: QObject/Qt locks, unmodeled fields, derived atom initialization,
+packet ID/time assignment and receiver status transitions remain separate.
+No derived kind is guessed, nor is a constructor snapshot automatically inserted
+into the world or registered with an owner.
 
 DestinationContext remains caller-established. Unresolved context returns the
 unchanged reparent obligation, and insufficient normal-list context remains
