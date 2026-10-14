@@ -346,3 +346,13 @@ cargo build --offline
 nix develop .#server-test --command python tests/local_server.py position
 nix develop .#server-test --command python tests/local_server.py peer
 ```
+
+`--pose-report HEX20` reports ten raw pose bytes with auxiliary trigger fields
+zero, using the same two-report local test schedule. It requires `--avatar` and
+`--watch-seconds` and cannot combine with position/pickup/move/drop. It does not
+assign animation names, head tilt or keyboard controls. The isolated `pose`
+integration checks server-persisted pose and received stamina updates:
+
+```sh
+nix develop .#server-test --command python tests/local_server.py pose
+```

@@ -66,8 +66,8 @@ async def seed(dsn: str, username: str = USERNAME) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop", "pickup", "position", "peer") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer]")
+    if action not in ("move", "drop", "pickup", "position", "peer", "pose") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose]")
     binary = str(ROOT / "target/debug/openshores-client")
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
@@ -136,7 +136,8 @@ def main() -> None:
                     while not (runtime / "peer.ready").exists():
                         assert observer.poll() is None and time.monotonic() < deadline, "observer bootstrap failed"
                         time.sleep(0.1)
-                action_args = (["--position-report", "12.5", "-3.25", "1001", "0.25", "-0.5", "0.75"] if action in ("position", "peer") else
+                action_args = (["--pose-report", "25252525252525252525"] if action == "pose" else
+                               ["--position-report", "12.5", "-3.25", "1001", "0.25", "-0.5", "0.75"] if action in ("position", "peer") else
                                ["--pickup-target", "0x70000000"] if action == "pickup" else
                                ["--drop-gear", "5", "0"] if action == "drop" else
                                ["--move-gear", "5", "0", "1"])
@@ -280,7 +281,7 @@ def main() -> None:
                     assert original in watched_player, watched_player
                     assert "declared_slots: 8" in watched_player and "commodity_id: 130" in watched_player, watched_player
                     assert "PICKUP target=0x70000000" in log_path.read_text(), log_path.read_text()[-8000:]
-                if action == "position":
+                if action in ("position", "pose"):
                     assert original in watched_player and "declared_slots: 7" in watched_player
                     async def verify_position():
                         import asyncpg
@@ -288,15 +289,20 @@ def main() -> None:
                         try:
                             deadline = time.monotonic() + 10
                             while True:
-                                row = await conn.fetchrow('SELECT "locX", "locY", "locZ" FROM "a_Person" WHERE "id"=$1', avatar)
-                                if tuple(row) == (12.5, -3.25, 1001.0):
+                                row = await conn.fetchrow('SELECT "locX", "locY", "locZ", "pose", "stamina" FROM "a_Person" WHERE "id"=$1', avatar)
+                                if ((action == "position" and tuple(row)[:3] == (12.5, -3.25, 1001.0)) or
+                                    (action == "pose" and row["pose"] == 0x25 and row["stamina"] < 100)):
                                     return
                                 assert time.monotonic() < deadline, tuple(row)
                                 await asyncio.sleep(0.1)
                         finally:
                             await conn.close()
                     asyncio.run(verify_position())
-                    print("Rust position report persisted by reference server; inventory unchanged", flush=True)
+                    if action == "pose":
+                        # The server sends stamina deltas, not an optimistic pose echo.
+                        stamina = int(watched_player.split("stamina: Some(", 1)[1].split(")", 1)[0])
+                        assert 0 < stamina < 100, watched_player
+                    print(f"Rust {action} report persisted by reference server; inventory unchanged", flush=True)
                 else:
                     assert "Observed player gear (latest received batch):" in watched.stdout
                     print(f"Explicit gear {action} confirmed by server-originated inventory/world refresh", flush=True)

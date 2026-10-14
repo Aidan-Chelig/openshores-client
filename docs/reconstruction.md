@@ -1008,3 +1008,14 @@ a library primitive, not yet a server-observed pose transition or an animation
 system; head tilt is not inferred from the overloaded outbound auxiliary field.
 All 68 headless and 77 viewer-enabled Rust tests and both Clippy configurations
 passed after this addition; the offline source-parser check passed too.
+
+CLI `--pose-report HEX20` now validates exactly ten hexadecimal bytes before
+credentials/network, requires an authenticated avatar/watch and rejects other
+raw reports and inventory/pickup combinations. Two identical reports at 0 and
+500 ms use the existing bounded scheduler. Local `pose` integration passed with
+ten `0x25` bytes: the source tracks the first byte and its bio ticker applies
+the source-listed negative stamina rate. Rust decoded stamina below the seeded
+100, and the owned database persisted pose `0x25` and decreased stamina after
+disconnect. Inventory remained seven entries, hierarchy/capture replay matched
+and all 56 terrain comparisons passed. Pose semantics remain raw; no animation
+or optimistic pose echo is fabricated.

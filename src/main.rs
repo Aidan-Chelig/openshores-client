@@ -49,6 +49,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut drop_gear = None;
     let mut pickup_target = None;
     let mut position_report = None;
+    let mut pose_report = None;
     let mut options = args[1..].iter();
     while let Some(arg) = options.next() {
         if arg == "--password-stdin" && !from_stdin {
@@ -62,6 +63,18 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 return Err("--watch-seconds must be in 1..=60".into());
             }
             watch_seconds = Some(seconds);
+        } else if arg == "--pose-report" && pose_report.is_none() {
+            let text = options
+                .next()
+                .ok_or("--pose-report requires exactly 20 hexadecimal digits")?;
+            if text.len() != 20 || !text.bytes().all(|byte| byte.is_ascii_hexdigit()) {
+                return Err("--pose-report requires exactly 20 hexadecimal digits".into());
+            }
+            let mut poses = [0; 10];
+            for (index, pose) in poses.iter_mut().enumerate() {
+                *pose = u8::from_str_radix(&text[index * 2..index * 2 + 2], 16)?;
+            }
+            pose_report = Some(openshores_client::commands::SceneCommand::PoseReport { poses });
         } else if arg == "--position-report" && position_report.is_none() {
             let mut values = [0.0; 6];
             for value in &mut values {
@@ -166,6 +179,14 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     {
         return Err("--position-report cannot be combined with pickup or gear move/drop".into());
     }
+    if pose_report.is_some()
+        && (position_report.is_some()
+            || pickup_target.is_some()
+            || drop_gear.is_some()
+            || move_gear.is_some())
+    {
+        return Err("--pose-report cannot be combined with position/pickup/gear commands".into());
+    }
     if pickup_target.is_some() && (drop_gear.is_some() || move_gear.is_some()) {
         return Err("--pickup-target cannot be combined with gear move/drop".into());
     }
@@ -179,7 +200,8 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
         || move_gear.is_some()
         || drop_gear.is_some()
         || pickup_target.is_some()
-        || position_report.is_some())
+        || position_report.is_some()
+        || pose_report.is_some())
         && (avatar_id.is_none() || watch_seconds.is_none())
     {
         return Err("gameplay commands require --avatar and --watch-seconds".into());
@@ -280,7 +302,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                             "Local pickup target-pin test profile: {target:#010x}; four pins at 500 ms intervals, then clear (not an acknowledgement)."
                         );
                         session.watch_with_commands(Duration::from_secs(seconds), &schedule)?
-                    } else if let Some(command) = position_report {
+                    } else if let Some(command) = position_report.or(pose_report) {
                         use openshores_client::local_scene::ScheduledCommand;
                         let schedule = [
                             ScheduledCommand {
@@ -293,7 +315,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                             },
                         ];
                         println!(
-                            "Local position-report test profile: {command:?}; two reports 500 ms apart (not an acknowledgement)."
+                            "Local raw-report test profile: {command:?}; two reports 500 ms apart (not an acknowledgement)."
                         );
                         session.watch_with_commands(Duration::from_secs(seconds), &schedule)?
                     } else {
@@ -990,6 +1012,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
+                "Raw local pose-report test (requires --avatar and --watch-seconds):\n       --pose-report HEX20\n       Ten raw pose bytes; auxiliary trigger fields zero; cannot combine with position/pickup/move/drop\n"
+            );
+            println!(
                 "Raw local position-report test (requires --avatar and --watch-seconds):\n       --position-report X Y Z RX RY RZ\n       Finite raw wire coordinates/rotation, not walking controls; cannot combine with pickup/move/drop\n"
             );
             println!(
@@ -1048,6 +1073,35 @@ mod tests {
     #[test]
     fn invalid_gameplay_arguments_fail_before_password_or_network() {
         for flags in [
+            vec!["--pose-report", "25252525252525252525"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--pose-report",
+                "25",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--pose-report",
+                "gg252525252525252525",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--pose-report",
+                "25252525252525252525",
+                "--move-gear",
+                "5",
+                "0",
+                "1",
+            ],
             vec!["--position-report", "0", "0", "1001", "0", "0", "0"],
             vec![
                 "--avatar",
