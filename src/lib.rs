@@ -2,6 +2,8 @@
 pub mod assets;
 pub mod geology;
 pub mod har;
+pub mod inventory;
+pub mod item;
 pub mod local_scene;
 pub mod login;
 pub mod model;

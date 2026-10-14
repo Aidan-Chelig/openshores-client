@@ -77,6 +77,12 @@ pub struct QtReader<'a> {
 }
 
 impl<'a> QtReader<'a> {
+    pub(crate) fn remaining_bytes(&self) -> &'a [u8] {
+        self.remaining
+    }
+    pub(crate) fn skip(&mut self, count: usize) -> io::Result<()> {
+        self.take(count).map(|_| ())
+    }
     pub fn remaining(&self) -> usize {
         self.remaining.len()
     }

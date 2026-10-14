@@ -27,6 +27,16 @@ are normal exits; frames begun before the boundary get at most 100 ms extra to
 complete. Incomplete frames after that grace and malformed updates are errors. Gameplay
 request handling and an interactive game session remain future core milestones.
 
+World-state replay also recognizes dropped-item atoms (`DaItem`, `0x11`), their
+parent/transforms, subtype identity and supported commodity/name/quality fields.
+Unknown item variants and weapon/container tails remain available as raw bytes;
+pickup/drop requests and item rendering are not implemented.
+Supported gear-only player updates now expose slot/subindex identities, explicit
+empty slots and nested item trees. These are the latest received gear batches,
+not an inferred authoritative inventory snapshot. Full bootstrap inventory still
+sits behind an undecoded citizen prefix; unknown layouts stop safely with raw
+bytes retained.
+
 ```sh
 nix develop
 cargo run -- inspect-reference

@@ -726,3 +726,78 @@ compares live/replay missing IDs rather than requiring every newly introduced
 kind to be supported. The fresh three-second watch applied 17 post-bootstrap
 packets and its 9,680-packet capture replayed successfully; the initial 9,663
 packet prefix still resolved all 49 bootstrap entities.
+
+### Dropped-item identity and common prefixes
+
+`DaItem` (`0x11`) is now a first-class cached scene entity. Its base parent,
+create/modify times and transform use existing sparse atom decoding. Item flag
+one carries a type ID and payload. The common AuItem prefix is decoded for the
+source-listed item-derived variants: raw flags, signed commodity ID, byte14,
+optional nullable Qt name and optional quality. Known flags zero/name/quality
+are supported; unknown flags/types stop structured interpretation and preserve
+raw payloads. Subtype weapon, container, flora and other tails remain opaque;
+owner/fuse flags are not guessed.
+
+Evidence is `protocol/atoms/daitem.py`, `daitem_drop.py`, `item_seed.py` and
+`item.py`, plus the scene connection's forage-warmup item emission. There is a
+source discrepancy worth retaining: `pack_auitem_body` emits a four-byte
+flag-zero prefix without quality, while `_unpack_auitem_body` expects quality
+unconditionally. Rust uses the zero-flag writer layout and flag-4 seed quality
+layout; extra bytes remain opaque, rather than silently guessing a quality.
+This is prefix interoperability, not a claim that every item variant is decoded.
+
+Omitted item payloads preserve cached values. Within the same subtype, omitted
+name/quality preserve earlier decoded fields; Qt null/empty are explicit updates.
+Subtype changes replace the value rather than retaining incompatible fields.
+Latest raw payload and opaque tail are retained alongside decoded state.
+Truncated known prefixes fail before world mutation. Unknown items remain
+identifiable, parented entities without fabricated commodity data.
+
+Rust tests cover truncation atomicity, sparse updates, signed IDs, null/empty
+names and raw subtype tails. `tests/reference_items.py` checks the actual Python
+floor, drop, keepalive and seed writers, including a weapon prefix and unknown
+type. Local ongoing-session integration now checks the dynamic forage item
+`0x70000000`, commodity 130, quality 61. Scene visibility remains distinct from
+the cached item: a manifest that excludes it does not erase its identity.
+Inventory trees and pickup/drop gameplay requests remain next-stage work.
+
+### Bounded gear batches and nested item trees
+
+`inventory::Gear::read_prefix` decodes AuGear's count and packed slot metadata:
+low nibble is slot type, high nibble subindex. Type zero is an explicit empty
+slot. Order and duplicate slot records are preserved. `InventoryItem` retains
+type, common fields, exact body bytes and ordered nested children. Container
+children retain two metadata bytes; boxes retain explicit keys or an empty key
+record for implicit order. Capacity/QSize and other subtype values remain in
+raw body bytes rather than being assigned unverified gameplay semantics.
+
+Evidence comes from `protocol/atoms/gear.py`, `item.py`, `item_seed.py`,
+`container.py`, `weapon.py` and `gear_variety.py`. Supported quality-bearing
+common layouts cover plain/state/ammo items, source-established weapon tail
+boundaries, flora, containers/boxes, pictures and state messages. Weapon and
+flora payloads are bounded/read for correct next-item boundaries, not interpreted
+as implemented combat or growth behavior. Flag-zero common-layout discrepancies
+stay unsupported inside gear because there is no per-entry length to recover
+the next slot safely.
+
+Unknown item types or flags stop the batch at the first incomplete slot, retaining
+that slot and the remaining suffix as raw bytes. The decoder never searches for
+plausible next headers. Known truncated layouts return an error. Input is capped
+at 1 MiB, recursive depth 16 and 4096 nodes. Complete decode returns its consumed
+length without folding trailing person fields into the last slot, unlike the
+reference unpacker's compatibility behavior.
+
+Player prefixes now decode raw three-byte cursor records and gear flag `0x40`
+when earlier citizen/unknown layers are absent. The latest gear batch is retained
+on `PersonState`; omitted gear preserves that batch. We do not infer whether a
+batch is a full equipment snapshot or a sparse equipment delta. Full bootstrap
+inventory still lies behind the unresolved citizen prefix; no claim of a full
+inventory model or GUI is made.
+
+Rust tests cover slot identities, empty slots, recursive metadata, exact body
+boundaries, truncation atomicity, unknown nested stops and budgets. The independent
+`tests/reference_inventory.py` compares all source variety gear slot bodies with
+the Python unpacker, including weapons, and synthetic nested box/container/flora
+trees. Its container commodity IDs avoid the source writer's automatic weapon
+migration. It also checks empty slots and unknown-type preservation via actual
+Python gear-only person packets. Pickup/drop/equipment actions remain future work.

@@ -2,6 +2,7 @@
 //! Type-specific trailing bytes remain available without claiming full decoding.
 use crate::{
     geology::Geology,
+    item::ItemState,
     person::PersonState,
     protocol::{QtReader, read_frame},
     scene::{self, SceneTime},
@@ -28,6 +29,7 @@ pub enum AtomKind {
     Ring,
     RingSection,
     Person,
+    Item,
     Vehicle,
     Building,
 }
@@ -45,6 +47,7 @@ impl AtomKind {
             0x20 => Self::Ring,
             0x40 => Self::RingSection,
             0x12 => Self::Person,
+            0x11 => Self::Item,
             0x1c => Self::Vehicle,
             0x4c => Self::Building,
             _ => return None,
@@ -81,6 +84,7 @@ pub struct AtomUpdate {
     pub globe_surface: Option<GlobeSurface>,
     pub geology: Option<Geology>,
     pub person: Option<PersonState>,
+    pub item: Option<ItemState>,
     /// Full type-specific body, including any fields decoded above.
     pub body: Vec<u8>,
 }
@@ -131,10 +135,12 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
     let mut globe_surface = None;
     let mut geology = None;
     let mut person = None;
+    let mut item = None;
     // Effect payloads and unknown base layers precede type-specific fields.
     // Preserve them as body bytes until their layouts are established.
     if base_flags & 0xd0 == 0 {
         match kind {
+            AtomKind::Item => item = Some(ItemState::decode_body(&body)?),
             AtomKind::Sector | AtomKind::SolarSystem => name = Some(input.read_string()?),
             AtomKind::Person | AtomKind::Vehicle | AtomKind::Building => {
                 let flags = input.read_u8()?;
@@ -199,6 +205,7 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
         globe_surface,
         geology,
         person,
+        item,
         body,
     }))
 }
@@ -217,6 +224,7 @@ pub struct Entity {
     pub globe_surface: Option<GlobeSurface>,
     pub geology: Option<Geology>,
     pub person: Option<PersonState>,
+    pub item: Option<ItemState>,
     /// Latest update body only; full packet history belongs to the capture.
     pub last_body: Vec<u8>,
     pub last_base_flags: u8,
@@ -270,6 +278,7 @@ impl WorldState {
             globe_surface: None,
             geology: None,
             person: None,
+            item: None,
             last_body: Vec::new(),
             last_base_flags: 0,
         });
@@ -303,6 +312,12 @@ impl WorldState {
                 .person
                 .get_or_insert_with(PersonState::default)
                 .merge(person);
+        }
+        if let Some(item) = update.item {
+            entity
+                .item
+                .get_or_insert_with(ItemState::default)
+                .merge(item);
         }
         entity.last_body = update.body;
         entity.last_base_flags = update.base_flags;

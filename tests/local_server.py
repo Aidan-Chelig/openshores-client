@@ -220,6 +220,12 @@ def main() -> None:
                                     if line.startswith("Missing manifest IDs:"))
                 assert live_missing in watched_replay.stdout, watched_replay.stdout
                 assert f"Player ancestry: Person({avatar:#010x}) -> Globe" in watched_replay.stdout
+                item_line = next(line for line in watched_replay.stdout.splitlines()
+                                 if line.startswith("0x70000000 Item "))
+                assert "commodity_id: 130" in item_line, item_line
+                assert "quality: Some(61)" in item_line, item_line
+                assert "Item: 1" in watched_replay.stdout, watched_replay.stdout
+                print("Dynamic floor item decoded and retained in ongoing scene state", flush=True)
                 print(f"Local ongoing session: {updates} post-bootstrap packets applied and replayed", flush=True)
                 print("Full local reference-server integration passed", flush=True)
         except BaseException as error:

@@ -19,6 +19,9 @@ pub struct PersonState {
     pub agent_bits: Option<u8>,
     pub creature_flags: Option<u8>,
     pub person_flags: Option<u8>,
+    pub cursor_raw: Option<[u8; 3]>,
+    /// Last gear update batch, not an inferred authoritative equipment snapshot.
+    pub gear: Option<crate::inventory::Gear>,
 }
 
 impl PersonState {
@@ -38,7 +41,9 @@ impl PersonState {
             hunger_raw,
             agent_bits,
             creature_flags,
-            person_flags
+            person_flags,
+            cursor_raw,
+            gear
         );
     }
 
@@ -108,6 +113,17 @@ impl PersonState {
         if flags & 8 != 0 {
             state.agent_bits = Some(input.read_u8()?);
         }
+        if flags & 0x10 != 0 {
+            return Ok(state);
+        }
+        if flags & 0x20 != 0 {
+            state.cursor_raw = Some([input.read_u8()?, input.read_u8()?, input.read_u8()?]);
+        }
+        if flags & 0x40 != 0 {
+            let (gear, consumed) = crate::inventory::Gear::read_prefix(input.remaining_bytes())?;
+            input.skip(consumed)?;
+            state.gear = Some(gear);
+        }
         Ok(state)
     }
 }
@@ -123,6 +139,34 @@ mod tests {
         out.push(0);
         out.extend(body);
         out
+    }
+
+    #[test]
+    fn gear_batches_and_cursor_are_explicit_and_atomic() {
+        let mut world = WorldState::default();
+        let body = [
+            0, 0, 90, 0, 0x68, 5, 9, 2, 1, 2, 0x15, 0, 0x25, 1, 4, 0, 130, 5, 61,
+        ];
+        world.ingest(&packet(&body)).unwrap();
+        let before = world.entities[&42].clone();
+        let state = before.person.as_ref().unwrap();
+        assert_eq!(state.cursor_raw, Some([9, 2, 1]));
+        let gear = state.gear.as_ref().unwrap();
+        assert_eq!(gear.declared_slots, 2);
+        assert_eq!(gear.slots[0].item, None);
+        assert_eq!(
+            gear.slots[1].item.as_ref().unwrap().common.commodity_id,
+            130
+        );
+        for length in 9..body.len() {
+            assert!(world.ingest(&packet(&body[..length])).is_err());
+            assert_eq!(world.entities[&42], before);
+        }
+        world.ingest(&packet(&[0, 0, 80, 0, 8, 1])).unwrap();
+        assert_eq!(
+            world.entities[&42].person.as_ref().unwrap().gear,
+            state.gear
+        );
     }
 
     #[test]

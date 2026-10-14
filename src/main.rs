@@ -781,7 +781,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             print_world(&world)?;
             for entity in world.entities.values() {
                 println!(
-                    "{:#010x} {:?} name={:?} parent={:?} transform={:?} globe_surface={:?} person={:?} geology={:?}",
+                    "{:#010x} {:?} name={:?} parent={:?} transform={:?} globe_surface={:?} person={:?} item={:?} geology={:?}",
                     entity.id,
                     entity.kind,
                     entity.name,
@@ -789,6 +789,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                     entity.transform,
                     entity.globe_surface,
                     entity.person,
+                    entity.item,
                     entity.geology.as_ref().map(|geo| (
                         geo.features.len(),
                         geo.declared_count,
