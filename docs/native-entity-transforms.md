@@ -680,6 +680,20 @@ not a port of native derived destructor side effects. Age/queue observations
 are synthetic and do not claim clock or scheduler parity. This connects the
 implemented stages without supplying invented defaults to the production adapter.
 
+Full independent GNU disassembly of InTickTockQueue at `0x1415a69d0` through
+`0x1415a6bea` shows ticker-ID lookup at owner `0x438`, returning true on a found
+key, followed only on absence by tocker-ID lookup at `0x450`. Neither record's
+release marker is read. `RegistrationStore::in_tick_tock_queue` now implements
+that stable key-presence predicate. Released, busy and cleanup-deferred records
+remain queue members until their table actually erases them. Tests cover both
+tables, separate sweeps, zero/max IDs and busy cleanup with cleared pending flags.
+Static anchors are hash-pinned in `just test-native-transforms`; this is GNU
+assembly evidence, not REA pseudocode or runtime observation.
+A focused REA corroboration for `_ZN8AuGlobal15InTickTockQueueERK4AuId` is running
+with output reserved as `target/native-in-tick-tock-queue.json`; its result is
+pending and must not yet be cited as confirmation. Native locking/copy-on-write,
+scheduler execution and cleanup-world integration remain separate.
+
 ## Existing native wire-position receiver
 
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's

@@ -1,4 +1,5 @@
 use super::*;
+mod membership;
 use crate::world::native_tick_tock::RegistrationAction::*;
 
 #[test]

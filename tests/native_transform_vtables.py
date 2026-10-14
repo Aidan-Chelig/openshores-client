@@ -209,3 +209,14 @@ for address, expected in [
     raw = bytes.fromhex(expected)
     assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
 print("Native retirement selection: signed 20000ms gate, queue-protected timer restart and normal erase/destruction anchors pinned.")
+
+for address, expected in [
+    (0x1415A69FA, "48 8b be 38 04 00 00"),  # ticker table
+    (0x1415A6A53, "48 39 df"),  # found iterator vs end, not record fields
+    (0x1415A6A56, "74 78"),  # ticker absence proceeds to tocker table
+    (0x1415A6ADD, "48 8b be 50 04 00 00"),  # tocker table
+    (0x1415A6B2E, "41 0f 95 c6"),  # key-presence boolean
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native InTickTockQueue: ticker-first/tocker-second key-presence return anchors pinned; release flags are not read in the reviewed body.")
