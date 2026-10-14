@@ -806,6 +806,23 @@ Body slot `0x2e0` is invoked on the retained object with an is-new argument,
 not necessarily on the incoming opcode's candidate class. Later type-specific
 design/species/cache/catalog side effects remain outside the position receiver.
 
+Independent GNU disassembly of `AuEther::FindAtomA` (symbol
+`_ZNK7AuEther9FindAtomAERK4AuId`, `0x1408c5b50..0x1408c5c2c`) on the same
+immutable patched executable establishes primary-map (`this+0`) lookup followed
+by secondary/star-field-map (`this+8`) lookup only when the primary key is absent.
+It holds the read lock at `this+0x18`, matches the complete unsigned ID, and
+returns the stored object pointer without class/status/parent filtering. A
+primary match returns directly even if its stored pointer is null; it does not
+retry the secondary map. This is static assembly evidence, not a REA result or
+execution observation; the focused REA corroboration is pending.
+
+`NativeRecoveryLookup::find_atom` exposes the established map precedence to the
+future full packet receiver. Existing recovery delegates to the same lookup.
+Rust object handles are not native pointers, so handle zero remains an explicit
+identity rather than being silently converted to absence. Tests cover primary
+overlap, secondary fallback, missing IDs and full-width/null wire IDs. Qt locking,
+hash layout and nullable native pointer storage remain unmodeled.
+
 The position-only receiver now follows that common-base behavior: a differing
 incoming candidate kind does not reject or replace an existing object's kind.
 A regression decodes a Person opcode against an existing Item object, applies

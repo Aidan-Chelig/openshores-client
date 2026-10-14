@@ -92,17 +92,41 @@ impl NativeRecoveryLookup {
         }
         .copied()
     }
-    pub(in crate::world::native_subatoms) fn resolve(&self, id: u32) -> Option<u32> {
+    /// AuEther::FindAtomA: primary map first, then star-field map on absence.
+    /// Lookup is independent of the incoming candidate's kind, raw status,
+    /// parent and owner metadata. Handles are explicit object identities;
+    /// zero is not interpreted as a native null pointer here.
+    pub fn find_atom(&self, id: u32) -> Option<u32> {
         self.primary
             .get(&id)
             .or_else(|| self.secondary.get(&id))
             .copied()
+    }
+    pub(in crate::world::native_subatoms) fn resolve(&self, id: u32) -> Option<u32> {
+        self.find_atom(id)
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn find_atom_prefers_primary_and_falls_back_only_on_absence() {
+        let lookup = NativeRecoveryLookup::new(
+            [(0, 0), (1, 10), (u32::MAX, 20)],
+            [(0, 30), (1, 40), (2, 50), (u32::MAX, 60)],
+        )
+        .unwrap();
+        assert_eq!(lookup.find_atom(0), Some(0));
+        assert_eq!(lookup.find_atom(1), Some(10));
+        assert_eq!(lookup.find_atom(2), Some(50));
+        assert_eq!(lookup.find_atom(u32::MAX), Some(20));
+        assert_eq!(lookup.find_atom(3), None);
+        assert_eq!(
+            NativeRecoveryLookup::new([], []).unwrap().find_atom(1),
+            None
+        );
+    }
     #[test]
     fn routed_nodes_follow_star_field_not_environment_boundaries() {
         use NativeAtomKind::*;
