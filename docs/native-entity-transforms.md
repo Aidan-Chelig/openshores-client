@@ -433,6 +433,24 @@ one child under multiple parents, repeated pairs, null/max IDs and atomic
 capacity rejection. Static binary tests pin key/value writes and same-key
 allocation. Recovery/index attachment is not yet implemented by this queue.
 
+`NativeNormalSubatoms::change_parent_to_missing_destination_at` now connects
+this queue to the saved ChangeParent missing-destination-lock branch. The
+caller must explicitly establish that native lock absence; it must not select
+this path merely because a scene atom or child set was not supplied. A supplied
+available destination context is rejected as contradictory. The path queues
+the parent/atom pair first, then performs the selected Ether copy/timer,
+old-null-parent TickTock callback, and cache invalidation. It deliberately
+does not remove the old child-set membership or insert into the missing parent.
+This follows the saved AddRunaway-to-setter jump, not the normal index-move path.
+
+Both paths share preparation and final callback/cache helpers. Geometry and
+queue-capacity rejection happen before state changes (Rust safety policy).
+Callback errors retain the queued pair and updated position, but still perform
+cache cleanup. Tests check queue visibility before callbacks, index retention,
+orientation/timer effects, repeated-pair suppression, nonnull old-parent
+callback skipping, validation failures and callback errors. FixRunaways repair,
+two-map owner resolution and native lock interleaving remain unimplemented.
+
 A focused REA/Ghidra request for `_ZN7AuEther11FixRunawaysERK4AuId` is running,
 with complete output reserved at `target/native-fix-runaways.json`. Pending
 analysis is not validated evidence. Current GNU observations show a later

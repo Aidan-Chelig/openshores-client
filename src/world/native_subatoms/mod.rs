@@ -2,11 +2,13 @@
 mod invalidation;
 mod registration;
 mod reparent;
+mod runaway;
 use super::native_atom::NativeAtomKind;
 use crate::atom_position::NativePositionState;
 pub use invalidation::NativeHierarchyPositionChange;
 pub use registration::ReparentRegistrationContext;
 pub use reparent::NativeReparentResult;
+pub use runaway::NativeRunawayReparentResult;
 use std::{
     collections::{BTreeMap, BTreeSet},
     io,

@@ -1,5 +1,5 @@
 use super::*;
-use crate::atom_position::PackedPosition;
+use crate::atom_position::{EtherPositionEffects, PackedPosition};
 use std::time::Instant;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -25,20 +25,15 @@ impl NativeNormalSubatoms {
         record: &PackedPosition,
         extract_orientation: bool,
         now: Instant,
-        mut tick_tock: impl FnMut(&mut Self, u32) -> io::Result<()>,
+        tick_tock: impl FnMut(&mut Self, u32) -> io::Result<()>,
     ) -> io::Result<NativeReparentResult> {
         let node = self
             .nodes
             .get(&id)
             .ok_or_else(|| invalid("unknown native subatom root"))?;
         let old_parent = node.position.position.parent;
-        // Rust safety: all geometry validation happens before index mutation.
-        let mut position = node.position.clone();
-        let effects = if extract_orientation {
-            position.set_fresh_position_and_orientation_by_ether_at(record, now)?
-        } else {
-            position.set_fresh_position_by_ether_at(record, now)?
-        };
+        let (position, effects) =
+            self.prepare_ether_position(id, record, extract_orientation, now)?;
         let new_parent = position.position.parent;
         if [old_parent, new_parent]
             .into_iter()
@@ -74,7 +69,44 @@ impl NativeNormalSubatoms {
                 .children
                 .insert(id);
         }
-        self.nodes.get_mut(&id).expect("checked node").position = position;
+        let (cleared_caches, tick_tock_called) =
+            self.finish_ether_position(id, position, effects, tick_tock)?;
+        Ok(NativeReparentResult::Applied {
+            cleared_caches,
+            tick_tock_called,
+        })
+    }
+
+    pub(super) fn prepare_ether_position(
+        &self,
+        id: u32,
+        record: &PackedPosition,
+        extract_orientation: bool,
+        now: Instant,
+    ) -> io::Result<(NativePositionState, EtherPositionEffects)> {
+        // Rust safety: validate before changing indexes, queue or position.
+        let mut position = self
+            .nodes
+            .get(&id)
+            .ok_or_else(|| invalid("unknown native subatom root"))?
+            .position
+            .clone();
+        let effects = if extract_orientation {
+            position.set_fresh_position_and_orientation_by_ether_at(record, now)?
+        } else {
+            position.set_fresh_position_by_ether_at(record, now)?
+        };
+        Ok((position, effects))
+    }
+
+    pub(super) fn finish_ether_position(
+        &mut self,
+        id: u32,
+        position: NativePositionState,
+        effects: EtherPositionEffects,
+        mut tick_tock: impl FnMut(&mut Self, u32) -> io::Result<()>,
+    ) -> io::Result<(BTreeSet<u32>, bool)> {
+        self.nodes.get_mut(&id).expect("prepared node").position = position;
         // Callback failures are Rust policy. Preserve earlier successful moves
         // and still fulfill cache cleanup; no invented rollback of native state.
         let callback = if effects.tick_tock_required {
@@ -84,10 +116,7 @@ impl NativeNormalSubatoms {
         };
         let cleared_caches = self.invalidate_environment(id)?;
         callback?;
-        Ok(NativeReparentResult::Applied {
-            cleared_caches,
-            tick_tock_called: effects.tick_tock_required,
-        })
+        Ok((cleared_caches, effects.tick_tock_required))
     }
 }
 
