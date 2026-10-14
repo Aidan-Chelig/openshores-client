@@ -94,6 +94,9 @@ impl<'a> QtReader<'a> {
     pub fn read_u16(&mut self) -> io::Result<u16> {
         Ok(u16::from_be_bytes(self.take(2)?.try_into().unwrap()))
     }
+    pub fn read_i16(&mut self) -> io::Result<i16> {
+        Ok(i16::from_be_bytes(self.take(2)?.try_into().unwrap()))
+    }
     pub fn new(bytes: &'a [u8]) -> Self {
         Self { remaining: bytes }
     }
@@ -112,6 +115,9 @@ impl<'a> QtReader<'a> {
 
     pub fn read_u32(&mut self) -> io::Result<u32> {
         Ok(u32::from_be_bytes(self.take(4)?.try_into().unwrap()))
+    }
+    pub fn read_i32(&mut self) -> io::Result<i32> {
+        Ok(i32::from_be_bytes(self.take(4)?.try_into().unwrap()))
     }
 
     pub fn read_i64(&mut self) -> io::Result<i64> {

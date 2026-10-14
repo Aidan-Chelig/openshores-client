@@ -6,7 +6,9 @@ use std::io;
 
 mod environment;
 mod matrix;
+mod state;
 pub use environment::{ParentEnvironment, compose_environment};
+pub use state::{FreshPosition, NativePositionState, PositionChange};
 #[cfg(test)]
 mod tests;
 

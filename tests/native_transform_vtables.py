@@ -76,3 +76,33 @@ for name in ("_ZTV6DaAtom", "_ZTV6DaItem", "_ZTV8DaPerson", "_ZTV7DaWorld", "_ZT
             continue
         assert expected in names, (name, slot, names)
         print(f"{name} table={vtable:#x} slot={slot:#x} bytes={address:#x} -> {target:#x} {names}")
+
+# Constructor dispatch inventory. Do not reuse server opcodes by assumption.
+factory_table = 0x1421F7D98
+native_classes = {
+    0x02: "DaAnimal", 0x03: "DaArena", 0x04: "DaAsteroid", 0x05: "DaPerson",
+    0x06: "DaBd", 0x12: "DaDesigner", 0x13: "DaDesignPlane", 0x14: "DaEffect",
+    0x15: "DaGalaxy", 0x16: "DaItem", 0x17: "DaMissile", 0x18: "DaNpc",
+    0x19: "DaSc", 0x1A: "DaSector", 0x1C: "DaSolarSystem", 0x1D: "DaStar",
+    0x1E: "DaTeleporter", 0x20: "DaUniverse", 0x21: "DaVehicle",
+    0x23: "DaWorldGasGiant", 0x24: "DaWorldGlobe", 0x27: "DaWorldRing",
+    0x28: "DaWorldRingSection",
+}
+for opcode in range(0x29):
+    relative = struct.unpack("<i", struct.pack("<Q", pointer(factory_table + opcode * 4))[:4])[0]
+    entry = factory_table + relative
+    block = subprocess.check_output(["objdump", "-d", f"--start-address={entry:#x}",
+        f"--stop-address={entry + 48:#x}", str(TARGET)], text=True)
+    calls = re.findall(r"call\s+[0-9a-f]+ <([^>]+C1[^>]*)>", block)
+    cls = native_classes.get(opcode)
+    assert calls == ([f"_ZN{len(cls)}{cls}C1Ev"] if cls else []), (opcode, calls)
+    if cls is None:
+        assert entry == 0x140B2CE68
+print(f"Native atom factory: {len(native_classes)} constructor bindings and unsupported cases verified statically.")
+for opcode, cls in native_classes.items():
+    vtable = symbols[f"_ZTV{len(cls)}{cls}"]
+    predicate = pointer(vtable + 16 + 0x7B0)
+    code = struct.pack("<Q", pointer(predicate))
+    value = False if code[:3] == b"\x31\xc0\xc3" else True if code[:6] == b"\xb8\x01\x00\x00\x00\xc3" else None
+    assert value == (opcode in (0x03, 0x12, 0x1A, 0x1C)), (opcode, cls, predicate, value)
+print("Native environment boundaries: all 23 predicate bindings and constant return values verified.")

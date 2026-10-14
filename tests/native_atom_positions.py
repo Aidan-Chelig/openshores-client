@@ -10,10 +10,12 @@ from pathlib import Path
 import struct
 import subprocess
 import sys
+import tempfile
 
 sys.dont_write_bytecode = True
 sys.path.insert(0, str(Path("reference/OpenShores-server/src").resolve()))
 from openshores.gameplay.natives.village import body_axes, gravity_align_euler
+from openshores.protocol.framing import encode_size
 
 TARGET = Path("reference/openshores-full/OpenShores.exe")
 CLIENT = Path("target/debug/openshores-client")
@@ -27,6 +29,11 @@ def assembly(start, end):
         f"--stop-address={end:#x}", str(TARGET)], text=True)
 
 
+scene_reader = assembly(0x1405E79A0, 0x1405E7B60)
+assert "1405e79c7:" in scene_reader and "142892690 <__imp__ZN11QDataStreamC1ERK10QByteArray>" in scene_reader
+assert "1405e79df:" in scene_reader and "movl   $0x7,0xe8(%rsp)" in scene_reader
+assert "call   140b27e30 <_ZN6DaAtom10RxUpdateIdER11QDataStream>" in scene_reader
+assert "call   140b4e470 <_ZN6DaAtom12RxUpdateBaseER11QDataStream>" in scene_reader
 base = assembly(0x140B4E470, 0x140B4E880)
 assert "140b4e49a:" in base and "test   $0x1,%al" in base
 assert "call   1408b2c50 <_ZN9AuAtomPos2RxER11QDataStream>" in base
@@ -138,6 +145,61 @@ for profile in ("type-widths", "single", "double"):
     for malformed in (b"", b"\x00" * 12, struct.pack(">IqB", 1, 2, 1)):
         assert run(profile, malformed, "inspect-native-base").returncode != 0
     assert run(profile, bytes(4097), "inspect-native-base").returncode != 0
+native_kinds = {
+    0x02: "Animal", 0x03: "Arena", 0x04: "Asteroid", 0x05: "Person",
+    0x06: "Building", 0x12: "Designer", 0x13: "DesignPlane", 0x14: "Effect",
+    0x15: "Galaxy", 0x16: "Item", 0x17: "Missile", 0x18: "Npc",
+    0x19: "Spacecraft", 0x1A: "Sector", 0x1C: "SolarSystem", 0x1D: "Star",
+    0x1E: "Teleporter", 0x20: "Universe", 0x21: "Vehicle", 0x23: "GasGiant",
+    0x24: "Globe", 0x27: "Ring", 0x28: "RingSection",
+}
+def atom(payload):
+    return subprocess.run([str(CLIENT), "inspect-native-atom", payload.hex()],
+                          capture_output=True, text=True)
+
+for opcode in range(256):
+    payload = bytes([opcode]) + struct.pack(">IqBBId", 0xF1234567, -123, 1, 0x83, 77, 12345678.125) + b"\xde\xad"
+    result = atom(payload)
+    assert result.returncode == 0, result.stderr
+    record = json.loads(result.stdout)
+    kind = native_kinds.get(opcode)
+    if kind is None:
+        assert record == dict(kind=None, payload_hex=payload.hex())
+    else:
+        assert record["kind"] == kind
+        assert record["can_render_environment"] == (opcode in (0x03, 0x12, 0x1A, 0x1C))
+        assert record["base"] == dict(id=0xF1234567, timestamp_ms=-123, flags=1,
+            position=dict(flags=0x83, parent=77, position=[12345678.125, 0.0, 0.0], rotation=[0.0] * 3),
+            created_ms=None, modified_ms=None, in_motion=False, consumed_bytes=26,
+            tail_kind="type-specific", tail_hex="dead")
+        assert atom(bytes([opcode])).returncode != 0
+assert atom(bytes(4097)).returncode != 0
+assert atom(b"").returncode != 0
+
+with tempfile.TemporaryDirectory(prefix="openshores-native-capture-") as temporary:
+    packets = [b"\xff\x01\x02\x03", bytes([0x16]) +
+        struct.pack(">IqBBId", 7, 123, 1, 0x83, 77, 12345678.125) + b"\xde\xad"]
+    capture_bytes = b"".join(encode_size(len(packet)) + packet for packet in packets)
+    path = Path(temporary) / "native.bin"
+    path.write_bytes(capture_bytes)
+    result = subprocess.run([str(CLIENT), "inspect-native-capture", str(path)], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    rows = [json.loads(line) for line in result.stdout.splitlines()]
+    assert rows[0] == dict(frames=2, payload_bytes=sum(map(len, packets)))
+    for index, packet in enumerate(packets):
+        assert rows[index + 1]["frame"] == index
+        assert rows[index + 1]["opcode"] == packet[0]
+        assert rows[index + 1]["payload_sha1"] == hashlib.sha1(packet).hexdigest()
+    assert rows[1]["kind"] is None and rows[1]["tail_bytes"] == len(packets[0])
+    assert rows[2]["kind"] == "Item" and rows[2]["id"] == 7
+    assert rows[2]["position"]["position"][0] == 12345678.125
+    assert rows[2]["tail_bytes"] == 2
+    assert path.read_bytes() == capture_bytes
+    path.write_bytes(capture_bytes[:-1])
+    result = subprocess.run([str(CLIENT), "inspect-native-capture", str(path)], capture_output=True, text=True)
+    assert result.returncode != 0 and not result.stdout
+print("Native capture CLI: independent framing, prefix replay, raw hashes, unchanged source and truncated-frame rejection verified.")
+print("Native atom dispatch: all 256 opcodes, 23 kinds, legacy double preservation and unknown payload retention verified offline.")
 print(f"Native ID/base prefix: {prefix_cases} independent fixtures preserve unknown tail kinds and bytes.")
 print(f"Native packed fields: {cases} independent profile/flag fixtures; "
       "local matrices match source body axes; both-pole gravity alignment, "

@@ -6,6 +6,12 @@ six-slot login/avatar selection, live scene state, Bevy base terrain and primiti
 entity markers, Gear/Bio panels, and verified inventory actions. Original UI,
 animation, collision and asset presentation remain unfinished.
 
+The patched executable's native atom opcodes/layout differ from the supplied
+server writers. The GUI currently uses that reference-server profile; native
+dispatch, packed prefixes and position-state primitives are being ported
+separately, not auto-detected or substituted into local sessions. See the
+[native protocol/transform evidence and remaining work](docs/native-entity-transforms.md).
+
 Assets come from a user-supplied Hazeron installation. On launch, choose its folder
 with **Choose Hazeron installation…**; extraction and geometry
 conversion run in the background and write only to a user-local cache, never
@@ -406,6 +412,11 @@ Bevy is the preferred future 3D renderer; GPUI remains a UI candidate. See
 For a disposable local avatar, `login` also accepts
 `--position-report X Y Z RX RY RZ` with `--avatar` and `--watch-seconds`.
 These are raw wire coordinates/rotation, not camera angles or walking controls.
+
+The separate patched-native plain-item reader and its evidence are documented
+in [native item decoding](docs/native-items.md). `just test-native-items` checks
+the native factory/reader anchors and independent offline fixtures. This does
+not switch the playable reference-server client to native protocol decoding.
 Values must be finite and fit in f32; pickup/move/drop combinations are rejected.
 This local test profile sends two identical reports 500 ms apart, accommodating
 the reference server's first-occurrence opcode logging branch.

@@ -62,6 +62,10 @@ test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py
     nix develop .#server-test --command python tests/native_transform_vtables.py
 
+# Patched item common-reader anchors and independent fixtures; no target execution.
+test-native-items: build
+    nix develop .#server-test --command python tests/native_items.py
+
 # Full GUI inventory/world workflow against a disposable local server.
 test-gui: build-client
     nix develop .#server-test --command python tests/local_server.py gui

@@ -8,6 +8,56 @@ The original executable was not run; no public service was contacted.
 
 ## Protocol boundary
 
+### Native scene stream and dispatch
+
+Static `DtClient::ReadPacket` at `0x1405e79a0` constructs a QDataStream from
+the packet QByteArray at `0x1405e79c7`, then stores version `7` at stream
+offset `0x18` (`0x1405e79df`). Qt's header maps 7 to Qt 4.0 and defines the
+inline version setter as writing that field. This is before atom ID and base
+reads at `0x1405e7ac7` and `0x1405e7b55`. Therefore the established native
+scene path uses type-width floats/doubles, not a guessed Qt 5 default.
+Sources: [Qt header](https://raw.githubusercontent.com/qt/qtbase/5.15/src/corelib/serialization/qdatastream.h)
+and [Qt precision rules](https://doc.qt.io/archives/qt-5.15/qdatastream.html#setFloatingPointPrecision).
+The two explicit precision setter calls found in GNU disassembly belong to
+STL binary file read/write routines, not scene networking.
+
+`DaAtom::Create` at `0x140b2ce40` uses a signed-offset jump table at
+`0x1421f7d98`. Static byte/disassembly checks bind all 23 supported cases
+through `0x28` to their actual constructors; unsupported entries go to the
+warning/null path. These IDs are **not** the supplied server's opcode profile:
+native person/item/globe are `0x05/0x16/0x24`, whereas the current reference
+writers use `0x12/0x11/0x1f`. Native `0x12` constructs a designer, not a
+person. Local-server tests never established those profiles were identical.
+
+`src/world/native_atom.rs` now supplies a separate native kind table and
+unframed atom-prefix dispatcher. It uses the established scene type-width
+encoding and preserves the remainder without calling source-profile body
+decoders. Unknown/non-atom opcodes remain unclassified. This is not yet wired
+into the connected source-server client: full native bodies, framing/version
+pairing and native hierarchy application remain unfinished.
+
+`inspect-native-atom HEX_UNFRAMED_PAYLOAD` exercises that dispatcher offline
+with the established Qt 4.0 profile. Its bounded JSON output distinguishes a
+known native kind/base prefix from an unclassified payload retained byte-exactly.
+All 256 opcode values are checked through the CLI against an independent Python
+fixture; all 23 supported kinds, unsupported/non-atom payload preservation,
+truncated known prefixes and over-budget inputs are covered. The signed-offset
+constructor table is separately pinned to the executable bytes. Type-specific
+bodies are still opaque, including for known kinds; no source-profile fallback
+is attempted when a native prefix fails.
+
+`inspect-native-capture CAPTURE_FILE` replays native payloads in the existing
+length-prefixed capture container. It reports per-frame prefix fields, untouched
+tail lengths and hashes of complete raw payloads. Library records retain full
+payload bytes, including unclassified packets, without self-referential storage
+or inferred world state. Limits are 20,000 frames, 16 MiB/frame and 128 MiB
+aggregate payload; tightened limits are tested, and aggregate allocation is
+bounded before reading each payload. Empty capture, truncated framing/payload,
+malformed known prefixes and unknown layers are distinguished in tests. The CLI
+validates the complete capture before printing, avoiding partial success output.
+An independent Python capture fixture verifies hashes and source immutability.
+This is container/prefix replay, not complete native transport or body parity.
+
 `src/world/native_prefix.rs` now reads the established native ID/base prefix
 through an explicit separate API, starting **after** the enclosing opcode/layer
 dispatch. Static `RxUpdateId` at `0x140b27e30` reads AuId at `0x140b27e41`
@@ -90,6 +140,19 @@ still need to be connected before changing the renderer.
 
 ## Next evidence
 
+The focused REA/Ghidra request for `AuEther::ChangeParent` completed in
+662878 ms. Its complete validated result is retained in
+[`evidence/native-change-parent.json`](evidence/native-change-parent.json),
+Evidence `ev_dfbbe0fef5b9c6fd2e622ca7b9edeca369bbf22ff043936c84b9a083aa836a46`.
+It resolves the atom through two maps, updates old/new parent subatom sets,
+has an `AddRunaway` path when a destination parent lock is absent, and selects
+`SetPosByEther` or `SetPosAndOrientByEther` from the boolean argument before
+invalidating environment transforms. This is static pseudocode, not runtime
+observation; Qt container typing and helper semantics still require tracing.
+Ghidra reports a terminal-flow limitation at the final invalidation call, not
+proof of a non-returning helper. The hierarchy remains unported: native scene
+state must not turn its outstanding reparent obligation into a guessed copy.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`
@@ -102,10 +165,40 @@ so an omitted packed parent there starts null, not automatically the entity's
 previous parent. The field-only codec retains omission separately and does not
 pretend to implement these state effects.
 
-A focused REA/Ghidra analysis of `ChangePos` is now running with full output
-directed to `target/native-change-position.json`. Treat that file as pending
-until the owned process completes and the JSON is validated; no new Evidence
-ID or recovered-source claim is assigned to the pending result.
+A focused REA/Ghidra analysis of `ChangePos` completed in 647716 ms. Complete
+validated output: [native-change-position.json](evidence/native-change-position.json).
+Evidence ID: `ev_d923b01d16b006a4eb70b9ab784b256baf7d59bce5607ba02de98ca274ebb7c7`.
+It corroborates the parent-change delegation, local matrix copy, movement-timer
+restart and conditional normal-descendant cache invalidation. Ghidra 12.1.2,
+default profile; the ephemeral analysis closed without modifying source bytes.
+Recovered pseudocode is not original source or runtime observation. The bridge
+notes a terminal-call flow-model limitation at the ChangeParent tail call;
+that does not establish that ChangeParent is a non-returning function.
+
+`src/atom_position/state.rs` now ports the fresh wire-position local-copy and
+delegation decision. A managed parent change returns a reparent obligation
+without mutating old position/cache state. Same-parent or unmanaged updates
+copy the double local matrix and report timer restart plus conditional
+normal-descendant invalidation. A fresh omitted parent becomes null, not the
+previous parent. These obligations are not silently treated as completed:
+AuEther reparenting, descendant traversal and cached
+matrix inverse handling remain unfinished. Only fresh decoded wire positions
+are accepted by this path, not arbitrary preexisting AuAtomPos matrices.
+
+`NativeAtomPrefix::apply_fresh_position` connects decoded native prefixes to
+that state primitive without parsing opaque layers or mutating the source-
+profile client. Tests cover managed/unmanaged changes, identical updates,
+valid/invalid environment caches, omission/null-parent behavior, preserved
+doubles, invalid input atomicity and a decoded-packet-to-local-state path.
+
+The state primitive now owns a monotonic position-update epoch. Every successful
+local-copy update restarts it, even when geometry is identical; reparent
+delegation and rejected geometry leave it unchanged. An explicit injected
+`Instant` path supports deterministic tests. Age is unknown before a known
+update and if a supplied clock precedes that update; no wire timestamp or
+wall-clock arithmetic substitutes for the native elapsed timer. Tests cover
+age/reset behavior, identical updates and failure/delegation preservation.
+Velocity integration and interpolation remain unimplemented.
 
 A focused REA/Ghidra decompilation of `DaAtom::EnvTransform` completed in
 661421 ms; the complete validated JSON is retained in
@@ -141,6 +234,16 @@ false (`31 c0 c3`). `DaSector` at `0x1419469e0` and `DaSolarSystem` at
 `0x14190d5a0` return true (`b8 01 00 00 00 c3`). Solar systems additionally
 override `EnvTransform` at `0x140bc3c60`; that implementation has not yet been
 traced. No behavior for uninspected classes is inferred from this list.
+
+The extended static check now also inspects the `CanRenderEnvironment` slot
+for every one of the 23 native factory classes and verifies the machine-code
+constant return value. Exactly arenas, designers, sectors and solar systems
+return true. `DaArena` uses `0x141941fa0`; `DaDesigner` inherits
+`DaDesignBase` at `0x141906050`. Design planes are false, not designers.
+`NativeAtomKind::can_render_environment` ports this complete selected-image
+capability mapping, and the native CLI reports it. Independent opcode fixtures
+check the Rust values while vtable/code-byte checks bind them to the executable.
+This predicate does not establish all classes' own EnvTransform overrides.
 
 `src/atom_position/environment.rs` ports the three established base
 composition branches with explicit `ParentEnvironment` input: missing parent
@@ -222,7 +325,8 @@ environment composition, interpolation, or arbitrary existing-matrix updates.
 Qt's float/double overload names do **not** alone prove the number of wire
 bytes: Qt 4.6+ precision settings affect both overloads, while older versions
 use their type widths. The codec therefore requires a caller-selected
-`FloatEncoding`; no native network configuration has been selected yet.
+`FloatEncoding`; raw diagnostic callers remain explicit. The native atom
+dispatcher now selects type widths from the scene reader evidence above.
 Source: [Qt 5.15 QDataStream precision documentation](https://doc.qt.io/archives/qt-5.15/qdatastream.html#setFloatingPointPrecision).
 DoublePrecision float fields are still narrowed to f32 before storing them,
 matching the native float destination. Non-finite values and f32 overflow are
