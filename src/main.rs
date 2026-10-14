@@ -241,6 +241,279 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = env::args().skip(1).collect();
     match args.first().map(String::as_str) {
         Some("login") => login_command(&args[1..])?,
+        Some("export-model" | "preview-model") if args.len() == 3 => {
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(64 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let variant = openshores_client::model::ModelVariant::from_name(&args[1])?;
+            let model = openshores_client::model::Model::decode(&data, variant)?;
+            let mut output = io::BufWriter::new(
+                fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(&args[2])?,
+            );
+            if args[0] == "export-model" {
+                openshores_client::model_preview::write_obj(&model, &mut output)?;
+            } else {
+                openshores_client::model_preview::write_svg(&model, &mut output)?;
+            }
+            use std::io::Write;
+            output.flush()?;
+            println!(
+                "Wrote raw geometry debugging export to {:?}. Original transforms, materials, normals, UVs and animation are omitted.",
+                args[2]
+            );
+        }
+        Some("verify-models") if args.len() == 3 => {
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(128 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let resources =
+                openshores_client::qt_resources::QtResources::open(&data, args[2].parse()?)?;
+            let (mut count, mut meshes, mut vertices, mut faces) = (0usize, 0usize, 0usize, 0usize);
+            let mut rejected = 0usize;
+            for (index, entry) in resources.entries().iter().enumerate() {
+                let Ok(variant) = openshores_client::model::ModelVariant::from_name(&entry.path)
+                else {
+                    continue;
+                };
+                let payload = resources.read_entry(index)?;
+                let model = match openshores_client::model::Model::decode(&payload, variant) {
+                    Ok(model) => model,
+                    Err(error) => {
+                        eprintln!("Rejected {:?}: {error}", entry.path);
+                        rejected += 1;
+                        continue;
+                    }
+                };
+                let vertex_count: usize = model.meshes.iter().map(|mesh| mesh.vertices.len()).sum();
+                let face_count: usize = model.meshes.iter().map(|mesh| mesh.faces.len()).sum();
+                println!(
+                    "{index}: {:?}; meshes={}; vertices={vertex_count}; faces={face_count}; geometry={}; materials={}",
+                    entry.path,
+                    model.meshes.len(),
+                    model.geometry_digest(),
+                    model.material_digest()
+                );
+                count += 1;
+                meshes += model.meshes.len();
+                vertices += vertex_count;
+                faces += face_count;
+            }
+            println!(
+                "Verified {count} models; {meshes} meshes; {vertices} vertices; {faces} faces. Coordinates and matrices remain unconverted; opaque chunks remain retained."
+            );
+            if rejected != 0 {
+                return Err(format!(
+                    "{rejected} model resources rejected; verification is incomplete"
+                )
+                .into());
+            }
+        }
+        Some("inspect-model") if args.len() == 2 => {
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(64 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let variant = openshores_client::model::ModelVariant::from_name(&args[1])?;
+            let model = openshores_client::model::Model::decode(&data, variant)?;
+            println!(
+                "Model: {variant:?}; {} meshes; {} materials; version={:?}; master_scale={:?}; geometry={}",
+                model.meshes.len(),
+                model.materials.len(),
+                model.version,
+                model.master_scale,
+                model.geometry_digest()
+            );
+            for mesh in &model.meshes {
+                println!(
+                    "{:?}: {} vertices; {} faces; UV count={:?}; matrix={:?}; smoothing={}; material groups={}",
+                    String::from_utf8_lossy(&mesh.name),
+                    mesh.vertices.len(),
+                    mesh.faces.len(),
+                    mesh.uvs.as_ref().map(Vec::len),
+                    mesh.matrix,
+                    mesh.smoothing.is_some(),
+                    mesh.materials.len()
+                );
+            }
+            for material in &model.materials {
+                println!(
+                    "Material {:?}: colors={:?}; amounts={:?}; two_sided={}; shading={:?}; textures={:?}",
+                    material
+                        .name
+                        .as_ref()
+                        .map(|name| String::from_utf8_lossy(name)),
+                    material.colors,
+                    material.amounts,
+                    material.two_sided,
+                    material.shading,
+                    material
+                        .textures
+                        .iter()
+                        .map(|name| String::from_utf8_lossy(name))
+                        .collect::<Vec<_>>()
+                );
+            }
+            println!(
+                "Raw coordinate bounds: {:?}",
+                openshores_client::model_preview::bounds(&model)?
+            );
+            println!(
+                "Chunk counts: {:?}; {} opaque chunks retained.",
+                model.chunks,
+                model.opaque.len()
+            );
+        }
+        Some("inspect-qt" | "verify-qt" | "extract-qt") => {
+            let extract = args[0] == "extract-qt";
+            if args.len() != if extract { 6 } else { 3 } {
+                return Err("usage: inspect-qt/verify-qt DLL VERSION; extract-qt DLL VERSION POOL_INDEX ENTRY_INDEX NEW_OUTPUT".into());
+            }
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(128 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let resources =
+                openshores_client::qt_resources::QtResources::open(&data, args[2].parse()?)?;
+            if extract {
+                let pool: usize = args[3].parse()?;
+                let index: usize = args[4].parse()?;
+                let entry = resources
+                    .entries()
+                    .get(index)
+                    .ok_or("resource index out of range")?;
+                if entry.pool != pool {
+                    return Err("entry does not belong to the requested pool".into());
+                }
+                let payload = resources.read_entry(index)?;
+                use std::io::Write;
+                let mut output = fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(&args[5])?;
+                output.write_all(&payload)?;
+                println!("Extracted {:?}: {} bytes.", entry.path, payload.len());
+            } else {
+                println!(
+                    "Qt: {} pools; {} entries.",
+                    resources.pool_count,
+                    resources.entries().len()
+                );
+                let mut total = 0usize;
+                for (index, entry) in resources.entries().iter().enumerate() {
+                    if args[0] == "verify-qt" {
+                        total = total
+                            .checked_add(resources.read_entry(index)?.len())
+                            .ok_or("Qt total overflow")?;
+                        if total > 512 * 1024 * 1024 {
+                            return Err("Qt verification exceeds total output budget".into());
+                        }
+                    } else {
+                        println!(
+                            "{index}: pool={} {:?}; locale={}/{}; flags={}; stored={}; raw={}; offset={}",
+                            entry.pool,
+                            entry.path,
+                            entry.country,
+                            entry.language,
+                            entry.flags,
+                            entry.stored_bytes,
+                            entry.original_bytes,
+                            entry.payload_range.start
+                        );
+                    }
+                }
+                if args[0] == "verify-qt" {
+                    println!(
+                        "Verified {} entries; {total} raw bytes.",
+                        resources.entries().len()
+                    );
+                }
+            }
+        }
+        Some("inspect-har" | "verify-har") if args.len() == 2 => {
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(64 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let archive = openshores_client::har::HarArchive::open(&data)?;
+            println!(
+                "HAR: {} entries; index at {}.",
+                archive.entries().len(),
+                archive.index_offset
+            );
+            let mut total = 0usize;
+            for entry in archive.entries() {
+                if args[0] == "verify-har" {
+                    let payload = archive.read_entry(&entry.name)?;
+                    total += payload.len();
+                } else {
+                    println!(
+                        "{:?}: {} compressed / {} raw bytes; offset={}",
+                        entry.name, entry.compressed_bytes, entry.original_bytes, entry.offset
+                    );
+                }
+            }
+            if args[0] == "verify-har" {
+                println!(
+                    "Verified {} entries; {total} decompressed bytes.",
+                    archive.entries().len()
+                );
+            }
+        }
+        Some("extract-har") if args.len() == 4 => {
+            let mut data = Vec::new();
+            fs::File::open(&args[1])?
+                .take(64 * 1024 * 1024 + 1)
+                .read_to_end(&mut data)?;
+            let archive = openshores_client::har::HarArchive::open(&data)?;
+            let payload = archive.read_entry(&args[2])?;
+            use std::io::Write;
+            let mut file = fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(&args[3])?;
+            file.write_all(&payload)?;
+            println!(
+                "Extracted {:?}: {} bytes to {:?}.",
+                args[2],
+                payload.len(),
+                args[3]
+            );
+        }
+        Some("sample-terrain") if args.len() == 5 => {
+            let world = openshores_client::world::read_capture(&mut io::BufReader::new(
+                fs::File::open(&args[1])?,
+            ))?;
+            let id = if let Some(hex) = args[2].strip_prefix("0x") {
+                u32::from_str_radix(hex, 16)?
+            } else {
+                args[2].parse::<u32>()?
+            };
+            let surface = world
+                .entities
+                .get(&id)
+                .and_then(|entity| entity.globe_surface)
+                .ok_or("selected atom has no decoded globe surface")?;
+            let lat = args[3].parse::<f64>()?.to_radians();
+            let lon = args[4].parse::<f64>()?.to_radians();
+            println!(
+                "Globe: {id:#010x}; size={}; atmosphere={}/{}; water={}",
+                surface.size, surface.atmosphere_type, surface.atmosphere_density, surface.water
+            );
+            println!("Terrain parameters: {:?}", surface.terrain.values());
+            println!(
+                "Base altitude MSL: {:.12}",
+                surface.terrain.altitude_msl(surface.size, lat, lon)?
+            );
+            println!(
+                "Surface position: {:?}",
+                surface.terrain.surface_position(surface.size, lat, lon)?
+            );
+        }
         Some("inspect-scene") if args.len() == 2 => {
             let world = openshores_client::world::read_capture(&mut io::BufReader::new(
                 fs::File::open(&args[1])?,
@@ -248,8 +521,18 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             print_world(&world)?;
             for entity in world.entities.values() {
                 println!(
-                    "{:#010x} {:?} name={:?} parent={:?} transform={:?}",
-                    entity.id, entity.kind, entity.name, entity.parent, entity.transform
+                    "{:#010x} {:?} name={:?} parent={:?} transform={:?} globe_surface={:?} geology={:?}",
+                    entity.id,
+                    entity.kind,
+                    entity.name,
+                    entity.parent,
+                    entity.transform,
+                    entity.globe_surface,
+                    entity.geology.as_ref().map(|geo| (
+                        geo.features.len(),
+                        geo.declared_count,
+                        geo.unknown_kind
+                    ))
                 );
             }
         }
@@ -283,9 +566,17 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                 );
             }
         }
-        None | Some("--help" | "-h") => println!(
-            "OpenShores Rust client foundation\n\nUsage: cargo run -- login USERNAME [IP:PORT] [--password-stdin]\n       cargo run -- login USERNAME [IP:PORT] --avatar ID [--scene-port PORT] [--chat-port PORT] [--capture NEW_FILE] [--password-stdin]\n       cargo run -- inspect-reference [directory]\n       cargo run -- inspect-gd [GD file]\n       cargo run -- inspect-scene CAPTURE_FILE\n\nLogin defaults to 127.0.0.1:16757 and prompts for a hidden password.\nAvatar scene probes only use loopback endpoints and stop after the initial manifest.\nInventory excludes symlinks, .git, __pycache__, and .venv."
-        ),
+        None | Some("--help" | "-h") => {
+            println!(
+                "Raw-coordinate model commands:\n       cargo run -- inspect-model MODEL_FILE\n       cargo run -- verify-models DLL VERSION\n       cargo run -- export-model MODEL_FILE NEW_OBJ_FILE\n       cargo run -- preview-model MODEL_FILE NEW_SVG_FILE\n"
+            );
+            println!(
+                "Qt resource commands (version must be established from registration code):\n       cargo run -- inspect-qt DLL VERSION\n       cargo run -- verify-qt DLL VERSION\n       cargo run -- extract-qt DLL VERSION POOL_INDEX ENTRY_INDEX NEW_OUTPUT_FILE\n"
+            );
+            println!(
+                "OpenShores Rust client foundation\n\nUsage: cargo run -- login USERNAME [IP:PORT] [--password-stdin]\n       cargo run -- login USERNAME [IP:PORT] --avatar ID [--scene-port PORT] [--chat-port PORT] [--capture NEW_FILE] [--password-stdin]\n       cargo run -- inspect-reference [directory]\n       cargo run -- inspect-gd [GD file]\n       cargo run -- inspect-scene CAPTURE_FILE\n       cargo run -- sample-terrain CAPTURE_FILE GLOBE_ID LAT_DEGREES LON_DEGREES\n       cargo run -- inspect-har HAR_FILE\n       cargo run -- verify-har HAR_FILE\n       cargo run -- extract-har HAR_FILE ENTRY_NAME NEW_OUTPUT_FILE\n\nLogin defaults to 127.0.0.1:16757 and prompts for a hidden password.\nAvatar scene probes only use loopback endpoints and stop after the initial manifest.\nInventory excludes symlinks, .git, __pycache__, and .venv."
+            );
+        }
         _ => return Err("unknown command; use --help".into()),
     }
     Ok(())

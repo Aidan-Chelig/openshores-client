@@ -181,3 +181,284 @@ Native decompilation through the current MCP process has not been verified with
 Ghidra from the new dev shell. Original title-screen layout, model/archive
 decoding, rendering behavior, and complete protocol coverage remain unknown.
 No original executable has been launched during this initial investigation.
+
+## Globe surface and base terrain
+
+`WorldState` now reads the globe class flag-1 fields: size, atmosphere type,
+atmosphere density, water, and six big-endian float terrain parameters. Sparse
+rename updates preserve those fields. Other class payloads remain retained as
+raw body bytes. Source: `gameplay/world_body.py::_build_wg_body`.
+
+`src/terrain.rs` ports `protocol/rng.py::AuNoise` and
+`gameplay/worldgen/terrain.py::terrain_altitude_msl`: wrapping 32-bit integer
+hashes, cosine interpolation over cubic-smoothed coordinates, seven octaves,
+dateline/pole blends, relief shaping, and size-dependent altitude scale.
+The six parameters retain their serialized f32 values while sampling uses f64,
+matching the reference's numerical path. Computed heights match Python within
+1e-8 at 32 fixed coordinates and 56 coordinates across all 14 local-server
+globes. Cases include negative noise offsets, small/large worlds, signed relief,
+the dateline, and both poles.
+
+The reference radius is `size * (1000 / 1.609344 * 5)`.
+`surface_position` uses a Z-polar sphere consistent with `city_model.py`'s
+latitude/longitude conversion. Inputs use radians in the library and degrees
+in `sample-terrain`. This reproduces reference numeric conventions, not a new
+unit or axis convention for Bevy.
+
+Geological deformation, road deformation, vegetation, water surfaces, ring terrain,
+client mesh resolution/LOD, and renderer coordinate conversion are unfinished.
+Do not treat the base terrain sample as the final collision/rendering surface.
+
+`src/geology.rs` decodes the nine natural-feature layouts in
+`gameplay/worldgen/geology.py`: valley, crater, mesa, volcano, river, chasm,
+henge, vent, and fissure. GlobeLLF serializes longitude before latitude;
+henge slabs are signed bytes. Source parameters retain their a/b/c/d ordering
+without inventing physical semantics. Globe class flag-8 supplies the feature
+count and records; sparse omission preserves previous geology while an explicit
+zero count clears it. Roads and other unknown kinds stop prefix decoding, since
+records are not length-prefixed. The complete original body remains retained,
+including unsupported records and subsequent DNA/flora/home fields. CLI replay
+reports decoded count, declared count, and the first unsupported kind.
+Tests cover all nine record boundaries, truncation, signed fields, coordinate
+order, unsupported types, and sparse-state clearing/preservation. These records
+do not yet alter the base terrain sampler.
+
+## Sound archive and model-container investigation
+
+The supplied `openshores-full/sfx.har` is 48,329,782 bytes, SHA-256
+`f3cc87b792846953f58a72c7b04670cee3010f18e3191008d03d7fc731b6ea5c`.
+Its first big-endian u32 is the index's absolute file offset, 48,327,443.
+Each data block is a u32 byte length followed by a qCompress payload (u32
+original size and zlib stream). The final compressed index expands to 5,038
+bytes: a u32 count, then 112 QString names with three u32 fields (compressed
+payload bytes, file offset, original bytes).
+
+This layout is derived from static bytes, decoded directory fields, and complete
+cross-checks of every block's bounds, lengths, and decompression. It is not a
+decompilation of the original archive reader, nor a claim about every HAR file.
+`src/har.rs` provides read-only inventory/extraction with bounded input/output,
+duplicate-name and range checks, and complete zlib stream/checksum validation.
+
+Verified: all 112 blocks decompress to 61,423,617 total bytes. Python independently
+checks directory metadata and zlib output; Chat2.wav, GasLamp.wav, and
+EatingPlants.wav extract byte-identically and have RIFF/WAVE signatures.
+Repeated extraction refuses to overwrite existing outputs.
+
+REA PE resource inspection of `openshores-full/libAuModelRes.dll` found one
+resource (type 16/version metadata), covering three directory entries. Artifact:
+39,878,835 bytes, SHA-256
+`b18a3c77240472daacbb0ca8c7fcb0b3337c8ee9d4a5649e05885e81b46dd1fa`.
+Evidence: `ev_861aeb2f58b2bccefae8e1d131d23d86872b12506af48db93cde81dd95763d2b`.
+Its PE imports include Qt resource registration and zlib resource support;
+ASCII strings include model texture filenames. This supports investigating
+Qt-registered resource arrays separately from the PE resource tree. Resource
+extraction is now implemented below; geometry-format decoding is unresolved.
+
+### Ghidra setup verification
+
+The default Nix development environment supplies Ghidra 12.1.2 and a full
+64-bit JDK 21, exporting `GHIDRA_INSTALL_DIR` and `JAVA_HOME`. REA's provider
+doctor passes all Ghidra checks. Codex's REA launcher is configured to run
+through this repository's Nix shell; reconnect/restart is required for the
+already-running MCP process to inherit that environment.
+
+A CLI Ghidra static analysis of the same model-resource DLL completed
+successfully, reporting 22 segments, 133 procedures, and 2,258 defined strings.
+Evidence: `ev_3a92f59f20eac372daa03112b04c9b6e4f22408a65c8c86a51e27166e33c4fd3`.
+This verifies the headless analysis pipeline, not model-format decoding or
+runtime behavior. No original client/DLL was executed.
+
+### Qt model resource extraction
+
+After the MCP restart, Ghidra opens the model DLL successfully. The ten
+`qInitResources_AuModel1..10` functions each register resource version 3.
+Assembly, rather than pseudocode string rendering, establishes the pointers:
+ECX=3, RDX=tree, R8=names, R9=data. First pool VAs are `0x327974000`,
+`0x3279756a0`, and `0x327977880` respectively. COFF local symbols identify
+the same arrays. REA procedure inventory evidence:
+`ev_26ff35278aa4d8d2693e48d309676274ace863e82f8d77a45631921755ce2585`.
+
+Registration function evidence, pools 1 through 10:
+
+- `ev_5e5886d2a0da83b742eb5ce9d23009ca7e891ac93ae69a41a335b9cc4d00c62b`
+- `ev_02b7bfd7359b2baa1a2880095e77e2a75f16f00304eed3e060541fc9573a0ad6`
+- `ev_a07c6ebeb11a5132e7fc043bb343395fc7175edf52b59040242dd263febb41e3`
+- `ev_9dbc5890bf27ddabf53d8c4061bbe0a369407b36a5e4ad5a4142aacbab471742`
+- `ev_5118b5408c7fa53cc74821fe43fe233d2d4a90bc69e4d957d0d599c9bf87dcba`
+- `ev_74d9af27c1c759b18c04c7342dedc052b91938f1a8ea9ad8659a7b05d144c90a`
+- `ev_5926f7b1936e1805740f55fca8c7231e12a45973aa0872827af6e474103ce7fa`
+- `ev_998ad04c0c1e4c803d24eed7e9ec1affd188ebb488f97134734c41c84cece1bd`
+- `ev_5d737e0321593684579f35cf57b27ff1084f28ff017d2afe0f3a977634562835`
+- `ev_92cfabb5d4eb670b339baecafc80d6ffd35f3598ec9f656dc9610b5a041a8ebb`
+
+`src/qt_resources.rs` reads the supplied symbol-bearing PE/COFF layout without
+loading code. It pairs repeated data/name/tree triplets, maps section-relative
+symbol values to file bytes, bounds each array by neighboring symbols and
+section size, and traverses version-specific Qt tree records. Names, child
+indices, flags, locale fields, and payload lengths follow
+[Qt's resource implementation](https://raw.githubusercontent.com/qt/qtbase/5.15/src/corelib/io/qresource.cpp).
+File identity includes pool, path, country, and language; no locale precedence
+or cross-pool override behavior is assumed. The caller supplies the established
+resource version. Zlib uses the bounded, checksum-validating qCompress decoder;
+zstd is explicitly unsupported.
+
+Validated inventory: 446 entries, 40,143,188 decoded bytes: 167 PNG, 33 BMP,
+41 `.3ds`, 139 `.3dsN`, 34 `.3dsX`, and 32 `.SoH` paths. Those extensions are
+inventory facts, not proof that the variants are standard 3DS geometry.
+`tests/reference_models.py` independently uses GNU objdump for COFF locations,
+Python struct/UTF-16 for tree decoding, and Python zlib for compressed payloads.
+It compares all metadata and verifies total decompression, then extracts one
+file of each extension byte-for-byte and checks PNG/BMP signatures. Existing
+outputs and mismatched pools are rejected. Rust synthetic tests cover truncated
+images, cycles, child/data bounds, invalid UTF-16/path names, unsupported flags,
+and invalid COFF sections/auxiliary counts. No reference assets are modified
+or copied into the repository as fixtures.
+
+Limitations: this is a source-profile reader, not a general PE loader; resource
+arrays in stripped/differently organized DLLs are unsupported. See the following
+raw geometry decoder for the supported 3DS-family layouts. Original render
+coordinate conversion, material rules, and `.SoH` structure remain unresolved,
+as does the Bevy renderer.
+
+### Raw 3DS-family geometry
+
+`src/model.rs` reads the chunked `.3ds`, `.3dsN`, and `.3dsX` resources without
+loading executable code. Chunks have little-endian u16 IDs and u32 total byte
+lengths. The root is `0x4d4d`, editor `0x3d3d`, named object `0x4000`, mesh
+`0x4100`, vertex list `0x4110`, face list `0x4120`, material assignments `0x4130`,
+UV list `0x4140`, smoothing masks `0x4150`, and local matrix `0x4160`. Ordinary
+layouts are cross-checked against
+[Assimp's importer](https://raw.githubusercontent.com/assimp/assimp/master/code/AssetLib/3DS/3DSLoader.cpp).
+This is an independent bounded reader, not an integration of Assimp rendering.
+
+GNU objdump static disassembly of `OpenShores.exe` establishes the variant
+selection in `Au3dsGLSLModel::Load(QFile&, double)` at VA `0x1413a6620`:
+`.3dsX` selects MODEL_TYPE 3, `.3dsNT` selects 2, `.3dsN` selects 1, otherwise 0.
+Referenced strings are at VAs `0x1422cf22d`, `0x1422cf233`, `0x1422cf23a`.
+`Au3dsGLSLObject::LoadFaceListChunk` at `0x1413a3e00` reads three u16 vertex
+indices and a u16 flag. Types 1 and 2 additionally read nine floats; type 2
+then reads ten more. Types 0 and 3 use the ordinary eight-byte face record.
+This establishes the 44-byte N records versus eight-byte standard/X records.
+The supplied model DLL has no `.3dsNT` inventory; that variant is not supported.
+Extra N floats retain their wire order with no assumed shading semantics.
+
+These function observations are from GNU disassembly, **not REA decompilation**:
+Ghidra's initial main-executable analysis exceeded the MCP's 300-second tool
+deadline; a targeted face-loader dossier request also timed out. The native
+session was subsequently closed successfully. REA open establishes artifact
+identity only: SHA-256
+`285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
+No runtime behavior was observed and no original client was executed.
+
+The decoder keeps vertex coordinates, matrix values, UVs, face flags, smoothing
+masks, material assignments, material names and texture filenames unchanged.
+Names retain raw bytes; CLI display uses lossy UTF-8 only for readability.
+Unknown chunks (including keyframes and unimplemented material controls) retain original
+file ranges backed by the complete model bytes. No transform, axis swap,
+winding change, normalization, master-scale application, smoothing computation,
+texture lookup, or keyframe evaluation is performed.
+
+Independent Python raw-byte geometry decoding matches every Rust geometry
+digest for 209 models: 618 meshes, 91,638 vertices, and 126,800 faces. The digest
+is SHA-1 for parity, not authenticity; it includes names, positions, indices,
+flags, N extensions, UVs, matrices, smoothing masks, and face-material groups
+in source order. `tests/reference_geometry.py` documents that serialization.
+162 meshes contain unequal UV and vertex counts. These are preserved without
+inventing a repair or claiming how the original client maps them.
+
+Five `.3ds` resources have root sizes larger than their extracted payloads:
+`mRocketShip` (90,955 vs 4,053), `mHitSeed` (2,540 vs 1,696), `mNeptune`
+(441,834 vs 2,654), `mHitPierce` (1,958 vs 1,618), and `mHitSlash`
+(1,957 vs 1,617). Strict decoding rejects them; the original client's handling
+and whether those size fields are stale remain unresolved. `verify-models`
+continues scanning, reports all failures, and exits nonzero when any resource
+is rejected. `.SoH` payloads remain opaque.
+
+Synthetic tests cover all three supported variants, every truncation boundary,
+opaque retention, wrong variants, invalid indices/material assignments,
+non-finite fields, malformed chunk lengths, names, duplicate empty lists,
+and chunk-budget exhaustion. Input (64 MiB), element (one million), chunk
+(100,000), name, and depth limits bound allocation and traversal.
+
+### Raw material records
+
+`Material` now retains ordered ambient/diffuse/specular color records,
+integer/float amount records, the two-sided chunk's presence, and the shading
+word. Color parents `0xa010/0xa020/0xa030` contain `0x10` (three f32), `0x11`
+(three bytes), or `0x12` (three linear-color bytes). Multiple representations
+are kept independently, without choosing a renderer color or gamma conversion.
+`0x13` and other unsupported encodings remain opaque.
+
+GNU objdump disassembly of the same executable's
+`Au3dsGLSLMaterial::LoadColorChunk` at `0x141394bc0` confirms those three
+recognized IDs. Byte colors target separate QColor slots for `0x11` and
+`0x12`; no original QColor/shader selection semantics are claimed here.
+`LoadAmountChunk` at `0x141394a30` recognizes `0x30`, reading a u16 when the
+chunk is eight bytes or MODEL_TYPE is 3, otherwise reading four bytes as an
+f32. This differs from treating every `0x30` payload as an integer percentage.
+The reader supports exact two-byte payloads and, outside X, exact four-byte
+payloads; other lengths are rejected rather than tolerated as the original
+code's loose bounds might permit. Amount parent IDs `0xa040/0xa041/0xa050/
+0xa052/0xa053` remain explicit. No division by 100, opacity inversion,
+shininess remapping, clamping, or Bevy material conversion occurs.
+
+The ordinary color, shading and two-sided layouts are independently documented
+in [Assimp's importer](https://raw.githubusercontent.com/assimp/assimp/master/code/AssetLib/3DS/3DSLoader.cpp).
+This comparison establishes format fields, not equivalence between Assimp and
+OpenShores rendering. A focused REA CLI attempt on the original color loader
+was limited to 180 seconds and timed out (exit 124), without yielding successful
+decompilation Evidence. No MCP configuration was changed and no target code
+was executed.
+
+`tests/reference_geometry.py` independently parses raw material bytes and
+matches all material SHA-1 fingerprints across the same 209 decodable models:
+297 materials, 1,041 color records, 250 integer amounts, and 384 float amounts.
+The separate material fingerprint includes names, texture filenames, ordered
+color/property/encoding records, amount/property/width/value records, two-sided
+presence, and optional shading. Existing geometry fingerprints remain unchanged.
+`inspect-model` prints these records; `verify-models` reports both fingerprints.
+Synthetic tests cover source order, multiple color encodings, opaque retention,
+both amount widths, X rejection of float amounts, malformed lengths,
+non-finite values, and duplicate shading.
+
+Remaining renderer obligations: choose/apply original color representations,
+establish normal-extension semantics and generated smoothing behavior, resolve
+texture names/overrides, explain unequal UV counts, and reproduce material
+conversion and coordinate transforms before claiming visual fidelity.
+
+### Offline geometry inspection exports
+
+`src/model_preview.rs` adds two diagnostic exports from the already-decoded
+geometry, independent of Bevy or GPUI. `export-model INPUT NEW.obj` writes
+raw `v` coordinates and triangle `f` indices with cumulative one-based offsets
+across named mesh groups. Generated object identifiers prevent model names
+from injecting directives. f32 shortest decimal formatting preserves position
+bits on round-trip, including negative zero. Winding and source mesh order
+remain unchanged. The basic OBJ position/index convention is cross-checked
+against [Blender's exporter](https://raw.githubusercontent.com/blender/blender/main/source/blender/io/wavefront_obj/exporter/obj_export_file_writer.cc).
+
+`preview-model INPUT NEW.svg` produces three orthographic wireframe panels for
+raw X/Y, X/Z, and Y/Z. The panel layout, uniform fitting, colors and typography
+are debugging design choices, not reconstructed OpenShores UI. Model bounds
+use f64 to keep projections finite for extreme f32 inputs and zero-sized spans.
+Coordinates in SVG paths are rounded to three decimal places. Every triangle
+is drawn in each panel, with no depth ordering, occlusion, lighting or materials.
+No untrusted model strings, scripts, external references or textures enter SVG.
+
+Both exports omit original local matrices, master scale, normals, smoothing,
+UVs, materials and keyframes, and are explicitly labeled as raw-geometry
+diagnostics. They do not resolve the remaining fidelity obligations and must
+not be presented as the original renderer. CLI outputs use create-new files
+and report write/flush errors; a failed write can leave a partial new output.
+Invalid source decoding occurs before any output is created.
+
+`tests/reference_preview.py` independently checks every export across all 209
+valid models: OBJ coordinates round-trip byte-exactly, global indices/winding
+and mesh grouping match source data, and all SVG path coordinates agree with
+Python orthographic projections within rounding tolerance. Existing output
+files remain unchanged on retry; malformed inputs create no outputs. Rust
+tests cover cross-mesh offsets, negative zero, empty and coincident geometry,
+extreme finite coordinates, invalid indices/non-finite positions, untrusted
+names, and writer failures. The previous five invalid-root models remain
+rejected. `inspect-model` now displays UV counts rather than just presence,
+and reports the raw-coordinate bounds.

@@ -5,6 +5,7 @@ edition = "2024"
 rust-version = "1.95"
 
 [dependencies]
+flate2 = "1.1.10"
 rpassword = "7.5.4"
 sha1 = "0.10.7"
 zeroize = "1.9.0"

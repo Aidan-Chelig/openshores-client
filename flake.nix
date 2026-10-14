@@ -175,6 +175,7 @@
             }"
             export LIBCLANG_PATH="${pkgs.libclang.lib}/lib"
             export GHIDRA_INSTALL_DIR="${pkgs.ghidra}/lib/ghidra"
+            export JAVA_HOME="${pkgs.jdk21}"
           '';
 
           # 👇 we can just use `rustToolchain` here:
@@ -219,6 +220,7 @@
             # must be supplied separately under its commercial license.
             nodejs_24
             ghidra
+            jdk21
             jadx
             binwalk
             unblob

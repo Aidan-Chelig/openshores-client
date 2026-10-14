@@ -1,8 +1,10 @@
 //! Scene atom prefixes and sparse state, independent of rendering/UI frameworks.
 //! Type-specific trailing bytes remain available without claiming full decoding.
 use crate::{
+    geology::Geology,
     protocol::{QtReader, read_frame},
     scene::{self, SceneTime},
+    terrain::{GlobeSurface, TerrainParameters},
 };
 use std::{
     collections::{BTreeMap, BTreeSet},
@@ -75,6 +77,8 @@ pub struct AtomUpdate {
     /// Outer None means omitted; Some(None) is an explicit Qt null string.
     pub name: Option<Option<String>>,
     pub world_identity: Option<WorldIdentity>,
+    pub globe_surface: Option<GlobeSurface>,
+    pub geology: Option<Geology>,
     /// Full type-specific body, including any fields decoded above.
     pub body: Vec<u8>,
 }
@@ -122,6 +126,8 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
     let body = bytes[bytes.len() - input.remaining()..].to_vec();
     let mut name = None;
     let mut world_identity = None;
+    let mut globe_surface = None;
+    let mut geology = None;
     match kind {
         AtomKind::Sector | AtomKind::SolarSystem => name = Some(input.read_string()?),
         AtomKind::Person | AtomKind::Vehicle | AtomKind::Building => {
@@ -143,6 +149,28 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
                     world_identity = Some(WorldIdentity { zone, orbit_au });
                 }
                 name = Some(input.read_string()?);
+                if kind == AtomKind::Globe {
+                    let globe_flags = input.read_u8()?;
+                    if globe_flags & 1 != 0 {
+                        let size = input.read_u8()?;
+                        let atmosphere_type = input.read_u8()?;
+                        let atmosphere_density = input.read_u8()?;
+                        let water = input.read_u8()?;
+                        let values = (0..6)
+                            .map(|_| input.read_f32())
+                            .collect::<io::Result<Vec<_>>>()?;
+                        globe_surface = Some(GlobeSurface {
+                            size,
+                            atmosphere_type,
+                            atmosphere_density,
+                            water,
+                            terrain: TerrainParameters::new(values.try_into().unwrap())?,
+                        });
+                    }
+                    if globe_flags & 8 != 0 {
+                        geology = Some(Geology::read_prefix(&mut input)?);
+                    }
+                }
             }
         }
         _ => {}
@@ -158,6 +186,8 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
         transform,
         name,
         world_identity,
+        globe_surface,
+        geology,
         body,
     }))
 }
@@ -173,6 +203,8 @@ pub struct Entity {
     pub transform: Option<Transform>,
     pub name: Option<String>,
     pub world_identity: Option<WorldIdentity>,
+    pub globe_surface: Option<GlobeSurface>,
+    pub geology: Option<Geology>,
     /// Latest update body only; full packet history belongs to the capture.
     pub last_body: Vec<u8>,
     pub last_base_flags: u8,
@@ -223,6 +255,8 @@ impl WorldState {
             transform: None,
             name: None,
             world_identity: None,
+            globe_surface: None,
+            geology: None,
             last_body: Vec::new(),
             last_base_flags: 0,
         });
@@ -244,6 +278,12 @@ impl WorldState {
         }
         if let Some(identity) = update.world_identity {
             entity.world_identity = Some(identity);
+        }
+        if let Some(surface) = update.globe_surface {
+            entity.globe_surface = Some(surface);
+        }
+        if let Some(geology) = update.geology {
+            entity.geology = Some(geology);
         }
         entity.last_body = update.body;
         entity.last_base_flags = update.base_flags;
@@ -347,6 +387,73 @@ mod tests {
             .chunks_exact(2)
             .map(|p| u8::from_str_radix(std::str::from_utf8(p).unwrap(), 16).unwrap())
             .collect()
+    }
+
+    #[test]
+    fn geology_updates_are_sparse_and_explicit_empty_clears() {
+        let mut bytes = hex(include_str!("../tests/fixtures/atom-globe.hex"));
+        // Existing fixture ends after class terrain: add flag-8 and a mesa.
+        let flag_index = bytes.len() - 29;
+        bytes[flag_index] |= 8;
+        bytes.extend([1, 3]);
+        for value in [2.0f32, 1.0, 3.0, 4.0] {
+            bytes.extend(value.to_be_bytes());
+        }
+        let mut world = WorldState::default();
+        world.ingest(&bytes).unwrap();
+        let geology = world.entities[&7].geology.clone().unwrap();
+        assert_eq!(geology.features[0].latitude, 1.0);
+        world
+            .ingest(&hex(include_str!(
+                "../tests/fixtures/atom-globe-rename.hex"
+            )))
+            .unwrap();
+        assert_eq!(world.entities[&7].geology.as_ref(), Some(&geology));
+        bytes.truncate(bytes.len() - 18);
+        bytes.push(0);
+        world.ingest(&bytes).unwrap();
+        assert!(
+            world.entities[&7]
+                .geology
+                .as_ref()
+                .unwrap()
+                .features
+                .is_empty()
+        );
+    }
+
+    #[test]
+    fn globe_rename_preserves_surface_and_rejects_truncated_parameters() {
+        let bytes = hex(include_str!("../tests/fixtures/atom-globe.hex"));
+        let mut world = WorldState::default();
+        world.ingest(&bytes).unwrap();
+        let surface = world.entities[&7].globe_surface.unwrap();
+        assert_eq!(
+            (
+                surface.size,
+                surface.atmosphere_type,
+                surface.atmosphere_density,
+                surface.water
+            ),
+            (8, 0, 60, 40)
+        );
+        assert_eq!(
+            world.entities[&7].world_identity.as_ref().unwrap().orbit_au,
+            1.0
+        );
+        assert!(
+            (surface.terrain.altitude_msl(8, 0.0, 0.0).unwrap() - 216.0207753854408).abs() < 1e-8
+        );
+        world
+            .ingest(&hex(include_str!(
+                "../tests/fixtures/atom-globe-rename.hex"
+            )))
+            .unwrap();
+        assert_eq!(world.entities[&7].name.as_deref(), Some("Renamed"));
+        assert_eq!(world.entities[&7].globe_surface, Some(surface));
+        for end in 0..bytes.len() {
+            assert!(decode_atom(&bytes[..end]).is_err());
+        }
     }
 
     #[test]

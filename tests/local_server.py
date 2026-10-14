@@ -10,10 +10,12 @@ from __future__ import annotations
 
 import asyncio
 import getpass
+import math
 import os
 from pathlib import Path
 import signal
 import socket
+import struct
 import subprocess
 import sys
 import tempfile
@@ -131,6 +133,8 @@ def main() -> None:
                 assert "client ACK for" in log_path.read_text(), "reference server did not observe init ACK"
                 async def verify_capture():
                     from openshores.protocol.framing import read_framed
+                    from openshores.protocol.stream import QDS
+                    from openshores.gameplay.worldgen.terrain import terrain_altitude_msl
                     reader = asyncio.StreamReader()
                     reader.feed_data((runtime / "scene.frames").read_bytes())
                     reader.feed_eof()
@@ -145,6 +149,37 @@ def main() -> None:
                     ids = [int.from_bytes(packets[-1][i:i+4], "big") for i in range(8, len(packets[-1]), 4)]
                     assert len(ids) == count and avatar in ids
                     print(f"Captured {len(packets)} scene packets; final manifest verified", flush=True)
+                    surfaces = {}
+                    for packet in packets:
+                        if packet[0] != 0x1F:
+                            continue
+                        stream = QDS(packet)
+                        stream.read_u8()
+                        globe_id = stream.read_u32()
+                        stream._take(8)
+                        base = stream.read_u8()
+                        if base & 1: stream._take(4)
+                        if base & 2: stream._take(8)
+                        if base & 4: stream._take(8)
+                        if base & 8: stream._take(24)
+                        flags = stream.read_u8()
+                        if flags & 1: stream._take(9)
+                        stream.read_qstring()
+                        globe_flags = stream.read_u8()
+                        if globe_flags & 1:
+                            size, atm_type, density, water = stream._take(4)
+                            parameters = struct.unpack(">6f", stream._take(24))
+                            surfaces[globe_id] = (size, parameters)
+                    samples = 0
+                    for globe_id, (size, parameters) in surfaces.items():
+                        for lat_deg, lon_deg in [(0, 0), (37.5, -122), (89, 179), (-90, -180)]:
+                            expected = terrain_altitude_msl(parameters, size, math.radians(lat_deg), math.radians(lon_deg))
+                            output = run(binary, "sample-terrain", str(runtime / "scene.frames"), str(globe_id), str(lat_deg), str(lon_deg)).stdout
+                            actual = float(next(line.split(": ", 1)[1] for line in output.splitlines() if line.startswith("Base altitude MSL:")))
+                            assert abs(actual - expected) < 1e-8, (globe_id, lat_deg, lon_deg, actual, expected)
+                            samples += 1
+                    assert len(surfaces) == 14
+                    print(f"Base terrain matches Python for {samples} coordinates across {len(surfaces)} captured globes", flush=True)
                 asyncio.run(verify_capture())
                 replay = run(binary, "inspect-scene", str(runtime / "scene.frames"))
                 assert "Decoded 49 entities; 49 visible in manifest." in replay.stdout, replay.stdout
