@@ -159,6 +159,23 @@ pub struct ScheduledCommand {
     pub command: crate::commands::SceneCommand,
 }
 
+#[derive(Clone, Copy, Debug)]
+pub struct ScheduledChatCommand {
+    pub after: Duration,
+    pub command: crate::commands::ChatCommand,
+}
+
+#[derive(Clone, Copy)]
+enum OutboundCommand {
+    Scene(crate::commands::SceneCommand),
+    Chat(crate::commands::ChatCommand),
+}
+
+struct QueuedCommand {
+    after: Duration,
+    command: OutboundCommand,
+}
+
 impl Session {
     /// Inventory drop requests belong to the authenticated chat channel.
     /// A completed write is not an acknowledgement or optimistic state change.
@@ -209,9 +226,47 @@ impl Session {
 
     /// Bounded same-channel commands interleaved with incoming state updates.
     pub fn watch_with_commands(
-        mut self,
+        self,
         duration: Duration,
         commands: &[ScheduledCommand],
+    ) -> io::Result<WatchedScene> {
+        if commands.len() > 16 {
+            return Err(invalid("scheduled command budget exceeded"));
+        }
+        let queue: Vec<_> = commands
+            .iter()
+            .map(|scheduled| QueuedCommand {
+                after: scheduled.after,
+                command: OutboundCommand::Scene(scheduled.command),
+            })
+            .collect();
+        self.watch_scheduled(duration, &queue)
+    }
+
+    /// Same-channel chat writes while receiving the corresponding scene updates.
+    /// A delay is a test profile, not a server-readiness acknowledgement.
+    pub fn watch_with_chat_commands(
+        self,
+        duration: Duration,
+        commands: &[ScheduledChatCommand],
+    ) -> io::Result<WatchedScene> {
+        if commands.len() > 16 {
+            return Err(invalid("scheduled command budget exceeded"));
+        }
+        let queue: Vec<_> = commands
+            .iter()
+            .map(|scheduled| QueuedCommand {
+                after: scheduled.after,
+                command: OutboundCommand::Chat(scheduled.command),
+            })
+            .collect();
+        self.watch_scheduled(duration, &queue)
+    }
+
+    fn watch_scheduled(
+        mut self,
+        duration: Duration,
+        commands: &[QueuedCommand],
     ) -> io::Result<WatchedScene> {
         if duration.is_zero() || duration > Duration::from_secs(60) {
             return Err(invalid(
@@ -223,7 +278,17 @@ impl Session {
         }
         let mut previous = Duration::ZERO;
         for scheduled in commands {
-            scheduled.command.encode()?;
+            match scheduled.command {
+                OutboundCommand::Scene(command) => {
+                    command.encode()?;
+                }
+                OutboundCommand::Chat(command) => {
+                    command.encode()?;
+                    if self._chat.is_none() {
+                        return Err(invalid("authenticated chat channel is unavailable"));
+                    }
+                }
+            }
             if scheduled.after < previous || scheduled.after >= duration {
                 return Err(invalid(
                     "scheduled commands must be ordered and precede watch end",
@@ -253,10 +318,11 @@ impl Session {
                 else {
                     break 'watch WatchEnd::DurationElapsed;
                 };
-                self.send_command(
-                    commands[next_command].command,
-                    left.min(Duration::from_secs(1)),
-                )?;
+                let timeout = left.min(Duration::from_secs(1));
+                match commands[next_command].command {
+                    OutboundCommand::Scene(command) => self.send_command(command, timeout)?,
+                    OutboundCommand::Chat(command) => self.send_chat_command(command, timeout)?,
+                }
                 next_command += 1;
             }
             let wake = commands
@@ -594,6 +660,17 @@ mod tests {
             read_frame(&mut chat, 100).unwrap(),
             command.encode().unwrap()
         );
+        let use_command = crate::commands::ChatCommand::UseGear {
+            source_slot: 5,
+            source_subindex: 3,
+        };
+        session
+            .send_chat_command(use_command, Duration::from_secs(1))
+            .unwrap();
+        assert_eq!(
+            read_frame(&mut chat, 100).unwrap(),
+            use_command.encode().unwrap()
+        );
         assert!(session.bootstrap.packets.is_empty());
         world.set_nonblocking(true).unwrap();
         initial.set_nonblocking(true).unwrap();
@@ -612,6 +689,111 @@ mod tests {
                 .send_chat_command(command, Duration::from_secs(1))
                 .is_err()
         );
+    }
+
+    #[test]
+    fn scheduled_chat_requests_receive_scene_updates_without_cross_channel_writes() {
+        let (session, mut world, mut initial, mut chat) = watch_fixture();
+        let command = crate::commands::ChatCommand::UseGear {
+            source_slot: 5,
+            source_subindex: 3,
+        };
+        let server = std::thread::spawn(move || {
+            chat.set_read_timeout(Some(Duration::from_secs(1))).unwrap();
+            write_frame(&mut world, &[0xfe, 1]).unwrap();
+            assert_eq!(
+                read_frame(&mut chat, 100).unwrap(),
+                command.encode().unwrap()
+            );
+            write_frame(&mut world, &[0xfe, 2]).unwrap();
+            world.shutdown(std::net::Shutdown::Write).unwrap();
+            assert_eq!(
+                read_frame(&mut world, 100).unwrap_err().kind(),
+                io::ErrorKind::UnexpectedEof
+            );
+            assert_eq!(
+                read_frame(&mut initial, 100).unwrap_err().kind(),
+                io::ErrorKind::UnexpectedEof
+            );
+        });
+        let watched = session
+            .watch_with_chat_commands(
+                Duration::from_millis(200),
+                &[ScheduledChatCommand {
+                    after: Duration::from_millis(40),
+                    command,
+                }],
+            )
+            .unwrap();
+        server.join().unwrap();
+        assert_eq!(watched.capture.packets, vec![vec![0xfe, 1], vec![0xfe, 2]]);
+        assert_eq!(watched.end, WatchEnd::ServerClosed);
+    }
+
+    #[test]
+    fn invalid_chat_schedules_and_missing_channel_fail_before_any_write() {
+        let command = crate::commands::ChatCommand::UseGear {
+            source_slot: 5,
+            source_subindex: 3,
+        };
+        for schedule in [
+            vec![
+                ScheduledChatCommand {
+                    after: Duration::ZERO,
+                    command
+                };
+                17
+            ],
+            vec![ScheduledChatCommand {
+                after: Duration::from_secs(1),
+                command,
+            }],
+            vec![
+                ScheduledChatCommand {
+                    after: Duration::from_millis(50),
+                    command,
+                },
+                ScheduledChatCommand {
+                    after: Duration::ZERO,
+                    command,
+                },
+            ],
+            vec![
+                ScheduledChatCommand {
+                    after: Duration::ZERO,
+                    command,
+                },
+                ScheduledChatCommand {
+                    after: Duration::from_millis(40),
+                    command: crate::commands::ChatCommand::UseGear {
+                        source_slot: 0,
+                        source_subindex: 0,
+                    },
+                },
+            ],
+        ] {
+            let (session, _world, _initial, mut chat) = watch_fixture();
+            assert!(
+                session
+                    .watch_with_chat_commands(Duration::from_millis(100), &schedule)
+                    .is_err()
+            );
+            assert_eq!(chat.read(&mut [0]).unwrap(), 0);
+        }
+        let (mut session, _world, _initial, mut chat) = watch_fixture();
+        session._chat = None;
+        assert!(
+            session
+                .watch_with_chat_commands(
+                    Duration::from_millis(100),
+                    &[ScheduledChatCommand {
+                        after: Duration::ZERO,
+                        command
+                    }]
+                )
+                .is_err()
+        );
+        assert_eq!(chat.read(&mut [0]).unwrap(), 0);
     }
 
     #[test]

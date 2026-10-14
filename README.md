@@ -369,3 +369,15 @@ nix develop .#server-test --command python tests/reference_commodities.py
 The source comparison covers all 615 supplied commodity rows. Catalog rows are
 not world entities; numeric gameplay properties remain raw and resource paths
 are labels, not automatically opened files.
+
+Top-level item use is available as `login ... --use-gear SRC_SLOT SRC_SUB`
+with `--avatar` and `--watch-seconds 3..60`. Slots are 1..9 and subindices
+0..15; nested paths are not supported. This local test profile sends one chat
+request after one second while receiving scene updates. It cannot combine with
+other actions except look-at. The server decides whether an item is consumed,
+toggled or ignored; Rust does not optimistically change gear or hunger.
+
+```sh
+nix develop .#server-test --command python tests/local_server.py use
+nix develop .#server-test --command python tests/local_server.py use-noop
+```

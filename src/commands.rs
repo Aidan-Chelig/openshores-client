@@ -3,6 +3,11 @@ use std::io;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ChatCommand {
+    /// Top-level item use; the server decides food/toggle/no-op behavior.
+    UseGear {
+        source_slot: u8,
+        source_subindex: u8,
+    },
     /// Top-level gear only. Nested source-path encoding is not inferred.
     DropGear {
         source_slot: u8,
@@ -13,6 +18,18 @@ pub enum ChatCommand {
 impl ChatCommand {
     pub fn encode(self) -> io::Result<Vec<u8>> {
         match self {
+            Self::UseGear {
+                source_slot,
+                source_subindex,
+            } => {
+                if !(1..=9).contains(&source_slot) || source_subindex > 15 {
+                    return Err(io::Error::new(
+                        io::ErrorKind::InvalidInput,
+                        "use requires slot 1..=9 and subindex 0..=15",
+                    ));
+                }
+                Ok(vec![0x69, source_slot, source_subindex])
+            }
             Self::DropGear {
                 source_slot,
                 source_subindex,
@@ -123,6 +140,28 @@ impl SceneCommand {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn use_gear_has_no_nested_path_or_inferred_effect_fields() {
+        assert_eq!(
+            ChatCommand::UseGear {
+                source_slot: 5,
+                source_subindex: 3
+            }
+            .encode()
+            .unwrap(),
+            [0x69, 5, 3]
+        );
+        for (source_slot, source_subindex) in [(0, 0), (10, 0), (5, 16), (5, 0x80)] {
+            assert!(
+                ChatCommand::UseGear {
+                    source_slot,
+                    source_subindex
+                }
+                .encode()
+                .is_err()
+            );
+        }
+    }
     #[test]
     fn pose_report_preserves_all_ten_bytes_and_neutral_auxiliary_fields() {
         let poses = [0, 1, 2, 3, 4, 5, 6, 7, 0x73, 0xff];

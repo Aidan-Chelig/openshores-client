@@ -47,6 +47,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut look_at = None;
     let mut move_gear = None;
     let mut drop_gear = None;
+    let mut use_gear = None;
     let mut pickup_target = None;
     let mut position_report = None;
     let mut pose_report = None;
@@ -112,21 +113,34 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 return Err("--pickup-target requires a nonzero item ID".into());
             }
             pickup_target = Some(target);
-        } else if arg == "--drop-gear" && drop_gear.is_none() {
+        } else if (arg == "--drop-gear" && drop_gear.is_none())
+            || (arg == "--use-gear" && use_gear.is_none())
+        {
             let source_slot = options
                 .next()
-                .ok_or("--drop-gear requires SRC_SLOT SRC_SUB")?
+                .ok_or("--drop-gear/--use-gear requires SRC_SLOT SRC_SUB")?
                 .parse::<u8>()?;
             let source_subindex = options
                 .next()
-                .ok_or("--drop-gear requires SRC_SLOT SRC_SUB")?
+                .ok_or("--drop-gear/--use-gear requires SRC_SLOT SRC_SUB")?
                 .parse::<u8>()?;
-            let command = openshores_client::commands::ChatCommand::DropGear {
-                source_slot,
-                source_subindex,
+            let command = if arg == "--use-gear" {
+                openshores_client::commands::ChatCommand::UseGear {
+                    source_slot,
+                    source_subindex,
+                }
+            } else {
+                openshores_client::commands::ChatCommand::DropGear {
+                    source_slot,
+                    source_subindex,
+                }
             };
             command.encode()?;
-            drop_gear = Some(command);
+            if arg == "--use-gear" {
+                use_gear = Some(command);
+            } else {
+                drop_gear = Some(command);
+            }
         } else if arg == "--move-gear" && move_gear.is_none() {
             let mut fields = [0u8; 3];
             for field in &mut fields {
@@ -174,6 +188,20 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
             return Err("usage: login USERNAME [IP:PORT] [--password-stdin]".into());
         }
     }
+    if use_gear.is_some()
+        && (drop_gear.is_some()
+            || move_gear.is_some()
+            || pickup_target.is_some()
+            || position_report.is_some()
+            || pose_report.is_some())
+    {
+        return Err(
+            "--use-gear cannot be combined with drop/move/pickup/position/pose commands".into(),
+        );
+    }
+    if use_gear.is_some() && watch_seconds.is_none_or(|seconds| seconds < 3) {
+        return Err("--use-gear requires --watch-seconds 3..=60".into());
+    }
     if position_report.is_some()
         && (pickup_target.is_some() || drop_gear.is_some() || move_gear.is_some())
     {
@@ -199,6 +227,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     if (look_at.is_some()
         || move_gear.is_some()
         || drop_gear.is_some()
+        || use_gear.is_some()
         || pickup_target.is_some()
         || position_report.is_some()
         || pose_report.is_some())
@@ -318,6 +347,16 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                             "Local raw-report test profile: {command:?}; two reports 500 ms apart (not an acknowledgement)."
                         );
                         session.watch_with_commands(Duration::from_secs(seconds), &schedule)?
+                    } else if let Some(command) = use_gear {
+                        use openshores_client::local_scene::ScheduledChatCommand;
+                        let schedule = [ScheduledChatCommand {
+                            after: Duration::from_secs(1),
+                            command,
+                        }];
+                        println!(
+                            "Local item-use test profile: {command:?}; one request after 1 second (not an acknowledgement)."
+                        );
+                        session.watch_with_chat_commands(Duration::from_secs(seconds), &schedule)?
                     } else {
                         session.watch(Duration::from_secs(seconds))?
                     };
@@ -346,7 +385,10 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 );
                 println!("Scene packet counts: {:?}", world.packet_counts);
                 print_world(&state)?;
-                if (move_gear.is_some() || drop_gear.is_some() || pickup_target.is_some())
+                if (move_gear.is_some()
+                    || drop_gear.is_some()
+                    || use_gear.is_some()
+                    || pickup_target.is_some())
                     && let Some(gear) = state
                         .entities
                         .get(&id)
@@ -1062,6 +1104,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
+                "Top-level local item-use test (requires --avatar and --watch-seconds 3..60):\n       --use-gear SRC_SLOT SRC_SUB\n       One request after 1 second; slots 1..9, subindices 0..15; cannot combine with other gameplay actions except look-at\n"
+            );
+            println!(
                 "Server-provided commodity labels/resources:\n       cargo run -- inspect-commodities CAPTURE_FILE\n"
             );
             println!(
@@ -1126,6 +1171,46 @@ mod tests {
     #[test]
     fn invalid_gameplay_arguments_fail_before_password_or_network() {
         for flags in [
+            vec!["--use-gear", "5", "3"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--use-gear",
+                "5",
+                "3",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--use-gear",
+                "0",
+                "3",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--use-gear",
+                "5",
+                "16",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "3",
+                "--use-gear",
+                "5",
+                "3",
+                "--drop-gear",
+                "5",
+                "0",
+            ],
             vec!["--pose-report", "25252525252525252525"],
             vec![
                 "--avatar",

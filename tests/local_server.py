@@ -66,8 +66,8 @@ async def seed(dsn: str, username: str = USERNAME) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop", "pickup", "position", "peer", "pose") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose]")
+    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop]")
     binary = str(ROOT / "target/debug/openshores-client")
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
@@ -115,6 +115,15 @@ def main() -> None:
             os.chdir(runtime)
             print("Generating the reference world and synthetic avatar", flush=True)
             avatar = asyncio.run(seed(dsn))
+            if action == "use":
+                async def hungry_avatar():
+                    import asyncpg
+                    conn = await asyncpg.connect(dsn)
+                    try:
+                        await conn.execute('UPDATE "a_Person" SET "hunger"=40, "autoEat"=0 WHERE "id"=$1', avatar)
+                    finally:
+                        await conn.close()
+                asyncio.run(hungry_avatar())
             observer_avatar = asyncio.run(seed(dsn, "rust-local-observer")) if action == "peer" else None
             for sock in reservations:
                 sock.close()
@@ -136,7 +145,9 @@ def main() -> None:
                     while not (runtime / "peer.ready").exists():
                         assert observer.poll() is None and time.monotonic() < deadline, "observer bootstrap failed"
                         time.sleep(0.1)
-                action_args = (["--pose-report", "25252525252525252525"] if action == "pose" else
+                action_args = (["--use-gear", "5", "3"] if action == "use" else
+                               ["--use-gear", "5", "0"] if action == "use-noop" else
+                               ["--pose-report", "25252525252525252525"] if action == "pose" else
                                ["--position-report", "12.5", "-3.25", "1001", "0.25", "-0.5", "0.75"] if action in ("position", "peer") else
                                ["--pickup-target", "0x70000000"] if action == "pickup" else
                                ["--drop-gear", "5", "0"] if action == "drop" else
@@ -284,6 +295,33 @@ def main() -> None:
                     assert original in watched_player, watched_player
                     assert "declared_slots: 8" in watched_player and "commodity_id: 130" in watched_player, watched_player
                     assert "PICKUP target=0x70000000" in log_path.read_text(), log_path.read_text()[-8000:]
+                elif action == "use":
+                    eaten = "slot_type: 5, subindex: 3, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 15,"
+                    assert eaten in player_line and eaten not in watched_player
+                    assert original in watched_player and "declared_slots: 6" in watched_player
+                    remaining_beans = "slot_type: 4, subindex: 0, item: Some(InventoryItem { type_id: 8, common: AuItemPrefix { flags: 12, commodity_id: 15,"
+                    assert remaining_beans in watched_player
+                    initial_hunger = int(player_line.split("hunger_raw: Some(", 1)[1].split(")", 1)[0]) & 0x7fff
+                    final_hunger = int(watched_player.split("hunger_raw: Some(", 1)[1].split(")", 1)[0]) & 0x7fff
+                    assert final_hunger > initial_hunger
+                    assert "UseGearItem (ate Beans)" in log_path.read_text()
+                    async def persisted_hunger():
+                        import asyncpg
+                        conn = await asyncpg.connect(dsn)
+                        try:
+                            deadline = time.monotonic() + 10
+                            while True:
+                                hunger = await conn.fetchval('SELECT "hunger" FROM "a_Person" WHERE "id"=$1', avatar)
+                                if hunger > 40:
+                                    return
+                                assert time.monotonic() < deadline, hunger
+                                await asyncio.sleep(0.1)
+                        finally:
+                            await conn.close()
+                    asyncio.run(persisted_hunger())
+                elif action == "use-noop":
+                    assert original in watched_player and "declared_slots: 7" in watched_player
+                    assert "UseGearItem [no-op]" in log_path.read_text()
                 if action in ("position", "pose"):
                     assert original in watched_player and "declared_slots: 7" in watched_player
                     async def verify_position():

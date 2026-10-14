@@ -1055,3 +1055,36 @@ pickup resolved commodity 130 to the received name `Hay`. Labels describe the
 server's commodity row, not an inferred classification from item subtype. Rust
 tests passed in headless (72) and viewer-enabled (81) configurations, with Clippy
 and formatting checks clean.
+
+### Top-level item use and scheduled authenticated chat
+
+`network/chat_channel/operations/inventory.py` accepts chat `0x69` followed by
+source slot and subindex. It decides food consumption, state-item toggling or
+no-op from the server's item data. `ChatCommand::UseGear` emits only those three
+bytes with slot 1..9/subindex 0..15. Nested path bits are rejected; client-side
+food classification, nutrition calculation, optimistic gear removal and
+acknowledgement inference are not added. The reference food branch currently
+uses hardcoded quality `0x3D`; Rust does not assume that is the actual item quality.
+
+The first local attempt exposed a reference-server startup race: chat binding
+can precede bio-ticker initialization, and immediate food use applied hunger
+`0 -> 28` instead of the database-seeded state. `watch_with_chat_commands`
+therefore adds bounded, ordered same-channel scheduling while receiving normal
+scene packets. It shares the existing watcher/deadlines/capture limits, caps
+commands at 16, validates every command before any write, and rejects unavailable
+chat up front. Separate scene/chat schedules do not assert cross-channel order.
+CLI `--use-gear` requires avatar/watch 3..60 seconds and uses one request at
+one second, with other actions except look-at rejected. The delay is an explicit
+local test profile, not an original-client delay or readiness acknowledgement.
+
+The disposable `use` test seeds hunger 40 with auto-eat disabled, consumes only
+slot 5/subindex 3 (Beans), verifies six received gear entries while the other
+Beans entry remains, checks increased received hunger and persisted database
+hunger, and replays the capture. `use-noop` requests use of Flag and checks
+unchanged seven-entry gear plus the source handler's no-op log. No world drop
+is fabricated for consumed items. Catalog/terrain/hierarchy checks stay enabled.
+Rust tests cover exact bytes/ranges, chat-only writes, interleaved incoming
+frames, invalid schedules/commands, missing chat and pre-credential CLI rejection.
+Both item-use modes and pickup regression passed on fresh isolated servers.
+All 75 headless and 84 viewer-enabled Rust tests passed, along with Clippy in
+both configurations, formatting and diff checks.
