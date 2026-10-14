@@ -191,3 +191,21 @@ for opcode, cls in native_classes.items():
     value = False if code[:3] == b"\x31\xc0\xc3" else True if code[:6] == b"\xb8\x01\x00\x00\x00\xc3" else None
     assert value == (opcode in (0x15, 0x1A, 0x1C, 0x20)), (opcode, cls, predicate, value)
 print("Native AddAtom routing: all 23 InStarField bindings and constant returns verified statically.")
+
+# Independent GNU byte observations, not a REA result or runtime oracle. These
+# pin the normal retirement-selection branch while full cleanup is reviewed.
+assert symbols["_ZN7AuEther15DeleteTrashAtomEv"] == 0x1408CD9C0
+assert symbols["_ZN8AuGlobal15InTickTockQueueERK4AuId"] == 0x1415A69D0
+for address, expected in [
+    (0x1408CDA8B, "49 29 c6"),  # reference-millisecond subtraction
+    (0x1408CDA8E, "49 81 fe 1f 4e 00 00"),  # compare with 19999ms
+    (0x1408CDA95, "7e 2c"),  # signed <= skips the liveness query
+    (0x1408CDAA9, "e8 22 8f cd 00"),  # InTickTockQueue
+    (0x1408CDAB0, "0f 84 92 00 00 00"),  # false branches to selection
+    (0x1408CDABF, "0f 11 4d 18"),  # queue-present resets stored epoch
+    (0x1408CDB54, "e8 e7 17 f3 00"),  # erase selected retention entry
+    (0x1408CDB9D, "ff 50 20"),  # normal non-instrumented virtual destruction
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native retirement selection: signed 20000ms gate, queue-protected timer restart and normal erase/destruction anchors pinned.")

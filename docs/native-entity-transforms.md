@@ -603,6 +603,19 @@ reproducing native duplicate allocation behavior. Qt locks, copy-on-write,
 diagnostic output, retained-object expiry/destruction and full native packet
 construction remain outside the adapter.
 
+A focused REA request for `_ZN7AuEther15DeleteTrashAtomEv` at `0x1408cd9c0`
+is running, with complete output reserved as `target/native-delete-trash-atom.json`.
+Cleanup implementation is pending that result's full control-flow review.
+Independent GNU static bytes (not a REA oracle) pin an initial selection branch:
+subtract reference milliseconds, skip while signed difference is at most 19999,
+query InTickTockQueue when older, restart the stored epoch if queued, otherwise
+erase the selected retention entry. Normal non-instrumented execution then
+calls the object's virtual slot `0x20`. Additional diagnostic/global-flag paths
+still require review; this bounded observation does not establish whole-function
+cleanup semantics, timer precision parity or which object is chosen first.
+`just test-native-transforms` verifies these anchors against the immutable
+patched executable digest without executing it.
+
 ## Existing native wire-position receiver
 
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's
