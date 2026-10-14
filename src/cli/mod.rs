@@ -7,6 +7,8 @@ use zeroize::Zeroizing;
 
 mod login;
 mod models;
+mod native_prefix;
+mod positions;
 use login::login_command;
 #[cfg(test)]
 use login::password_from_stdin;
@@ -149,6 +151,12 @@ fn print_terrain_statistics(mesh: &openshores_client::terrain_mesh::TerrainMesh)
 pub(super) fn run() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = env::args().skip(1).collect();
     if models::run(&args)? {
+        return Ok(());
+    }
+    if positions::run(&args)? {
+        return Ok(());
+    }
+    if native_prefix::run(&args)? {
         return Ok(());
     }
     match args.first().map(String::as_str) {
@@ -553,6 +561,12 @@ pub(super) fn run() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
         None | Some("--help" | "-h") => {
+            println!(
+                "Offline native ID/base prefix (after opcode; unknown layers retained):\n       cargo run -- inspect-native-base type-widths|single|double HEX_FIELDS_AFTER_OPCODE\n"
+            );
+            println!(
+                "Offline native packed-field inspection (explicit Qt encoding; not a scene frame):\n       cargo run -- inspect-atom-position type-widths|single|double HEX_RECORD\n       cargo run -- dump-atom-matrix type-widths|single|double HEX_RECORD\n"
+            );
             println!(
                 "Top-level local item-use test (requires --avatar and --watch-seconds 3..60):\n       --use-gear SRC_SLOT SRC_SUB\n       One request after 1 second; slots 1..9, subindices 0..15; cannot combine with other gameplay actions except look-at\n"
             );

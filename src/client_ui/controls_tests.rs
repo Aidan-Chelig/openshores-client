@@ -22,9 +22,20 @@ fn rightward_mouse_motion_turns_camera_right_at_both_poles() {
         };
         let right = basis.cross(up).normalize();
         let north = up.cross(right);
-        let view_right = north.cross(up).normalize();
-        let turned = north * yaw.cos() + right * yaw.sin();
-        assert!(turned.dot(view_right) > 0.0);
+        // Check Bevy's actual camera-local +X, not just the tangent basis:
+        // a sign error here would invert mouse-look at every latitude.
+        for pitch in [-1.4_f32, 0.0, 1.4] {
+            let initial_look = north * pitch.cos() + up * pitch.sin();
+            let initial_camera = Transform::IDENTITY.looking_to(initial_look, up);
+            let view_right = initial_camera.rotation * Vec3::X;
+            for turn in [-yaw, yaw] {
+                let turned = north * turn.cos() + right * turn.sin();
+                let look = turned * pitch.cos() + up * pitch.sin();
+                let camera = Transform::IDENTITY.looking_to(look, up);
+                assert!(look.dot(view_right) * turn > 0.0);
+                assert!((camera.rotation * Vec3::NEG_Z - look).length() < 1e-6);
+            }
+        }
     }
     app.world_mut()
         .resource_mut::<AccumulatedMouseMotion>()

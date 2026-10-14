@@ -1,0 +1,229 @@
+# Native entity transforms: investigation ledger
+
+Target: `reference/openshores-full/OpenShores.exe`, SHA-256
+`285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
+The observations below are static GNU `objdump` disassembly, not REA
+decompiler evidence or observed execution. Addresses are PE virtual addresses.
+The original executable was not run; no public service was contacted.
+
+## Protocol boundary
+
+`src/world/native_prefix.rs` now reads the established native ID/base prefix
+through an explicit separate API, starting **after** the enclosing opcode/layer
+dispatch. Static `RxUpdateId` at `0x140b27e30` reads AuId at `0x140b27e41`
+then AuTime at `0x140b27e57`; AuTime at `0x14163a380` invokes the signed
+64-bit QDataStream overload. These anchors are checked by the native transform
+test task. The prefix reads packed position before optional create/modify
+times, retains double coordinates, and exposes bit `0x20` as the in-motion
+boolean. Bits `0x08` and `0x80` are preserved without inventing payloads in this
+base reader; their wider-layer meanings remain unknown.
+
+Unknown effect/sync layers stop prefix decoding explicitly: `TailKind` marks
+whether the untouched remainder starts with effects, sync controllers, or the
+type-specific body. Effects take precedence when both flags are set. The API
+does not mislabel those unknown base layers as item/person data. All 256 base
+flag combinations and every truncated known prefix are tested, including
+position-before-time ordering, untouched trailing bytes and failure atomicity.
+This is not native frame dispatch, ChangePos state application or complete
+type-specific decoding; the working reference-server decoder is unchanged.
+
+`inspect-native-base type-widths|single|double HEX_FIELDS_AFTER_OPCODE` exposes
+this separate reader as an offline JSON diagnostic. It bounds input to 4096
+bytes and reports exact consumption, field values, tail kind and untouched tail
+hex. The explicit profile is mandatory; no opcode guessing or source/native
+auto-detection is performed. The native transform task now also checks 768
+independent Python ID/base-prefix fixtures through that command, including
+unknown-layer tail preservation and malformed/over-budget rejection.
+
+The current Rust common-atom decoder follows the supplied server writers:
+base flags `1/2/4/8` mean parent/create/modify/six transform floats. This is
+verified local-server compatibility, not established patched-client parity.
+
+The native `DaAtom::RxUpdateBase` at `0x140b4e470` instead tests bit `1`
+at `0x140b4e49a` and branches to `0x140b4e747`. That branch constructs an
+identity `AuAtomPos`, calls `AuAtomPos::Rx` at `0x140b4e79a`, then calls
+`DaAtom::ChangePos` at `0x140b4e7a5`. Bits `2` and `4` separately call
+`AuTime` readers. Bit `0x10` enters the effect path; `0x20` supplies a boolean;
+`0x40` enters the sync-controller path. This routine does not simply read a
+parent ID followed by a six-float record under bit `8`.
+
+`AuAtomPos::Rx` at `0x1408b2c50` reads an additional byte of flags at
+`0x1408b2cc4`. Its bit `1` calls `AuId` at `0x1408b32c6`; bits
+`0x10/0x20/0x40` conditionally read three rotation floats, defaulting omitted
+components to zero. Position components also have conditional float reads;
+bit `0x80` selects the double overload for present position components
+(`0x1408b33ab`, `0x1408b3383`, `0x1408b323f`). Without that bit the
+float overload is used. Rotation fields precede position fields on the wire.
+Rotation floats are widened to doubles and passed directly to `sincos` at
+`0x1408b2e94`, `0x1408b2eb9`, and `0x1408b2ede`: radians, not degrees.
+`src/atom_position/` now decodes the serialized fields separately, with explicit
+stream configuration, zero defaults for omitted components, and an optional
+parent preserving omission versus explicit null. It does not yet reconstruct
+the native in-place matrix update or integrate native atom dispatch. Do not
+auto-detect profiles from ambiguous payload bytes
+or replace the working reference-server decoder with a guessed native layout.
+
+## Matrix conventions and world composition
+
+`AuMatrix4x4::Rotate(AuPoint)` at `0x14176a8e0` takes three doubles and calls
+`sincos` for X, Y, then Z. Its column updates mix columns 1/2, then 0/2,
+then 0/1, leaving translation unchanged: postmultiplication by `Rx * Ry * Rz`.
+The supplied server's `gameplay/natives/village.py::body_axes` independently
+constructs the columns of that same product, with local X right, Y forward,
+and Z up. This alone does not prove every model's authored axes or every atom
+kind's placement behavior.
+
+`DaAtom::EnvTransform` at `0x140b30290` maintains a cached matrix. The cache
+miss obtains a parent at `0x140b30763`. One parent-dependent branch copies the
+local matrix at offset `0x218`; another obtains a parent virtual transform and
+multiplies it by the local matrix at `0x140b30811`. No parent produces identity.
+Static vtable inspection now resolves the predicate to `CanRenderEnvironment`
+and the transform call to `EnvTransform`. Composition stops at a parent that
+can render an environment, not arbitrarily at every globe. Native class and
+protocol-profile dispatch still need integration into Rust world state.
+
+`DaAtom::SetPosAndOrient` at `0x140b2bc40` copies an `AuAtomPos` matrix into
+offset `0x218`, then extracts its rotation via `GetRotation` at `0x140b2bce0`.
+Native rotation is not simply three persistent scalar fields. The wire-reader,
+change-position, interpolation, environment-boundary, and item-render paths
+still need to be connected before changing the renderer.
+
+## Next evidence
+
+Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
+parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
+AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`
+instead of taking the local-copy path. Otherwise it copies parent and local
+matrix, restarts a movement timer at `0x140b44e65`, and invalidates the cached
+environment matrix and normal descendants when that cache was valid. These
+are GNU static observations; reparenting and movement semantics are not yet
+ported. Native RxUpdateBase initializes a fresh AuAtomPos before reading it,
+so an omitted packed parent there starts null, not automatically the entity's
+previous parent. The field-only codec retains omission separately and does not
+pretend to implement these state effects.
+
+A focused REA/Ghidra analysis of `ChangePos` is now running with full output
+directed to `target/native-change-position.json`. Treat that file as pending
+until the owned process completes and the JSON is validated; no new Evidence
+ID or recovered-source claim is assigned to the pending result.
+
+A focused REA/Ghidra decompilation of `DaAtom::EnvTransform` completed in
+661421 ms; the complete validated JSON is retained in
+[native-entity-env-transform.json](evidence/native-entity-env-transform.json).
+Evidence ID: `ev_f3402ecf8edc72405a9486ec6281b539fa6604ac58f2db298d3cf9a6fbb5f2a6`.
+It corroborates the cache, parent-dependent local/cumulative branches and
+identity-without-parent observations above. The recovered multiplication
+prototype omits an argument;
+operand order is anchored by the static assembly, not guessed from that
+prototype. Ghidra 12.1.2, default-analysis profile digest
+`8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2`;
+pseudocode is not original source or runtime observation. The bridge reports
+verification against 12.1.4, with 12.1.2 accepted as an observed version.
+The ephemeral analysis closed on completion; original bytes were not modified.
+Next inspect the complete `AuAtomPos::Rx` and `ChangePos` paths, establish an
+explicit protocol profile, and test native packed records independently of the
+reference server's six-float fixtures. Keep the existing minimal local client
+working while adding native behavior.
+
+## Codec verification boundary
+
+`tests/native_transform_vtables.py` reads immutable PE bytes and resolves
+primary vtable slots `0x348` (`EnvTransform`), `0x4a8`
+(`FindParentPlanetInEnv`), `0x608` (`GetTransformRelativeToParent`) and `0x7b0`
+(`CanRenderEnvironment`) for nine explicitly selected classes. The primary
+Itanium ABI address point is 16 bytes after the vtable symbol; section-zero
+unresolved symbol aliases are excluded. These are static byte/symbol checks,
+not additional REA Evidence or runtime dispatch observations.
+
+`DaAtom`, `DaItem`, `DaPerson`, `DaWorld`, `DaWorldGlobe`, `DaWorldLL`, and
+`DaVehicle` use `DaAtom::CanRenderEnvironment` at `0x14193f630`, which returns
+false (`31 c0 c3`). `DaSector` at `0x1419469e0` and `DaSolarSystem` at
+`0x14190d5a0` return true (`b8 01 00 00 00 c3`). Solar systems additionally
+override `EnvTransform` at `0x140bc3c60`; that implementation has not yet been
+traced. No behavior for uninspected classes is inferred from this list.
+
+`src/atom_position/environment.rs` ports the three established base
+composition branches with explicit `ParentEnvironment` input: missing parent
+produces identity, a boundary parent uses local unchanged, otherwise compose
+parent environment * local. Tests distinguish the branches using a rotated,
+translated parent (not just commutative translations), and check finite-input
+and overflow safety. Missing parent ignores local, matching the observed native
+branch. Parent lookup, class dispatch, caching, interpolation and scene wiring
+remain separate unfinished work; this API does not silently assign profiles.
+
+## Direct-globe item rendering
+
+Static `DaItem::RenderItem` disassembly calls slot `0x4a8` at
+`0x140b85840`, retaining the returned planet in R14. Its non-ring-section path
+initializes an identity matrix at `0x140b86156` and calls slot `0x608` at
+`0x140b861bf`, passing that planet as the ancestor. The mapped base routine
+`GetTransformRelativeToParent` at `0x140b2e710` compares atom identity with the
+ancestor, returns success unchanged when equal, otherwise left-multiplies the
+local matrix into the supplied accumulator and recurses into the parent.
+The ring-section path is distinct and not ported here. Source/assembly anchors
+are checked by `just test-native-transforms`.
+
+The current GUI already limits displayed items to direct children of its home
+globe. For those mounted item meshes, `src/client_ui/placement.rs` now applies
+the received local rotation using the established `Rx * Ry * Rz` convention.
+It builds a Bevy quaternion from the explicit matrix columns, avoiding an
+assumed Euler API ordering, and scales only translation (mesh coordinates are
+already display-scaled). It does not re-align objects radially or change their
+reported transforms. Bevy-axis tests include nonzero combined angles and a
+south-pole orientation; unrepresentable placements are rejected.
+
+This is source-compatible direct-globe placement, not full native packet,
+nested-parent, original item animation, ring-section, material or model-axis
+parity. The local GUI smoke checks actual mounted entity transforms against
+received fields, while synthetic unit tests provide nonzero-angle coverage.
+
+`WorldState::transform_relative_to` now exposes the corresponding local-chain
+composition for explicitly requested ancestors. It excludes the ancestor's own
+transform, applies parent rotations to child translations, and leaves missing
+nodes/transforms and unrelated ancestry unresolved. A bounded traversal rejects
+cycles even if callers mutate the public entity map directly. This operates on
+the current source-profile raw local fields; it does not choose a native frame
+profile or broaden graphical visibility to unverified nested entity kinds.
+The world implementation and tests now live under `src/world/`.
+
+The standalone codec tests all 256 flag combinations under three explicit
+QDataStream configurations, every truncated prefix, trailing-field boundaries,
+negative zero, explicit null parent, and finite/narrowing safety checks. They
+are synthetic byte-layout tests, not execution of the original client.
+
+`just test-native-transforms` additionally checks 768 independent Python
+`struct` fixtures through the Rust CLI and pins reader call/flag anchors to the
+exact patched executable hash. It checks malformed/trailing records too.
+This is not a Qt runtime oracle or native in-place matrix parity test.
+
+Inspect a single packed record without network access:
+
+```sh
+cargo run --offline -- inspect-atom-position type-widths 13F12345673F000000C0000000
+```
+
+This literal is parent `0xf1234567`, rotation `[0.5, 0, 0]` radians and
+position `[-2, 0, 0]` under the explicit legacy/type-width stream profile.
+Other supported profiles are `single` and `double`. The command requires one
+complete record, rejects trailing bytes, and bounds hex input to 53 bytes.
+It does not accept an entire scene packet or select a native network profile.
+
+`PackedPosition::local_matrix` and the matching `dump-atom-matrix` command
+construct a fresh column-major `T * Rx * Ry * Rz` affine matrix. Translation
+is not rotated, angles are widened from their float destinations, and no
+extra radial/gravity alignment is invented. This conversion matches the
+supplied server's `body_axes` for all 768 profile/flag fixtures. Additional
+`gravity_align_euler` source fixtures verify local +Z points outward at both
+poles and off-axis locations after float narrowing. Unit tests check the
+rotation basis is orthonormal and a positive Z quarter-turn has the expected
+sign. These establish local convention/source agreement, not native
+environment composition, interpolation, or arbitrary existing-matrix updates.
+
+Qt's float/double overload names do **not** alone prove the number of wire
+bytes: Qt 4.6+ precision settings affect both overloads, while older versions
+use their type widths. The codec therefore requires a caller-selected
+`FloatEncoding`; no native network configuration has been selected yet.
+Source: [Qt 5.15 QDataStream precision documentation](https://doc.qt.io/archives/qt-5.15/qdatastream.html#setFloatingPointPrecision).
+DoublePrecision float fields are still narrowed to f32 before storing them,
+matching the native float destination. Non-finite values and f32 overflow are
+rejected without consuming input as explicit Rust safety limits.

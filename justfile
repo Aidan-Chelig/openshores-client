@@ -57,6 +57,11 @@ interop: build
 test-native-models: build
     nix develop .#server-test --command python tests/reference_native_models.py
 
+# Packed position fixtures and static patched-client anchors; no target execution.
+test-native-transforms: build
+    nix develop .#server-test --command python tests/native_atom_positions.py
+    nix develop .#server-test --command python tests/native_transform_vtables.py
+
 # Full GUI inventory/world workflow against a disposable local server.
 test-gui: build-client
     nix develop .#server-test --command python tests/local_server.py gui

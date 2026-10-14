@@ -100,6 +100,18 @@ pub(super) fn scene(
                     .and_then(|row| row.model.as_deref());
                 let model = resource.and_then(|resource| rendering.model(resource, ui.scale));
                 let source_model = model.is_some();
+                let placement = if source_model {
+                    let Some(placement) =
+                        super::placement::local_model(position, transform.rotation, ui.scale)
+                    else {
+                        continue;
+                    };
+                    placement
+                } else {
+                    Transform::from_translation(Vec3::from_array(
+                        position.map(|value| (value * ui.scale) as f32),
+                    ))
+                };
                 let mesh = model
                     .unwrap_or_else(|| rendering.meshes.add(Sphere::new(radius).mesh().uv(12, 8)));
                 let material = rendering.materials.add(StandardMaterial {
@@ -120,9 +132,7 @@ pub(super) fn scene(
                     Marker(entity.id),
                     Mesh3d(mesh),
                     MeshMaterial3d(material),
-                    Transform::from_translation(Vec3::from_array(
-                        position.map(|value| (value * ui.scale) as f32),
-                    )),
+                    placement,
                 ));
                 if source_model && let Some(resource) = resource {
                     spawned.insert(models::MountedItemModel(resource.to_owned()));

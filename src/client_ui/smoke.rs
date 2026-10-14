@@ -13,6 +13,8 @@ use std::{
 pub(super) struct SceneEvidence<'w, 's> {
     terrain: Query<'w, 's, Entity, With<TerrainEntity>>,
     models: Query<'w, 's, &'static models::MountedItemModel>,
+    placements:
+        Query<'w, 's, (&'static Marker, &'static Transform), With<models::MountedItemModel>>,
 }
 
 #[derive(Resource)]
@@ -221,6 +223,23 @@ pub(super) fn workflow(
                     println!(
                         "GUI slice: catalog-bound dropped Flag model rendered from user installation"
                     );
+                    let Some((_, rendered)) = evidence
+                        .placements
+                        .iter()
+                        .find(|(marker, _)| marker.0 == target)
+                    else {
+                        return;
+                    };
+                    let received = ui.model.world.entities[&target].transform.unwrap();
+                    let expected = super::placement::local_model(
+                        received.position.map(f64::from),
+                        received.rotation,
+                        ui.scale,
+                    )
+                    .unwrap();
+                    assert!(rendered.translation.distance(expected.translation) < 1e-6);
+                    assert!(rendered.rotation.dot(expected.rotation).abs() > 0.999999);
+                    println!("GUI slice: mounted item placement matches received local transform");
                 }
                 workflow.target = Some(target);
                 activate(Action::SelectItem(target), &mut ui, &bridge);

@@ -130,11 +130,15 @@ retained for offline reconstruction.
 
 ## World model and offline replay
 
-`src/world.rs` handles common atom prefixes for universe, galaxy, sector,
+`src/world/mod.rs` handles common atom prefixes for universe, galaxy, sector,
 solar system, star, globe, gas giant, ring, ring section, person, vehicle, and
 building packets. Flags `0x01`, `0x02`, `0x04`, and `0x08` supply parent,
 creation time, modification time, and six transform floats respectively.
-Higher flag bits are retained without assigning undocumented semantics.
+Higher flag bits are retained without assigning undocumented semantics. These
+are the supplied server's layouts, not proof of patched native-client parity:
+static inspection found a different packed `AuAtomPos` path in the executable.
+See [native entity transforms](native-entity-transforms.md) for the evidence
+boundary and remaining native decoder work.
 
 Source evidence: `protocol/atoms/base_update.py`,
 `protocol/atoms/person.py`, `gameplay/native_atom.py`,

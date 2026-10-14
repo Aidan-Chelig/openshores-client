@@ -122,6 +122,11 @@ absolute PNG path when running the `gui` test. Existing screenshot files are
 refused. The original headless CLI and viewer remain separately usable.
 ## Camera clearance
 
+Mounted world-item meshes that are direct children of the home globe now use
+their received local rotation, converted via explicit `Rx * Ry * Rz` matrix
+columns. This does not add nested-parent placement, invent radial alignment, or
+claim native packed-frame parity. See [native entity transforms](native-entity-transforms.md).
+
 The development camera now clamps its eye above the rendered terrain mesh and
 uses a near plane scaled from 0.05 world units instead of Bevy's default scene
 distance. Prototype eye height is 1.7 world units; this is not reconstructed

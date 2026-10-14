@@ -15,6 +15,7 @@ mod chat;
 mod controls;
 mod models;
 mod panels;
+mod placement;
 mod scene;
 mod smoke;
 use actions::{activate, send};
