@@ -870,6 +870,16 @@ verify duplicate/budget safety and assert that insertion/status reset do not
 invent ownership. Connecting these stages to a concrete full dispatch owner
 and candidate disposal remains subsequent work.
 
+`discard_candidate` now removes only an unowned temporary's graph node by
+object handle, with explicit owner absence and checks for either routed map,
+child membership (including unavailable lists), and retired retention. It
+leaves shared wire-ID maps/lists/runaway state untouched. Tests demonstrate
+that disposing handle 90 does not erase retained handle 10 with the same
+incoming wire ID, and reject owned/indexed/unknown objects without mutation.
+These are Rust storage-safety guards, not recovered native destructor checks.
+Class fields/destructors, candidate-factory implementation and full dispatch
+owner integration remain separate obligations.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence

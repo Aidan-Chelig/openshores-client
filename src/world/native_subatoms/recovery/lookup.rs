@@ -26,6 +26,12 @@ fn insert(map: &mut BTreeMap<u32, u32>, id: u32, handle: u32) -> io::Result<()> 
     Ok(())
 }
 impl NativeRecoveryLookup {
+    pub(in crate::world::native_subatoms) fn references_handle(&self, handle: u32) -> bool {
+        self.primary
+            .values()
+            .chain(self.secondary.values())
+            .any(|value| *value == handle)
+    }
     pub(in crate::world::native_subatoms) fn insert_routed(
         &mut self,
         id: u32,
