@@ -417,6 +417,7 @@ pub mod native_capture;
 pub mod native_item;
 pub mod native_prefix;
 pub mod native_subatoms;
+pub mod native_tick_tock;
 mod placement;
 #[cfg(test)]
 mod tests;

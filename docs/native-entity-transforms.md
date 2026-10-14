@@ -220,6 +220,25 @@ integer for the latter). Exact registration implementation, interval units,
 class overrides and scheduler execution remain unported. Terminal-flow
 limitations at release calls are not proof those calls cannot return.
 
+Primary vtable bytes bind atom slots `0x2a8`, `0x2c8`, `0x2f0`, `0x4d0`
+to IsTicker, IsTocker, AtomType and FindParentSolarSystem. AuGlobal slots
+`0x50` and `0x60` bind UpdateOrAddTicker (`0x1415a5990`) and
+UpdateOrAddTocker (`0x1415a5b80`). These GNU static bindings are pinned by
+`tests/native_transform_vtables.py`. The latter's mangled unsigned argument
+(`j`) establishes that all 32 bits must survive the decompiler's signed local;
+negative-looking bit patterns must not be rejected or clamped to zero.
+
+`src/world/native_tick_tock/` reconstructs the non-instrumented decision path
+as ordered registration obligations. Caller-provided predicates and solar
+snapshots stay explicit. It preserves getter order, retries a missing parent
+for a nonzero tocker request, and reuses a resolved parent even when contents
+are not ticking. AtomType is evaluated independently for each request. Tests
+cover all gate combinations, high interval bits, lookup order and short circuits.
+No scheduler hashes are mutated by this helper: release/request effects that
+could influence later getters, concurrent locking, predicate implementations,
+and scheduler execution still require integration. The decision helper is not
+a replacement for fulfilling the old-null-parent callback in AuEther.
+
 ## Explicit normal-subatom invalidation
 
 `src/world/native_subatoms/` implements the local ChangePos cache obligation

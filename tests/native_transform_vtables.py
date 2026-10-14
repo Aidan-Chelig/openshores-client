@@ -113,3 +113,22 @@ for opcode, cls in native_classes.items():
     value = False if code[:3] == b"\x31\xc0\xc3" else True if code[:6] == b"\xb8\x01\x00\x00\x00\xc3" else None
     assert value == (opcode in (0x03, 0x12)), (opcode, cls, predicate, value)
 print("Native instance-universe predicate: all 23 bindings verified; distinct from environment boundaries and Universe opcode.")
+
+# TickTock's virtual calls, measured at primary ABI address points. Do not
+# mistake DtClient's QObject primary table for an AuGlobal subobject table.
+for table_name, bindings in {
+    "_ZTV6DaAtom": {
+        0x2A8: "_ZNK6DaAtom8IsTickerEv",
+        0x2C8: "_ZNK6DaAtom8IsTockerEv",
+        0x2F0: "_ZNK6DaAtom8AtomTypeEv",
+        0x4D0: "_ZNK6DaAtom21FindParentSolarSystemEv",
+    },
+    "_ZTV8AuGlobal": {
+        0x50: "_ZN8AuGlobal17UpdateOrAddTickerERK4AuIdhS2_",
+        0x60: "_ZN8AuGlobal17UpdateOrAddTockerERK4AuIdhS2_j",
+    },
+}.items():
+    assert pointer(symbols[table_name]) == 0
+    for slot, name in bindings.items():
+        assert pointer(symbols[table_name] + 16 + slot) == symbols[name], (table_name, slot, name)
+print("Native TickTock: base atom getter and global registration virtual bindings verified statically.")
