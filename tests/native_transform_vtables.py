@@ -143,3 +143,15 @@ assert struct.pack("<Q", pointer(0x1415A5C88))[:4] == bytes.fromhex("c6 40 38 00
 assert struct.pack("<Q", pointer(0x1415A5C8C))[:3] == bytes.fromhex("89 78 24")
 assert struct.pack("<Q", pointer(0x1415A5C8F))[:3] == bytes.fromhex("89 50 3c")
 print("Native registration fields: release markers, invalid timer words, pending flags and existing tocker update writes pinned.")
+
+for address in [0x14178EA97, 0x14178EF0D]:
+    instruction = struct.pack("<Q", pointer(address))
+    assert instruction[:4] == bytes.fromhex("66 0f 6f 05")
+    assert address + 8 + struct.unpack("<i", instruction[4:])[0] == 0x142304550
+for address in [0x14160E25A, 0x14160E3FA]:
+    instruction = struct.pack("<Q", pointer(address))
+    assert instruction[:2] == bytes.fromhex("ff 15")
+    assert address + 6 + struct.unpack("<i", instruction[2:6])[0] == 0x142892A40
+assert struct.pack("<Q", pointer(0x1415A5CE8)) == bytes.fromhex("41 c6 84 24 48 04 00 00")
+assert struct.pack("<Q", pointer(0x1415A5CF0))[:1] == b"\x00"
+print("Native registration insertion/cleanup: fresh invalid timers, both zero-wait mutex calls and tocker pending-flag clear pinned.")

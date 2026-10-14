@@ -278,6 +278,26 @@ statistics/history, add-path cleanup, scheduler locking and timing need further
 reconstruction. These are GNU static observations, not a REA runtime oracle.
 `just test-native-transforms` pins the release constant and field writes.
 
+The base AuGlobal registration metadata path is now implemented under
+`native_tick_tock/store/`, split into access, mutation and tests. Fresh ticker
+and tocker Add paths load the same invalid-timer constant at `0x14178ea97`
+and `0x14178ef0d`. Existing keys update in place, preserve type/timer and do
+not sweep. Missing keys insert, then sweep only if the corresponding owner
+pending flag was set. The tocker call/clear is at `0x1415a5ce3`/`0x1415a5ce8`;
+that flag clears even when a busy released entry survives. Ticker cleanup
+also uses QMutex::tryLock(0), at `0x14160e25a`.
+
+Rust-owned tables use real per-record mutexes and return their shared handles
+to the eventual scheduler owner. Release does not block on those locks; cleanup
+uses try_lock. Poisoned locks conservatively retain records (Rust policy),
+and BTree traversal does not claim native hash-order/concurrency parity. Each
+table is capped at 20000 entries, optionally tightened; rejected insertions
+leave all flags/records unchanged. These tables cover established registration
+fields only, not native statistics/history or derived global Add overrides.
+They are not yet attached to a scheduler loop or the playable source-profile
+client. Tests cover absent release, insertion, revival, independent tables,
+busy cleanup, clearing the pending flag despite retained records, and budgets.
+
 A focused REA decompilation of `_ZN8AuGlobal17UpdateOrAddTockerERK4AuIdhS2_j`
 is running with output reserved as `target/native-register-tocker.json`.
 It is pending evidence, not yet a validated result.

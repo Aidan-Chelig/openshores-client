@@ -3,6 +3,7 @@
 //! are inferred from source-profile entities or native base flags.
 mod evaluation;
 pub mod record;
+pub mod store;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SolarSystem {
