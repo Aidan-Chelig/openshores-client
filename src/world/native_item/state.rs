@@ -5,6 +5,10 @@ use super::{NativeItemBody, NativeItemValue, OwnershipUpdate};
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct NativeItemState {
     pub item: Option<NativeItemValue>,
+    /// None is unobserved; false is an established null native item pointer.
+    /// Some(true) accompanies a decoded received value. Unknown bodies discard
+    /// this knowledge under the existing conservative replay policy.
+    pub value_present: Option<bool>,
     pub ownership_id: Option<u32>,
     pub field_3e0: Option<Option<String>>,
     pub field_3e8: Option<Option<String>>,
@@ -19,6 +23,7 @@ impl NativeItemState {
     pub fn apply(&mut self, update: NativeItemBody) {
         if let Some(item) = update.item {
             self.item = Some(item);
+            self.value_present = Some(true);
         }
         match update.ownership {
             OwnershipUpdate::Unchanged => (),

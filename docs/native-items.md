@@ -139,9 +139,13 @@ unobserved versus Qt-null, opaque invalidation and partial knowledge recovery.
 
 ## Item constructor investigation
 
-A focused REA analysis of `_ZN6DaItemC2Ev` at `0x140b8d800` is running, with
-complete output reserved as `target/native-item-constructor.json`. Its result
-is pending, not confirmation. Independent GNU review of the normal constructor
+The focused REA analysis of `_ZN6DaItemC2Ev` at `0x140b8d800` completed in
+644067ms. Complete evidence is retained in
+[native-item-constructor.json](evidence/native-item-constructor.json), Evidence
+`ev_7f4e7dcd8268e021dc53b004d185d4fcc7fb4e63b7c91068e609c407e38873f4`,
+bound to the patched executable digest. The complete Ghidra 12.1.2 pseudocode
+was reviewed and corroborates the independent GNU stores below. This is static
+reconstruction, not native execution. Independent GNU review of the normal constructor
 body through `0x140b8dbb1` shows duplicated base initialization and no overwrite
 of its status-5 constant loaded from `0x1422042f0`. The item-value pointer at
 `0x3a8` and ownership storage at `0x3d8` start zero, raw boolean `0x39c` starts
@@ -149,10 +153,21 @@ false, and both strings `0x3e0`/`0x3e8` receive Qt QArrayData shared-null pointe
 Static stores/import/duplication instructions are hash-pinned by
 `just test-native-transforms`. This is assembly evidence, not native execution.
 
-The current NativeItemState::default remains an unobserved replay snapshot;
-these constructor observations must be exposed explicitly rather than silently
-changing existing capture semantics. Full constructor interpretation and
-packet-driven initialization remain pending the REA review.
+`NativeItemInitialization::from_default_item_constructor` now combines the
+confirmed base initialization with an explicit item snapshot: known null value
+pointer, ownership ID zero, Qt-null strings and false flag `0x39c`. The new
+NativeItemState::value_present distinguishes unobserved (None), initialized null
+(Some(false)) and decoded received value (Some(true)). Sparse omission retains
+that knowledge; a received value establishes presence; the existing conservative
+opaque-update policy resets it to unknown alongside other fields.
+
+NativeItemState::default remains an unobserved replay snapshot, so capture
+semantics do not silently acquire constructor defaults. Synthetic tests cover
+that distinction, omitted bodies, sentinel ownership retaining initialized null
+strings, a received value and opaque invalidation. Constructor code/tests live
+under `native_item/construction/`. Unmodeled timers/Qt locks, packet-driven
+identity/status changes, full native object storage and world dispatch still
+need integration; this does not construct an AuItem subtype before one is received.
 
 ## Weapon trace
 

@@ -2,6 +2,8 @@
 //! Supported subtype readers are bound to native factory/vtable evidence.
 mod body;
 mod common;
+mod construction;
+pub use construction::NativeItemInitialization;
 mod state;
 mod value;
 mod weapon;
