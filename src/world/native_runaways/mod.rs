@@ -25,6 +25,13 @@ impl Default for NativeRunaways {
 }
 
 impl NativeRunaways {
+    /// FixRunaways extracts the whole parent batch before object lookups.
+    /// Only the recovery orchestration may consume this native queue.
+    pub(crate) fn take_for_recovery(&mut self, parent: u32) -> BTreeSet<u32> {
+        let children = self.parents.remove(&parent).unwrap_or_default();
+        self.pairs -= children.len();
+        children
+    }
     /// Rust safety budget, optionally tightened; not native queue policy.
     pub fn with_limit(limit: usize) -> io::Result<Self> {
         if limit == 0 || limit > MAX_PAIRS {

@@ -449,7 +449,8 @@ Callback errors retain the queued pair and updated position, but still perform
 cache cleanup. Tests check queue visibility before callbacks, index retention,
 orientation/timer effects, repeated-pair suppression, nonnull old-parent
 callback skipping, validation failures and callback errors. FixRunaways repair,
-two-map owner resolution and native lock interleaving remain unimplemented.
+native owner-map lifecycles and lock interleaving remain unimplemented; the
+stable-owner recovery helper is described below.
 
 The missing-destination branch also has a direct registration-store adapter,
 `change_parent_to_missing_destination_with_registrations_at`. Runaway and
@@ -462,11 +463,34 @@ queue rejection skips all getter/registration work. Registration integration
 tests are split under `native_subatoms/registration_tests/`. Parent-arrival
 recovery and playable-client attachment remain separate unfinished work.
 
-A focused REA/Ghidra request for `_ZN7AuEther11FixRunawaysERK4AuId` is running,
-with complete output reserved at `target/native-fix-runaways.json`. Pending
-analysis is not validated evidence. Current GNU observations show a later
-primary/secondary atom lookup and a stored-parent check before child-set
-insertion; full consumption and recovery behavior remains to be reviewed.
+A focused REA/Ghidra request for `_ZN7AuEther11FixRunawaysERK4AuId` completed
+in 648436 ms. Complete digest-validated output is preserved in
+[native-fix-runaways.json](evidence/native-fix-runaways.json), evidence
+`ev_a829e6212979114d102c2da8aaa75edec0c1965247e1ba04e5b58cb8e16bf514`.
+Ghidra 12.1.2, default analysis, read-only ephemeral project. This is static
+pseudocode, not target execution; Qt container/prototype recovery limitations
+remain in the full record.
+
+FixRunaways first extracts and erases all pairs for the requested parent into
+a temporary child-ID set, then attempts attachment. It looks up each child in
+the primary atom map, then the secondary only when the primary lookup fails.
+A primary atom whose stored parent differs does not cause a secondary retry.
+Only a matching stored parent, existing parent lock and existing child set
+allow insertion. Missing/stale objects and unavailable owner sets are consumed,
+not requeued. This path does not copy position, restart timers, invoke TickTock,
+invalidate environment caches, or remove stale old-parent set memberships.
+
+`native_subatoms/recovery/` now reconstructs this stable-owner behavior, with
+explicit bounded ID-to-node maps and a whole-parent queue extraction. It
+reports consumed child IDs and newly inserted node handles. Ordered maps/sets
+do not claim native QHash order or lock interleaving. Rust preflight rejects
+dangling handles and link-budget overflow before consuming the batch; that
+validation is safety policy over immutable observations, not a native rollback
+claim. Tests cover primary precedence, secondary fallback, stale/missing child
+consumption, unavailable sets, repeated attachment, unrelated parent batches,
+unchanged position/timer/cache state and atomic invalid-context rejection.
+Owner registration on parent arrival, native map lifecycles and playable-client
+attachment remain unfinished.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning

@@ -1,11 +1,13 @@
 //! Explicit native normal-subatom context; not complete AuEther orchestration.
 mod invalidation;
+mod recovery;
 mod registration;
 mod reparent;
 mod runaway;
 use super::native_atom::NativeAtomKind;
 use crate::atom_position::NativePositionState;
 pub use invalidation::NativeHierarchyPositionChange;
+pub use recovery::{NativeRecoveryLookup, NativeRunawayRecovery};
 pub use registration::{ReparentRegistrationContext, RunawayRegistrationStores};
 pub use reparent::NativeReparentResult;
 pub use runaway::NativeRunawayReparentResult;
