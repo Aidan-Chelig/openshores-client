@@ -37,6 +37,7 @@ impl NativeAtomDispatchContext for Context {
         let base =
             NativeBasePrefix::read_after_identity(input, identity, FloatEncoding::TypeWidths)?;
         assert_eq!(base.flags, 0);
+        self.item.base.finish_received_position_stage();
         Ok(())
     }
     fn connect_signals(&mut self, handle: u32) -> io::Result<()> {
@@ -109,6 +110,7 @@ fn existing_primary_item_receives_person_candidate_without_replacement() {
         ]
     );
     assert_eq!(context.item.base.received_time, -123);
+    assert_eq!(context.item.base.field_1c, 0);
     assert_eq!(context.item.state.ownership_id, Some(1));
 }
 #[test]
@@ -139,6 +141,7 @@ fn malformed_base_preserves_earlier_time_and_stops_later_operations() {
         ["construct:Person", "identity:90:7", "time:20", "base:20"]
     );
     assert_eq!(context.item.base.received_time, -123);
+    assert_eq!(context.item.base.field_1c, 5);
 }
 #[test]
 fn unknown_opcode_has_no_context_effects() {

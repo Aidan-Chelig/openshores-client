@@ -788,6 +788,27 @@ findings below guide further receive/creation integration.
 
 ## Native atom packet-dispatch findings
 
+Independent GNU disassembly of the complete normal `RxUpdateBase` path at
+`0x140b4e470..0x140b4e85d` (exception tail through `0x140b4e86d`) establishes an
+additional status transition: after optional position ChangePos and its
+conditional `0xa0` reset, all paths converge on `0x140b4e4a2`, which writes
+zero to raw field `0x1c`, even if position was omitted. This precedes optional
+created/modified times, effects, motion assignment and controller append.
+`NativeBaseAtomInitialization::finish_received_position_stage` exposes that
+specific transition without changing constructor defaults or prematurely
+clearing status during unresolved reparenting. Dispatch fixtures now execute
+it after the completed omitted-position stage; malformed input retains status 5.
+
+Effects (`0x10`) are processed before motion (`0x20`) and controllers (`0x40`);
+both effect/controller flags cause both layers to be read, not mutually exclusive
+selection. `TailKind` identifies the first unknown layer, not a native choice
+that suppresses the later one. Effects use an unsigned-byte count and append
+only when the native fieldwise comparison finds no match. The controller list
+is allocated if absent, receives Append, and is disposed/reset to null if empty
+afterward. Effect/controller inner formats and their complete state semantics
+remain unported. Focused REA `RxUpdateBase` corroboration is currently running;
+these findings are independent static assembly observations, not execution.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence

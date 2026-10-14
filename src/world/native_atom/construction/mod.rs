@@ -15,6 +15,13 @@ pub struct NativeBaseAtomInitialization {
     pub environment_matrix: [[f64; 4]; 4],
 }
 impl NativeBaseAtomInitialization {
+    /// RxUpdateBase's common path after its optional ChangePos stage. This
+    /// write occurs even when position was omitted, before optional times,
+    /// effects, motion flag and controller reception. Do not call before an
+    /// unresolved position/owner operation has actually completed.
+    pub fn finish_received_position_stage(&mut self) {
+        self.field_1c = 0;
+    }
     /// Established RxUpdateId assignment stage only. No null-ID/type/time
     /// acceptance check exists in that helper; full packet policy is separate.
     pub fn apply_received_identity(
