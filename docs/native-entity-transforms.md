@@ -150,8 +150,8 @@ has an `AddRunaway` path when a destination parent lock is absent, and selects
 invalidating environment transforms. This is static pseudocode, not runtime
 observation; Qt container typing and helper semantics still require tracing.
 Ghidra reports a terminal-flow limitation at the final invalidation call, not
-proof of a non-returning helper. The hierarchy remains unported: native scene
-state must not turn its outstanding reparent obligation into a guessed copy.
+proof of a non-returning helper. Missing-owner/runaway recovery remains
+unported: native scene state must not replace it with a guessed copy.
 
 The focused query for `DaAtom::SetPosByEther`
 (`_ZN6DaAtom13SetPosByEtherERK9AuAtomPosPK7AuEther`, `0x140b41450`) completed in
@@ -379,6 +379,25 @@ nodes or indexes. Constructor budgets and missing-reference rejection are Rust
 safety policy; ordered sets do not claim native hash iteration or concurrent
 lock-interleaving parity. Synthetic tests cover filters, unavailable lists,
 invalid caches, cycles, double precision and atomic errors.
+
+`NativeNormalSubatoms::change_parent_in_available_lists_at` now implements
+the established normal ChangeParent branch when both parent-lock/child-set
+contexts are explicitly present. It removes the atom from the old set and
+inserts into the destination set (unchanged parent skips those moves), applies
+the selected fresh Ether setter, invokes a required TickTock callback only for
+old null parent, then invalidates the root and normal descendants. The callback
+sees the moved indexes and new position/timer while caches are still valid.
+No owner list is invented from node existence or packed parent alone.
+
+Geometry validation precedes index mutation (Rust safety policy). Missing
+context returns OwnerContextRequired with all nodes/indexes unchanged; this is
+an explicit unfulfilled native recovery branch, not a successful reparent.
+Callback errors retain prior index/position effects and still clear caches;
+that policy handles Rust registration safety errors, not native exception
+semantics. Unit tests cover operation order, both setters, old null/nonnull
+parents, unavailable context, invalid geometry and failed callbacks. Native
+two-map atom resolution, lock interleaving, AddRunaway and diagnostics-driven
+misplaced-set recovery remain required for full AuEther integration.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
