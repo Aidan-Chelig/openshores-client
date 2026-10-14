@@ -1,4 +1,5 @@
 use super::*;
+mod aliases;
 mod lifecycle;
 
 #[test]

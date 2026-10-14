@@ -715,9 +715,24 @@ remain separate.
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's
 fresh base position to the established local, normal-reparent and explicit
 missing-destination paths, including real registration storage. Existing nodes
-must be keyed by the wire ID and have matching native kind. Missing objects or
+on the direct apply_at path must be keyed by the wire ID and have matching native
+kind. Missing objects or
 kind changes are rejected before mutation as requiring lifecycle handling;
-aliases/secondary object identity need a full owner adapter, not guessed IDs.
+the direct-ID path rejects unknown identities instead of guessing aliases.
+`apply_resolved_at` additionally accepts a caller-established object handle
+(for example, explicitly observed through NativeRecoveryLookup::routed_entry).
+It validates the handle's kind, mutates graph membership/position by handle,
+constructs owner context by handle, and applies registrations using the packet's
+wire ID. Missing-destination queues also retain that wire ID, not the handle.
+The receiver does not invent which lookup map or fallback native packet dispatch
+should choose; resolution remains explicit. The original apply_at path delegates
+with handle equal to wire ID and retains its prior behavior.
+
+`NativeAtomIdentity` supplies that distinction to the missing-lock owner helper.
+Its direct-ID convenience method preserves existing callers. Alias regressions
+cover local/deferred updates, normal reparent, missing-lock queuing, real
+registration IDs, owner-context handle and recovery's consumption of wire IDs.
+No constructor, body decoding or automatic packet-driven replacement is inferred.
 
 DestinationContext remains caller-established. Unresolved context returns the
 unchanged reparent obligation, and insufficient normal-list context remains

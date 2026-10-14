@@ -24,15 +24,40 @@ impl NativeNormalSubatoms {
         extract_orientation: bool,
         now: Instant,
         runaways: &mut NativeRunaways,
+        tick_tock: impl FnMut(&mut Self, &NativeRunaways, u32) -> io::Result<()>,
+    ) -> io::Result<NativeRunawayReparentResult> {
+        self.change_parent_to_missing_destination_for_atom_at(
+            NativeAtomIdentity {
+                wire_id: id,
+                handle: id,
+            },
+            record,
+            extract_orientation,
+            now,
+            runaways,
+            tick_tock,
+        )
+    }
+
+    /// Same missing-lock branch with caller-established wire/handle identity.
+    /// Queue stores the wire ID; graph mutations and callback use object handle.
+    pub fn change_parent_to_missing_destination_for_atom_at(
+        &mut self,
+        identity: NativeAtomIdentity,
+        record: &PackedPosition,
+        extract_orientation: bool,
+        now: Instant,
+        runaways: &mut NativeRunaways,
         mut tick_tock: impl FnMut(&mut Self, &NativeRunaways, u32) -> io::Result<()>,
     ) -> io::Result<NativeRunawayReparentResult> {
+        let id = identity.handle;
         let (position, effects) =
             self.prepare_ether_position(id, record, extract_orientation, now)?;
         let parent = position.position.parent;
         if self.lists.get(&parent).is_some_and(|list| list.available) {
             return Err(invalid("destination has available owner context"));
         }
-        let inserted_pair = runaways.add(parent, id)?;
+        let inserted_pair = runaways.add(parent, identity.wire_id)?;
         let (cleared_caches, tick_tock_called) =
             self.finish_ether_position(id, position, effects, |graph, id| {
                 tick_tock(graph, runaways, id)

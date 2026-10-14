@@ -4,8 +4,8 @@ use super::{
     native_atom::NativeAtomPrefix,
     native_runaways::NativeRunaways,
     native_subatoms::{
-        NativeHierarchyPositionChange, NativeNormalSubatoms, NativeReparentResult,
-        NativeRunawayReparentResult, ReparentRegistrationContext, RunawayRegistrationStores,
+        NativeAtomIdentity, NativeHierarchyPositionChange, NativeNormalSubatoms,
+        NativeReparentResult, NativeRunawayReparentResult, ReparentRegistrationContext,
     },
     native_tick_tock::store::RegistrationStore,
 };
@@ -33,8 +33,8 @@ pub enum NativePositionUpdate {
 }
 
 pub struct NativePositionReceiver<'a, O> {
-    /// Existing nodes keyed by their wire atom ID. Aliased node-handle lookup
-    /// needs an explicit full owner adapter, not ID guessing in this receiver.
+    /// Direct-ID or explicitly resolved stable object nodes. Resolution policy
+    /// stays outside the receiver; it does not choose an atom-map fallback.
     pub graph: &'a mut NativeNormalSubatoms,
     pub runaways: &'a mut NativeRunaways,
     pub registrations: &'a mut RegistrationStore,
@@ -42,14 +42,26 @@ pub struct NativePositionReceiver<'a, O> {
 }
 
 impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
+    /// Direct-ID convenience path. Use apply_resolved_at when a caller's native
+    /// lookup has explicitly established a different object handle.
+    pub fn apply_at(
+        &mut self,
+        prefix: &NativeAtomPrefix<'_>,
+        destination: DestinationContext,
+        now: Instant,
+    ) -> io::Result<Option<NativePositionUpdate>> {
+        self.apply_resolved_at(prefix, prefix.base.id, destination, now)
+    }
+
     /// Apply only the decoded fresh base-position stage. An absent position is
     /// a no-op, not a body/lifecycle acknowledgement. Existing class must match;
     /// unknown nodes/replacement are explicit errors before state mutation.
     /// RxUpdateBase uses the position-only ChangePos path, not orientation
     /// extraction. No timestamp filtering or source-profile fallback is added.
-    pub fn apply_at(
+    pub fn apply_resolved_at(
         &mut self,
         prefix: &NativeAtomPrefix<'_>,
+        handle: u32,
         destination: DestinationContext,
         now: Instant,
     ) -> io::Result<Option<NativePositionUpdate>> {
@@ -63,10 +75,10 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
                 "native position receiver rejects null atom ID",
             ));
         }
-        let node = self.graph.node(id).ok_or_else(|| {
+        let node = self.graph.node(handle).ok_or_else(|| {
             io::Error::new(
                 io::ErrorKind::InvalidInput,
-                "native position receiver requires an existing wire-ID node",
+                "native position receiver requires an existing object node",
             )
         })?;
         if node.kind != prefix.kind {
@@ -75,35 +87,40 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
                 "native atom class change requires object lifecycle handling",
             ));
         }
-        let outcome = match self.graph.apply_fresh_position_at(id, record, now)? {
+        let outcome = match self.graph.apply_fresh_position_at(handle, record, now)? {
             NativeHierarchyPositionChange::Applied { cleared_caches } => {
                 NativePositionUpdate::Local { cleared_caches }
             }
             NativeHierarchyPositionChange::ReparentRequired(position) => match destination {
                 DestinationContext::Unresolved => NativePositionUpdate::ReparentRequired(position),
                 DestinationContext::ExistingParentLists => NativePositionUpdate::NormalOwner(
-                    self.graph.change_parent_with_registrations_at(
-                        id,
+                    self.graph.change_parent_in_available_lists_at(
+                        handle,
                         record,
                         false,
                         now,
-                        self.registrations,
-                        self.owner,
+                        |graph, handle| {
+                            self.registrations
+                                .apply_tick_tock(id, &mut self.owner.context(graph, handle))
+                        },
                     )?,
                 ),
                 DestinationContext::MissingDestinationLock => {
                     NativePositionUpdate::MissingDestination(
                         self.graph
-                            .change_parent_to_missing_destination_with_registrations_at(
-                                id,
+                            .change_parent_to_missing_destination_for_atom_at(
+                                NativeAtomIdentity {
+                                    wire_id: id,
+                                    handle,
+                                },
                                 record,
                                 false,
                                 now,
-                                RunawayRegistrationStores {
-                                    runaways: self.runaways,
-                                    registrations: self.registrations,
+                                self.runaways,
+                                |graph, _, handle| {
+                                    self.registrations
+                                        .apply_tick_tock(id, &mut self.owner.context(graph, handle))
                                 },
-                                self.owner,
                             )?,
                     )
                 }

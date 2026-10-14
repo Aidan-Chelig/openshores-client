@@ -83,11 +83,8 @@ impl NativeRecoveryLookup {
             secondary: collect(secondary)?,
         })
     }
-    pub(in crate::world::native_subatoms) fn routed_entry(
-        &self,
-        id: u32,
-        kind: NativeAtomKind,
-    ) -> Option<u32> {
+    /// Explicit selected-map observation, not a packet-dispatch lookup policy.
+    pub fn routed_entry(&self, id: u32, kind: NativeAtomKind) -> Option<u32> {
         if kind.in_star_field() {
             self.secondary.get(&id)
         } else {

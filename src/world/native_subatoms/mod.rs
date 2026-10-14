@@ -32,6 +32,13 @@ use std::{
 const MAX_NODES: usize = 20_000;
 const MAX_LINKS: usize = 128_000;
 
+/// Explicit wire identity and stable object handle; never infer one from the other.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct NativeAtomIdentity {
+    pub wire_id: u32,
+    pub handle: u32,
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeCacheNode {
     pub kind: NativeAtomKind,
