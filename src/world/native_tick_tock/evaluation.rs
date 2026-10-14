@@ -1,14 +1,14 @@
 use super::{Context, RegistrationAction};
 
-pub(super) fn evaluate<C: Context>(
+pub(super) fn evaluate<C: Context, E>(
     id: u32,
     context: &mut C,
-    mut emit: impl FnMut(&mut C, RegistrationAction),
-) {
+    mut emit: impl FnMut(&mut C, RegistrationAction) -> Result<(), E>,
+) -> Result<(), E> {
     use RegistrationAction::*;
     if context.must_not_tick_tock() {
-        emit(context, ReleaseTickTock { id });
-        return;
+        emit(context, ReleaseTickTock { id })?;
+        return Ok(());
     }
     let mut solar = None;
     if context.is_ticker() {
@@ -22,17 +22,17 @@ pub(super) fn evaluate<C: Context>(
                     atom_type,
                     solar_id: system.id,
                 },
-            );
+            )?;
         } else {
-            emit(context, ReleaseTicker { id });
+            emit(context, ReleaseTicker { id })?;
         }
     } else {
-        emit(context, ReleaseTicker { id });
+        emit(context, ReleaseTicker { id })?;
     }
     let raw_interval = context.is_tocker();
     if raw_interval == 0 {
-        emit(context, ReleaseTocker { id });
-        return;
+        emit(context, ReleaseTocker { id })?;
+        return Ok(());
     }
     // Retry a missing ticker parent; reuse a resolved parent even when its
     // contents were not ticking. Both entry points share this exact algorithm.
@@ -47,8 +47,9 @@ pub(super) fn evaluate<C: Context>(
                 solar_id: system.id,
                 raw_interval,
             },
-        );
+        )?;
     } else {
-        emit(context, ReleaseTocker { id });
+        emit(context, ReleaseTocker { id })?;
     }
+    Ok(())
 }

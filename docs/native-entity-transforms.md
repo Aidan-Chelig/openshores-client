@@ -298,6 +298,17 @@ They are not yet attached to a scheduler loop or the playable source-profile
 client. Tests cover absent release, insertion, revival, independent tables,
 busy cleanup, clearing the pending flag despite retained records, and budgets.
 
+`RegistrationStore::apply_tick_tock` now connects the evaluator to those real
+tables through `StoreContext`. Each predicate receives the current store,
+including earlier successful effects. There is no intermediate plan replay or
+no-op sink. A fallible evaluator stops at the first storage error before any
+later getter or registration; earlier successful mutations remain applied.
+That error handling is explicit Rust safety policy, not a native transaction
+claim. Integration tests check real ticker/tocker insertion, later reads of the
+new ticker, combined release, first-effect rejection and partial progress when
+the second effect fails. Full world predicate recovery, timer scheduling,
+AuEther callback attachment and playable-client integration remain unfinished.
+
 A focused REA decompilation of `_ZN8AuGlobal17UpdateOrAddTockerERK4AuIdhS2_j`
 is running with output reserved as `target/native-register-tocker.json`.
 It is pending evidence, not yet a validated result.

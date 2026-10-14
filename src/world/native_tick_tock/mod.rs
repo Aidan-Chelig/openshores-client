@@ -31,6 +31,11 @@ pub trait RegistrationContext: Context {
     fn apply_registration(&mut self, action: RegistrationAction);
 }
 
+pub trait FallibleRegistrationContext: Context {
+    type Error;
+    fn try_apply_registration(&mut self, action: RegistrationAction) -> Result<(), Self::Error>;
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum RegistrationAction {
     ReleaseTickTock {
@@ -62,7 +67,10 @@ pub enum RegistrationAction {
 /// depend on those effects. Native concurrent locks/logging remain unported.
 pub fn registration_actions(id: u32, context: &mut impl Context) -> Vec<RegistrationAction> {
     let mut actions = Vec::with_capacity(2);
-    evaluation::evaluate(id, context, |_, action| actions.push(action));
+    infallible(evaluation::evaluate(id, context, |_, action| {
+        actions.push(action);
+        Ok(())
+    }));
     actions
 }
 
@@ -72,9 +80,29 @@ pub fn registration_actions(id: u32, context: &mut impl Context) -> Vec<Registra
 /// The caller must supply a real registration implementation; this function
 /// does not implement global hashes, locks, or tick/tock scheduling itself.
 pub fn apply_registrations(id: u32, context: &mut impl RegistrationContext) {
-    evaluation::evaluate(id, context, |context, action| {
+    infallible(evaluation::evaluate(id, context, |context, action| {
         context.apply_registration(action);
-    });
+        Ok(())
+    }));
+}
+
+fn infallible(result: Result<(), std::convert::Infallible>) {
+    match result {
+        Ok(()) => (),
+        Err(never) => match never {},
+    }
+}
+
+/// Stop at the first rejected effect, before later getters/registrations.
+/// Earlier successful effects remain applied: this is not a transaction or a
+/// native error-policy claim; fallibility exposes Rust safety boundaries.
+pub fn try_apply_registrations<C: FallibleRegistrationContext>(
+    id: u32,
+    context: &mut C,
+) -> Result<(), C::Error> {
+    evaluation::evaluate(id, context, |context, action| {
+        context.try_apply_registration(action)
+    })
 }
 
 #[cfg(test)]

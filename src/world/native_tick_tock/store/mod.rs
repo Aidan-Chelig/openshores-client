@@ -1,7 +1,9 @@
 //! Owned registration metadata and deferred cleanup, not a scheduler loop.
 //! BTree order and Rust mutex poisoning are not native QHash/Qt lock parity.
+mod integration;
 mod mutation;
 use super::record::{RegistrationFields, TockerFields};
+pub use integration::StoreContext;
 use std::{
     collections::BTreeMap,
     io,
