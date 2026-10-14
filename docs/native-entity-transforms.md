@@ -734,6 +734,27 @@ cover local/deferred updates, normal reparent, missing-lock queuing, real
 registration IDs, owner-context handle and recovery's consumption of wire IDs.
 No constructor, body decoding or automatic packet-driven replacement is inferred.
 
+## Native object construction investigation
+
+A focused REA analysis of the default base constructor `_ZN6DaAtomC2Ev` at
+`0x14184a920` is running, with complete output reserved as
+`target/native-base-atom-constructor.json`. This is pending corroboration, not
+completed evidence. Independent GNU full-function review through the normal
+return at `0x14184ac5a` shows initial ID `0x14 = 0`, owner `0x350 = 0`, position
+parent `0x210 = 0`, identity local matrix at `0x218`, zero orientation fields
+at `0x1f8..0x208` and invalid movement-timer words at `0x320`.
+The qword constant loaded from `0x14224be08` and stored at `0x18` is
+`0x0000000500000000`, establishing raw field `0x1c = 5`, not a zero default.
+This matters to normal-subatom filtering and TickTock eligibility; existing
+explicitly supplied graph snapshots must not silently acquire zero constructor
+status. Hash-pinned static checks cover the relevant stores and constants.
+
+These are base-constructor observations, not established defaults for every
+derived atom class or the post-receive status transition. Rust fresh object
+construction remains pending full REA review and derived-constructor/receiver
+integration. Current NativePositionState::default remains an explicit primitive
+baseline, not a claim to represent the entire native constructor.
+
 DestinationContext remains caller-established. Unresolved context returns the
 unchanged reparent obligation, and insufficient normal-list context remains
 OwnerContextRequired rather than being counted as success. Position omission

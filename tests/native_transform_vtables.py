@@ -220,3 +220,18 @@ for address, expected in [
     raw = bytes.fromhex(expected)
     assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
 print("Native InTickTockQueue: ticker-first/tocker-second key-presence return anchors pinned; release flags are not read in the reviewed body.")
+
+assert symbols["_ZN6DaAtomC2Ev"] == 0x14184A920
+assert pointer(0x14224BE08) == 5 << 32  # qword store at 0x18 sets raw 0x1c=5
+assert pointer(0x14224BCC0) == struct.unpack("<Q", struct.pack("<d", 1.0))[0]
+assert pointer(0x14224BD60) == pointer(0x14224BD68) == 1 << 63
+for address, expected in [
+    (0x14184A955, "41 c7 44 24 14 00 00 00"),  # initial null wire ID
+    (0x14184AADB, "41 c7 84 24 10 02 00 00"),  # null position parent
+    (0x14184ABCA, "49 89 44 24 18"),  # raw status constant store
+    (0x14184AC03, "49 c7 84 24 50 03 00 00"),  # null owner pointer
+    (0x14184AB60, "41 0f 11 bc 24 20 03 00"),  # invalid movement timer words
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native base constructor: raw status 5, null identity/parent/owner, identity scalar and invalid timer constants pinned; derived defaults remain separate.")
