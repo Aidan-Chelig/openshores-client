@@ -310,8 +310,18 @@ the second effect fails. Full world predicate recovery, timer scheduling,
 AuEther callback attachment and playable-client integration remain unfinished.
 
 A focused REA decompilation of `_ZN8AuGlobal17UpdateOrAddTockerERK4AuIdhS2_j`
-is running with output reserved as `target/native-register-tocker.json`.
-It is pending evidence, not yet a validated result.
+completed successfully. Complete digest-validated output is preserved in
+[native-register-tocker.json](evidence/native-register-tocker.json), evidence
+`ev_2fac9b08d6e7df94e845e0b6f146a4e1eba600eeb641644dc8a12e0e67d2659e`.
+It corroborates existing-key field updates, base hash insertion under the
+write lock, pending cleanup and clearing the pending flag. On a missing key,
+global slot `0x58` can override AddTocker; that override is not a call to the
+base store and its effects remain unported. Ghidra omits the fifth argument in
+the recovered indirect-call prototype. GNU assembly at `0x1415a5cbc` explicitly
+places the raw interval into the outgoing stack argument before the tail jump;
+do not infer that derived insertion drops the interval. Jump-table/indirect-tail
+recovery warnings remain preserved in the full record. Ghidra 12.1.2, default
+analysis, read-only ephemeral project; this did not execute the client.
 
 ### MustNotTickTock eligibility
 
