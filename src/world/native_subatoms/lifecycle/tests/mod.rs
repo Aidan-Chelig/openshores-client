@@ -4,6 +4,7 @@ use std::{cell::RefCell, rc::Rc};
 mod candidates;
 mod cleanup;
 mod failures;
+mod packets;
 
 struct Owner {
     events: Rc<RefCell<Vec<&'static str>>>,

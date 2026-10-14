@@ -244,3 +244,25 @@ concrete/graph movement state and untouched body suffix. Eligibility getters
 are explicit fixture observations, not newly reconstructed class predicates.
 Full packet/session orchestration, all-class support and downstream events remain
 unfinished.
+
+## Concrete packet-dispatch adapter
+
+`native_dispatch/item/` now binds the atom dispatcher to real Item object/cache
+stores, native lookup/runaway/registration/retirement stores, fresh owner add,
+candidate disposal, known Item body reception and mode-aware signal installation.
+Receive hooks for allocation, position epoch/destination/auxiliary work, effect
+clock and post-update effects are required, as are owner predicate and signal
+connector implementations. No local/source login mode, native unknown-field
+default or notification behavior is silently supplied. Unsupported candidate
+classes and Item subtypes return explicit errors; this is not all-class support.
+
+The concrete packet integration starts with empty stores, receives a fresh Item,
+assigns its real owner despite first signal rejection, then receives a decreasing
+timestamp update into the same retained handle and disposes its actual temporary
+from both stores. A later unsupported subtype retains earlier time/base effects
+and completed candidate disposal but does not invoke post-update. Assertions
+cover lookup identity, sparse body state, owner assignment, suffix boundary and
+absence of replacement/retirement. Signal delivery and post-update hooks are
+fixture observations; their downstream handlers and playable native session
+remain unfinished. Qt locking/concurrency and omitted class fields remain
+outside this stable-owner adapter.
