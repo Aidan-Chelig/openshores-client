@@ -817,6 +817,24 @@ negative-count rejection; the assembly uses byte zero tests and decrements.
 Neither evidence source observed execution or establishes the called inner
 effect/controller readers' packet formats.
 
+`native_dispatch/base/` now ports this receive-stage order directly, starting
+after identity: read flags, optional packed position callback (including the
+conditional `0xa0` reset obligation), status reset, optional created time,
+optional modified time, effects callback, unconditional motion assignment and
+controllers callback. Required callbacks must complete their layer rather than
+skip unknown bytes. Both layers execute when both flags are set. Return offsets
+exclude identity/opcode; bytes following completed base reception remain for
+the class-specific receiver. This stateful path intentionally retains earlier
+effects on later Rust errors, unlike atomic observation-prefix decoding.
+
+Tests cover all 256 flags with constructor-backed position/status state, actual
+packed-position/time decoding and an established zero-effect count. Controller
+callbacks use an explicitly synthetic marker, not a reconstructed controller
+format. A truncated modified time retains earlier position, status and created
+stage; a truncated packed position does not reset status. Concrete effects,
+controllers, ownerful position adapters and full-world integration remain
+unfinished; this module does not claim those callbacks are already implemented.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence
