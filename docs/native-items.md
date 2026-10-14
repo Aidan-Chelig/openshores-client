@@ -99,6 +99,24 @@ pin all seven factory/vtable bindings, subtype and outer-reader call sites.
 The value diagnostic additionally verifies 36 independent subtype fixtures and
 byte-exact preservation of all unsupported type IDs.
 
+## Capture integration
+
+`CapturedNativeFrame::item_body()` reuses the native atom's boundary guard and
+subtype dispatch without altering the original payload or prefix-only loader.
+Known malformed item bodies fail; unsupported types/base layers stay opaque.
+The opt-in diagnostic `inspect-native-item-capture CAPTURE_FILE` prints bounded
+summaries (subtype, commodity, ownership branch, boolean, consumed/remaining
+bytes) alongside original frame hashes. It validates all requested item bodies
+before stdout, so a late error cannot leave a misleading partial report. It
+retains only summaries during that validation, not a second full collection
+of decoded names. `inspect-native-capture` remains prefix-only and unchanged.
+
+`just test-native-items` also checks a multi-frame independent fixture with
+all seven supported subtypes, sentinel ownership, unknown DNA, effects/sync
+boundaries, nonitem/unknown opcodes, byte-exact raw retention, and a malformed
+last body. This is offline capture decoding, not native world-state mutation,
+render integration, native capture framing parity, or a live-session test.
+
 ## Weapon trace
 
 GNU disassembly of `AuItemWeapon::ls`, `0x1414d0a80..0x1414d0d44`,

@@ -1,5 +1,5 @@
 //! Patched DtClient::ReadPacket atom dispatch, distinct from reference opcodes.
-use super::native_prefix::NativeBasePrefix;
+use super::native_prefix::{NativeBasePrefix, TailKind};
 use crate::{
     atom_position::{FloatEncoding, NativePositionState, PositionChange},
     protocol::QtReader,
@@ -86,12 +86,7 @@ impl<'a> NativeAtomPrefix<'a> {
     /// Decode established item subtypes only when no unknown base layer
     /// separates this prefix from the body. Other kinds/subtypes stay opaque.
     pub fn item_body(&self) -> io::Result<Option<super::native_item::NativeItemBody>> {
-        if self.kind != NativeAtomKind::Item
-            || self.base.tail_kind != super::native_prefix::TailKind::TypeSpecific
-        {
-            return Ok(None);
-        }
-        super::native_item::NativeItemBody::read(&mut QtReader::new(self.remainder))
+        item_body(self.kind, self.base.tail_kind, self.remainder)
     }
     /// Caller selects this atom's state by ID. Applies only the decoded fresh
     /// position and its local timer, not opaque body, metadata or hierarchy effects.
@@ -122,6 +117,17 @@ impl<'a> NativeAtomPrefix<'a> {
             remainder,
         }))
     }
+}
+
+pub(crate) fn item_body(
+    kind: NativeAtomKind,
+    tail_kind: TailKind,
+    bytes: &[u8],
+) -> io::Result<Option<super::native_item::NativeItemBody>> {
+    if kind != NativeAtomKind::Item || tail_kind != TailKind::TypeSpecific {
+        return Ok(None);
+    }
+    super::native_item::NativeItemBody::read(&mut QtReader::new(bytes))
 }
 
 #[cfg(test)]

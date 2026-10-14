@@ -29,6 +29,54 @@ fn native_capture_keeps_unknown_packets_and_known_opaque_layers_exactly() {
     );
     assert_eq!(capture.frames[1].remainder(), [0xde, 0xad]);
     assert_eq!(capture.frames[1].payload(), known());
+    assert_eq!(capture.frames[0].item_body().unwrap(), None);
+    assert_eq!(capture.frames[1].item_body().unwrap(), None);
+}
+
+#[test]
+fn item_replay_preserves_raw_payloads_and_stops_at_unimplemented_boundaries() {
+    for (opcode, base_flags, body, decoded, malformed) in [
+        (
+            0x16,
+            0,
+            vec![1, 6, 0, 0, 1, 1, 0x80, 0xde, 0xad],
+            true,
+            false,
+        ),
+        (0x16, 0, vec![1, 4, 0xde, 0xad], false, false), // unknown DNA subtype
+        (0x16, 0x10, vec![1, 6], false, false),          // effects precede body
+        (0x16, 0x40, vec![1, 6], false, false),          // sync precedes body
+        (0x05, 0, vec![1, 6], false, false),             // different native kind
+        (0xff, 0, vec![1, 6], false, false),
+        (0x16, 0, vec![1, 6], false, true), // known truncated common
+        (0x16, 0, vec![], false, true),
+    ] {
+        let mut payload = vec![opcode];
+        payload.extend(7_u32.to_be_bytes());
+        payload.extend(123_i64.to_be_bytes());
+        payload.push(base_flags);
+        payload.extend(&body);
+        let mut bytes = Vec::new();
+        write_frame(&mut bytes, &payload).unwrap();
+        let capture =
+            NativeCapture::read(&mut Cursor::new(bytes), CaptureLimits::default()).unwrap();
+        let frame = &capture.frames[0];
+        let result = frame.item_body();
+        assert_eq!(result.is_err(), malformed);
+        if !malformed {
+            assert_eq!(result.unwrap().is_some(), decoded);
+        }
+        assert_eq!(frame.payload(), payload);
+        if opcode != 0xff {
+            assert_eq!(frame.remainder(), body);
+        }
+        if decoded {
+            let item = frame.item_body().unwrap().unwrap();
+            assert_eq!(item.consumed_bytes, 7);
+            assert_eq!(&frame.remainder()[item.consumed_bytes..], [0xde, 0xad]);
+            assert_eq!(item.item.unwrap().extension.type_id(), 6);
+        }
+    }
 }
 
 #[test]

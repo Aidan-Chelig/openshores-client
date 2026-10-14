@@ -65,6 +65,7 @@ test-native-transforms: build
 # Patched item/subtype reader anchors and independent fixtures; no target execution.
 test-native-items: build
     nix develop .#server-test --command python tests/native_items.py
+    nix develop .#server-test --command python tests/native_item_captures.py
 
 # Full GUI inventory/world workflow against a disposable local server.
 test-gui: build-client

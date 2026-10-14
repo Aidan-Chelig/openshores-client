@@ -413,10 +413,6 @@ For a disposable local avatar, `login` also accepts
 `--position-report X Y Z RX RY RZ` with `--avatar` and `--watch-seconds`.
 These are raw wire coordinates/rotation, not camera angles or walking controls.
 
-The separate patched-native plain-item reader and its evidence are documented
-in [native item decoding](docs/native-items.md). `just test-native-items` checks
-the native factory/reader anchors and independent offline fixtures. This does
-not switch the playable reference-server client to native protocol decoding.
 Values must be finite and fit in f32; pickup/move/drop combinations are rejected.
 This local test profile sends two identical reports 500 ms apart, accommodating
 the reference server's first-occurrence opcode logging branch.
@@ -428,6 +424,13 @@ cargo build --offline
 nix develop .#server-test --command python tests/local_server.py position
 nix develop .#server-test --command python tests/local_server.py peer
 ```
+
+Patched-native item readers and evidence are documented in
+[native item decoding](docs/native-items.md). `just test-native-items` checks
+factory/reader anchors and independent offline fixtures. Replay established
+item bodies with `cargo run --offline -- inspect-native-item-capture scene.bin`;
+unknown kinds, subtypes and base layers remain opaque. This does not switch
+the playable reference-server client to native protocol decoding.
 
 `--pose-report HEX20` reports ten raw pose bytes with auxiliary trigger fields
 zero, using the same two-report local test schedule. It requires `--avatar` and

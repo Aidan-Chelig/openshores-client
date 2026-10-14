@@ -31,6 +31,14 @@ pub struct CapturedNativeFrame {
 }
 
 impl CapturedNativeFrame {
+    /// Decode only established item bodies. Unknown types/base layers stay
+    /// opaque; known malformed bodies fail. The retained payload never changes.
+    pub fn item_body(&self) -> io::Result<Option<super::native_item::NativeItemBody>> {
+        let Some((kind, base)) = &self.prefix else {
+            return Ok(None);
+        };
+        super::native_atom::item_body(*kind, base.tail_kind, self.remainder())
+    }
     pub fn payload(&self) -> &[u8] {
         &self.payload
     }
