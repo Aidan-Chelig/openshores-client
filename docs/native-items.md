@@ -197,3 +197,15 @@ provide the unimplemented subtype path rather than guessing its body or treating
 it as source-profile data. Atomic malformed/unsupported body handling is Rust
 safety, not native old-value deletion/null-factory or Qt-error parity. This is
 concrete per-object receive state, not completed world/session integration.
+
+`NativeItemObjects` now keeps concrete objects by stable handle and admits their
+confirmed Item cache nodes into dynamic owner storage. It rejects unsupported
+classes rather than substituting an Item, bounds storage to 20,000 as Rust
+safety, and checks duplicate/capacity state before graph mutation. Candidate
+disposal checks explicit owner and actual graph/map/retirement references before
+dropping either node or modeled Item fields. Tests verify that objects sharing
+wire ID 7 remain independent, disposing temporary handle 90 preserves retained
+handle 10, and unsupported/duplicate construction does not change either store.
+This joins real modeled construction/disposal storage; Qt/unmodeled destructor
+effects, graph/base-state synchronization during reception and the full dispatch
+owner adapter still require integration.

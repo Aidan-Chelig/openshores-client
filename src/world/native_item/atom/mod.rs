@@ -1,4 +1,5 @@
 //! Concrete established Item receive state, not a full native world owner.
+mod store;
 use super::{NativeItemBody, NativeItemInitialization, NativeItemState};
 use crate::{
     atom_position::{FloatEncoding, PackedPosition},
@@ -12,6 +13,7 @@ use crate::{
     },
 };
 use std::io;
+pub use store::NativeItemObjects;
 
 #[derive(Clone, Debug)]
 pub struct NativeItemAtom {
