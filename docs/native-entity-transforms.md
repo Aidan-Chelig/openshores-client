@@ -582,6 +582,14 @@ double precision, opaque byte preservation, unresolved outcomes, partial replay
 on missing objects and pre-mutation frame-budget rejection. This is opt-in
 position-stage replay, not complete native packet/world reconstruction.
 
+An additional failure regression fills the tocker budget before replay: the
+failing reparent frame retains its new position, parent membership, timer and
+successful ticker write, while returning only earlier completed outcomes.
+Cache cleanup still runs and the next frame's context is never evaluated.
+Replay tests now live under `native_capture/position_tests/`. The receiver also
+rejects a position-bearing null wire ID even if a caller supplies a contradictory
+node keyed at zero; position omissions remain a no-op.
+
 The position receiver's lifecycle regression now decodes child and arriving
 parent native payloads, applies the child through the missing-destination path,
 then establishes the fresh parent owner and recovers its queued child. Explicit
@@ -593,11 +601,30 @@ remain byte-exact, and repeated recovery is empty. These are synthetic integrati
 tests, not observed native-client execution; tests are split under
 `native_position_updates/tests/`.
 
-A focused REA request for `_ZN7AuEther16RemoveAtomLockedEP6DaAtom` at
-`0x1408c9950` is running, with output reserved as `target/native-remove-atom.json`.
-This is pending evidence. Removal and replacement must remain unimplemented
-until owner detachment, map/set cleanup and auxiliary lifecycle effects are
-reviewed; they must not be substituted with a single ID-map erase.
+The focused REA request for `_ZN7AuEther16RemoveAtomLockedEP6DaAtom` at
+`0x1408c9950` completed in 654353ms. Its complete retained record is
+[native-remove-atom.json](evidence/native-remove-atom.json), Evidence
+`ev_5a2365e286e2eda884b683f18c28f11210c9aa3277e391a2ef142ca8960cad4b`,
+bound to the patched executable digest above. The full pseudocode was reviewed;
+this is static Ghidra 12.1.2 evidence, not target execution or recovered source.
+
+Removal clears the supplied object's owner pointer at `0x350`, calls global
+ReleaseTickTock for its wire ID, then erases that ID from the map selected by
+InStarField. The recovered lookup is keyed by ID, with no observed comparison
+against the stored object pointer. It reads the supplied object's stored parent
+and removes that object pointer from the parent's child set if present. Global
+flag `0x49a & 0x10` enables a further scan removing the same pointer from every
+child set (with diagnostics for unexpected membership); this is conditional,
+not the unconditional normal path. Finally it deletes/removes the object's own
+parent-lock entry and child-set entry keyed by its wire ID.
+
+No recursive child destruction, child reparenting, runaway-queue cleanup or
+position/cache changes appear in this function's recovered body. Replacement's
+old-object status change, TickTock call and timed retention belong to the caller
+AddAtomLocked, not to this removal primitive. Implementation remains pending:
+the Rust graph currently combines child sets and lock availability and does not
+yet represent the detached object's owner independently. A faithful lifecycle
+adapter must preserve those distinctions rather than simply delete a graph node.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning

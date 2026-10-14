@@ -1,4 +1,5 @@
 use super::*;
+mod failures;
 use crate::{
     atom_position::NativePositionState,
     protocol::write_frame,

@@ -1,5 +1,44 @@
 use super::*;
 mod lifecycle;
+
+#[test]
+fn null_wire_id_cannot_be_applied_even_with_contradictory_supplied_node() {
+    let bytes = packet(0, 0, 0x16, 1);
+    let prefix = NativeAtomPrefix::decode(&bytes).unwrap().unwrap();
+    let mut graph = NativeNormalSubatoms::new(
+        [(
+            0,
+            NativeCacheNode {
+                kind: NativeAtomKind::Item,
+                field_1c: 0,
+                position: NativePositionState::default(),
+            },
+        )],
+        [],
+    )
+    .unwrap();
+    let before = graph.node(0).cloned();
+    let mut queue = NativeRunaways::default();
+    let mut store = RegistrationStore::default();
+    let mut owner = Owner::default();
+    let mut receiver = NativePositionReceiver {
+        graph: &mut graph,
+        runaways: &mut queue,
+        registrations: &mut store,
+        owner: &mut owner,
+    };
+    assert!(
+        receiver
+            .apply_at(&prefix, DestinationContext::Unresolved, Instant::now())
+            .unwrap_err()
+            .to_string()
+            .contains("null atom ID")
+    );
+    assert_eq!(graph.node(0).cloned(), before);
+    assert!(queue.is_empty());
+    assert!(store.ticker(0).is_none());
+    assert_eq!(owner.calls, 0);
+}
 use crate::{
     atom_position::NativePositionState,
     world::{

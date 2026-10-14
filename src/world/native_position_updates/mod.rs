@@ -57,6 +57,12 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
             return Ok(None);
         };
         let id = prefix.base.id;
+        if id == 0 {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                "native position receiver rejects null atom ID",
+            ));
+        }
         let node = self.graph.node(id).ok_or_else(|| {
             io::Error::new(
                 io::ErrorKind::InvalidInput,

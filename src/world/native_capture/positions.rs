@@ -113,5 +113,5 @@ impl NativeCapture {
 }
 
 #[cfg(test)]
-#[path = "position_tests.rs"]
+#[path = "position_tests/mod.rs"]
 mod tests;
