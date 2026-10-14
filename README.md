@@ -431,6 +431,8 @@ factory/reader anchors and independent offline fixtures. Replay established
 item bodies with `cargo run --offline -- inspect-native-item-capture scene.bin`;
 unknown kinds, subtypes and base layers remain opaque. This does not switch
 the playable reference-server client to native protocol decoding.
+`replay-native-items scene.bin` retains established item-field observations
+across updates; unknown fields remain unknown, not guessed constructor defaults.
 
 `--pose-report HEX20` reports ten raw pose bytes with auxiliary trigger fields
 zero, using the same two-report local test schedule. It requires `--avatar` and

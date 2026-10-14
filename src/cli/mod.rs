@@ -9,6 +9,7 @@ mod login;
 mod models;
 mod native_capture;
 mod native_item;
+mod native_item_replay;
 mod native_prefix;
 mod positions;
 use login::login_command;
@@ -165,6 +166,9 @@ pub(super) fn run() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
     if native_item::run(&args)? {
+        return Ok(());
+    }
+    if native_item_replay::run(&args)? {
         return Ok(());
     }
     match args.first().map(String::as_str) {
@@ -573,7 +577,7 @@ pub(super) fn run() -> Result<(), Box<dyn std::error::Error>> {
                 "Offline native item readers (not a scene packet):\n       cargo run -- inspect-native-item-common HEX_COMMON_RECORD\n       cargo run -- inspect-native-item-value HEX_TYPE_AND_RECORD\n"
             );
             println!(
-                "Offline native capture replay (prefix-only or established items):\n       cargo run -- inspect-native-capture CAPTURE_FILE\n       cargo run -- inspect-native-item-capture CAPTURE_FILE\n"
+                "Offline native capture replay (prefix-only or established items):\n       cargo run -- inspect-native-capture CAPTURE_FILE\n       cargo run -- inspect-native-item-capture CAPTURE_FILE\n       cargo run -- replay-native-items CAPTURE_FILE\n"
             );
             println!(
                 "Offline patched native atom prefix (Qt 4.0; other opcodes stay opaque):\n       cargo run -- inspect-native-atom HEX_UNFRAMED_PAYLOAD\n"

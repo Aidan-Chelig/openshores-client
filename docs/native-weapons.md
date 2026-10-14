@@ -1,9 +1,14 @@
 # Patched native weapon items
 
 Same target/digest as [native items](native-items.md); GNU disassembly is
-static evidence only. A focused REA/Ghidra request for
-`_ZN12AuItemWeaponlsER11QDataStream` is running with complete output selected
-as `target/native-item-weapon.json`; no validated Evidence ID exists yet.
+static evidence only. The focused REA/Ghidra request for
+`_ZN12AuItemWeaponlsER11QDataStream` completed in 646359 ms with Ghidra 12.1.2.
+The complete validated result is retained in
+[`evidence/native-item-weapon.json`](evidence/native-item-weapon.json), Evidence
+`ev_11fd85799e8d49354bec8bec7e7c4045b8bc0c1062126be90a85303074d93826`.
+It corroborates the flag/width branches, zeroing and overlapping write order
+below. Recovered operator names contain a placeholder; disassembly/imports
+establish actual stream direction. This is not native runtime observation.
 
 Factory/vtable bindings from original PE bytes:
 

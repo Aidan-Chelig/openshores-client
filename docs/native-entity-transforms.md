@@ -153,6 +153,12 @@ Ghidra reports a terminal-flow limitation at the final invalidation call, not
 proof of a non-returning helper. The hierarchy remains unported: native scene
 state must not turn its outstanding reparent obligation into a guessed copy.
 
+The next focused query traces the actual `DaAtom::SetPosByEther` helper
+(`_ZN6DaAtom13SetPosByEtherERK9AuAtomPosPK7AuEther`, `0x140b41450`) rather than
+using Ghidra's incomplete call prototype as proof of its argument meanings.
+Complete output is selected as `target/native-set-position-by-ether.json`;
+the query is pending, not validated evidence.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`

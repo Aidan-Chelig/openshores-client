@@ -1,10 +1,12 @@
 //! Offline native payloads in the existing length-prefixed capture container.
 //! Does not assert complete native transport/body parity or mutate world state.
+mod items;
 use super::{
     native_atom::{NativeAtomKind, NativeAtomPrefix},
     native_prefix::NativeBasePrefix,
 };
 use crate::protocol::read_frame;
+pub use items::NativeItemReplay;
 use std::io::{self, BufRead};
 
 #[derive(Clone, Copy, Debug)]
@@ -96,5 +98,4 @@ impl NativeCapture {
 }
 
 #[cfg(test)]
-#[path = "native_capture_tests.rs"]
 mod tests;

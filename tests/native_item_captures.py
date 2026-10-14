@@ -17,8 +17,8 @@ def frame(payload):
     return bytes(header) + payload
 
 
-def atom(body, opcode=0x16, flags=0):
-    return struct.pack(">BIqB", opcode, 7, 123, flags) + body
+def atom(body, opcode=0x16, flags=0, entity=7):
+    return struct.pack(">BIqB", opcode, entity, 123, flags) + body
 
 
 payloads = []
@@ -72,7 +72,42 @@ with tempfile.TemporaryDirectory(prefix="openshores-native-items-") as directory
     failed = subprocess.run([client, "inspect-native-item-capture", str(capture)], capture_output=True)
     assert failed.returncode != 0 and failed.stdout == b""
     assert capture.read_bytes() == malformed
+    failed_replay = subprocess.run([client, "replay-native-items", str(capture)], capture_output=True)
+    assert failed_replay.returncode != 0 and failed_replay.stdout == b""
+    # Capture-order observations: replacement, omission, invalidation/recovery.
+    sequence = [
+        atom(b"\x01\x06\x08\x00\x01" + struct.pack(">I", 2) + b"\x00A\x01\x80", entity=7),
+        atom(b"\xc0" + struct.pack(">III", 77, 0xFFFFFFFF, 0), entity=7),
+        atom(b"\x40", entity=7),
+        atom(b"\x01\x01\x00\x00\x02\x00", entity=7),
+        atom(b"\x01\x01\x00\x00\x03\x01", entity=8),
+        atom(b"\x01\x04\xde\xad", entity=8),
+        atom(b"\x20", entity=8),
+        atom(b"\xde\xad", flags=16, entity=9),
+        atom(b"\x01\x01\x00\x00\x04\x01", entity=10),
+        atom(b"\xde\xad", opcode=5, entity=10),
+    ]
+    state_raw = b"".join(map(frame, sequence))
+    capture.write_bytes(state_raw)
+    state_rows = list(map(json.loads, subprocess.check_output(
+        [client, "replay-native-items", str(capture)], text=True).splitlines()))
+    assert state_rows == [
+        {"item_entities": 3, "decoded_updates": 7, "opaque_updates": 2},
+        {"id": 7, "item": {"type_id": 1, "commodity": 2, "name_present": False},
+         "ownership_id": 1, "field_3e0_known": True, "field_3e8_known": True,
+         "field_39c": False, "opaque_updates": 0},
+        {"id": 8, "item": None, "ownership_id": None,
+         "field_3e0_known": False, "field_3e8_known": False,
+         "field_39c": True, "opaque_updates": 1},
+        {"id": 9, "item": None, "ownership_id": None,
+         "field_3e0_known": False, "field_3e8_known": False,
+         "field_39c": None, "opaque_updates": 1},
+    ], state_rows
+    assert capture.read_bytes() == state_raw
     capture.write_bytes(b"")
     empty = subprocess.check_output([client, "inspect-native-item-capture", str(capture)], text=True)
     assert json.loads(empty) == {"frames": 0, "payload_bytes": 0}
+    empty_replay = subprocess.check_output([client, "replay-native-items", str(capture)], text=True)
+    assert json.loads(empty_replay) == {"item_entities": 0, "decoded_updates": 0, "opaque_updates": 0}
 print("Native item capture: seven subtypes, ownership, opaque boundaries, raw hashes, late-error atomic output and unchanged source verified offline.")
+print("Retained item observations: capture-order replacement/omission, ownership retention, opaque invalidation and sparse recovery verified offline.")

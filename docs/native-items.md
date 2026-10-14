@@ -117,6 +117,26 @@ boundaries, nonitem/unknown opcodes, byte-exact raw retention, and a malformed
 last body. This is offline capture decoding, not native world-state mutation,
 render integration, native capture framing parity, or a live-session test.
 
+`NativeItemState` retains established RxUpdate effects: omitted outer item
+values remain unchanged, received values replace the entire old item (including
+inner defaults/omissions), explicit ownership replaces ID/strings, sentinel
+ownership changes only the ID, and boolean 0x39c is replaced on every decoded
+body. Unobserved ownership/strings/boolean remain unknown, not guessed native
+constructor defaults. Qt-null strings are known null rather than unobserved.
+
+`NativeCapture::replay_items()` and `replay-native-items CAPTURE_FILE` apply
+those established effects in capture order. Unknown bodies/base layers
+conservatively invalidate field knowledge; later sparse bodies restore only
+what they establish. A later other-kind atom with the same ID removes that
+item observation. These are explicit observation policies, not recovered
+native opaque-body gameplay or timestamp rules. The result is **not** a
+complete world snapshot: native stale-time rejection, deletion/visibility,
+hierarchy, catalog resolution and unsupported subtype semantics remain open.
+Malformed known bodies fail before any replay result/output is returned.
+Capture loading/replay/tests are grouped under `src/world/native_capture/`.
+The multi-update fixtures check omission/replacement, sentinel string retention,
+unobserved versus Qt-null, opaque invalidation and partial knowledge recovery.
+
 ## Weapon trace
 
 GNU disassembly of `AuItemWeapon::ls`, `0x1414d0a80..0x1414d0d44`,

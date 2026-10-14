@@ -132,3 +132,36 @@ fn empty_capture_and_truncated_frames_or_known_atoms_are_distinguished() {
     write_frame(&mut bytes, &[0x16]).unwrap();
     assert!(NativeCapture::read(&mut Cursor::new(bytes), CaptureLimits::default()).is_err());
 }
+
+#[test]
+fn replay_applies_sparse_items_in_order_and_does_not_keep_stale_opaque_values() {
+    let mut bytes = Vec::new();
+    let mut add = |id: u32, opcode: u8, base_flags: u8, body: &[u8]| {
+        let mut payload = vec![opcode];
+        payload.extend(id.to_be_bytes());
+        payload.extend(123_i64.to_be_bytes());
+        payload.push(base_flags);
+        payload.extend(body);
+        write_frame(&mut bytes, &payload).unwrap();
+    };
+    add(7, 0x16, 0, &[1, 1, 0, 0, 1, 1]);
+    add(8, 0x16, 0, &[1, 1, 0, 0, 2, 1]);
+    add(7, 0x16, 0, &[0x40]);
+    add(8, 0x16, 0, &[1, 4, 0xde, 0xad]); // unknown subtype invalidates knowledge
+    add(8, 0x16, 0, &[0x20]); // bool restored; item remains unknown
+    add(9, 0x16, 0x10, &[0xde, 0xad]); // unknown base layer creates unknown observation
+    add(10, 0x16, 0, &[1, 1, 0, 0, 3, 1]);
+    add(10, 0x05, 0, &[0xde, 0xad]); // no item record for a later other-kind atom
+    let capture = NativeCapture::read(&mut Cursor::new(bytes), CaptureLimits::default()).unwrap();
+    let replay = capture.replay_items().unwrap();
+    assert_eq!(replay.decoded_updates, 5);
+    assert_eq!(replay.opaque_updates, 2);
+    assert_eq!(replay.items.len(), 3);
+    assert_eq!(replay.items[&7].item.as_ref().unwrap().common.commodity, 1);
+    assert_eq!(replay.items[&7].ownership_id, Some(1));
+    assert_eq!(replay.items[&8].item, None);
+    assert_eq!(replay.items[&8].field_39c, Some(true));
+    assert_eq!(replay.items[&8].opaque_updates, 1);
+    assert_eq!(replay.items[&9].field_39c, None);
+    assert!(!replay.items.contains_key(&10));
+}
