@@ -11,6 +11,17 @@ This flexibility does not relax fidelity requirements for gameplay, protocol,
 screen flow or interactions. Original material semantics remain an evidence
 question, independent of the inspector's current lighting choices.
 
+## Current development priority
+
+The goal is a Rust OpenShores client, not a standalone terrain/model inspector.
+The existing inspector is sufficient for asset and terrain debugging; defer
+additional viewer polish unless it directly unblocks reconstruction work.
+Next prioritize decoding player/entity state, ongoing scene/session updates and
+gameplay message interoperability against the supplied local reference server.
+Then connect verified state to the game view and reconstruct interaction/screen
+flow from evidence. A synthetic globe demo is not a playable-world milestone.
+Never test against the public OpenShores service.
+
 Before building the graphical interface, establish the original screen flow,
 window/panel behavior, menus, keyboard shortcuts, camera controls, selection,
 and feedback through reference evidence. Record observed behavior alongside
@@ -35,6 +46,7 @@ pointer capture, scaling, and compositing with the game view. Its inclusion is
 conditional on supporting the original interaction model.
 
 Current unknowns: the original login and avatar-screen appearance, window
-layout, shortcuts, camera feel, and 3D asset decoding. These have not yet been
-observed at runtime. The reference server establishes protocol expectations,
+layout, shortcuts, camera feel, and original asset transform/material/animation
+semantics. Raw model geometry is decoded, but these experience details have not
+yet been observed at runtime. The reference server establishes protocol expectations,
 but cannot establish how the original client presents them.

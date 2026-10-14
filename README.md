@@ -8,6 +8,25 @@ six-slot avatar roster returned by the server. The probe completes world
 initialization and reconstructs the first manifest's entity hierarchy;
 rendering is still unfinished.
 
+Scene replay now decodes a source-established player-state prefix: raw DNA,
+HP, pose bytes, head tilt, stamina/growth and supported hunger/agent deltas.
+`inspect-scene CAPTURE_FILE` prints the merged player state. Omitted fields
+retain earlier values; unknown layers and effect payloads remain opaque rather
+than being guessed. Login with `--avatar` still stops after bootstrap by default.
+An optional receive-only local session now stays connected and applies updates:
+
+```sh
+cargo run -- login YOUR_USERNAME --avatar NUMERIC_AVATAR_ID --watch-seconds 10 --capture new-session.frames
+```
+
+Use a real avatar ID from the local server's login roster, not the placeholder.
+The watch runs 1–60 seconds after bootstrap, retains scene/chat channels and
+captures bootstrap plus subsequent inbound scene packets. It sends no gameplay
+requests and uses only loopback endpoints. Idle deadline and clean disconnect
+are normal exits; frames begun before the boundary get at most 100 ms extra to
+complete. Incomplete frames after that grace and malformed updates are errors. Gameplay
+request handling and an interactive game session remain future core milestones.
+
 ```sh
 nix develop
 cargo run -- inspect-reference
@@ -84,7 +103,71 @@ not weld seams, repair geometry, select fallback materials, or establish how the
 original client renders those records. Audits are independently checked for all
 618 decoded meshes.
 
-The optional Bevy inspector opens an interactive 3D window:
+Base terrain from a saved local scene can also be exported for inspection:
+
+```sh
+cargo run -- export-terrain scene.bin GLOBE_ID 32 new-terrain.obj
+```
+
+The latitude-band count must be 3–128; longitude sectors are twice that count.
+This is a closed globe-local Z-up base-terrain mesh, not original terrain LOD.
+Geology deformation, water, textures and scene transforms remain unapplied.
+Existing output files are never overwritten.
+
+To inspect that globe directly in the offline Bevy window:
+
+No scene capture yet? Start with the synthetic test-globe demo:
+
+```sh
+cargo run --offline --features viewer -- view-terrain-demo
+```
+
+It uses fixed parity-test terrain parameters and 32 latitude bands, opens no
+network connections, and accepts `--unlit` and `--smoke-frames 90`.
+This is not a populated game world.
+
+The demo defaults to 32 latitude bands. To increase detail or export its raw
+geometry without a window or capture:
+
+```sh
+cargo run --offline --features viewer -- view-terrain-demo 64
+cargo run --offline -- export-terrain-demo 64 demo-terrain.obj
+```
+
+Resolution is bounded to 3–128 bands; export refuses to overwrite existing files.
+OBJ contains geometry only, not the inspector's generated colors or normals.
+
+View/export commands print mesh counts, base radius and the sampled altitude
+range. For those diagnostics without opening a window or creating a file:
+
+```sh
+cargo run --offline -- inspect-terrain-demo 64
+```
+
+The altitude limits are extrema of the sampled vertices, not guaranteed global
+terrain extrema. Changing resolution can change the reported range.
+
+For your own captured globe:
+
+```sh
+cargo run --offline --features viewer -- view-terrain scene.bin GLOBE_ID 32
+```
+
+This uses the same orbit, zoom, lighting and wireframe controls as the model
+inspector. Display normalization does not change the exported/raw coordinates.
+Terrain lighting uses area-weighted smooth vertex normals across the shared
+seam and poles. Model previews retain flat normals; original model smoothing
+semantics are not guessed.
+Terrain also uses a diagnostic relative-elevation color ramp (low blue through
+green/brown to high pale). Colors are relative to the sampled mesh, not sea
+level or biome classification; blue does not represent a rendered water surface.
+Right-click terrain to mark the nearest hit and print globe-local coordinates,
+latitude/longitude and approximate altitude in the terminal. This probes the
+rendered triangle mesh, not the exact terrain function; coarse triangles can
+lie below the sampled surface. Clicking empty space clears the marker. Model
+previews do not enable this terrain-only probe.
+
+The optional Bevy model inspector opens an interactive 3D window:
 
 ```sh
 nix develop

@@ -43,10 +43,20 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut scene_port = None;
     let mut chat_port = None;
     let mut capture = None;
+    let mut watch_seconds = None;
     let mut options = args[1..].iter();
     while let Some(arg) = options.next() {
         if arg == "--password-stdin" && !from_stdin {
             from_stdin = true;
+        } else if arg == "--watch-seconds" && watch_seconds.is_none() {
+            let seconds = options
+                .next()
+                .ok_or("--watch-seconds requires 1..=60")?
+                .parse::<u64>()?;
+            if !(1..=60).contains(&seconds) {
+                return Err("--watch-seconds must be in 1..=60".into());
+            }
+            watch_seconds = Some(seconds);
         } else if arg == "--avatar" && avatar_id.is_none() {
             let value = options.next().ok_or("--avatar requires a numeric ID")?;
             avatar_id = Some(if let Some(hex) = value.strip_prefix("0x") {
@@ -85,8 +95,15 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     if avatar_id == Some(0) {
         return Err("--avatar must be nonzero".into());
     }
-    if avatar_id.is_none() && (scene_port.is_some() || chat_port.is_some() || capture.is_some()) {
-        return Err("--scene-port, --chat-port, and --capture require --avatar".into());
+    if avatar_id.is_none()
+        && (scene_port.is_some()
+            || chat_port.is_some()
+            || capture.is_some()
+            || watch_seconds.is_some())
+    {
+        return Err(
+            "--scene-port, --chat-port, --capture, and --watch-seconds require --avatar".into(),
+        );
     }
     if scene_port == Some(0) || chat_port == Some(0) {
         return Err("ports must be nonzero".into());
@@ -136,12 +153,27 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 if !slots.iter().any(|avatar| avatar.id == id) {
                     return Err("selected avatar is absent from the authenticated roster".into());
                 }
-                let world = openshores_client::local_scene::probe(
+                let session = openshores_client::local_scene::Session::open(
                     SocketAddr::new(address.ip(), scene_port.unwrap_or(16759)),
                     id,
                     Duration::from_secs(30),
                     chat_port,
                 )?;
+                let (world, state) = if let Some(seconds) = watch_seconds {
+                    let watched = session.watch(Duration::from_secs(seconds))?;
+                    println!(
+                        "Local scene watch ended: {:?}; {} post-bootstrap packets applied.",
+                        watched.end, watched.updates_received
+                    );
+                    (watched.capture, watched.state)
+                } else {
+                    let world = session.bootstrap;
+                    let mut state = openshores_client::world::WorldState::default();
+                    for packet in &world.packets {
+                        state.ingest(packet)?;
+                    }
+                    (world, state)
+                };
                 println!(
                     "Scene initialized for {:#010x}: {} manifest atoms, {} bytes received.",
                     world.avatar_id,
@@ -153,10 +185,6 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                     world.initialization.motd.as_deref().unwrap_or("")
                 );
                 println!("Scene packet counts: {:?}", world.packet_counts);
-                let mut state = openshores_client::world::WorldState::default();
-                for packet in &world.packets {
-                    state.ingest(packet)?;
-                }
                 print_world(&state)?;
                 if let Some(path) = capture {
                     let mut file = fs::OpenOptions::new()
@@ -261,10 +289,105 @@ fn viewer_options(args: &[String]) -> Result<(Option<u32>, bool), Box<dyn std::e
     Ok((frames, unlit))
 }
 
+#[cfg(any(feature = "viewer", test))]
+fn terrain_demo_options(
+    args: &[String],
+) -> Result<(u32, Option<u32>, bool), Box<dyn std::error::Error>> {
+    let (bands, flags) = match args.first().filter(|arg| !arg.starts_with('-')) {
+        Some(value) => (
+            value
+                .parse::<u32>()
+                .map_err(|_| "latitude bands must be an integer in 3..=128")?,
+            &args[1..],
+        ),
+        None => (32, args),
+    };
+    if !(3..=128).contains(&bands) {
+        return Err("latitude bands must be in 3..=128".into());
+    }
+    let (frames, unlit) = viewer_options(flags)?;
+    Ok((bands, frames, unlit))
+}
+
+fn print_terrain_statistics(mesh: &openshores_client::terrain_mesh::TerrainMesh) {
+    let stats = mesh.statistics();
+    println!(
+        "Diagnostic base terrain: {} latitude bands, {} longitude sectors; {} vertices, {} triangles.",
+        stats.latitude_bands, stats.longitude_sectors, stats.vertices, stats.triangles
+    );
+    println!(
+        "Base radius: {:.12}; sampled altitude MSL: {:.12} .. {:.12} (not global extrema).",
+        stats.base_radius, stats.minimum_altitude_msl, stats.maximum_altitude_msl
+    );
+}
+
 fn run() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = env::args().skip(1).collect();
     match args.first().map(String::as_str) {
         Some("login") => login_command(&args[1..])?,
+        Some("inspect-terrain-demo") if args.len() <= 2 => {
+            let bands = args
+                .get(1)
+                .map(|value| value.parse::<u32>())
+                .transpose()
+                .map_err(|_| "latitude bands must be an integer in 3..=128")?
+                .unwrap_or(32);
+            let mesh = openshores_client::terrain_mesh::TerrainMesh::generate(
+                openshores_client::terrain_mesh::demonstration_surface(),
+                bands,
+            )?;
+            print_terrain_statistics(&mesh);
+        }
+        Some("inspect-terrain-demo") => {
+            return Err("usage: inspect-terrain-demo [LATITUDE_BANDS]".into());
+        }
+        Some("view-terrain-demo") => {
+            #[cfg(feature = "viewer")]
+            {
+                let (bands, frames, unlit) = terrain_demo_options(&args[1..])?;
+                let surface = openshores_client::terrain_mesh::demonstration_surface();
+                let mesh = openshores_client::terrain_mesh::TerrainMesh::generate(surface, bands)?;
+                println!(
+                    "Offline synthetic terrain demo ({bands} bands, {} vertices, {} triangles); no scene capture or server required.",
+                    mesh.positions().len(),
+                    mesh.triangles().len()
+                );
+                print_terrain_statistics(&mesh);
+                openshores_client::viewer::run_terrain(&mesh, frames, unlit)?;
+            }
+            #[cfg(not(feature = "viewer"))]
+            return Err("enable --features viewer to run view-terrain-demo".into());
+        }
+        Some("view-terrain") => {
+            #[cfg(feature = "viewer")]
+            {
+                if args.len() < 4 {
+                    return Err("usage: view-terrain CAPTURE_FILE GLOBE_ID LATITUDE_BANDS [--unlit] [--smoke-frames N]".into());
+                }
+                let (frames, unlit) = viewer_options(&args[4..])?;
+                let bands = args[3].parse::<u32>()?;
+                let id = if let Some(hex) = args[2].strip_prefix("0x") {
+                    u32::from_str_radix(hex, 16)?
+                } else {
+                    args[2].parse::<u32>()?
+                };
+                let world = openshores_client::world::read_capture(&mut io::BufReader::new(
+                    fs::File::open(&args[1])?,
+                ))?;
+                let surface = world
+                    .entities
+                    .get(&id)
+                    .and_then(|entity| entity.globe_surface)
+                    .ok_or("selected atom has no decoded globe surface")?;
+                let mesh = openshores_client::terrain_mesh::TerrainMesh::generate(surface, bands)?;
+                print_terrain_statistics(&mesh);
+                openshores_client::viewer::run_terrain(&mesh, frames, unlit)?;
+            }
+            #[cfg(not(feature = "viewer"))]
+            return Err(
+                "the offline viewer is optional; enable --features viewer for view-terrain".into(),
+            );
+        }
         Some("view-model") => {
             #[cfg(feature = "viewer")]
             {
@@ -555,6 +678,72 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                 args[3]
             );
         }
+        Some("export-terrain-demo") if args.len() == 3 => {
+            let bands = args[1]
+                .parse::<u32>()
+                .map_err(|_| "latitude bands must be an integer in 3..=128")?;
+            let mesh = openshores_client::terrain_mesh::TerrainMesh::generate(
+                openshores_client::terrain_mesh::demonstration_surface(),
+                bands,
+            )?;
+            let mut output = io::BufWriter::new(
+                fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(&args[2])?,
+            );
+            mesh.write_obj(&mut output)?;
+            use std::io::Write;
+            output.flush()?;
+            print_terrain_statistics(&mesh);
+            println!(
+                "Exported synthetic base terrain: {} vertices, {} triangles to {:?}.",
+                mesh.positions().len(),
+                mesh.triangles().len(),
+                args[2]
+            );
+        }
+        Some("export-terrain-demo") => {
+            return Err("usage: export-terrain-demo LATITUDE_BANDS NEW_OBJ_FILE".into());
+        }
+        Some("export-terrain") if args.len() == 5 => {
+            let bands = args[3].parse::<u32>()?;
+            let world = openshores_client::world::read_capture(&mut io::BufReader::new(
+                fs::File::open(&args[1])?,
+            ))?;
+            let id = if let Some(hex) = args[2].strip_prefix("0x") {
+                u32::from_str_radix(hex, 16)?
+            } else {
+                args[2].parse::<u32>()?
+            };
+            let surface = world
+                .entities
+                .get(&id)
+                .and_then(|entity| entity.globe_surface)
+                .ok_or("selected atom has no decoded globe surface")?;
+            let mesh = openshores_client::terrain_mesh::TerrainMesh::generate(surface, bands)?;
+            let mut output = io::BufWriter::new(
+                fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(&args[4])?,
+            );
+            mesh.write_obj(&mut output)?;
+            use std::io::Write;
+            output.flush()?;
+            print_terrain_statistics(&mesh);
+            println!(
+                "Exported base terrain: {} vertices, {} triangles to {:?}.",
+                mesh.positions().len(),
+                mesh.triangles().len(),
+                args[4]
+            );
+        }
+        Some("export-terrain") => {
+            return Err(
+                "usage: export-terrain CAPTURE_FILE GLOBE_ID LATITUDE_BANDS NEW_OBJ_FILE".into(),
+            );
+        }
         Some("sample-terrain") if args.len() == 5 => {
             let world = openshores_client::world::read_capture(&mut io::BufReader::new(
                 fs::File::open(&args[1])?,
@@ -592,13 +781,14 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             print_world(&world)?;
             for entity in world.entities.values() {
                 println!(
-                    "{:#010x} {:?} name={:?} parent={:?} transform={:?} globe_surface={:?} geology={:?}",
+                    "{:#010x} {:?} name={:?} parent={:?} transform={:?} globe_surface={:?} person={:?} geology={:?}",
                     entity.id,
                     entity.kind,
                     entity.name,
                     entity.parent,
                     entity.transform,
                     entity.globe_surface,
+                    entity.person,
                     entity.geology.as_ref().map(|geo| (
                         geo.features.len(),
                         geo.declared_count,
@@ -639,6 +829,21 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
+                "Local receive-only scene session:\n       cargo run -- login USERNAME --avatar ID --watch-seconds 10 [--capture NEW_FILE]\n       Duration: 1..60 seconds after bootstrap; loopback only\n"
+            );
+            println!(
+                "Offline terrain statistics:\n       cargo run --offline -- inspect-terrain-demo [LATITUDE_BANDS]\n"
+            );
+            println!(
+                "No-capture offline demo:\n       cargo run --offline --features viewer -- view-terrain-demo [LATITUDE_BANDS] [--unlit] [--smoke-frames N]\n       cargo run --offline -- export-terrain-demo LATITUDE_BANDS NEW_OBJ_FILE\n"
+            );
+            println!(
+                "Offline terrain viewer:\n       cargo run --features viewer -- view-terrain CAPTURE_FILE GLOBE_ID LATITUDE_BANDS [--unlit] [--smoke-frames N]\n"
+            );
+            println!(
+                "Offline base-terrain export:\n       cargo run -- export-terrain CAPTURE_FILE GLOBE_ID LATITUDE_BANDS NEW_OBJ_FILE\n       LATITUDE_BANDS: 3..128; original LOD/geology/water omitted\n"
+            );
+            println!(
                 "Optional offline Bevy preview:\n       cargo run --features viewer -- view-model MODEL_FILE [--unlit] [--smoke-frames 1..3600]\n"
             );
             println!(
@@ -666,6 +871,53 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn invalid_watch_arguments_fail_before_password_or_network() {
+        for flags in [
+            vec!["--watch-seconds", "0"],
+            vec!["--watch-seconds", "61"],
+            vec!["--watch-seconds"],
+            vec!["--watch-seconds", "1"],
+            vec![
+                "--avatar",
+                "42",
+                "203.0.113.1:16757",
+                "--watch-seconds",
+                "1",
+            ],
+        ] {
+            let args: Vec<String> = std::iter::once("Explorer")
+                .chain(flags)
+                .map(str::to_owned)
+                .collect();
+            assert!(login_command(&args).is_err());
+        }
+    }
+
+    #[test]
+    fn terrain_demo_resolution_is_optional_and_bounded() {
+        let args = |values: &[&str]| values.iter().map(|v| v.to_string()).collect::<Vec<_>>();
+        assert_eq!(terrain_demo_options(&[]).unwrap(), (32, None, false));
+        assert_eq!(
+            terrain_demo_options(&args(&["128", "--unlit", "--smoke-frames", "90"])).unwrap(),
+            (128, Some(90), true)
+        );
+        assert_eq!(
+            terrain_demo_options(&args(&["--unlit"])).unwrap(),
+            (32, None, true)
+        );
+        for values in [
+            vec!["0"],
+            vec!["2"],
+            vec!["129"],
+            vec!["BANDS"],
+            vec!["32", "64"],
+            vec!["--unlit", "64"],
+        ] {
+            assert!(terrain_demo_options(&args(&values)).is_err());
+        }
+    }
 
     #[test]
     fn viewer_flags_are_bounded_and_order_independent() {

@@ -549,3 +549,180 @@ the [official Bevy 0.19.1 lighting example](https://github.com/bevyengine/bevy/b
 All 41 viewer-enabled tests and 37 default/headless tests pass, as do both
 Clippy configurations. Bounded local GPU runs in lit and unlit modes exit
 successfully; this is a renderer smoke check, not a visual-fidelity assertion.
+
+### Diagnostic base-terrain globe mesh
+
+`terrain_mesh::TerrainMesh` connects the verified base terrain sampler to an
+offline OBJ export: `export-terrain CAPTURE GLOBE_ID LATITUDE_BANDS NEW.obj`.
+It reads captured scene state, selects a decoded globe surface and generates
+globe-local f64 positions. It does not connect to a server or apply scene
+transforms. Uniform latitude sampling (3..=128 bands, twice as many longitude
+sectors) is a diagnostic choice, not reconstructed client terrain LOD.
+
+The mesh shares wrapped longitude indices and uses one vertex at each pole.
+Pole X/Y components are explicitly zero, avoiding trigonometric residue.
+Nonzero globe size and finite positive sampled surface radii are required;
+generation completes before creating a new output file. The maximum is 32,514
+vertices and 65,024 triangles. No source model assets are changed. Geology
+deformation, water surfaces, UVs, normals, textures and collision remain absent.
+
+Rust tests check exact sampler correspondence, outward winding, paired opposite
+edges, Euler characteristic two, bounds and write errors. The independent
+`tests/reference_terrain_mesh.py` checks all coordinates against the supplied
+Python terrain implementation at 3, 16 and 128 bands, plus topology, invalid
+resolution rejection and preservation of existing output files. This fixture
+uses a synthetic saved globe packet and requires no server or database.
+
+`view-terrain CAPTURE GLOBE_ID LATITUDE_BANDS [--unlit] [--smoke-frames N]`
+now routes the generated terrain through the optional Bevy inspector. The
+renderer copies positions from f64 into normalized display-only f32 coordinates;
+raw terrain and triangle topology remain untouched. Display indices use u32
+for both models and terrain, without changing the source model's u16 codec.
+Lighting, orbit, wireframe and smoke-exit systems are shared, not a second
+renderer. CPU tests exercise minimum, typical and maximum resolutions,
+finite normalized coordinates, source preservation and invalid smoke limits.
+This is a globe diagnostic, not a playable local scene, original camera or LOD.
+
+`view-terrain-demo` removes the capture prerequisite for trying the inspector.
+It explicitly selects the synthetic globe fixture's size (8), terrain parameters
+and 32-band diagnostic tessellation. No file input, original executable or
+network connection is involved. It shares the viewer option parser, including
+unlit mode and bounded smoke exit. These constants are demonstration data, not
+fallback values for missing scene fields or production world generation.
+
+Generated terrain now uses indexed display meshes with area-weighted vertex
+normals: each triangle's unnormalized cross product is accumulated at its three
+shared vertices using f64 intermediates, then normalized for display. The
+closed seam and single pole vertices participate in the same accumulation;
+there is no independent seam copy to shade differently. A finite Z fallback
+handles unused/degenerate or cancelling contributions. Tests cover unequal
+triangle areas, shared indices, degenerate faces and all three terrain test
+resolutions. This is a modern inspector choice, not reconstructed original
+normals. Source model previews keep their existing flat normals and do not
+interpret source smoothing groups. Raw terrain positions and OBJ exports stay
+unchanged; terrain no longer needs three display vertices per triangle.
+
+Terrain display vertices now carry a linear-RGB diagnostic color ramp from
+relative radial elevation: sampled minimum is dark blue, intermediate heights
+green/brown, sampled maximum pale. Radius is computed from raw globe-local f64
+positions before display centering/scaling. A relative 1e-12 flatness threshold
+uses a constant middle color rather than magnifying rounding residue. The
+material is white so it does not tint the vertex ramp. No original textures,
+sea level, biomes, water surfaces or material rules are inferred. Different
+sample resolutions can change extrema and thus colors; exported geometry is
+unchanged. Tests cover endpoints, scale invariance, flatness and CPU-only ECS
+upload of the color attribute. Model materials retain neutral inspector shading.
+
+The capture-free demo accepts an optional leading latitude-band count (3..=128,
+default 32); viewer flags follow it. `export-terrain-demo BANDS NEW.obj` uses the
+same synthetic surface without compiling Bevy. Generation and validation occur
+before create-new output, with explicit buffered flush errors propagated.
+Parser tests cover defaults, flags, bounds and misplaced/duplicate resolution.
+The Python mesh parity test also compares demo exports byte-for-byte with
+captured synthetic globe exports at 3, 16 and 128 bands, checks no-overwrite and
+ensures invalid resolution creates no output. Display colors/normals remain
+separate from OBJ geometry.
+
+`TerrainStatistics` records band/sector counts, vertex/triangle counts, base
+radius and sampled altitude extrema during generation. Altitudes come directly
+from the verified sampler rather than subtracting radius from reconstructed
+positions. View/export commands print these diagnostics; `inspect-terrain-demo
+[BANDS]` reports them without Bevy, a window, file output or networking. These
+are sampled-vertex extrema, not continuous/global extrema. Rust verifies exact
+statistics against sampler values; the Python parity test independently checks
+reported counts and altitude extrema at all three fixture resolutions. OBJ
+bytes and original scene/model data are unchanged.
+
+The terrain inspector now supports a right-click diagnostic probe. After camera
+transform propagation, Bevy's viewport ray is tested against normalized display
+triangles using a double-sided f64 ray/triangle intersection and nearest forward
+hit. Only clicks perform the bounded scan (at most 65,024 triangles); models do
+not enable terrain probing. A hit is transformed back to globe-local coordinates
+and reported with Z-polar latitude, longitude and radius minus base radius.
+This is an interpolated mesh altitude, not an exact terrain-function query,
+collision system or reconstructed original picking behavior. Misses clear the
+marker; hits draw a small cross via existing gizmos, with no new UI dependency.
+Tests cover nearest/back-face hits, behind-ray/parallel/degenerate misses,
+nonfinite and zero directions, and display-to-raw round trips at three terrain
+resolutions. Camera-ray integration follows the cached official Bevy 0.19.1
+`3d_viewport_to_world` example; no original client or server is executed.
+The 32-band demo also completed a bounded 90-update Vulkan smoke run with the
+probe systems installed. This checks scheduling/initialization, not automated
+mouse-input verification; geometric intersection and inverse mapping are
+covered separately by CPU tests.
+
+### Player state prefix and sparse replay
+
+Core work now decodes `DaPerson` (`0x12`) state independently of Bevy. Evidence
+is the supplied server's `protocol/atoms/person.py`, `atoms/daanimal.py`,
+`network/scene/connection.py` bootstrap `_pb2`, and `network/bio_ticker.py` live
+HP/hunger packets. The common flag-1 identity prefix contains the existing Qt
+name, signed empire integer and raw identity tag; only tag zero is advanced
+past. Common flag zero goes directly to creature flags, not an extra item flag.
+The independent Python builder test caught and corrected that first parser
+layout mistake before the local-server check.
+
+Supported creature fields: raw DNA tag and nullable QByteArray (4096-byte cap),
+finite head tilt, signed HP, ten raw pose bytes and a raw u32 pose parameter,
+stamina and growth bytes. No DNA/pose animation or max-health semantics are
+invented. Unknown creature layers stop prefix decoding. Hunger remains a raw
+u16 and agent flags a raw u8: they are decoded only when earlier variable
+citizen/other layers are absent. Full bootstrap still yields creature state;
+citizen/job/gear/inventory payloads beyond that prefix stay opaque.
+
+`PersonState` merges only present fields, distinguishing omitted DNA from Qt
+null and empty. `WorldState` validates/decode-completes before mutation; malformed
+prefixes leave cached entities unchanged. The latest full body stays available.
+Base effects (`0x10`) and unknown high base-layer flags now prevent type-body
+decoding, fixing the risk of mistaking effect bytes for a name or player state.
+Known parent/transform fields remain available; effect semantics are deferred.
+
+`tests/reference_person.py` replays full synthetic bootstrap plus actual Python
+movement, reparent, gear-prefix and effect builders and the bio-ticker layout,
+checking sparse state retention. Rust tests cover signed HP, raw poses, finite
+tilt, truncation atomicity, nullable/empty DNA and unknown-layer preservation.
+The local-server integration also asserts player DNA/HP/stamina/pose decoding
+from its actual bootstrap. No public service or original executable is used.
+Persistent scene lifecycle and gameplay requests remain unfinished.
+
+### Bounded ongoing local scene session
+
+`local_scene::Session::open` owns initial redirect, world and chat sockets past
+bootstrap. The existing `probe` API retains its bootstrap-only behavior by
+dropping that session after the first manifest. `Session::watch` is a receive-only
+slice (positive duration, at most 60 seconds): it applies each complete packet
+through `WorldState`, tracks unknown packets, preserves the complete capture,
+and drops all channels on completion. Login exposes `--watch-seconds 1..60` with
+explicit avatar selection and the same loopback-only redirect checks. No gameplay
+commands, inferred heartbeat replies, automatic avatar selection or reconnect
+policy are added.
+
+One shared deadline bounds framing reads, not just whole-packet iterations.
+Socket byte accounting distinguishes timeout/EOF before a new frame (normal
+duration/clean-disconnect exit) from timeout/EOF inside a frame (error). A frame
+started before the boundary gets a fixed completion deadline at watch-end plus
+100 ms, not a renewable per-byte timeout. New frames still stop at watch-end.
+Tests also exercise a split frame completing within that grace. Incoming
+frames remain capped at 16 MiB; combined bootstrap/session capture at 20,000
+packets and 128 MiB. Active-unit changes are rejected. Bootstrap manifest fields
+remain the initial manifest; live visibility/time are in returned `WorldState`.
+No outbound login/session credentials are included in captures.
+
+Loopback tests exercise updates, capture/replay parity, idle expiration, partial
+length/payload timeout, truncated EOF, clean EOF, invalid durations, avatar
+changes and budget limits. CLI tests reject invalid watch arguments before
+password input or network I/O. The actual local-server integration now performs
+a fresh authenticated session with a three-second post-bootstrap watch, extracts
+the bootstrap prefix for its existing checks and replays the full capture.
+An earlier immediate second-login test intermittently timed out during bootstrap;
+reconnect/session-cleanup behavior remains to investigate rather than being
+treated as verified. This is ongoing state ingestion, not yet interactive
+movement or a renderer-attached game session.
+Post-bootstrap real-server traffic includes an unsupported `0x11` DaItem atom.
+An earlier second-login run included its `0x70000000` ID in a 50-entry manifest;
+that visibility remained unresolved and reported rather than synthesizing an
+entity. The fresh-session run retained a final 49-entry manifest. Integration
+compares live/replay missing IDs rather than requiring every newly introduced
+kind to be supported. The fresh three-second watch applied 17 post-bootstrap
+packets and its 9,680-packet capture replayed successfully; the initial 9,663
+packet prefix still resolved all 49 bootstrap entities.

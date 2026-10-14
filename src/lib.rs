@@ -7,10 +7,12 @@ pub mod login;
 pub mod model;
 pub mod model_audit;
 pub mod model_preview;
+pub mod person;
 pub mod protocol;
 pub mod qt_resources;
 pub mod scene;
 pub mod terrain;
+pub mod terrain_mesh;
 #[cfg(feature = "viewer")]
 pub mod viewer;
 pub mod world;

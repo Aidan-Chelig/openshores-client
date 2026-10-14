@@ -125,18 +125,19 @@ def main() -> None:
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
                 result = run(binary, "login", USERNAME, f"127.0.0.1:{login}",
                              "--avatar", str(avatar), "--scene-port", str(scene),
-                             "--chat-port", str(chat), "--capture", str(runtime / "scene.frames"), "--password-stdin",
+                             "--chat-port", str(chat), "--watch-seconds", "3",
+                             "--capture", str(runtime / "watched.frames"), "--password-stdin",
                              input=PASSWORD + "\n")
                 print(result.stdout, end="", flush=True)
                 assert "Scene initialized" in result.stdout
                 assert PASSWORD not in result.stdout
                 assert "client ACK for" in log_path.read_text(), "reference server did not observe init ACK"
                 async def verify_capture():
-                    from openshores.protocol.framing import read_framed
+                    from openshores.protocol.framing import read_framed, encode_size
                     from openshores.protocol.stream import QDS
                     from openshores.gameplay.worldgen.terrain import terrain_altitude_msl
                     reader = asyncio.StreamReader()
-                    reader.feed_data((runtime / "scene.frames").read_bytes())
+                    reader.feed_data((runtime / "watched.frames").read_bytes())
                     reader.feed_eof()
                     packets = []
                     while not reader.at_eof():
@@ -144,6 +145,17 @@ def main() -> None:
                     assert len(packets) > 100
                     assert any(p == bytes([0x2A]) + avatar.to_bytes(4, "big") for p in packets)
                     assert any(p[0] == 0x38 for p in packets)
+                    active = initialized = False
+                    for index, packet in enumerate(packets):
+                        active |= packet[0] == 0x2A
+                        initialized |= packet[0] == 0x38
+                        if active and initialized and packet[0] == 0x18 and packet[5] == 1:
+                            packets = packets[:index + 1]
+                            break
+                    else:
+                        raise AssertionError("no initialized bootstrap manifest")
+                    (runtime / "scene.frames").write_bytes(b"".join(
+                        encode_size(len(packet)) + packet for packet in packets))
                     assert packets[-1][0] == 0x18 and packets[-1][5] == 1
                     count = int.from_bytes(packets[-1][6:8], "big")
                     ids = [int.from_bytes(packets[-1][i:i+4], "big") for i in range(8, len(packets[-1]), 4)]
@@ -187,9 +199,32 @@ def main() -> None:
                 assert "Unresolved parents: {}" in replay.stdout, replay.stdout
                 assert f"Player ancestry: Person({avatar:#010x}) -> Globe" in replay.stdout, replay.stdout
                 assert "-> Universe(" in replay.stdout, replay.stdout
+                player_line = next(line for line in replay.stdout.splitlines()
+                                   if line.startswith(f"{avatar:#010x} Person "))
+                for field in ["person=Some(PersonState", "dna: Some(Some(", "hp: Some(",
+                              "stamina: Some(", "poses: Some("]:
+                    assert field in player_line, (field, player_line)
+                print("Local player creature state decoded from actual server bootstrap", flush=True)
                 print("Offline world replay: all 49 manifest entities and player ancestry resolved", flush=True)
+                watched = result
+                assert "Local scene watch ended: DurationElapsed" in watched.stdout, watched.stdout
+                watch_line = next(line for line in watched.stdout.splitlines()
+                                  if line.startswith("Local scene watch ended:"))
+                updates = int(watch_line.split("; ")[1].split(" ")[0])
+                assert updates > 0, watched.stdout
+                watched_replay = run(binary, "inspect-scene", str(runtime / "watched.frames"))
+                # Ongoing traffic can introduce currently unsupported atom kinds.
+                # Preserve/report unresolved visibility, and verify replay agrees
+                # with live state rather than pretending every kind is decoded.
+                live_missing = next(line for line in watched.stdout.splitlines()
+                                    if line.startswith("Missing manifest IDs:"))
+                assert live_missing in watched_replay.stdout, watched_replay.stdout
+                assert f"Player ancestry: Person({avatar:#010x}) -> Globe" in watched_replay.stdout
+                print(f"Local ongoing session: {updates} post-bootstrap packets applied and replayed", flush=True)
                 print("Full local reference-server integration passed", flush=True)
-        except BaseException:
+        except BaseException as error:
+            if isinstance(error, subprocess.CalledProcessError) and error.stdout:
+                print(error.stdout, file=sys.stderr)
             log_path = runtime / "server.log"
             if log_path.exists():
                 print(log_path.read_text()[-8000:], file=sys.stderr)

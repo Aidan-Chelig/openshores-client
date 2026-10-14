@@ -2,6 +2,7 @@
 //! Type-specific trailing bytes remain available without claiming full decoding.
 use crate::{
     geology::Geology,
+    person::PersonState,
     protocol::{QtReader, read_frame},
     scene::{self, SceneTime},
     terrain::{GlobeSurface, TerrainParameters},
@@ -79,6 +80,7 @@ pub struct AtomUpdate {
     pub world_identity: Option<WorldIdentity>,
     pub globe_surface: Option<GlobeSurface>,
     pub geology: Option<Geology>,
+    pub person: Option<PersonState>,
     /// Full type-specific body, including any fields decoded above.
     pub body: Vec<u8>,
 }
@@ -128,52 +130,60 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
     let mut world_identity = None;
     let mut globe_surface = None;
     let mut geology = None;
-    match kind {
-        AtomKind::Sector | AtomKind::SolarSystem => name = Some(input.read_string()?),
-        AtomKind::Person | AtomKind::Vehicle | AtomKind::Building => {
-            let flags = input.read_u8()?;
-            if flags & 1 != 0 {
-                name = Some(input.read_string()?);
-            }
-        }
-        AtomKind::Globe | AtomKind::GasGiant | AtomKind::RingSection => {
-            let flags = input.read_u8()?;
-            // Only the source-established WgWorld flag-0/flag-1 prefix is read.
-            if flags & !1 == 0 {
+    let mut person = None;
+    // Effect payloads and unknown base layers precede type-specific fields.
+    // Preserve them as body bytes until their layouts are established.
+    if base_flags & 0xd0 == 0 {
+        match kind {
+            AtomKind::Sector | AtomKind::SolarSystem => name = Some(input.read_string()?),
+            AtomKind::Person | AtomKind::Vehicle | AtomKind::Building => {
+                let flags = input.read_u8()?;
                 if flags & 1 != 0 {
-                    let zone = input.read_u8()?;
-                    let orbit_au = input.read_f64()?;
-                    if !orbit_au.is_finite() {
-                        return Err(invalid("non-finite world orbit"));
-                    }
-                    world_identity = Some(WorldIdentity { zone, orbit_au });
+                    name = Some(input.read_string()?);
                 }
-                name = Some(input.read_string()?);
-                if kind == AtomKind::Globe {
-                    let globe_flags = input.read_u8()?;
-                    if globe_flags & 1 != 0 {
-                        let size = input.read_u8()?;
-                        let atmosphere_type = input.read_u8()?;
-                        let atmosphere_density = input.read_u8()?;
-                        let water = input.read_u8()?;
-                        let values = (0..6)
-                            .map(|_| input.read_f32())
-                            .collect::<io::Result<Vec<_>>>()?;
-                        globe_surface = Some(GlobeSurface {
-                            size,
-                            atmosphere_type,
-                            atmosphere_density,
-                            water,
-                            terrain: TerrainParameters::new(values.try_into().unwrap())?,
-                        });
+                if kind == AtomKind::Person {
+                    person = Some(PersonState::read_prefix(&mut input, flags)?);
+                }
+            }
+            AtomKind::Globe | AtomKind::GasGiant | AtomKind::RingSection => {
+                let flags = input.read_u8()?;
+                // Only the source-established WgWorld flag-0/flag-1 prefix is read.
+                if flags & !1 == 0 {
+                    if flags & 1 != 0 {
+                        let zone = input.read_u8()?;
+                        let orbit_au = input.read_f64()?;
+                        if !orbit_au.is_finite() {
+                            return Err(invalid("non-finite world orbit"));
+                        }
+                        world_identity = Some(WorldIdentity { zone, orbit_au });
                     }
-                    if globe_flags & 8 != 0 {
-                        geology = Some(Geology::read_prefix(&mut input)?);
+                    name = Some(input.read_string()?);
+                    if kind == AtomKind::Globe {
+                        let globe_flags = input.read_u8()?;
+                        if globe_flags & 1 != 0 {
+                            let size = input.read_u8()?;
+                            let atmosphere_type = input.read_u8()?;
+                            let atmosphere_density = input.read_u8()?;
+                            let water = input.read_u8()?;
+                            let values = (0..6)
+                                .map(|_| input.read_f32())
+                                .collect::<io::Result<Vec<_>>>()?;
+                            globe_surface = Some(GlobeSurface {
+                                size,
+                                atmosphere_type,
+                                atmosphere_density,
+                                water,
+                                terrain: TerrainParameters::new(values.try_into().unwrap())?,
+                            });
+                        }
+                        if globe_flags & 8 != 0 {
+                            geology = Some(Geology::read_prefix(&mut input)?);
+                        }
                     }
                 }
             }
+            _ => {}
         }
-        _ => {}
     }
     Ok(Some(AtomUpdate {
         id,
@@ -188,6 +198,7 @@ pub fn decode_atom(bytes: &[u8]) -> io::Result<Option<AtomUpdate>> {
         world_identity,
         globe_surface,
         geology,
+        person,
         body,
     }))
 }
@@ -205,6 +216,7 @@ pub struct Entity {
     pub world_identity: Option<WorldIdentity>,
     pub globe_surface: Option<GlobeSurface>,
     pub geology: Option<Geology>,
+    pub person: Option<PersonState>,
     /// Latest update body only; full packet history belongs to the capture.
     pub last_body: Vec<u8>,
     pub last_base_flags: u8,
@@ -257,6 +269,7 @@ impl WorldState {
             world_identity: None,
             globe_surface: None,
             geology: None,
+            person: None,
             last_body: Vec::new(),
             last_base_flags: 0,
         });
@@ -284,6 +297,12 @@ impl WorldState {
         }
         if let Some(geology) = update.geology {
             entity.geology = Some(geology);
+        }
+        if let Some(person) = update.person {
+            entity
+                .person
+                .get_or_insert_with(PersonState::default)
+                .merge(person);
         }
         entity.last_body = update.body;
         entity.last_base_flags = update.base_flags;
