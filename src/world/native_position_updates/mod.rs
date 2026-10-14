@@ -9,7 +9,7 @@ use super::{
     },
     native_tick_tock::store::RegistrationStore,
 };
-use crate::atom_position::FreshPosition;
+use crate::atom_position::{FreshPosition, PackedPosition};
 use std::{collections::BTreeSet, io, time::Instant};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -70,7 +70,22 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
         let Some(record) = &prefix.base.position else {
             return Ok(None);
         };
-        let id = prefix.base.id;
+        self.apply_record_resolved_at(prefix.base.id, handle, record, destination, now)
+            .map(Some)
+    }
+
+    /// Already-decoded RxUpdateBase position stage for the selected object.
+    /// Identity was resolved by dispatch; no synthesized prefix, candidate-kind
+    /// comparison, stream reread or timestamp policy is needed here. Deferred
+    /// outcomes remain explicit obligations rather than reception success.
+    pub fn apply_record_resolved_at(
+        &mut self,
+        id: u32,
+        handle: u32,
+        record: &PackedPosition,
+        destination: DestinationContext,
+        now: Instant,
+    ) -> io::Result<NativePositionUpdate> {
         if id == 0 {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
@@ -122,7 +137,7 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
                 }
             },
         };
-        Ok(Some(outcome))
+        Ok(outcome)
     }
 }
 

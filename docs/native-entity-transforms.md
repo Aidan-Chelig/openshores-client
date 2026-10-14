@@ -910,6 +910,16 @@ tick/tock/retirement. Disposing a later temporary leaves that pair and retained
 owner intact. This verifies the joined candidate-position/add-owner sequence;
 the full dispatch context still needs binding to these real owner stores.
 
+The owned NativePositionReceiver now exposes `apply_record_resolved_at` for a
+position already decoded by the ordered base stage. Existing combined-prefix
+entry points delegate to it, retaining null-ID safety, explicit wire/handle
+identity, owner-context obligations and real reparent/runaway/registration
+effects. It does not require reconstructing a synthetic NativeBasePrefix or
+rereading identity/time just to apply a position. Existing regression coverage
+for local, alias, normal/missing-parent and partial-error paths exercises the
+shared implementation. Concrete retained Item reception can now call this
+stage directly; metadata/body/status synchronization remains its responsibility.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence
