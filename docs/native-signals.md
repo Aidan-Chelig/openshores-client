@@ -48,3 +48,11 @@ mode-5 tail exclusion, installation order and rejection gating.
 Next: bind required local event sinks, then join this stage to concrete native
 owner dispatch. Qt queue/thread semantics and downstream handlers still need
 their own reconstruction; installing a plan is not executing the handlers.
+
+The atom-dispatch fixture now invokes the real signal installer before its
+owner-add stage, recording exact attempted bindings for an explicit raw mode 5.
+An integration test rejects the first connection and verifies that only one
+binding is attempted **but AddAtom/body/post-update still proceed**: native
+ConnectSignals returns void, and its gate limits wiring rather than aborting
+ReadPacket. This connector records fixture bindings; it is not a downstream
+event-handler implementation or a runnable native session owner.

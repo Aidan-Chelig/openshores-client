@@ -6,6 +6,9 @@ use crate::{
 };
 
 struct Context {
+    signal_bindings: Vec<crate::world::native_signals::NativeSignalConnection>,
+    signal_mode: i32,
+    accept_connections: bool,
     fields: NativeBaseReceiveFields,
     lookup: NativeRecoveryLookup,
     events: Vec<String>,
@@ -50,6 +53,7 @@ impl NativeAtomDispatchContext for Context {
     }
     fn connect_signals(&mut self, handle: u32) -> io::Result<()> {
         self.events.push(format!("signals:{handle}"));
+        crate::world::native_signals::connect_signals(handle, self.signal_mode, self)?;
         Ok(())
     }
     fn add_atom(&mut self, handle: u32) -> io::Result<()> {
@@ -77,8 +81,22 @@ impl NativeAtomDispatchContext for Context {
         Ok(())
     }
 }
+impl crate::world::native_signals::NativeSignalConnector for Context {
+    fn connect(
+        &mut self,
+        handle: u32,
+        binding: crate::world::native_signals::NativeSignalConnection,
+    ) -> io::Result<bool> {
+        assert_eq!(handle, 90);
+        self.signal_bindings.push(binding);
+        Ok(self.accept_connections)
+    }
+}
 fn context() -> Context {
     Context {
+        signal_bindings: vec![],
+        signal_mode: 5, // Explicit fixture mode, not inferred from source login.
+        accept_connections: true,
         fields: Default::default(),
         lookup: NativeRecoveryLookup::new([], []).unwrap(),
         events: vec![],
@@ -156,6 +174,10 @@ fn fresh_item_is_connected_and_added_before_body() {
     let result = receive_atom(&payload(0x16), &mut context).unwrap().unwrap();
     assert!(result.is_new);
     assert_eq!(
+        context.signal_bindings,
+        crate::world::native_signals::connection_plan(5)
+    );
+    assert_eq!(
         context.events,
         [
             "construct:Item",
@@ -167,6 +189,19 @@ fn fresh_item_is_connected_and_added_before_body() {
             "post:90:true"
         ]
     );
+}
+#[test]
+fn first_signal_rejection_does_not_abort_fresh_packet_owner_or_body() {
+    let mut context = context();
+    context.accept_connections = false;
+    let outcome = receive_atom(&payload(0x16), &mut context).unwrap().unwrap();
+    assert!(outcome.is_new);
+    assert_eq!(context.signal_bindings.len(), 1);
+    assert_eq!(
+        &context.events[3..],
+        &["signals:90", "add:90", "body:90:true", "post:90:true"]
+    );
+    assert_eq!(context.item.state.ownership_id, Some(1));
 }
 #[test]
 fn malformed_base_preserves_earlier_time_and_stops_later_operations() {
