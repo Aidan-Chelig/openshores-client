@@ -137,6 +137,23 @@ Capture loading/replay/tests are grouped under `src/world/native_capture/`.
 The multi-update fixtures check omission/replacement, sentinel string retention,
 unobserved versus Qt-null, opaque invalidation and partial knowledge recovery.
 
+## Item constructor investigation
+
+A focused REA analysis of `_ZN6DaItemC2Ev` at `0x140b8d800` is running, with
+complete output reserved as `target/native-item-constructor.json`. Its result
+is pending, not confirmation. Independent GNU review of the normal constructor
+body through `0x140b8dbb1` shows duplicated base initialization and no overwrite
+of its status-5 constant loaded from `0x1422042f0`. The item-value pointer at
+`0x3a8` and ownership storage at `0x3d8` start zero, raw boolean `0x39c` starts
+false, and both strings `0x3e0`/`0x3e8` receive Qt QArrayData shared-null pointers.
+Static stores/import/duplication instructions are hash-pinned by
+`just test-native-transforms`. This is assembly evidence, not native execution.
+
+The current NativeItemState::default remains an unobserved replay snapshot;
+these constructor observations must be exposed explicitly rather than silently
+changing existing capture semantics. Full constructor interpretation and
+packet-driven initialization remain pending the REA review.
+
 ## Weapon trace
 
 GNU disassembly of `AuItemWeapon::ls`, `0x1414d0a80..0x1414d0d44`,

@@ -235,3 +235,18 @@ for address, expected in [
     raw = bytes.fromhex(expected)
     assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
 print("Native base constructor: raw status 5, null identity/parent/owner, identity scalar and invalid timer constants pinned; derived defaults remain separate.")
+
+assert symbols["_ZN6DaItemC2Ev"] == symbols["_ZN6DaItemC1Ev"] == 0x140B8D800
+assert pointer(0x1422042F0) == 5 << 32
+for address, expected in [
+    (0x140B8DAAF, "49 89 44 24 18"),  # retained base status constant
+    (0x140B8DB73, "49 c7 84 24 a8 03 00 00"),  # null item-value pointer
+    (0x140B8DB83, "49 c7 84 24 d8 03 00 00"),  # zero ownership storage
+    (0x140B8DB8F, "41 c6 84 24 9c 03 00 00"),  # false raw flag
+    (0x140B8DB4F, "f3 0f 7e 05 51 4a d0 01"),  # Qt shared-null data import
+    (0x140B8DB7F, "66 0f 6c c0"),  # duplicate shared-null QString words
+    (0x140B8DB98, "41 0f 11 84 24 e0 03 00"),  # both ownership string pointers
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native item constructor: base status, null item/ownership stores, raw flag and shared-null string initialization pinned statically.")
