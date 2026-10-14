@@ -54,6 +54,21 @@ assert "test   $0x40,%al" in reader and "js     1408b3200" in reader
 item_render = assembly(0x140B85330, 0x140B87140)
 assert "140b85840:" in item_render and "call   *0x4a8(%rax)" in item_render
 assert "140b861bf:" in item_render and "call   *0x608(%rax)" in item_render
+ether_position = assembly(0x140B41450, 0x140B415D2)
+for anchor in ("140b41472:", "0x210(%r12),%esi", "140b4147a:",
+               "140b41487:", "140b414e9:", "140b4150d:",
+               "142892820 <__imp__ZN13QElapsedTimer7restartEv>",
+               "140b4151c:", "test   %esi,%esi", "140b415cd:",
+               "140b40610 <_ZNK6DaAtom8TickTockEv>"):
+    assert anchor in ether_position, anchor
+assert ether_position.count("QElapsedTimer7restartEv") == 1
+orientation_position = assembly(0x140B415E0, 0x140B41792)
+assert "140b4169e:" in orientation_position and "1418fa0d0 <_ZNK11AuMatrix4x411GetRotationEv>" in orientation_position
+invalidator = assembly(0x140B436E0, 0x140B43769)
+for anchor in ("140b436eb:", "cmpb   $0x0,0x1d8(%rcx)", "140b4371b:",
+               "1408c6400 <_ZNK7AuEther18ListNormalSubatomsERK4AuIdR10DaAtomList>",
+               "140b77920 <_ZNK10DaAtomList22InvalidateEnvTransformEv>"):
+    assert anchor in invalidator, anchor
 
 rotation = (0.125, -0.25, 1.5)
 position = (12345678.125, -42.25, 3.5)

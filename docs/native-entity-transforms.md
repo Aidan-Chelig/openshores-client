@@ -159,6 +159,38 @@ using Ghidra's incomplete call prototype as proof of its argument meanings.
 Complete output is selected as `target/native-set-position-by-ether.json`;
 the query is pending, not validated evidence.
 
+GNU disassembly now separately establishes the helper's fresh-position copy
+and side-effect ordering. `SetPosByEther`, `0x140b41450..0x140b415d1`, saves
+the OLD parent at `0x140b41472`, copies the incoming parent/matrix, conditionally
+copies an existing inverse cache, then restarts the movement timer at
+`0x140b4150d`. It checks the old parent at `0x140b4151c` and tail-calls
+`TickTock` at `0x140b415cd` only when that old ID is null. It does not locally
+perform the owner's later environment-cache invalidation. TickTock's global
+registration/scheduling behavior is still unported; it is not a no-op.
+
+The Rust fresh-wire primitive `set_fresh_position_by_ether_at` now copies the
+validated fresh transform and owns its monotonic timer restart, returning an
+explicit `tick_tock_required` obligation based on the old parent. It deliberately
+leaves environment-cache validity untouched. The separate
+`invalidate_environment` implements the native invalidator's leading valid-flag
+gate and returns the normal-descendant invalidation obligation. Native
+`InvalidateEnvTransform` checks flag 0x1d8 at `0x140b436eb`, clears it at
+`0x140b4371b`, and lists/invalidates normal descendants only on that valid branch.
+The ordinary local ChangePos branch reuses that cache gate but does not invent
+an old-parent TickTock callback.
+
+This is not full AuEther orchestration: caller-owned index moves, runaway
+handling, TickTock, descendant traversal and their ordering remain required.
+Only fresh wire transforms are accepted; this does not port arbitrary cached
+inverse matrix copies. `SetPosAndOrientByEther` additionally extracts rotation
+at `0x140b4169e`, which remains separate/unported. No changes are wired into
+the playable reference-profile client. Position state/helpers/tests are split
+under `src/atom_position/state/`; `just test-native-transforms` pins these
+anchors to the target digest. Unit tests cover old/new null and nonnull parents,
+unchanged updates, deferred cache invalidation, double coordinates, timer
+restarts and atomic validation errors. These are static and synthetic tests,
+not observed original-client execution.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`

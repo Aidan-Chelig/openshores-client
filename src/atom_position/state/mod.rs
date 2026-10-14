@@ -1,5 +1,7 @@
 //! Fresh wire-position branch of native ChangePos. Hierarchy effects stay explicit.
 use super::PackedPosition;
+mod ether;
+pub use ether::EtherPositionEffects;
 use std::io;
 use std::time::{Duration, Instant};
 
@@ -78,10 +80,9 @@ impl NativePositionState {
         if has_owning_hierarchy && self.position.parent != incoming.parent {
             return Ok(PositionChange::ReparentRequired(incoming));
         }
-        let invalidate_normal_descendants = self.environment_cache_valid;
         self.position = incoming;
         self.position_update_epoch = Some(now);
-        self.environment_cache_valid = false;
+        let invalidate_normal_descendants = self.invalidate_environment();
         Ok(PositionChange::Applied {
             restart_movement_timer: true,
             invalidate_normal_descendants,
@@ -93,8 +94,15 @@ impl NativePositionState {
     pub fn position_update_age_at(&self, now: Instant) -> Option<Duration> {
         now.checked_duration_since(self.position_update_epoch?)
     }
+
+    /// Native InvalidateEnvTransform's leading cache gate. Returns the caller's
+    /// obligation to invalidate normal descendants; it does not enumerate them.
+    pub fn invalidate_environment(&mut self) -> bool {
+        let was_valid = self.environment_cache_valid;
+        self.environment_cache_valid = false;
+        was_valid
+    }
 }
 
 #[cfg(test)]
-#[path = "state_tests.rs"]
 mod tests;
