@@ -34,6 +34,14 @@ pub enum NativeAtomKind {
 }
 
 impl NativeAtomKind {
+    /// Native InStarField slot 0x618. Routes AddAtomLocked to the secondary
+    /// star-field map; distinct from environment and instance-universe gates.
+    pub fn in_star_field(self) -> bool {
+        matches!(
+            self,
+            Self::Galaxy | Self::Sector | Self::SolarSystem | Self::Universe
+        )
+    }
     /// Native IsInstanceUniverse predicate, not the Universe opcode or the
     /// distinct CanRenderEnvironment predicate. True only for Arena/Designer.
     pub fn is_instance_universe(self) -> bool {

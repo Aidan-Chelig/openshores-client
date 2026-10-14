@@ -15,10 +15,11 @@ pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
         let (_, bytes) = positions::input(&input_args, 4096)?;
         match NativeAtomPrefix::decode(&bytes)? {
             Some(prefix) => println!(
-                "{{\"kind\":\"{:?}\",\"can_render_environment\":{},\"is_instance_universe\":{},\"base\":{}}}",
+                "{{\"kind\":\"{:?}\",\"can_render_environment\":{},\"is_instance_universe\":{},\"in_star_field\":{},\"base\":{}}}",
                 prefix.kind,
                 prefix.kind.can_render_environment(),
                 prefix.kind.is_instance_universe(),
+                prefix.kind.in_star_field(),
                 json(&prefix.base, prefix.remainder)
             ),
             None => println!("{{\"kind\":null,\"payload_hex\":\"{}\"}}", hex(&bytes)),

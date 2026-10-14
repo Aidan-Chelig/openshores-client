@@ -184,3 +184,10 @@ for address, expected in [
     raw = bytes.fromhex(expected)
     assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
 print("Native AddRunaway: parent/child pair insertion, duplicate comparison and multi-value allocation pinned.")
+
+for opcode, cls in native_classes.items():
+    predicate = pointer(symbols[f"_ZTV{len(cls)}{cls}"] + 16 + 0x618)
+    code = struct.pack("<Q", pointer(predicate))
+    value = False if code[:3] == b"\x31\xc0\xc3" else True if code[:6] == b"\xb8\x01\x00\x00\x00\xc3" else None
+    assert value == (opcode in (0x15, 0x1A, 0x1C, 0x20)), (opcode, cls, predicate, value)
+print("Native AddAtom routing: all 23 InStarField bindings and constant returns verified statically.")

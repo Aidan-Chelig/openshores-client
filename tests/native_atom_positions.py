@@ -207,6 +207,7 @@ for opcode in range(256):
         assert record["kind"] == kind
         assert record["can_render_environment"] == (opcode in (0x03, 0x12, 0x1A, 0x1C))
         assert record["is_instance_universe"] == (opcode in (0x03, 0x12))
+        assert record["in_star_field"] == (opcode in (0x15, 0x1A, 0x1C, 0x20))
         assert record["base"] == dict(id=0xF1234567, timestamp_ms=-123, flags=1,
             position=dict(flags=0x83, parent=77, position=[12345678.125, 0.0, 0.0], rotation=[0.0] * 3),
             created_ms=None, modified_ms=None, in_motion=False, consumed_bytes=26,

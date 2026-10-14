@@ -492,6 +492,31 @@ unchanged position/timer/cache state and atomic invalid-context rejection.
 Owner registration on parent arrival, native map lifecycles and playable-client
 attachment remain unfinished.
 
+## Atom registration routing (in progress)
+
+GNU static AddAtomA (`0x1408cd560`) locks owner offset `0x18` and calls
+AddAtomLocked (`0x1408cc0a0`). Its initial virtual slot `0x618` is InStarField:
+true selects the secondary map at owner `+8`, false the primary map at `+0`.
+All 23 supported atom vtables return constants: Galaxy, Sector, SolarSystem
+and Universe are true; all others false. This differs from CanRenderEnvironment
+and IsInstanceUniverse. NativeAtomKind::in_star_field and the offline prefix
+diagnostic expose that predicate, with all bindings/returns pinned statically.
+
+NativeRecoveryLookup::from_routed_nodes can now build its explicit two-map
+context from caller-established IDs, node handles and kinds using that routing.
+It retains primary precedence and allows an explicit cross-map overlap while
+rejecting duplicate IDs within a map (Rust validation, not native replacement
+policy). It does not implement AddAtomLocked's lifecycle by constructing maps.
+
+The observed shared registration tail creates the atom's own child set and
+parent lock, assigns owner pointer `0x350` at `0x1408ccbca`, then calls
+FixRunaways at `0x1408ccbd9`. Duplicate-object branches include RemoveAtomLocked,
+setting the old object's raw field `0x1c` to 6 and calling TickTock; ownership,
+replacement/timer cleanup and auxiliary indexes require full review before
+porting the lifecycle. A focused REA request for
+`_ZN7AuEther13AddAtomLockedEP6DaAtom` is running with output reserved at
+`target/native-add-atom.json`. It remains pending, not validated evidence.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`
