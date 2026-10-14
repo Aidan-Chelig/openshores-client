@@ -1,12 +1,15 @@
 //! Offline native payloads in the existing length-prefixed capture container.
-//! Does not assert complete native transport/body parity or mutate world state.
+//! Does not assert complete native transport/body parity. Position application
+//! is opt-in against explicitly supplied native owner context.
 mod items;
+mod positions;
 use super::{
     native_atom::{NativeAtomKind, NativeAtomPrefix},
     native_prefix::NativeBasePrefix,
 };
 use crate::protocol::read_frame;
 pub use items::NativeItemReplay;
+pub use positions::{NativePositionReplay, NativePositionReplayError, ReplayedNativePosition};
 use std::io::{self, BufRead};
 
 #[derive(Clone, Copy, Debug)]

@@ -565,6 +565,23 @@ registration updates, and cover omission, identity errors and unresolved owners.
 This connects wire decoding to owner primitives, not complete packet dispatch
 or playable native-client integration.
 
+NativeCapture::replay_positions now applies retained prefixes through that
+receiver in frame order, against caller-owned graph/runaway/registration state.
+The caller supplies destination observations and monotonic time per position;
+wire timestamps are not converted to local timer epochs or used as an invented
+stale-update filter. Non-atom frames and position omissions are counted without
+body interpretation. Outcome records retain their frame index/atom ID and can
+contain unresolved hierarchy obligations; they are not all counted as applied.
+
+Replay checks actual frame/payload budgets again because the capture's frame
+vector is public. On failure it returns the frame index, prior outcome records
+and the underlying error, retaining earlier state effects and stopping before
+later context evaluation. A failing frame may retain partial effects under the
+receiver's callback-error policy. Tests cover decreasing wire timestamps,
+double precision, opaque byte preservation, unresolved outcomes, partial replay
+on missing objects and pre-mutation frame-budget rejection. This is opt-in
+position-stage replay, not complete native packet/world reconstruction.
+
 The position receiver's lifecycle regression now decodes child and arriving
 parent native payloads, applies the child through the missing-destination path,
 then establishes the fresh parent owner and recovers its queued child. Explicit
