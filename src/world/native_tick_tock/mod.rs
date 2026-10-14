@@ -1,6 +1,7 @@
 //! Native TickTock registration decisions, not scheduler execution.
 //! Callbacks supply established native predicates/lookup results; no defaults
 //! are inferred from source-profile entities or native base flags.
+mod evaluation;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SolarSystem {
@@ -17,7 +18,15 @@ pub trait Context {
     /// to UpdateOrAddTocker's unsigned argument. Units remain unestablished.
     fn is_tocker(&mut self) -> u32;
     fn find_parent_solar_system(&mut self) -> Option<SolarSystem>;
+    fn is_ticking_contents(&mut self, solar: SolarSystem) -> bool;
+    fn solar_field_3a9(&mut self, solar: SolarSystem) -> u8;
     fn atom_type(&mut self) -> u8;
+}
+
+/// Implemented by an owner with actual registration effects. Deliberately has
+/// no default/no-op implementation. Effects can change subsequent getter values.
+pub trait RegistrationContext: Context {
+    fn apply_registration(&mut self, action: RegistrationAction);
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -46,48 +55,24 @@ pub enum RegistrationAction {
 
 /// Evaluate the native non-instrumented path in getter/lookup order. Returns
 /// ordered obligations, without claiming to mutate global registration hashes.
-/// Solar predicates are caller snapshots: concurrent lock interleaving and the
-/// optional native slow-call logging branch are not reconstructed here.
+/// Solar predicates are read at their native evaluation points. Collecting a
+/// plan does not apply effects; use apply_registrations when later getters can
+/// depend on those effects. Native concurrent locks/logging remain unported.
 pub fn registration_actions(id: u32, context: &mut impl Context) -> Vec<RegistrationAction> {
-    use RegistrationAction::*;
-    if context.must_not_tick_tock() {
-        return vec![ReleaseTickTock { id }];
-    }
     let mut actions = Vec::with_capacity(2);
-    let mut solar = None;
-    if context.is_ticker() {
-        solar = context.find_parent_solar_system();
-        if let Some(system) = solar.filter(|system| system.ticking_contents) {
-            actions.push(UpdateOrAddTicker {
-                id,
-                atom_type: context.atom_type(),
-                solar_id: system.id,
-            });
-        } else {
-            actions.push(ReleaseTicker { id });
-        }
-    } else {
-        actions.push(ReleaseTicker { id });
-    }
-    let raw_interval = context.is_tocker();
-    if raw_interval == 0 {
-        actions.push(ReleaseTocker { id });
-        return actions;
-    }
-    // A failed ticker lookup is retried for the tocker path; a resolved solar
-    // system is reused even when IsTickingContents was false.
-    let solar = solar.or_else(|| context.find_parent_solar_system());
-    if let Some(system) = solar.filter(|system| system.field_3a9 == 0) {
-        actions.push(UpdateOrAddTocker {
-            id,
-            atom_type: context.atom_type(),
-            solar_id: system.id,
-            raw_interval,
-        });
-    } else {
-        actions.push(ReleaseTocker { id });
-    }
+    evaluation::evaluate(id, context, |_, action| actions.push(action));
     actions
+}
+
+/// Apply each registration effect before evaluating the next native getter.
+/// Unlike collecting a plan and replaying it, this preserves effects visible
+/// to IsTocker, subsequent parent lookup, and the second AtomType call.
+/// The caller must supply a real registration implementation; this function
+/// does not implement global hashes, locks, or tick/tock scheduling itself.
+pub fn apply_registrations(id: u32, context: &mut impl RegistrationContext) {
+    evaluation::evaluate(id, context, |context, action| {
+        context.apply_registration(action);
+    });
 }
 
 #[cfg(test)]

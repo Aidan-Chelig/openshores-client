@@ -8,6 +8,9 @@ struct Probe {
     interval: u32,
     parents: VecDeque<Option<SolarSystem>>,
     calls: Vec<&'static str>,
+    applied: Vec<RegistrationAction>,
+    interval_after_ticker: Option<u32>,
+    field_after_ticker: Option<u8>,
 }
 impl Context for Probe {
     fn must_not_tick_tock(&mut self) -> bool {
@@ -28,7 +31,137 @@ impl Context for Probe {
     }
     fn atom_type(&mut self) -> u8 {
         self.calls.push("type");
-        0x16
+        0x16 + self.applied.len() as u8
+    }
+    fn is_ticking_contents(&mut self, solar: SolarSystem) -> bool {
+        solar.ticking_contents
+    }
+    fn solar_field_3a9(&mut self, solar: SolarSystem) -> u8 {
+        if self.applied.is_empty() {
+            solar.field_3a9
+        } else {
+            self.field_after_ticker.unwrap_or(solar.field_3a9)
+        }
+    }
+}
+
+impl RegistrationContext for Probe {
+    fn apply_registration(&mut self, action: RegistrationAction) {
+        self.calls.push(match action {
+            RegistrationAction::ReleaseTickTock { .. } => "release-both",
+            RegistrationAction::ReleaseTicker { .. } => "release-ticker",
+            RegistrationAction::ReleaseTocker { .. } => "release-tocker",
+            RegistrationAction::UpdateOrAddTicker { .. } => "update-ticker",
+            RegistrationAction::UpdateOrAddTocker { .. } => "update-tocker",
+        });
+        if matches!(
+            action,
+            RegistrationAction::ReleaseTicker { .. } | RegistrationAction::UpdateOrAddTicker { .. }
+        ) && let Some(interval) = self.interval_after_ticker
+        {
+            self.interval = interval;
+        }
+        self.applied.push(action);
+    }
+}
+
+#[test]
+fn inline_effects_are_visible_to_later_getters_and_are_not_deferred() {
+    let system = SolarSystem {
+        id: 9,
+        ticking_contents: true,
+        field_3a9: 0,
+    };
+    let mut p = Probe {
+        ticker: true,
+        parents: [Some(system)].into(),
+        interval_after_ticker: Some(u32::MAX),
+        ..Probe::default()
+    };
+    apply_registrations(7, &mut p);
+    assert_eq!(
+        p.calls,
+        [
+            "blocked",
+            "ticker",
+            "parent",
+            "type",
+            "update-ticker",
+            "tocker",
+            "type",
+            "update-tocker"
+        ]
+    );
+    assert_eq!(
+        p.applied,
+        [
+            RegistrationAction::UpdateOrAddTicker {
+                id: 7,
+                atom_type: 0x16,
+                solar_id: 9
+            },
+            RegistrationAction::UpdateOrAddTocker {
+                id: 7,
+                atom_type: 0x17,
+                solar_id: 9,
+                raw_interval: u32::MAX
+            }
+        ]
+    );
+    let mut p = Probe {
+        interval: 123,
+        interval_after_ticker: Some(0),
+        ..Probe::default()
+    };
+    apply_registrations(7, &mut p);
+    assert_eq!(
+        p.calls,
+        [
+            "blocked",
+            "ticker",
+            "release-ticker",
+            "tocker",
+            "release-tocker"
+        ]
+    );
+    let mut p = Probe {
+        blocked: true,
+        ..Probe::default()
+    };
+    apply_registrations(7, &mut p);
+    assert_eq!(p.calls, ["blocked", "release-both"]);
+    assert_eq!(p.applied, [RegistrationAction::ReleaseTickTock { id: 7 }]);
+}
+
+#[test]
+fn solar_tocker_gate_is_read_after_ticker_effects() {
+    for (before, after) in [(0, 1), (255, 0)] {
+        let mut p = Probe {
+            ticker: true,
+            interval: 5,
+            parents: [Some(SolarSystem {
+                id: 9,
+                ticking_contents: true,
+                field_3a9: before,
+            })]
+            .into(),
+            field_after_ticker: Some(after),
+            ..Probe::default()
+        };
+        apply_registrations(7, &mut p);
+        assert_eq!(
+            p.applied[1],
+            if after == 0 {
+                RegistrationAction::UpdateOrAddTocker {
+                    id: 7,
+                    atom_type: 0x17,
+                    solar_id: 9,
+                    raw_interval: 5,
+                }
+            } else {
+                RegistrationAction::ReleaseTocker { id: 7 }
+            }
+        );
     }
 }
 

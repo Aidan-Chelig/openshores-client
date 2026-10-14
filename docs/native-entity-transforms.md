@@ -239,6 +239,18 @@ could influence later getters, concurrent locking, predicate implementations,
 and scheduler execution still require integration. The decision helper is not
 a replacement for fulfilling the old-null-parent callback in AuEther.
 
+`apply_registrations` now shares the evaluator with the diagnostic plan helper,
+but dispatches effects immediately through a required RegistrationContext
+implementation. In the retained non-instrumented trace, ReleaseTicker or
+UpdateOrAddTicker precedes IsTocker; collecting all actions and applying them
+later cannot preserve effects visible to that getter. Solar predicates are
+likewise called at their evaluation points, including the late `0x3a9` read,
+rather than assuming the lookup snapshot is still current. Synthetic tests
+change interval, atom type and solar suppression state after the ticker effect
+and verify the subsequent decision. The trait intentionally supplies no no-op
+default. Actual global registration storage, locks and the AuEther callback
+remain unimplemented; this is the dispatch foundation, not a working scheduler.
+
 ## Explicit normal-subatom invalidation
 
 `src/world/native_subatoms/` implements the local ChangePos cache obligation
