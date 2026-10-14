@@ -415,6 +415,7 @@ pub fn read_capture(reader: &mut impl BufRead) -> io::Result<WorldState> {
 pub mod native_atom;
 pub mod native_capture;
 pub mod native_item;
+pub mod native_position_updates;
 pub mod native_prefix;
 pub mod native_runaways;
 pub mod native_subatoms;

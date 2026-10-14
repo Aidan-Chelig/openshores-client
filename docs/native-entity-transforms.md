@@ -543,6 +543,28 @@ Owner-pointer assignment is represented by the explicit modeled availability
 transition; raw pointers, locks, atom construction/map insertion, same-object
 re-add policy and replacement/removal remain outside this fresh-tail helper.
 
+## Existing native wire-position receiver
+
+`world/native_position_updates/` now connects a decoded NativeAtomPrefix's
+fresh base position to the established local, normal-reparent and explicit
+missing-destination paths, including real registration storage. Existing nodes
+must be keyed by the wire ID and have matching native kind. Missing objects or
+kind changes are rejected before mutation as requiring lifecycle handling;
+aliases/secondary object identity need a full owner adapter, not guessed IDs.
+
+DestinationContext remains caller-established. Unresolved context returns the
+unchanged reparent obligation, and insufficient normal-list context remains
+OwnerContextRequired rather than being counted as success. Position omission
+does nothing. The native base-position path selects position-only setters,
+retaining separate orientation scalars rather than inventing an extraction.
+Opaque body layers, metadata fields, timestamps and item updates remain outside
+this receiver; no source-profile fallback or timestamp filtering is introduced.
+Tests decode synthetic native payload bytes before applying local/reparent/
+runaway effects, preserve double coordinates and opaque tails, check real
+registration updates, and cover omission, identity errors and unresolved owners.
+This connects wire decoding to owner primitives, not complete packet dispatch
+or playable native-client integration.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`
