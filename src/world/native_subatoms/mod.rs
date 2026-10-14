@@ -1,5 +1,9 @@
 //! Explicit native normal-subatom context; not complete AuEther orchestration.
 mod arrival;
+mod lifecycle;
+pub use lifecycle::{
+    NativeAtomAdd, NativeAtomAddRequest, NativeAtomOwnerContext, NativeAtomOwnerStores,
+};
 mod invalidation;
 mod recovery;
 mod removal;

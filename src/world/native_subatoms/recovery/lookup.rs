@@ -26,6 +26,23 @@ fn insert(map: &mut BTreeMap<u32, u32>, id: u32, handle: u32) -> io::Result<()> 
     Ok(())
 }
 impl NativeRecoveryLookup {
+    pub(in crate::world::native_subatoms) fn insert_routed(
+        &mut self,
+        id: u32,
+        handle: u32,
+        kind: NativeAtomKind,
+    ) -> io::Result<()> {
+        let map = if kind.in_star_field() {
+            &mut self.secondary
+        } else {
+            &mut self.primary
+        };
+        if map.len() >= MAX_NODES && !map.contains_key(&id) {
+            return Err(invalid("native routed atom map exceeds budget"));
+        }
+        map.insert(id, handle);
+        Ok(())
+    }
     pub(in crate::world::native_subatoms) fn remove_routed(
         &mut self,
         id: u32,

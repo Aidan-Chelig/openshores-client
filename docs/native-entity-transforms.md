@@ -573,9 +573,35 @@ retention record, an explicit Rust error boundary rather than native rollback.
 Synthetic tests verify context construction sees status 6, registration-release
 observations, two old handles with the same wire ID, timer restart, unchanged
 position and safety preflight. No expiry threshold, destructor, Qt timer word
-layout or mutex/concurrency behavior is invented. Full AddAtomLocked selection,
-same-pointer early return, mutable routed insertion and the end-to-end
-replacement orchestrator still need implementation.
+layout or mutex/concurrency behavior is invented.
+
+`native_subatoms/lifecycle/` now connects the stages as `add_atom_owner` over
+already constructed graph nodes. It rejects null IDs/missing incoming objects,
+selects only the incoming kind's native map, and returns AlreadyPresent for an
+identical handle before any owner, clock, queue or registration callback. A
+different existing handle goes through owner removal, then samples the supplied
+clock, changes status/executes TickTock and records timed retention. Only after
+that does it insert the incoming routed entry, establish its own indexes/owner
+and recover runaways. Fresh insertion skips old-object registration/retention.
+The unrelated map remains independent; recovery still uses primary precedence.
+
+`NativeAtomOwnerContext` combines explicit external detach/assignment with the
+existing registration predicate context; no owner reference is inferred from
+membership. Synthetic sequence tests cover both map routes and prove the
+clock is sampled after detach, context sees old status 6 and detached ownership,
+assignment sees the newly created empty set, and only queued children recover.
+Other tests cover fresh insertion, same-handle re-add even with absent lists,
+cross-map overlap, null/dangling identities and arrival-budget failure after map
+insertion. Rust errors stop at the failed stage and retain previous writes;
+this is not a transaction. Tests are split under `lifecycle/tests/`.
+
+This implements the recovered stable-owner sequence, not full native world
+dispatch. Constructors, wire-ID/handle establishment and caller metadata still
+require integration. Inconsistent preexisting own lists with no selected-map
+replacement are rejected by the fresh-tail helper after insertion rather than
+reproducing native duplicate allocation behavior. Qt locks, copy-on-write,
+diagnostic output, retained-object expiry/destruction and full native packet
+construction remain outside the adapter.
 
 ## Existing native wire-position receiver
 
