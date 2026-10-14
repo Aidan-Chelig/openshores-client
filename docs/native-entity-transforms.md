@@ -902,6 +902,14 @@ status 5 until the separate base status stage, and verify no owner lists or
 mutation on indexed/owned rejection. Conditional `0xa0` reset and concrete full
 packet owner binding remain explicit follow-up work.
 
+The dynamic owner-lifecycle integration now also decodes/applies a parent-changing
+double position before status reset and real owner addition. Before AddAtom,
+neither owner lists nor a runaway pair exist. AddAtom then queues `(parent 12,
+wire ID 7)`, not object handle 71, while preserving position and avoiding incoming
+tick/tock/retirement. Disposing a later temporary leaves that pair and retained
+owner intact. This verifies the joined candidate-position/add-owner sequence;
+the full dispatch context still needs binding to these real owner stores.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence

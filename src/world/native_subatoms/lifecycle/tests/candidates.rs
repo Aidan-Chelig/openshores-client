@@ -21,12 +21,27 @@ fn dynamically_constructed_item_establishes_owner_and_reused_id_discards_only_ca
         )
         .unwrap();
     assert_eq!(graph.node(71).unwrap().field_1c, 5);
-    graph.finish_received_position_stage(71).unwrap();
-    item.base.finish_received_position_stage();
     let mut lookup = NativeRecoveryLookup::new([], []).unwrap();
     let mut queue = NativeRunaways::default();
     let mut registrations = RegistrationStore::default();
     let mut retired = NativeRetiredAtoms::default();
+    let mut bytes = vec![0x83];
+    bytes.extend(12_u32.to_be_bytes());
+    bytes.extend(12345678.125_f64.to_be_bytes());
+    let position = crate::atom_position::PackedPosition::read(
+        &mut crate::protocol::QtReader::new(&bytes),
+        crate::atom_position::FloatEncoding::TypeWidths,
+    )
+    .unwrap();
+    graph
+        .apply_candidate_position_at(71, &position, Instant::now(), false, &lookup, &retired)
+        .unwrap();
+    assert_eq!(graph.node(71).unwrap().position.position.parent, 12);
+    assert_eq!(graph.node(71).unwrap().field_1c, 5);
+    assert!(graph.lists.is_empty());
+    assert!(!queue.contains(12, 7));
+    graph.finish_received_position_stage(71).unwrap();
+    item.base.finish_received_position_stage();
     let events = Rc::new(RefCell::new(Vec::new()));
     let mut owner = Owner {
         events: events.clone(),
@@ -60,6 +75,12 @@ fn dynamically_constructed_item_establishes_owner_and_reused_id_discards_only_ca
     assert_eq!(graph.node(71).unwrap().field_1c, 0);
     assert!(retired.is_empty());
     assert!(!registrations.in_tick_tock_queue(7));
+    assert!(queue.contains(12, 7));
+    assert!(!queue.contains(12, 71));
+    assert_eq!(
+        graph.node(71).unwrap().position.position.local[3][0],
+        12345678.125
+    );
 
     // The next packet constructs a temporary before resolving the same ID.
     // Existing selection does not invoke AddAtomLocked's replacement branch.
@@ -84,4 +105,5 @@ fn dynamically_constructed_item_establishes_owner_and_reused_id_discards_only_ca
     assert!(graph.lists[&7].available);
     assert!(owner.owners[&71]);
     assert_eq!(*events.borrow(), ["assign"]);
+    assert!(queue.contains(12, 7));
 }
