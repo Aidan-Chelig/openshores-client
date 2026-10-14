@@ -63,6 +63,20 @@ as Rust safety rather than claiming Qt malformed-stream parity. Tests cover
 exact boundaries, every truncated body, all 256 AtomPosVec flags, unsupported
 types, double precision and signed-short/raw-byte width distinctions.
 
-Next: implement bounded list append and caller's empty-list disposal;
-replace the synthetic controller callback in base-receiver integration tests.
+`NativeControllerList::receive_base_layer` now implements counted append and
+the base caller's empty-list disposal. It appends duplicate supported values,
+reports unsupported type bytes in order without inventing their body lengths,
+and retains previous entries on zero count. Empty completed lists become
+unallocated; later Rust errors preserve allocation and prior appends. A private
+20,000-entry cap is Rust safety, not native policy. Unknown-type warnings are
+reported data for the adapter, not silently emitted external messages. Tests
+cover duplicates, unsupported types, empty/null lifecycle, maximum byte count,
+truncation and capacity partial effects.
+
+The ordered base-receiver test adapter now uses real controller reception,
+replacing its synthetic marker. A nonempty effects layer and duplicate Motion
+controllers end exactly before untouched class-body bytes; all 256 base flags
+use real zero-count layer handling. This remains test integration, not a claim
+that the full native world/session owner is connected to playable UI.
+Next: connect the concrete layers to native atom/world reception.
 Controller application/interpolation and Qt locking remain additional work.

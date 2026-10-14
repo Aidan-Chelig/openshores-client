@@ -2,6 +2,7 @@ use super::*;
 use crate::world::native_atom::NativeBaseAtomInitialization;
 
 struct Context {
+    controllers: crate::world::native_controller::NativeControllerList,
     effects: crate::world::native_effect::NativeEffectList,
     atom: NativeBaseAtomInitialization,
     events: Vec<&'static str>,
@@ -42,13 +43,13 @@ impl NativeBaseReceiveContext for Context {
     }
     fn receive_controllers(&mut self, input: &mut QtReader<'_>) -> io::Result<()> {
         self.events.push("controllers");
-        // Synthetic callback boundary marker, NOT a native controller format.
-        assert_eq!(input.read_u8()?, 0xcc);
+        self.controllers.receive_base_layer(input)?;
         Ok(())
     }
 }
 fn context() -> Context {
     Context {
+        controllers: Default::default(),
         effects: Default::default(),
         atom: NativeBaseAtomInitialization::from_default_base_constructor(),
         events: vec![],
@@ -57,7 +58,7 @@ fn context() -> Context {
 }
 #[test]
 fn real_nonempty_effect_layer_ends_before_controllers_and_body() {
-    let bytes = [0x70, 1, 0, 0, 7, 0xcc, 0xde, 0xad];
+    let bytes = [0x70, 1, 0, 0, 7, 2, 2, 2, 0xde, 0xad];
     let mut input = QtReader::new(&bytes);
     let mut context = context();
     let outcome = receive_base(&mut input, FloatEncoding::TypeWidths, &mut context).unwrap();
@@ -68,7 +69,8 @@ fn real_nonempty_effect_layer_ends_before_controllers_and_body() {
     assert_eq!(context.effects.effects().len(), 1);
     assert_eq!(context.effects.effects()[0].time_70, 7);
     assert_eq!(context.motion, Some(true));
-    assert_eq!(outcome.consumed_bytes, 6);
+    assert_eq!(context.controllers.entries().len(), 2);
+    assert_eq!(outcome.consumed_bytes, 8);
     assert_eq!(input.remaining_bytes(), &[0xde, 0xad]);
 }
 
@@ -97,7 +99,7 @@ fn all_flags_preserve_stage_order_and_body_boundary() {
         }
         expected.push("motion");
         if flags & 0x40 != 0 {
-            bytes.push(0xcc);
+            bytes.push(0);
             expected.push("controllers");
         }
         let base_length = bytes.len();

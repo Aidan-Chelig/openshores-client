@@ -1,6 +1,8 @@
 //! Native controller wire values; application/interpolation remains separate.
 use crate::protocol::QtReader;
 use std::io;
+mod list;
+pub use list::{NativeControllerList, NativeControllerListReceive};
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeUnpackedPosition {
