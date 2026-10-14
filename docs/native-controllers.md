@@ -53,7 +53,16 @@ The remaining matrix arithmetic must be reviewed before claiming complete
 unpacked native position-state reconstruction. Reusing PackedPosition::read
 would therefore consume the controller stream incorrectly.
 
-Next: retain REA corroboration; establish concrete per-type receiver bindings
-and wire formats; implement bounded list append and caller's empty-list disposal;
+`native_controller/` now decodes all five verified body formats. Unpacked
+positions retain parent/position/rotation double fields without pretending the
+unreviewed matrix calculation is implemented. Pose fields retain native widths;
+Motion consumes no bytes. AtomPosVec uses the factory-zero vector on omission,
+preserves raw flags and exposes bit 0 independently. Unknown types return None
+without guessed body consumption. Known malformed bodies preserve reader state
+as Rust safety rather than claiming Qt malformed-stream parity. Tests cover
+exact boundaries, every truncated body, all 256 AtomPosVec flags, unsupported
+types, double precision and signed-short/raw-byte width distinctions.
+
+Next: implement bounded list append and caller's empty-list disposal;
 replace the synthetic controller callback in base-receiver integration tests.
 Controller application/interpolation and Qt locking remain additional work.

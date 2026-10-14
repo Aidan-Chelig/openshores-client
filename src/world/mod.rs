@@ -14,6 +14,7 @@ fn invalid(message: &str) -> io::Error {
 
 pub mod native_atom;
 pub mod native_capture;
+pub mod native_controller;
 pub mod native_dispatch;
 pub mod native_effect;
 pub mod native_item;
