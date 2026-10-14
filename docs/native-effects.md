@@ -2,8 +2,14 @@
 
 Target: `reference/openshores-full/OpenShores.exe`, SHA-256
 `285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
-These are independent GNU static assembly observations, not runtime or REA
-oracle results. Focused REA effect-reader corroboration is running.
+The complete REA effect-reader result is retained as
+[native-effect-reader.json](evidence/native-effect-reader.json), Evidence
+`ev_414a7d282b7f0c38a4ba4563963b99a76aa186d3c4f1071096e8cc3c76e1648a`
+(647671ms, Ghidra 12.1.2, matching target digest). Full pseudocode review
+corroborates the reader fields and sparse/zeroing branches below. The Rx16
+implementation and append-comparison findings use independent GNU assembly
+and the previously retained base-receiver evidence; this focused REA result
+contains calls to those helpers, not their implementations. No target execution.
 
 The complete `AuEffect::operator<<` (`_ZN8AuEffectlsER11QDataStream`,
 `0x1411d82e0..0x1411d85a9`) reads one flags byte followed unconditionally by
@@ -39,6 +45,6 @@ monotonic movement timers. The x86-64 addition wraps at 64 bits.
 
 This establishes field layout/order, not effect rendering, names for unknown
 fields, global adjustment semantics or Qt malformed-stream parity. Next work:
-retain REA corroboration; implement bounded decoding with explicit clock inputs,
+implement bounded decoding with explicit clock inputs,
 reused temporary state and native subset deduplication; connect it to ordered
 base reception. Controller wire formats remain a separate unresolved layer.
