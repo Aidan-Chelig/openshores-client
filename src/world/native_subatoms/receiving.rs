@@ -12,12 +12,14 @@ impl NativeNormalSubatoms {
         lookup: &NativeRecoveryLookup,
         retired: &NativeRetiredAtoms,
     ) -> io::Result<NativeCacheNode> {
-        self.check_unowned_candidate(handle, has_owner, lookup, retired)?;
+        self.validate_unowned_candidate(handle, has_owner, lookup, retired)?;
         self.nodes
             .remove(&handle)
             .ok_or_else(|| invalid("unknown native candidate handle"))
     }
-    pub(super) fn check_unowned_candidate(
+    /// Validate explicit owner absence and graph/map/retirement references
+    /// before a candidate-only operation. Does not mutate state.
+    pub fn validate_unowned_candidate(
         &self,
         handle: u32,
         has_owner: bool,

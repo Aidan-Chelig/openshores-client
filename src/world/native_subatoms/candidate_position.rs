@@ -16,7 +16,7 @@ impl NativeNormalSubatoms {
         lookup: &NativeRecoveryLookup,
         retired: &NativeRetiredAtoms,
     ) -> io::Result<PositionChange> {
-        self.check_unowned_candidate(handle, has_owner, lookup, retired)?;
+        self.validate_unowned_candidate(handle, has_owner, lookup, retired)?;
         self.nodes
             .get_mut(&handle)
             .expect("validated candidate")

@@ -209,3 +209,15 @@ handle 10, and unsupported/duplicate construction does not change either store.
 This joins real modeled construction/disposal storage; Qt/unmodeled destructor
 effects, graph/base-state synchronization during reception and the full dispatch
 owner adapter still require integration.
+
+`receive_candidate_base` now combines real Item base reception with unowned
+candidate graph position updates, explicit movement epoch and required auxiliary
+position completion. It preflights candidate ownership/references/class, copies
+the resulting actual graph position into Item state, and mirrors completed status
+zero before returning even when a later field fails. The regression truncates
+modified time after a parent-changing double position and verifies both stores
+retain identical movement/status state, one auxiliary callback, and no fabricated
+modified time. This adapter is candidate-only; existing owned updates and full
+packet/session orchestration remain unfinished. Graph status is mirrored at the
+end of this exclusively borrowed operation, not claimed as a reconstruction of
+native lock visibility or concurrent reads during later layers.

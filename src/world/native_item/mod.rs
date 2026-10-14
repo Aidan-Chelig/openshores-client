@@ -2,7 +2,7 @@
 //! Supported subtype readers are bound to native factory/vtable evidence.
 mod atom;
 mod body;
-pub use atom::{NativeItemAtom, NativeItemObjects};
+pub use atom::{NativeItemAtom, NativeItemCandidateReceiveContext, NativeItemObjects};
 mod common;
 mod construction;
 pub use construction::NativeItemInitialization;
