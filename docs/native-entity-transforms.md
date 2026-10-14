@@ -818,6 +818,25 @@ base prefix checks that only the completed identity stage remains consumed.
 This exposes the required boundary, not a completed packet receiver or Qt
 malformed-stream behavior emulation.
 
+The `native_dispatch/` module now ports the stable-owner atom branch's control
+flow. It constructs the candidate before identity decoding, assigns identity,
+uses the context's real two-map lookup, then either copies time and receives
+base on the existing object before destroying the candidate, or receives base,
+connects signals and adds the fresh object. Only then does it call body reception
+on the selected handle with the native is-new argument, followed by post-update
+work. No class comparison, timestamp acceptance filter or kind-based replacement
+is introduced. The temporary lookup borrow ends before owner mutation.
+
+All object/base/signal/owner/body/post-update operations are required adapter
+methods, not silent no-ops. Full effects/controller decoding, class factories,
+Qt locks and post-update notifications still need concrete integrations. Rust
+errors stop with earlier operations retained; adapter cleanup of a candidate
+after a decoding error remains explicit, not claimed Qt error parity. Tests
+use the real staged base and Item body codecs plus constructor-backed Item
+state to verify primary overlap, differing candidate class, negative time copy,
+creation order, secondary lookup and malformed-base partial effects. The fixture
+callbacks log unported operations rather than claiming native owner integration.
+
 Independent GNU disassembly of `AuEther::FindAtomA` (symbol
 `_ZNK7AuEther9FindAtomAERK4AuId`, `0x1408c5b50..0x1408c5c2c`) on the same
 immutable patched executable establishes primary-map (`this+0`) lookup followed
