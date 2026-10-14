@@ -16,17 +16,23 @@ question, independent of the inspector's current lighting choices.
 The goal is a Rust OpenShores client, not a standalone terrain/model inspector.
 The existing inspector is sufficient for asset and terrain debugging; defer
 additional viewer polish unless it directly unblocks reconstruction work.
-Next prioritize decoding player/entity state, ongoing scene/session updates and
-gameplay message interoperability against the supplied local reference server.
-Then connect verified state to the game view and reconstruct interaction/screen
-flow from evidence. A synthetic globe demo is not a playable-world milestone.
+The connected local vertical slice now combines verified state/gameplay messages
+with a minimal Bevy view. Continue with real client gameplay/asset coverage and
+reconstruct interaction/screen flow from evidence. A synthetic globe demo is
+not a playable-world milestone; the slice is validated against an actual
+disposable reference-server world, not just a terrain demo.
 Never test against the public OpenShores service.
 
-Before building the graphical interface, establish the original screen flow,
+For faithful graphical reconstruction, establish the original screen flow,
 window/panel behavior, menus, keyboard shortcuts, camera controls, selection,
 and feedback through reference evidence. Record observed behavior alongside
 each implementation. The current CLI is an interoperability tool, not the
 intended game interface.
+The user explicitly requested minimal UI for the vertical slice and deferred
+original appearance accuracy, while requiring identical shortcuts. The saved
+Controls page and shipped defaults establish the implemented key bindings;
+the temporary panel layout, primitive markers and prototype movement/camera
+tuning remain implementation choices. See [the slice ledger](vertical-slice.md).
 
 The `viewer` feature's model-inspection window is deliberately a diagnostic
 tool, not the game interface. Orbit/zoom/wireframe/reset controls, neutral

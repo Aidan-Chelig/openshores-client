@@ -3,10 +3,17 @@ name = "openshores-client"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.95"
+default-run = "openshores-client"
+
+[[bin]]
+name = "openshores-client-slice"
+path = "src/bin/client_slice.rs"
+required-features = ["client"]
 
 [features]
 default = []
 viewer = ["dep:bevy"]
+client = ["viewer", "bevy/bevy_ui", "bevy/bevy_ui_render", "bevy/bevy_text", "bevy/default_font", "bevy/png"]
 
 [dependencies]
 flate2 = "1.1.10"

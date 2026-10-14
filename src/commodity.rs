@@ -13,6 +13,8 @@ fn invalid(message: &str) -> io::Error {
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Commodity {
     pub id: i16,
+    /// Raw source commodity flags, not item-instance flags.
+    pub flags: u32,
     pub description: Option<String>,
     pub bitmap: Option<String>,
     pub model: Option<String>,
@@ -35,7 +37,8 @@ impl Commodity {
         let id = input.read_u16()? as i16;
         // gd_tables.py::_COMMODITY_LAYOUT and db_static_tables.py's writer
         // establish these fixed-width blocks. Do not infer their numeric meaning.
-        input.skip(57)?;
+        input.skip(53)?;
+        let flags = input.read_u32()?;
         let description = input.read_string()?;
         input.skip(2)?;
         let bitmap = input.read_string()?;
@@ -45,6 +48,7 @@ impl Commodity {
         input.skip(50)?;
         Ok(Self {
             id,
+            flags,
             description,
             bitmap,
             model,

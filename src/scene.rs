@@ -79,7 +79,7 @@ pub fn decode_world_redirect(bytes: &[u8]) -> io::Result<WorldRedirect> {
     Ok(result)
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct InitSucceeded {
     pub motd: Option<String>,
     pub chat_port: u16,

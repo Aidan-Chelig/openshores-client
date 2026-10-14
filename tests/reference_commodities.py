@@ -25,7 +25,7 @@ def main():
     packets = [build_scene_db_commodity_0x2b(row) for row in rows]
     # Qt null differs from empty; the GD reader normalizes null to empty, so
     # separately check the source writer profile's actual nullable strings.
-    fixture = _build_dbcommodity_row(30000, name="Калашников 🌊", description=None, bitmap="", model=":data/model.3dsN")
+    fixture = _build_dbcommodity_row(30000, ccc_flags=0x102, name="Калашников 🌊", description=None, bitmap="", model=":data/model.3dsN")
     assert _read_commodity_row(fixture, 0)[3] == fixture
     packets.append(build_scene_db_commodity_0x2b(SimpleNamespace(raw=fixture)))
     with tempfile.TemporaryDirectory(prefix="openshores-commodities-", dir="/tmp") as temporary:
@@ -49,9 +49,9 @@ def main():
             bitmap, model = stream.read_qstring(), stream.read_qstring()
             stream._take(29)
             name = stream.read_qstring()
-            expected = f"{row.cid}: name={optional(name)} description={optional(description)} bitmap={optional(bitmap)} model={optional(model)} unparsed=0B"
+            expected = f"{row.cid}: name={optional(name)} description={optional(description)} bitmap={optional(bitmap)} model={optional(model)} flags={row.flags:#x} unparsed=0B"
             assert expected in lines, expected
-        assert '30000: name=Some("Калашников 🌊") description=None bitmap=Some("") model=Some(":data/model.3dsN") unparsed=0B' in lines
+        assert '30000: name=Some("Калашников 🌊") description=None bitmap=Some("") model=Some(":data/model.3dsN") flags=0x102 unparsed=0B' in lines
     print("All 615 supplied commodity labels/resources and nullable Unicode writer fixture match Rust.")
 
 

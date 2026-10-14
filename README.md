@@ -1,12 +1,50 @@
 # OpenShores Rust client
 
 Rust reimplementation of the OpenShores client. The supplied Python server is
-the first interoperability target. This repository currently contains a working
-reference inventory, transport primitives, an interactive login command, and
-scene bootstrap codecs and a loopback-only scene probe. Login displays the
-six-slot avatar roster returned by the server. The probe completes world
-initialization and reconstructs the first manifest's entity hierarchy;
-rendering is still unfinished.
+the first interoperability target. A connected local vertical slice now combines
+six-slot login/avatar selection, live scene state, Bevy base terrain and primitive
+entity markers, Gear/Bio panels, and verified inventory actions. Original UI,
+animation, collision and asset presentation remain unfinished.
+
+Try the complete slice in an owned disposable world:
+
+```sh
+cargo build --offline
+cargo build --offline --features client --bin openshores-client-slice
+nix develop .#server-test --command python tests/local_server.py play
+```
+
+The harness prints synthetic demo credentials. Enter them in the window and
+choose **Rust Explorer**. Right-click switches mouse-look/hand-cursor; Ctrl gives
+a temporary cursor. Select a gear entry, move/drop it, select the dropped world
+item and pick it back up. Use Beans to observe server-updated hunger and inventory.
+The connected development session is currently bounded to 60 seconds; closing
+the window shuts down the owned server and disposable database.
+
+Implemented shortcuts follow the supplied controls page: W/A/S/D, C/Z,
+Shift+W, U/middle-click, T, wheel/{/}, Alt+digits/digits, F1/F4/F8, Shift+Esc,
+Backspace, and top-down [/] height controls. Unsupported shortcuts are not
+repurposed. Movement speed/camera tuning are prototype choices, not reconstructed
+physics. Drop has no invented default shortcut. See
+[slice scope and evidence](docs/vertical-slice.md).
+
+For an already running local server:
+
+```sh
+cargo run --offline --features client --bin openshores-client-slice
+```
+
+Optional `IP:PORT`, `--scene-port PORT` and `--chat-port PORT` select loopback-only
+endpoints. Networking stays off the render thread; credentials never enter scene
+captures. The automatic GUI integration uses only synthetic disposable accounts:
+
+```sh
+nix develop .#server-test --command python tests/local_server.py gui
+```
+
+Client UI lives in small `src/client_ui/` modules; CLI logic and scene-session
+tests are split under `src/cli/` and `src/local_scene/`. Core state/networking
+remain independent of Bevy and GPUI.
 
 Scene replay now decodes a source-established player-state prefix: raw DNA,
 HP, pose bytes, head tilt, stamina/growth and supported hunger/agent deltas.
@@ -24,8 +62,8 @@ The watch runs 1–60 seconds after bootstrap, retains scene/chat channels and
 captures bootstrap plus subsequent inbound scene packets. It sends no gameplay
 requests and uses only loopback endpoints. Idle deadline and clean disconnect
 are normal exits; frames begun before the boundary get at most 100 ms extra to
-complete. Incomplete frames after that grace and malformed updates are errors. Gameplay
-Broader gameplay requests and an interactive game session remain future milestones.
+complete. Incomplete frames after that grace and malformed updates are errors.
+The connected graphical slice uses the same wire/state foundation.
 
 Two explicit local gameplay commands are now available during a watch:
 `--look-at NUMERIC_ID` (zero clears) and `--move-gear SRC_SLOT SRC_SUB DST_SLOT`.
@@ -60,7 +98,8 @@ changes.
 World-state replay also recognizes dropped-item atoms (`DaItem`, `0x11`), their
 parent/transforms, subtype identity and supported commodity/name/quality fields.
 Unknown item variants and weapon/container tails remain available as raw bytes;
-reconstructed pickup controls, nested drops and item rendering are not implemented.
+faithful pickup controls, nested drops and original item rendering are not implemented;
+the local slice currently uses primitive markers and explicit pickup buttons.
 Supported gear-only player updates now expose slot/subindex identities, explicit
 empty slots and nested item trees. These are the latest received gear batches,
 not an inferred authoritative inventory snapshot. The supported citizen bootstrap

@@ -1,6 +1,10 @@
 //! Wire primitives for the Rust OpenShores client.
 pub mod assets;
 pub mod citizen;
+pub mod client_model;
+pub mod client_runtime;
+#[cfg(feature = "client")]
+pub mod client_ui;
 pub mod commands;
 pub mod commodity;
 pub mod geology;

@@ -152,7 +152,7 @@ fn terrain_geometry(mesh: &crate::terrain_mesh::TerrainMesh) -> DisplayGeometry 
 
 /// Relative radial elevation ramp in linear RGB. No sea level, biome, water
 /// geometry, source textures or source material rules are inferred.
-fn elevation_colors(positions: &[[f64; 3]]) -> Vec<[f32; 4]> {
+pub(crate) fn elevation_colors(positions: &[[f64; 3]]) -> Vec<[f32; 4]> {
     let radii: Vec<f64> = positions
         .iter()
         .map(|p| p[0].hypot(p[1]).hypot(p[2]))
@@ -327,7 +327,7 @@ fn flat_mesh(positions: &[[f32; 3]], triangles: &[[u32; 3]]) -> Mesh {
 
 /// Area-weighted shared-vertex normals for generated terrain only. Source
 /// model smoothing groups and extended normal records are not interpreted.
-fn smooth_mesh(positions: &[[f32; 3]], triangles: &[[u32; 3]]) -> Mesh {
+pub(crate) fn smooth_mesh(positions: &[[f32; 3]], triangles: &[[u32; 3]]) -> Mesh {
     let mut sums = vec![DVec3::ZERO; positions.len()];
     for triangle in triangles {
         let [a, b, c] =

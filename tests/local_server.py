@@ -30,8 +30,9 @@ PASSWORD = "synthetic-local-test-password"
 
 
 def run(*args: str, **kwargs) -> subprocess.CompletedProcess:
+    timeout = kwargs.pop("timeout", 120)
     return subprocess.run(args, check=True, stdout=subprocess.PIPE,
-                          stderr=subprocess.STDOUT, text=True, timeout=120, **kwargs)
+                          stderr=subprocess.STDOUT, text=True, timeout=timeout, **kwargs)
 
 
 async def seed(dsn: str, username: str = USERNAME) -> int:
@@ -66,8 +67,8 @@ async def seed(dsn: str, username: str = USERNAME) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop]")
+    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play]")
     binary = str(ROOT / "target/debug/openshores-client")
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
@@ -115,12 +116,31 @@ def main() -> None:
             os.chdir(runtime)
             print("Generating the reference world and synthetic avatar", flush=True)
             avatar = asyncio.run(seed(dsn))
-            if action == "use":
+            if action in ("use", "gui", "play"):
                 async def hungry_avatar():
                     import asyncpg
                     conn = await asyncpg.connect(dsn)
                     try:
                         await conn.execute('UPDATE "a_Person" SET "hunger"=40, "autoEat"=0 WHERE "id"=$1', avatar)
+                        if action in ("gui", "play"):
+                            from openshores.database.repositories.bundle import pick_boot_globe
+                            from openshores.database.repositories.world_loader import _terrain_floats
+                            from openshores.gameplay.worldgen.real import create_terrain_data
+                            from openshores.gameplay.worldgen.terrain import terrain_altitude_msl
+                            from openshores.protocol.rng import AuDice
+                            globe = await pick_boot_globe(conn)
+                            radius = float(globe["radius"] or 4)
+                            size = (int(radius) if radius <= 255 else next(
+                                (code for limit, code in [(5000, 1), (8000, 2), (12000, 3), (16000, 4),
+                                                         (22000, 5), (30000, 6), (45000, 8), (70000, 10)]
+                                 if radius * 2 < limit), 12))
+                            water = (bytes(globe["water"])[0] if globe["water"] else 50) or 50
+                            terrain = _terrain_floats(globe["terrain"]) or create_terrain_data(
+                                AuDice(seed=int(globe["id"])), size, water, zone_count=3 if size > 2 else 1)
+                            # Owned GUI fixture is placed above the reference base
+                            # surface, unlike the old wire-only (0,0,1000) fixture.
+                            z = size * 1000 / 1.609344 * 5 + terrain_altitude_msl(terrain, size, math.pi / 2, 0) + 5
+                            await conn.execute('UPDATE "a_Person" SET "locZ"=$1 WHERE "id"=$2', z, avatar)
                     finally:
                         await conn.close()
                 asyncio.run(hungry_avatar())
@@ -137,6 +157,39 @@ def main() -> None:
                         raise RuntimeError("reference server failed to start:\n" + log_path.read_text()[-8000:])
                     time.sleep(0.2)
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
+                if action == "play":
+                    print(f"Owned disposable demo credentials: {USERNAME} / {PASSWORD}", flush=True)
+                    print("Log in using the window, choose Rust Explorer, and right-click for the hand cursor. Close the window to clean up this disposable world.", flush=True)
+                    result = run(str(ROOT / "target/debug/openshores-client-slice"), f"127.0.0.1:{login}",
+                                 "--scene-port", str(scene), "--chat-port", str(chat), timeout=None)
+                    print(result.stdout, end="", flush=True)
+                    return
+                if action == "gui":
+                    screenshot = Path(os.environ.get("GUI_SCREENSHOT", str(runtime / "gui.png")))
+                    result = run(str(ROOT / "target/debug/openshores-client-slice"), f"127.0.0.1:{login}",
+                                 "--scene-port", str(scene), "--chat-port", str(chat),
+                                 "--local-smoke", USERNAME, str(avatar), "--screenshot", str(screenshot), input=PASSWORD + "\n")
+                    print(result.stdout, end="", flush=True)
+                    assert PASSWORD not in result.stdout
+                    assert "GUI slice: clean disconnect passed" in result.stdout
+                    assert screenshot.is_file() and screenshot.stat().st_size > 1000
+                    assert "UseGearItem (ate Beans)" in log_path.read_text()
+                    async def verify_gui_state():
+                        import asyncpg
+                        conn = await asyncpg.connect(dsn)
+                        try:
+                            deadline = time.monotonic() + 10
+                            while True:
+                                row = await conn.fetchrow('SELECT "locX", "hunger", "isonline" FROM "a_Person" WHERE "id"=$1', avatar)
+                                if row["locX"] == 2.0 and row["hunger"] > 40 and row["isonline"] == 0:
+                                    return
+                                assert time.monotonic() < deadline, tuple(row)
+                                await asyncio.sleep(0.1)
+                        finally:
+                            await conn.close()
+                    asyncio.run(verify_gui_state())
+                    print("Full graphical local slice and persisted position/hunger/offline state passed", flush=True)
+                    return
                 if observer_avatar is not None:
                     observer = subprocess.Popen([sys.executable, str(ROOT / "tests/local_peer.py"),
                         str(login), str(scene), str(chat), str(observer_avatar), str(avatar),
