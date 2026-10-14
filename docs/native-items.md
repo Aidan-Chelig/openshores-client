@@ -230,3 +230,17 @@ before FixRunaways. Tests establish lookup/owner state on a dynamically stored
 Item and reject a second same-ID candidate without retirement or replacement.
 This is the fresh add stage, not full packet/session orchestration, signal
 delivery, owned-update handling or all-class native factory support.
+
+`receive_owned_base` now joins retained concrete Item state to the real owned
+position receiver. It checks owner/lookup/class observations, uses explicit
+destination context and movement epoch, synchronizes actual graph position even
+after partially applied callback errors, and stops later layers on unresolved
+owner obligations. Required auxiliary/clock hooks remain explicit. As for the
+candidate adapter, completed status is mirrored before the exclusively borrowed
+call returns, without claiming Qt concurrent visibility. The integration test
+receives a missing-parent update through real graph/runaway/registration stores,
+verifies queue and scheduling use wire ID 7 instead of handle 90, and checks
+concrete/graph movement state and untouched body suffix. Eligibility getters
+are explicit fixture observations, not newly reconstructed class predicates.
+Full packet/session orchestration, all-class support and downstream events remain
+unfinished.

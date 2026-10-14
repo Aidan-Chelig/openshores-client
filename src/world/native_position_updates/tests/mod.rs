@@ -1,6 +1,7 @@
 use super::*;
 mod aliases;
 mod lifecycle;
+mod owned_item;
 
 #[test]
 fn null_wire_id_cannot_be_applied_even_with_contradictory_supplied_node() {

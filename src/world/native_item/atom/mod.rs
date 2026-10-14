@@ -1,5 +1,7 @@
 //! Concrete established Item receive state, not a full native world owner.
+mod owned;
 mod owner;
+pub use owned::NativeItemOwnedReceiveContext;
 mod receiving;
 mod store;
 use super::{NativeItemBody, NativeItemInitialization, NativeItemState};
