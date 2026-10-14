@@ -1,9 +1,11 @@
 //! Explicit native normal-subatom context; not complete AuEther orchestration.
 mod invalidation;
+mod registration;
 mod reparent;
 use super::native_atom::NativeAtomKind;
 use crate::atom_position::NativePositionState;
 pub use invalidation::NativeHierarchyPositionChange;
+pub use registration::ReparentRegistrationContext;
 pub use reparent::NativeReparentResult;
 use std::{
     collections::{BTreeMap, BTreeSet},

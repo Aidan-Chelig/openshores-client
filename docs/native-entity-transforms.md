@@ -399,6 +399,19 @@ parents, unavailable context, invalid geometry and failed callbacks. Native
 two-map atom resolution, lock interleaving, AddRunaway and diagnostics-driven
 misplaced-set recovery remain required for full AuEther integration.
 
+The normal branch can now call `change_parent_with_registrations_at` to
+execute TickTock directly against RegistrationStore. Its world-owner adapter
+creates a borrowing context only after index/position effects, and only when
+the old parent requires that callback. Every getter can inspect that updated
+hierarchy and the current registration store. No callback ticket is silently
+discarded and no atom-kind-based scheduling predicate is invented. Integrated
+tests cover real ticker/tocker insertion and combined release before descendant
+cache cleanup, skipping context construction for nonnull old parent or missing
+owner context, and retaining earlier effects when the tocker budget rejects
+the second registration. This connects the established primitives, but native
+world lookups/predicates must still be supplied by the eventual full owner;
+it is not yet playable-client or scheduler-loop integration.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`
