@@ -33,9 +33,11 @@ Unknown item variants and weapon/container tails remain available as raw bytes;
 pickup/drop requests and item rendering are not implemented.
 Supported gear-only player updates now expose slot/subindex identities, explicit
 empty slots and nested item trees. These are the latest received gear batches,
-not an inferred authoritative inventory snapshot. Full bootstrap inventory still
-sits behind an undecoded citizen prefix; unknown layouts stop safely with raw
-bytes retained.
+not an inferred authoritative inventory snapshot. The supported citizen bootstrap
+profile now also exposes initial gear, home fields, hunger/cursor and XP,
+reputation and bank statistics, including the default story-job list.
+Unknown office layouts and unsupported job forms
+still stop safely with raw bytes retained; inventory actions remain unimplemented.
 
 ```sh
 nix develop

@@ -202,7 +202,10 @@ def main() -> None:
                 player_line = next(line for line in replay.stdout.splitlines()
                                    if line.startswith(f"{avatar:#010x} Person "))
                 for field in ["person=Some(PersonState", "dna: Some(Some(", "hp: Some(",
-                              "stamina: Some(", "poses: Some("]:
+                              "stamina: Some(", "poses: Some(", "citizen: Some(CitizenPrefix",
+                              "home_system: Some(", "gear: Some(Gear", "declared_slots: 7",
+                              "statistics: Some(PlayerStatistics", "bank: 0.0", "jobs: Some(JobList",
+                              "declared_count: 1"]:
                     assert field in player_line, (field, player_line)
                 print("Local player creature state decoded from actual server bootstrap", flush=True)
                 print("Offline world replay: all 49 manifest entities and player ancestry resolved", flush=True)

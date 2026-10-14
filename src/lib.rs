@@ -1,9 +1,11 @@
 //! Wire primitives for the Rust OpenShores client.
 pub mod assets;
+pub mod citizen;
 pub mod geology;
 pub mod har;
 pub mod inventory;
 pub mod item;
+pub mod jobs;
 pub mod local_scene;
 pub mod login;
 pub mod model;

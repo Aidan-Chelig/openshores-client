@@ -22,6 +22,9 @@ pub struct PersonState {
     pub cursor_raw: Option<[u8; 3]>,
     /// Last gear update batch, not an inferred authoritative equipment snapshot.
     pub gear: Option<crate::inventory::Gear>,
+    pub citizen: Option<crate::citizen::CitizenPrefix>,
+    pub statistics: Option<crate::citizen::PlayerStatistics>,
+    pub jobs: Option<crate::jobs::JobList>,
 }
 
 impl PersonState {
@@ -43,8 +46,15 @@ impl PersonState {
             creature_flags,
             person_flags,
             cursor_raw,
-            gear
+            gear,
+            statistics,
+            jobs
         );
+        if let Some(citizen) = update.citizen {
+            self.citizen
+                .get_or_insert_with(crate::citizen::CitizenPrefix::default)
+                .merge(citizen);
+        }
     }
 
     /// Called after the common name field. Stops before unknown-layer payloads.
@@ -102,9 +112,14 @@ impl PersonState {
         state.growth = Some(input.read_u8()?);
         let flags = input.read_u8()?;
         state.person_flags = Some(flags);
-        // Citizen/other earlier layers have variable layouts, so don't seek
-        // hunger or agent data beyond them. Bootstrap still yields creature state.
-        if flags & 3 != 0 {
+        if flags & 1 != 0 {
+            let (citizen, complete) = crate::citizen::CitizenPrefix::read(input)?;
+            state.citizen = Some(citizen);
+            if !complete {
+                return Ok(state);
+            }
+        }
+        if flags & 2 != 0 {
             return Ok(state);
         }
         if flags & 4 != 0 {
@@ -123,6 +138,24 @@ impl PersonState {
             let (gear, consumed) = crate::inventory::Gear::read_prefix(input.remaining_bytes())?;
             input.skip(consumed)?;
             state.gear = Some(gear);
+        }
+        // Only the source-established complete bootstrap profile establishes this tail.
+        if flags == 0xed
+            && state
+                .citizen
+                .as_ref()
+                .is_some_and(|citizen| matches!(citizen.flags, 0x68 | 0x6c))
+            && state.gear.as_ref().is_some_and(|gear| gear.stop.is_none())
+        {
+            if state.citizen.as_ref().unwrap().flags == 0x6c {
+                let jobs = crate::jobs::JobList::read(input)?;
+                let complete = jobs.stop.is_none();
+                state.jobs = Some(jobs);
+                if !complete {
+                    return Ok(state);
+                }
+            }
+            state.statistics = Some(crate::citizen::PlayerStatistics::read(input)?);
         }
         Ok(state)
     }
@@ -223,7 +256,7 @@ mod tests {
         body.extend(0.25f32.to_be_bytes());
         body.extend(0u8..10);
         body.extend(u32::MAX.to_be_bytes());
-        body.extend([127, 3, 1]); // Unknown citizen layer stops before hunger.
+        body.extend([127, 3, 1, 0xff]); // Unknown citizen layer stops before hunger.
         let update = crate::world::decode_atom(&packet(&body)).unwrap().unwrap();
         let state = update.person.unwrap();
         assert_eq!(state.head_tilt, Some(0.25));

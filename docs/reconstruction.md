@@ -801,3 +801,47 @@ the Python unpacker, including weapons, and synthetic nested box/container/flora
 trees. Its container commodity IDs avoid the source writer's automatic weapon
 migration. It also checks empty slots and unknown-type preservation via actual
 Python gear-only person packets. Pickup/drop/equipment actions remain future work.
+
+### Citizen bootstrap prefix unlocks initial gear and statistics
+
+The source `_pb2` construction in `network/scene/connection.py` establishes
+citizen profiles `0x68` and `0x6c`: home-system ID, nullable Qt home name, two
+raw finite f32 home coordinates, empire ID, an office tag and a raw trailing
+i32. Only office tag zero and trailing word zero establish the next field
+boundary. Other citizen flags/offices remain opaque. This profile is separate
+from the `protocol/atoms/citizen.py` collection writer; its layout is not reused
+for unrelated AuCitizen uses. No coordinate units or office privileges are guessed.
+
+`PersonState` now advances through that supported prefix to bootstrap hunger,
+agent bits, cursor and gear. Citizen fields merge sparsely; unsupported later
+prefixes do not erase previously established home data. For the exact job-free
+person profile `0xed`, citizen `0x68`, and complete gear, the source tail yields
+signed XP/reputation, a raw i16 word, finite bank/secondary f64 balance values
+and a raw tag. Those unknown words/balances/tags are not assigned gameplay
+semantics. Citizen `0x6c` announces a later job blob: supported story records can
+now be decoded before statistics; unknown job forms stop safely. Unknown nested gear likewise
+prevents advancement to statistics. All original body bytes remain preserved.
+
+Rust tests cover full-profile decoding, sparse retention, truncation atomicity,
+unsupported offices/jobs and nonfinite home/balance rejection. The independent
+`tests/reference_citizen.py` reproduces the actual source bootstrap expression
+with Python-packed citizen/statistics fields and the real seven-slot variety
+gear writer, testing job-free, known-story and unknown-job profiles. Local-server
+integration now asserts initial citizen/home, seven-slot gear and bank/statistics
+from the actual server bootstrap. This closes the ordinary bootstrap inventory
+blocker; generalized offices, other job formats/story execution, equipment update semantics and gameplay
+requests remain future work.
+
+The first actual-server check confirmed the default citizen profile is `0x6c`,
+not job-free `0x68`; withholding statistics for all jobs therefore left the real
+bootstrap incomplete. `gameplay/story_targoss.py::build_job_blob` establishes
+the supported `0x1f` story job: raw Qt UTC date words/spec, author/brief strings,
+zero tag, signed instance ID and title. `jobs::JobList` preserves these fields
+without executing story scripts or interpreting calendar/game-time semantics.
+Only time-spec one and tag zero establish complete record boundaries. Other
+types/specs/tags stop at the first incomplete record with raw suffix retained.
+Counts must be nonnegative and at most 256; input is capped at 1 MiB. A fully
+decoded job list allows advancement to player statistics; unknown jobs do not.
+Tests cover precise boundaries, truncation, nullable text, signed IDs, unknown
+forms, counts and input bounds. The Python fixture uses the actual story-job
+builder, and local integration now checks its default job list and statistics.
