@@ -39,7 +39,7 @@ impl RegistrationStore {
     /// Static InTickTockQueue membership: native checks ticker key presence,
     /// then tocker key presence. Released records still protect an object until
     /// actually swept; this does not test release markers or execute scheduling.
-    /// GNU full-function review; focused REA corroboration is pending.
+    /// GNU full-function review corroborated by retained REA pseudocode.
     pub fn in_tick_tock_queue(&self, id: u32) -> bool {
         self.tickers.contains_key(&id) || self.tockers.contains_key(&id)
     }

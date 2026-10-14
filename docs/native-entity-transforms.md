@@ -698,10 +698,17 @@ remain queue members until their table actually erases them. Tests cover both
 tables, separate sweeps, zero/max IDs and busy cleanup with cleared pending flags.
 Static anchors are hash-pinned in `just test-native-transforms`; this is GNU
 assembly evidence, not REA pseudocode or runtime observation.
-A focused REA corroboration for `_ZN8AuGlobal15InTickTockQueueERK4AuId` is running
-with output reserved as `target/native-in-tick-tock-queue.json`; its result is
-pending and must not yet be cited as confirmation. Native locking/copy-on-write,
-scheduler execution and cleanup-world integration remain separate.
+The focused REA corroboration for `_ZN8AuGlobal15InTickTockQueueERK4AuId`
+completed in 637128ms. Complete evidence is retained in
+[native-in-tick-tock-queue.json](evidence/native-in-tick-tock-queue.json), Evidence
+`ev_cb9e87cc500860308656cb383bbd9e5ebe277c95ddb49f5be1982aed3feeb17e`,
+bound to the patched executable digest above. The complete Ghidra 12.1.2
+pseudocode corroborates ticker-first, tocker-second lookup with no record release
+field reads. This is static reconstruction, not target execution. Recovered
+Qt detach/end-pointer comparisons remain provider/native COW details, not Rust
+concurrency parity; the Rust getter represents stable owned tables. Native
+locking/copy-on-write, scheduler execution and full cleanup-world integration
+remain separate.
 
 ## Existing native wire-position receiver
 
