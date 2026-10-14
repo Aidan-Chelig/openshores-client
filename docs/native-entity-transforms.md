@@ -813,8 +813,13 @@ by secondary/star-field-map (`this+8`) lookup only when the primary key is absen
 It holds the read lock at `this+0x18`, matches the complete unsigned ID, and
 returns the stored object pointer without class/status/parent filtering. A
 primary match returns directly even if its stored pointer is null; it does not
-retry the secondary map. This is static assembly evidence, not a REA result or
-execution observation; the focused REA corroboration is pending.
+retry the secondary map. The independent assembly observations are corroborated
+by the completed REA analysis, retained in
+[native-find-atom.json](evidence/native-find-atom.json), Evidence
+`ev_b9da9db7e52521558c8c57ea3608394a303fc0719220ea2756ddd00912a0abfc`
+(647637ms, Ghidra 12.1.2, same immutable target digest). Its complete pseudocode
+was reviewed: both hash traversals compare the unsigned ID and converge on the
+stored-pointer return before unlocking. This is static evidence, not execution.
 
 `NativeRecoveryLookup::find_atom` exposes the established map precedence to the
 future full packet receiver. Existing recovery delegates to the same lookup.
