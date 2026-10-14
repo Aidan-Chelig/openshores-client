@@ -7,7 +7,7 @@ use std::io;
 mod environment;
 mod matrix;
 mod rotation;
-pub use rotation::native_rotation_vectors;
+pub use rotation::{native_calculate_rotation, native_rotation, native_rotation_vectors};
 mod state;
 pub use environment::{ParentEnvironment, compose_environment};
 pub use state::{EtherPositionEffects, FreshPosition, NativePositionState, PositionChange};

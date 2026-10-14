@@ -1,5 +1,12 @@
-//! GetRotation's projected input stage; final CalculateRotation stays separate.
+//! Native GetRotation projection and two-vector CalculateRotation algorithm.
+mod calculation;
+pub use calculation::native_calculate_rotation;
 use std::io;
+
+/// Native matrix getter pipeline, not a generic Euler decomposition.
+pub fn native_rotation(matrix: &[[f64; 4]; 4]) -> io::Result<[f64; 3]> {
+    native_calculate_rotation(&native_rotation_vectors(matrix)?)
+}
 
 fn invalid() -> io::Error {
     io::Error::new(

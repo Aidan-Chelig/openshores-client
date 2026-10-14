@@ -36,6 +36,9 @@ pub enum PositionChange {
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativePositionState {
     pub position: FreshPosition,
+    /// Separate native orientation scalars, unknown until an oriented setter.
+    /// Position-only setters do not infer or overwrite these from wire angles.
+    pub orientation: Option<[f64; 3]>,
     pub environment_cache_valid: bool,
     position_update_epoch: Option<Instant>,
 }
@@ -50,6 +53,7 @@ impl Default for NativePositionState {
                 }),
             },
             environment_cache_valid: false,
+            orientation: None,
             position_update_epoch: None,
         }
     }

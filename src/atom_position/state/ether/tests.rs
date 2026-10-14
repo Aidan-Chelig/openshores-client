@@ -65,3 +65,45 @@ fn identical_updates_restart_timer_and_invalid_geometry_changes_nothing() {
     );
     assert_eq!(state, before);
 }
+
+#[test]
+fn oriented_setter_extracts_native_angles_but_position_only_paths_retain_them() {
+    let first = Instant::now();
+    let mut state = NativePositionState {
+        environment_cache_valid: true,
+        ..Default::default()
+    };
+    let original = record(Some(7));
+    let effects = state
+        .set_fresh_position_and_orientation_by_ether_at(&original, first)
+        .unwrap();
+    assert!(effects.tick_tock_required);
+    let orientation = state.orientation.unwrap();
+    assert_eq!(
+        orientation,
+        crate::atom_position::native_rotation(&original.local_matrix().unwrap()).unwrap()
+    );
+    assert!(state.environment_cache_valid);
+    let mut next = original;
+    next.rotation = [1e-6; 3];
+    let later = first + Duration::from_secs(1);
+    state.set_fresh_position_by_ether_at(&next, later).unwrap();
+    assert_eq!(state.orientation, Some(orientation));
+    state
+        .apply_fresh_wire_position_at(&next, true, later)
+        .unwrap();
+    assert_eq!(state.orientation, Some(orientation));
+    state
+        .set_fresh_position_and_orientation_by_ether_at(&next, later)
+        .unwrap();
+    assert_eq!(state.orientation, Some([0.; 3]));
+    assert_eq!(state.position_update_age_at(later), Some(Duration::ZERO));
+    let before = state.clone();
+    next.rotation[0] = f32::NAN;
+    assert!(
+        state
+            .set_fresh_position_and_orientation_by_ether_at(&next, first)
+            .is_err()
+    );
+    assert_eq!(state, before);
+}

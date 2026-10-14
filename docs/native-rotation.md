@@ -1,11 +1,12 @@
-# Native rotation getter input stage
+# Native rotation getter and angle calculation
 
 Static GNU disassembly of the patched target/digest pinned in
 [native transforms](native-entity-transforms.md):
 `AuMatrix4x4::GetRotation` at `0x1418fa0d0..0x1418fa2b8` constructs two
 projected direction vectors and passes them to `AuPoint::CalculateRotation`
-at `0x1418fa26e` (target `0x14164c1b0`). That final angle calculation is not
-ported here. No original-client execution or scalar-angle parity is claimed.
+at `0x1418fa26e` (target `0x14164c1b0`). The complete pipeline is now ported
+for the documented finite/safety domain below. This is static reconstruction,
+not observed original-client execution or an original runtime parity oracle.
 
 For column-major matrix M, the observed leading stage is:
 
@@ -32,8 +33,8 @@ returning raw matrix columns would not reproduce native arithmetic.
 stage for finite matrices. Nonfinite inputs, overflow and nonfinite projected
 results are explicit Rust safety rejections, not recovered native policy.
 It does not normalize direction lengths, extract angles, invent a quaternion,
-or modify position/orientation state. The caller still needs the native final
-`CalculateRotation` algorithm and SetPosAndOrient integration.
+or modify position/orientation state. `native_rotation` now feeds these inputs
+into the separately reconstructed `native_calculate_rotation` algorithm.
 
 `dump-atom-rotation-vectors PROFILE HEX_RECORD` accepts the same bounded packed
 record as `dump-atom-matrix`, constructs its fresh matrix, and exposes these
@@ -43,8 +44,47 @@ and checks large-coordinate cancellation. Unit tests additionally cover
 nonaffine denominators, exact zero/one handling and finite safety. These are
 static and synthetic mathematical checks, not an original runtime oracle.
 
-The next focused REA/Ghidra query is
-`_ZN7AuPoint17CalculateRotationERKS_S1_` at `0x14164c1b0`, with complete output
-selected as `target/native-calculate-rotation.json`. It is pending, not
-validated evidence. This is the actual two-vector callee used by GetRotation;
-the one-vector overload is a different entry and is not interchangeable.
+## Angle calculation
+
+The focused REA/Ghidra query for `_ZN7AuPoint17CalculateRotationERKS_S1_`
+completed in 648689 ms with Ghidra 12.1.2. Complete validated output is retained
+in [native-calculate-rotation.json](evidence/native-calculate-rotation.json),
+Evidence `ev_fc5cb165e10961e3a46c5c77c563b13e8cf9ab94494176286dfa82097971ffa3`.
+This is the actual two-vector callee, not its one-vector overload. Recovered
+register/phi variable names are not original source; special zero-primary
+operand bindings and arithmetic grouping were checked against disassembly.
+
+The algorithm normalizes supplied vectors individually, without Gram-Schmidt.
+An exact zero secondary uses +Y except that normalized primary +Y selects -X
+and primary -Y selects +X. A zero primary remains zero. The cross product
+provides the up vector. Native exact-zero branches choose X/Y atan2 formulas;
+the straight-down case selects Y=pi rather than a generic Euler convention.
+The expanded inverse-X/Y rotation of the normalized primary gives Z.
+Exact absolute sine/cosine values of one trigger the native zero-coefficient
+shortcuts, including signed-zero products. X/Y are snapped only **after** Z
+is calculated; each angle with absolute value <=1e-5 becomes positive zero.
+The threshold's original double bytes are at `0x14232d158`.
+
+Implementation is split into normalization/defaults, native trig arithmetic,
+angle control flow and tests under `src/atom_position/rotation/calculation/`.
+Nonfinite inputs and overflowing/underflowing nonzero norms are explicit Rust
+safety rejections, not native rejection policy. Arbitrary underflowed norms
+can reach native branches whose implied products differ from ordinary cross
+products; those unsafe degenerate cases are not silently generalized here.
+
+`dump-atom-rotation PROFILE HEX_RECORD` exposes the complete fresh-matrix
+pipeline. `calculate-native-rotation HEX_6_BIG_ENDIAN_F64S` is a bounded raw
+two-vector mathematical diagnostic, **not** a native scene wire record.
+`just test-native-transforms` also runs 311 independent canonical/random/
+near-threshold mathematical cases, explicit scalar branch choices, norm
+safety and malformed command fixtures. The reduced mathematical oracle
+allows equivalent +/-pi aliases; important native scalar choices are pinned
+separately. These tests do not execute the patched client.
+
+`set_fresh_position_and_orientation_by_ether_at` now uses this getter pipeline
+to populate the separate native orientation scalars, then restarts its timer.
+Position-only setters retain those scalars; a received transform is not assumed
+to be its extracted orientation. Unknown initial scalars remain None, not
+guessed constructor defaults. Caller-owned TickTock, hierarchy index changes
+and later cache invalidation remain outstanding. No playable client protocol
+switch or native hierarchy completion is claimed.

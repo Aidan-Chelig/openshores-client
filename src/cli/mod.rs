@@ -217,7 +217,7 @@ pub(super) fn run() -> Result<(), Box<dyn std::error::Error>> {
                 "Offline native ID/base prefix (after opcode; unknown layers retained):\n       cargo run -- inspect-native-base type-widths|single|double HEX_FIELDS_AFTER_OPCODE\n"
             );
             println!(
-                "Offline native packed-field inspection (explicit Qt encoding; not a scene frame):\n       cargo run -- inspect-atom-position type-widths|single|double HEX_RECORD\n       cargo run -- dump-atom-matrix type-widths|single|double HEX_RECORD\n       cargo run -- dump-atom-rotation-vectors type-widths|single|double HEX_RECORD\n"
+                "Offline native packed-field inspection (explicit Qt encoding; not a scene frame):\n       cargo run -- inspect-atom-position type-widths|single|double HEX_RECORD\n       cargo run -- dump-atom-matrix type-widths|single|double HEX_RECORD\n       cargo run -- dump-atom-rotation-vectors type-widths|single|double HEX_RECORD\n       cargo run -- dump-atom-rotation type-widths|single|double HEX_RECORD\n       cargo run -- calculate-native-rotation HEX_6_BIG_ENDIAN_F64S\n"
             );
             println!(
                 "Top-level local item-use test (requires --avatar and --watch-seconds 3..60):\n       --use-gear SRC_SLOT SRC_SUB\n       One request after 1 second; slots 1..9, subindices 0..15; cannot combine with other gameplay actions except look-at\n"

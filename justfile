@@ -61,6 +61,7 @@ test-native-models: build
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py
     nix develop .#server-test --command python tests/native_transform_vtables.py
+    nix develop .#server-test --command python tests/native_rotations.py
 
 # Patched item/subtype reader anchors and independent fixtures; no target execution.
 test-native-items: build

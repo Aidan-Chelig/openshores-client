@@ -188,7 +188,8 @@ This is not full AuEther orchestration: caller-owned index moves, runaway
 handling, TickTock, descendant traversal and their ordering remain required.
 Only fresh wire transforms are accepted; this does not port arbitrary cached
 inverse matrix copies. `SetPosAndOrientByEther` additionally extracts rotation
-at `0x140b4169e`, which remains separate/unported. No changes are wired into
+at `0x140b4169e`; that fresh copy/extract/timer primitive is now ported using
+the native getter algorithm. No changes are wired into
 the playable reference-profile client. Position state/helpers/tests are split
 under `src/atom_position/state/`; `just test-native-transforms` pins these
 anchors to the target digest. Unit tests cover old/new null and nonnull parents,
@@ -199,9 +200,15 @@ not observed original-client execution.
 The projected input stage of `AuMatrix4x4::GetRotation` is now reconstructed
 separately under `src/atom_position/rotation/`. See
 [native rotation](native-rotation.md) for the exact origin denominator,
-projection/cancellation order, finite safety boundary and remaining final
+projection/cancellation order, finite safety boundary and reconstructed final
 `AuPoint::CalculateRotation` algorithm. No generic Euler extraction is used
 as a substitute for that native algorithm.
+
+The next focused REA/Ghidra request is `_ZNK6DaAtom8TickTockEv` at
+`0x140b40610`, with complete output selected as `target/native-tick-tock.json`.
+It is pending, not validated evidence. This is the actual old-null-parent
+callback, whose global registration/scheduling behavior must be reconstructed
+before its obligation can be fulfilled by Rust hierarchy orchestration.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning

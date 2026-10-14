@@ -1,10 +1,13 @@
 //! Offline packed native position inspection; no login or network path.
 use openshores_client::{
-    atom_position::{FloatEncoding, PackedPosition, native_rotation_vectors},
+    atom_position::{
+        FloatEncoding, PackedPosition, native_calculate_rotation, native_rotation,
+        native_rotation_vectors,
+    },
     protocol::QtReader,
 };
 
-const USAGE: &str = "usage: inspect-atom-position/dump-atom-matrix/dump-atom-rotation-vectors type-widths|single|double HEX_RECORD";
+const USAGE: &str = "usage: inspect-atom-position/dump-atom-matrix/dump-atom-rotation-vectors/dump-atom-rotation type-widths|single|double HEX_RECORD";
 
 pub(super) fn input(
     args: &[String],
@@ -50,9 +53,31 @@ fn decode(args: &[String]) -> Result<PackedPosition, Box<dyn std::error::Error>>
 }
 
 pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
+    if args.first().map(String::as_str) == Some("calculate-native-rotation") {
+        if args.len() != 2 {
+            return Err("usage: calculate-native-rotation HEX_6_BIG_ENDIAN_F64S".into());
+        }
+        let input_args = vec![args[0].clone(), "type-widths".into(), args[1].clone()];
+        let (_, bytes) = input(&input_args, 48)?;
+        let mut reader = QtReader::new(&bytes);
+        let vectors = [
+            [reader.read_f64()?, reader.read_f64()?, reader.read_f64()?],
+            [reader.read_f64()?, reader.read_f64()?, reader.read_f64()?],
+        ];
+        if reader.remaining() != 0 {
+            return Err("trailing bytes after rotation vectors".into());
+        }
+        println!("{:?}", native_calculate_rotation(&vectors)?);
+        return Ok(true);
+    }
     if !matches!(
         args.first().map(String::as_str),
-        Some("inspect-atom-position" | "dump-atom-matrix" | "dump-atom-rotation-vectors")
+        Some(
+            "inspect-atom-position"
+                | "dump-atom-matrix"
+                | "dump-atom-rotation-vectors"
+                | "dump-atom-rotation"
+        )
     ) {
         return Ok(false);
     }
@@ -63,6 +88,10 @@ pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
     }
     if args[0] == "dump-atom-rotation-vectors" {
         println!("{:?}", native_rotation_vectors(&record.local_matrix()?)?);
+        return Ok(true);
+    }
+    if args[0] == "dump-atom-rotation" {
+        println!("{:?}", native_rotation(&record.local_matrix()?)?);
         return Ok(true);
     }
     println!("{}", json(&record));
