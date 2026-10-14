@@ -603,18 +603,51 @@ reproducing native duplicate allocation behavior. Qt locks, copy-on-write,
 diagnostic output, retained-object expiry/destruction and full native packet
 construction remain outside the adapter.
 
-A focused REA request for `_ZN7AuEther15DeleteTrashAtomEv` at `0x1408cd9c0`
-is running, with complete output reserved as `target/native-delete-trash-atom.json`.
-Cleanup implementation is pending that result's full control-flow review.
+The focused REA request for `_ZN7AuEther15DeleteTrashAtomEv` at `0x1408cd9c0`
+completed in 640533ms. The complete retained record is
+[native-delete-trash-atom.json](evidence/native-delete-trash-atom.json), Evidence
+`ev_5e01f84659ed6bda262425e6a81e300e0a53d6fe3222fdccf0000f4b9007013c`,
+bound to the patched executable digest above. Full pseudocode has been reviewed;
+this is static Ghidra 12.1.2 evidence, not observed client execution. Cleanup
+implementation is the next step, with the following ordering constraints.
 Independent GNU static bytes (not a REA oracle) pin an initial selection branch:
 subtract reference milliseconds, skip while signed difference is at most 19999,
 query InTickTockQueue when older, restart the stored epoch if queued, otherwise
 erase the selected retention entry. Normal non-instrumented execution then
-calls the object's virtual slot `0x20`. Additional diagnostic/global-flag paths
-still require review; this bounded observation does not establish whole-function
-cleanup semantics, timer precision parity or which object is chosen first.
+calls the object's virtual slot `0x20`. These anchors alone do not establish
+whole-function cleanup semantics, timer precision parity or hash iteration order.
 `just test-native-transforms` verifies these anchors against the immutable
 patched executable digest without executing it.
+
+The complete REA body corroborates that the cleanup-call clock is sampled once,
+then retention entries are scanned in native QHash order under the trash mutex.
+Young entries are skipped without a scheduling-queue query. Old entries still
+in InTickTockQueue get the cleanup-call timer copied into their retention record,
+then scanning continues. The first old unqueued entry is erased, the remaining
+count is captured, and the trash mutex is released. No further entry is selected
+in that invocation. A null selected pointer returns without a destructor call;
+otherwise non-instrumented normal execution invokes virtual slot `0x20`.
+
+Global `0x49a & 0x08` enables additional reference checks (distinct from removal's
+all-list cleanup bit `0x10`). FindAtomA resolving the same object prevents
+destruction. Otherwise the routine scans child sets reached through the
+parent-lock map and records the containing parent's ID. If that recorded ID
+is zero, it scans the InStarField-selected atom map for the same pointer under
+another ID. Nonzero containing-parent or alternate-map IDs prevent destruction;
+zero remains the native sentinel even if a matching map/list key is zero. These
+are checks, not reference cleanup. The retention record has already been erased
+on every guarded branch: blocked destruction does not requeue/restart it and
+returns the captured remaining count. Logging bit `0x4fb & 0x20` changes reporting,
+not the initial retention-selection algorithm.
+
+The Rust adapter must retain the one-selection limit and conditional guard
+ordering, not sweep all expired objects or automatically repair references.
+Native iteration order and reference-millisecond subtraction remain caller
+observations until those dependencies are ported. `Instant` elapsed rounding
+alone is not a Qt reference-millisecond oracle, especially at a submillisecond
+boundary. InTickTockQueue's actual lookup predicate and full derived destructor
+effects still need separate reconstruction; registration presence or released
+flags must not be substituted for queue membership.
 
 ## Existing native wire-position receiver
 
