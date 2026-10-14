@@ -412,6 +412,33 @@ the second registration. This connects the established primitives, but native
 world lookups/predicates must still be supplied by the eventual full owner;
 it is not yet playable-client or scheduler-loop integration.
 
+## Runaway pair collection
+
+GNU static AddRunaway (`0x1408c4d10`) locks owner offset `0x28` and uses the
+hash at `0x30`. Its first ID argument is the parent key, its second the child
+value: node writes occur at `0x1408c4dca`/`0x1408c4dd0`. Existing equal keys
+are scanned for the same child (`0x1408c4e5f`); that exact pair is a no-op.
+Otherwise a new node is allocated even with the same parent key (jump at
+`0x1408c4f52`), preserving other children. A child paired with another parent
+is not globally replaced or deduplicated. No null-ID exclusion is present.
+The saved ChangeParent trace passes the incoming parent as the first ID and
+atom ID as the second on its missing-destination-lock branch.
+
+`src/world/native_runaways/` ports this pair collection using parent-keyed
+sets, with exact-pair suppression and a Rust-only 128000-pair safety budget
+that callers can tighten. Duplicate insertion succeeds even at capacity;
+rejected new pairs leave all state unchanged. Ordered iteration does not claim
+native QHash order or concurrent locking parity. Tests cover multiple children,
+one child under multiple parents, repeated pairs, null/max IDs and atomic
+capacity rejection. Static binary tests pin key/value writes and same-key
+allocation. Recovery/index attachment is not yet implemented by this queue.
+
+A focused REA/Ghidra request for `_ZN7AuEther11FixRunawaysERK4AuId` is running,
+with complete output reserved at `target/native-fix-runaways.json`. Pending
+analysis is not validated evidence. Current GNU observations show a later
+primary/secondary atom lookup and a stored-parent check before child-set
+insertion; full consumption and recovery behavior remains to be reviewed.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`

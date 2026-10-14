@@ -171,3 +171,16 @@ for address, expected in [
     raw = bytes.fromhex(expected)
     assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
 print("Native MustNotTickTock: raw status, parent exclusion, query flags and capsule virtual-result inversion pinned.")
+
+assert symbols["_ZN7AuEther10AddRunawayERK4AuIdS2_"] == 0x1408C4D10
+for address, expected in [
+    (0x1408C4D27, "48 89 d7"), # first ID argument retained as key
+    (0x1408C4D2A, "4c 89 c5"), # second ID argument retained as value
+    (0x1408C4DCA, "89 50 0c"), # insert key
+    (0x1408C4DD0, "89 50 10"), # insert value
+    (0x1408C4E5F, "39 45 00"), # exact value duplicate check
+    (0x1408C4F52, "e9 59 fe ff ff"), # same key still allocates a new node
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native AddRunaway: parent/child pair insertion, duplicate comparison and multi-value allocation pinned.")
