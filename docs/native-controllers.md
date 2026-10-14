@@ -32,8 +32,26 @@ The signed relative jump-table words at `0x1422b22ec` resolve as follows:
 
 Out-of-range types return null. Symbol names identify candidate receivers:
 AtomPos `0x1411e6310`, Vector `0x1411e6550`, Motion `0x1411e62f0`,
-AtomPosVec `0x1411e6560`, Pose `0x1411e6610`. Actual vtable-slot bindings and
-complete receiver bodies must be reviewed before porting their fields.
+AtomPosVec `0x1411e6560`, Pose `0x1411e6610`.
+
+Independent little-endian pointer reads at address-point plus `0x18` confirm
+these bindings: AtomPos `0x1423f6788`, Vector `0x1423e5478`, Motion
+`0x1423e53e8`, AtomPosVec `0x142424d68`, Pose `0x1423c9bd8`.
+Complete receiver bodies establish Motion consumes no body bytes (single ret),
+Vector reads three doubles via AuPoint (`0x141648040..0x141648074`), and Pose
+reads float, unsigned byte widened to integer `0x0c`, raw byte `0x10`, short
+`0x12` (`0x1411e6610..0x1411e6662`). AtomPosVec's full receiver through
+`0x1411e65b7` first reads unpacked AtomPos, then flags: bit 0 writes boolean
+`0x118`; bit 1 reads three doubles at `0x120..0x130`. Omission retains that
+vector, whose factory initialization is zero. Other flags add no fields.
+
+Both position receivers use **AuAtomPos::operator<<** at `0x1408b2160`, not
+packed **AuAtomPos::Rx**. Its wire-call inventory through its return at
+`0x1408b26cf` is AuId followed by two AuPoint readers: u32 parent, three
+position doubles, three rotation doubles. No packed flags byte occurs here.
+The remaining matrix arithmetic must be reviewed before claiming complete
+unpacked native position-state reconstruction. Reusing PackedPosition::read
+would therefore consume the controller stream incorrectly.
 
 Next: retain REA corroboration; establish concrete per-type receiver bindings
 and wire formats; implement bounded list append and caller's empty-list disposal;
