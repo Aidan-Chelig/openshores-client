@@ -2,6 +2,79 @@ use super::*;
 use crate::world::native_item::NativeItemInitialization;
 
 #[test]
+fn concrete_item_owner_adapter_assigns_metadata_and_rejects_packet_replacement() {
+    use crate::world::native_item::NativeItemObjects;
+    let mut graph = NativeNormalSubatoms::new([], []).unwrap();
+    let mut objects = NativeItemObjects::default();
+    objects
+        .construct_candidate(NativeAtomKind::Item, 71, &mut graph)
+        .unwrap();
+    objects.get_mut(71).unwrap().base.apply_received_identity(
+        crate::world::native_prefix::NativeIdentityPrefix {
+            id: 7,
+            timestamp_ms: 123,
+        },
+    );
+    let mut lookup = NativeRecoveryLookup::new([], []).unwrap();
+    let mut queue = NativeRunaways::default();
+    let mut registrations = RegistrationStore::default();
+    let mut retired = NativeRetiredAtoms::default();
+    let events = Rc::new(RefCell::new(vec![]));
+    let mut owner = Owner {
+        events: events.clone(),
+        owners: BTreeMap::from([(71, false)]),
+    };
+    let result = objects
+        .add_candidate_owner(
+            71,
+            &mut graph,
+            NativeAtomOwnerStores {
+                lookup: &mut lookup,
+                runaways: &mut queue,
+                registrations: &mut registrations,
+                retired: &mut retired,
+            },
+            &mut owner,
+        )
+        .unwrap();
+    assert!(matches!(
+        result,
+        NativeAtomAdd::Established { replaced: None, .. }
+    ));
+    assert!(objects.get(71).unwrap().base.owner_attached);
+    assert_eq!(lookup.find_atom(7), Some(71));
+    assert_eq!(*events.borrow(), ["assign"]);
+    objects
+        .construct_candidate(NativeAtomKind::Item, 72, &mut graph)
+        .unwrap();
+    objects.get_mut(72).unwrap().base.apply_received_identity(
+        crate::world::native_prefix::NativeIdentityPrefix {
+            id: 7,
+            timestamp_ms: 456,
+        },
+    );
+    assert!(
+        objects
+            .add_candidate_owner(
+                72,
+                &mut graph,
+                NativeAtomOwnerStores {
+                    lookup: &mut lookup,
+                    runaways: &mut queue,
+                    registrations: &mut registrations,
+                    retired: &mut retired
+                },
+                &mut owner
+            )
+            .is_err()
+    );
+    assert!(!objects.get(72).unwrap().base.owner_attached);
+    assert_eq!(lookup.find_atom(7), Some(71));
+    assert!(retired.is_empty());
+    assert_eq!(*events.borrow(), ["assign"]);
+}
+
+#[test]
 fn dynamically_constructed_item_establishes_owner_and_reused_id_discards_only_candidate() {
     let mut graph = NativeNormalSubatoms::new([], []).unwrap();
     let mut item = NativeItemInitialization::from_default_item_constructor();

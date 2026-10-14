@@ -221,3 +221,12 @@ modified time. This adapter is candidate-only; existing owned updates and full
 packet/session orchestration remain unfinished. Graph status is mirrored at the
 end of this exclusively borrowed operation, not claimed as a reconstruction of
 native lock visibility or concurrent reads during later layers.
+
+`add_candidate_owner` now connects concrete Item storage to real fresh owner
+addition. It preflights owner/reference absence and rejects any existing ID
+from either native map, directing packet reuse away from replacement. A required
+owner wrapper assigns Item owner metadata at the actual assignment callback,
+before FixRunaways. Tests establish lookup/owner state on a dynamically stored
+Item and reject a second same-ID candidate without retirement or replacement.
+This is the fresh add stage, not full packet/session orchestration, signal
+delivery, owned-update handling or all-class native factory support.
