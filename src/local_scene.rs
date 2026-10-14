@@ -1,4 +1,4 @@
-//! Bounded, loopback-only scene probe for the supplied development server.
+//! Bounded, loopback-only scene sessions for the supplied development server.
 use crate::{
     protocol::{QtWriter, VERSION, read_frame, write_frame},
     scene::{self, InitSucceeded, ResumeHello, SceneTime, WorldRedirect},
@@ -131,7 +131,8 @@ pub fn probe(
 }
 
 /// Owns all three authenticated scene channels beyond the initial manifest.
-/// No gameplay requests or inferred heartbeat replies are sent.
+/// Opening/watching sends no gameplay requests; explicit typed commands are
+/// separate. No inferred heartbeat replies are sent.
 pub struct Session {
     pub bootstrap: Bootstrap,
     world: DeadlineSocket,
@@ -153,6 +154,25 @@ pub struct WatchedScene {
 }
 
 impl Session {
+    /// Explicit commands use the authenticated world channel, never redirect/chat.
+    /// Success means transport write completed, not server acceptance.
+    pub fn send_command(
+        &mut self,
+        command: crate::commands::SceneCommand,
+        timeout: Duration,
+    ) -> io::Result<()> {
+        let payload = command.encode()?;
+        if timeout.is_zero() || timeout > Duration::from_secs(10) {
+            return Err(invalid(
+                "command write timeout must be positive and at most 10 seconds",
+            ));
+        }
+        self.world.deadline = Instant::now()
+            .checked_add(timeout)
+            .ok_or_else(|| invalid("invalid command deadline"))?;
+        self.world.continuation_deadline = None;
+        write_frame(&mut self.world, &payload)
+    }
     /// Receive and apply updates for a bounded duration, preserving the complete
     /// capture. Timeout/EOF mid-frame is an error, never a successful idle stop.
     pub fn watch(mut self, duration: Duration) -> io::Result<WatchedScene> {
@@ -451,6 +471,36 @@ mod tests {
         session.bootstrap.packets = vec![vec![0xfe]; 20_000];
         write_frame(&mut server, &[0xfe]).unwrap();
         assert!(session.watch(Duration::from_secs(1)).is_err());
+    }
+
+    #[test]
+    fn commands_are_framed_on_world_channel_with_no_optimistic_state() {
+        use crate::commands::SceneCommand;
+        let (mut session, mut world, mut initial, mut chat) = watch_fixture();
+        let command = SceneCommand::MoveGear {
+            source_slot: 5,
+            source_subindex: 0,
+            destination_slot: 1,
+        };
+        session
+            .send_command(command, Duration::from_secs(1))
+            .unwrap();
+        assert_eq!(
+            read_frame(&mut world, 100).unwrap(),
+            command.encode().unwrap()
+        );
+        assert!(session.bootstrap.packets.is_empty());
+        assert!(session.send_command(command, Duration::ZERO).is_err());
+        initial.set_nonblocking(true).unwrap();
+        chat.set_nonblocking(true).unwrap();
+        assert_eq!(
+            initial.read(&mut [0]).unwrap_err().kind(),
+            io::ErrorKind::WouldBlock
+        );
+        assert_eq!(
+            chat.read(&mut [0]).unwrap_err().kind(),
+            io::ErrorKind::WouldBlock
+        );
     }
 
     #[test]

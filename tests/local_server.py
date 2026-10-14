@@ -126,6 +126,7 @@ def main() -> None:
                 result = run(binary, "login", USERNAME, f"127.0.0.1:{login}",
                              "--avatar", str(avatar), "--scene-port", str(scene),
                              "--chat-port", str(chat), "--watch-seconds", "3",
+                             "--look-at", "0x70000000", "--move-gear", "5", "0", "1",
                              "--capture", str(runtime / "watched.frames"), "--password-stdin",
                              input=PASSWORD + "\n")
                 print(result.stdout, end="", flush=True)
@@ -229,6 +230,14 @@ def main() -> None:
                 assert "quality: Some(61)" in item_line, item_line
                 assert "Item: 1" in watched_replay.stdout, watched_replay.stdout
                 print("Dynamic floor item decoded and retained in ongoing scene state", flush=True)
+                watched_player = next(line for line in watched_replay.stdout.splitlines()
+                                      if line.startswith(f"{avatar:#010x} Person "))
+                moved = "slot_type: 1, subindex: 0, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 1,"
+                original = "slot_type: 5, subindex: 0, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 1,"
+                assert original in player_line, player_line
+                assert moved in watched_player and original not in watched_player, watched_player
+                assert "Observed player gear (latest received batch):" in watched.stdout
+                print("Explicit gear move confirmed by server-originated inventory refresh", flush=True)
                 print(f"Local ongoing session: {updates} post-bootstrap packets applied and replayed", flush=True)
                 print("Full local reference-server integration passed", flush=True)
         except BaseException as error:

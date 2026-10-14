@@ -25,7 +25,21 @@ captures bootstrap plus subsequent inbound scene packets. It sends no gameplay
 requests and uses only loopback endpoints. Idle deadline and clean disconnect
 are normal exits; frames begun before the boundary get at most 100 ms extra to
 complete. Incomplete frames after that grace and malformed updates are errors. Gameplay
-request handling and an interactive game session remain future core milestones.
+Broader gameplay requests and an interactive game session remain future milestones.
+
+Two explicit local gameplay commands are now available during a watch:
+`--look-at NUMERIC_ID` (zero clears) and `--move-gear SRC_SLOT SRC_SUB DST_SLOT`.
+Both require `--avatar` and `--watch-seconds`; slot/subindex fields must be 0–15.
+For example, with an actual avatar from your local roster:
+
+```sh
+cargo run -- login YOUR_USERNAME --avatar NUMERIC_AVATAR_ID --watch-seconds 5 --move-gear 5 0 1
+```
+
+This asks the server to move gear from slot 5/subindex 0 to slot 1. The server
+chooses the destination subindex; no optimistic inventory changes are made.
+The CLI reports the latest received gear batch, not a fabricated acknowledgement.
+These are interoperability controls, not reconstructed game UI bindings.
 
 World-state replay also recognizes dropped-item atoms (`DaItem`, `0x11`), their
 parent/transforms, subtype identity and supported commodity/name/quality fields.

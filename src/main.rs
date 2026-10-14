@@ -44,6 +44,8 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut chat_port = None;
     let mut capture = None;
     let mut watch_seconds = None;
+    let mut look_at = None;
+    let mut move_gear = None;
     let mut options = args[1..].iter();
     while let Some(arg) = options.next() {
         if arg == "--password-stdin" && !from_stdin {
@@ -57,6 +59,31 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 return Err("--watch-seconds must be in 1..=60".into());
             }
             watch_seconds = Some(seconds);
+        } else if arg == "--look-at" && look_at.is_none() {
+            let value = options
+                .next()
+                .ok_or("--look-at requires a numeric ID (zero clears)")?;
+            let target = if let Some(hex) = value.strip_prefix("0x") {
+                u32::from_str_radix(hex, 16)?
+            } else {
+                value.parse::<u32>()?
+            };
+            look_at = Some(openshores_client::commands::SceneCommand::LookAt { target });
+        } else if arg == "--move-gear" && move_gear.is_none() {
+            let mut fields = [0u8; 3];
+            for field in &mut fields {
+                *field = options
+                    .next()
+                    .ok_or("--move-gear requires SRC_SLOT SRC_SUB DST_SLOT")?
+                    .parse()?;
+            }
+            let command = openshores_client::commands::SceneCommand::MoveGear {
+                source_slot: fields[0],
+                source_subindex: fields[1],
+                destination_slot: fields[2],
+            };
+            command.encode()?;
+            move_gear = Some(command);
         } else if arg == "--avatar" && avatar_id.is_none() {
             let value = options.next().ok_or("--avatar requires a numeric ID")?;
             avatar_id = Some(if let Some(hex) = value.strip_prefix("0x") {
@@ -88,6 +115,11 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
         } else {
             return Err("usage: login USERNAME [IP:PORT] [--password-stdin]".into());
         }
+    }
+    if (look_at.is_some() || move_gear.is_some())
+        && (avatar_id.is_none() || watch_seconds.is_none())
+    {
+        return Err("--look-at and --move-gear require --avatar and --watch-seconds".into());
     }
     if avatar_id.is_some() && !address.ip().is_loopback() {
         return Err("scene probes are restricted to local development servers".into());
@@ -153,12 +185,16 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 if !slots.iter().any(|avatar| avatar.id == id) {
                     return Err("selected avatar is absent from the authenticated roster".into());
                 }
-                let session = openshores_client::local_scene::Session::open(
+                let mut session = openshores_client::local_scene::Session::open(
                     SocketAddr::new(address.ip(), scene_port.unwrap_or(16759)),
                     id,
                     Duration::from_secs(30),
                     chat_port,
                 )?;
+                for command in [look_at, move_gear].into_iter().flatten() {
+                    session.send_command(command, Duration::from_secs(5))?;
+                    println!("Sent local scene command: {command:?} (not an acknowledgement).");
+                }
                 let (world, state) = if let Some(seconds) = watch_seconds {
                     let watched = session.watch(Duration::from_secs(seconds))?;
                     println!(
@@ -186,6 +222,28 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 );
                 println!("Scene packet counts: {:?}", world.packet_counts);
                 print_world(&state)?;
+                if move_gear.is_some()
+                    && let Some(gear) = state
+                        .entities
+                        .get(&id)
+                        .and_then(|entity| entity.person.as_ref())
+                        .and_then(|person| person.gear.as_ref())
+                {
+                    let observed: Vec<_> = gear
+                        .slots
+                        .iter()
+                        .map(|slot| {
+                            (
+                                slot.slot_type,
+                                slot.subindex,
+                                slot.item
+                                    .as_ref()
+                                    .map(|item| (item.type_id, item.common.commodity_id)),
+                            )
+                        })
+                        .collect();
+                    println!("Observed player gear (latest received batch): {observed:?}");
+                }
                 if let Some(path) = capture {
                     let mut file = fs::OpenOptions::new()
                         .write(true)
@@ -830,6 +888,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
+                "Explicit local gameplay commands (require --avatar and --watch-seconds):\n       --look-at NUMERIC_ID\n       --move-gear SRC_SLOT SRC_SUB DST_SLOT\n       Slot/subindex range: 0..15; destination subindex is server-assigned\n"
+            );
+            println!(
                 "Local receive-only scene session:\n       cargo run -- login USERNAME --avatar ID --watch-seconds 10 [--capture NEW_FILE]\n       Duration: 1..60 seconds after bootstrap; loopback only\n"
             );
             println!(
@@ -872,6 +933,48 @@ fn main() {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn invalid_gameplay_arguments_fail_before_password_or_network() {
+        for flags in [
+            vec!["--move-gear", "5", "0", "1"],
+            vec!["--look-at", "42"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--move-gear",
+                "16",
+                "0",
+                "1",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--move-gear",
+                "5",
+                "0",
+            ],
+            vec!["--avatar", "42", "--look-at", "0"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--look-at",
+                "not-an-id",
+            ],
+        ] {
+            let args: Vec<String> = std::iter::once("Explorer")
+                .chain(flags)
+                .map(str::to_owned)
+                .collect();
+            assert!(login_command(&args).is_err());
+        }
+    }
 
     #[test]
     fn invalid_watch_arguments_fail_before_password_or_network() {

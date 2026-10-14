@@ -845,3 +845,39 @@ decoded job list allows advancement to player statistics; unknown jobs do not.
 Tests cover precise boundaries, truncation, nullable text, signed IDs, unknown
 forms, counts and input bounds. The Python fixture uses the actual story-job
 builder, and local integration now checks its default job list and statistics.
+
+### First explicit outbound gameplay commands
+
+`commands::SceneCommand` implements source-established outbound scene `0x18`
+look-at target (u32, zero clears) and `0x60` gear move (source slot/subindex,
+raw flag zero, destination slot). Evidence is the supplied server's
+`network/scene/operations/lookat.py` and `gear.py`. Outbound `0x18` is not an
+inbound manifest: traffic direction matters. The move handler reads but ignores
+its flag; zero is the explicit local test profile, not a claim of original-client
+flag semantics. Slot metadata is constrained to nibble range 0..=15. Destination
+subindex allocation belongs to the server.
+
+`Session::send_command` frames typed commands onto the authenticated world
+channel, with a positive write deadline capped at ten seconds. It never writes
+to redirect/chat channels and never mutates cached world/player state. Successful
+write is not server acceptance. CLI `--look-at`/`--move-gear` require an explicitly
+selected authenticated avatar and bounded watch; invalid arguments fail before
+password input/network I/O. Commands are sent after bootstrap, look-at then move
+if both are supplied; subsequent state comes only from received server packets.
+Login's loopback-only scene restriction applies unchanged. Captures remain
+inbound-only and contain no outbound session credentials.
+
+Rust tests check exact payloads, bounds, transport channel routing, no optimistic
+state and pre-I/O CLI validation. The local-server test now explicitly moves
+synthetic commodity 1 from slot 5/subindex 0 to slot 1 and checks the subsequent
+server-generated gear refresh and captured replay. This modifies only disposable
+test inventory. Look-at has no server acknowledgement and is tested separately
+for its source-established layout. Movement, pickup/drop, game UI controls and
+general equipment state semantics remain unfinished.
+
+`tests/reference_commands.py` also exercises the actual Python handlers in
+memory: look-at and clear, destination subindex allocation when occupied, and
+missing-source behavior. It asserts there is no database journal, so this fixture
+performs no persistence or network I/O. The full local-server test separately
+confirmed the Rust command moved the synthetic item and its received refresh
+replayed into the new slot. Both Rust feature configurations and Clippy pass.
