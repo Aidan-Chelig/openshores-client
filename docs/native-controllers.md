@@ -2,8 +2,14 @@
 
 Target: patched `reference/openshores-full/OpenShores.exe`, SHA-256
 `285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
-Independent GNU static assembly observations; not target execution or a REA
-oracle. Focused REA Append corroboration is running.
+The full REA Append result is retained as
+[native-controller-append.json](evidence/native-controller-append.json), Evidence
+`ev_c9c22176be33d6cd317d50d570dc3df921a7cab097f4f6390216849ad757411a`
+(636055ms, Ghidra 12.1.2, matching patched target digest). Complete pseudocode
+review corroborates the count/type loop, virtual receiver call, unconditional
+append and warning-only unsupported-type handling. Factory/jump-table facts
+below use independent GNU assembly; this REA result calls the factory without
+establishing its internals. All findings are static, not target execution.
 
 `AuSyncControllerList::Append(QDataStream&)` at `0x1411e72c0` reads an unsigned
 byte count and then one unsigned type byte per entry. It calls Create, invokes
