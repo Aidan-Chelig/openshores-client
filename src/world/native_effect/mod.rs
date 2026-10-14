@@ -1,6 +1,8 @@
 //! AuEffect receive fields; offset names intentionally avoid invented meanings.
 use crate::protocol::QtReader;
 use std::io;
+mod list;
+pub use list::{NativeEffectList, NativeEffectListReceive};
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeEffect {

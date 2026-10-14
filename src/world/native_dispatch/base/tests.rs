@@ -2,6 +2,7 @@ use super::*;
 use crate::world::native_atom::NativeBaseAtomInitialization;
 
 struct Context {
+    effects: crate::world::native_effect::NativeEffectList,
     atom: NativeBaseAtomInitialization,
     events: Vec<&'static str>,
     motion: Option<bool>,
@@ -31,8 +32,7 @@ impl NativeBaseReceiveContext for Context {
     }
     fn receive_effects(&mut self, input: &mut QtReader<'_>) -> io::Result<()> {
         self.events.push("effects");
-        // Established zero count: no inner AuEffect format needed here.
-        assert_eq!(input.read_u8()?, 0);
+        self.effects.receive(input, || (0, 0))?;
         Ok(())
     }
     fn assign_motion(&mut self, in_motion: bool) -> io::Result<()> {
@@ -49,11 +49,29 @@ impl NativeBaseReceiveContext for Context {
 }
 fn context() -> Context {
     Context {
+        effects: Default::default(),
         atom: NativeBaseAtomInitialization::from_default_base_constructor(),
         events: vec![],
         motion: None,
     }
 }
+#[test]
+fn real_nonempty_effect_layer_ends_before_controllers_and_body() {
+    let bytes = [0x70, 1, 0, 0, 7, 0xcc, 0xde, 0xad];
+    let mut input = QtReader::new(&bytes);
+    let mut context = context();
+    let outcome = receive_base(&mut input, FloatEncoding::TypeWidths, &mut context).unwrap();
+    assert_eq!(
+        context.events,
+        ["status", "effects", "motion", "controllers"]
+    );
+    assert_eq!(context.effects.effects().len(), 1);
+    assert_eq!(context.effects.effects()[0].time_70, 7);
+    assert_eq!(context.motion, Some(true));
+    assert_eq!(outcome.consumed_bytes, 6);
+    assert_eq!(input.remaining_bytes(), &[0xde, 0xad]);
+}
+
 #[test]
 fn all_flags_preserve_stage_order_and_body_boundary() {
     for flags in 0..=u8::MAX {

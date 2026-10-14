@@ -55,6 +55,18 @@ comparison. These are synthetic Rust tests backed by static evidence, not a
 native runtime oracle.
 
 Effect rendering, unknown-field meanings and global adjustment semantics remain
-unestablished. Next work: bounded counted-list reception with reused temporary
-state and subset deduplication; connect it to ordered base reception. Controller
-wire formats remain a separate unresolved layer.
+unestablished. `NativeEffectList` now receives the unsigned-byte count, allocates
+storage even for zero count, reuses one temporary within a packet, and appends
+only values that fail the native subset comparison. A new packet starts a fresh
+temporary without clearing retained effects. Its private collection is bounded
+to 20,000 values as Rust safety, not a recovered native cap. Completed records
+survive later errors; a budget failure can leave the decoded record consumed
+without appending it. Clock inputs are explicit per record, including duplicates.
+Tests cover sparse inheritance, packet-boundary reset, duplicate suppression,
+zero-count retention, all 255 counted records and partial/error effects.
+
+The ordered base-receiver test adapter now uses the real counted decoder,
+including a nonempty effects layer followed by motion, a synthetic controller
+callback marker and untouched class-body bytes. This verifies the layer boundary
+without claiming controller decoding or playable native-owner integration.
+Controller wire formats remain a separate unresolved layer.
