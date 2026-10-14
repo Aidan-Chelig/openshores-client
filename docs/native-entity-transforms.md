@@ -609,7 +609,7 @@ completed in 640533ms. The complete retained record is
 `ev_5e01f84659ed6bda262425e6a81e300e0a53d6fe3222fdccf0000f4b9007013c`,
 bound to the patched executable digest above. Full pseudocode has been reviewed;
 this is static Ghidra 12.1.2 evidence, not observed client execution. Cleanup
-implementation is the next step, with the following ordering constraints.
+implementation below preserves the following ordering constraints.
 Independent GNU static bytes (not a REA oracle) pin an initial selection branch:
 subtract reference milliseconds, skip while signed difference is at most 19999,
 query InTickTockQueue when older, restart the stored epoch if queued, otherwise
@@ -648,6 +648,27 @@ alone is not a Qt reference-millisecond oracle, especially at a submillisecond
 boundary. InTickTockQueue's actual lookup predicate and full derived destructor
 effects still need separate reconstruction; registration presence or released
 flags must not be substituted for queue membership.
+
+`NativeRetiredAtoms::delete_one_in_order` now ports the selection and guarded
+disposal sequence under `native_subatoms/retirement/cleanup/`. It validates an
+explicit complete iteration-order snapshot before effects (Rust safety), uses
+caller-supplied signed reference-millisecond differences, and queries queue
+membership only for entries aged at least 20000ms. Protected entries get the
+single cleanup-call epoch copied into their stored timer. The first unqueued
+old entry is removed before the null/reference checks and required destruction
+callback. It returns the remaining count, restarted handles and selected
+disposition; guards never restore a removed record or continue to another object.
+
+The context explicitly supplies FindAtomA identity, the first containing parent
+through lock-map iteration, and selected-map pointer lookup under another ID.
+Calls are short-circuited in native order, including the zero-ID sentinel.
+No reference cleanup, implicit BTree iteration choice or registration-based
+queue predicate is introduced. Tests cover exact/negative/extreme ages, all
+queued entries, ordered restart/selection, no later getters, guard precedence,
+zero sentinels, erased tracking before destruction, empty stores and atomic
+invalid-order rejection. These are synthetic adapter tests, not native execution.
+Native queue lookup, clock profile, world index observations, derived destructor
+effects and owner scheduler invocation still need connection to the Rust client.
 
 ## Existing native wire-position receiver
 

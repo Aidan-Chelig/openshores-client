@@ -2,6 +2,10 @@
 use super::*;
 use crate::world::native_tick_tock::store::RegistrationStore;
 use std::time::Instant;
+mod cleanup;
+pub use cleanup::{
+    NativeRetirementCleanup, NativeRetirementCleanupContext, NativeRetirementDisposition,
+};
 
 /// Native owner 0x48 is keyed by object pointer, not wire ID. Stable graph
 /// handles preserve that distinction. No expiry/destructor policy is invented.

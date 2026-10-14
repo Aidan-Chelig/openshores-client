@@ -10,7 +10,10 @@ mod removal;
 mod retirement;
 pub use arrival::NativeFreshOwnerEstablished;
 pub use removal::NativeAtomRemoval;
-pub use retirement::NativeRetiredAtoms;
+pub use retirement::{
+    NativeRetiredAtoms, NativeRetirementCleanup, NativeRetirementCleanupContext,
+    NativeRetirementDisposition,
+};
 mod registration;
 mod reparent;
 mod runaway;
