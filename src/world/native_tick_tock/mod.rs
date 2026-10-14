@@ -2,6 +2,7 @@
 //! Callbacks supply established native predicates/lookup results; no defaults
 //! are inferred from source-profile entities or native base flags.
 mod evaluation;
+pub mod record;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SolarSystem {

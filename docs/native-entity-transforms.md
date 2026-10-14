@@ -251,6 +251,37 @@ and verify the subsequent decision. The trait intentionally supplies no no-op
 default. Actual global registration storage, locks and the AuEther callback
 remain unimplemented; this is the dispatch foundation, not a working scheduler.
 
+### Existing registration field effects
+
+GNU static ReleaseTicker (`0x1415a6bf0`) and ReleaseTocker (`0x1415a6d90`)
+look up the ID without inserting it. On a match, writes at `0x1415a6c73` and
+`0x1415a6e13` set node byte `0x38`, copy the 16 bytes at `0x142304550` into
+node `0x28`, then set the owner cleanup flag (`0x430` or `0x448`). That
+constant is two little-endian `0x8000000000000000` words, not zero or the
+current time. ReleaseTickTock (`0x1415ac890`) performs the ticker operation
+first, then the tocker operation, with separate locks.
+
+Existing UpdateOrAddTicker writes solar ID and clears the release byte;
+existing UpdateOrAddTocker additionally writes interval at `0x24` at
+`0x1415a5c8c`. Neither existing-key branch replaces atom type or resets the
+timer. Thus reactivating a released record retains invalid timer words. The
+new `native_tick_tock/record/` primitives implement these established fields
+without inventing the rest of the native record. Raw clock words remain raw;
+no native-clock/Rust-Instant conversion is claimed. Owner cleanup flags and
+missing-key insertion remain explicit unfulfilled integration work.
+
+RemoveReleased is not unconditional erase: at `0x14160e3e8` the tocker hash
+checks the release byte, then calls QMutex::tryLock(0) at `0x14160e3fa`; failed
+locks retain the record, successful locks lead to erase at `0x14160e48f`.
+Rust must not replace this with immediate deletion on release. Constructor
+statistics/history, add-path cleanup, scheduler locking and timing need further
+reconstruction. These are GNU static observations, not a REA runtime oracle.
+`just test-native-transforms` pins the release constant and field writes.
+
+A focused REA decompilation of `_ZN8AuGlobal17UpdateOrAddTockerERK4AuIdhS2_j`
+is running with output reserved as `target/native-register-tocker.json`.
+It is pending evidence, not yet a validated result.
+
 ## Explicit normal-subatom invalidation
 
 `src/world/native_subatoms/` implements the local ChangePos cache obligation

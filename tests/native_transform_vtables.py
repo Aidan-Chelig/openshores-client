@@ -132,3 +132,14 @@ for table_name, bindings in {
     for slot, name in bindings.items():
         assert pointer(symbols[table_name] + 16 + slot) == symbols[name], (table_name, slot, name)
 print("Native TickTock: base atom getter and global registration virtual bindings verified statically.")
+
+assert pointer(0x142304550) == 0x8000000000000000
+assert pointer(0x142304558) == 0x8000000000000000
+for address, pending_offset in [(0x1415A6C73, 0x430), (0x1415A6E13, 0x448)]:
+    assert struct.pack("<Q", pointer(address))[:4] == bytes.fromhex("c6 40 38 01")
+    assert struct.pack("<Q", pointer(address + 4))[:4] == bytes.fromhex("0f 11 40 28")
+    assert struct.pack("<Q", pointer(address + 8))[:7] == b"\xc6\x83" + struct.pack("<I", pending_offset) + b"\x01"
+assert struct.pack("<Q", pointer(0x1415A5C88))[:4] == bytes.fromhex("c6 40 38 00")
+assert struct.pack("<Q", pointer(0x1415A5C8C))[:3] == bytes.fromhex("89 78 24")
+assert struct.pack("<Q", pointer(0x1415A5C8F))[:3] == bytes.fromhex("89 50 3c")
+print("Native registration fields: release markers, invalid timer words, pending flags and existing tocker update writes pinned.")
