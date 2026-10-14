@@ -26,6 +26,17 @@ fn insert(map: &mut BTreeMap<u32, u32>, id: u32, handle: u32) -> io::Result<()> 
     Ok(())
 }
 impl NativeRecoveryLookup {
+    pub(in crate::world::native_subatoms) fn remove_routed(
+        &mut self,
+        id: u32,
+        kind: NativeAtomKind,
+    ) -> Option<u32> {
+        if kind.in_star_field() {
+            self.secondary.remove(&id)
+        } else {
+            self.primary.remove(&id)
+        }
+    }
     /// Build explicit recovery maps from established node identities/kinds,
     /// using native InStarField routing. This is not AddAtomLocked's lifecycle:
     /// replacement/removal, owner creation and callbacks remain separate.

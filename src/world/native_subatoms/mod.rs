@@ -2,7 +2,9 @@
 mod arrival;
 mod invalidation;
 mod recovery;
+mod removal;
 pub use arrival::NativeFreshOwnerEstablished;
+pub use removal::NativeAtomRemoval;
 mod registration;
 mod reparent;
 mod runaway;

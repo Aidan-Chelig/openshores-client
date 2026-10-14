@@ -621,10 +621,28 @@ parent-lock entry and child-set entry keyed by its wire ID.
 No recursive child destruction, child reparenting, runaway-queue cleanup or
 position/cache changes appear in this function's recovered body. Replacement's
 old-object status change, TickTock call and timed retention belong to the caller
-AddAtomLocked, not to this removal primitive. Implementation remains pending:
-the Rust graph currently combines child sets and lock availability and does not
-yet represent the detached object's owner independently. A faithful lifecycle
-adapter must preserve those distinctions rather than simply delete a graph node.
+AddAtomLocked, not to this removal primitive.
+
+`NativeNormalSubatoms::remove_atom_owner` now implements these stable-owner
+effects using separate wire ID and object handle arguments. A required caller
+callback clears the externally held owner reference before real registration
+release, routed map erasure and child-list cleanup. The graph retains every
+object node and its unchanged position/status/cache; it does not touch runaways.
+The result distinguishes erased map handle, direct parent removal, diagnostic
+extra memberships and the discarded own child set. Null IDs are not rejected
+by this primitive: unlike AddAtomLocked, the recovered function has no null-ID
+guard. Missing Rust object handles fail preflight before the callback or writes.
+
+Synthetic tests exercise both map routes, overlapping IDs with different
+stored handles, unavailable parent locks, conditional stale membership cleanup,
+retained child objects and runaway pairs, registration release, absent entries
+and invalid-handle preflight. This remains an explicit adapter, not full native
+world lifecycle dispatch. The Rust graph combines child-set storage and lock
+availability, so deletion of both native entries is represented by removal of
+that combined entry; separate lock destruction, Qt copy-on-write/concurrency,
+logging and replacement timed retention remain unimplemented. Owner identity
+is caller-owned rather than guessed from graph membership. Implementation and
+tests are separated under `native_subatoms/removal/`.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
