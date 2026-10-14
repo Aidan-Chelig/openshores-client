@@ -183,3 +183,17 @@ The implementation keeps original wire groups separate from final known
 fields and applies these overlaps in native order on fresh constructor state.
 WeaponAmmo calls this reader then reads four bytes at 0x80..0x83;
 WeaponState calls it then reads one byte at 0x80. Neither is common-only.
+
+## Concrete Item receive object
+
+`NativeItemAtom` joins confirmed Item constructor/base state, additional received
+base fields and sparse owned-item state. Base reception uses the real ordered
+adapter with required position and clock callbacks; known body reception applies
+the Item codec to that same object. Tests receive real effects/controllers and
+ownership changes, preserve suffixes and sparse state, and leave ownership
+unattached until a separate owner lifecycle establishes it. Unsupported subtypes
+return None explicitly without claiming successful reception; a caller must
+provide the unimplemented subtype path rather than guessing its body or treating
+it as source-profile data. Atomic malformed/unsupported body handling is Rust
+safety, not native old-value deletion/null-factory or Qt-error parity. This is
+concrete per-object receive state, not completed world/session integration.

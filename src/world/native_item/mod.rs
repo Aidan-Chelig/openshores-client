@@ -1,6 +1,8 @@
 //! Patched-client item readers, separate from the reference server profile.
 //! Supported subtype readers are bound to native factory/vtable evidence.
+mod atom;
 mod body;
+pub use atom::NativeItemAtom;
 mod common;
 mod construction;
 pub use construction::NativeItemInitialization;
