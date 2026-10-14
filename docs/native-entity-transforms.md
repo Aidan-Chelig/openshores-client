@@ -512,10 +512,36 @@ The observed shared registration tail creates the atom's own child set and
 parent lock, assigns owner pointer `0x350` at `0x1408ccbca`, then calls
 FixRunaways at `0x1408ccbd9`. Duplicate-object branches include RemoveAtomLocked,
 setting the old object's raw field `0x1c` to 6 and calling TickTock; ownership,
-replacement/timer cleanup and auxiliary indexes require full review before
-porting the lifecycle. A focused REA request for
-`_ZN7AuEther13AddAtomLockedEP6DaAtom` is running with output reserved at
-`target/native-add-atom.json`. It remains pending, not validated evidence.
+replacement/timer cleanup and auxiliary indexes require further helper review.
+The focused REA request for `_ZN7AuEther13AddAtomLockedEP6DaAtom` completed
+in 655786 ms. Complete validated output is preserved in
+[native-add-atom.json](evidence/native-add-atom.json), evidence
+`ev_c9f29fca307a3c0bd42e0851752f7694780f3a45149925a1329d93db94b7e676`.
+Ghidra 12.1.2, default analysis, read-only ephemeral project; static pseudocode,
+not target execution. The record corroborates null-pointer/null-ID rejection,
+selected-map routing, same-pointer early return, replacement cleanup and the
+shared owner tail. Replacement invokes RemoveAtomLocked, marks the old raw
+status 6, invokes TickTock and retains a started elapsed timer in owner `0x48`;
+it is not a simple overwrite of the ID map.
+
+`native_subatoms/arrival/` ports the fresh shared owner tail after explicit
+routed-map insertion. The atom must already exist at the supplied handle in
+the correct native map, and its own list must not exist. Initial attachment
+checks parent child-set presence, not parent-lock availability. Missing sets
+queue the parent/atom pair. The helper then creates its own available empty
+list and runs recovery against that newly established owner context. No
+position, orientation, timer, cache or incoming-atom scheduling effect is
+invented. A self-parent pair is queued and recovered in the same tail, matching
+native behavior rather than imposing an unestablished cycle rejection.
+
+Rust validates references, queue capacity and final link growth before changing
+state. Tests cover child recovery, primary/secondary routing validation,
+attachment to a child set without an available lock, missing-parent queuing,
+self-parent recovery and atomic safety errors. Existing own lists are rejected
+as requiring full registration lifecycle context, not silently replaced.
+Owner-pointer assignment is represented by the explicit modeled availability
+transition; raw pointers, locks, atom construction/map insertion, same-object
+re-add policy and replacement/removal remain outside this fresh-tail helper.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning

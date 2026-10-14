@@ -1,6 +1,8 @@
 //! Explicit native normal-subatom context; not complete AuEther orchestration.
+mod arrival;
 mod invalidation;
 mod recovery;
+pub use arrival::NativeFreshOwnerEstablished;
 mod registration;
 mod reparent;
 mod runaway;

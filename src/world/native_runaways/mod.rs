@@ -50,6 +50,15 @@ impl NativeRunaways {
     /// under another parent is retained; zero IDs are not rejected by this path.
     /// Returns whether a new pair was inserted. Budget failures are atomic.
     pub fn add(&mut self, parent: u32, child: u32) -> io::Result<bool> {
+        if !self.check_add(parent, child)? {
+            return Ok(false);
+        }
+        self.parents.entry(parent).or_default().insert(child);
+        self.pairs += 1;
+        Ok(true)
+    }
+
+    pub(crate) fn check_add(&self, parent: u32, child: u32) -> io::Result<bool> {
         if self.contains(parent, child) {
             return Ok(false);
         }
@@ -59,8 +68,6 @@ impl NativeRunaways {
                 "runaways exceed pair budget",
             ));
         }
-        self.parents.entry(parent).or_default().insert(child);
-        self.pairs += 1;
         Ok(true)
     }
 

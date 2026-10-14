@@ -55,7 +55,19 @@ impl NativeRecoveryLookup {
             secondary: collect(secondary)?,
         })
     }
-    pub(super) fn resolve(&self, id: u32) -> Option<u32> {
+    pub(in crate::world::native_subatoms) fn routed_entry(
+        &self,
+        id: u32,
+        kind: NativeAtomKind,
+    ) -> Option<u32> {
+        if kind.in_star_field() {
+            self.secondary.get(&id)
+        } else {
+            self.primary.get(&id)
+        }
+        .copied()
+    }
+    pub(in crate::world::native_subatoms) fn resolve(&self, id: u32) -> Option<u32> {
         self.primary
             .get(&id)
             .or_else(|| self.secondary.get(&id))
