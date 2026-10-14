@@ -1,6 +1,7 @@
 //! Native TickTock registration decisions, not scheduler execution.
 //! Callbacks supply established native predicates/lookup results; no defaults
 //! are inferred from source-profile entities or native base flags.
+pub mod eligibility;
 mod evaluation;
 pub mod record;
 pub mod store;

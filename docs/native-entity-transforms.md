@@ -313,6 +313,31 @@ A focused REA decompilation of `_ZN8AuGlobal17UpdateOrAddTockerERK4AuIdhS2_j`
 is running with output reserved as `target/native-register-tocker.json`.
 It is pending evidence, not yet a validated result.
 
+### MustNotTickTock eligibility
+
+GNU static non-instrumented `MustNotTickTock` (`0x140b3fdd0`) releases both
+registrations for raw field `0x1c` equal to 2 or 3, or in signed-positive range
+5..INT_MAX. Unsigned comparisons at `0x140b3fdfc`/`0x140b3fe09` do not include
+negative values or 4. Missing owner (`0x350`), zero stored parent ID (`0x210`),
+failed Parent lookup, and parent's raw field equal to 2 also return true.
+
+Otherwise, false DoesQueryEnvironment (slot `0x668`) returns false. For a
+nonnull query pointer (`0x98`), query field `0x34` must have bit `0x20` or
+`0x08` to continue; neither means false, not release. A null query pointer
+also continues. The parent's FindParentCapsuleInEnv (slot `0x470`) is then
+queried: no capsule means false; a resolved capsule returns the inverse of
+its boolean slot `0xb88`. DaSc binds this slot to IsDesignDataCacheValid;
+the abstract DaCapsule table has a null slot, so do not invent a base default
+or infer all overrides from that one concrete binding.
+
+`native_tick_tock/eligibility.rs` ports this predicate over explicit native
+observations. Its immutable snapshots do not claim native lookup/lock timing.
+The raw status and query fields still have no established wire mapping; they
+must not be synthesized from scene flags or atom kinds. Synthetic tests cover
+negative/status edge cases, distinct own/parent exclusions, owner/parent
+failure, query absence, both flag masks and capsule-result inversion. Static
+tests pin the relevant instructions and base virtual bindings.
+
 ## Explicit normal-subatom invalidation
 
 `src/world/native_subatoms/` implements the local ChangePos cache obligation

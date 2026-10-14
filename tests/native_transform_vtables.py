@@ -155,3 +155,19 @@ for address in [0x14160E25A, 0x14160E3FA]:
 assert struct.pack("<Q", pointer(0x1415A5CE8)) == bytes.fromhex("41 c6 84 24 48 04 00 00")
 assert struct.pack("<Q", pointer(0x1415A5CF0))[:1] == b"\x00"
 print("Native registration insertion/cleanup: fresh invalid timers, both zero-wait mutex calls and tocker pending-flag clear pinned.")
+
+for slot, name in [(0x668, "_ZNK6DaAtom20DoesQueryEnvironmentEv"),
+                   (0x470, "_ZNK6DaAtom22FindParentCapsuleInEnvEv")]:
+    assert pointer(symbols["_ZTV6DaAtom"] + 16 + slot) == symbols[name]
+for address, expected in [
+    (0x140B3FDF6, "8b 41 1c"),
+    (0x140B3FDFC, "81 fa fa ff ff 7f"),
+    (0x140B3FFD2, "83 78 1c 02"),
+    (0x140B4000C, "a8 20"),
+    (0x140B402C0, "a8 08"),
+    (0x140B40032, "ff 90 88 0b 00 00"),
+    (0x140B40038, "83 f0 01"),
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native MustNotTickTock: raw status, parent exclusion, query flags and capsule virtual-result inversion pinned.")
