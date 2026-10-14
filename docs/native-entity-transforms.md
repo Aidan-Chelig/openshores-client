@@ -153,11 +153,16 @@ Ghidra reports a terminal-flow limitation at the final invalidation call, not
 proof of a non-returning helper. The hierarchy remains unported: native scene
 state must not turn its outstanding reparent obligation into a guessed copy.
 
-The next focused query traces the actual `DaAtom::SetPosByEther` helper
-(`_ZN6DaAtom13SetPosByEtherERK9AuAtomPosPK7AuEther`, `0x140b41450`) rather than
-using Ghidra's incomplete call prototype as proof of its argument meanings.
-Complete output is selected as `target/native-set-position-by-ether.json`;
-the query is pending, not validated evidence.
+The focused query for `DaAtom::SetPosByEther`
+(`_ZN6DaAtom13SetPosByEtherERK9AuAtomPosPK7AuEther`, `0x140b41450`) completed in
+652666 ms with Ghidra 12.1.2. Complete validated output is retained in
+[`evidence/native-set-position-by-ether.json`](evidence/native-set-position-by-ether.json),
+Evidence `ev_73da6cdfb3a16d534fe2ef3c746bc23d1fca3d98f0a7850a5c7875c295439684`.
+It corroborates the copy/timer/old-parent callback ordering below. Its recovered
+prototype mistypes the instance and incoming position and omits the unused
+Ether argument; use the mangled signature and machine-code data flow, not
+those recovered type labels, to identify operands. Ghidra also reports a
+terminal-flow limitation at TickTock, not proof that TickTock is non-returning.
 
 GNU disassembly now separately establishes the helper's fresh-position copy
 and side-effect ordering. `SetPosByEther`, `0x140b41450..0x140b415d1`, saves
@@ -190,6 +195,13 @@ anchors to the target digest. Unit tests cover old/new null and nonnull parents,
 unchanged updates, deferred cache invalidation, double coordinates, timer
 restarts and atomic validation errors. These are static and synthetic tests,
 not observed original-client execution.
+
+The projected input stage of `AuMatrix4x4::GetRotation` is now reconstructed
+separately under `src/atom_position/rotation/`. See
+[native rotation](native-rotation.md) for the exact origin denominator,
+projection/cancellation order, finite safety boundary and remaining final
+`AuPoint::CalculateRotation` algorithm. No generic Euler extraction is used
+as a substitute for that native algorithm.
 
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning

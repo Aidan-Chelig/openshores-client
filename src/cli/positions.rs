@@ -1,11 +1,10 @@
 //! Offline packed native position inspection; no login or network path.
 use openshores_client::{
-    atom_position::{FloatEncoding, PackedPosition},
+    atom_position::{FloatEncoding, PackedPosition, native_rotation_vectors},
     protocol::QtReader,
 };
 
-const USAGE: &str =
-    "usage: inspect-atom-position/dump-atom-matrix type-widths|single|double HEX_RECORD";
+const USAGE: &str = "usage: inspect-atom-position/dump-atom-matrix/dump-atom-rotation-vectors type-widths|single|double HEX_RECORD";
 
 pub(super) fn input(
     args: &[String],
@@ -53,13 +52,17 @@ fn decode(args: &[String]) -> Result<PackedPosition, Box<dyn std::error::Error>>
 pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
     if !matches!(
         args.first().map(String::as_str),
-        Some("inspect-atom-position" | "dump-atom-matrix")
+        Some("inspect-atom-position" | "dump-atom-matrix" | "dump-atom-rotation-vectors")
     ) {
         return Ok(false);
     }
     let record = decode(args)?;
     if args[0] == "dump-atom-matrix" {
         println!("{:?}", record.local_matrix()?);
+        return Ok(true);
+    }
+    if args[0] == "dump-atom-rotation-vectors" {
+        println!("{:?}", native_rotation_vectors(&record.local_matrix()?)?);
         return Ok(true);
     }
     println!("{}", json(&record));

@@ -69,6 +69,16 @@ for anchor in ("140b436eb:", "cmpb   $0x0,0x1d8(%rcx)", "140b4371b:",
                "1408c6400 <_ZNK7AuEther18ListNormalSubatomsERK4AuIdR10DaAtomList>",
                "140b77920 <_ZNK10DaAtomList22InvalidateEnvTransformEv>"):
     assert anchor in invalidator, anchor
+rotation_getter = assembly(0x1418FA0D0, 0x1418FA2B9)
+for anchor in ("1418fa102:", "1418fa107:", "1418fa10c:", "1418fa111:",
+               "1418fa124:", "1418fa16d:", "1418fa175:", "1418fa1d3:",
+               "1418fa246:", "1418fa24e:", "1418fa26e:",
+               "14164c1b0 <_ZN7AuPoint17CalculateRotationERKS_S1_>"):
+    assert anchor in rotation_getter, anchor
+assert rotation_getter.count("141e6ba40 <") == 3
+constant = subprocess.check_output(["objdump", "-s", "--start-address=0x141e6ba40",
+    "--stop-address=0x141e6ba48", str(TARGET)], text=True)
+assert "00000000 0000f03f" in constant  # exact little-endian double 1.0
 
 rotation = (0.125, -0.25, 1.5)
 position = (12345678.125, -42.25, 3.5)
@@ -112,7 +122,20 @@ for profile in ("type-widths", "single", "double"):
             assert column[3] == 0
             assert all(math.isclose(a, b, abs_tol=1e-12) for a, b in zip(axis, column))
         assert matrix[3] == [*expected["position"], 1.0]
+        vectors_result = run(profile, payload, "dump-atom-rotation-vectors")
+        assert vectors_result.returncode == 0, vectors_result.stderr
+        vectors = json.loads(vectors_result.stdout)
+        # Independent stage oracle on an already independently verified affine
+        # matrix. Keep native add/subtract translation rounding.
+        projected = [[(0.0 + matrix[axis][row] + matrix[3][row]) - matrix[3][row]
+                      for row in range(3)] for axis in range(2)]
+        assert vectors == projected, (profile, flags, vectors, projected)
         cases += 1
+
+large = bytes([0xFE]) + struct.pack(">3f3d", 0, 0, 0, 1e17, 1e17, 1e17)
+large_result = run("type-widths", large, "dump-atom-rotation-vectors")
+assert large_result.returncode == 0
+assert json.loads(large_result.stdout) == [[0.0] * 3, [0.0] * 3]
 
 # Real source gravity alignment: local +Z must point outward at both poles
 # and off-axis locations, after native float-angle narrowing.
@@ -219,3 +242,4 @@ print(f"Native ID/base prefix: {prefix_cases} independent fixtures preserve unkn
 print(f"Native packed fields: {cases} independent profile/flag fixtures; "
       "local matrices match source body axes; both-pole gravity alignment, "
       "static reader anchors and malformed records verified offline.")
+print(f"Native rotation inputs: {cases} projected-input stage fixtures and large-coordinate cancellation verified; final angle extraction remains separate.")
