@@ -451,6 +451,17 @@ orientation/timer effects, repeated-pair suppression, nonnull old-parent
 callback skipping, validation failures and callback errors. FixRunaways repair,
 two-map owner resolution and native lock interleaving remain unimplemented.
 
+The missing-destination branch also has a direct registration-store adapter,
+`change_parent_to_missing_destination_with_registrations_at`. Runaway and
+registration stores are passed as separate borrowed resources; they do not
+imply parent-lock availability. Its world context is constructed only after
+queue/position effects and only when old null parent requires TickTock. Tests
+connect real insertion and release effects, confirm old indexes remain intact,
+retain queued/earlier effects after second-registration rejection, and verify
+queue rejection skips all getter/registration work. Registration integration
+tests are split under `native_subatoms/registration_tests/`. Parent-arrival
+recovery and playable-client attachment remain separate unfinished work.
+
 A focused REA/Ghidra request for `_ZN7AuEther11FixRunawaysERK4AuId` is running,
 with complete output reserved at `target/native-fix-runaways.json`. Pending
 analysis is not validated evidence. Current GNU observations show a later

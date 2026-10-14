@@ -1,4 +1,5 @@
 use super::*;
+mod missing;
 use crate::{
     atom_position::NativePositionState,
     world::{
@@ -34,7 +35,10 @@ impl StoreContext for Context<'_> {
         assert_eq!(node.position.position.parent, 7);
         assert!(node.position.environment_cache_valid);
         assert!(self.graph.node(2).unwrap().position.environment_cache_valid);
-        assert!(self.graph.lists[&7].children.contains(&self.id));
+        assert_eq!(
+            self.graph.lists[&7].children.contains(&self.id),
+            self.graph.lists[&7].available
+        );
         self.owner.blocked // explicit synthetic native predicate observation
     }
     fn is_ticker(&mut self, _: &RegistrationStore) -> bool {

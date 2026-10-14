@@ -6,7 +6,7 @@ mod runaway;
 use super::native_atom::NativeAtomKind;
 use crate::atom_position::NativePositionState;
 pub use invalidation::NativeHierarchyPositionChange;
-pub use registration::ReparentRegistrationContext;
+pub use registration::{ReparentRegistrationContext, RunawayRegistrationStores};
 pub use reparent::NativeReparentResult;
 pub use runaway::NativeRunawayReparentResult;
 use std::{
