@@ -846,6 +846,17 @@ verify precision/time/status/list retention and prevent later effects after an
 unresolved position. Qt locks, signal wiring, class post-update effects and the
 full native owner/session integration still need concrete implementations.
 
+Atom-dispatch integration tests now use `NativeBaseReceiveAdapter`, not an
+atomic prefix read followed by a manual status write. A complete synthetic
+Person-candidate packet resolves an existing Item, copies its raw time, applies
+a double-precision local position, receives a real effect plus duplicate Motion
+controllers, destroys the candidate, then decodes/applies the retained Item
+body and leaves suffix bytes intact. This exercises the implemented receive
+chain rather than isolated layer boundaries. Candidate construction, signal
+wiring, owner insertion and post-update operations remain fixture event logs;
+position is an explicitly unowned/local fixture without offset-`0x98` storage.
+No claim of full native world integration or live protocol compatibility follows.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence

@@ -1,10 +1,12 @@
+use super::base::{NativeBaseReceiveAdapter, NativeBaseReceiveFields};
 use super::*;
 use crate::{
-    atom_position::FloatEncoding,
-    world::{native_item::NativeItemInitialization, native_prefix::NativeBasePrefix},
+    atom_position::{FloatEncoding, PackedPosition},
+    world::{native_atom::NativeBaseAtomInitialization, native_item::NativeItemInitialization},
 };
 
 struct Context {
+    fields: NativeBaseReceiveFields,
     lookup: NativeRecoveryLookup,
     events: Vec<String>,
     item: NativeItemInitialization,
@@ -30,14 +32,20 @@ impl NativeAtomDispatchContext for Context {
     fn receive_base(
         &mut self,
         handle: u32,
-        identity: NativeIdentityPrefix,
+        _identity: NativeIdentityPrefix,
         input: &mut QtReader<'_>,
     ) -> io::Result<()> {
         self.events.push(format!("base:{handle}"));
-        let base =
-            NativeBasePrefix::read_after_identity(input, identity, FloatEncoding::TypeWidths)?;
-        assert_eq!(base.flags, 0);
-        self.item.base.finish_received_position_stage();
+        let mut adapter = NativeBaseReceiveAdapter {
+            atom: &mut self.item.base,
+            fields: &mut self.fields,
+            position: |atom: &mut NativeBaseAtomInitialization, record: PackedPosition| {
+                atom.position.apply_fresh_wire_position(&record, false)?;
+                Ok(())
+            },
+            clock: || (0x10000, 0),
+        };
+        base::receive_base(input, FloatEncoding::TypeWidths, &mut adapter)?;
         Ok(())
     }
     fn connect_signals(&mut self, handle: u32) -> io::Result<()> {
@@ -71,6 +79,7 @@ impl NativeAtomDispatchContext for Context {
 }
 fn context() -> Context {
     Context {
+        fields: Default::default(),
         lookup: NativeRecoveryLookup::new([], []).unwrap(),
         events: vec![],
         item: NativeItemInitialization::from_default_item_constructor(),
@@ -83,6 +92,34 @@ fn payload(opcode: u8) -> Vec<u8> {
     bytes.extend([0, 0x60, 0xde, 0xad]);
     bytes
 }
+#[test]
+fn dispatch_crosses_real_position_effect_controller_layers_into_retained_item_body() {
+    let mut bytes = payload(0x05)[..13].to_vec();
+    bytes.extend([0x71, 0x82]);
+    bytes.extend(12345678.125_f64.to_be_bytes());
+    bytes.extend([1, 0, 0, 7, 2, 2, 2, 0x60, 0xde, 0xad]);
+    let mut context = context();
+    context.lookup = NativeRecoveryLookup::new([(7, 10)], []).unwrap();
+    let outcome = receive_atom(&bytes, &mut context).unwrap().unwrap();
+    assert_eq!(outcome.handle, 10);
+    assert!(!outcome.is_new);
+    assert_eq!(outcome.consumed_bytes, bytes.len() - 2);
+    assert_eq!(
+        context.item.base.position.position.local[3][0],
+        12345678.125
+    );
+    assert_eq!(context.fields.effects.effects()[0].time_70, 0x10007);
+    assert_eq!(context.fields.controllers.entries().len(), 2);
+    assert_eq!(context.fields.in_motion, Some(true));
+    assert_eq!(context.item.state.ownership_id, Some(1));
+    assert!(context.item.state.field_39c.unwrap());
+    assert_eq!(&bytes[outcome.consumed_bytes..], &[0xde, 0xad]);
+    assert_eq!(
+        &context.events[4..],
+        &["destroy:90", "body:10:false", "post:10:false"]
+    );
+}
+
 #[test]
 fn existing_primary_item_receives_person_candidate_without_replacement() {
     let mut context = context();
