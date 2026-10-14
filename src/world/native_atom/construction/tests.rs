@@ -1,6 +1,34 @@
 use super::*;
 use crate::atom_position::PackedPosition;
+use crate::world::native_prefix::NativeIdentityPrefix;
 use std::time::{Duration, Instant};
+
+#[test]
+fn identity_assignment_replaces_id_and_time_without_implicit_acceptance_policy() {
+    let mut base = NativeBaseAtomInitialization::from_default_base_constructor();
+    let position = base.position.clone();
+    for identity in [
+        NativeIdentityPrefix {
+            id: u32::MAX,
+            timestamp_ms: i64::MAX,
+        },
+        NativeIdentityPrefix {
+            id: 1,
+            timestamp_ms: -1,
+        },
+        NativeIdentityPrefix {
+            id: 0,
+            timestamp_ms: i64::MIN,
+        },
+    ] {
+        base.apply_received_identity(identity);
+        assert_eq!(base.wire_id, identity.id);
+        assert_eq!(base.received_time, identity.timestamp_ms);
+        assert_eq!(base.field_1c, 5);
+        assert!(!base.owner_attached);
+        assert_eq!(base.position, position);
+    }
+}
 
 #[test]
 fn base_initialization_retains_status_orientation_and_invalid_timer_distinctions() {

@@ -15,6 +15,15 @@ pub struct NativeBaseAtomInitialization {
     pub environment_matrix: [[f64; 4]; 4],
 }
 impl NativeBaseAtomInitialization {
+    /// Established RxUpdateId assignment stage only. No null-ID/type/time
+    /// acceptance check exists in that helper; full packet policy is separate.
+    pub fn apply_received_identity(
+        &mut self,
+        identity: crate::world::native_prefix::NativeIdentityPrefix,
+    ) {
+        self.wire_id = identity.id;
+        self.received_time = identity.timestamp_ms;
+    }
     /// Recovered DaAtom() subset used by position and owner lifecycle. Does not
     /// pick a derived kind, assign a packet ID, create owner lists or register
     /// scheduling. Qt locks/timers and unmodeled base fields remain separate.

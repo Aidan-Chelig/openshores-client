@@ -58,7 +58,7 @@ validates the complete capture before printing, avoiding partial success output.
 An independent Python capture fixture verifies hashes and source immutability.
 This is container/prefix replay, not complete native transport or body parity.
 
-`src/world/native_prefix.rs` now reads the established native ID/base prefix
+`src/world/native_prefix/mod.rs` now reads the established native ID/base prefix
 through an explicit separate API, starting **after** the enclosing opcode/layer
 dispatch. Static `RxUpdateId` at `0x140b27e30` reads AuId at `0x140b27e41`
 then AuTime at `0x140b27e57`; AuTime at `0x14163a380` invokes the signed
@@ -769,6 +769,25 @@ native allocation: QObject/Qt locks, unmodeled fields, derived atom initializati
 packet ID/time assignment and receiver status transitions remain separate.
 No derived kind is guessed, nor is a constructor snapshot automatically inserted
 into the world or registered with an owner.
+
+Native identity decoding now lives under `world/native_prefix/`. Its separate
+`NativeIdentityPrefix` reads just the 12-byte ID/time stage and stops before
+base flags. NativeBasePrefix delegates to it without changing wire layout.
+`NativeBaseAtomInitialization::apply_received_identity` assigns both values,
+including raw null IDs and decreasing/negative times, without inventing a stale
+filter or changing status, owner or position. Full GNU review of RxUpdateId
+`0x140b27e30..0x140b27e5b` establishes only AuId::ls into `0x14` followed by
+AuTime::ls into `0x1e8`, with no acceptance branches. Helper overloads preserve
+32-bit identity bits and signed 64-bit time. These are independently hash-pinned
+assembly observations, not a REA runtime oracle. Rust truncated-input rejection
+is atomic, unlike native direct field writes/Qt stream error handling.
+
+Tests cover raw width extremes, null identity, negative/decreasing time,
+untouched trailing bytes, all truncated identity prefixes and retained constructor
+state. Packet-driven acceptance remains separate: a focused REA analysis of
+`_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at `0x1405e79a0` is running
+with full output reserved as `target/native-read-packet.json`. That pending
+result must be reviewed before claiming native receive/creation policy.
 
 DestinationContext remains caller-established. Unresolved context returns the
 unchanged reparent obligation, and insufficient normal-list context remains

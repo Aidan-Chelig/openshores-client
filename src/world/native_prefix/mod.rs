@@ -1,9 +1,11 @@
 //! Native RxUpdateId + leading RxUpdateBase fields; not the reference profile.
 //! Input starts at the atom ID, after enclosing opcode/layer dispatch.
+mod identity;
 use crate::{
     atom_position::{FloatEncoding, PackedPosition},
     protocol::QtReader,
 };
+pub use identity::NativeIdentityPrefix;
 use std::io;
 
 /// Where decoding stops. An unknown base layer is not a type-specific body.
@@ -34,8 +36,9 @@ impl NativeBasePrefix {
     pub fn read(input: &mut QtReader<'_>, encoding: FloatEncoding) -> io::Result<Self> {
         let length = input.remaining();
         let mut record = QtReader::new(input.remaining_bytes());
-        let id = record.read_u32()?;
-        let timestamp_ms = record.read_i64()?;
+        let identity = NativeIdentityPrefix::read(&mut record)?;
+        let id = identity.id;
+        let timestamp_ms = identity.timestamp_ms;
         let flags = record.read_u8()?;
         let position = if flags & 1 != 0 {
             Some(PackedPosition::read(&mut record, encoding)?)

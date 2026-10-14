@@ -250,3 +250,16 @@ for address, expected in [
     raw = bytes.fromhex(expected)
     assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
 print("Native item constructor: base status, null item/ownership stores, raw flag and shared-null string initialization pinned statically.")
+
+assert symbols["_ZN6DaAtom10RxUpdateIdER11QDataStream"] == 0x140B27E30
+for address, expected in [
+    (0x140B27E3D, "48 8d 49 14"),  # destination ID field
+    (0x140B27E41, "e8 7a d5 b0 00"),  # AuId::ls
+    (0x140B27E46, "48 8d 8b e8 01 00 00"),  # destination time field
+    (0x140B27E57, "e9 24 25 b1 00"),  # AuTime::ls tail call
+    (0x1416353DA, "89 03"),  # raw 32-bit identity bits
+    (0x14163A389, "48 ff 25 80 83 25 01"),  # signed 64-bit stream overload
+]:
+    raw = bytes.fromhex(expected)
+    assert struct.pack("<Q", pointer(address))[:len(raw)] == raw
+print("Native RxUpdateId: direct ID then time assignment pinned; full helper has no acceptance or stale-time checks.")
