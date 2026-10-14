@@ -1,13 +1,13 @@
 use super::*;
+type CameraFilter = (With<SliceCamera>, Without<Marker>);
 
 pub(super) fn scene(
     mut commands: Commands,
     mut ui: ResMut<Presentation>,
-    mut meshes: ResMut<Assets<Mesh>>,
-    mut materials: ResMut<Assets<StandardMaterial>>,
+    mut rendering: models::Rendering,
     terrain_entities: Query<Entity, With<TerrainEntity>>,
     mut markers: Query<(Entity, &Marker, &mut Transform), Without<SliceCamera>>,
-    mut camera: Query<&mut Transform, (With<SliceCamera>, Without<Marker>)>,
+    mut camera: Query<(&mut Transform, &mut Projection), CameraFilter>,
 ) {
     if ui.model.phase != Phase::Playing {
         for entity in &terrain_entities {
@@ -17,6 +17,7 @@ pub(super) fn scene(
             commands.entity(entity).despawn();
         }
         ui.terrain = None;
+        ui.camera_terrain = None;
         ui.local_position = None;
         return;
     }
@@ -41,17 +42,18 @@ pub(super) fn scene(
                     Mesh::ATTRIBUTE_COLOR,
                     crate::viewer::elevation_colors(terrain.positions()),
                 );
-                let material = materials.add(StandardMaterial {
+                let material = rendering.materials.add(StandardMaterial {
                     base_color: Color::WHITE,
                     perceptual_roughness: 0.8,
                     ..default()
                 });
                 commands.spawn((
                     TerrainEntity,
-                    Mesh3d(meshes.add(mesh)),
+                    Mesh3d(rendering.meshes.add(mesh)),
                     MeshMaterial3d(material),
                 ));
                 ui.terrain = Some(home);
+                ui.camera_terrain = Some(terrain);
             }
             Err(error) => {
                 ui.model.status = error.to_string();
@@ -89,17 +91,32 @@ pub(super) fn scene(
                 } else {
                     0.002
                 };
-                let mesh = meshes.add(Sphere::new(radius).mesh().uv(12, 8));
-                let material = materials.add(StandardMaterial {
+                let resource = entity
+                    .item
+                    .as_ref()
+                    .and_then(|item| item.value.as_ref())
+                    .and_then(|value| value.common.as_ref())
+                    .and_then(|item| ui.model.world.commodities.get(i32::from(item.commodity_id)))
+                    .and_then(|row| row.model.as_deref());
+                let model = resource.and_then(|resource| rendering.model(resource, ui.scale));
+                let source_model = model.is_some();
+                let mesh = model
+                    .unwrap_or_else(|| rendering.meshes.add(Sphere::new(radius).mesh().uv(12, 8)));
+                let material = rendering.materials.add(StandardMaterial {
                     base_color: if entity.kind == AtomKind::Person {
                         Color::srgb(0.2, 0.8, 1.)
                     } else {
                         Color::srgb(1., 0.7, 0.2)
                     },
-                    unlit: true,
+                    unlit: !source_model,
+                    cull_mode: if source_model {
+                        None
+                    } else {
+                        Some(bevy::render::render_resource::Face::Back)
+                    },
                     ..default()
                 });
-                commands.spawn((
+                let mut spawned = commands.spawn((
                     Marker(entity.id),
                     Mesh3d(mesh),
                     MeshMaterial3d(material),
@@ -107,6 +124,9 @@ pub(super) fn scene(
                         position.map(|value| (value * ui.scale) as f32),
                     )),
                 ));
+                if source_model && let Some(resource) = resource {
+                    spawned.insert(models::MountedItemModel(resource.to_owned()));
+                }
             }
         }
     }
@@ -132,17 +152,16 @@ pub(super) fn scene(
         let north = up.cross(right);
         let forward = north * ui.yaw.cos() + right * ui.yaw.sin();
         let look = forward * ui.pitch.cos() + up * ui.pitch.sin();
-        if let Ok(mut transform) = camera.single_mut() {
+        if let Ok((mut transform, mut projection)) = camera.single_mut() {
+            if let Projection::Perspective(perspective) = &mut *projection {
+                perspective.near = super::camera::near(ui.scale);
+            }
+            let eye = super::camera::eye(position, ui.camera_terrain.as_ref(), ui.scale);
             *transform = if ui.top_down {
-                // Synthetic server fixtures can spawn inside base terrain.
-                // Keep the tactical camera outside the generated globe.
-                Transform::from_translation(
-                    point + up * (3.5 - point.length()).max(ui.top_height.max(0.1)) - forward * 0.5,
-                )
-                .looking_at(point, forward)
+                Transform::from_translation(eye + up * ui.top_height.max(0.1) - forward * 0.5)
+                    .looking_at(point, forward)
             } else {
-                Transform::from_translation(point + up * 0.002)
-                    .looking_at(point + up * 0.002 + look, up)
+                Transform::from_translation(eye).looking_at(eye + look, up)
             };
         }
     }

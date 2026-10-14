@@ -1,6 +1,7 @@
 //! Offline Qt resource arrays in the supplied, symbol-bearing PE DLL.
 //! Version must be established from registration code, not guessed from bytes.
 use std::{collections::BTreeSet, io, ops::Range};
+mod registration;
 
 const MAX_FILE: usize = 128 * 1024 * 1024;
 const MAX_ENTRY: usize = 64 * 1024 * 1024;
@@ -252,6 +253,16 @@ impl<'a> QtResources<'a> {
             return Err(invalid("unsupported Qt resource version"));
         }
         let pools = pools(bytes)?;
+        Self::from_pools(bytes, version, pools)
+    }
+
+    /// Read the observed MSVC x64 resource-registration layout without loading code.
+    pub fn open_registered(bytes: &'a [u8]) -> io::Result<Self> {
+        let (version, pools) = registration::pools(bytes)?;
+        Self::from_pools(bytes, version, pools)
+    }
+
+    fn from_pools(bytes: &'a [u8], version: u8, pools: Vec<[Range<usize>; 3]>) -> io::Result<Self> {
         let mut result = Self {
             bytes,
             entries: Vec::new(),

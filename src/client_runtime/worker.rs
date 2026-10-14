@@ -1,128 +1,15 @@
-//! Renderer-independent, loopback-only client worker with bounded queues.
-use crate::{
-    commands::{ChatCommand, SceneCommand},
-    local_scene::{Bootstrap, SceneRead, Session},
-    login::{self, Avatar, LoginReply},
-};
-use std::{
-    collections::BTreeSet,
-    io,
-    net::SocketAddr,
-    sync::{
-        Arc,
-        atomic::{AtomicBool, Ordering},
-        mpsc::{self, Receiver, SyncSender, TryRecvError},
-    },
-    thread::{self, JoinHandle},
-    time::{Duration, Instant},
-};
-use zeroize::Zeroizing;
+use super::*;
 
-#[derive(Clone, Copy)]
-pub struct LocalEndpoint {
-    pub login: SocketAddr,
-    pub scene_port: u16,
-    pub chat_port: u16,
-}
-impl LocalEndpoint {
-    pub fn validate(self) -> io::Result<Self> {
-        if !self.login.ip().is_loopback()
-            || self.login.port() == 0
-            || self.scene_port == 0
-            || self.chat_port == 0
-        {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidInput,
-                "client slice requires nonzero loopback endpoints",
-            ));
-        }
-        Ok(self)
-    }
-}
-
-pub enum Request {
-    Login {
-        username: String,
-        password: Zeroizing<String>,
-    },
-    Join(u32),
-    Scene(SceneCommand),
-    Chat(ChatCommand),
-    Pickup(u32),
-    Disconnect,
-}
-pub enum Event {
-    Roster(Box<[Avatar; 6]>),
-    Bootstrap(Box<Bootstrap>),
-    Packet(Vec<u8>),
-    SentScene(SceneCommand),
-    SentChat(ChatCommand),
-    Status(String),
-    Error(String),
-    Disconnected,
-}
-
-pub struct ClientRuntime {
-    requests: Option<SyncSender<Request>>,
-    events: Option<Receiver<Event>>,
-    stopped: Arc<AtomicBool>,
-    worker: Option<JoinHandle<()>>,
-}
-impl ClientRuntime {
-    pub fn start(endpoint: LocalEndpoint) -> io::Result<Self> {
-        let endpoint = endpoint.validate()?;
-        let (requests, incoming) = mpsc::sync_channel(32);
-        let (outgoing, events) = mpsc::sync_channel(32);
-        let stopped = Arc::new(AtomicBool::new(false));
-        let worker_stop = stopped.clone();
-        let worker = thread::Builder::new()
-            .name("openshores-local-client".into())
-            .spawn(move || worker(endpoint, incoming, outgoing, worker_stop))?;
-        Ok(Self {
-            requests: Some(requests),
-            events: Some(events),
-            stopped,
-            worker: Some(worker),
-        })
-    }
-    pub fn send(&self, request: Request) -> io::Result<()> {
-        self.requests
-            .as_ref()
-            .ok_or_else(|| io::Error::other("client stopped"))?
-            .try_send(request)
-            .map_err(|_| {
-                io::Error::new(
-                    io::ErrorKind::WouldBlock,
-                    "client request queue full or disconnected",
-                )
-            })
-    }
-    pub fn next_event(&self) -> Result<Event, TryRecvError> {
-        self.events
-            .as_ref()
-            .ok_or(TryRecvError::Disconnected)?
-            .try_recv()
-    }
-}
-impl Drop for ClientRuntime {
-    fn drop(&mut self) {
-        self.stopped.store(true, Ordering::Release);
-        self.requests.take();
-        // Unblock a worker awaiting space in the bounded output queue.
-        self.events.take();
-        if let Some(worker) = self.worker.take() {
-            let _ = worker.join();
-        }
-    }
-}
-
-fn worker(
+pub(super) fn worker(
     endpoint: LocalEndpoint,
     incoming: Receiver<Request>,
     outgoing: SyncSender<Event>,
     stopped: Arc<AtomicBool>,
 ) {
     let mut avatars = BTreeSet::new();
+    let mut avatar_names = std::collections::BTreeMap::new();
+    let mut choices = std::collections::VecDeque::new();
+    let mut story_active = false;
     let mut session: Option<Session> = None;
     let mut pins: Vec<(Instant, u32)> = Vec::new();
     let mut connected_at = None;
@@ -147,10 +34,17 @@ fn worker(
                         return Err(io::Error::other("disconnect before logging in again"));
                     }
                     avatars.clear();
+                    avatar_names.clear();
                     let hash = Zeroizing::new(login::wire_password(&password));
                     match login::exchange(endpoint.login, &username, &hash, Duration::from_secs(5))?
                     {
                         LoginReply::Accepted { slots, .. } => {
+                            avatar_names.extend(
+                                slots
+                                    .iter()
+                                    .filter(|slot| slot.id != 0)
+                                    .map(|slot| (slot.id, slot.name.clone().unwrap_or_default())),
+                            );
                             avatars.extend(
                                 slots.iter().filter(|slot| slot.id != 0).map(|slot| slot.id),
                             );
@@ -203,6 +97,56 @@ fn worker(
                         .send_chat_command(command, Duration::from_secs(1))?;
                     Ok(Some(Event::SentChat(command)))
                 }
+                Request::Message(message) => {
+                    session
+                        .as_mut()
+                        .ok_or_else(|| io::Error::other("not connected"))?
+                        .send_message(&message, Duration::from_secs(1))?;
+                    Ok(Some(Event::Status(
+                        "Chat written; awaiting server broadcast".into(),
+                    )))
+                }
+                Request::Choice(reply) => {
+                    if !choices.contains(&reply) {
+                        return Err(io::Error::other("choice was not offered to this avatar"));
+                    }
+                    session
+                        .as_mut()
+                        .ok_or_else(|| io::Error::other("not connected"))?
+                        .send_choice(reply, Duration::from_secs(1))?;
+                    choices.retain(|choice: &crate::chat::Reply| {
+                        choice.instance != reply.instance || choice.offered != reply.offered
+                    });
+                    Ok(Some(Event::ChoiceSent(reply)))
+                }
+                Request::StoryControl(control) => {
+                    if !story_active {
+                        return Err(io::Error::other("no story offered to this avatar"));
+                    }
+                    session
+                        .as_mut()
+                        .ok_or_else(|| io::Error::other("not connected"))?
+                        .send_story_control(control, Duration::from_secs(1))?;
+                    if control == crate::chat::StoryControl::Close {
+                        story_active = false;
+                        choices.retain(|choice: &crate::chat::Reply| choice.instance == 1);
+                    }
+                    Ok(Some(Event::StoryControlSent(control)))
+                }
+                Request::Hail => {
+                    let active = session
+                        .as_mut()
+                        .ok_or_else(|| io::Error::other("not connected"))?;
+                    let name = avatar_names
+                        .get(&active.bootstrap.avatar_id)
+                        .ok_or_else(|| {
+                            io::Error::other("avatar missing from authenticated roster")
+                        })?;
+                    active.send_hail(name, Duration::from_secs(1))?;
+                    Ok(Some(Event::Status(
+                        "Voice hail written; awaiting nearby native reply".into(),
+                    )))
+                }
                 Request::Pickup(target) => {
                     if session.is_none() || target == 0 || !pins.is_empty() {
                         return Err(io::Error::other(
@@ -224,6 +168,8 @@ fn worker(
                     )))
                 }
                 Request::Disconnect => {
+                    story_active = false;
+                    choices.clear();
                     session = None;
                     pins.clear();
                     avatars.clear();
@@ -255,6 +201,34 @@ fn worker(
                         .send_command(SceneCommand::TargetPin { target }, Duration::from_secs(1))?;
                     pins.remove(0);
                 }
+                match active.receive_chat(Duration::from_millis(1))? {
+                    SceneRead::Packet(packet) => {
+                        let incoming = crate::chat::decode_incoming(&packet)?;
+                        if let crate::chat::Incoming::Story(story) = &incoming
+                            && story.header.target == active.bootstrap.avatar_id
+                        {
+                            story_active = true;
+                        }
+                        if let crate::chat::Incoming::Choice(choice) = &incoming
+                            && choice.offered_to == active.bootstrap.avatar_id
+                            && choice.header.target == active.bootstrap.avatar_id
+                        {
+                            if choice.narrated {
+                                story_active = true;
+                            }
+                            choices.retain(|old| *old != choice.reply());
+                            choices.push_back(choice.reply());
+                            if choices.len() > 32 {
+                                choices.pop_front();
+                            }
+                        }
+                        outgoing
+                            .send(Event::IncomingChat(incoming))
+                            .map_err(|_| io::Error::other("client event receiver closed"))?;
+                    }
+                    SceneRead::Closed => return Ok(SceneRead::Closed),
+                    SceneRead::Idle => {}
+                }
                 active.receive_update(Duration::from_millis(20))
             })();
             match result {
@@ -268,6 +242,8 @@ fn worker(
                     session = None;
                     pins.clear();
                     avatars.clear();
+                    choices.clear();
+                    story_active = false;
                     connected_at = None;
                     let event = match other {
                         Err(error) => Event::Error(error.to_string()),
@@ -280,52 +256,6 @@ fn worker(
                         break;
                     }
                 }
-            }
-        }
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn external_and_zero_endpoints_fail_before_worker_creation() {
-        for endpoint in [
-            LocalEndpoint {
-                login: "192.0.2.1:16757".parse().unwrap(),
-                scene_port: 16759,
-                chat_port: 16758,
-            },
-            LocalEndpoint {
-                login: "127.0.0.1:0".parse().unwrap(),
-                scene_port: 16759,
-                chat_port: 16758,
-            },
-        ] {
-            assert!(ClientRuntime::start(endpoint).is_err());
-        }
-    }
-    #[test]
-    fn unauthenticated_join_is_rejected_without_scene_connect() {
-        let runtime = ClientRuntime::start(LocalEndpoint {
-            login: "127.0.0.1:1".parse().unwrap(),
-            scene_port: 1,
-            chat_port: 1,
-        })
-        .unwrap();
-        runtime.send(Request::Join(42)).unwrap();
-        let deadline = Instant::now() + Duration::from_secs(1);
-        loop {
-            match runtime.next_event() {
-                Ok(Event::Error(message)) => {
-                    assert!(message.contains("authenticated roster"));
-                    break;
-                }
-                Err(TryRecvError::Empty) => {
-                    assert!(Instant::now() < deadline);
-                    thread::yield_now();
-                }
-                _ => panic!("unexpected event"),
             }
         }
     }

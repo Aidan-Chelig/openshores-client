@@ -322,7 +322,7 @@ as does the Bevy renderer.
 
 ### Raw 3DS-family geometry
 
-`src/model.rs` reads the chunked `.3ds`, `.3dsN`, and `.3dsX` resources without
+`src/model/` reads the chunked `.3ds`, `.3dsN`, `.3dsNT`, and `.3dsX` resources without
 loading executable code. Chunks have little-endian u16 IDs and u32 total byte
 lengths. The root is `0x4d4d`, editor `0x3d3d`, named object `0x4000`, mesh
 `0x4100`, vertex list `0x4110`, face list `0x4120`, material assignments `0x4130`,
@@ -339,8 +339,11 @@ Referenced strings are at VAs `0x1422cf22d`, `0x1422cf233`, `0x1422cf23a`.
 indices and a u16 flag. Types 1 and 2 additionally read nine floats; type 2
 then reads ten more. Types 0 and 3 use the ordinary eight-byte face record.
 This establishes the 44-byte N records versus eight-byte standard/X records.
-The supplied model DLL has no `.3dsNT` inventory; that variant is not supported.
-Extra N floats retain their wire order with no assumed shading semantics.
+The supplied model DLL has no `.3dsNT` inventory. The decoder now supports its
+84-byte face records with synthetic coverage; no real NT asset/runtime parity
+is claimed. Extra N/NT floats retain their wire order with no assumed shading
+semantics. NT adds a `NT` marker and its ten tail floats to the geometry parity
+serialization; established Standard/N/X fingerprints are unchanged.
 
 These function observations are from GNU disassembly, **not REA decompilation**:
 Ghidra's initial main-executable analysis exceeded the MCP's 300-second tool
@@ -374,7 +377,7 @@ and whether those size fields are stale remain unresolved. `verify-models`
 continues scanning, reports all failures, and exits nonzero when any resource
 is rejected. `.SoH` payloads remain opaque.
 
-Synthetic tests cover all three supported variants, every truncation boundary,
+Synthetic tests cover all four supported variants, every truncation boundary,
 opaque retention, wrong variants, invalid indices/material assignments,
 non-finite fields, malformed chunk lengths, names, duplicate empty lists,
 and chunk-budget exhaustion. Input (64 MiB), element (one million), chunk

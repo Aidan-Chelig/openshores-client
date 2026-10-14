@@ -9,6 +9,12 @@ use std::{
     time::{Duration, Instant},
 };
 
+#[derive(bevy::ecs::system::SystemParam)]
+pub(super) struct SceneEvidence<'w, 's> {
+    terrain: Query<'w, 's, Entity, With<TerrainEntity>>,
+    models: Query<'w, 's, &'static models::MountedItemModel>,
+}
+
 #[derive(Resource)]
 pub(super) struct Workflow {
     profile: LocalSmoke,
@@ -17,6 +23,7 @@ pub(super) struct Workflow {
     entered: Instant,
     target: Option<u32>,
     hunger: u16,
+    npc_lines: usize,
     complete: Arc<AtomicBool>,
 }
 impl Workflow {
@@ -28,6 +35,7 @@ impl Workflow {
             entered: Instant::now(),
             target: None,
             hunger: 0,
+            npc_lines: 0,
             complete,
         }
     }
@@ -63,7 +71,8 @@ pub(super) fn workflow(
     mut ui: ResMut<Presentation>,
     bridge: Res<Bridge>,
     mut commands: Commands,
-    terrain: Query<Entity, With<TerrainEntity>>,
+    evidence: SceneEvidence,
+    camera: Query<(&Transform, &Projection), With<SliceCamera>>,
     mut exit: MessageWriter<AppExit>,
 ) {
     if workflow.started.elapsed() > Duration::from_secs(55)
@@ -78,7 +87,7 @@ pub(super) fn workflow(
         return;
     }
     match workflow.stage {
-        0 => {
+        0 if ui.assets_ready => {
             ui.username = workflow.profile.username.clone();
             ui.password = std::mem::take(&mut workflow.profile.password);
             activate(Action::Login, &mut ui, &bridge);
@@ -93,13 +102,97 @@ pub(super) fn workflow(
             && workflow.entered.elapsed() > Duration::from_secs(2) =>
         {
             assert_eq!(ui.model.world.commodities.len(), 615);
-            assert!(ui.terrain.is_some() && terrain.iter().count() == 1);
+            assert!(ui.terrain.is_some() && evidence.terrain.iter().count() == 1);
+            let (view, projection) = camera.single().unwrap();
+            let expected = super::camera::eye(
+                ui.local_position.unwrap(),
+                ui.camera_terrain.as_ref(),
+                ui.scale,
+            );
+            assert!(view.translation.distance(expected) < 1e-5);
+            let Projection::Perspective(perspective) = projection else {
+                panic!("expected perspective camera")
+            };
+            assert_eq!(perspective.near, super::camera::near(ui.scale));
+            println!("GUI slice: terrain-aware first-person eye and scaled near plane passed");
+            ui.chat_channel = 2;
+            ui.chat_draft = "Rust local chat 🌊".into();
+            activate(Action::SendMessage, &mut ui, &bridge);
+            for _ in 0..5 {
+                activate(Action::NextRange, &mut ui, &bridge);
+            }
+            ui.chat_draft = "Rust local Universe range".into();
+            activate(Action::SendMessage, &mut ui, &bridge);
+            activate(Action::NextRange, &mut ui, &bridge);
             assert!(has_gear(&ui, 5, 0, 1));
             activate(Action::SelectGear(5, 0), &mut ui, &bridge);
             activate(Action::Move, &mut ui, &bridge);
             workflow.advance(3);
         }
-        3 if has_gear(&ui, 1, 0, 1) && !has_gear(&ui, 5, 0, 1) => {
+        3 if has_gear(&ui, 1, 0, 1)
+            && !has_gear(&ui, 5, 0, 1)
+            && ui
+                .model
+                .chat
+                .iter()
+                .any(|message| message.text.as_deref() == Some("Rust local chat 🌊"))
+            && ui
+                .model
+                .chat
+                .iter()
+                .any(|message| message.text.as_deref() == Some("Rust local Universe range")) =>
+        {
+            let message = ui
+                .model
+                .chat
+                .iter()
+                .find(|message| message.text.as_deref() == Some("Rust local chat 🌊"))
+                .unwrap();
+            assert_eq!(message.sender, workflow.profile.avatar_id);
+            assert_eq!(message.sender_name.as_deref(), Some("Rust Explorer"));
+            println!("GUI slice: authenticated Unicode chat round-trip passed");
+            let ranged = ui
+                .model
+                .chat
+                .iter()
+                .find(|message| message.text.as_deref() == Some("Rust local Universe range"))
+                .unwrap();
+            assert_eq!(ranged.range, Some((5, 5)));
+            assert_eq!(ranged.sender, workflow.profile.avatar_id);
+            println!("GUI slice: selected Universe chat range round-trip passed");
+            if workflow.profile.conversation {
+                activate(Action::Hail, &mut ui, &bridge);
+                workflow.advance(20);
+                return;
+            }
+            activate(Action::SelectGear(1, 0), &mut ui, &bridge);
+            activate(Action::Drop, &mut ui, &bridge);
+            workflow.advance(4);
+        }
+        20 if !ui.model.choices.is_empty()
+            && ui.model.hail_environments.contains_key(&0x7b000001) =>
+        {
+            assert!(
+                ui.model
+                    .chat
+                    .iter()
+                    .any(|message| message.text.as_deref() == Some("Greetings Rust Explorer."))
+            );
+            let reply = ui
+                .model
+                .choices
+                .iter()
+                .find(|choice| choice.header.sender == 0x7b000001)
+                .unwrap()
+                .reply();
+            assert_eq!(reply.instance, 1);
+            workflow.npc_lines = ui.model.chat.len();
+            activate(Action::Reply(reply), &mut ui, &bridge);
+            workflow.advance(21);
+        }
+        21 if ui.model.chat.len() > workflow.npc_lines && !ui.model.choices.is_empty() => {
+            assert_eq!(ui.model.chat.back().unwrap().sender, 0x7b000001);
+            println!("GUI slice: actual native hail/choice/continuation passed");
             activate(Action::SelectGear(1, 0), &mut ui, &bridge);
             activate(Action::Drop, &mut ui, &bridge);
             workflow.advance(4);
@@ -117,6 +210,18 @@ pub(super) fn workflow(
                 })
                 .map(|item| item.id);
             if let Some(target) = target {
+                if std::env::var_os("HAZERON_INSTALL").is_some() {
+                    if !evidence
+                        .models
+                        .iter()
+                        .any(|model| model.0 == ":data/mFlag.3dsX")
+                    {
+                        return;
+                    }
+                    println!(
+                        "GUI slice: catalog-bound dropped Flag model rendered from user installation"
+                    );
+                }
                 workflow.target = Some(target);
                 activate(Action::SelectItem(target), &mut ui, &bridge);
                 activate(Action::Pickup, &mut ui, &bridge);

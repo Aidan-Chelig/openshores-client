@@ -17,6 +17,9 @@ import sys
 sys.dont_write_bytecode = True
 from reference_geometry import check_geometry
 from reference_preview import check_previews
+from model_coordinates import check_coordinates
+from reference_geometry import geometry
+from model_roles import check_roles
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -115,6 +118,24 @@ def main() -> None:
     formats = Counter(Path(entry[1]).suffix for entry in expected)
     check_geometry(binary, dll, expected, payloads)
     check_previews(binary, expected, payloads)
+    coordinate_models = coordinate_vertices = 0
+    role_counts = Counter()
+    group_count = 0
+    with tempfile.TemporaryDirectory(prefix="openshores-coordinates-") as temporary:
+        for entry, payload in zip(expected, payloads, strict=True):
+            extension = Path(entry[1]).suffix
+            if extension not in (".3ds", ".3dsN", ".3dsNT", ".3dsX") or struct.unpack_from("<HI", payload) != (0x4D4D, len(payload)):
+                continue
+            source = Path(temporary) / ("model" + extension)
+            source.write_bytes(payload)
+            meshes = geometry(payload, extension, return_meshes=True)[-1]
+            coordinate_vertices += check_coordinates(binary, source, extension, meshes)
+            roles, groups = check_roles(binary, source, extension, meshes)
+            role_counts.update(roles)
+            group_count += groups
+            coordinate_models += 1
+    print(f"Coordinate-stage mathematical parity: {coordinate_models} models / {coordinate_vertices} vertices; not original-client runtime parity")
+    print(f"Raw-group and helper-stage parity: {group_count} groups; {dict(role_counts)}; static reconstruction only")
     print(f"Qt parity: 10 pools, 446 entries, {total} raw bytes; six byte-exact extractions; overwrite and pool mismatch rejected")
     print(f"Asset extensions: {dict(sorted(formats.items()))}")
 

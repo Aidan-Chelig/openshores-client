@@ -135,6 +135,7 @@
               pkgs.udev
               pkgs.vulkan-loader
               pkgs.libxkbcommon
+              pkgs.dbus
               pkgs.wayland
               pkgs.libX11
               pkgs.libXcursor
@@ -149,7 +150,24 @@
 
         # Full reference-server integration tests use a disposable local DB.
         devShells.server-test = mkShell {
+          # GUI demos must also work from a clean shell, not just inherit the
+          # default dev shell's graphics paths (notably libxkbcommon on NixOS).
+          shellHook = ''
+            export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [
+              pkgs.udev
+              pkgs.vulkan-loader
+              pkgs.libxkbcommon
+              pkgs.wayland
+              pkgs.libX11
+              pkgs.libXcursor
+              pkgs.libXrandr
+              pkgs.libXi
+              pkgs.stdenv.cc.cc.lib
+            ]}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+          '';
           packages = [
+            pkgs.just
+            pkgs.binutils
             rustToolchain
             pkgs.postgresql
             (pkgs.python313.withPackages (ps: with ps; [ asyncpg numpy uvloop ]))
@@ -161,6 +179,7 @@
             export LD_LIBRARY_PATH="${goldbergEmu}/lib:$LD_LIBRARY_PATH:${
               pkgs.lib.makeLibraryPath [
                 pkgs.alsa-lib
+                pkgs.dbus
                 pkgs.udev
                 pkgs.vulkan-loader
                 pkgs.libxkbcommon

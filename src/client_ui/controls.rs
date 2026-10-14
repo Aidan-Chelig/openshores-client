@@ -59,13 +59,38 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
     let ctrl = keys.pressed(KeyCode::ControlLeft) || keys.pressed(KeyCode::ControlRight);
     let alt = keys.pressed(KeyCode::AltLeft) || keys.pressed(KeyCode::AltRight);
     let shift = keys.pressed(KeyCode::ShiftLeft) || keys.pressed(KeyCode::ShiftRight);
+    if ui.chat_focus {
+        typed.clear();
+        if let Ok(mut cursor) = window.single_mut() {
+            cursor.visible = true;
+            cursor.grab_mode = CursorGrabMode::None;
+        }
+        return;
+    }
     if matches!(ui.model.phase, Phase::Login | Phase::Disconnected) {
         for event in typed
             .read()
             .filter(|event| event.state == ButtonState::Pressed)
         {
             if event.key_code == KeyCode::Tab {
+                ui.asset_focus = false;
                 ui.password_focus = !ui.password_focus;
+            } else if ui.asset_focus {
+                if event.key_code == KeyCode::Backspace {
+                    ui.asset_path.pop();
+                } else if event.key_code == KeyCode::Enter {
+                    activate(Action::MountAssets, &mut ui, &bridge);
+                } else if ctrl && event.key_code == KeyCode::KeyA {
+                    ui.asset_path.clear();
+                } else if !ctrl
+                    && !alt
+                    && let Some(text) = &event.text
+                {
+                    let text: String = text.chars().filter(|c| !c.is_control()).collect();
+                    if ui.asset_path.len() + text.len() <= 4096 {
+                        ui.asset_path.push_str(&text);
+                    }
+                }
             } else if event.key_code == KeyCode::Backspace {
                 if ui.password_focus {
                     ui.password.pop();
@@ -178,7 +203,7 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
     if hand || alt {
         return;
     }
-    ui.yaw -= motion.delta.x * 0.003;
+    ui.yaw += motion.delta.x * 0.003;
     ui.pitch = (ui.pitch - motion.delta.y * 0.003).clamp(-1.4, 1.4);
     if (keys.just_pressed(KeyCode::KeyU) && !shift) || mouse.just_pressed(MouseButton::Middle) {
         activate(Action::Use, &mut ui, &bridge);

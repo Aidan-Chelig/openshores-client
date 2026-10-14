@@ -175,6 +175,7 @@ mod tests {
                 vertices: [0, 1, 2],
                 flags: 0,
                 extension: None,
+                nt_extension: None,
             }],
             ..Default::default()
         }

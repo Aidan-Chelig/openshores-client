@@ -1,6 +1,6 @@
 use super::*;
 
-fn label(commands: &mut Commands, parent: Entity, text: impl Into<String>) {
+pub(super) fn label(commands: &mut Commands, parent: Entity, text: impl Into<String>) {
     let child = commands
         .spawn((
             Text::new(text),
@@ -17,7 +17,12 @@ fn label(commands: &mut Commands, parent: Entity, text: impl Into<String>) {
         .id();
     commands.entity(parent).add_child(child);
 }
-fn button(commands: &mut Commands, parent: Entity, action: Action, text: impl Into<String>) {
+pub(super) fn button(
+    commands: &mut Commands,
+    parent: Entity,
+    action: Action,
+    text: impl Into<String>,
+) {
     let child = commands
         .spawn((
             Button,
@@ -88,6 +93,34 @@ pub(super) fn rebuild_panels(
                 root,
                 "Loopback only. Minimal development UI.",
             );
+            button(
+                &mut commands,
+                root,
+                Action::BrowseAssets,
+                "Choose Hazeron installation…",
+            );
+            button(
+                &mut commands,
+                root,
+                Action::AssetsPath,
+                format!(
+                    "{} Hazeron installation: {}",
+                    if ui.asset_focus { ">" } else { " " },
+                    ui.asset_path
+                ),
+            );
+            button(
+                &mut commands,
+                root,
+                Action::MountAssets,
+                "Prepare installation assets",
+            );
+            label(
+                &mut commands,
+                root,
+                "Click the installation field, type its folder path, then prepare.",
+            );
+            label(&mut commands, root, &ui.asset_status);
             button(
                 &mut commands,
                 root,
@@ -164,11 +197,12 @@ pub(super) fn rebuild_panels(
                 label(
                     &mut commands,
                     root,
-                    "Base terrain / primitive markers / prototype physics",
+                    "Base terrain / raw item models / prototype physics",
                 );
                 label(&mut commands, root, &ui.model.status);
             }
             if ui.windows_open {
+                super::chat::panel(&mut commands, root, &ui);
                 if ui.bio_open {
                     label(&mut commands, root, "Bio (F8)");
                     if let Some(person) = ui

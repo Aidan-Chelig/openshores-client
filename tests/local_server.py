@@ -67,9 +67,10 @@ async def seed(dsn: str, username: str = USERNAME) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play]")
-    binary = str(ROOT / "target/debug/openshores-client")
+    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play", "quick-dev", "quick-smoke", "conversation") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play|quick-dev|quick-smoke|conversation]")
+    graphical = action in ("gui", "play", "quick-dev", "quick-smoke", "conversation")
+    binary = str(ROOT / "target/debug" / ("openshores-client-slice" if graphical else "openshores-client"))
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
     # Hold distinct ephemeral ports until the server is ready to start.
@@ -113,16 +114,22 @@ def main() -> None:
                 "OPENSHORES_CONTROL_PORT": str(control),
                 "OPENSHORES_LOG_LEVEL": "INFO",
             })
+            if graphical:
+                if (ROOT / "reference/hazeron").is_dir():
+                    os.environ.setdefault("HAZERON_INSTALL", str(ROOT / "reference/hazeron"))
+                os.environ["OPENSHORES_ASSET_CACHE"] = str(runtime / "assets")
+            if action == "conversation":
+                os.environ["OPENSHORES_TEST_CONVERSATION"] = "1"
             os.chdir(runtime)
             print("Generating the reference world and synthetic avatar", flush=True)
             avatar = asyncio.run(seed(dsn))
-            if action in ("use", "gui", "play"):
+            if action == "use" or graphical:
                 async def hungry_avatar():
                     import asyncpg
                     conn = await asyncpg.connect(dsn)
                     try:
                         await conn.execute('UPDATE "a_Person" SET "hunger"=40, "autoEat"=0 WHERE "id"=$1', avatar)
-                        if action in ("gui", "play"):
+                        if graphical:
                             from openshores.database.repositories.bundle import pick_boot_globe
                             from openshores.database.repositories.world_loader import _terrain_floats
                             from openshores.gameplay.worldgen.real import create_terrain_data
@@ -150,21 +157,35 @@ def main() -> None:
             print(f"Starting actual reference server on loopback; avatar={avatar}", flush=True)
             log_path = runtime / "server.log"
             with log_path.open("w") as log:
-                server = subprocess.Popen([sys.executable, "-m", "openshores"], stdout=log, stderr=log)
+                server_command = ([sys.executable, str(ROOT / "tests/conversation_server.py")]
+                                  if action == "conversation" else [sys.executable, "-m", "openshores"])
+                server = subprocess.Popen(server_command, stdout=log, stderr=log)
                 deadline = time.monotonic() + 120
                 while "[boot] login  listening" not in log_path.read_text():
                     if server.poll() is not None or time.monotonic() > deadline:
                         raise RuntimeError("reference server failed to start:\n" + log_path.read_text()[-8000:])
                     time.sleep(0.2)
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
-                if action == "play":
-                    print(f"Owned disposable demo credentials: {USERNAME} / {PASSWORD}", flush=True)
-                    print("Log in using the window, choose Rust Explorer, and right-click for the hand cursor. Close the window to clean up this disposable world.", flush=True)
-                    result = run(str(ROOT / "target/debug/openshores-client-slice"), f"127.0.0.1:{login}",
-                                 "--scene-port", str(scene), "--chat-port", str(chat), timeout=None)
-                    print(result.stdout, end="", flush=True)
+                if action in ("play", "quick-dev", "quick-smoke"):
+                    command = [binary, f"127.0.0.1:{login}", "--scene-port", str(scene), "--chat-port", str(chat)]
+                    if action == "play":
+                        print(f"Owned disposable demo credentials: {USERNAME} / {PASSWORD}", flush=True)
+                    else:
+                        command += ["--auto-login", USERNAME, str(avatar)]
+                    print("Close the client window to clean up the disposable local world.", flush=True)
+                    if action == "quick-smoke":
+                        result = run(*command, "--smoke-frames", "30", input=PASSWORD + "\n")
+                        print(result.stdout, end="", flush=True)
+                        assert "Quick-dev connected to avatar" in result.stdout
+                        assert "Mounted " in result.stdout and "geometry conversions" in result.stdout
+                        assert PASSWORD not in result.stdout
+                        assert "UseGearItem" not in log_path.read_text()
+                        assert "DropGearItem" not in log_path.read_text()
+                    else:
+                        subprocess.run(command, check=True, text=True,
+                                       input=PASSWORD + "\n" if action == "quick-dev" else None)
                     return
-                if action == "gui":
+                if action in ("gui", "conversation"):
                     screenshot = Path(os.environ.get("GUI_SCREENSHOT", str(runtime / "gui.png")))
                     result = run(str(ROOT / "target/debug/openshores-client-slice"), f"127.0.0.1:{login}",
                                  "--scene-port", str(scene), "--chat-port", str(chat),
@@ -172,6 +193,12 @@ def main() -> None:
                     print(result.stdout, end="", flush=True)
                     assert PASSWORD not in result.stdout
                     assert "GUI slice: clean disconnect passed" in result.stdout
+                    assert "GUI slice: authenticated Unicode chat round-trip passed" in result.stdout
+                    assert "GUI slice: selected Universe chat range round-trip passed" in result.stdout
+                    if os.environ.get("HAZERON_INSTALL"):
+                        assert "GUI slice: catalog-bound dropped Flag model rendered from user installation" in result.stdout
+                    if action == "conversation":
+                        assert "GUI slice: actual native hail/choice/continuation passed" in result.stdout
                     assert screenshot.is_file() and screenshot.stat().st_size > 1000
                     assert "UseGearItem (ate Beans)" in log_path.read_text()
                     async def verify_gui_state():

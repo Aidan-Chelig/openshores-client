@@ -105,7 +105,7 @@ def geometry(data, variant, return_meshes=False):
                 chunks(body, stop, "editor")
             elif context == "editor" and kind == 0x4000:
                 name, pos = string(body, stop)
-                current = dict(name=name, vertices=b"", faces=[], uvs=None, matrix=None, smoothing=None, materials=[])
+                current = dict(name=name, vertices=b"", faces=[], uvs=None, matrix=None, smoothing=None, materials=[], geometry_order=[], vertex_groups=[])
                 meshes.append(current)
                 chunks(pos, stop, "object", current)
             elif context == "object" and kind == 0x4100:
@@ -114,9 +114,10 @@ def geometry(data, variant, return_meshes=False):
                 count = word(body)
                 assert body + 2 + count * 12 == stop
                 mesh["vertices"] = data[body + 2:stop]
+                mesh["geometry_order"].append("vertices")
             elif context == "mesh" and kind == 0x4120:
                 count = word(body)
-                size = 44 if variant == ".3dsN" else 8
+                size = {".3dsN": 44, ".3dsNT": 84}.get(variant, 8)
                 pos = body + 2
                 assert pos + count * size <= stop
                 mesh["faces"] = [data[pos + i * size:pos + (i + 1) * size] for i in range(count)]
@@ -128,6 +129,20 @@ def geometry(data, variant, return_meshes=False):
             elif context == "mesh" and kind == 0x4160:
                 assert stop - body == 48
                 mesh["matrix"] = data[body:stop]
+                mesh["geometry_order"].append("matrix")
+            elif context == "mesh" and kind == 0x4112:
+                group = dict(name=None, members=None)
+                mesh["vertex_groups"].append(group)
+                chunks(body, stop, "group", group)
+            elif context == "group" and kind == 0x4113:
+                assert mesh["name"] is None
+                mesh["name"], position = string(body, stop)
+                assert position == stop
+            elif context == "group" and kind == 0x4114:
+                assert mesh["members"] is None
+                count = word(body)
+                assert body + 2 + count * 16 == stop
+                mesh["members"] = data[body + 2:stop]
             elif context == "faces" and kind == 0x4150:
                 assert stop - body == len(mesh["faces"]) * 4
                 mesh["smoothing"] = data[body:stop]
@@ -161,8 +176,11 @@ def geometry(data, variant, return_meshes=False):
         for face in mesh["faces"]:
             assert max(struct.unpack_from("<HHH", face)) < count
             digest.update(face[:8])
-            digest.update(bytes([variant == ".3dsN"]))
-            digest.update(face[8:])
+            digest.update(bytes([variant in (".3dsN", ".3dsNT")]))
+            digest.update(face[8:44])
+            if variant == ".3dsNT":
+                digest.update(b"NT")
+                digest.update(face[44:])
         uv = mesh["uvs"]
         digest.update(bytes([uv is not None]))
         if uv is not None:

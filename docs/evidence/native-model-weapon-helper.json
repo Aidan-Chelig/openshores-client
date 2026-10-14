@@ -1,0 +1,90 @@
+{
+  "ok": true,
+  "data": {
+    "evidence_id": "ev_59c92ca44904e255642b6f70dc562965ec034b77e6c7a30004d7e61ee6208154",
+    "subject": {
+      "name": "OpenShores.exe",
+      "digest": {
+        "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+      },
+      "format": "pe",
+      "architecture": "x86_64",
+      "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+    },
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "analysis_profile": {
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.2"
+      },
+      "parameters": {
+        "target_kind": "executable",
+        "target_format": "pe",
+        "executable_role": "application",
+        "managed": false,
+        "native_aot_metadata": {
+          "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+          "source_bytes": 134217728,
+          "work_units": 67108864,
+          "working_memory_bytes": 67108864,
+          "report_bytes": 4194304
+        },
+        "architecture": "x86_64",
+        "available_architectures": [
+          "x86_64"
+        ],
+        "import_mode": "ephemeral-source-immutable",
+        "annotation_policy": "atomic-function-entry-metadata-v1",
+        "load_image_observations": "source-mappings-entry-context-v2",
+        "function_body_evidence": "complete-inclusive-ranges-v1",
+        "function_references": "complete-body-and-entry-reference-manager-v2",
+        "string_inventory_evidence": "defined-data-coverage-v1",
+        "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+        "instruction_flow_evidence": "decoded-return-pcode-v1",
+        "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+        "no_return_repair": "returning-imports-decoded-return-v2",
+        "process_launch": "inspected-jvm-launch-support-v1",
+        "jump_table_evidence": "typed-case-default-blocks-v1",
+        "decompiler_jump_loads": true,
+        "loader": "auto-from-header",
+        "language_id": "auto-from-header",
+        "compiler_spec_id": "auto-default",
+        "analyzer_preset": "ghidra-default"
+      },
+      "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+    },
+    "predicate_type": "rea.analysis",
+    "operation": "procedure_pseudo_code",
+    "parameters": {
+      "procedure": "_ZNK15Au3dsGLSLObject13TestForWeaponER15Au3dsGLSLWeapon10MODEL_TYPE"
+    },
+    "raw_result": {
+      "value": "\n/* Au3dsGLSLObject::TestForWeapon(Au3dsGLSLWeapon&, MODEL_TYPE) const */\n\nundefined8 __thiscall\nAu3dsGLSLObject::TestForWeapon(Au3dsGLSLObject *this,undefined1 *param_1,int param_3)\n\n{\n  ushort uVar1;\n  longlong lVar2;\n  Au3dsGLSLVertex *pAVar3;\n  Au3dsGLSLVertex *pAVar4;\n  double dVar5;\n  double dVar6;\n  double dVar7;\n  double local_b8;\n  double dStack_b0;\n  double local_a8;\n  QString local_98 [48];\n  float local_68;\n  \n  if (((*(int *)(*(longlong *)(this + 0x130) + 4) != 0) &&\n      (lVar2 = *(longlong *)(this + 0x108), 1 < *(int *)(lVar2 + 4))) &&\n     (*(short *)(lVar2 + *(longlong *)(lVar2 + 0x10)) == 0x21)) {\n    QString::QString(local_98);\n    uVar1 = QString::toInt((bool *)local_98,0);\n    QString::~QString(local_98);\n    if (uVar1 < 0x1b) {\n      local_a8 = 0.0;\n      local_b8 = 0.0;\n      dStack_b0 = 0.0;\n      if (param_3 - 1U < 2) {\n        lVar2 = *(longlong *)(this + 0x138);\n        pAVar3 = (Au3dsGLSLVertex *)(*(longlong *)(lVar2 + 0x10) + lVar2);\n        pAVar4 = pAVar3 + (longlong)*(int *)(lVar2 + 4) * 0x90;\n        if (pAVar3 == pAVar4) {\n          dVar5 = 0.0;\n          dVar6 = 0.0;\n          local_b8 = 0.0;\n          dStack_b0 = 0.0;\n          local_a8 = 0.0;\n          dVar7 = 0.0;\n        }\n        else {\n          dVar5 = 0.0;\n          dVar6 = 0.0;\n          dVar7 = 0.0;\n          do {\n            if (*(int *)(pAVar3 + 0x34) == 0x11) {\n              Au3dsGLSLVertex::Au3dsGLSLVertex((Au3dsGLSLVertex *)local_98,pAVar3);\n              dVar7 = (double)local_68;\n              dVar5 = (double)(float)local_98._40_8_;\n              dVar6 = (double)SUB84(local_98._40_8_,4);\n            }\n            else if (*(int *)(pAVar3 + 0x34) == 0x12) {\n              Au3dsGLSLVertex::Au3dsGLSLVertex((Au3dsGLSLVertex *)local_98,pAVar3);\n              local_a8 = (double)local_68;\n              local_b8 = (double)(float)local_98._40_8_;\n              dStack_b0 = (double)SUB84(local_98._40_8_,4);\n            }\n            pAVar3 = pAVar3 + 0x90;\n          } while (pAVar3 != pAVar4);\n          local_a8 = local_a8 - dVar7;\n          local_b8 = local_b8 - dVar5;\n          dStack_b0 = dStack_b0 - dVar6;\n        }\n      }\n      else {\n        lVar2 = *(longlong *)(this + 0x130) + *(longlong *)(*(longlong *)(this + 0x130) + 0x10);\n        dVar7 = (double)*(float *)(lVar2 + 0x30);\n        dVar5 = (double)(float)*(undefined8 *)(lVar2 + 0x28);\n        dVar6 = (double)(float)((ulonglong)*(undefined8 *)(lVar2 + 0x28) >> 0x20);\n        local_b8 = ((double)(float)*(undefined8 *)(lVar2 + 0x5c) +\n                   (double)(float)*(undefined8 *)(lVar2 + 0x90)) * 0.5 - dVar5;\n        dStack_b0 = ((double)(float)((ulonglong)*(undefined8 *)(lVar2 + 0x5c) >> 0x20) +\n                    (double)(float)((ulonglong)*(undefined8 *)(lVar2 + 0x90) >> 0x20)) * 0.5 - dVar6\n        ;\n        local_a8 = ((double)*(float *)(lVar2 + 100) + (double)*(float *)(lVar2 + 0x98)) * 0.5 -\n                   dVar7;\n      }\n      AuPoint::Unit((AuPoint *)&local_b8);\n      *param_1 = (char)uVar1;\n      *(double *)(param_1 + 8) = dVar5;\n      *(double *)(param_1 + 0x10) = dVar6;\n      *(double *)(param_1 + 0x18) = dVar7;\n      *(double *)(param_1 + 0x20) = local_b8;\n      *(double *)(param_1 + 0x28) = dStack_b0;\n      *(double *)(param_1 + 0x30) = local_a8;\n      return 1;\n    }\n  }\n  return 0;\n}\n\n",
+      "limitations": []
+    },
+    "normalized_result": "\n/* Au3dsGLSLObject::TestForWeapon(Au3dsGLSLWeapon&, MODEL_TYPE) const */\n\nundefined8 __thiscall\nAu3dsGLSLObject::TestForWeapon(Au3dsGLSLObject *this,undefined1 *param_1,int param_3)\n\n{\n  ushort uVar1;\n  longlong lVar2;\n  Au3dsGLSLVertex *pAVar3;\n  Au3dsGLSLVertex *pAVar4;\n  double dVar5;\n  double dVar6;\n  double dVar7;\n  double local_b8;\n  double dStack_b0;\n  double local_a8;\n  QString local_98 [48];\n  float local_68;\n  \n  if (((*(int *)(*(longlong *)(this + 0x130) + 4) != 0) &&\n      (lVar2 = *(longlong *)(this + 0x108), 1 < *(int *)(lVar2 + 4))) &&\n     (*(short *)(lVar2 + *(longlong *)(lVar2 + 0x10)) == 0x21)) {\n    QString::QString(local_98);\n    uVar1 = QString::toInt((bool *)local_98,0);\n    QString::~QString(local_98);\n    if (uVar1 < 0x1b) {\n      local_a8 = 0.0;\n      local_b8 = 0.0;\n      dStack_b0 = 0.0;\n      if (param_3 - 1U < 2) {\n        lVar2 = *(longlong *)(this + 0x138);\n        pAVar3 = (Au3dsGLSLVertex *)(*(longlong *)(lVar2 + 0x10) + lVar2);\n        pAVar4 = pAVar3 + (longlong)*(int *)(lVar2 + 4) * 0x90;\n        if (pAVar3 == pAVar4) {\n          dVar5 = 0.0;\n          dVar6 = 0.0;\n          local_b8 = 0.0;\n          dStack_b0 = 0.0;\n          local_a8 = 0.0;\n          dVar7 = 0.0;\n        }\n        else {\n          dVar5 = 0.0;\n          dVar6 = 0.0;\n          dVar7 = 0.0;\n          do {\n            if (*(int *)(pAVar3 + 0x34) == 0x11) {\n              Au3dsGLSLVertex::Au3dsGLSLVertex((Au3dsGLSLVertex *)local_98,pAVar3);\n              dVar7 = (double)local_68;\n              dVar5 = (double)(float)local_98._40_8_;\n              dVar6 = (double)SUB84(local_98._40_8_,4);\n            }\n            else if (*(int *)(pAVar3 + 0x34) == 0x12) {\n              Au3dsGLSLVertex::Au3dsGLSLVertex((Au3dsGLSLVertex *)local_98,pAVar3);\n              local_a8 = (double)local_68;\n              local_b8 = (double)(float)local_98._40_8_;\n              dStack_b0 = (double)SUB84(local_98._40_8_,4);\n            }\n            pAVar3 = pAVar3 + 0x90;\n          } while (pAVar3 != pAVar4);\n          local_a8 = local_a8 - dVar7;\n          local_b8 = local_b8 - dVar5;\n          dStack_b0 = dStack_b0 - dVar6;\n        }\n      }\n      else {\n        lVar2 = *(longlong *)(this + 0x130) + *(longlong *)(*(longlong *)(this + 0x130) + 0x10);\n        dVar7 = (double)*(float *)(lVar2 + 0x30);\n        dVar5 = (double)(float)*(undefined8 *)(lVar2 + 0x28);\n        dVar6 = (double)(float)((ulonglong)*(undefined8 *)(lVar2 + 0x28) >> 0x20);\n        local_b8 = ((double)(float)*(undefined8 *)(lVar2 + 0x5c) +\n                   (double)(float)*(undefined8 *)(lVar2 + 0x90)) * 0.5 - dVar5;\n        dStack_b0 = ((double)(float)((ulonglong)*(undefined8 *)(lVar2 + 0x5c) >> 0x20) +\n                    (double)(float)((ulonglong)*(undefined8 *)(lVar2 + 0x90) >> 0x20)) * 0.5 - dVar6\n        ;\n        local_a8 = ((double)*(float *)(lVar2 + 100) + (double)*(float *)(lVar2 + 0x98)) * 0.5 -\n                   dVar7;\n      }\n      AuPoint::Unit((AuPoint *)&local_b8);\n      *param_1 = (char)uVar1;\n      *(double *)(param_1 + 8) = dVar5;\n      *(double *)(param_1 + 0x10) = dVar6;\n      *(double *)(param_1 + 0x18) = dVar7;\n      *(double *)(param_1 + 0x20) = local_b8;\n      *(double *)(param_1 + 0x28) = dStack_b0;\n      *(double *)(param_1 + 0x30) = local_a8;\n      return 1;\n    }\n  }\n  return 0;\n}\n\n",
+    "confidence": "observed",
+    "authority": "shipped-artifact",
+    "environment": null,
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+      "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+      "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+    ],
+    "locations": [],
+    "evidence_links": []
+  },
+  "meta": {
+    "command": "decompile",
+    "duration": "648259ms"
+  }
+}

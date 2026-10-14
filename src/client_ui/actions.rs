@@ -33,10 +33,54 @@ pub(super) fn network_events(mut ui: ResMut<Presentation>, bridge: Res<Bridge>) 
 }
 pub(super) fn activate(action: Action, ui: &mut Presentation, bridge: &Bridge) {
     match action {
-        Action::Username => ui.password_focus = false,
-        Action::Password => ui.password_focus = true,
+        Action::StoryControl(control) if ui.model.phase == Phase::Playing => {
+            send(ui, bridge, Request::StoryControl(control));
+        }
+        Action::Hail if ui.model.phase == Phase::Playing => {
+            send(ui, bridge, Request::Hail);
+        }
+        Action::Reply(reply) if ui.model.phase == Phase::Playing => {
+            send(ui, bridge, Request::Choice(reply));
+        }
+        Action::ChatFocus => {
+            ui.chat_focus = true;
+            ui.hand = true;
+        }
+        Action::NextChannel => {
+            ui.chat_channel = (ui.chat_channel + 1) % crate::chat::CHANNELS.len() as u8
+        }
+        Action::NextRange => ui.chat_range = ui.chat_range.next(),
+        Action::SendMessage if ui.model.phase == Phase::Playing => {
+            let message = crate::chat::Outgoing {
+                channel: ui.chat_channel,
+                range: ui.chat_range,
+                text: ui.chat_draft.clone(),
+            };
+            if let Err(error) = message.encode(ui.model.avatar.unwrap_or(0)) {
+                ui.model.status = error.to_string();
+            } else if send(ui, bridge, Request::Message(message)) {
+                ui.chat_draft.clear();
+                ui.chat_focus = false;
+            }
+        }
+        Action::AssetsPath => ui.asset_focus = true,
+        Action::BrowseAssets => ui.asset_browse = true,
+        Action::MountAssets => {
+            ui.asset_focus = false;
+            ui.asset_request = true;
+        }
+        Action::Username => {
+            ui.asset_focus = false;
+            ui.password_focus = false;
+        }
+        Action::Password => {
+            ui.asset_focus = false;
+            ui.password_focus = true;
+        }
         Action::Login if matches!(ui.model.phase, Phase::Login | Phase::Disconnected) => {
-            if ui.username.is_empty() || ui.password.is_empty() {
+            if !ui.assets_ready {
+                ui.model.status = "Select and prepare your Hazeron installation first".into();
+            } else if ui.username.is_empty() || ui.password.is_empty() {
                 ui.model.status = "Enter username and password".into();
             } else {
                 let password = std::mem::take(&mut ui.password);

@@ -3,6 +3,7 @@ use crate::{
     protocol::{QtWriter, VERSION, read_frame, write_frame},
     scene::{self, InitSucceeded, ResumeHello, SceneTime, WorldRedirect},
 };
+mod chat;
 use std::{
     collections::BTreeMap,
     io::{self, Read, Write},

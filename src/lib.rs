@@ -1,5 +1,7 @@
 //! Wire primitives for the Rust OpenShores client.
+pub mod asset_mount;
 pub mod assets;
+pub mod chat;
 pub mod citizen;
 pub mod client_model;
 pub mod client_runtime;

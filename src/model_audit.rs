@@ -125,6 +125,7 @@ mod tests {
             vertices,
             flags: 0,
             extension: None,
+            nt_extension: None,
         }
     }
     fn mesh() -> Mesh {

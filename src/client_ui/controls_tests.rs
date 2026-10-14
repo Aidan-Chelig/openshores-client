@@ -1,5 +1,64 @@
 use super::*;
 
+#[test]
+fn rightward_mouse_motion_turns_camera_right_at_both_poles() {
+    let mut app = app();
+    app.world_mut()
+        .resource_mut::<AccumulatedMouseMotion>()
+        .delta = Vec2::new(100.0, 0.0);
+    app.update();
+    let yaw = app.world().resource::<Presentation>().yaw;
+    assert!(yaw > 0.0);
+    for up in [
+        Vec3::Z,
+        -Vec3::Z,
+        Vec3::X,
+        Vec3::new(1.0, 2.0, 3.0).normalize(),
+    ] {
+        let basis = if up.dot(Vec3::Z).abs() > 0.95 {
+            Vec3::Y
+        } else {
+            Vec3::Z
+        };
+        let right = basis.cross(up).normalize();
+        let north = up.cross(right);
+        let view_right = north.cross(up).normalize();
+        let turned = north * yaw.cos() + right * yaw.sin();
+        assert!(turned.dot(view_right) > 0.0);
+    }
+    app.world_mut()
+        .resource_mut::<AccumulatedMouseMotion>()
+        .delta = Vec2::new(-100.0, 0.0);
+    app.update();
+    assert!(app.world().resource::<Presentation>().yaw.abs() < 1e-6);
+}
+
+#[test]
+fn installation_preparation_gates_login_without_consuming_credentials() {
+    let bridge = Bridge(Mutex::new(
+        ClientRuntime::start(LocalEndpoint {
+            login: "127.0.0.1:1".parse().unwrap(),
+            scene_port: 1,
+            chat_port: 1,
+        })
+        .unwrap(),
+    ));
+    let mut ui = Presentation {
+        username: "rust-local-test".into(),
+        password: Zeroizing::new("synthetic".into()),
+        ..default()
+    };
+    activate(Action::Login, &mut ui, &bridge);
+    assert_eq!(ui.model.phase, Phase::Login);
+    assert_eq!(ui.password.as_str(), "synthetic");
+    assert!(ui.model.status.contains("installation"));
+    activate(Action::AssetsPath, &mut ui, &bridge);
+    assert!(ui.asset_focus);
+    activate(Action::MountAssets, &mut ui, &bridge);
+    assert!(ui.asset_request && !ui.asset_focus);
+    assert!(!ui.assets_ready);
+}
+
 fn app() -> App {
     let mut app = App::new();
     app.add_plugins(MinimalPlugins)

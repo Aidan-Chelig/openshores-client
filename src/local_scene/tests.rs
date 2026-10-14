@@ -44,6 +44,54 @@ fn watch_fixture() -> (Session, TcpStream, TcpStream, TcpStream) {
 }
 
 #[test]
+fn story_controls_use_chat_without_touching_scene_state() {
+    let (mut session, _server, _initial, mut chat) = watch_fixture();
+    for control in [
+        crate::chat::StoryControl::Close,
+        crate::chat::StoryControl::Hint,
+        crate::chat::StoryControl::Resend,
+    ] {
+        session
+            .send_story_control(control, Duration::from_millis(20))
+            .unwrap();
+        assert_eq!(read_frame(&mut chat, 100).unwrap(), control.encode());
+    }
+    assert!(session.bootstrap.packets.is_empty());
+}
+
+#[test]
+fn choice_reply_is_written_only_to_the_authenticated_chat_channel() {
+    let (mut session, _server, _initial, mut chat) = watch_fixture();
+    let reply = crate::chat::Reply {
+        instance: 1,
+        index: 3,
+        offered: 700,
+    };
+    session
+        .send_choice(reply, Duration::from_millis(20))
+        .unwrap();
+    assert_eq!(read_frame(&mut chat, 100).unwrap(), reply.encode().unwrap());
+    assert!(session.bootstrap.packets.is_empty());
+}
+
+#[test]
+fn chat_receive_never_enters_scene_capture_and_partial_frames_fail() {
+    let (mut session, _server, _initial, mut chat) = watch_fixture();
+    assert!(matches!(
+        session.receive_chat(Duration::from_millis(2)).unwrap(),
+        SceneRead::Idle
+    ));
+    write_frame(&mut chat, &[0x0a, 0, 0, 0, 0]).unwrap();
+    assert!(matches!(
+        session.receive_chat(Duration::from_millis(2)).unwrap(),
+        SceneRead::Packet(_)
+    ));
+    assert!(session.bootstrap.packets.is_empty());
+    chat.write_all(&[5, 0x0a]).unwrap();
+    assert!(session.receive_chat(Duration::from_millis(2)).is_err());
+}
+
+#[test]
 fn watch_applies_updates_captures_and_retains_channels() {
     let (session, mut server, mut initial, mut chat) = watch_fixture();
     let mut player = vec![0x12];

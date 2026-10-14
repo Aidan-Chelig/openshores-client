@@ -75,6 +75,54 @@ pub struct HarArchive<'a> {
 }
 
 impl<'a> HarArchive<'a> {
+    /// Pre-patch sequential layout: count, then QString/QByteArray pairs.
+    /// Separate from the indexed archive profile; neither reader executes code.
+    pub fn open_sequential(data: &'a [u8]) -> io::Result<Self> {
+        if data.len() > MAX_ARCHIVE {
+            return Err(invalid("HAR archive exceeds input limit"));
+        }
+        let mut input = QtReader::new(data);
+        let count = input.read_u32()?;
+        if count == 0 || count > 10_000 {
+            return Err(invalid("invalid sequential HAR count"));
+        }
+        let mut names = BTreeSet::new();
+        let mut entries = Vec::new();
+        let mut total = 0u64;
+        for _ in 0..count {
+            let name = input
+                .read_string()?
+                .filter(|s| !s.is_empty() && !s.contains('\0'))
+                .ok_or_else(|| invalid("invalid HAR entry name"))?;
+            if !names.insert(name.clone()) {
+                return Err(invalid("duplicate HAR entry name"));
+            }
+            let offset = data.len() - input.remaining();
+            let payload = input
+                .read_bytes()?
+                .ok_or_else(|| invalid("null HAR payload"))?;
+            let original_bytes = word(payload, 0)?;
+            total += u64::from(original_bytes);
+            if original_bytes as usize > MAX_ENTRY || total > MAX_TOTAL_RAW {
+                return Err(invalid("HAR output budget exceeded"));
+            }
+            entries.push(HarEntry {
+                name,
+                offset: offset as u32,
+                compressed_bytes: payload.len() as u32,
+                original_bytes,
+            });
+        }
+        if input.remaining() != 0 {
+            return Err(invalid("trailing sequential HAR bytes"));
+        }
+        entries.sort_by(|a, b| a.name.cmp(&b.name));
+        Ok(Self {
+            data,
+            entries,
+            index_offset: 0,
+        })
+    }
     pub fn open(data: &'a [u8]) -> io::Result<Self> {
         if data.len() > MAX_ARCHIVE {
             return Err(invalid("HAR archive exceeds input limit"));
@@ -198,6 +246,30 @@ mod tests {
         data.extend((index.len() as u32).to_be_bytes());
         data.extend(index);
         data
+    }
+
+    #[test]
+    fn sequential_archive_has_explicit_count_and_exact_end() {
+        let raw = b"synthetic sound";
+        let payload = compressed(raw);
+        let mut writer = QtWriter::default();
+        writer.write_u32(1);
+        writer.write_string(Some("sound.wav")).unwrap();
+        writer.write_bytes(Some(&payload)).unwrap();
+        let data = writer.into_bytes();
+        assert_eq!(
+            HarArchive::open_sequential(&data)
+                .unwrap()
+                .read_entry("sound.wav")
+                .unwrap(),
+            raw
+        );
+        for end in 0..data.len() {
+            assert!(HarArchive::open_sequential(&data[..end]).is_err());
+        }
+        let mut trailing = data;
+        trailing.push(0);
+        assert!(HarArchive::open_sequential(&trailing).is_err());
     }
 
     #[test]

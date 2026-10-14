@@ -19,6 +19,12 @@ pub enum Phase {
 }
 #[derive(Default)]
 pub struct ClientModel {
+    pub story_open: bool,
+    pub story: std::collections::VecDeque<crate::chat::StoryText>,
+    pub hail_environments: std::collections::BTreeMap<u32, u32>,
+    pub choices: std::collections::VecDeque<crate::chat::Choice>,
+    pub chat: std::collections::VecDeque<crate::chat::Message>,
+    pub opaque_chat: std::collections::BTreeMap<u8, u64>,
     pub phase: Phase,
     pub roster: Option<Box<[Avatar; 6]>>,
     pub world: WorldState,
@@ -34,6 +40,63 @@ pub struct ClientModel {
 impl ClientModel {
     pub fn apply(&mut self, event: Event) -> io::Result<()> {
         match event {
+            Event::IncomingChat(crate::chat::Incoming::Story(text)) => {
+                if Some(text.header.target) == self.avatar {
+                    self.story_open = true;
+                    if self.story.len() == 32 {
+                        self.story.pop_front();
+                    }
+                    self.story.push_back(text);
+                }
+            }
+            Event::IncomingChat(crate::chat::Incoming::Hail(reply)) => {
+                if self.hail_environments.len() == 100 {
+                    self.hail_environments.pop_first();
+                }
+                self.hail_environments
+                    .insert(reply.header.sender, reply.environment);
+                if self.chat.len() == 100 {
+                    self.chat.pop_front();
+                }
+                self.chat.push_back(reply.header);
+            }
+            Event::IncomingChat(crate::chat::Incoming::Choice(choice)) => {
+                if Some(choice.offered_to) == self.avatar
+                    && Some(choice.header.target) == self.avatar
+                {
+                    if choice.narrated {
+                        self.story_open = true;
+                    }
+                    self.choices.retain(|old| old.reply() != choice.reply());
+                    if self.choices.len() == 32 {
+                        self.choices.pop_front();
+                    }
+                    self.choices.push_back(choice);
+                }
+            }
+            Event::ChoiceSent(reply) => {
+                self.choices.retain(|choice| {
+                    choice.instance as u32 != reply.instance
+                        || choice.header.sender != reply.offered
+                });
+                self.status = "Choice written; awaiting server dialogue".into();
+            }
+            Event::StoryControlSent(control) => {
+                if control == crate::chat::StoryControl::Close {
+                    self.story_open = false;
+                    self.choices.retain(|choice| choice.instance == 1);
+                }
+                self.status = format!("Story {control:?} written; not a server acknowledgement");
+            }
+            Event::IncomingChat(crate::chat::Incoming::Message(message)) => {
+                if self.chat.len() == 100 {
+                    self.chat.pop_front();
+                }
+                self.chat.push_back(message);
+            }
+            Event::IncomingChat(crate::chat::Incoming::Opaque { kind, .. }) => {
+                *self.opaque_chat.entry(kind).or_default() += 1;
+            }
             Event::Roster(roster) => {
                 self.roster = Some(roster);
                 self.phase = Phase::Roster;
@@ -49,6 +112,12 @@ impl ClientModel {
                 }
                 self.avatar = Some(bootstrap.avatar_id);
                 self.world = world;
+                self.chat.clear();
+                self.story.clear();
+                self.story_open = false;
+                self.hail_environments.clear();
+                self.choices.clear();
+                self.opaque_chat.clear();
                 self.phase = Phase::Playing;
                 self.reported_position = None;
                 self.reported_rotation = None;
@@ -95,6 +164,8 @@ impl ClientModel {
                 self.status = format!("Error: {error}");
             }
             Event::Disconnected => {
+                self.story_open = false;
+                self.choices.clear();
                 self.phase = Phase::Disconnected;
                 self.target = None;
                 self.gear_selection = None;
@@ -143,18 +214,4 @@ impl ClientModel {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-    #[test]
-    fn local_reports_do_not_mutate_received_entity_transforms() {
-        let mut model = ClientModel::default();
-        let report = SceneCommand::PositionReport {
-            projected: [1., 2., 3.],
-            rotation: [4., 5., 6.],
-        };
-        model.apply(Event::SentScene(report)).unwrap();
-        assert!(model.world.entities.is_empty());
-        assert_eq!(model.position(), Some([1., 2., 3.]));
-        assert!(model.status.contains("not an acknowledgement"));
-    }
-}
+mod tests;

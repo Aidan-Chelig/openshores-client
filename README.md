@@ -6,20 +6,38 @@ six-slot login/avatar selection, live scene state, Bevy base terrain and primiti
 entity markers, Gear/Bio panels, and verified inventory actions. Original UI,
 animation, collision and asset presentation remain unfinished.
 
+Assets come from a user-supplied Hazeron installation. On launch, choose its folder
+with **Choose Hazeron installation…**; extraction and geometry
+conversion run in the background and write only to a user-local cache, never
+to the installation or repository. `HAZERON_INSTALL` preselects a folder.
+See [asset mounting, cache and current conversion scope](docs/assets.md).
+
 Try the complete slice in an owned disposable world:
 
 ```sh
-cargo build --offline
-cargo build --offline --features client --bin openshores-client-slice
-nix develop .#server-test --command python tests/local_server.py play
+just quick-dev
 ```
 
-The harness prints synthetic demo credentials. Enter them in the window and
-choose **Rust Explorer**. Right-click switches mouse-look/hand-cursor; Ctrl gives
+This builds the client, starts the supplied server with a disposable database,
+and logs into **rust-local-test**, selecting **Rust Explorer** automatically.
+It contacts only loopback addresses and performs no scripted inventory actions.
+Passwords are supplied through stdin, not command-line arguments.
+Quick-dev also prepares the supplied `reference/hazeron` assets automatically;
+set `HAZERON_INSTALL` to use another copy. Its cache is disposable like its world.
+Use `just play` instead for manual login; that harness prints synthetic credentials.
+Right-click switches mouse-look/hand-cursor; Ctrl gives
 a temporary cursor. Select a gear entry, move/drop it, select the dropped world
 item and pick it back up. Use Beans to observe server-updated hunger and inventory.
 The connected development session is currently bounded to 60 seconds; closing
 the window shuts down the owned server and disposable database.
+
+`just` lists tasks. Use `just check` for formatting, both Rust test configurations
+and linting; `just interop` for reference parity tests; `just test-gui` for the
+full GUI workflow; `just test-quick-dev` for automatic-login verification; and
+`just test-server drop` (or `just test-gameplay`) for isolated gameplay tests.
+Recipes enter the appropriate Nix environment themselves. If `just` is not on
+your PATH, start with `nix develop .#server-test`, which includes it and the
+graphics libraries needed on NixOS.
 
 Implemented shortcuts follow the supplied controls page: W/A/S/D, C/Z,
 Shift+W, U/middle-click, T, wheel/{/}, Alt+digits/digits, F1/F4/F8, Shift+Esc,
@@ -142,13 +160,27 @@ Version `3` is established from the model DLL's registration code. Extraction
 uses the displayed pool and entry indices, refuses existing output files, and
 does not execute the DLL. This initial reader requires the supplied MinGW
 COFF symbol layout; stripped DLLs and zstd-compressed resources are unsupported.
-The raw-coordinate decoder supports `.3ds`, `.3dsN`, and `.3dsX`; it does not
+The raw-coordinate decoder supports `.3ds`, `.3dsN`, `.3dsNT`, and `.3dsX`; it does not
 yet establish the original rendered appearance:
 
 ```sh
 cargo run -- inspect-model extracted-model.3dsN
 cargo run -- verify-models reference/openshores-full/libAuModelRes.dll 3
 ```
+
+To inspect reconstructed mesh coordinates independently of world placement:
+
+```sh
+cargo run --offline -- dump-model-coordinates extracted-model.3dsX 1.0
+```
+
+This emits numeric arrays in mesh order. The optional scale is the native
+loader's positive caller scale, not planet display scale or the 3DS master
+scale. Raw inspections/OBJ exports remain unchanged. Entity orientation,
+materials and animation are still pending. Helper classification is inspectable
+with `dump-model-roles MODEL_FILE`; `inspect-model-groups MODEL_FILE` prints a
+separate raw-group parity fingerprint. Raw exports retain helper objects, while
+the connected renderer filters recognized native helpers.
 
 `verify-models` scans every supported model resource. Currently 209 decode and
 five supplied `.3ds` payloads fail strict root-length checks, so this command

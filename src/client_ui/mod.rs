@@ -8,7 +8,12 @@ use crate::{
     world::AtomKind,
 };
 mod actions;
+mod assets;
+mod auto_login;
+mod camera;
+mod chat;
 mod controls;
+mod models;
 mod panels;
 mod scene;
 mod smoke;
@@ -35,6 +40,16 @@ struct Presentation {
     username: String,
     password: Zeroizing<String>,
     password_focus: bool,
+    asset_focus: bool,
+    asset_path: String,
+    asset_status: String,
+    asset_request: bool,
+    asset_browse: bool,
+    assets_ready: bool,
+    chat_focus: bool,
+    chat_draft: String,
+    chat_channel: u8,
+    chat_range: crate::chat::Range,
     dirty: bool,
     gear_open: bool,
     bio_open: bool,
@@ -48,6 +63,7 @@ struct Presentation {
     local_position: Option<[f64; 3]>,
     mappings: [Option<(u8, u8)>; 10],
     terrain: Option<u32>,
+    camera_terrain: Option<TerrainMesh>,
     scale: f64,
     last_scene_revision: u64,
     panel_scroll: f32,
@@ -64,6 +80,16 @@ struct TerrainEntity;
 struct Marker(u32);
 #[derive(Component, Clone, Copy)]
 enum Action {
+    StoryControl(crate::chat::StoryControl),
+    Hail,
+    Reply(crate::chat::Reply),
+    ChatFocus,
+    SendMessage,
+    NextChannel,
+    NextRange,
+    AssetsPath,
+    BrowseAssets,
+    MountAssets,
     Username,
     Password,
     Login,
@@ -81,14 +107,36 @@ enum Action {
 }
 
 #[derive(Resource)]
-struct Smoke(u32);
+struct Smoke(u32, bool);
 
 pub fn run(endpoint: LocalEndpoint, smoke_frames: Option<u32>) -> io::Result<()> {
-    launch(endpoint, smoke_frames, None)
+    launch(endpoint, smoke_frames, None, None)
+}
+
+/// Login and select a synthetic local avatar, then leave control to the user.
+pub struct LocalAutoLogin {
+    pub username: String,
+    pub password: Zeroizing<String>,
+    pub avatar_id: u32,
+}
+
+pub fn run_auto_login(
+    endpoint: LocalEndpoint,
+    profile: LocalAutoLogin,
+    smoke_frames: Option<u32>,
+) -> io::Result<()> {
+    if profile.avatar_id == 0 || !profile.username.starts_with("rust-local-") {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "auto-login requires a synthetic rust-local-* account and nonzero avatar",
+        ));
+    }
+    launch(endpoint, smoke_frames, None, Some(profile))
 }
 
 /// Explicit synthetic-account integration mode, never enabled by normal UI use.
 pub struct LocalSmoke {
+    pub conversation: bool,
     pub username: String,
     pub password: Zeroizing<String>,
     pub avatar_id: u32,
@@ -112,13 +160,14 @@ pub fn run_local_smoke(endpoint: LocalEndpoint, profile: LocalSmoke) -> io::Resu
             "smoke screenshot must be a new file",
         ));
     }
-    launch(endpoint, None, Some(profile))
+    launch(endpoint, None, Some(profile), None)
 }
 
 fn launch(
     endpoint: LocalEndpoint,
     smoke_frames: Option<u32>,
     profile: Option<LocalSmoke>,
+    auto_profile: Option<LocalAutoLogin>,
 ) -> io::Result<()> {
     if smoke_frames.is_some_and(|frames| !(1..=3600).contains(&frames)) {
         return Err(io::Error::new(
@@ -127,9 +176,19 @@ fn launch(
         ));
     }
     let runtime = ClientRuntime::start(endpoint)?;
+    let asset_path = std::env::var("HAZERON_INSTALL").unwrap_or_default();
+    // Explicit scripted fixture mode can still test without proprietary assets.
+    let bypass_assets = profile.is_some() && asset_path.is_empty();
     let mut app = App::new();
     app.insert_resource(Bridge(Mutex::new(runtime)))
+        .init_resource::<assets::Setup>()
+        .init_resource::<models::Cache>()
         .insert_resource(Presentation {
+            chat_channel: 2,
+            asset_request: !asset_path.is_empty(),
+            asset_path,
+            asset_status: "Select your Hazeron installation to prepare its assets.".into(),
+            assets_ready: bypass_assets,
             dirty: true,
             gear_open: true,
             bio_open: true,
@@ -153,7 +212,9 @@ fn launch(
             Update,
             (
                 actions::network_events,
+                assets::preparation,
                 actions::buttons,
+                chat::typing,
                 controls::keyboard,
                 scene::scene,
                 panels::rebuild_panels,
@@ -161,8 +222,12 @@ fn launch(
                 .chain(),
         );
     if let Some(frames) = smoke_frames {
-        app.insert_resource(Smoke(frames))
+        app.insert_resource(Smoke(frames, auto_profile.is_some()))
             .add_systems(Update, smoke_exit);
+    }
+    if let Some(profile) = auto_profile {
+        app.insert_resource(auto_login::Workflow::new(profile, smoke_frames.is_some()))
+            .add_systems(Update, auto_login::workflow.after(actions::network_events));
     }
     let completion = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
     let scripted = profile.is_some();
@@ -199,7 +264,10 @@ fn setup(mut commands: Commands) {
     ));
 }
 
-fn smoke_exit(mut smoke: ResMut<Smoke>, mut exit: MessageWriter<AppExit>) {
+fn smoke_exit(mut smoke: ResMut<Smoke>, ui: Res<Presentation>, mut exit: MessageWriter<AppExit>) {
+    if smoke.1 && ui.model.phase != Phase::Playing {
+        return;
+    }
     smoke.0 -= 1;
     if smoke.0 == 0 {
         exit.write(AppExit::Success);

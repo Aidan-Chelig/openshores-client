@@ -13,11 +13,12 @@ required-features = ["client"]
 [features]
 default = []
 viewer = ["dep:bevy"]
-client = ["viewer", "bevy/bevy_ui", "bevy/bevy_ui_render", "bevy/bevy_text", "bevy/default_font", "bevy/png"]
+client = ["viewer", "dep:rfd", "bevy/bevy_ui", "bevy/bevy_ui_render", "bevy/bevy_text", "bevy/default_font", "bevy/png"]
 
 [dependencies]
 flate2 = "1.1.10"
 rpassword = "7.5.4"
 sha1 = "0.10.7"
 zeroize = "1.9.0"
+rfd = { version = "=0.17.2", optional = true, default-features = false, features = ["xdg-portal"] }
 bevy = { version = "=0.19.1", optional = true, default-features = false, features = ["std", "default_app", "multi_threaded", "bevy_window", "bevy_winit", "bevy_camera", "bevy_color", "bevy_mesh", "bevy_light", "bevy_render", "bevy_core_pipeline", "bevy_pbr", "bevy_gizmos", "bevy_gizmos_render", "x11", "wayland"] }
