@@ -1,4 +1,5 @@
 //! Patched DtClient::ReadPacket atom dispatch, distinct from reference opcodes.
+mod body;
 mod construction;
 use super::native_prefix::{NativeBasePrefix, TailKind};
 use crate::{

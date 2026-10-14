@@ -848,6 +848,17 @@ are retained. This does not authorize decoding the tail with the packet's kind;
 future full dispatch must select the retained object's body receiver. Source
 WorldState's separate profile/type validation remains unchanged.
 
+`NativeAtomPrefix::retained_item_body` now accepts the selected object's kind
+explicitly rather than interpreting the candidate opcode as that kind. Tests
+decode Person/Item/Globe candidate packets through a retained Item receiver,
+apply the sparse ownership/body update to confirmed Item constructor state,
+and preserve the suffix. A retained Person does not use the Item decoder even
+for an Item candidate; unknown effects/controller base layers remain opaque.
+The existing `item_body` helper remains candidate-class observation decoding for
+capture inspection, not full runtime dispatch. Selection, owner lifecycle and
+post-update callbacks still require integration; no unsupported class body is
+guessed.
+
 DestinationContext remains caller-established. Unresolved context returns the
 unchanged reparent obligation, and insufficient normal-list context remains
 OwnerContextRequired rather than being counted as success. Position omission
