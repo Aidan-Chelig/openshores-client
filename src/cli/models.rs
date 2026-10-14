@@ -1,6 +1,6 @@
 //! Offline model diagnostics, separate from connected client commands.
 #[cfg(feature = "viewer")]
-use super::viewer_options;
+use super::terrain::viewer_options;
 use std::{
     fs,
     io::{self, Read},
