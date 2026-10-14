@@ -1,11 +1,11 @@
-//! Synthetic dependency observations; not native scheduler/destructor emulation.
+//! Real registration membership; synthetic clock/destructor observations.
 use super::*;
 
 struct Cleanup<'a> {
     graph: &'a mut NativeNormalSubatoms,
     lookup: &'a NativeRecoveryLookup,
     selected: Vec<u32>,
-    protected: bool,
+    registrations: &'a mut RegistrationStore,
 }
 impl NativeRetirementCleanupContext for Cleanup<'_> {
     fn elapsed_reference_millis(&mut self, _: u32, _: Instant, _: Instant) -> i64 {
@@ -14,7 +14,9 @@ impl NativeRetirementCleanupContext for Cleanup<'_> {
     fn in_tick_tock_queue(&mut self, handle: u32, retired: &NativeRetiredAtoms) -> bool {
         assert_eq!(handle, 70);
         assert!(retired.started_at(handle).is_some());
-        self.protected // Explicit synthetic queue observation, not registration presence.
+        // This fixture explicitly binds old handle 70 to wire ID 7, distinct
+        // from the current routed handle 71 with that same ID.
+        self.registrations.in_tick_tock_queue(7)
     }
     fn is_null_object(&mut self, handle: u32) -> bool {
         assert!(self.graph.node(handle).is_some());
@@ -96,7 +98,7 @@ fn replacement_retention_then_protected_restart_then_disposal_keeps_new_object_a
         graph: &mut graph,
         lookup: &lookup,
         selected: Vec::new(),
-        protected: true,
+        registrations: &mut store,
     };
     let later = now + std::time::Duration::from_secs(20);
     let result = retired
@@ -106,10 +108,48 @@ fn replacement_retention_then_protected_restart_then_disposal_keeps_new_object_a
     assert_eq!(result.restarted, [70]);
     assert_eq!(retired.started_at(70), Some(later));
     assert!(cleanup.graph.node(70).is_some());
-    cleanup.protected = false;
-    let result = retired
+    assert!(cleanup.registrations.ticker(7).unwrap().released);
+    let lock = cleanup.registrations.ticker_lock(7).unwrap();
+    let guard = lock.lock().unwrap();
+    cleanup
+        .registrations
+        .apply(RegistrationAction::UpdateOrAddTicker {
+            id: 8,
+            atom_type: 16,
+            solar_id: 99,
+        })
+        .unwrap();
+    assert!(!cleanup.registrations.cleanup_pending().0);
+    let protected_again = retired
         .delete_one_in_order(
             later + std::time::Duration::from_secs(20),
+            &[70],
+            true,
+            &mut cleanup,
+        )
+        .unwrap();
+    assert_eq!(protected_again.selected, None);
+    assert_eq!(protected_again.restarted, [70]);
+    assert!(cleanup.graph.node(70).is_some());
+    drop(guard);
+    // Unlocking alone does not retry deferred cleanup; mark pending again and
+    // insert another missing key to trigger the real sweep.
+    cleanup
+        .registrations
+        .apply(RegistrationAction::ReleaseTicker { id: 7 })
+        .unwrap();
+    cleanup
+        .registrations
+        .apply(RegistrationAction::UpdateOrAddTicker {
+            id: 9,
+            atom_type: 16,
+            solar_id: 99,
+        })
+        .unwrap();
+    assert!(!cleanup.registrations.in_tick_tock_queue(7));
+    let result = retired
+        .delete_one_in_order(
+            later + std::time::Duration::from_secs(40),
             &[70],
             true,
             &mut cleanup,
@@ -126,5 +166,7 @@ fn replacement_retention_then_protected_restart_then_disposal_keeps_new_object_a
     assert!(cleanup.graph.lists[&7].available);
     assert_eq!(lookup.resolve(7), Some(71));
     assert!(owner.owners[&71]);
-    assert!(store.ticker(7).unwrap().released);
+    assert!(store.ticker(7).is_none());
+    assert!(store.in_tick_tock_queue(8));
+    assert!(store.in_tick_tock_queue(9));
 }

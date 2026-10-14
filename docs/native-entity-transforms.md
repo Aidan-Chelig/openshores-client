@@ -671,14 +671,23 @@ Native queue lookup, clock profile, world index observations, derived destructor
 effects and owner scheduler invocation still need connection to the Rust client.
 
 The lifecycle integration regression now runs actual Rust replacement through
-the retention table and two cleanup calls: the first protects the old handle
-and restarts its timer; the second selects and disposes it after the fixture
-queue observation changes. It verifies the new routed handle, assigned owner,
-own list and position survive, and released registration records remain released.
+the retention table and multiple cleanup calls: initial calls protect the old
+handle and restart its timer; a later call selects and disposes it after
+registration cleanup. It verifies the new routed handle, assigned owner,
+own list and position survive.
 The test's disposal callback removes a plain graph node only; it is explicitly
-not a port of native derived destructor side effects. Age/queue observations
-are synthetic and do not claim clock or scheduler parity. This connects the
+not a port of native derived destructor side effects. Age observations
+are synthetic and do not claim clock parity or scheduler execution. This connects the
 implemented stages without supplying invented defaults to the production adapter.
+
+That regression now uses the real RegistrationStore membership getter instead
+of a synthetic protection boolean. A released ticker keeps the old handle
+protected; a busy-mutex sweep clears its pending flag but retains the record,
+so a second cleanup call restarts the old handle's timer again. Unlocking alone
+does not sweep it. A new release plus another missing-key insertion performs
+the actual sweep, after which cleanup disposes the old handle and preserves the
+replacement. The test explicitly maps old handle 70 to wire ID 7, not the new
+lookup handle 71. Only the clock and plain-node disposal remain synthetic.
 
 Full independent GNU disassembly of InTickTockQueue at `0x1415a69d0` through
 `0x1415a6bea` shows ticker-ID lookup at owner `0x438`, returning true on a found
