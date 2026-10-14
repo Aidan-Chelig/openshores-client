@@ -35,7 +35,16 @@ numbers are not inferred from neighboring UI/source-profile modes:
 All receivers are the application singleton. Qt signature prefixes, argument
 types, endpoint distinctions, connection order and raw connection values remain
 preserved in the complete evidence. No Rust callback implementation is claimed
-yet. Next: port a mode-aware connection plan and explicit first-connection
-gate, bind required local event sinks, then join this stage to concrete native
+as implemented downstream behavior. `native_signals/` now ports complete plans:
+57 connections for mode 10, ten for mode 5, none for mode 9, and 52 for all
+other raw modes. Exact binding tables are split into mode/common modules and
+transcribed from the fully retained/reviewed pseudocode. `connect_signals`
+requires an explicit application connector and stops on first rejection, while
+later boolean rejections do not suppress subsequent calls. Rust connector errors
+stop without undoing earlier connector effects; Qt error/queue behavior is not
+invented. Tests verify branch counts, signature prefixes, raw connection values,
+mode-5 tail exclusion, installation order and rejection gating.
+
+Next: bind required local event sinks, then join this stage to concrete native
 owner dispatch. Qt queue/thread semantics and downstream handlers still need
 their own reconstruction; installing a plan is not executing the handlers.
