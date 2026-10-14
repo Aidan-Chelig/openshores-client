@@ -556,6 +556,27 @@ positions/caches remain unchanged and released registrations stay released.
 This connects the removal and fresh-tail adapters, but does not implement the
 intervening replacement status-6, TickTock and timed-retention steps.
 
+`native_subatoms/retirement/` now ports that old-object stage separately as
+`retire_replaced_atom_at`. After caller-established removal, it receives a
+monotonic timer epoch, writes raw field `0x1c = 6`, constructs the explicit owner
+registration context over the updated object and applies TickTock to the old
+wire ID. Only then does it retain the epoch in `NativeRetiredAtoms`, keyed by
+object handle rather than wire ID. Both recovered AddAtomLocked map branches
+perform this sequence before incoming-map insertion. Context observations remain
+caller supplied; no native getter is replaced with an inferred class default.
+
+The retention table is bounded by the existing 20,000-object Rust safety limit;
+existing handles replace their epoch even at capacity. Invalid handles or a new
+entry exceeding capacity fail before status/context effects. Registration errors
+retain the changed status and earlier registration effects but do not add the
+retention record, an explicit Rust error boundary rather than native rollback.
+Synthetic tests verify context construction sees status 6, registration-release
+observations, two old handles with the same wire ID, timer restart, unchanged
+position and safety preflight. No expiry threshold, destructor, Qt timer word
+layout or mutex/concurrency behavior is invented. Full AddAtomLocked selection,
+same-pointer early return, mutable routed insertion and the end-to-end
+replacement orchestrator still need implementation.
+
 ## Existing native wire-position receiver
 
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's
