@@ -565,6 +565,23 @@ registration updates, and cover omission, identity errors and unresolved owners.
 This connects wire decoding to owner primitives, not complete packet dispatch
 or playable native-client integration.
 
+The position receiver's lifecycle regression now decodes child and arriving
+parent native payloads, applies the child through the missing-destination path,
+then establishes the fresh parent owner and recovers its queued child. Explicit
+fixture metadata supplies the currently unestablished status/owner observations.
+The missing-parent TickTock predicate releases real registration records before
+cache cleanup. Parent arrival consumes the queue without replaying movement or
+changing position epochs, cached-valid flags or registrations. Opaque tails
+remain byte-exact, and repeated recovery is empty. These are synthetic integration
+tests, not observed native-client execution; tests are split under
+`native_position_updates/tests/`.
+
+A focused REA request for `_ZN7AuEther16RemoveAtomLockedEP6DaAtom` at
+`0x1408c9950` is running, with output reserved as `target/native-remove-atom.json`.
+This is pending evidence. Removal and replacement must remain unimplemented
+until owner detachment, map/set cleanup and auxiliary lifecycle effects are
+reviewed; they must not be substituted with a single ID-map erase.
+
 Static `DaAtom::ChangePos` at `0x140b44d70` compares the incoming AuAtomPos
 parent ID with the stored parent at `0x140b44db9`. If it differs and an owning
 AuEther is present, it delegates to `AuEther::ChangeParent` at `0x140b44eaf`

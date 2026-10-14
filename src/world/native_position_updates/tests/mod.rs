@@ -1,4 +1,5 @@
 use super::*;
+mod lifecycle;
 use crate::{
     atom_position::NativePositionState,
     world::{
