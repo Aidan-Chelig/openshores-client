@@ -356,3 +356,16 @@ integration checks server-persisted pose and received stamina updates:
 ```sh
 nix develop .#server-test --command python tests/local_server.py pose
 ```
+
+Scene state now retains the server's commodity catalog, resolving received gear
+IDs to names without guessed item labels. Inspect its nullable names,
+descriptions, bitmap/model paths and any unknown row suffix offline:
+
+```sh
+cargo run --offline -- inspect-commodities scene.frames
+nix develop .#server-test --command python tests/reference_commodities.py
+```
+
+The source comparison covers all 615 supplied commodity rows. Catalog rows are
+not world entities; numeric gameplay properties remain raw and resource paths
+are labels, not automatically opened files.

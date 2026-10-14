@@ -227,6 +227,8 @@ def main() -> None:
                     print(f"Base terrain matches Python for {samples} coordinates across {len(surfaces)} captured globes", flush=True)
                 asyncio.run(verify_capture())
                 replay = run(binary, "inspect-scene", str(runtime / "scene.frames"))
+                assert "Commodity catalog: 615 server-provided rows." in replay.stdout, replay.stdout
+                assert '(5, 0, 1, Some("Flag"))' in replay.stdout, replay.stdout
                 assert "Decoded 49 entities; 49 visible in manifest." in replay.stdout, replay.stdout
                 assert "Missing manifest IDs: []" in replay.stdout, replay.stdout
                 assert "Unresolved parents: {}" in replay.stdout, replay.stdout
@@ -249,6 +251,7 @@ def main() -> None:
                 updates = int(watch_line.split("; ")[1].split(" ")[0])
                 assert updates > 0, watched.stdout
                 watched_replay = run(binary, "inspect-scene", str(runtime / "watched.frames"))
+                assert "Commodity catalog: 615 server-provided rows." in watched_replay.stdout
                 # Ongoing traffic can introduce currently unsupported atom kinds.
                 # Preserve/report unresolved visibility, and verify replay agrees
                 # with live state rather than pretending every kind is decoded.

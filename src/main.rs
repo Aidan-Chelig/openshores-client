@@ -433,10 +433,40 @@ fn print_world(world: &openshores_client::world::WorldState) -> io::Result<()> {
         world.visible_ids.len()
     );
     println!("Entity kinds: {counts:?}");
+    println!(
+        "Commodity catalog: {} server-provided rows.",
+        world.commodities.len()
+    );
     println!("Missing manifest IDs: {:?}", world.missing_manifest_ids());
     println!("Unresolved parents: {:?}", world.unresolved_parents());
     println!("Opaque packet counts: {:?}", world.opaque_packet_counts);
     if let Some(id) = world.active_unit {
+        if let Some(gear) = world
+            .entities
+            .get(&id)
+            .and_then(|entity| entity.person.as_ref())
+            .and_then(|person| person.gear.as_ref())
+        {
+            let labels: Vec<_> = gear
+                .slots
+                .iter()
+                .filter_map(|slot| {
+                    slot.item.as_ref().map(|item| {
+                        let cid = item.common.commodity_id;
+                        (
+                            slot.slot_type,
+                            slot.subindex,
+                            cid,
+                            world
+                                .commodities
+                                .get(i32::from(cid))
+                                .and_then(|row| row.name.as_deref()),
+                        )
+                    })
+                })
+                .collect();
+            println!("Player gear labels (latest received batch): {labels:?}");
+        }
         let chain = world.ancestry(id)?;
         let labels: Vec<_> = chain
             .iter()
@@ -956,6 +986,26 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                 surface.terrain.surface_position(surface.size, lat, lon)?
             );
         }
+        Some("inspect-commodities") if args.len() == 2 => {
+            let world = openshores_client::world::read_capture(&mut io::BufReader::new(
+                fs::File::open(&args[1])?,
+            ))?;
+            println!(
+                "Commodity catalog: {} server-provided rows.",
+                world.commodities.len()
+            );
+            for row in world.commodities.rows() {
+                println!(
+                    "{}: name={:?} description={:?} bitmap={:?} model={:?} unparsed={}B",
+                    row.id,
+                    row.name,
+                    row.description,
+                    row.bitmap,
+                    row.model,
+                    row.unparsed_suffix.len()
+                );
+            }
+        }
         Some("inspect-scene") if args.len() == 2 => {
             let world = openshores_client::world::read_capture(&mut io::BufReader::new(
                 fs::File::open(&args[1])?,
@@ -1011,6 +1061,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
         None | Some("--help" | "-h") => {
+            println!(
+                "Server-provided commodity labels/resources:\n       cargo run -- inspect-commodities CAPTURE_FILE\n"
+            );
             println!(
                 "Raw local pose-report test (requires --avatar and --watch-seconds):\n       --pose-report HEX20\n       Ten raw pose bytes; auxiliary trigger fields zero; cannot combine with position/pickup/move/drop\n"
             );

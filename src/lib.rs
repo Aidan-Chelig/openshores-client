@@ -2,6 +2,7 @@
 pub mod assets;
 pub mod citizen;
 pub mod commands;
+pub mod commodity;
 pub mod geology;
 pub mod har;
 pub mod inventory;

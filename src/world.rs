@@ -232,6 +232,7 @@ pub struct Entity {
 
 #[derive(Default)]
 pub struct WorldState {
+    pub commodities: crate::commodity::CommodityCatalog,
     pub entities: BTreeMap<u32, Entity>,
     /// Manifest visibility is separate from cached atom identity.
     pub visible_ids: BTreeSet<u32>,
@@ -332,6 +333,7 @@ impl WorldState {
             self.apply(update)?;
         } else {
             match opcode {
+                0x2b => self.commodities.ingest(packet)?,
                 0x18 => match scene::decode_scene_time(packet)? {
                     SceneTime::Manifest { time_low, atom_ids } => {
                         self.time_low = Some(time_low);
@@ -414,6 +416,23 @@ pub fn read_capture(reader: &mut impl BufRead) -> io::Result<WorldState> {
 mod tests {
     use super::*;
     use crate::protocol::write_frame;
+
+    #[test]
+    fn commodity_rows_are_not_atoms_and_failed_updates_are_atomic() {
+        let mut bytes = vec![0x2b];
+        bytes.extend([0; 156]);
+        bytes[2] = 31;
+        let mut world = WorldState::default();
+        world.ingest(&bytes).unwrap();
+        assert_eq!(world.commodities.len(), 1);
+        assert!(world.entities.is_empty());
+        assert!(world.visible_ids.is_empty());
+        assert!(world.opaque_packet_counts.is_empty());
+        assert_eq!(world.packet_counts[&0x2b], 1);
+        assert!(world.ingest(&bytes[..156]).is_err());
+        assert_eq!(world.packet_counts[&0x2b], 1);
+        assert_eq!(world.commodities.get(31).unwrap().raw, bytes[1..]);
+    }
 
     fn hex(text: &str) -> Vec<u8> {
         text.trim()

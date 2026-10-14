@@ -1019,3 +1019,39 @@ the source-listed negative stamina rate. Rust decoded stamina below the seeded
 disconnect. Inventory remained seven entries, hierarchy/capture replay matched
 and all 56 terrain comparisons passed. Pose semantics remain raw; no animation
 or optimistic pose echo is fabricated.
+
+### Server-provided commodity catalog and inventory labels
+
+Inbound `0x2B` carries a signed i16 commodity ID and a DbCommodity row, not an
+atom ID/timestamp. `gameplay/gd_tables.py::_COMMODITY_LAYOUT` and
+`protocol/db_static_tables.py::_build_dbcommodity_row` agree on fixed-width
+blocks and four Qt strings (description, bitmap, model, name). Rust validates
+the full established boundary, preserves null versus empty and Unicode, and
+retains the complete raw row plus any unknown suffix. Numeric weapon, capacity,
+weight and other properties are not assigned new behavior by this decoder.
+
+`WorldState.commodities` stores whole rows by signed commodity ID, replacing in
+receive order. Rows are capped at 1 MiB, catalog size at 4096 IDs and total raw
+storage at 16 MiB. Decode/budget failure precedes replacement and packet-count
+mutation. Rows do not enter the entity hierarchy or manifest, and successful
+decoding removes `0x2B` from opaque-packet reporting without discarding raw bytes.
+Lookup rejects out-of-i16 IDs rather than wrapping. No table-completion or
+missing-row deletion rule is inferred.
+
+`inspect-commodities CAPTURE_FILE` lists received labels/resources and suffix
+lengths. Scene summaries resolve the latest received top-level gear entries
+against that catalog; unknown names remain `None`. Resource references are not
+opened, normalized, or treated as local filesystem paths. Original model/bitmap
+selection and UI layout are separate work.
+
+`tests/reference_commodities.py` independently frames all 615 supplied GD rows,
+compares each nullable string with Python QDS, and checks a source-writer fixture
+containing Cyrillic, an emoji, null description and empty bitmap. All comparisons
+passed. Rust tests cover every truncation boundary, raw/suffix preservation,
+signed IDs, whole-row replacement, row/count/byte limits and atomic world ingress.
+Local pose, pickup and two-avatar peer integrations also passed with the catalog
+enabled. Bootstrap/capture replay retained all 615 rows and inventory labels;
+pickup resolved commodity 130 to the received name `Hay`. Labels describe the
+server's commodity row, not an inferred classification from item subtype. Rust
+tests passed in headless (72) and viewer-enabled (81) configurations, with Clippy
+and formatting checks clean.
