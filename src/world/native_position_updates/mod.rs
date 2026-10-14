@@ -54,8 +54,10 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
     }
 
     /// Apply only the decoded fresh base-position stage. An absent position is
-    /// a no-op, not a body/lifecycle acknowledgement. Existing class must match;
-    /// unknown nodes/replacement are explicit errors before state mutation.
+    /// a no-op, not a body/lifecycle acknowledgement. Unknown nodes are explicit
+    /// errors before mutation. Existing object kind is retained even if the
+    /// incoming opcode constructs a different temporary candidate class: native
+    /// ReadPacket applies the common base stage to the object found by ID.
     /// RxUpdateBase uses the position-only ChangePos path, not orientation
     /// extraction. No timestamp filtering or source-profile fallback is added.
     pub fn apply_resolved_at(
@@ -75,18 +77,12 @@ impl<O: ReparentRegistrationContext> NativePositionReceiver<'_, O> {
                 "native position receiver rejects null atom ID",
             ));
         }
-        let node = self.graph.node(handle).ok_or_else(|| {
+        self.graph.node(handle).ok_or_else(|| {
             io::Error::new(
                 io::ErrorKind::InvalidInput,
                 "native position receiver requires an existing object node",
             )
         })?;
-        if node.kind != prefix.kind {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidInput,
-                "native atom class change requires object lifecycle handling",
-            ));
-        }
         let outcome = match self.graph.apply_fresh_position_at(handle, record, now)? {
             NativeHierarchyPositionChange::Applied { cleared_caches } => {
                 NativePositionUpdate::Local { cleared_caches }

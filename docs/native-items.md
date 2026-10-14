@@ -130,7 +130,7 @@ conservatively invalidate field knowledge; later sparse bodies restore only
 what they establish. A later other-kind atom with the same ID removes that
 item observation. These are explicit observation policies, not recovered
 native opaque-body gameplay or timestamp rules. The result is **not** a
-complete world snapshot: native stale-time rejection, deletion/visibility,
+complete world snapshot: native time assignment/post-update effects, deletion/visibility,
 hierarchy, catalog resolution and unsupported subtype semantics remain open.
 Malformed known bodies fail before any replay result/output is returned.
 Capture loading/replay/tests are grouped under `src/world/native_capture/`.

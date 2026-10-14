@@ -264,13 +264,13 @@ fn decoded_wire_reparent_uses_existing_lists_or_preserves_owner_obligation() {
 }
 
 #[test]
-fn no_position_is_noop_and_wrong_kind_or_unknown_object_does_not_mutate_state() {
+fn no_position_is_noop_and_unknown_object_does_not_mutate_state() {
     let mut graph = graph(0, true);
     let before = graph.node(1).cloned();
     let mut queue = NativeRunaways::default();
     let mut store = RegistrationStore::default();
     let mut owner = Owner::default();
-    for (id, opcode, flags) in [(1, 0x16, 0), (1, 0x05, 1), (9, 0x16, 1)] {
+    for (id, opcode, flags) in [(1, 0x16, 0), (9, 0x16, 1)] {
         let bytes = packet(id, 7, opcode, flags);
         let prefix = NativeAtomPrefix::decode(&bytes).unwrap().unwrap();
         let mut receiver = NativePositionReceiver {

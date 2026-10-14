@@ -1,6 +1,36 @@
 use super::*;
 use crate::world::native_subatoms::NativeRecoveryLookup;
 
+#[test]
+fn existing_object_kind_survives_different_incoming_candidate_kind() {
+    let mut graph = graph(0, true);
+    let bytes = packet(1, 7, 0x05, 1);
+    let prefix = NativeAtomPrefix::decode(&bytes).unwrap().unwrap();
+    assert_eq!(prefix.kind, NativeAtomKind::Person);
+    let mut queue = NativeRunaways::default();
+    let mut store = RegistrationStore::default();
+    let mut owner = Owner::default();
+    NativePositionReceiver {
+        graph: &mut graph,
+        runaways: &mut queue,
+        registrations: &mut store,
+        owner: &mut owner,
+    }
+    .apply_at(
+        &prefix,
+        DestinationContext::ExistingParentLists,
+        Instant::now(),
+    )
+    .unwrap();
+    let retained = graph.node(1).unwrap();
+    assert_eq!(retained.kind, NativeAtomKind::Item);
+    assert_eq!(retained.position.position.parent, 7);
+    assert_eq!(retained.position.position.local[3][0], 12345678.125);
+    assert_eq!(owner.calls, 1);
+    assert_eq!(store.ticker(1).unwrap().atom_type, 0x16);
+    assert!(queue.is_empty());
+}
+
 #[derive(Default)]
 struct AliasOwner {
     calls: usize,

@@ -715,13 +715,12 @@ remain separate.
 `world/native_position_updates/` now connects a decoded NativeAtomPrefix's
 fresh base position to the established local, normal-reparent and explicit
 missing-destination paths, including real registration storage. Existing nodes
-on the direct apply_at path must be keyed by the wire ID and have matching native
-kind. Missing objects or
-kind changes are rejected before mutation as requiring lifecycle handling;
+on the direct apply_at path must be keyed by the wire ID. Missing objects
+are rejected before mutation as requiring lifecycle handling;
 the direct-ID path rejects unknown identities instead of guessing aliases.
 `apply_resolved_at` additionally accepts a caller-established object handle
 (for example, explicitly observed through NativeRecoveryLookup::routed_entry).
-It validates the handle's kind, mutates graph membership/position by handle,
+It validates the handle's presence, mutates graph membership/position by handle,
 constructs owner context by handle, and applies registrations using the packet's
 wire ID. Missing-destination queues also retain that wire ID, not the handle.
 The receiver does not invent which lookup map or fallback native packet dispatch
@@ -784,10 +783,36 @@ is atomic, unlike native direct field writes/Qt stream error handling.
 
 Tests cover raw width extremes, null identity, negative/decreasing time,
 untouched trailing bytes, all truncated identity prefixes and retained constructor
-state. Packet-driven acceptance remains separate: a focused REA analysis of
-`_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at `0x1405e79a0` is running
-with full output reserved as `target/native-read-packet.json`. That pending
-result must be reviewed before claiming native receive/creation policy.
+state. Packet-driven acceptance remains separate; the reviewed dispatcher
+findings below guide further receive/creation integration.
+
+## Native atom packet-dispatch findings
+
+The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
+`0x1405e79a0` completed in 648602ms. Complete evidence is retained as
+[native-read-packet.json](evidence/native-read-packet.json), Evidence
+`ev_4f1f6d1df18f1c05a6f56d23adefa9408fb2f1b6bbd59ff30df547a73cd8d7d1`,
+bound to the patched executable digest. Ghidra 12.1.2 static pseudocode, not
+native execution. The atom path and its shared post-update tail were reviewed;
+non-atom switch branches are retained but not fully reconstructed here.
+
+For opcodes below `0x2a`, the factory constructs a candidate and RxUpdateId
+fills its identity/time before FindAtomA. A missing existing object receives
+RxUpdateBase, ConnectSignals and AddAtomA before its virtual body receiver is
+called. An existing object receives the candidate's time at `0x1e8` and
+RxUpdateBase; the candidate is then destroyed and the existing object is retained.
+There is no timestamp comparison or class-match guard in this reviewed path.
+Body slot `0x2e0` is invoked on the retained object with an is-new argument,
+not necessarily on the incoming opcode's candidate class. Later type-specific
+design/species/cache/catalog side effects remain outside the position receiver.
+
+The position-only receiver now follows that common-base behavior: a differing
+incoming candidate kind does not reject or replace an existing object's kind.
+A regression decodes a Person opcode against an existing Item object, applies
+normal reparent and verifies Item identity and actual Item registration type
+are retained. This does not authorize decoding the tail with the packet's kind;
+future full dispatch must select the retained object's body receiver. Source
+WorldState's separate profile/type validation remains unchanged.
 
 DestinationContext remains caller-established. Unresolved context returns the
 unchanged reparent obligation, and insufficient normal-list context remains
