@@ -880,6 +880,17 @@ These are Rust storage-safety guards, not recovered native destructor checks.
 Class fields/destructors, candidate-factory implementation and full dispatch
 owner integration remain separate obligations.
 
+An owner-lifecycle integration now starts from an empty graph and confirmed Item
+constructor state, assigns identity, inserts a new handle, completes the base
+status stage and invokes the real add-owner method with real lookup/runaway/
+registration/retired stores. It verifies owner assignment, routed lookup and
+new owner-list establishment without incoming registration or retirement.
+A subsequent temporary for the same ID is selected against that real lookup
+and discarded by handle without taking AddAtomLocked's replacement branch or
+damaging the retained object/owner list. This joins dynamic candidate storage
+to existing owner lifecycle; class signals, full packet callbacks, unknown
+class constructors and client-session/network wiring are still unfinished.
+
 The REA analysis of `_ZN8DtClient10ReadPacketERK10QByteArrayR10QTcpSocket` at
 `0x1405e79a0` completed in 648602ms. Complete evidence is retained as
 [native-read-packet.json](evidence/native-read-packet.json), Evidence

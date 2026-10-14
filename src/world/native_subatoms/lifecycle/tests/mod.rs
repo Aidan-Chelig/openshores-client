@@ -1,6 +1,7 @@
 use super::*;
 use crate::world::native_tick_tock::{RegistrationAction, SolarSystem, store::StoreContext};
 use std::{cell::RefCell, rc::Rc};
+mod candidates;
 mod cleanup;
 mod failures;
 
