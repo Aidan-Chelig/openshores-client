@@ -65,6 +65,9 @@ async def seed(dsn: str) -> int:
 
 
 def main() -> None:
+    action = sys.argv[1] if len(sys.argv) == 2 else "move"
+    if action not in ("move", "drop") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop]")
     binary = str(ROOT / "target/debug/openshores-client")
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
@@ -123,10 +126,11 @@ def main() -> None:
                         raise RuntimeError("reference server failed to start:\n" + log_path.read_text()[-8000:])
                     time.sleep(0.2)
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
+                action_args = ["--drop-gear", "5", "0"] if action == "drop" else ["--move-gear", "5", "0", "1"]
                 result = run(binary, "login", USERNAME, f"127.0.0.1:{login}",
                              "--avatar", str(avatar), "--scene-port", str(scene),
                              "--chat-port", str(chat), "--watch-seconds", "3",
-                             "--look-at", "0x70000000", "--move-gear", "5", "0", "1",
+                             "--look-at", "0x70000000", *action_args,
                              "--capture", str(runtime / "watched.frames"), "--password-stdin",
                              input=PASSWORD + "\n")
                 print(result.stdout, end="", flush=True)
@@ -228,16 +232,24 @@ def main() -> None:
                                  if line.startswith("0x70000000 Item "))
                 assert "commodity_id: 130" in item_line, item_line
                 assert "quality: Some(61)" in item_line, item_line
-                assert "Item: 1" in watched_replay.stdout, watched_replay.stdout
+                assert f"Item: {2 if action == 'drop' else 1}" in watched_replay.stdout, watched_replay.stdout
                 print("Dynamic floor item decoded and retained in ongoing scene state", flush=True)
                 watched_player = next(line for line in watched_replay.stdout.splitlines()
                                       if line.startswith(f"{avatar:#010x} Person "))
                 moved = "slot_type: 1, subindex: 0, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 1,"
                 original = "slot_type: 5, subindex: 0, item: Some(InventoryItem { type_id: 1, common: AuItemPrefix { flags: 12, commodity_id: 1,"
                 assert original in player_line, player_line
-                assert moved in watched_player and original not in watched_player, watched_player
+                assert original not in watched_player, watched_player
+                if action == "move":
+                    assert moved in watched_player, watched_player
+                else:
+                    assert "declared_slots: 6" in watched_player, watched_player
+                    dropped = [line for line in watched_replay.stdout.splitlines()
+                               if " Item " in line and "commodity_id: 1," in line]
+                    assert len(dropped) == 1, watched_replay.stdout
+                    assert "parent=Some(" in dropped[0] and "transform=Some(" in dropped[0], dropped[0]
                 assert "Observed player gear (latest received batch):" in watched.stdout
-                print("Explicit gear move confirmed by server-originated inventory refresh", flush=True)
+                print(f"Explicit gear {action} confirmed by server-originated inventory/world refresh", flush=True)
                 print(f"Local ongoing session: {updates} post-bootstrap packets applied and replayed", flush=True)
                 print("Full local reference-server integration passed", flush=True)
         except BaseException as error:

@@ -1,5 +1,33 @@
-//! Outbound scene commands accepted by the supplied server, not UI bindings.
+//! Channel-specific gameplay commands accepted by the supplied server, not UI bindings.
 use std::io;
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ChatCommand {
+    /// Top-level gear only. Nested source-path encoding is not inferred.
+    DropGear {
+        source_slot: u8,
+        source_subindex: u8,
+    },
+}
+
+impl ChatCommand {
+    pub fn encode(self) -> io::Result<Vec<u8>> {
+        match self {
+            Self::DropGear {
+                source_slot,
+                source_subindex,
+            } => {
+                if !(1..=9).contains(&source_slot) || source_subindex > 15 {
+                    return Err(io::Error::new(
+                        io::ErrorKind::InvalidInput,
+                        "drop requires slot 1..=9 and subindex 0..=15",
+                    ));
+                }
+                Ok(vec![0x57, source_slot, source_subindex])
+            }
+        }
+    }
+}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum SceneCommand {
@@ -54,6 +82,25 @@ mod tests {
     use super::*;
     #[test]
     fn source_layouts_and_slot_bounds_are_explicit() {
+        assert_eq!(
+            ChatCommand::DropGear {
+                source_slot: 5,
+                source_subindex: 0
+            }
+            .encode()
+            .unwrap(),
+            [0x57, 5, 0]
+        );
+        for (source_slot, source_subindex) in [(0, 0), (10, 0), (5, 16)] {
+            assert!(
+                ChatCommand::DropGear {
+                    source_slot,
+                    source_subindex
+                }
+                .encode()
+                .is_err()
+            );
+        }
         assert_eq!(
             SceneCommand::LookAt { target: 0x89abcdef }
                 .encode()

@@ -154,6 +154,28 @@ pub struct WatchedScene {
 }
 
 impl Session {
+    /// Inventory drop requests belong to the authenticated chat channel.
+    /// A completed write is not an acknowledgement or optimistic state change.
+    pub fn send_chat_command(
+        &mut self,
+        command: crate::commands::ChatCommand,
+        timeout: Duration,
+    ) -> io::Result<()> {
+        let payload = command.encode()?;
+        if timeout.is_zero() || timeout > Duration::from_secs(10) {
+            return Err(invalid(
+                "command write timeout must be positive and at most 10 seconds",
+            ));
+        }
+        let channel = self
+            ._chat
+            .as_mut()
+            .ok_or_else(|| invalid("authenticated chat channel is unavailable"))?;
+        channel.deadline = Instant::now()
+            .checked_add(timeout)
+            .ok_or_else(|| invalid("invalid command deadline"))?;
+        write_frame(channel, &payload)
+    }
     /// Explicit commands use the authenticated world channel, never redirect/chat.
     /// Success means transport write completed, not server acceptance.
     pub fn send_command(
@@ -500,6 +522,40 @@ mod tests {
         assert_eq!(
             chat.read(&mut [0]).unwrap_err().kind(),
             io::ErrorKind::WouldBlock
+        );
+    }
+
+    #[test]
+    fn inventory_commands_route_only_to_authenticated_chat() {
+        let (mut session, mut world, mut initial, mut chat) = watch_fixture();
+        let command = crate::commands::ChatCommand::DropGear {
+            source_slot: 5,
+            source_subindex: 0,
+        };
+        session
+            .send_chat_command(command, Duration::from_secs(1))
+            .unwrap();
+        assert_eq!(
+            read_frame(&mut chat, 100).unwrap(),
+            command.encode().unwrap()
+        );
+        assert!(session.bootstrap.packets.is_empty());
+        world.set_nonblocking(true).unwrap();
+        initial.set_nonblocking(true).unwrap();
+        assert_eq!(
+            world.read(&mut [0]).unwrap_err().kind(),
+            io::ErrorKind::WouldBlock
+        );
+        assert_eq!(
+            initial.read(&mut [0]).unwrap_err().kind(),
+            io::ErrorKind::WouldBlock
+        );
+        assert!(session.send_chat_command(command, Duration::ZERO).is_err());
+        session._chat = None;
+        assert!(
+            session
+                .send_chat_command(command, Duration::from_secs(1))
+                .is_err()
         );
     }
 

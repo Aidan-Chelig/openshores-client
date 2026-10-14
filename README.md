@@ -41,10 +41,17 @@ chooses the destination subindex; no optimistic inventory changes are made.
 The CLI reports the latest received gear batch, not a fabricated acknowledgement.
 These are interoperability controls, not reconstructed game UI bindings.
 
+Top-level gear drops are supported separately with `--drop-gear SRC_SLOT SRC_SUB`
+(slot 1–9, subindex 0–15), also requiring an explicit avatar and bounded watch.
+Drop requests use the authenticated chat channel; the resulting world item and
+inventory removal are applied only from server updates. Move and drop flags
+cannot be combined because cross-channel ordering is not guaranteed. Nested
+container drops and pickup requests remain unimplemented.
+
 World-state replay also recognizes dropped-item atoms (`DaItem`, `0x11`), their
 parent/transforms, subtype identity and supported commodity/name/quality fields.
 Unknown item variants and weapon/container tails remain available as raw bytes;
-pickup/drop requests and item rendering are not implemented.
+pickup requests, nested drops and item rendering are not implemented.
 Supported gear-only player updates now expose slot/subindex identities, explicit
 empty slots and nested item trees. These are the latest received gear batches,
 not an inferred authoritative inventory snapshot. The supported citizen bootstrap

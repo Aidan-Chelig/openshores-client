@@ -881,3 +881,33 @@ missing-source behavior. It asserts there is no database journal, so this fixtur
 performs no persistence or network I/O. The full local-server test separately
 confirmed the Rust command moved the synthetic item and its received refresh
 replayed into the new slot. Both Rust feature configurations and Clippy pass.
+
+### Explicit top-level gear drop over authenticated chat
+
+The source `network/chat_channel/operations/inventory.py` establishes `0x57`,
+source slot and raw subindex. Subindex bit `0x80` introduces a variable nested
+path; this implementation does not guess that format or enable nested drops.
+Top-level drops use slots 1..=9 (`SLOT_CAPS`) and subindices 0..=15. The request
+belongs to chat, unlike scene `0x60` gear moves; typed `ChatCommand` and separate
+`Session::send_chat_command` prevent using the wrong channel. The existing init
+ACK authenticates chat. Writes use bounded deadlines and never mutate cached
+inventory or create a predicted world item.
+
+CLI `--drop-gear SLOT SUB` requires `--avatar` and `--watch-seconds`. Invalid
+slots, missing context and combined move/drop are rejected before credentials
+or network I/O. Move and drop cannot be combined because independent TCP
+channels do not guarantee server execution order. Observed inventory comes
+only from received batches; a sent command is not an acknowledgement.
+
+Loopback tests verify chat-only framing, unavailable-chat rejection, deadlines
+and unchanged capture/state. The local-server integration now accepts a `drop`
+test mode: it drops the synthetic commodity-1 item, checks its absence from
+the six-entry gear refresh, and checks a new parented/transformed world item
+with the same commodity ID. The full manifest, hierarchy and captured replay
+are checked as before. Default mode still tests scene gear movement. Only the
+owned disposable database/avatar are mutated, never the public service or
+reference source. Pickup and movement input remain future work.
+Both local modes passed: drop produced six gear entries and 51 decoded/visible
+entities including the new world item; move retained seven gear entries with
+the commodity in its server-assigned destination. Captured replay matched each
+live result. Rust tests and Clippy passed in default and viewer configurations.

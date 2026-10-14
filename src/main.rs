@@ -46,6 +46,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut watch_seconds = None;
     let mut look_at = None;
     let mut move_gear = None;
+    let mut drop_gear = None;
     let mut options = args[1..].iter();
     while let Some(arg) = options.next() {
         if arg == "--password-stdin" && !from_stdin {
@@ -69,6 +70,21 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 value.parse::<u32>()?
             };
             look_at = Some(openshores_client::commands::SceneCommand::LookAt { target });
+        } else if arg == "--drop-gear" && drop_gear.is_none() {
+            let source_slot = options
+                .next()
+                .ok_or("--drop-gear requires SRC_SLOT SRC_SUB")?
+                .parse::<u8>()?;
+            let source_subindex = options
+                .next()
+                .ok_or("--drop-gear requires SRC_SLOT SRC_SUB")?
+                .parse::<u8>()?;
+            let command = openshores_client::commands::ChatCommand::DropGear {
+                source_slot,
+                source_subindex,
+            };
+            command.encode()?;
+            drop_gear = Some(command);
         } else if arg == "--move-gear" && move_gear.is_none() {
             let mut fields = [0u8; 3];
             for field in &mut fields {
@@ -116,10 +132,13 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
             return Err("usage: login USERNAME [IP:PORT] [--password-stdin]".into());
         }
     }
-    if (look_at.is_some() || move_gear.is_some())
+    if drop_gear.is_some() && move_gear.is_some() {
+        return Err("--drop-gear and --move-gear cannot be combined: cross-channel execution order is not guaranteed".into());
+    }
+    if (look_at.is_some() || move_gear.is_some() || drop_gear.is_some())
         && (avatar_id.is_none() || watch_seconds.is_none())
     {
-        return Err("--look-at and --move-gear require --avatar and --watch-seconds".into());
+        return Err("gameplay commands require --avatar and --watch-seconds".into());
     }
     if avatar_id.is_some() && !address.ip().is_loopback() {
         return Err("scene probes are restricted to local development servers".into());
@@ -195,6 +214,10 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                     session.send_command(command, Duration::from_secs(5))?;
                     println!("Sent local scene command: {command:?} (not an acknowledgement).");
                 }
+                if let Some(command) = drop_gear {
+                    session.send_chat_command(command, Duration::from_secs(5))?;
+                    println!("Sent local chat command: {command:?} (not an acknowledgement).");
+                }
                 let (world, state) = if let Some(seconds) = watch_seconds {
                     let watched = session.watch(Duration::from_secs(seconds))?;
                     println!(
@@ -222,7 +245,7 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 );
                 println!("Scene packet counts: {:?}", world.packet_counts);
                 print_world(&state)?;
-                if move_gear.is_some()
+                if (move_gear.is_some() || drop_gear.is_some())
                     && let Some(gear) = state
                         .entities
                         .get(&id)
@@ -888,6 +911,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         }
         None | Some("--help" | "-h") => {
             println!(
+                "Top-level local inventory drop (requires --avatar and --watch-seconds):\n       --drop-gear SRC_SLOT SRC_SUB\n       Slot range: 1..9; subindex: 0..15; cannot combine with --move-gear\n"
+            );
+            println!(
                 "Explicit local gameplay commands (require --avatar and --watch-seconds):\n       --look-at NUMERIC_ID\n       --move-gear SRC_SLOT SRC_SUB DST_SLOT\n       Slot/subindex range: 0..15; destination subindex is server-assigned\n"
             );
             println!(
@@ -936,6 +962,46 @@ mod tests {
 
     #[test]
     fn invalid_gameplay_arguments_fail_before_password_or_network() {
+        for flags in [
+            vec!["--drop-gear", "5", "0"],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--drop-gear",
+                "0",
+                "0",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--drop-gear",
+                "5",
+                "16",
+            ],
+            vec![
+                "--avatar",
+                "42",
+                "--watch-seconds",
+                "1",
+                "--drop-gear",
+                "5",
+                "0",
+                "--move-gear",
+                "5",
+                "0",
+                "1",
+            ],
+        ] {
+            let args: Vec<String> = std::iter::once("Explorer")
+                .chain(flags)
+                .map(str::to_owned)
+                .collect();
+            assert!(login_command(&args).is_err());
+        }
         for flags in [
             vec!["--move-gear", "5", "0", "1"],
             vec!["--look-at", "42"],
