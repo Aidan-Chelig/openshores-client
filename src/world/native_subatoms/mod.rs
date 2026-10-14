@@ -1,6 +1,7 @@
 //! Explicit native normal-subatom context; not complete AuEther orchestration.
 mod arrival;
 mod lifecycle;
+mod receiving;
 pub use lifecycle::{
     NativeAtomAdd, NativeAtomAddRequest, NativeAtomOwnerContext, NativeAtomOwnerStores,
 };
@@ -42,8 +43,8 @@ pub struct NativeAtomIdentity {
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeCacheNode {
     pub kind: NativeAtomKind,
-    /// Native offset 0x1c. Meaning/wire source unestablished; do not invent a
-    /// default from base flags. AppendNormal requires this raw field to be zero.
+    /// Native offset 0x1c. Constructor writes 5, RxUpdateBase writes 0 after
+    /// its optional position stage. AppendNormal requires this field to be zero.
     pub field_1c: i32,
     pub position: NativePositionState,
 }
