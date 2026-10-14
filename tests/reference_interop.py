@@ -28,6 +28,9 @@ from openshores.protocol.scene_init import (
 )
 from openshores.protocol.scene_parse import _parse_scene_0x38
 from openshores.protocol.stream import QDS
+from openshores.protocol.atoms.base_update import _bpt2
+from openshores.protocol.atoms.galaxy_rename import _build_sector_atom_rename_pkt
+import struct
 
 
 def check_fixtures() -> None:
@@ -53,6 +56,16 @@ def check_fixtures() -> None:
         "charId": 42, "osKind": 0, "winVersion": 0, "flag40": 0x40, "extra": 0,
     }
     assert stream.pos == len(resume)
+    sector = QDS()
+    sector.write_qstring("Sector 🚀")
+    assert bytes.fromhex((fixtures / "atom-sector.hex").read_text()) == (
+        bytes([0x14]) + struct.pack(">Iq", 42, 1000)
+        + _bpt2(struct.pack(">I", 117), 1.25, -2.5, 3, 0.1, 0.2, 0.3)
+        + sector.getvalue()
+    )
+    assert bytes.fromhex((fixtures / "atom-sector-rename.hex").read_text()) == (
+        _build_sector_atom_rename_pkt(42, "Renamed", time_ms=2000)
+    )
 
 
 async def check_login(binary: str, reply: bytes, code: int, output: str) -> None:
@@ -113,7 +126,7 @@ async def main() -> None:
     await check_login(binary, build_redirect_reply("127.0.0.1", 16759), 1, "redirect")
     await check_login(binary, build_version_mismatch_reply(), 1, "protocol version")
     await check_login(binary, b"\xff", 1, "unrecognized login reply")
-    print("Python/Rust interoperability: four fixtures and seven login exchanges passed")
+    print("Python/Rust interoperability: six fixtures and seven login exchanges passed")
 
 
 if __name__ == "__main__":

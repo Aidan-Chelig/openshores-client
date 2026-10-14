@@ -108,6 +108,18 @@ impl<'a> QtReader<'a> {
         Ok(u32::from_be_bytes(self.take(4)?.try_into().unwrap()))
     }
 
+    pub fn read_i64(&mut self) -> io::Result<i64> {
+        Ok(i64::from_be_bytes(self.take(8)?.try_into().unwrap()))
+    }
+
+    pub fn read_f32(&mut self) -> io::Result<f32> {
+        Ok(f32::from_be_bytes(self.take(4)?.try_into().unwrap()))
+    }
+
+    pub fn read_f64(&mut self) -> io::Result<f64> {
+        Ok(f64::from_be_bytes(self.take(8)?.try_into().unwrap()))
+    }
+
     pub fn read_bytes(&mut self) -> io::Result<Option<&'a [u8]>> {
         match self.read_u32()? {
             u32::MAX => Ok(None),

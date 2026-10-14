@@ -153,6 +153,11 @@ fn login_command(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                     world.initialization.motd.as_deref().unwrap_or("")
                 );
                 println!("Scene packet counts: {:?}", world.packet_counts);
+                let mut state = openshores_client::world::WorldState::default();
+                for packet in &world.packets {
+                    state.ingest(packet)?;
+                }
+                print_world(&state)?;
                 if let Some(path) = capture {
                     let mut file = fs::OpenOptions::new()
                         .write(true)
@@ -207,10 +212,47 @@ fn inventory(path: &Path, count: &mut usize, bytes: &mut u64) -> io::Result<()> 
     Ok(())
 }
 
+fn print_world(world: &openshores_client::world::WorldState) -> io::Result<()> {
+    let mut counts = std::collections::BTreeMap::new();
+    for entity in world.entities.values() {
+        *counts.entry(entity.kind).or_insert(0usize) += 1;
+    }
+    println!(
+        "Decoded {} entities; {} visible in manifest.",
+        world.entities.len(),
+        world.visible_ids.len()
+    );
+    println!("Entity kinds: {counts:?}");
+    println!("Missing manifest IDs: {:?}", world.missing_manifest_ids());
+    println!("Unresolved parents: {:?}", world.unresolved_parents());
+    println!("Opaque packet counts: {:?}", world.opaque_packet_counts);
+    if let Some(id) = world.active_unit {
+        let chain = world.ancestry(id)?;
+        let labels: Vec<_> = chain
+            .iter()
+            .map(|id| format!("{:?}({id:#010x})", world.entities[id].kind))
+            .collect();
+        println!("Player ancestry: {}", labels.join(" -> "));
+    }
+    Ok(())
+}
+
 fn run() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = env::args().skip(1).collect();
     match args.first().map(String::as_str) {
         Some("login") => login_command(&args[1..])?,
+        Some("inspect-scene") if args.len() == 2 => {
+            let world = openshores_client::world::read_capture(&mut io::BufReader::new(
+                fs::File::open(&args[1])?,
+            ))?;
+            print_world(&world)?;
+            for entity in world.entities.values() {
+                println!(
+                    "{:#010x} {:?} name={:?} parent={:?} transform={:?}",
+                    entity.id, entity.kind, entity.name, entity.parent, entity.transform
+                );
+            }
+        }
         Some("inspect-gd") if args.len() <= 2 => {
             let path = args
                 .get(1)
@@ -242,7 +284,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             }
         }
         None | Some("--help" | "-h") => println!(
-            "OpenShores Rust client foundation\n\nUsage: cargo run -- login USERNAME [IP:PORT] [--password-stdin]\n       cargo run -- login USERNAME [IP:PORT] --avatar ID [--scene-port PORT] [--chat-port PORT] [--capture NEW_FILE] [--password-stdin]\n       cargo run -- inspect-reference [directory]\n       cargo run -- inspect-gd [GD file]\n\nLogin defaults to 127.0.0.1:16757 and prompts for a hidden password.\nAvatar scene probes only use loopback endpoints and stop after the initial manifest.\nInventory excludes symlinks, .git, __pycache__, and .venv."
+            "OpenShores Rust client foundation\n\nUsage: cargo run -- login USERNAME [IP:PORT] [--password-stdin]\n       cargo run -- login USERNAME [IP:PORT] --avatar ID [--scene-port PORT] [--chat-port PORT] [--capture NEW_FILE] [--password-stdin]\n       cargo run -- inspect-reference [directory]\n       cargo run -- inspect-gd [GD file]\n       cargo run -- inspect-scene CAPTURE_FILE\n\nLogin defaults to 127.0.0.1:16757 and prompts for a hidden password.\nAvatar scene probes only use loopback endpoints and stop after the initial manifest.\nInventory excludes symlinks, .git, __pycache__, and .venv."
         ),
         _ => return Err("unknown command; use --help".into()),
     }

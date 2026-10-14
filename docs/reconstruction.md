@@ -96,7 +96,8 @@ through bootstrap to avoid premature per-IP session cleanup.
 Opcode context matters: client `0x38` is resume, server `0x38` is initialization;
 server `0x22` can be a redirect during initial connection or building data in
 world traffic. The separate decoders do not classify arbitrary packets by
-opcode alone. Unknown scene atom traffic has not been reconstructed.
+opcode alone. Atom prefixes are now decoded for the source-established kinds
+listed below; unsupported packets and remaining body fields stay opaque.
 
 ## Full local-server integration
 
@@ -125,7 +126,54 @@ Testing policy: use synthetic loopback listeners or the reference server.
 Do not contact the public OpenShores service. The local scene driver rejects
 external endpoints and redirect hostnames without DNS or connecting. Packet,
 byte, and elapsed-time limits bound the probe. Unknown packet payloads are
-retained for offline reconstruction instead of interpreted as world objects.
+retained for offline reconstruction.
+
+## World model and offline replay
+
+`src/world.rs` handles common atom prefixes for universe, galaxy, sector,
+solar system, star, globe, gas giant, ring, ring section, person, vehicle, and
+building packets. Flags `0x01`, `0x02`, `0x04`, and `0x08` supply parent,
+creation time, modification time, and six transform floats respectively.
+Higher flag bits are retained without assigning undocumented semantics.
+
+Source evidence: `protocol/atoms/base_update.py`,
+`protocol/atoms/person.py`, `gameplay/native_atom.py`,
+`gameplay/vehicles/atom_packet.py`, `gameplay/dabd_frame.py`, and the
+`atoms_c2`/sibling builders in `network/scene/connection.py`.
+
+Sector and solar-system QString names, named unit prefixes, and the
+flag-0/flag-1 WgWorld zone/orbit/name prefix are decoded. The entire atom body
+is also retained. Sources: `gameplay/world_body.py` and
+`protocol/atoms/galaxy_rename.py`. No complete creature, vehicle, building,
+world terrain, or model decoder is claimed.
+
+State applies updates in receive order, preserves omitted values, distinguishes
+omitted and explicit null names, and permits parents to arrive later. Known
+parent cycles and atom-kind conflicts are rejected before mutating state.
+Clock ordering, deletion semantics, and type changes are not yet established
+against original-client behavior. Manifest visibility is independent of the
+cache; leaving a manifest does not erase cached identity.
+
+Raw positions and rotations retain their wire values. Rotations have not been
+converted to Bevy quaternions, and relative transforms have not been composed.
+Source routines use different coordinate contexts; guessing a global unit or
+angle convention would risk changing the original experience.
+
+`inspect-scene` replays an existing scene capture offline with bounded frame,
+packet, and total-byte sizes. It reports entity kinds, names, transforms,
+unresolved parents, missing manifest IDs, and the selected avatar's ancestry.
+
+Verified full local-server run: 49 decoded entities, all 49 manifest identities
+present, no unresolved parents; 1 universe, 1 galaxy, 27 sectors, 1 solar
+system, 1 star, 14 globes, 3 gas giants, and 1 person. The player chain resolves
+as person -> globe -> star -> solar system -> sector -> galaxy -> universe.
+Offline replay of the captured 9,663 packets produces the same complete
+hierarchy. Game-data table packets remain opaque and counted separately.
+
+Unit tests cover a Python-generated sector and sparse rename, hierarchy cycles,
+kind conflicts, manifest/cache independence, and truncated captures. The
+reference interoperability script rechecks the sector fixtures against the
+actual Python builders; the full-server harness verifies offline replay.
 
 ## Open questions
 

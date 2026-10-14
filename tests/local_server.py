@@ -146,6 +146,13 @@ def main() -> None:
                     assert len(ids) == count and avatar in ids
                     print(f"Captured {len(packets)} scene packets; final manifest verified", flush=True)
                 asyncio.run(verify_capture())
+                replay = run(binary, "inspect-scene", str(runtime / "scene.frames"))
+                assert "Decoded 49 entities; 49 visible in manifest." in replay.stdout, replay.stdout
+                assert "Missing manifest IDs: []" in replay.stdout, replay.stdout
+                assert "Unresolved parents: {}" in replay.stdout, replay.stdout
+                assert f"Player ancestry: Person({avatar:#010x}) -> Globe" in replay.stdout, replay.stdout
+                assert "-> Universe(" in replay.stdout, replay.stdout
+                print("Offline world replay: all 49 manifest entities and player ancestry resolved", flush=True)
                 print("Full local reference-server integration passed", flush=True)
         except BaseException:
             log_path = runtime / "server.log"

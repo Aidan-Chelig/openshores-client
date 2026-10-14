@@ -5,7 +5,8 @@ the first interoperability target. This repository currently contains a working
 reference inventory, transport primitives, an interactive login command, and
 scene bootstrap codecs and a loopback-only scene probe. Login displays the
 six-slot avatar roster returned by the server. The probe completes world
-initialization and receives the first manifest; rendering is still unfinished.
+initialization and reconstructs the first manifest's entity hierarchy;
+rendering is still unfinished.
 
 ```sh
 nix develop
@@ -67,8 +68,20 @@ reference's initialization packet currently advertises the default chat port,
 so an override is needed when running its chat listener on another port.
 
 Capture files retain inbound scene payloads with regenerated length framing;
-login traffic is excluded. Existing files are never overwritten. Scene
-payload decoding and a persistent gameplay session are the next milestone.
+login traffic is excluded. Existing files are never overwritten. Replay a
+capture without any network access:
+
+```sh
+cargo run -- inspect-scene scene.frames
+```
+
+The world model decodes atom identities, parents, optional timestamps,
+transforms, selected name prefixes, and world zone/orbit identity. Sparse
+updates preserve omitted fields; manifests track visibility separately from
+cached entities. The local integration test resolves all 49 manifest atoms and
+the full player ancestry. Type-specific payload bytes remain available for
+further decoding. Terrain, models, rotation conversion, and persistent
+gameplay are still unfinished.
 
 Bevy is the preferred future 3D renderer; GPUI remains a UI candidate. See
 [experience fidelity](docs/experience.md) for the current direction.

@@ -4,3 +4,4 @@ pub mod local_scene;
 pub mod login;
 pub mod protocol;
 pub mod scene;
+pub mod world;
