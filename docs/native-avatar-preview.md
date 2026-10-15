@@ -31,6 +31,23 @@ checks that disconnect removes every mesh entity. It opens no GPU window.
 This verifies the mounted-assets-to-preview boundary, not DNA reception,
 production context behavior, native merge success or visual/GPU parity.
 
+The same task now also runs a merged-head/torso case. Five head assets and three
+normal torso segments run through the reconstructed geometry merge stages,
+then explicitly project their baked stored vertices through their ORIGINAL
+seed mesh matrices exactly once at loader-scale1. The resulting two meshes
+(2,224 triangles) are attached to the dispatched-Person presentation fixture.
+Every uploaded position bit pattern and triangle index is checked by the same
+headless ECS helper; disconnect removes both meshes. The fixture supplies DNA
+and owner fields independently, so this is not automatic receive-driven body
+generation or complete model/cache lifecycle evidence.
+
+`untextured_baked_preview_geometry` refuses unbaked geometry, retains native
+weights and loaded face fields, and intentionally provides no UVs. This is an
+unposed/untextured diagnostic rendering adapter, not faithful texturing or skin
+animation. Its translated-matrix regression checks projection is neither
+omitted nor applied as another local inversion. Native global/world axes are
+still not inferred.
+
 Still required for automatic in-game avatars: native model cache/merge
 application, an owning production receive context, attachment of actual assembled
 body geometry after successful receive, bone posing/skinning, and verified world

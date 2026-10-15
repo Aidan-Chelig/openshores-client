@@ -33,6 +33,7 @@ fn mounted_torso_segments_run_composed_geometry_stages_in_order() {
         })
         .unwrap();
     let mut destination: Option<NativeBodyMergeGeometry> = None;
+    let mut projection_source = None;
     let mut total_faces = 0;
     let mut resources = 0;
     let mut updated_corners = 0;
@@ -90,9 +91,16 @@ fn mounted_torso_segments_run_composed_geometry_stages_in_order() {
             incomplete += usize::from(!report.fully_connected);
         } else {
             destination = Some(source);
+            projection_source = model.meshes.into_iter().next();
         }
     }
     let destination = destination.unwrap();
+    let preview = destination
+        .untextured_baked_preview_geometry(&projection_source.unwrap(), ModelVariant::N)
+        .unwrap();
+    assert_eq!(preview.positions.len(), destination.object.vertices.len());
+    assert_eq!(preview.weights.len(), preview.positions.len());
+    assert_eq!(preview.faces.len(), total_faces);
     assert_eq!(resources, 3);
     assert_eq!(destination.faces.len(), total_faces);
     assert!(destination.object.field_369);

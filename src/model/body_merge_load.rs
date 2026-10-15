@@ -101,7 +101,7 @@ mod tests {
             fields_40: [1., 2., 3.],
             fields_58: [1.; 5],
         };
-        let result = mesh
+        let mut result = mesh
             .body_merge_geometry(
                 ModelVariant::N,
                 &definition,
@@ -131,5 +131,25 @@ mod tests {
         assert!(!result.object.field_369);
         assert_eq!(result.faces[0].fields_50, [0.25; 9]);
         assert_eq!(mesh.vertices[0], [10., 20., 30.]);
+        assert!(
+            result
+                .untextured_baked_preview_geometry(&mesh, ModelVariant::N)
+                .is_err()
+        );
+        result
+            .object
+            .bake_once(
+                &result.deformation,
+                result.scale_points[0],
+                result.scale_points[1],
+            )
+            .unwrap();
+        let preview = result
+            .untextured_baked_preview_geometry(&mesh, ModelVariant::N)
+            .unwrap();
+        assert_eq!(preview.positions, vec![[6., 16., 26.]; 3]);
+        assert_eq!(preview.weights[0], result.object.vertices[0].payload);
+        assert_eq!(preview.faces[0].extension, Some([0.25; 9]));
+        assert!(preview.uvs.is_none());
     }
 }

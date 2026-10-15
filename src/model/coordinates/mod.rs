@@ -26,6 +26,29 @@ fn into_local(points: &mut [[f32; 3]], inverse: &Matrix) -> io::Result<()> {
 }
 
 impl Mesh {
+    /// Project an explicitly supplied native stored vertex buffer through this
+    /// mesh's loaded matrix, with caller loader-scale1. Used AFTER merge baking;
+    /// it does not re-run local-coordinate inversion on the supplied buffer.
+    pub fn project_native_stored_positions(
+        &self,
+        variant: ModelVariant,
+        points: &[[f32; 3]],
+    ) -> io::Result<Vec<[f64; 3]>> {
+        let (_, matrix) = self.loaded_vertex_state(variant, 1.)?;
+        points
+            .iter()
+            .map(|point| {
+                if point.iter().any(|v| !v.is_finite()) {
+                    return Err(invalid("non-finite native stored coordinate"));
+                }
+                let point = matrix.project(point.map(f64::from));
+                if point.iter().any(|v| !v.is_finite()) {
+                    return Err(invalid("non-finite native projected coordinate"));
+                }
+                Ok(point)
+            })
+            .collect()
+    }
     /// Reconstruct coordinates emitted by the native triangle builder.
     /// `loader_scale` is its positive caller parameter, NOT the 3DS master scale
     /// or a renderer's world-display scale. Raw data is never mutated.
