@@ -150,6 +150,37 @@ information. A guessed hand length or empty geometry cannot complete this
 dependency. GetBodyModelPrefix and DhDNA::CreateModelDNA have been requested in
 the same warm session; inspect their retained files instead of querying again.
 
+`NativeDpModelDna` now implements the zeroed48-u32 Au3dsGLSLDNA constructor,
+all47 DhDNA::CreateModelDNA selector writes, retention of the finalbc field,
+and the actual unsigned48-field comparison priority. Native key ordering is
+not memory-order lexicography. `just test-native-dp-model-keys` independently
+derives every bit selector and comparator offset from GNU instructions and
+compares them with the Rust tables. REA constructor/selector/comparator Evidence:
+`ev_377c1f0859d7d7580e718cbe349a3caadec66d7262773dbe8c2e972503c07d54`,
+`ev_9a998979e39c535e1a51c68be052b7cb0b42e9599ef03f70f3fdbd3813cb7030`,
+`ev_ffbfeb0d0a286808ceef6514d6f345945412396929bcd8079bad5c8daa4c9802`.
+Complete GNU corroboration is in `docs/evidence/native-dp-model-key-gnu.txt`.
+
+`NativeDpHandResource` selects the actual resource and cache key using supplied
+body4068 and HandLength's boolean. Full32-bit4068 values41/50/99/9b select
+`:data/PAHandRight.3dsN`; all others use `:data/{DNA16&7}HandRight{DNA11>>5}.3dsN`.
+The PA false-mode override sets keybc=1 (stack17c minus keybasec0), not keyb4;
+the boolean does not select a different filename. Its read method resolves only
+that exact Qt resource through the user's AssetMount and bounded raw N decoder.
+Missing resources remain errors, with no basename or primitive substitute.
+GetBodyModelPrefix Evidence:
+`ev_587e4a153a7a8d64ebffce5b9e797df65ba2d41cc4237b587891da95c62757ff`.
+
+`just test-native-dp-mounted reference/hazeron` passes read-only/offline against
+the supplied installation:64 numbered hand resources decode, none missing,
+11,573 raw vertices, plus the PA hand. The Rust integration test is opt-in and
+requires an explicit installation path; ordinary tests do not depend on local
+reference material. This is resource/decode verification, not hand-length,
+mesh deformation, animation or rendered-native-avatar parity.
+HandLength's apparent decompiled void return is contradicted by its actual
+`cvtsd2ss` and `movaps xmm6,xmm0` return path; use the float return when porting
+the retained geometry/cache calculations, not the recovered signature.
+
 All previously queued queries completed successfully after the single672.161s
 import; complete results remain in that directory. Their successful retention
 does not imply every function is reviewed or ported. In particular AuDNA equality

@@ -6,6 +6,10 @@ mod dimensions;
 pub use dimensions::NativeDpDimensions;
 mod layout;
 pub use layout::{native_dh_arm_vertices, native_dh_waist_vertex, native_dp_size_factor};
+mod model_dna;
+pub use model_dna::NativeDpModelDna;
+mod hand_resource;
+pub use hand_resource::NativeDpHandResource;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum NativeDpPartKind {

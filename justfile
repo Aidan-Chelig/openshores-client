@@ -105,6 +105,14 @@ test-native-model-parts:
 test-native-dp-dimensions:
     nix develop .#server-test --command python tests/native_dp_dimensions.py
 
+# Static model-key selectors/comparator and PA hand override.
+test-native-dp-model-keys:
+    nix develop .#server-test --command python tests/native_dp_model_keys.py
+
+# Read/decode native hand resources from a selected user installation, offline.
+test-native-dp-mounted installation:
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py
