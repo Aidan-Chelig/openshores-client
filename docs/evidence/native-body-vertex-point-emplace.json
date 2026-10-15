@@ -1,0 +1,83 @@
+{
+  "evidence_id": "ev_5383b60207c5c0007bc908d9b64dc97a41ed682f14bf0353fa8a558d7338b38c",
+  "subject": {
+    "name": "OpenShores.exe",
+    "digest": {
+      "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+    },
+    "format": "pe",
+    "architecture": "x86_64",
+    "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.2"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+      "no_return_repair": "returning-imports-decoded-return-v2",
+      "process_launch": "inspected-jvm-launch-support-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "0x1413a7cb0"
+  },
+  "raw_result": {
+    "value": "\n/* std::pair<std::__detail::_Node_iterator<std::pair<Au3dsGLSLVertex const, AuPoint>, false, true>,\n   bool> std::_Hashtable<Au3dsGLSLVertex, std::pair<Au3dsGLSLVertex const, AuPoint>,\n   std::allocator<std::pair<Au3dsGLSLVertex const, AuPoint> >, std::__detail::_Select1st,\n   std::equal_to<Au3dsGLSLVertex>, Au3dsGLSLVertex_Hash, std::__detail::_Mod_range_hashing,\n   std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy,\n   std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<std::pair<Au3dsGLSLVertex,\n   AuPoint> >(std::integral_constant<bool, true>, std::pair<Au3dsGLSLVertex, AuPoint>&&) [clone\n   .isra.0] */\n\n_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n* __thiscall\nstd::\n_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n::_M_emplace<std::pair<Au3dsGLSLVertex,AuPoint>>\n          (_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n           *this,longlong *param_2,longlong *param_3)\n\n{\n  float fVar1;\n  float fVar2;\n  float fVar3;\n  longlong lVar4;\n  ulonglong uVar5;\n  longlong lVar6;\n  float fVar7;\n  float fVar8;\n  undefined4 uVar9;\n  longlong lVar10;\n  longlong lVar11;\n  longlong *plVar12;\n  ulonglong uVar13;\n  ulonglong uVar14;\n  longlong *plVar15;\n  ulonglong uVar16;\n  char local_48 [8];\n  ulonglong *local_40;\n  longlong local_30;\n  \n  plVar12 = operator_new(0x60);\n  lVar4 = param_3[9];\n  lVar6 = *param_3;\n  lVar10 = param_3[1];\n  fVar1 = *(float *)(param_3 + 5);\n  fVar2 = *(float *)((longlong)param_3 + 0x2c);\n  *plVar12 = 0;\n  plVar12[10] = lVar4;\n  fVar3 = *(float *)(param_3 + 6);\n  fVar7 = *(float *)(param_3 + 4);\n  fVar8 = *(float *)((longlong)param_3 + 0x24);\n  lVar11 = param_3[5];\n  uVar9 = *(undefined4 *)((longlong)param_3 + 0x2c);\n  plVar12[1] = lVar6;\n  plVar12[2] = lVar10;\n  lVar4 = param_3[2];\n  lVar6 = param_3[3];\n  uVar5 = param_2[1];\n  *(float *)(plVar12 + 5) = fVar7;\n  *(float *)((longlong)plVar12 + 0x2c) = fVar8;\n  *(int *)(plVar12 + 6) = (int)lVar11;\n  *(undefined4 *)((longlong)plVar12 + 0x34) = uVar9;\n  plVar12[3] = lVar4;\n  plVar12[4] = lVar6;\n  lVar4 = param_3[7];\n  lVar6 = param_3[8];\n  *(float *)(plVar12 + 7) = fVar3;\n  plVar12[8] = lVar4;\n  plVar12[9] = lVar6;\n  uVar14 = (ulonglong)((uint)(longlong)(fVar7 + fVar8) ^ (uint)(longlong)(fVar1 + fVar2 + fVar3));\n  uVar13 = uVar14 % uVar5;\n  plVar15 = *(longlong **)(*param_2 + uVar13 * 8);\n  if (plVar15 != (longlong *)0x0) {\n    plVar15 = (longlong *)*plVar15;\n    uVar16 = plVar15[0xb];\n    do {\n      if ((((uVar14 == uVar16) && (fVar1 == *(float *)(plVar15 + 6))) &&\n          (fVar2 == *(float *)((longlong)plVar15 + 0x34))) && (fVar3 == *(float *)(plVar15 + 7))) {\n        *(longlong **)this = plVar15;\n        this[8] = (_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n                   )0x0;\n        operator_delete(plVar12);\n        return this;\n      }\n      plVar15 = (longlong *)*plVar15;\n    } while ((plVar15 != (longlong *)0x0) && (uVar16 = plVar15[0xb], uVar13 == uVar16 % uVar5));\n  }\n  local_30 = param_2[5];\n  __detail::_Prime_rehash_policy::_M_need_rehash((ulonglong)local_48,(ulonglong)(param_2 + 4),uVar5)\n  ;\n  if (local_48[0] != '\\0') {\n    _M_rehash((ulonglong)param_2,local_40);\n    uVar13 = uVar14 % (ulonglong)param_2[1];\n  }\n  lVar4 = *param_2;\n  plVar12[0xb] = uVar14;\n  plVar15 = (longlong *)(uVar13 * 8 + lVar4);\n  if ((longlong *)*plVar15 == (longlong *)0x0) {\n    lVar6 = param_2[2];\n    param_2[2] = (longlong)plVar12;\n    *plVar12 = lVar6;\n    if (lVar6 != 0) {\n      *(longlong **)(lVar4 + (*(ulonglong *)(lVar6 + 0x58) % (ulonglong)param_2[1]) * 8) = plVar12;\n    }\n    *plVar15 = (longlong)(param_2 + 2);\n  }\n  else {\n    *plVar12 = *(longlong *)*plVar15;\n    *(longlong **)*plVar15 = plVar12;\n  }\n  param_2[3] = param_2[3] + 1;\n  *(longlong **)this = plVar12;\n  this[8] = (_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n             )0x1;\n  return this;\n}\n\n",
+    "limitations": []
+  },
+  "normalized_result": "\n/* std::pair<std::__detail::_Node_iterator<std::pair<Au3dsGLSLVertex const, AuPoint>, false, true>,\n   bool> std::_Hashtable<Au3dsGLSLVertex, std::pair<Au3dsGLSLVertex const, AuPoint>,\n   std::allocator<std::pair<Au3dsGLSLVertex const, AuPoint> >, std::__detail::_Select1st,\n   std::equal_to<Au3dsGLSLVertex>, Au3dsGLSLVertex_Hash, std::__detail::_Mod_range_hashing,\n   std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy,\n   std::__detail::_Hashtable_traits<true, false, true> >::_M_emplace<std::pair<Au3dsGLSLVertex,\n   AuPoint> >(std::integral_constant<bool, true>, std::pair<Au3dsGLSLVertex, AuPoint>&&) [clone\n   .isra.0] */\n\n_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n* __thiscall\nstd::\n_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n::_M_emplace<std::pair<Au3dsGLSLVertex,AuPoint>>\n          (_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n           *this,longlong *param_2,longlong *param_3)\n\n{\n  float fVar1;\n  float fVar2;\n  float fVar3;\n  longlong lVar4;\n  ulonglong uVar5;\n  longlong lVar6;\n  float fVar7;\n  float fVar8;\n  undefined4 uVar9;\n  longlong lVar10;\n  longlong lVar11;\n  longlong *plVar12;\n  ulonglong uVar13;\n  ulonglong uVar14;\n  longlong *plVar15;\n  ulonglong uVar16;\n  char local_48 [8];\n  ulonglong *local_40;\n  longlong local_30;\n  \n  plVar12 = operator_new(0x60);\n  lVar4 = param_3[9];\n  lVar6 = *param_3;\n  lVar10 = param_3[1];\n  fVar1 = *(float *)(param_3 + 5);\n  fVar2 = *(float *)((longlong)param_3 + 0x2c);\n  *plVar12 = 0;\n  plVar12[10] = lVar4;\n  fVar3 = *(float *)(param_3 + 6);\n  fVar7 = *(float *)(param_3 + 4);\n  fVar8 = *(float *)((longlong)param_3 + 0x24);\n  lVar11 = param_3[5];\n  uVar9 = *(undefined4 *)((longlong)param_3 + 0x2c);\n  plVar12[1] = lVar6;\n  plVar12[2] = lVar10;\n  lVar4 = param_3[2];\n  lVar6 = param_3[3];\n  uVar5 = param_2[1];\n  *(float *)(plVar12 + 5) = fVar7;\n  *(float *)((longlong)plVar12 + 0x2c) = fVar8;\n  *(int *)(plVar12 + 6) = (int)lVar11;\n  *(undefined4 *)((longlong)plVar12 + 0x34) = uVar9;\n  plVar12[3] = lVar4;\n  plVar12[4] = lVar6;\n  lVar4 = param_3[7];\n  lVar6 = param_3[8];\n  *(float *)(plVar12 + 7) = fVar3;\n  plVar12[8] = lVar4;\n  plVar12[9] = lVar6;\n  uVar14 = (ulonglong)((uint)(longlong)(fVar7 + fVar8) ^ (uint)(longlong)(fVar1 + fVar2 + fVar3));\n  uVar13 = uVar14 % uVar5;\n  plVar15 = *(longlong **)(*param_2 + uVar13 * 8);\n  if (plVar15 != (longlong *)0x0) {\n    plVar15 = (longlong *)*plVar15;\n    uVar16 = plVar15[0xb];\n    do {\n      if ((((uVar14 == uVar16) && (fVar1 == *(float *)(plVar15 + 6))) &&\n          (fVar2 == *(float *)((longlong)plVar15 + 0x34))) && (fVar3 == *(float *)(plVar15 + 7))) {\n        *(longlong **)this = plVar15;\n        this[8] = (_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n                   )0x0;\n        operator_delete(plVar12);\n        return this;\n      }\n      plVar15 = (longlong *)*plVar15;\n    } while ((plVar15 != (longlong *)0x0) && (uVar16 = plVar15[0xb], uVar13 == uVar16 % uVar5));\n  }\n  local_30 = param_2[5];\n  __detail::_Prime_rehash_policy::_M_need_rehash((ulonglong)local_48,(ulonglong)(param_2 + 4),uVar5)\n  ;\n  if (local_48[0] != '\\0') {\n    _M_rehash((ulonglong)param_2,local_40);\n    uVar13 = uVar14 % (ulonglong)param_2[1];\n  }\n  lVar4 = *param_2;\n  plVar12[0xb] = uVar14;\n  plVar15 = (longlong *)(uVar13 * 8 + lVar4);\n  if ((longlong *)*plVar15 == (longlong *)0x0) {\n    lVar6 = param_2[2];\n    param_2[2] = (longlong)plVar12;\n    *plVar12 = lVar6;\n    if (lVar6 != 0) {\n      *(longlong **)(lVar4 + (*(ulonglong *)(lVar6 + 0x58) % (ulonglong)param_2[1]) * 8) = plVar12;\n    }\n    *plVar15 = (longlong)(param_2 + 2);\n  }\n  else {\n    *plVar12 = *(longlong *)*plVar15;\n    *(longlong **)*plVar15 = plVar12;\n  }\n  param_2[3] = param_2[3] + 1;\n  *(longlong **)this = plVar12;\n  this[8] = (_Hashtable<Au3dsGLSLVertex,std::pair<Au3dsGLSLVertex_const,AuPoint>,std::allocator<std::pair<Au3dsGLSLVertex_const,AuPoint>>,std::__detail::_Select1st,std::equal_to<Au3dsGLSLVertex>,Au3dsGLSLVertex_Hash,std::__detail::_Mod_range_hashing,std::__detail::_Default_ranged_hash,std::__detail::_Prime_rehash_policy,std::__detail::_Hashtable_traits<true,false,true>>\n             )0x1;\n  return this;\n}\n\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

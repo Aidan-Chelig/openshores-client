@@ -121,3 +121,32 @@ through appending faces. Signed-int capacity overflow is Unsupported before
 mutation. Three tests cover ordinary/preexisting/multiple material keys,
 duplicate membership, UTF-16 preservation, u16 wrapping, per-format smoothing
 and capacity errors. Full instance merging/publication remains unfinished.
+
+## Connection corner values and native vertex hash identity
+
+The reused session retained `native-body-vertex-point-find.json` (141957940,
+0.135s) and `native-body-vertex-point-emplace.json` (1413a7cb0,0.015s).
+Their complete bodies establish that equality checks xyz floats only AFTER
+stored-hash equality. Hash is low32(truncate-i64((x+y)+z)) XOR
+low32(truncate-i64(field20+field24)), with additions in f32. Consequently,
+neither full-payload identity nor xyz-only identity reproduces lookup behavior.
+`NativeBodyVertexPointMap` preserves that combined identity, signed-zero float
+equality and first-insertion-wins values. Nonfinite/out-of-i64-range conversion
+and NaN equality are explicitly Unsupported; no x86 invalid-conversion behavior
+is invented. Bone and weight payload fields do not participate in identity.
+
+`collect_head_connection_normals` reconstructs N/NT corner collection while
+processing source faces (head lines562..662): only primary-remap members
+participate; secondary mappings select destination stored vertices for keys;
+missing/out-of-bounds secondary mappings make `fully_connected` false without
+aborting face construction. First matching vertex key retains its first corner
+triplet from face50..90. `apply_head_connection_normals` reconstructs the later
+all-destination-face pass (head1231..1335), replacing only primary-remap corners
+whose vertex key is found. Existing faces as well as appended faces participate.
+Standard/X bypass this processing and retain the separate smoothing behavior.
+
+Tests cover first-corner retention across coincident vertices, old/new face
+updates, untouched other face fields, incomplete-connection reports, format
+gating and the hash-versus-payload distinctions. Full model instance copying,
+group/material ownership integration, torso merging and cache publication are
+still required before automatic in-game avatars can be claimed.
