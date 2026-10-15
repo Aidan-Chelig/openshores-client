@@ -25,6 +25,7 @@ pub mod native_runaways;
 pub mod native_signals;
 pub mod native_subatoms;
 pub mod native_tick_tock;
+pub mod native_unit;
 mod placement;
 #[cfg(test)]
 mod tests;

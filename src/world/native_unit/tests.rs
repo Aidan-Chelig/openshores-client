@@ -1,0 +1,124 @@
+use super::*;
+use crate::protocol::QtWriter;
+
+#[test]
+fn every_flag_combination_preserves_order_profile_and_suffix_boundary() {
+    for flags in 0..=255 {
+        for encoding in [
+            FloatEncoding::TypeWidths,
+            FloatEncoding::SinglePrecision,
+            FloatEncoding::DoublePrecision,
+        ] {
+            let mut bytes = vec![flags];
+            if flags & 1 != 0 {
+                let mut writer = QtWriter::default();
+                writer.write_string(Some("native 🦀")).unwrap();
+                bytes.extend(writer.into_bytes());
+                bytes.extend(i32::MIN.to_be_bytes());
+                bytes.push(0xfe);
+            }
+            if flags & 2 != 0 {
+                bytes.push(0x42);
+            }
+            if flags & 4 != 0 {
+                for value in [1.25_f32, -2.5, 3.75] {
+                    if encoding == FloatEncoding::DoublePrecision {
+                        bytes.extend(f64::from(value).to_be_bytes());
+                    } else {
+                        bytes.extend(value.to_be_bytes());
+                    }
+                }
+            }
+            let consumed = bytes.len();
+            bytes.push(0xde);
+            let mut fields = NativeUnitFields {
+                vector_330: Some([9.; 3]),
+                ..Default::default()
+            };
+            let mut calls = 0;
+            let mut input = QtReader::new(&bytes);
+            let result = fields
+                .receive(&mut input, encoding, |input| {
+                    calls += 1;
+                    assert_eq!(input.read_u8()?, 0x42);
+                    Ok(())
+                })
+                .unwrap();
+            assert_eq!(
+                result,
+                NativeUnitReceive {
+                    flags,
+                    consumed_bytes: consumed
+                }
+            );
+            assert_eq!(calls, usize::from(flags & 2 != 0));
+            assert_eq!(
+                fields.vector_330,
+                Some(if flags & 4 != 0 {
+                    [1.25, -2.5, 3.75]
+                } else {
+                    [0.; 3]
+                })
+            );
+            assert_eq!(fields.field_3a8, (flags & 1 != 0).then_some(i32::MIN));
+            assert_eq!(fields.field_39c, (flags & 1 != 0).then_some(0xfe));
+            assert_eq!(input.read_u8().unwrap(), 0xde);
+            fields
+                .receive(&mut QtReader::new(&[0]), encoding, |_| {
+                    panic!("omitted conditions")
+                })
+                .unwrap();
+            assert_eq!(fields.vector_330, Some([0.; 3]));
+            assert_eq!(fields.field_39c, (flags & 1 != 0).then_some(0xfe));
+        }
+    }
+}
+
+#[test]
+fn partial_identity_survives_but_incomplete_vector_does_not_replace_old_value() {
+    let mut bytes = vec![5, 0xff, 0xff, 0xff, 0xff]; // null QString
+    bytes.extend((-17_i32).to_be_bytes());
+    bytes.push(0x81);
+    for value in [1_f32, 2., 3.] {
+        bytes.extend(value.to_be_bytes());
+    }
+    for end in 10..bytes.len() {
+        let mut fields = NativeUnitFields {
+            vector_330: Some([9.; 3]),
+            ..Default::default()
+        };
+        assert!(
+            fields
+                .receive(
+                    &mut QtReader::new(&bytes[..end]),
+                    FloatEncoding::TypeWidths,
+                    |_| panic!()
+                )
+                .is_err()
+        );
+        assert_eq!(fields.field_3b0, Some(None));
+        assert_eq!(fields.field_3a8, Some(-17));
+        assert_eq!(fields.field_39c, Some(0x81));
+        assert_eq!(fields.vector_330, Some([9.; 3]));
+    }
+}
+
+#[test]
+fn condition_error_stops_before_vector_even_when_vector_would_be_reset() {
+    let mut fields = NativeUnitFields {
+        vector_330: Some([9.; 3]),
+        ..Default::default()
+    };
+    let mut input = QtReader::new(&[2, 0xde]);
+    let error = fields
+        .receive(&mut input, FloatEncoding::TypeWidths, |_| {
+            Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "nested body unresolved",
+            ))
+        })
+        .unwrap_err();
+    assert_eq!(error.kind(), io::ErrorKind::Unsupported);
+    assert_eq!(fields.vector_330, Some([9.; 3]));
+    assert_eq!(input.read_u8().unwrap(), 0xde);
+}

@@ -28,3 +28,14 @@ Constructor defaults and semantic field names are not established here.
 
 Next reconstruct the condition-list reader, then implement the ordered Unit
 layer in a module folder and compose it into the full native Person pipeline.
+
+`world::native_unit::NativeUnitFields` now implements the ordered scalar stage:
+independent string/integer/byte writes, a required condition-list callback,
+then the explicit vector read/reset. Each floating wire profile is explicit;
+DoublePrecision still narrows to the native float destination before widening
+to stored doubles. Constructor defaults remain unobserved Options. Earlier
+writes survive later Rust errors; the vector is assigned only after all three
+reads. Tests exercise all 256 flags under all three profiles, suffix boundaries,
+sparse retention versus vector reset, partial reads and nested-condition failure.
+The callback is not yet connected to a concrete full condition list. This is
+not a complete Unit object, Qt-lock emulation or Person pipeline integration.
