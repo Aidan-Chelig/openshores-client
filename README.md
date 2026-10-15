@@ -19,6 +19,9 @@ to the installation or repository. `HAZERON_INSTALL` preselects a folder.
 See [asset mounting, cache and current conversion scope](docs/assets.md).
 
 For the offline native avatar diagnostic, run `just preview-avatar body`.
+The body preview includes a modern render-only wrist/ankle seam repair; source
+assets and native geometry remain unchanged. Add `--native-seams` to the
+`view-native-body INSTALLATION body` command for the unrepaired comparison.
 `just preview-avatar body reference/hazeron 60 many side` selects the second
 anatomy and side view; views are `oblique`, `front`, `side`, and `back`.
 `just preview-avatar-untextured body` checks the same posed geometry without

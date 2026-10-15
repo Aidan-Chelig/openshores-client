@@ -2,7 +2,9 @@
 //! Allocation is an initialization phase, not successful complete model creation.
 mod avatar;
 mod avatar_pose;
+mod avatar_seams;
 pub use avatar_pose::{NativeDpAvatarCorner, NativeDpPosedAvatarSurface};
+pub use avatar_seams::{NativeAvatarEndCap, NativeAvatarSeamRepair, native_avatar_end_cap};
 mod dp;
 mod textures;
 pub use avatar::{NativeDpAvatarGeometry, NativeDpAvatarSource, NativeDpAvatarSurface};

@@ -1,8 +1,61 @@
 # Assembled avatar: evidence and implementation ledger
 
+## User-approved modern seam repair
+
+After the native deformation/definition audits, the user explicitly chose a
+render-only seam repair rather than preserving the gaps as a fidelity limitation.
+This supersedes the earlier prohibition on corrective rendering, not the requirement
+to retain native geometry and honestly separate modern choices from recovered code.
+
+The complete triangle-contact diagnostic (vertex/face, segment/face and edge/edge)
+finds separation already in the unposed model-space surfaces of both fixtures.
+Every arm/hand and leg/foot source is closed after exact render-f32 position
+canonicalization, including UV-duplicate seams. There are no open cuff loops.
+
+`avatar_seams.rs` therefore derives a separate combined render surface for each
+limb. The actual native wrist/ankle point anchors a modern end-cap heuristic:
+choose the nearest face centroid whose outward normal has dot >0.8 with the
+surface-center-to-joint direction, then take its connected normal neighborhood
+(dot >0.5 with the seed). Require a single nonbranching perimeter and closed
+source topology. These thresholds and centroid selection are modern heuristics,
+not reverse-engineered native operations or general support for every DNA shape.
+
+Remove only those cap faces in the derived copy and bridge the two directed
+perimeters with a minimum-cost monotone zipper. Reverse the second perimeter,
+anchor at the closest endpoint pair and restrict progress difference to less than
+half a turn to prevent a cross-edge being reused four times. All original vertex
+positions, raw four-influence weights, atlas UVs and texture controls are copied
+unchanged; no parts are translated. Sleeve faces inherit a cap material membership
+from their advancing side. New sleeve UV interpolation deliberately spans existing
+endpoint UVs; it is not a newly recovered native unwrap. Smooth the combined model
+before posing/material partitioning, so sleeve normals share crease rules.
+
+`seam_repairs()` exposes source surface indices, the combined vertex split,
+removed cap counts, bridge counts and derived geometry. The original source
+generation and `posed_surfaces()` remain unchanged. The body viewer opts into
+`posed_surfaces_with_seam_repair()` by default; `--native-seams` selects the original.
+Source installations are never modified. Mounted tests exercise all 12 joins
+across both fixtures, verify unchanged attributes and reject degenerate triangles,
+open edges and inconsistent winding. The full-avatar goal still requires visual
+acceptance; this repair does not address the torso's existing thin/open surfaces.
+
+Verification: all 12 repaired joins also retain closed edges after actual native
+bone skinning and homogeneous division. All 723 default library tests, 742 viewer
+library tests and 11 viewer CLI tests pass (asset-dependent tests are separate).
+Viewer/library/CLI and attachment-test Clippy passes with warnings denied.
+The 11 GPU captures in ignored `target/avatar-textures-362sjyke/` pass nonblank
+and shader-error checks and were all opened for visual inspection: both anatomies
+from oblique/front/side/back, the base untextured comparison, and head/torso
+regressions. Cuffs are derived without part translation; no new detached limb
+pieces were observed. Tiny textured features and modern sleeve UV interpolation
+are not a claim of native runtime visual parity. Torso openings remain visible
+in textured and untextured views, so the complete-avatar goal remains active.
+
 Objective: [complete assembled avatar preview](assembled-avatar-goal.md).
-CPU full-body source generation and the Stand skeleton are implemented. Final
-posed render geometry, `preview-avatar body` and visual verification remain unfinished.
+CPU full-body source generation, the Stand skeleton, posed render geometry and
+`preview-avatar body` are implemented. Both anatomies have inspected GPU captures;
+the remaining torso-surface issue keeps full visual acceptance unfinished. The
+following audit sections retain the historical sequence of the reconstruction.
 
 ## Initial audit and coordinate boundary
 

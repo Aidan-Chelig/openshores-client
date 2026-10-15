@@ -15,7 +15,7 @@ use std::{io, path::Path};
 pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     if args.len() < 2 || !matches!(args[1].as_str(), "head" | "torso" | "body") {
         return Err(
-            "usage: view-native-body INSTALLATION head|torso|body [--fixture base|many] [--view oblique|front|side|back] [--smooth-angle DEGREES] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames N]".into(),
+            "usage: view-native-body INSTALLATION head|torso|body [--fixture base|many] [--view oblique|front|side|back] [--native-seams] [--smooth-angle DEGREES] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames N]".into(),
         );
     }
     let (angle, options) = smoothing_options(&args[2..])?;
@@ -24,9 +24,11 @@ pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     let mut flags = Vec::new();
     let mut fixture = None;
     let mut view = None;
+    let mut native_seams = false;
     let mut options = options.iter();
     while let Some(option) = options.next() {
         match option.as_str() {
+            "--native-seams" if !native_seams => native_seams = true,
             "--fixture" if fixture.is_none() => {
                 fixture = Some(
                     options
@@ -51,7 +53,7 @@ pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                         .ok_or("--screenshot requires a new PNG path")?,
                 ))
             }
-            "--untextured" | "--screenshot" | "--fixture" | "--view" => {
+            "--untextured" | "--screenshot" | "--fixture" | "--view" | "--native-seams" => {
                 return Err("duplicate preview option".into());
             }
             _ => flags.push(option.clone()),
@@ -102,11 +104,12 @@ pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                 screenshot,
             },
             view,
+            !native_seams,
         )?;
         return Ok(());
     }
-    if fixture.is_some() || view.is_some() {
-        return Err("--fixture and --view are currently body-only options".into());
+    if fixture.is_some() || view.is_some() || native_seams {
+        return Err("--fixture, --view and --native-seams are body-only options".into());
     }
     if !untextured {
         let mount = AssetMount::open(&args[0])?;
@@ -321,6 +324,7 @@ mod tests {
             vec!["--view", "unknown"],
             vec!["--view"],
             vec!["--fixture", "base", "--fixture", "many"],
+            vec!["--native-seams", "--native-seams"],
             vec!["--view", "front", "--view", "back"],
         ] {
             let args = [vec!["absent-installation", "body"], flags].concat();

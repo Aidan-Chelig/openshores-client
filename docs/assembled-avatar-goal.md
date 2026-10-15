@@ -14,6 +14,14 @@ inspection found apparent small hand/foot-end gaps and the existing thin/open
 torso surfaces. Those require evidence-led investigation before visual assembly
 can be accepted. The goal remains active; passing smoke checks are not completion.
 
+The native-path audit found model-space separation before posing despite shared
+wrist/ankle bone points and matching source assets. The user approved an explicit
+modern **render-only seam repair**. It replaces facing closed end caps with a
+derived triangle sleeve, retaining the original vertices, UVs, weights and pose.
+The body viewer uses this repair; `--native-seams` retains the fidelity-reference
+path. This is intentionally not a newly claimed native algorithm. Its mounted
+topology tests cover both anatomies; visual acceptance remains a separate check.
+
 ## Objective
 
 Render one complete, textured avatar in a verified neutral standing pose in the

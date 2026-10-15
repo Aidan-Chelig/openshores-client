@@ -6,6 +6,8 @@ use std::io;
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeDpAvatarCorner {
     /// Face-major source vertex, retained for payload/UV/normal diagnostics.
+    /// With seam repair, indexes the derived combined surface; its repair
+    /// report identifies the two sources and their vertex-index split.
     pub source_vertex: usize,
     /// Native homogeneous shader result. No weight normalization or W discard.
     pub position: [f32; 4],
@@ -18,7 +20,8 @@ pub struct NativeDpAvatarCorner {
 pub struct NativeDpPosedAvatarSurface {
     pub surface_index: usize,
     pub part_index: usize,
-    /// Face order matches the original surface, independent of material splits.
+    /// Face order matches the input render surface, independent of material
+    /// splits. The explicit repair path uses its derived combined surface.
     pub corners: Vec<NativeDpAvatarCorner>,
     pub material_memberships: Vec<Vec<Vec<u16>>>,
 }
@@ -52,7 +55,7 @@ impl NativeDpAvatarGeometry {
     }
 }
 
-fn skin_corners(
+pub(super) fn skin_corners(
     surface: &NativeBodySurfacePreview,
     bones: &NativeDpBoneTransforms,
     angle: f64,

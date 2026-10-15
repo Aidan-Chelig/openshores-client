@@ -124,11 +124,13 @@ fn render_avatar(
 
 /// `None` atlas selects an explicit white untextured diagnostic with identical
 /// posed corners/normals, not a recomputed generic model-viewer mesh.
+/// `repair_seams` opts into modern derived cuffs; false retains native surfaces.
 pub fn run_textured_avatar(
     avatar: &NativeDpAvatarGeometry,
     atlas_png: Option<&[u8]>,
     options: NativeSkinPreviewOptions,
     view: NativeAvatarView,
+    repair_seams: bool,
 ) -> io::Result<()> {
     if let Some(path) = &options.screenshot
         && (path.symlink_metadata().is_ok() || options.smoke_frames.is_some_and(|n| n < 900))
@@ -144,7 +146,12 @@ pub fn run_textured_avatar(
     {
         return Err(invalid("nonfinite avatar skin offsets"));
     }
-    let (display, meshes) = render_avatar(&avatar.posed_surfaces(options.angle_degrees)?)?;
+    let surfaces = if repair_seams {
+        avatar.posed_surfaces_with_seam_repair(options.angle_degrees)?
+    } else {
+        avatar.posed_surfaces(options.angle_degrees)?
+    };
+    let (display, meshes) = render_avatar(&surfaces)?;
     let image = if let Some(bytes) = atlas_png {
         decode_atlas(bytes)?
     } else {
@@ -161,10 +168,15 @@ pub fn run_textured_avatar(
         )
     };
     println!(
-        "Assembled avatar: {} surfaces, {} render partitions; CPU-smoothed/skinned normals, retained homogeneous W, native XYZ unchanged; {:?} view.",
-        avatar.surfaces.len(),
+        "Assembled avatar: {} render surfaces, {} render partitions; CPU-smoothed/skinned normals, retained homogeneous W, source XYZ unchanged; {:?} view; seam repair {}.",
+        surfaces.len(),
         meshes.len(),
-        view
+        view,
+        if repair_seams {
+            "enabled (modern)"
+        } else {
+            "disabled (native)"
+        }
     );
     launch_with_skin(
         display,
