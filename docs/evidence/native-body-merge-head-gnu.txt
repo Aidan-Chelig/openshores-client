@@ -1,0 +1,1985 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001413a7ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d>:
+   1413a7ea0:	push   %r15
+   1413a7ea2:	push   %r14
+   1413a7ea4:	push   %r13
+   1413a7ea6:	push   %r12
+   1413a7ea8:	push   %rbp
+   1413a7ea9:	push   %rdi
+   1413a7eaa:	push   %rsi
+   1413a7eab:	push   %rbx
+   1413a7eac:	sub    $0x2e8,%rsp
+   1413a7eb3:	movaps %xmm6,0x290(%rsp)
+   1413a7ebb:	movaps %xmm7,0x2a0(%rsp)
+   1413a7ec3:	movaps %xmm8,0x2b0(%rsp)
+   1413a7ecc:	movaps %xmm9,0x2c0(%rsp)
+   1413a7ed5:	movaps %xmm10,0x2d0(%rsp)
+   1413a7ede:	mov    (%rdx),%rbx
+   1413a7ee1:	mov    %rcx,0x330(%rsp)
+   1413a7ee9:	movapd %xmm2,%xmm6
+   1413a7eed:	mov    %rdx,0x338(%rsp)
+   1413a7ef5:	test   %rbx,%rbx
+   1413a7ef8:	je     1413aa18f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x22ef>
+   1413a7efe:	lea    0x18(%rbx),%rcx
+   1413a7f02:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a7f07:	mov    0x18(%rbx),%rax
+   1413a7f0b:	mov    0x10(%rax),%rdx
+   1413a7f0f:	cmpb   $0x0,0x369(%rax,%rdx,1)
+   1413a7f17:	je     1413a82c2 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x422>
+   1413a7f1d:	lea    0xd0(%rsp),%rax
+   1413a7f25:	mov    %rax,0x60(%rsp)
+   1413a7f2a:	mov    0x338(%rsp),%rax
+   1413a7f32:	mov    (%rax),%rbx
+   1413a7f35:	mov    0x330(%rsp),%rax
+   1413a7f3d:	movupd 0x120(%rbx),%xmm5
+   1413a7f45:	lea    0x18(%rbx),%rcx
+   1413a7f49:	movups %xmm5,0x120(%rax)
+   1413a7f50:	movsd  0x130(%rbx),%xmm0
+   1413a7f58:	movsd  %xmm0,0x130(%rax)
+   1413a7f60:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a7f65:	mov    0x18(%rbx),%rax
+   1413a7f69:	add    0x10(%rax),%rax
+   1413a7f6d:	lea    0x1cc(%rax),%r12
+   1413a7f74:	mov    0x330(%rsp),%rax
+   1413a7f7c:	lea    0x18(%rax),%rdi
+   1413a7f80:	mov    %rdi,%rcx
+   1413a7f83:	mov    %rdi,0x48(%rsp)
+   1413a7f88:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a7f8d:	mov    0x330(%rsp),%rax
+   1413a7f95:	mov    %r12,%rdx
+   1413a7f98:	mov    0x18(%rax),%rax
+   1413a7f9c:	add    0x10(%rax),%rax
+   1413a7fa0:	lea    0x1cc(%rax),%rcx
+   1413a7fa7:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a7fac:	mov    0x14ea5f5(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a7fb3:	mov    %rdi,%rcx
+   1413a7fb6:	movss  0xf2733d(%rip),%xmm9        # 1422cf2fc <.rdata+0x4dc>
+   1413a7fbf:	movq   $0x1,0xd8(%rsp)
+   1413a7fcb:	mov    %rax,0xb8(%rsp)
+   1413a7fd3:	lea    0x100(%rsp),%rax
+   1413a7fdb:	mov    %rax,0xd0(%rsp)
+   1413a7fe3:	lea    0x140(%rsp),%rax
+   1413a7feb:	mov    %rax,0x110(%rsp)
+   1413a7ff3:	lea    0x110(%rsp),%rax
+   1413a7ffb:	movq   $0x0,0xe0(%rsp)
+   1413a8007:	movq   $0x0,0xe8(%rsp)
+   1413a8013:	movq   $0x0,0xf8(%rsp)
+   1413a801f:	movq   $0x0,0x100(%rsp)
+   1413a802b:	movq   $0x1,0x118(%rsp)
+   1413a8037:	movq   $0x0,0x120(%rsp)
+   1413a8043:	movq   $0x0,0x128(%rsp)
+   1413a804f:	movq   $0x0,0x138(%rsp)
+   1413a805b:	movq   $0x0,0x140(%rsp)
+   1413a8067:	mov    %rax,0x68(%rsp)
+   1413a806c:	movss  %xmm9,0xf0(%rsp)
+   1413a8076:	movss  %xmm9,0x130(%rsp)
+   1413a8080:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8085:	mov    0x330(%rsp),%rax
+   1413a808d:	mov    0x18(%rax),%rbx
+   1413a8091:	lea    0x110(%rsp),%rax
+   1413a8099:	mov    %rax,0x68(%rsp)
+   1413a809e:	add    0x10(%rbx),%rbx
+   1413a80a2:	lea    0x130(%rbx),%rcx
+   1413a80a9:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a80ae:	mov    0x130(%rbx),%rbp
+   1413a80b5:	lea    0x110(%rsp),%rax
+   1413a80bd:	mov    0x14ea4ec(%rip),%r15        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a80c4:	mov    %rax,0x68(%rsp)
+   1413a80c9:	movq   0xf271bf(%rip),%xmm7        # 1422cf290 <.rdata+0x470>
+   1413a80d1:	add    0x10(%rbp),%rbp
+   1413a80d5:	add    $0x28,%rbp
+   1413a80d9:	nopl   0x0(%rax)
+   1413a80e0:	mov    0x48(%rsp),%rcx
+   1413a80e5:	lea    -0x28(%rbp),%r12
+   1413a80e9:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a80ee:	mov    0x330(%rsp),%rax
+   1413a80f6:	mov    0x18(%rax),%rbx
+   1413a80fa:	add    0x10(%rbx),%rbx
+   1413a80fe:	lea    0x130(%rbx),%rcx
+   1413a8105:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a810a:	mov    0x130(%rbx),%rax
+   1413a8111:	mov    0x10(%rax),%rdx
+   1413a8115:	add    %rax,%rdx
+   1413a8118:	movslq 0x4(%rax),%rax
+   1413a811c:	lea    (%rax,%rax,2),%rcx
+   1413a8120:	lea    (%rax,%rcx,4),%rax
+   1413a8124:	lea    (%rdx,%rax,4),%rax
+   1413a8128:	cmp    %rax,%r12
+   1413a812b:	je     1413a8874 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x9d4>
+   1413a8131:	mov    0x48(%rsp),%rdi
+   1413a8136:	movq   0x0(%rbp),%xmm0
+   1413a813b:	pxor   %xmm1,%xmm1
+   1413a813f:	cvtss2sd 0x30(%r12),%xmm1
+   1413a8146:	movsd  %xmm1,0x1a0(%rsp)
+   1413a814f:	mov    %rdi,%rcx
+   1413a8152:	cvtps2pd %xmm0,%xmm0
+   1413a8155:	movaps %xmm0,0x190(%rsp)
+   1413a815d:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8162:	mov    0x330(%rsp),%rax
+   1413a816a:	lea    0x1e0(%rsp),%r13
+   1413a8172:	lea    0x190(%rsp),%r8
+   1413a817a:	mov    %r13,%rcx
+   1413a817d:	mov    0x18(%rax),%rdx
+   1413a8181:	add    0x10(%rdx),%rdx
+   1413a8185:	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a818a:	movapd 0x1e0(%rsp),%xmm4
+   1413a8193:	mov    %rdi,%rcx
+   1413a8196:	movsd  0x1f0(%rsp),%xmm0
+   1413a819f:	movaps %xmm4,0x190(%rsp)
+   1413a81a7:	movsd  %xmm0,0x1a0(%rsp)
+   1413a81b0:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a81b5:	mov    0x330(%rsp),%rax
+   1413a81bd:	mov    0x18(%rax),%rbx
+   1413a81c1:	add    0x10(%rbx),%rbx
+   1413a81c5:	lea    0x138(%rbx),%rcx
+   1413a81cc:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   1413a81d1:	mov    0x138(%rbx),%rsi
+   1413a81d8:	mov    0x14ea3d1(%rip),%rdi        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a81df:	add    0x10(%rsi),%rsi
+   1413a81e3:	jmp    1413a8282 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x3e2>
+   1413a81e8:	nopl   0x0(%rax,%rax,1)
+   1413a81f0:	mov    $0x2,%r9d
+   1413a81f6:	xor    %r8d,%r8d
+   1413a81f9:	mov    $0x8,%edx
+   1413a81fe:	mov    $0x418,%ecx
+   1413a8203:	call   *%r15
+   1413a8206:	mov    %rax,%rbx
+   1413a8209:	mov    0x330(%rsp),%rax
+   1413a8211:	mov    %rbx,0x18(%rax)
+   1413a8215:	add    0x10(%rbx),%rbx
+   1413a8219:	mov    0x138(%rbx),%rax
+   1413a8220:	mov    (%rax),%edx
+   1413a8222:	cmp    $0x1,%edx
+   1413a8225:	jbe    1413a8252 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x3b2>
+   1413a8227:	mov    0x8(%rax),%edx
+   1413a822a:	and    $0x7fffffff,%edx
+   1413a8230:	jne    1413a84a0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x600>
+   1413a8236:	mov    $0x2,%r9d
+   1413a823c:	xor    %r8d,%r8d
+   1413a823f:	mov    $0x8,%edx
+   1413a8244:	mov    $0x90,%ecx
+   1413a8249:	call   *%rdi
+   1413a824b:	mov    %rax,0x138(%rbx)
+   1413a8252:	mov    0x10(%rax),%rdx
+   1413a8256:	add    %rax,%rdx
+   1413a8259:	movslq 0x4(%rax),%rax
+   1413a825d:	lea    (%rax,%rax,8),%rax
+   1413a8261:	shl    $0x4,%rax
+   1413a8265:	add    %rdx,%rax
+   1413a8268:	cmp    %rax,%rsi
+   1413a826b:	je     1413a84c0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x620>
+   1413a8271:	cmpl   $0x8,0x34(%rsi)
+   1413a8275:	je     1413a8560 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x6c0>
+   1413a827b:	add    $0x90,%rsi
+   1413a8282:	mov    0x330(%rsp),%rax
+   1413a828a:	mov    0x18(%rax),%rbx
+   1413a828e:	mov    (%rbx),%eax
+   1413a8290:	cmp    $0x1,%eax
+   1413a8293:	jbe    1413a8215 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x375>
+   1413a8295:	mov    0x8(%rbx),%edx
+   1413a8298:	and    $0x7fffffff,%edx
+   1413a829e:	je     1413a81f0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x350>
+   1413a82a4:	mov    0x48(%rsp),%rcx
+   1413a82a9:	xor    %r8d,%r8d
+   1413a82ac:	call   141855880 <_ZN7QVectorI15Au3dsGLSLObjectE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a82b1:	mov    0x330(%rsp),%rax
+   1413a82b9:	mov    0x18(%rax),%rbx
+   1413a82bd:	jmp    1413a8215 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x375>
+   1413a82c2:	mov    0x338(%rsp),%rax
+   1413a82ca:	lea    0x1e0(%rsp),%rbp
+   1413a82d2:	lea    0x190(%rsp),%rdi
+   1413a82da:	mov    (%rax),%rbx
+   1413a82dd:	lea    0x18(%rbx),%rcx
+   1413a82e1:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a82e6:	mov    0x18(%rbx),%rbx
+   1413a82ea:	add    0x10(%rbx),%rbx
+   1413a82ee:	lea    0x130(%rbx),%rcx
+   1413a82f5:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a82fa:	mov    0x130(%rbx),%rsi
+   1413a8301:	mov    0x338(%rsp),%r13
+   1413a8309:	add    0x10(%rsi),%rsi
+   1413a830d:	lea    0x28(%rsi),%r12
+   1413a8311:	jmp    1413a8385 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x4e5>
+   1413a8313:	nopl   0x0(%rax,%rax,1)
+   1413a8318:	mov    0x0(%r13),%rbx
+   1413a831c:	pxor   %xmm1,%xmm1
+   1413a8320:	add    $0x34,%rsi
+   1413a8324:	add    $0x34,%r12
+   1413a8328:	movq   -0x34(%r12),%xmm0
+   1413a832f:	cvtss2sd -0x4(%rsi),%xmm1
+   1413a8334:	movsd  %xmm1,0x1a0(%rsp)
+   1413a833d:	lea    0x18(%rbx),%rcx
+   1413a8341:	cvtps2pd %xmm0,%xmm0
+   1413a8344:	movaps %xmm0,0x190(%rsp)
+   1413a834c:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8351:	mov    0x18(%rbx),%rdx
+   1413a8355:	mov    %rdi,%r8
+   1413a8358:	mov    %rbp,%rcx
+   1413a835b:	add    0x10(%rdx),%rdx
+   1413a835f:	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a8364:	movsd  0x1f0(%rsp),%xmm0
+   1413a836d:	cvtpd2ps 0x1e0(%rsp),%xmm1
+   1413a8376:	movlps %xmm1,-0x34(%r12)
+   1413a837c:	cvtsd2ss %xmm0,%xmm0
+   1413a8380:	movss  %xmm0,-0x4(%rsi)
+   1413a8385:	mov    0x0(%r13),%rbx
+   1413a8389:	lea    0x18(%rbx),%rcx
+   1413a838d:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8392:	mov    0x18(%rbx),%rbx
+   1413a8396:	add    0x10(%rbx),%rbx
+   1413a839a:	lea    0x130(%rbx),%rcx
+   1413a83a1:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a83a6:	mov    0x130(%rbx),%rax
+   1413a83ad:	mov    0x10(%rax),%rdx
+   1413a83b1:	add    %rax,%rdx
+   1413a83b4:	movslq 0x4(%rax),%rax
+   1413a83b8:	lea    (%rax,%rax,2),%rcx
+   1413a83bc:	lea    (%rax,%rcx,4),%rax
+   1413a83c0:	lea    (%rdx,%rax,4),%rax
+   1413a83c4:	cmp    %rax,%rsi
+   1413a83c7:	jne    1413a8318 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x478>
+   1413a83cd:	mov    0x338(%rsp),%rax
+   1413a83d5:	mov    (%rax),%rbx
+   1413a83d8:	lea    0x18(%rbx),%rcx
+   1413a83dc:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a83e1:	mov    0x18(%rbx),%rbx
+   1413a83e5:	add    0x10(%rbx),%rbx
+   1413a83e9:	lea    0x138(%rbx),%rcx
+   1413a83f0:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   1413a83f5:	mov    0x138(%rbx),%rbx
+   1413a83fc:	mov    0x338(%rsp),%rdi
+   1413a8404:	add    0x10(%rbx),%rbx
+   1413a8408:	jmp    1413a8421 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x581>
+   1413a840a:	nopw   0x0(%rax,%rax,1)
+   1413a8410:	cmpl   $0x9,0x34(%rbx)
+   1413a8414:	je     1413a9f70 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x20d0>
+   1413a841a:	add    $0x90,%rbx
+   1413a8421:	mov    (%rdi),%rsi
+   1413a8424:	lea    0x18(%rsi),%rcx
+   1413a8428:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a842d:	mov    0x18(%rsi),%rsi
+   1413a8431:	add    0x10(%rsi),%rsi
+   1413a8435:	lea    0x138(%rsi),%rcx
+   1413a843c:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   1413a8441:	mov    0x138(%rsi),%rdx
+   1413a8448:	mov    0x10(%rdx),%rax
+   1413a844c:	add    %rdx,%rax
+   1413a844f:	movslq 0x4(%rdx),%rdx
+   1413a8453:	lea    (%rdx,%rdx,8),%rdx
+   1413a8457:	shl    $0x4,%rdx
+   1413a845b:	add    %rdx,%rax
+   1413a845e:	cmp    %rax,%rbx
+   1413a8461:	jne    1413a8410 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x570>
+   1413a8463:	lea    0xd0(%rsp),%rax
+   1413a846b:	mov    %rax,0x60(%rsp)
+   1413a8470:	mov    0x338(%rsp),%rax
+   1413a8478:	mov    (%rax),%rbx
+   1413a847b:	lea    0x18(%rbx),%rcx
+   1413a847f:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8484:	mov    0x18(%rbx),%rax
+   1413a8488:	mov    0x10(%rax),%rdx
+   1413a848c:	movb   $0x1,0x369(%rax,%rdx,1)
+   1413a8494:	jmp    1413a7f2a <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x8a>
+   1413a8499:	nopl   0x0(%rax)
+   1413a84a0:	lea    0x138(%rbx),%rcx
+   1413a84a7:	xor    %r8d,%r8d
+   1413a84aa:	call   141855f20 <_ZN7QVectorI15Au3dsGLSLVGroupE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a84af:	mov    0x138(%rbx),%rax
+   1413a84b6:	jmp    1413a8252 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x3b2>
+   1413a84bb:	nopl   0x0(%rax,%rax,1)
+   1413a84c0:	mov    0x338(%rsp),%rax
+   1413a84c8:	cvtpd2ps 0x190(%rsp),%xmm0
+   1413a84d1:	movlps %xmm0,0x0(%rbp)
+   1413a84d5:	pxor   %xmm0,%xmm0
+   1413a84d9:	cvtsd2ss 0x1a0(%rsp),%xmm0
+   1413a84e2:	mov    (%rax),%rdi
+   1413a84e5:	movss  %xmm0,0x30(%r12)
+   1413a84ec:	lea    0x18(%rdi),%rcx
+   1413a84f0:	movl   $0x0,0x150(%rsp)
+   1413a84fb:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8500:	mov    0x18(%rdi),%rax
+   1413a8504:	mov    %r12,%rdx
+   1413a8507:	mov    %r13,%rcx
+   1413a850a:	add    0x10(%rax),%rax
+   1413a850e:	lea    0x130(%rax),%r14
+   1413a8515:	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a851a:	movapd %xmm6,%xmm2
+   1413a851e:	mov    %r13,%rdx
+   1413a8521:	mov    %r14,%rcx
+   1413a8524:	mov    $0x1,%r9d
+   1413a852a:	call   14139c1c0 <_ZN20Au3dsGLSLVertexArray11AddIfUniqueE15Au3dsGLSLVertexdb>
+   1413a852f:	mov    %eax,0x150(%rsp)
+   1413a8536:	lea    0x150(%rsp),%rax
+   1413a853e:	lea    0xb8(%rsp),%rcx
+   1413a8546:	mov    %rax,%rdx
+   1413a8549:	call   141860c50 <_ZN7QVectorIiE6appendERKi>
+   1413a854e:	add    $0x34,%rbp
+   1413a8552:	jmp    1413a80e0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x240>
+   1413a8557:	nopw   0x0(%rax,%rax,1)
+   1413a8560:	mov    0x40(%rsi),%r8
+   1413a8564:	mov    (%r8),%eax
+   1413a8567:	lea    0x8(%r8),%rbx
+   1413a856b:	cmp    $0x1,%eax
+   1413a856e:	ja     1413a8770 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x8d0>
+   1413a8574:	mov    0x10(%r8),%rcx
+   1413a8578:	mov    %r12,%rdx
+   1413a857b:	add    $0x8,%r8
+   1413a857f:	call   1413933c0 <_ZNK8QMapDataI15Au3dsGLSLVertexdE8findNodeERKS0_.isra.0>
+   1413a8584:	mov    0x338(%rsp),%rdi
+   1413a858c:	pxor   %xmm0,%xmm0
+   1413a8590:	cvtpd2ps 0x190(%rsp),%xmm1
+   1413a8599:	cvtsd2ss 0x1a0(%rsp),%xmm0
+   1413a85a2:	test   %rax,%rax
+   1413a85a5:	cmove  %r8,%rax
+   1413a85a9:	mov    (%rdi),%rdi
+   1413a85ac:	movlps %xmm1,0x0(%rbp)
+   1413a85b0:	cmp    %rax,%rbx
+   1413a85b3:	je     1413a84e5 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x645>
+   1413a85b9:	movss  %xmm0,0x30(%r12)
+   1413a85c0:	lea    0x18(%rdi),%rcx
+   1413a85c4:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a85c9:	mov    0x18(%rdi),%rax
+   1413a85cd:	mov    0x10(%rax),%rdx
+   1413a85d1:	mov    0x130(%rax,%rdx,1),%rax
+   1413a85d9:	movd   0x4(%rax),%xmm8
+   1413a85df:	mov    0x338(%rsp),%rax
+   1413a85e7:	movd   %xmm8,0x150(%rsp)
+   1413a85f1:	mov    (%rax),%rbx
+   1413a85f4:	lea    0x18(%rbx),%rcx
+   1413a85f8:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a85fd:	mov    0x18(%rbx),%rbx
+   1413a8601:	add    0x10(%rbx),%rbx
+   1413a8605:	lea    0x130(%rbx),%rcx
+   1413a860c:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a8611:	mov    0x130(%rbx),%rbx
+   1413a8618:	mov    0x338(%rsp),%rax
+   1413a8620:	xor    %esi,%esi
+   1413a8622:	mov    (%rax),%rdi
+   1413a8625:	add    0x10(%rbx),%rbx
+   1413a8629:	jmp    1413a86ac <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x80c>
+   1413a862e:	xchg   %ax,%ax
+   1413a8630:	movss  0x28(%rbx),%xmm1
+   1413a8635:	pxor   %xmm0,%xmm0
+   1413a8639:	pxor   %xmm2,%xmm2
+   1413a863d:	cvtss2sd 0x28(%r12),%xmm2
+   1413a8644:	cvtss2sd %xmm1,%xmm0
+   1413a8648:	subsd  %xmm2,%xmm0
+   1413a864c:	andpd  %xmm7,%xmm0
+   1413a8650:	comisd %xmm0,%xmm6
+   1413a8654:	jb     1413a86a5 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x805>
+   1413a8656:	movss  0x2c(%rbx),%xmm0
+   1413a865b:	pxor   %xmm2,%xmm2
+   1413a865f:	cvtss2sd 0x2c(%r12),%xmm2
+   1413a8666:	unpcklps %xmm0,%xmm1
+   1413a8669:	cvtss2sd %xmm0,%xmm0
+   1413a866d:	subsd  %xmm2,%xmm0
+   1413a8671:	andpd  %xmm7,%xmm0
+   1413a8675:	comisd %xmm0,%xmm6
+   1413a8679:	jb     1413a86a5 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x805>
+   1413a867b:	movss  0x30(%rbx),%xmm2
+   1413a8680:	pxor   %xmm0,%xmm0
+   1413a8684:	pxor   %xmm3,%xmm3
+   1413a8688:	cvtss2sd 0x30(%r12),%xmm3
+   1413a868f:	cvtss2sd %xmm2,%xmm0
+   1413a8693:	subsd  %xmm3,%xmm0
+   1413a8697:	andpd  %xmm7,%xmm0
+   1413a869b:	comisd %xmm0,%xmm6
+   1413a869f:	jae    1413a87cc <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x92c>
+   1413a86a5:	add    $0x1,%esi
+   1413a86a8:	add    $0x34,%rbx
+   1413a86ac:	lea    0x18(%rdi),%rcx
+   1413a86b0:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a86b5:	mov    0x18(%rdi),%rdi
+   1413a86b9:	add    0x10(%rdi),%rdi
+   1413a86bd:	lea    0x130(%rdi),%rcx
+   1413a86c4:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a86c9:	mov    0x130(%rdi),%rax
+   1413a86d0:	mov    0x338(%rsp),%rdi
+   1413a86d8:	mov    0x10(%rax),%rdx
+   1413a86dc:	mov    (%rdi),%rdi
+   1413a86df:	add    %rax,%rdx
+   1413a86e2:	movslq 0x4(%rax),%rax
+   1413a86e6:	lea    (%rax,%rax,2),%rcx
+   1413a86ea:	lea    (%rax,%rcx,4),%rax
+   1413a86ee:	lea    (%rdx,%rax,4),%rax
+   1413a86f2:	cmp    %rax,%rbx
+   1413a86f5:	jne    1413a8630 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x790>
+   1413a86fb:	movd   %xmm8,%esi
+   1413a8700:	lea    0x18(%rdi),%rcx
+   1413a8704:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8709:	mov    0x18(%rdi),%rax
+   1413a870d:	mov    %r12,%rdx
+   1413a8710:	pshufd $0xe0,%xmm8,%xmm10
+   1413a8716:	add    0x10(%rax),%rax
+   1413a871a:	lea    0x130(%rax),%rcx
+   1413a8721:	call   141856290 <_ZN7QVectorI15Au3dsGLSLVertexE6appendERKS0_>
+   1413a8726:	lea    0x90(%rsp),%r12
+   1413a872e:	mov    0x60(%rsp),%rdx
+   1413a8733:	mov    %r13,%r8
+   1413a8736:	movq   %xmm10,0x1e0(%rsp)
+   1413a8740:	mov    %r12,%rcx
+   1413a8743:	call   1413a7b30 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE10_M_emplaceIJS0_IiiEEEES0_INS4_14_Node_iteratorIS2_Lb0ELb0EEEbESt17integral_constantIbLb1EEDpOT_.isra.0>
+   1413a8748:	movd   %esi,%xmm4
+   1413a874c:	mov    0x68(%rsp),%rdx
+   1413a8751:	mov    %r13,%r8
+   1413a8754:	mov    %r12,%rcx
+   1413a8757:	punpckldq %xmm4,%xmm8
+   1413a875c:	movq   %xmm8,0x1e0(%rsp)
+   1413a8766:	call   1413a7b30 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE10_M_emplaceIJS0_IiiEEEES0_INS4_14_Node_iteratorIS2_Lb0ELb0EEEbESt17integral_constantIbLb1EEDpOT_.isra.0>
+   1413a876b:	jmp    1413a8536 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x696>
+   1413a8770:	call   *0x14ea06a(%rip)        # 1428927e0 <__imp__ZN12QMapDataBase10createDataEv>
+   1413a8776:	mov    0x40(%rsi),%rcx
+   1413a877a:	mov    %rax,%r14
+   1413a877d:	mov    0x10(%rcx),%r8
+   1413a8781:	test   %r8,%r8
+   1413a8784:	je     1413a87a9 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x909>
+   1413a8786:	mov    %rax,%rdx
+   1413a8789:	mov    %r8,%rcx
+   1413a878c:	call   141948d00 <_ZNK8QMapNodeI15Au3dsGLSLVertexdE4copyEP8QMapDataIS0_dE>
+   1413a8791:	mov    (%rax),%rdx
+   1413a8794:	lea    0x8(%r14),%rcx
+   1413a8798:	mov    %rax,0x10(%r14)
+   1413a879c:	and    $0x3,%edx
+   1413a879f:	or     %rcx,%rdx
+   1413a87a2:	mov    0x40(%rsi),%rcx
+   1413a87a6:	mov    %rdx,(%rax)
+   1413a87a9:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a87ae:	test   %al,%al
+   1413a87b0:	je     1413a9af0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1c50>
+   1413a87b6:	mov    %r14,0x40(%rsi)
+   1413a87ba:	mov    %r14,%rcx
+   1413a87bd:	call   *0x14ea035(%rip)        # 1428927f8 <__imp__ZN12QMapDataBase18recalcMostLeftNodeEv>
+   1413a87c3:	mov    0x40(%rsi),%r8
+   1413a87c7:	jmp    1413a8574 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x6d4>
+   1413a87cc:	movlps %xmm1,0x0(%rbp)
+   1413a87d0:	lea    0x18(%rdi),%rcx
+   1413a87d4:	movss  %xmm2,0x30(%r12)
+   1413a87db:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a87e0:	mov    0x18(%rdi),%rdi
+   1413a87e4:	add    0x10(%rdi),%rdi
+   1413a87e8:	lea    0x138(%rdi),%rcx
+   1413a87ef:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   1413a87f4:	mov    0x138(%rdi),%r14
+   1413a87fb:	add    0x10(%r14),%r14
+   1413a87ff:	jmp    1413a881a <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x97a>
+   1413a8801:	nopl   0x0(%rax)
+   1413a8808:	cmpl   $0x9,0x34(%r14)
+   1413a880d:	je     1413a9afe <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1c5e>
+   1413a8813:	add    $0x90,%r14
+   1413a881a:	mov    0x338(%rsp),%rax
+   1413a8822:	mov    (%rax),%rdi
+   1413a8825:	lea    0x18(%rdi),%rcx
+   1413a8829:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a882e:	mov    0x18(%rdi),%rdi
+   1413a8832:	add    0x10(%rdi),%rdi
+   1413a8836:	lea    0x138(%rdi),%rcx
+   1413a883d:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   1413a8842:	mov    0x138(%rdi),%rdx
+   1413a8849:	mov    0x10(%rdx),%rax
+   1413a884d:	add    %rdx,%rax
+   1413a8850:	movslq 0x4(%rdx),%rdx
+   1413a8854:	lea    (%rdx,%rdx,8),%rdx
+   1413a8858:	shl    $0x4,%rdx
+   1413a885c:	add    %rdx,%rax
+   1413a885f:	cmp    %rax,%r14
+   1413a8862:	jne    1413a8808 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x968>
+   1413a8864:	mov    0x338(%rsp),%rax
+   1413a886c:	mov    (%rax),%rdi
+   1413a886f:	jmp    1413a86a5 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x805>
+   1413a8874:	mov    0x330(%rsp),%rax
+   1413a887c:	xor    %esi,%esi
+   1413a887e:	xor    %ebx,%ebx
+   1413a8880:	mov    0x10(%rax),%rdx
+   1413a8884:	mov    0x4(%rdx),%ecx
+   1413a8887:	test   %ecx,%ecx
+   1413a8889:	jle    1413a88cb <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xa2b>
+   1413a888b:	nopl   0x0(%rax,%rax,1)
+   1413a8890:	mov    0x338(%rsp),%rax
+   1413a8898:	add    0x10(%rdx),%rdx
+   1413a889c:	add    %rsi,%rdx
+   1413a889f:	mov    (%rax),%rax
+   1413a88a2:	lea    0x10(%rax),%rcx
+   1413a88a6:	mov    %rax,0x30(%rsp)
+   1413a88ab:	call   1418570f0 <_ZN7QVectorI17Au3dsGLSLMaterialE6appendERKS0_>
+   1413a88b0:	mov    0x330(%rsp),%rax
+   1413a88b8:	add    $0x1,%ebx
+   1413a88bb:	add    $0xe0,%rsi
+   1413a88c2:	mov    0x10(%rax),%rdx
+   1413a88c6:	cmp    0x4(%rdx),%ebx
+   1413a88c9:	jl     1413a8890 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x9f0>
+   1413a88cb:	lea    0x180(%rsp),%rax
+   1413a88d3:	mov    0x48(%rsp),%rcx
+   1413a88d8:	movq   $0x1,0x158(%rsp)
+   1413a88e4:	mov    %rax,0x150(%rsp)
+   1413a88ec:	lea    0x150(%rsp),%rax
+   1413a88f4:	movq   $0x0,0x160(%rsp)
+   1413a8900:	movq   $0x0,0x168(%rsp)
+   1413a890c:	movq   $0x0,0x178(%rsp)
+   1413a8918:	movq   $0x0,0x180(%rsp)
+   1413a8924:	mov    %rax,0x78(%rsp)
+   1413a8929:	movss  %xmm9,0x170(%rsp)
+   1413a8933:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8938:	mov    0x330(%rsp),%rax
+   1413a8940:	movl   $0x0,0x70(%rsp)
+   1413a8948:	movb   $0x1,0x77(%rsp)
+   1413a894d:	mov    0x18(%rax),%rax
+   1413a8951:	mov    0x10(%rax),%rdx
+   1413a8955:	mov    0x128(%rax,%rdx,1),%rax
+   1413a895d:	add    0x10(%rax),%rax
+   1413a8961:	mov    %rax,0x58(%rsp)
+   1413a8966:	lea    0x150(%rsp),%rax
+   1413a896e:	mov    %rax,0x78(%rsp)
+   1413a8973:	nopl   0x0(%rax,%rax,1)
+   1413a8978:	mov    0x48(%rsp),%rcx
+   1413a897d:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8982:	mov    0x330(%rsp),%rax
+   1413a898a:	mov    0x338(%rsp),%rdi
+   1413a8992:	mov    0x330(%rsp),%rsi
+   1413a899a:	mov    0x18(%rax),%rax
+   1413a899e:	mov    (%rdi),%rdi
+   1413a89a1:	mov    0x58(%rsi),%esi
+   1413a89a4:	mov    0x10(%rax),%rdx
+   1413a89a8:	lea    0x18(%rdi),%r9
+   1413a89ac:	mov    %esi,0x30(%rsp)
+   1413a89b0:	lea    -0x1(%rsi),%r8d
+   1413a89b4:	mov    0x128(%rax,%rdx,1),%rax
+   1413a89bc:	mov    0x10(%rax),%rdx
+   1413a89c0:	add    %rax,%rdx
+   1413a89c3:	movslq 0x4(%rax),%rax
+   1413a89c7:	lea    (%rax,%rax,4),%rcx
+   1413a89cb:	lea    (%rax,%rcx,4),%rax
+   1413a89cf:	lea    (%rdx,%rax,8),%rax
+   1413a89d3:	cmp    %rax,0x58(%rsp)
+   1413a89d8:	je     1413a9986 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1ae6>
+   1413a89de:	mov    0x58(%rsp),%rsi
+   1413a89e3:	pxor   %xmm0,%xmm0
+   1413a89e7:	mov    0xb8(%rsp),%rdx
+   1413a89ef:	movq   $0x3f800000,0x278(%rsp)
+   1413a89fb:	movq   $0x0,0x280(%rsp)
+   1413a8a07:	movq   $0x0,0x1e0(%rsp)
+   1413a8a13:	movzwl (%rsi),%eax
+   1413a8a16:	movzwl 0x2(%rsi),%ecx
+   1413a8a1a:	add    0x10(%rdx),%rdx
+   1413a8a1e:	movups %xmm0,0x1e8(%rsp)
+   1413a8a26:	mov    (%rdx,%rax,4),%eax
+   1413a8a29:	movzwl 0x4(%rsi),%r10d
+   1413a8a2e:	movups %xmm0,0x1f8(%rsp)
+   1413a8a36:	mov    (%rdx,%rcx,4),%ecx
+   1413a8a39:	movups %xmm0,0x208(%rsp)
+   1413a8a41:	mov    (%rdx,%r10,4),%edx
+   1413a8a45:	mov    %eax,0xac(%rsp)
+   1413a8a4c:	movzwl %ax,%eax
+   1413a8a4f:	mov    %ecx,0xb0(%rsp)
+   1413a8a56:	shl    $0x10,%ecx
+   1413a8a59:	or     %ecx,%eax
+   1413a8a5b:	mov    %edx,0xb4(%rsp)
+   1413a8a62:	mov    %eax,0x1e0(%rsp)
+   1413a8a69:	mov    %dx,0x1e4(%rsp)
+   1413a8a71:	movups %xmm0,0x218(%rsp)
+   1413a8a79:	movups %xmm0,0x228(%rsp)
+   1413a8a81:	movups %xmm0,0x238(%rsp)
+   1413a8a89:	movups %xmm0,0x248(%rsp)
+   1413a8a91:	movups %xmm0,0x258(%rsp)
+   1413a8a99:	movups %xmm0,0x268(%rsp)
+   1413a8aa1:	cmp    $0x1,%r8d
+   1413a8aa5:	jbe    1413a9750 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x18b0>
+   1413a8aab:	mov    0x58(%rsp),%rax
+   1413a8ab0:	lea    0x18(%rdi),%rcx
+   1413a8ab4:	movupd 0x50(%rax),%xmm5
+   1413a8ab9:	movupd 0x80(%rax),%xmm0
+   1413a8ac1:	movupd 0x60(%rax),%xmm2
+   1413a8ac6:	movupd 0x70(%rax),%xmm1
+   1413a8acb:	movaps %xmm5,0x230(%rsp)
+   1413a8ad3:	movaps %xmm2,0x240(%rsp)
+   1413a8adb:	movaps %xmm1,0x250(%rsp)
+   1413a8ae3:	movaps %xmm0,0x260(%rsp)
+   1413a8aeb:	movsd  0x90(%rax),%xmm0
+   1413a8af3:	movaps %xmm5,0x30(%rsp)
+   1413a8af8:	movsd  %xmm0,0x270(%rsp)
+   1413a8b01:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8b06:	mov    0x18(%rdi),%rcx
+   1413a8b0a:	lea    0x1e0(%rsp),%rdx
+   1413a8b12:	add    0x10(%rcx),%rcx
+   1413a8b16:	add    $0x128,%rcx
+   1413a8b1d:	call   1418537d0 <_ZN7QVectorI13Au3dsGLSLFaceE6appendERKS0_>
+   1413a8b22:	mov    0x48(%rsp),%rcx
+   1413a8b27:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8b2c:	mov    0x330(%rsp),%rax
+   1413a8b34:	mov    0x18(%rax),%rax
+   1413a8b38:	mov    0x10(%rax),%rdx
+   1413a8b3c:	mov    0x110(%rax,%rdx,1),%rdx
+   1413a8b44:	cmpq   $0x0,0x10(%rdx)
+   1413a8b49:	lea    0x8(%rdx),%r13
+   1413a8b4d:	je     1413a8b58 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xcb8>
+   1413a8b4f:	mov    0x20(%rdx),%r13
+   1413a8b53:	nopl   0x0(%rax,%rax,1)
+   1413a8b58:	mov    (%rax),%edx
+   1413a8b5a:	cmp    $0x1,%edx
+   1413a8b5d:	jbe    1413a8b93 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xcf3>
+   1413a8b5f:	mov    0x8(%rax),%edx
+   1413a8b62:	and    $0x7fffffff,%edx
+   1413a8b68:	jne    1413a8ec0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1020>
+   1413a8b6e:	mov    $0x2,%r9d
+   1413a8b74:	xor    %r8d,%r8d
+   1413a8b77:	mov    $0x8,%edx
+   1413a8b7c:	mov    $0x418,%ecx
+   1413a8b81:	call   *0x14e9a29(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a8b87:	mov    0x330(%rsp),%rdi
+   1413a8b8f:	mov    %rax,0x18(%rdi)
+   1413a8b93:	mov    0x10(%rax),%rdx
+   1413a8b97:	mov    0x110(%rax,%rdx,1),%rax
+   1413a8b9f:	add    $0x8,%rax
+   1413a8ba3:	cmp    %rax,%r13
+   1413a8ba6:	je     1413a93b8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1518>
+   1413a8bac:	mov    0x338(%rsp),%rax
+   1413a8bb4:	mov    (%rax),%rbx
+   1413a8bb7:	mov    0x18(%rbx),%rax
+   1413a8bbb:	mov    (%rax),%edx
+   1413a8bbd:	cmp    $0x1,%edx
+   1413a8bc0:	jbe    1413a8bee <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xd4e>
+   1413a8bc2:	mov    0x8(%rax),%edx
+   1413a8bc5:	and    $0x7fffffff,%edx
+   1413a8bcb:	jne    1413a8f90 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x10f0>
+   1413a8bd1:	mov    $0x2,%r9d
+   1413a8bd7:	xor    %r8d,%r8d
+   1413a8bda:	mov    $0x8,%edx
+   1413a8bdf:	mov    $0x418,%ecx
+   1413a8be4:	call   *0x14e99c6(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a8bea:	mov    %rax,0x18(%rbx)
+   1413a8bee:	mov    0x10(%rax),%rdx
+   1413a8bf2:	lea    0x190(%rsp),%r14
+   1413a8bfa:	mov    0x20(%r13),%rcx
+   1413a8bfe:	mov    0x128(%rax,%rdx,1),%rax
+   1413a8c06:	mov    %r14,%rdx
+   1413a8c09:	mov    0x4(%rax),%eax
+   1413a8c0c:	mov    %eax,0x30(%rsp)
+   1413a8c10:	movzwl 0x70(%rsp),%eax
+   1413a8c15:	mov    %ax,0x190(%rsp)
+   1413a8c1d:	call   141393110 <_ZNK7QVectorItE8containsERKt.isra.0>
+   1413a8c22:	test   %al,%al
+   1413a8c24:	je     1413a8ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1000>
+   1413a8c2a:	mov    0x338(%rsp),%rax
+   1413a8c32:	mov    (%rax),%rsi
+   1413a8c35:	mov    0x18(%rsi),%rbx
+   1413a8c39:	mov    (%rbx),%eax
+   1413a8c3b:	cmp    $0x1,%eax
+   1413a8c3e:	jbe    1413a8c6f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xdcf>
+   1413a8c40:	mov    0x8(%rbx),%edx
+   1413a8c43:	and    $0x7fffffff,%edx
+   1413a8c49:	jne    1413a92b8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1418>
+   1413a8c4f:	mov    $0x2,%r9d
+   1413a8c55:	xor    %r8d,%r8d
+   1413a8c58:	mov    $0x8,%edx
+   1413a8c5d:	mov    $0x418,%ecx
+   1413a8c62:	call   *0x14e9948(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a8c68:	mov    %rax,0x18(%rsi)
+   1413a8c6c:	mov    %rax,%rbx
+   1413a8c6f:	add    0x10(%rbx),%rbx
+   1413a8c73:	mov    0x110(%rbx),%rax
+   1413a8c7a:	mov    (%rax),%edx
+   1413a8c7c:	cmp    $0x1,%edx
+   1413a8c7f:	ja     1413a8fc0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1120>
+   1413a8c85:	add    $0x8,%rax
+   1413a8c89:	mov    %rax,0x50(%rsp)
+   1413a8c8e:	mov    0x338(%rsp),%rax
+   1413a8c96:	mov    (%rax),%rbx
+   1413a8c99:	mov    0x18(%rbx),%rsi
+   1413a8c9d:	mov    (%rsi),%eax
+   1413a8c9f:	cmp    $0x1,%eax
+   1413a8ca2:	jbe    1413a8cd3 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xe33>
+   1413a8ca4:	mov    0x8(%rsi),%edx
+   1413a8ca7:	and    $0x7fffffff,%edx
+   1413a8cad:	jne    1413a92d0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1430>
+   1413a8cb3:	mov    $0x2,%r9d
+   1413a8cb9:	xor    %r8d,%r8d
+   1413a8cbc:	mov    $0x8,%edx
+   1413a8cc1:	mov    $0x418,%ecx
+   1413a8cc6:	call   *0x14e98e4(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a8ccc:	mov    %rax,0x18(%rbx)
+   1413a8cd0:	mov    %rax,%rsi
+   1413a8cd3:	add    0x10(%rsi),%rsi
+   1413a8cd7:	lea    0x18(%r13),%r12
+   1413a8cdb:	mov    0x110(%rsi),%rax
+   1413a8ce2:	mov    (%rax),%edx
+   1413a8ce4:	cmp    $0x1,%edx
+   1413a8ce7:	ja     1413a9030 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1190>
+   1413a8ced:	mov    0x10(%rax),%r15
+   1413a8cf1:	test   %r15,%r15
+   1413a8cf4:	je     1413a8d4b <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xeab>
+   1413a8cf6:	mov    0x14ea6eb(%rip),%rbx        # 1428933e8 <__imp__ZltRK7QStringS1_>
+   1413a8cfd:	xor    %edi,%edi
+   1413a8cff:	jmp    1413a8d1a <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xe7a>
+   1413a8d01:	nopl   0x0(%rax)
+   1413a8d08:	test   %rdx,%rdx
+   1413a8d0b:	je     1413a8ee7 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1047>
+   1413a8d11:	mov    %r15,%rdi
+   1413a8d14:	mov    %rdx,%rax
+   1413a8d17:	mov    %rax,%r15
+   1413a8d1a:	lea    0x18(%r15),%rbp
+   1413a8d1e:	mov    %r12,%rdx
+   1413a8d21:	mov    %rbp,%rcx
+   1413a8d24:	call   *%rbx
+   1413a8d26:	mov    0x8(%r15),%rdx
+   1413a8d2a:	mov    %eax,%r8d
+   1413a8d2d:	mov    0x10(%r15),%rax
+   1413a8d31:	test   %r8b,%r8b
+   1413a8d34:	je     1413a8d08 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xe68>
+   1413a8d36:	test   %rax,%rax
+   1413a8d39:	jne    1413a8d17 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xe77>
+   1413a8d3b:	test   %rdi,%rdi
+   1413a8d3e:	jne    1413a8ee0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1040>
+   1413a8d44:	mov    0x110(%rsi),%rax
+   1413a8d4b:	lea    0x8(%rax),%r15
+   1413a8d4f:	mov    0x14e9852(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a8d56:	cmp    %r15,0x50(%rsp)
+   1413a8d5b:	jne    1413a8f09 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1069>
+   1413a8d61:	mov    %rax,0x190(%rsp)
+   1413a8d69:	movzwl 0x30(%rsp),%eax
+   1413a8d6e:	lea    0xc8(%rsp),%rdx
+   1413a8d76:	mov    %r14,%rcx
+   1413a8d79:	mov    %ax,0xc8(%rsp)
+   1413a8d81:	call   1418611c0 <_ZN7QVectorItE6appendEOt>
+   1413a8d86:	mov    0x338(%rsp),%rax
+   1413a8d8e:	mov    (%rax),%rbx
+   1413a8d91:	lea    0x18(%rbx),%rcx
+   1413a8d95:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8d9a:	mov    0x18(%rbx),%rdi
+   1413a8d9e:	add    0x10(%rdi),%rdi
+   1413a8da2:	mov    0x110(%rdi),%r15
+   1413a8da9:	mov    (%r15),%eax
+   1413a8dac:	cmp    $0x1,%eax
+   1413a8daf:	ja     1413a9410 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1570>
+   1413a8db5:	mov    0x10(%r15),%rbp
+   1413a8db9:	test   %rbp,%rbp
+   1413a8dbc:	je     1413a9430 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1590>
+   1413a8dc2:	mov    0x14ea61f(%rip),%rbx        # 1428933e8 <__imp__ZltRK7QStringS1_>
+   1413a8dc9:	xor    %esi,%esi
+   1413a8dcb:	jmp    1413a8ddf <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf3f>
+   1413a8dcd:	nopl   (%rax)
+   1413a8dd0:	test   %rdx,%rdx
+   1413a8dd3:	je     1413a93d0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1530>
+   1413a8dd9:	mov    %rdx,%rax
+   1413a8ddc:	mov    %rax,%rbp
+   1413a8ddf:	mov    %r12,%rdx
+   1413a8de2:	lea    0x18(%rbp),%rcx
+   1413a8de6:	call   *%rbx
+   1413a8de8:	mov    0x10(%rbp),%rdx
+   1413a8dec:	mov    %eax,%r8d
+   1413a8def:	mov    0x8(%rbp),%rax
+   1413a8df3:	test   %r8b,%r8b
+   1413a8df6:	jne    1413a8dd0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf30>
+   1413a8df8:	mov    %rbp,%rsi
+   1413a8dfb:	test   %rax,%rax
+   1413a8dfe:	jne    1413a8ddc <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf3c>
+   1413a8e00:	mov    $0x1,%r8d
+   1413a8e06:	mov    %r8d,0x30(%rsp)
+   1413a8e0b:	lea    0x18(%rsi),%rdx
+   1413a8e0f:	mov    %r12,%rcx
+   1413a8e12:	call   *%rbx
+   1413a8e14:	test   %al,%al
+   1413a8e16:	je     1413a94b0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1610>
+   1413a8e1c:	mov    0x110(%rdi),%r15
+   1413a8e23:	mov    0x30(%rsp),%r8d
+   1413a8e28:	mov    %r8d,0x20(%rsp)
+   1413a8e2d:	mov    %rbp,%r9
+   1413a8e30:	mov    $0x28,%edx
+   1413a8e35:	mov    %r15,%rcx
+   1413a8e38:	mov    $0x8,%r8d
+   1413a8e3e:	call   *0x14e99a4(%rip)        # 1428927e8 <__imp__ZN12QMapDataBase10createNodeEiiP12QMapNodeBaseb>
+   1413a8e44:	mov    0x18(%r13),%rcx
+   1413a8e48:	mov    %rax,%r12
+   1413a8e4b:	mov    %rcx,0x18(%rax)
+   1413a8e4f:	call   1418f04a0 <_ZN9QtPrivate8RefCount3refEv>
+   1413a8e54:	mov    0x190(%rsp),%rbx
+   1413a8e5c:	mov    (%rbx),%eax
+   1413a8e5e:	test   %eax,%eax
+   1413a8e60:	je     1413a94e0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1640>
+   1413a8e66:	cmp    $0xffffffff,%eax
+   1413a8e69:	je     1413a8e77 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xfd7>
+   1413a8e6b:	lock addl $0x1,(%rbx)
+   1413a8e6f:	mov    0x190(%rsp),%rbx
+   1413a8e77:	mov    %rbx,0x20(%r12)
+   1413a8e7c:	mov    %rbx,%rsi
+   1413a8e7f:	mov    (%rsi),%eax
+   1413a8e81:	test   %eax,%eax
+   1413a8e83:	je     1413a93f0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1550>
+   1413a8e89:	cmp    $0xffffffff,%eax
+   1413a8e8c:	je     1413a8ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1000>
+   1413a8e8e:	lock subl $0x1,(%rsi)
+   1413a8e92:	je     1413a93f0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1550>
+   1413a8e98:	nopl   0x0(%rax,%rax,1)
+   1413a8ea0:	mov    %r13,%rcx
+   1413a8ea3:	call   *0x14ea117(%rip)        # 142892fc0 <__imp__ZNK12QMapNodeBase8nextNodeEv>
+   1413a8ea9:	mov    %rax,%r13
+   1413a8eac:	mov    0x330(%rsp),%rax
+   1413a8eb4:	mov    0x18(%rax),%rax
+   1413a8eb8:	jmp    1413a8b58 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xcb8>
+   1413a8ebd:	nopl   (%rax)
+   1413a8ec0:	mov    0x48(%rsp),%rcx
+   1413a8ec5:	xor    %r8d,%r8d
+   1413a8ec8:	call   141855880 <_ZN7QVectorI15Au3dsGLSLObjectE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a8ecd:	mov    0x330(%rsp),%rax
+   1413a8ed5:	mov    0x18(%rax),%rax
+   1413a8ed9:	jmp    1413a8b93 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xcf3>
+   1413a8ede:	xchg   %ax,%ax
+   1413a8ee0:	mov    %rdi,%r15
+   1413a8ee3:	lea    0x18(%rdi),%rbp
+   1413a8ee7:	mov    %rbp,%rdx
+   1413a8eea:	mov    %r12,%rcx
+   1413a8eed:	call   *%rbx
+   1413a8eef:	test   %al,%al
+   1413a8ef1:	jne    1413a8d44 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xea4>
+   1413a8ef7:	mov    0x14e96aa(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a8efe:	cmp    %r15,0x50(%rsp)
+   1413a8f03:	je     1413a8d61 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xec1>
+   1413a8f09:	mov    %rax,0xc0(%rsp)
+   1413a8f11:	mov    0x338(%rsp),%rax
+   1413a8f19:	mov    (%rax),%rbx
+   1413a8f1c:	lea    0x18(%rbx),%rcx
+   1413a8f20:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a8f25:	mov    0x18(%rbx),%rax
+   1413a8f29:	mov    0x14e9678(%rip),%rdi        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a8f30:	xor    %esi,%esi
+   1413a8f32:	mov    0x14ea4af(%rip),%rbx        # 1428933e8 <__imp__ZltRK7QStringS1_>
+   1413a8f39:	add    0x10(%rax),%rax
+   1413a8f3d:	mov    %rdi,0x190(%rsp)
+   1413a8f45:	mov    0x110(%rax),%rax
+   1413a8f4c:	mov    0x10(%rax),%rdi
+   1413a8f50:	test   %rdi,%rdi
+   1413a8f53:	je     1413a90a0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1200>
+   1413a8f59:	nopl   0x0(%rax)
+   1413a8f60:	lea    0x18(%rdi),%r15
+   1413a8f64:	mov    %r12,%rdx
+   1413a8f67:	mov    %r15,%rcx
+   1413a8f6a:	call   *%rbx
+   1413a8f6c:	mov    0x8(%rdi),%rdx
+   1413a8f70:	mov    0x10(%rdi),%rcx
+   1413a8f74:	test   %al,%al
+   1413a8f76:	jne    1413a8fa8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1108>
+   1413a8f78:	test   %rdx,%rdx
+   1413a8f7b:	je     1413a92f8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1458>
+   1413a8f81:	mov    %rdi,%rsi
+   1413a8f84:	mov    %rdx,%rdi
+   1413a8f87:	jmp    1413a8f60 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x10c0>
+   1413a8f89:	nopl   0x0(%rax)
+   1413a8f90:	lea    0x18(%rbx),%rcx
+   1413a8f94:	xor    %r8d,%r8d
+   1413a8f97:	call   141855880 <_ZN7QVectorI15Au3dsGLSLObjectE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a8f9c:	mov    0x18(%rbx),%rax
+   1413a8fa0:	jmp    1413a8bee <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xd4e>
+   1413a8fa5:	nopl   (%rax)
+   1413a8fa8:	test   %rcx,%rcx
+   1413a8fab:	je     1413a92e8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1448>
+   1413a8fb1:	mov    %rcx,%rdi
+   1413a8fb4:	jmp    1413a8f60 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x10c0>
+   1413a8fb6:	cs nopw 0x0(%rax,%rax,1)
+   1413a8fc0:	call   *0x14e981a(%rip)        # 1428927e0 <__imp__ZN12QMapDataBase10createDataEv>
+   1413a8fc6:	mov    0x110(%rbx),%rcx
+   1413a8fcd:	mov    %rax,%r12
+   1413a8fd0:	mov    0x10(%rcx),%r8
+   1413a8fd4:	test   %r8,%r8
+   1413a8fd7:	je     1413a9001 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1161>
+   1413a8fd9:	mov    %rax,%rdx
+   1413a8fdc:	mov    %r8,%rcx
+   1413a8fdf:	call   14194bf80 <_ZNK8QMapNodeI7QString7QVectorItEE4copyEP8QMapDataIS0_S2_E>
+   1413a8fe4:	mov    (%rax),%rdx
+   1413a8fe7:	lea    0x8(%r12),%rcx
+   1413a8fec:	mov    %rax,0x10(%r12)
+   1413a8ff1:	and    $0x3,%edx
+   1413a8ff4:	or     %rcx,%rdx
+   1413a8ff7:	mov    0x110(%rbx),%rcx
+   1413a8ffe:	mov    %rdx,(%rax)
+   1413a9001:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a9006:	test   %al,%al
+   1413a9008:	je     1413a96b8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1818>
+   1413a900e:	mov    %r12,0x110(%rbx)
+   1413a9015:	mov    %r12,%rcx
+   1413a9018:	call   *0x14e97da(%rip)        # 1428927f8 <__imp__ZN12QMapDataBase18recalcMostLeftNodeEv>
+   1413a901e:	mov    0x110(%rbx),%rax
+   1413a9025:	jmp    1413a8c85 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xde5>
+   1413a902a:	nopw   0x0(%rax,%rax,1)
+   1413a9030:	call   *0x14e97aa(%rip)        # 1428927e0 <__imp__ZN12QMapDataBase10createDataEv>
+   1413a9036:	mov    0x110(%rsi),%rcx
+   1413a903d:	mov    %rax,%r15
+   1413a9040:	mov    0x10(%rcx),%r8
+   1413a9044:	test   %r8,%r8
+   1413a9047:	je     1413a906f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x11cf>
+   1413a9049:	mov    %rax,%rdx
+   1413a904c:	mov    %r8,%rcx
+   1413a904f:	call   14194bf80 <_ZNK8QMapNodeI7QString7QVectorItEE4copyEP8QMapDataIS0_S2_E>
+   1413a9054:	mov    (%rax),%rdx
+   1413a9057:	lea    0x8(%r15),%rcx
+   1413a905b:	mov    %rax,0x10(%r15)
+   1413a905f:	and    $0x3,%edx
+   1413a9062:	or     %rcx,%rdx
+   1413a9065:	mov    0x110(%rsi),%rcx
+   1413a906c:	mov    %rdx,(%rax)
+   1413a906f:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a9074:	test   %al,%al
+   1413a9076:	je     1413a95e8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1748>
+   1413a907c:	mov    %r15,0x110(%rsi)
+   1413a9083:	mov    %r15,%rcx
+   1413a9086:	call   *0x14e976c(%rip)        # 1428927f8 <__imp__ZN12QMapDataBase18recalcMostLeftNodeEv>
+   1413a908c:	mov    0x110(%rsi),%rax
+   1413a9093:	jmp    1413a8ced <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xe4d>
+   1413a9098:	nopl   0x0(%rax,%rax,1)
+   1413a90a0:	mov    0x14e9501(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a90a7:	mov    %r14,%rsi
+   1413a90aa:	mov    (%rax),%edx
+   1413a90ac:	test   %edx,%edx
+   1413a90ae:	je     1413a931a <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x147a>
+   1413a90b4:	cmp    $0xffffffff,%edx
+   1413a90b7:	je     1413a90bd <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x121d>
+   1413a90b9:	lock addl $0x1,(%rax)
+   1413a90bd:	mov    (%rsi),%rax
+   1413a90c0:	mov    %rax,0xc8(%rsp)
+   1413a90c8:	mov    0x190(%rsp),%rbx
+   1413a90d0:	mov    (%rbx),%eax
+   1413a90d2:	test   %eax,%eax
+   1413a90d4:	je     1413a9398 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x14f8>
+   1413a90da:	cmp    $0xffffffff,%eax
+   1413a90dd:	je     1413a90f1 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1251>
+   1413a90df:	lock subl $0x1,(%rbx)
+   1413a90e3:	mov    0x190(%rsp),%rbx
+   1413a90eb:	je     1413a9398 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x14f8>
+   1413a90f1:	mov    0xc8(%rsp),%rsi
+   1413a90f9:	xor    %ebx,%ebx
+   1413a90fb:	lea    0xc0(%rsp),%r15
+   1413a9103:	mov    0x4(%rsi),%edx
+   1413a9106:	test   %edx,%edx
+   1413a9108:	jle    1413a912c <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x128c>
+   1413a910a:	nopw   0x0(%rax,%rax,1)
+   1413a9110:	mov    0x10(%rsi),%rax
+   1413a9114:	mov    %r15,%rcx
+   1413a9117:	add    %rsi,%rax
+   1413a911a:	lea    (%rax,%rbx,2),%rdx
+   1413a911e:	call   141861240 <_ZN7QVectorItE6appendERKt>
+   1413a9123:	add    $0x1,%rbx
+   1413a9127:	cmp    %ebx,0x4(%rsi)
+   1413a912a:	jg     1413a9110 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1270>
+   1413a912c:	movzwl 0x30(%rsp),%eax
+   1413a9131:	mov    %r14,%rdx
+   1413a9134:	mov    %r15,%rcx
+   1413a9137:	mov    %ax,0x190(%rsp)
+   1413a913f:	call   1418611c0 <_ZN7QVectorItE6appendEOt>
+   1413a9144:	mov    0x338(%rsp),%rax
+   1413a914c:	mov    (%rax),%rbx
+   1413a914f:	lea    0x18(%rbx),%rcx
+   1413a9153:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9158:	mov    0x18(%rbx),%rdi
+   1413a915c:	add    0x10(%rdi),%rdi
+   1413a9160:	mov    0x110(%rdi),%r14
+   1413a9167:	mov    (%r14),%eax
+   1413a916a:	cmp    $0x1,%eax
+   1413a916d:	ja     1413a9480 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x15e0>
+   1413a9173:	mov    0x10(%r14),%rbp
+   1413a9177:	test   %rbp,%rbp
+   1413a917a:	je     1413a94a0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1600>
+   1413a9180:	mov    0x14ea261(%rip),%rbx        # 1428933e8 <__imp__ZltRK7QStringS1_>
+   1413a9187:	xor    %esi,%esi
+   1413a9189:	jmp    1413a919f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x12ff>
+   1413a918b:	nopl   0x0(%rax,%rax,1)
+   1413a9190:	test   %rdx,%rdx
+   1413a9193:	je     1413a9440 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x15a0>
+   1413a9199:	mov    %rdx,%rax
+   1413a919c:	mov    %rax,%rbp
+   1413a919f:	mov    %r12,%rdx
+   1413a91a2:	lea    0x18(%rbp),%rcx
+   1413a91a6:	call   *%rbx
+   1413a91a8:	mov    0x10(%rbp),%rdx
+   1413a91ac:	mov    %eax,%r8d
+   1413a91af:	mov    0x8(%rbp),%rax
+   1413a91b3:	test   %r8b,%r8b
+   1413a91b6:	jne    1413a9190 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x12f0>
+   1413a91b8:	mov    %rbp,%rsi
+   1413a91bb:	test   %rax,%rax
+   1413a91be:	jne    1413a919c <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x12fc>
+   1413a91c0:	mov    $0x1,%r8d
+   1413a91c6:	mov    %r8d,0x30(%rsp)
+   1413a91cb:	lea    0x18(%rsi),%rdx
+   1413a91cf:	mov    %r12,%rcx
+   1413a91d2:	call   *%rbx
+   1413a91d4:	test   %al,%al
+   1413a91d6:	je     1413a9550 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x16b0>
+   1413a91dc:	mov    0x110(%rdi),%r14
+   1413a91e3:	mov    0x30(%rsp),%r8d
+   1413a91e8:	mov    %r8d,0x20(%rsp)
+   1413a91ed:	mov    %rbp,%r9
+   1413a91f0:	mov    $0x28,%edx
+   1413a91f5:	mov    %r14,%rcx
+   1413a91f8:	mov    $0x8,%r8d
+   1413a91fe:	call   *0x14e95e4(%rip)        # 1428927e8 <__imp__ZN12QMapDataBase10createNodeEiiP12QMapNodeBaseb>
+   1413a9204:	mov    0x18(%r13),%rcx
+   1413a9208:	mov    %rax,%rbx
+   1413a920b:	mov    %rcx,0x18(%rax)
+   1413a920f:	call   1418f04a0 <_ZN9QtPrivate8RefCount3refEv>
+   1413a9214:	mov    0xc0(%rsp),%r12
+   1413a921c:	mov    (%r12),%eax
+   1413a9220:	test   %eax,%eax
+   1413a9222:	je     1413a9578 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x16d8>
+   1413a9228:	cmp    $0xffffffff,%eax
+   1413a922b:	je     1413a923b <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x139b>
+   1413a922d:	lock addl $0x1,(%r12)
+   1413a9233:	mov    0xc0(%rsp),%r12
+   1413a923b:	mov    %r12,0x20(%rbx)
+   1413a923f:	mov    0xc8(%rsp),%rcx
+   1413a9247:	mov    (%rcx),%eax
+   1413a9249:	test   %eax,%eax
+   1413a924b:	je     1413a9460 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x15c0>
+   1413a9251:	cmp    $0xffffffff,%eax
+   1413a9254:	je     1413a9268 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x13c8>
+   1413a9256:	lock subl $0x1,(%rcx)
+   1413a925a:	mov    0xc8(%rsp),%rcx
+   1413a9262:	je     1413a9460 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x15c0>
+   1413a9268:	mov    0xc0(%rsp),%r12
+   1413a9270:	mov    (%r12),%eax
+   1413a9274:	test   %eax,%eax
+   1413a9276:	je     1413a9298 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x13f8>
+   1413a9278:	cmp    $0xffffffff,%eax
+   1413a927b:	je     1413a8ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1000>
+   1413a9281:	lock subl $0x1,(%r12)
+   1413a9287:	mov    0xc0(%rsp),%r12
+   1413a928f:	jne    1413a8ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1000>
+   1413a9295:	nopl   (%rax)
+   1413a9298:	mov    $0x8,%r8d
+   1413a929e:	mov    $0x2,%edx
+   1413a92a3:	mov    %r12,%rcx
+   1413a92a6:	call   *0x14e92f4(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a92ac:	jmp    1413a8ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1000>
+   1413a92b1:	nopl   0x0(%rax)
+   1413a92b8:	lea    0x18(%rsi),%rcx
+   1413a92bc:	xor    %r8d,%r8d
+   1413a92bf:	call   141855880 <_ZN7QVectorI15Au3dsGLSLObjectE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a92c4:	mov    0x18(%rsi),%rbx
+   1413a92c8:	jmp    1413a8c6f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xdcf>
+   1413a92cd:	nopl   (%rax)
+   1413a92d0:	lea    0x18(%rbx),%rcx
+   1413a92d4:	xor    %r8d,%r8d
+   1413a92d7:	call   141855880 <_ZN7QVectorI15Au3dsGLSLObjectE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a92dc:	mov    0x18(%rbx),%rsi
+   1413a92e0:	jmp    1413a8cd3 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xe33>
+   1413a92e5:	nopl   (%rax)
+   1413a92e8:	test   %rsi,%rsi
+   1413a92eb:	je     1413a90a0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1200>
+   1413a92f1:	mov    %rsi,%rdi
+   1413a92f4:	lea    0x18(%rsi),%r15
+   1413a92f8:	mov    %r15,%rdx
+   1413a92fb:	mov    %r12,%rcx
+   1413a92fe:	call   *%rbx
+   1413a9300:	test   %al,%al
+   1413a9302:	jne    1413a90a0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1200>
+   1413a9308:	mov    0x20(%rdi),%rax
+   1413a930c:	lea    0x20(%rdi),%rsi
+   1413a9310:	mov    (%rax),%edx
+   1413a9312:	test   %edx,%edx
+   1413a9314:	jne    1413a90b4 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1214>
+   1413a931a:	mov    (%rsi),%rax
+   1413a931d:	cmpb   $0x0,0xb(%rax)
+   1413a9321:	js     1413a9840 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x19a0>
+   1413a9327:	movslq 0x4(%rax),%r8
+   1413a932b:	xor    %r9d,%r9d
+   1413a932e:	mov    $0x8,%edx
+   1413a9333:	mov    $0x2,%ecx
+   1413a9338:	call   *0x14e9272(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a933e:	mov    %rax,0xc8(%rsp)
+   1413a9346:	mov    %rax,%rbx
+   1413a9349:	test   %rax,%rax
+   1413a934c:	je     1413aa3b3 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2513>
+   1413a9352:	testl  $0x7fffffff,0x8(%rbx)
+   1413a9359:	je     1413a90c8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1228>
+   1413a935f:	mov    (%rsi),%rdx
+   1413a9362:	mov    0x10(%rbx),%rcx
+   1413a9366:	movslq 0x4(%rdx),%r8
+   1413a936a:	add    %rbx,%rcx
+   1413a936d:	add    0x10(%rdx),%rdx
+   1413a9371:	add    %r8,%r8
+   1413a9374:	call   14175c188 <memcpy>
+   1413a9379:	mov    (%rsi),%rax
+   1413a937c:	mov    0x4(%rax),%eax
+   1413a937f:	mov    %eax,0x4(%rbx)
+   1413a9382:	mov    0x190(%rsp),%rbx
+   1413a938a:	mov    (%rbx),%eax
+   1413a938c:	test   %eax,%eax
+   1413a938e:	jne    1413a90da <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x123a>
+   1413a9394:	nopl   0x0(%rax)
+   1413a9398:	mov    $0x8,%r8d
+   1413a939e:	mov    $0x2,%edx
+   1413a93a3:	mov    %rbx,%rcx
+   1413a93a6:	call   *0x14e91f4(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a93ac:	jmp    1413a90f1 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1251>
+   1413a93b1:	nopl   0x0(%rax)
+   1413a93b8:	addl   $0x1,0x70(%rsp)
+   1413a93bd:	addq   $0xa8,0x58(%rsp)
+   1413a93c6:	jmp    1413a8978 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xad8>
+   1413a93cb:	nopl   0x0(%rax,%rax,1)
+   1413a93d0:	xor    %r8d,%r8d
+   1413a93d3:	test   %rsi,%rsi
+   1413a93d6:	jne    1413a8e06 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf66>
+   1413a93dc:	mov    0x110(%rdi),%r15
+   1413a93e3:	jmp    1413a8e28 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf88>
+   1413a93e8:	nopl   0x0(%rax,%rax,1)
+   1413a93f0:	mov    0x190(%rsp),%rcx
+   1413a93f8:	mov    $0x8,%r8d
+   1413a93fe:	mov    $0x2,%edx
+   1413a9403:	call   *0x14e9197(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9409:	jmp    1413a8ea0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1000>
+   1413a940e:	xchg   %ax,%ax
+   1413a9410:	lea    0x110(%rdi),%rcx
+   1413a9417:	call   1417d55d0 <_ZN4QMapI7QString7QVectorItEE13detach_helperEv>
+   1413a941c:	mov    0x110(%rdi),%r15
+   1413a9423:	mov    0x10(%r15),%rbp
+   1413a9427:	test   %rbp,%rbp
+   1413a942a:	jne    1413a8dc2 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf22>
+   1413a9430:	lea    0x8(%r15),%rbp
+   1413a9434:	mov    $0x1,%r8d
+   1413a943a:	jmp    1413a8e28 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xf88>
+   1413a943f:	nop
+   1413a9440:	xor    %r8d,%r8d
+   1413a9443:	test   %rsi,%rsi
+   1413a9446:	jne    1413a91c6 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1326>
+   1413a944c:	mov    0x110(%rdi),%r14
+   1413a9453:	jmp    1413a91e8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1348>
+   1413a9458:	nopl   0x0(%rax,%rax,1)
+   1413a9460:	mov    $0x8,%r8d
+   1413a9466:	mov    $0x2,%edx
+   1413a946b:	call   *0x14e912f(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9471:	jmp    1413a9268 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x13c8>
+   1413a9476:	cs nopw 0x0(%rax,%rax,1)
+   1413a9480:	lea    0x110(%rdi),%rcx
+   1413a9487:	call   1417d55d0 <_ZN4QMapI7QString7QVectorItEE13detach_helperEv>
+   1413a948c:	mov    0x110(%rdi),%r14
+   1413a9493:	mov    0x10(%r14),%rbp
+   1413a9497:	test   %rbp,%rbp
+   1413a949a:	jne    1413a9180 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x12e0>
+   1413a94a0:	lea    0x8(%r14),%rbp
+   1413a94a4:	mov    $0x1,%r8d
+   1413a94aa:	jmp    1413a91e8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1348>
+   1413a94af:	nop
+   1413a94b0:	mov    0x190(%rsp),%rax
+   1413a94b8:	cmp    0x20(%rsi),%rax
+   1413a94bc:	je     1413a9880 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x19e0>
+   1413a94c2:	lea    0x20(%rsi),%rcx
+   1413a94c6:	mov    %r14,%rdx
+   1413a94c9:	call   141393bc0 <_ZN7QVectorItEaSERKS0_.part.0>
+   1413a94ce:	mov    0x190(%rsp),%rsi
+   1413a94d6:	jmp    1413a8e7f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xfdf>
+   1413a94db:	nopl   0x0(%rax,%rax,1)
+   1413a94e0:	cmpb   $0x0,0xb(%rbx)
+   1413a94e4:	js     1413a9888 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x19e8>
+   1413a94ea:	movslq 0x4(%rbx),%r8
+   1413a94ee:	xor    %r9d,%r9d
+   1413a94f1:	mov    $0x8,%edx
+   1413a94f6:	mov    $0x2,%ecx
+   1413a94fb:	call   *0x14e90af(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a9501:	mov    %rax,0x20(%r12)
+   1413a9506:	test   %rax,%rax
+   1413a9509:	je     1413aa3be <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x251e>
+   1413a950f:	mov    %rbx,%rsi
+   1413a9512:	testl  $0x7fffffff,0x8(%rax)
+   1413a9519:	je     1413a8e7f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xfdf>
+   1413a951f:	movslq 0x4(%rbx),%r8
+   1413a9523:	mov    0x10(%rbx),%rdx
+   1413a9527:	add    0x10(%rax),%rax
+   1413a952b:	add    %rbx,%rdx
+   1413a952e:	mov    %rax,%rcx
+   1413a9531:	add    %r8,%r8
+   1413a9534:	call   14175c188 <memcpy>
+   1413a9539:	mov    0x4(%rbx),%edx
+   1413a953c:	mov    0x20(%r12),%rax
+   1413a9541:	mov    %edx,0x4(%rax)
+   1413a9544:	jmp    1413a8e7f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xfdf>
+   1413a9549:	nopl   0x0(%rax)
+   1413a9550:	mov    0x20(%rsi),%rax
+   1413a9554:	cmp    %rax,0xc0(%rsp)
+   1413a955c:	je     1413a923f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x139f>
+   1413a9562:	lea    0x20(%rsi),%rcx
+   1413a9566:	mov    %r15,%rdx
+   1413a9569:	call   141393bc0 <_ZN7QVectorItEaSERKS0_.part.0>
+   1413a956e:	jmp    1413a923f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x139f>
+   1413a9573:	nopl   0x0(%rax,%rax,1)
+   1413a9578:	cmpb   $0x0,0xb(%r12)
+   1413a957e:	js     1413a98bd <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1a1d>
+   1413a9584:	movslq 0x4(%r12),%r8
+   1413a9589:	xor    %r9d,%r9d
+   1413a958c:	mov    $0x8,%edx
+   1413a9591:	mov    $0x2,%ecx
+   1413a9596:	call   *0x14e9014(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a959c:	mov    %rax,0x20(%rbx)
+   1413a95a0:	test   %rax,%rax
+   1413a95a3:	je     1413aa3ce <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x252e>
+   1413a95a9:	testl  $0x7fffffff,0x8(%rax)
+   1413a95b0:	je     1413a923f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x139f>
+   1413a95b6:	movslq 0x4(%r12),%r8
+   1413a95bb:	mov    0x10(%r12),%rdx
+   1413a95c0:	add    0x10(%rax),%rax
+   1413a95c4:	add    %r12,%rdx
+   1413a95c7:	mov    %rax,%rcx
+   1413a95ca:	add    %r8,%r8
+   1413a95cd:	call   14175c188 <memcpy>
+   1413a95d2:	mov    0x4(%r12),%edx
+   1413a95d7:	mov    0x20(%rbx),%rax
+   1413a95db:	mov    %edx,0x4(%rax)
+   1413a95de:	jmp    1413a923f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x139f>
+   1413a95e3:	nopl   0x0(%rax,%rax,1)
+   1413a95e8:	mov    0x110(%rsi),%rbx
+   1413a95ef:	mov    0x10(%rbx),%rdi
+   1413a95f3:	test   %rdi,%rdi
+   1413a95f6:	je     1413a96a7 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1807>
+   1413a95fc:	lea    0x18(%rdi),%rcx
+   1413a9600:	call   141850e10 <_ZN7QStringD1Ev>
+   1413a9605:	mov    0x20(%rdi),%rcx
+   1413a9609:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a960e:	test   %al,%al
+   1413a9610:	je     1413a9ad6 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1c36>
+   1413a9616:	mov    0x8(%rdi),%rbp
+   1413a961a:	test   %rbp,%rbp
+   1413a961d:	je     1413a9655 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17b5>
+   1413a961f:	lea    0x18(%rbp),%rcx
+   1413a9623:	call   141850e10 <_ZN7QStringD1Ev>
+   1413a9628:	mov    0x20(%rbp),%rcx
+   1413a962c:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a9631:	test   %al,%al
+   1413a9633:	je     1413a9b4f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1caf>
+   1413a9639:	mov    0x8(%rbp),%rcx
+   1413a963d:	test   %rcx,%rcx
+   1413a9640:	je     1413a9647 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17a7>
+   1413a9642:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a9647:	mov    0x10(%rbp),%rcx
+   1413a964b:	test   %rcx,%rcx
+   1413a964e:	je     1413a9655 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17b5>
+   1413a9650:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a9655:	mov    0x10(%rdi),%rdi
+   1413a9659:	test   %rdi,%rdi
+   1413a965c:	je     1413a9694 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17f4>
+   1413a965e:	lea    0x18(%rdi),%rcx
+   1413a9662:	call   141850e10 <_ZN7QStringD1Ev>
+   1413a9667:	mov    0x20(%rdi),%rcx
+   1413a966b:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a9670:	test   %al,%al
+   1413a9672:	je     1413a9b35 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1c95>
+   1413a9678:	mov    0x8(%rdi),%rcx
+   1413a967c:	test   %rcx,%rcx
+   1413a967f:	je     1413a9686 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17e6>
+   1413a9681:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a9686:	mov    0x10(%rdi),%rcx
+   1413a968a:	test   %rcx,%rcx
+   1413a968d:	je     1413a9694 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17f4>
+   1413a968f:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a9694:	mov    0x10(%rbx),%rdx
+   1413a9698:	mov    $0x8,%r8d
+   1413a969e:	mov    %rbx,%rcx
+   1413a96a1:	call   *0x14e9169(%rip)        # 142892810 <__imp__ZN12QMapDataBase8freeTreeEP12QMapNodeBasei>
+   1413a96a7:	mov    %rbx,%rcx
+   1413a96aa:	call   *0x14e9158(%rip)        # 142892808 <__imp__ZN12QMapDataBase8freeDataEPS_>
+   1413a96b0:	jmp    1413a907c <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x11dc>
+   1413a96b5:	nopl   (%rax)
+   1413a96b8:	mov    0x110(%rbx),%r15
+   1413a96bf:	mov    0x10(%r15),%rsi
+   1413a96c3:	test   %rsi,%rsi
+   1413a96c6:	je     1413a9742 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x18a2>
+   1413a96c8:	lea    0x18(%rsi),%rcx
+   1413a96cc:	call   141850e10 <_ZN7QStringD1Ev>
+   1413a96d1:	mov    0x20(%rsi),%rcx
+   1413a96d5:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a96da:	test   %al,%al
+   1413a96dc:	je     1413a9abc <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1c1c>
+   1413a96e2:	mov    0x8(%rsi),%rcx
+   1413a96e6:	test   %rcx,%rcx
+   1413a96e9:	je     1413a96f0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1850>
+   1413a96eb:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a96f0:	mov    0x10(%rsi),%rsi
+   1413a96f4:	test   %rsi,%rsi
+   1413a96f7:	je     1413a972f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x188f>
+   1413a96f9:	lea    0x18(%rsi),%rcx
+   1413a96fd:	call   141850e10 <_ZN7QStringD1Ev>
+   1413a9702:	mov    0x20(%rsi),%rcx
+   1413a9706:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a970b:	test   %al,%al
+   1413a970d:	je     1413a9b69 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1cc9>
+   1413a9713:	mov    0x8(%rsi),%rcx
+   1413a9717:	test   %rcx,%rcx
+   1413a971a:	je     1413a9721 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1881>
+   1413a971c:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a9721:	mov    0x10(%rsi),%rcx
+   1413a9725:	test   %rcx,%rcx
+   1413a9728:	je     1413a972f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x188f>
+   1413a972a:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1413a972f:	mov    0x10(%r15),%rdx
+   1413a9733:	mov    $0x8,%r8d
+   1413a9739:	mov    %r15,%rcx
+   1413a973c:	call   *0x14e90ce(%rip)        # 142892810 <__imp__ZN12QMapDataBase8freeTreeEP12QMapNodeBasei>
+   1413a9742:	mov    %r15,%rcx
+   1413a9745:	call   *0x14e90bd(%rip)        # 142892808 <__imp__ZN12QMapDataBase8freeDataEPS_>
+   1413a974b:	jmp    1413a900e <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x116e>
+   1413a9750:	mov    %r9,%rcx
+   1413a9753:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9758:	mov    0x18(%rdi),%rax
+   1413a975c:	mov    0x60(%rsp),%rcx
+   1413a9761:	lea    0xac(%rsp),%r12
+   1413a9769:	mov    0x10(%rax),%rdx
+   1413a976d:	mov    0x130(%rax,%rdx,1),%rax
+   1413a9775:	mov    %r12,%rdx
+   1413a9778:	mov    0x4(%rax),%ebx
+   1413a977b:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9780:	mov    0x68(%rsp),%rcx
+   1413a9785:	mov    %r12,%rdx
+   1413a9788:	mov    %rax,%rsi
+   1413a978b:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9790:	test   %rsi,%rsi
+   1413a9793:	je     1413a97ab <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x190b>
+   1413a9795:	test   %rax,%rax
+   1413a9798:	je     1413a97a6 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1906>
+   1413a979a:	movslq 0xc(%rax),%rsi
+   1413a979e:	cmp    %ebx,%esi
+   1413a97a0:	jl     1413a9b83 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1ce3>
+   1413a97a6:	movb   $0x0,0x77(%rsp)
+   1413a97ab:	mov    0x60(%rsp),%rcx
+   1413a97b0:	lea    0xb0(%rsp),%r12
+   1413a97b8:	mov    %r12,%rdx
+   1413a97bb:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a97c0:	mov    0x68(%rsp),%rcx
+   1413a97c5:	mov    %r12,%rdx
+   1413a97c8:	mov    %rax,%rsi
+   1413a97cb:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a97d0:	test   %rsi,%rsi
+   1413a97d3:	je     1413a97eb <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x194b>
+   1413a97d5:	test   %rax,%rax
+   1413a97d8:	je     1413a97e6 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1946>
+   1413a97da:	movslq 0xc(%rax),%rsi
+   1413a97de:	cmp    %ebx,%esi
+   1413a97e0:	jl     1413a9c11 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1d71>
+   1413a97e6:	movb   $0x0,0x77(%rsp)
+   1413a97eb:	mov    0x60(%rsp),%rcx
+   1413a97f0:	lea    0xb4(%rsp),%r12
+   1413a97f8:	mov    %r12,%rdx
+   1413a97fb:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9800:	mov    0x68(%rsp),%rcx
+   1413a9805:	mov    %r12,%rdx
+   1413a9808:	mov    %rax,%rsi
+   1413a980b:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9810:	test   %rsi,%rsi
+   1413a9813:	je     1413a9976 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1ad6>
+   1413a9819:	mov    0x338(%rsp),%rdi
+   1413a9821:	mov    (%rdi),%rdi
+   1413a9824:	test   %rax,%rax
+   1413a9827:	je     1413a9835 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1995>
+   1413a9829:	movslq 0xc(%rax),%rsi
+   1413a982d:	cmp    %ebx,%esi
+   1413a982f:	jl     1413a98f2 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1a52>
+   1413a9835:	movb   $0x0,0x77(%rsp)
+   1413a983a:	jmp    1413a8aab <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xc0b>
+   1413a983f:	nop
+   1413a9840:	mov    0x8(%rax),%r8d
+   1413a9844:	xor    %r9d,%r9d
+   1413a9847:	mov    $0x8,%edx
+   1413a984c:	mov    $0x2,%ecx
+   1413a9851:	and    $0x7fffffff,%r8d
+   1413a9858:	call   *0x14e8d52(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a985e:	mov    %rax,0xc8(%rsp)
+   1413a9866:	mov    %rax,%rbx
+   1413a9869:	test   %rax,%rax
+   1413a986c:	je     1413aa257 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23b7>
+   1413a9872:	orb    $0x80,0xb(%rbx)
+   1413a9876:	jmp    1413a9352 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x14b2>
+   1413a987b:	nopl   0x0(%rax,%rax,1)
+   1413a9880:	mov    %rax,%rsi
+   1413a9883:	jmp    1413a8e7f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xfdf>
+   1413a9888:	mov    0x8(%rbx),%r8d
+   1413a988c:	xor    %r9d,%r9d
+   1413a988f:	mov    $0x8,%edx
+   1413a9894:	mov    $0x2,%ecx
+   1413a9899:	and    $0x7fffffff,%r8d
+   1413a98a0:	call   *0x14e8d0a(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a98a6:	mov    %rax,0x20(%r12)
+   1413a98ab:	test   %rax,%rax
+   1413a98ae:	je     1413aa271 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23d1>
+   1413a98b4:	orb    $0x80,0xb(%rax)
+   1413a98b8:	jmp    1413a950f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x166f>
+   1413a98bd:	mov    0x8(%r12),%r8d
+   1413a98c2:	xor    %r9d,%r9d
+   1413a98c5:	mov    $0x8,%edx
+   1413a98ca:	mov    $0x2,%ecx
+   1413a98cf:	and    $0x7fffffff,%r8d
+   1413a98d6:	call   *0x14e8cd4(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a98dc:	mov    %rax,0x20(%rbx)
+   1413a98e0:	test   %rax,%rax
+   1413a98e3:	je     1413aa262 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23c2>
+   1413a98e9:	orb    $0x80,0xb(%rax)
+   1413a98ed:	jmp    1413a95a9 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1709>
+   1413a98f2:	lea    0x18(%rdi),%rcx
+   1413a98f6:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a98fb:	mov    0x18(%rdi),%rbx
+   1413a98ff:	add    0x10(%rbx),%rbx
+   1413a9903:	lea    0x130(%rbx),%rcx
+   1413a990a:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a990f:	mov    0x130(%rbx),%rax
+   1413a9916:	lea    (%rsi,%rsi,2),%rdx
+   1413a991a:	lea    0x190(%rsp),%rbx
+   1413a9922:	lea    (%rsi,%rdx,4),%rdx
+   1413a9926:	mov    %rbx,%rcx
+   1413a9929:	add    0x10(%rax),%rax
+   1413a992d:	lea    (%rax,%rdx,4),%rdx
+   1413a9931:	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a9936:	mov    0x58(%rsp),%rax
+   1413a993b:	mov    0x78(%rsp),%rdx
+   1413a9940:	mov    %rbx,%r8
+   1413a9943:	lea    0x80(%rsp),%rcx
+   1413a994b:	movupd 0x80(%rax),%xmm4
+   1413a9953:	movups %xmm4,0x1c8(%rsp)
+   1413a995b:	movsd  0x90(%rax),%xmm0
+   1413a9963:	movaps %xmm4,0x30(%rsp)
+   1413a9968:	movsd  %xmm0,0x1d8(%rsp)
+   1413a9971:	call   1413a7cb0 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEE10_M_emplaceIJS1_IS0_S3_EEEES1_INS6_14_Node_iteratorIS4_Lb0ELb1EEEbESt17integral_constantIbLb1EEDpOT_.isra.0>
+   1413a9976:	mov    0x338(%rsp),%rax
+   1413a997e:	mov    (%rax),%rdi
+   1413a9981:	jmp    1413a8aab <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0xc0b>
+   1413a9986:	cmp    $0x1,%r8d
+   1413a998a:	jbe    1413a9cb8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1e18>
+   1413a9990:	lea    0x18(%rdi),%rcx
+   1413a9994:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9999:	mov    0x18(%rdi),%rbx
+   1413a999d:	add    0x10(%rbx),%rbx
+   1413a99a1:	mov    0x120(%rbx),%rax
+   1413a99a8:	mov    0x4(%rax),%eax
+   1413a99ab:	test   %eax,%eax
+   1413a99ad:	je     1413a99d4 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1b34>
+   1413a99af:	lea    0x120(%rbx),%r12
+   1413a99b6:	mov    %r12,%rcx
+   1413a99b9:	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   1413a99be:	mov    %r12,%rcx
+   1413a99c1:	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   1413a99c6:	mov    0x120(%rbx),%rax
+   1413a99cd:	movl   $0x0,0x4(%rax)
+   1413a99d4:	xor    %ebx,%ebx
+   1413a99d6:	lea    0x1e0(%rsp),%rsi
+   1413a99de:	jmp    1413a9a19 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1b79>
+   1413a99e0:	mov    0x338(%rsp),%rax
+   1413a99e8:	mov    (%rax),%rdi
+   1413a99eb:	lea    0x18(%rdi),%rcx
+   1413a99ef:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a99f4:	mov    0x18(%rdi),%rcx
+   1413a99f8:	mov    %rsi,%rdx
+   1413a99fb:	add    0x10(%rcx),%rcx
+   1413a99ff:	movl   $0x1,0x1e0(%rsp)
+   1413a9a0a:	add    $0x120,%rcx
+   1413a9a11:	call   141860df0 <_ZN7QVectorIjE6appendEOj>
+   1413a9a16:	add    $0x1,%ebx
+   1413a9a19:	mov    0x338(%rsp),%rax
+   1413a9a21:	mov    (%rax),%rdi
+   1413a9a24:	lea    0x18(%rdi),%rcx
+   1413a9a28:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9a2d:	mov    0x18(%rdi),%rax
+   1413a9a31:	mov    0x10(%rax),%rdx
+   1413a9a35:	mov    0x128(%rax,%rdx,1),%rax
+   1413a9a3d:	cmp    0x4(%rax),%ebx
+   1413a9a40:	jl     1413a99e0 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1b40>
+   1413a9a42:	mov    0x78(%rsp),%rcx
+   1413a9a47:	call   141957b10 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEED1Ev>
+   1413a9a4c:	mov    0x68(%rsp),%rcx
+   1413a9a51:	call   141965130 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEED1Ev>
+   1413a9a56:	mov    0x60(%rsp),%rcx
+   1413a9a5b:	call   141965130 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEED1Ev>
+   1413a9a60:	mov    0xb8(%rsp),%r12
+   1413a9a68:	mov    %r12,%rcx
+   1413a9a6b:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413a9a70:	test   %al,%al
+   1413a9a72:	je     1413a9c9f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1dff>
+   1413a9a78:	movzbl 0x77(%rsp),%eax
+   1413a9a7d:	movaps 0x290(%rsp),%xmm6
+   1413a9a85:	movaps 0x2a0(%rsp),%xmm7
+   1413a9a8d:	movaps 0x2b0(%rsp),%xmm8
+   1413a9a96:	movaps 0x2c0(%rsp),%xmm9
+   1413a9a9f:	movaps 0x2d0(%rsp),%xmm10
+   1413a9aa8:	add    $0x2e8,%rsp
+   1413a9aaf:	pop    %rbx
+   1413a9ab0:	pop    %rsi
+   1413a9ab1:	pop    %rdi
+   1413a9ab2:	pop    %rbp
+   1413a9ab3:	pop    %r12
+   1413a9ab5:	pop    %r13
+   1413a9ab7:	pop    %r14
+   1413a9ab9:	pop    %r15
+   1413a9abb:	ret
+   1413a9abc:	mov    0x20(%rsi),%rcx
+   1413a9ac0:	mov    $0x8,%r8d
+   1413a9ac6:	mov    $0x2,%edx
+   1413a9acb:	call   *0x14e8acf(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9ad1:	jmp    1413a96e2 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1842>
+   1413a9ad6:	mov    0x20(%rdi),%rcx
+   1413a9ada:	mov    $0x8,%r8d
+   1413a9ae0:	mov    $0x2,%edx
+   1413a9ae5:	call   *0x14e8ab5(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9aeb:	jmp    1413a9616 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1776>
+   1413a9af0:	mov    0x40(%rsi),%rcx
+   1413a9af4:	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1413a9af9:	jmp    1413a87b6 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x916>
+   1413a9afe:	movd   %esi,%xmm5
+   1413a9b02:	mov    0x60(%rsp),%rdx
+   1413a9b07:	lea    0x90(%rsp),%rcx
+   1413a9b0f:	mov    %r13,%r8
+   1413a9b12:	pshufd $0xe0,%xmm5,%xmm0
+   1413a9b17:	movq   %xmm0,0x1e0(%rsp)
+   1413a9b20:	call   1413a7b30 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE10_M_emplaceIJS0_IiiEEEES0_INS4_14_Node_iteratorIS2_Lb0ELb0EEEbESt17integral_constantIbLb1EEDpOT_.isra.0>
+   1413a9b25:	mov    0x338(%rsp),%rax
+   1413a9b2d:	mov    (%rax),%rdi
+   1413a9b30:	jmp    1413a8700 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x860>
+   1413a9b35:	mov    0x20(%rdi),%rcx
+   1413a9b39:	mov    $0x8,%r8d
+   1413a9b3f:	mov    $0x2,%edx
+   1413a9b44:	call   *0x14e8a56(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9b4a:	jmp    1413a9678 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x17d8>
+   1413a9b4f:	mov    0x20(%rbp),%rcx
+   1413a9b53:	mov    $0x8,%r8d
+   1413a9b59:	mov    $0x2,%edx
+   1413a9b5e:	call   *0x14e8a3c(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9b64:	jmp    1413a9639 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1799>
+   1413a9b69:	mov    0x20(%rsi),%rcx
+   1413a9b6d:	mov    $0x8,%r8d
+   1413a9b73:	mov    $0x2,%edx
+   1413a9b78:	call   *0x14e8a22(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9b7e:	jmp    1413a9713 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1873>
+   1413a9b83:	mov    0x338(%rsp),%rax
+   1413a9b8b:	mov    (%rax),%rdi
+   1413a9b8e:	lea    0x18(%rdi),%rcx
+   1413a9b92:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9b97:	mov    0x18(%rdi),%rdi
+   1413a9b9b:	add    0x10(%rdi),%rdi
+   1413a9b9f:	lea    0x130(%rdi),%rcx
+   1413a9ba6:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a9bab:	mov    0x130(%rdi),%rax
+   1413a9bb2:	lea    (%rsi,%rsi,2),%rdx
+   1413a9bb6:	lea    (%rsi,%rdx,4),%rdx
+   1413a9bba:	lea    0x190(%rsp),%rsi
+   1413a9bc2:	add    0x10(%rax),%rax
+   1413a9bc6:	mov    %rsi,%rcx
+   1413a9bc9:	lea    (%rax,%rdx,4),%rdx
+   1413a9bcd:	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a9bd2:	mov    0x58(%rsp),%rax
+   1413a9bd7:	mov    0x78(%rsp),%rdx
+   1413a9bdc:	mov    %rsi,%r8
+   1413a9bdf:	lea    0x80(%rsp),%rcx
+   1413a9be7:	movupd 0x50(%rax),%xmm5
+   1413a9bec:	movups %xmm5,0x1c8(%rsp)
+   1413a9bf4:	movsd  0x60(%rax),%xmm0
+   1413a9bf9:	movaps %xmm5,0x30(%rsp)
+   1413a9bfe:	movsd  %xmm0,0x1d8(%rsp)
+   1413a9c07:	call   1413a7cb0 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEE10_M_emplaceIJS1_IS0_S3_EEEES1_INS6_14_Node_iteratorIS4_Lb0ELb1EEEbESt17integral_constantIbLb1EEDpOT_.isra.0>
+   1413a9c0c:	jmp    1413a97ab <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x190b>
+   1413a9c11:	mov    0x338(%rsp),%rax
+   1413a9c19:	mov    (%rax),%rdi
+   1413a9c1c:	lea    0x18(%rdi),%rcx
+   1413a9c20:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9c25:	mov    0x18(%rdi),%rdi
+   1413a9c29:	add    0x10(%rdi),%rdi
+   1413a9c2d:	lea    0x130(%rdi),%rcx
+   1413a9c34:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a9c39:	mov    0x130(%rdi),%rax
+   1413a9c40:	lea    (%rsi,%rsi,2),%rdx
+   1413a9c44:	lea    (%rsi,%rdx,4),%rdx
+   1413a9c48:	lea    0x190(%rsp),%rsi
+   1413a9c50:	add    0x10(%rax),%rax
+   1413a9c54:	mov    %rsi,%rcx
+   1413a9c57:	lea    (%rax,%rdx,4),%rdx
+   1413a9c5b:	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a9c60:	mov    0x58(%rsp),%rax
+   1413a9c65:	mov    0x78(%rsp),%rdx
+   1413a9c6a:	mov    %rsi,%r8
+   1413a9c6d:	lea    0x80(%rsp),%rcx
+   1413a9c75:	movupd 0x68(%rax),%xmm5
+   1413a9c7a:	movups %xmm5,0x1c8(%rsp)
+   1413a9c82:	movsd  0x78(%rax),%xmm0
+   1413a9c87:	movaps %xmm5,0x30(%rsp)
+   1413a9c8c:	movsd  %xmm0,0x1d8(%rsp)
+   1413a9c95:	call   1413a7cb0 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEE10_M_emplaceIJS1_IS0_S3_EEEES1_INS6_14_Node_iteratorIS4_Lb0ELb1EEEbESt17integral_constantIbLb1EEDpOT_.isra.0>
+   1413a9c9a:	jmp    1413a97eb <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x194b>
+   1413a9c9f:	mov    $0x8,%r8d
+   1413a9ca5:	mov    $0x4,%edx
+   1413a9caa:	mov    %r12,%rcx
+   1413a9cad:	call   *0x14e88ed(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a9cb3:	jmp    1413a9a78 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1bd8>
+   1413a9cb8:	lea    0x210(%rsp),%rax
+   1413a9cc0:	mov    %r9,%rcx
+   1413a9cc3:	movq   $0x1,0x1e8(%rsp)
+   1413a9ccf:	mov    %rax,0x1e0(%rsp)
+   1413a9cd7:	movq   $0x0,0x1f0(%rsp)
+   1413a9ce3:	movq   $0x0,0x1f8(%rsp)
+   1413a9cef:	movq   $0x0,0x208(%rsp)
+   1413a9cfb:	movq   $0x0,0x210(%rsp)
+   1413a9d07:	movss  %xmm9,0x200(%rsp)
+   1413a9d11:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9d16:	mov    0x18(%rdi),%rbx
+   1413a9d1a:	add    0x10(%rbx),%rbx
+   1413a9d1e:	lea    0x128(%rbx),%rcx
+   1413a9d25:	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a9d2a:	mov    0x128(%rbx),%rbx
+   1413a9d31:	lea    0xc0(%rsp),%r13
+   1413a9d39:	lea    0xc8(%rsp),%r14
+   1413a9d41:	lea    0x190(%rsp),%r15
+   1413a9d49:	add    0x10(%rbx),%rbx
+   1413a9d4d:	jmp    1413a9ee8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2048>
+   1413a9d52:	movzwl (%rbx),%eax
+   1413a9d55:	mov    0x60(%rsp),%rcx
+   1413a9d5a:	mov    %r13,%rdx
+   1413a9d5d:	mov    %eax,0xc0(%rsp)
+   1413a9d64:	mov    %rax,%rdi
+   1413a9d67:	movzwl 0x2(%rbx),%eax
+   1413a9d6b:	mov    %eax,0xc8(%rsp)
+   1413a9d72:	mov    %rax,%rsi
+   1413a9d75:	movzwl 0x4(%rbx),%eax
+   1413a9d79:	mov    %eax,0x190(%rsp)
+   1413a9d80:	mov    %rax,%rbp
+   1413a9d83:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9d88:	test   %rax,%rax
+   1413a9d8b:	je     1413a9df3 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1f53>
+   1413a9d8d:	mov    0x338(%rsp),%rax
+   1413a9d95:	mov    (%rax),%r12
+   1413a9d98:	lea    0x18(%r12),%rcx
+   1413a9d9d:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9da2:	mov    0x18(%r12),%r12
+   1413a9da7:	add    0x10(%r12),%r12
+   1413a9dac:	lea    0x130(%r12),%rcx
+   1413a9db4:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a9db9:	mov    0x130(%r12),%rax
+   1413a9dc1:	lea    (%rdi,%rdi,2),%rdx
+   1413a9dc5:	mov    0x78(%rsp),%rcx
+   1413a9dca:	lea    (%rdi,%rdx,4),%rdx
+   1413a9dce:	add    0x10(%rax),%rax
+   1413a9dd2:	lea    (%rax,%rdx,4),%rdx
+   1413a9dd6:	call   141957940 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEE4findERS2_>
+   1413a9ddb:	test   %rax,%rax
+   1413a9dde:	je     1413a9df3 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1f53>
+   1413a9de0:	movupd 0x40(%rax),%xmm1
+   1413a9de5:	movsd  0x50(%rax),%xmm0
+   1413a9dea:	movups %xmm1,0x50(%rbx)
+   1413a9dee:	movsd  %xmm0,0x60(%rbx)
+   1413a9df3:	mov    0x60(%rsp),%rcx
+   1413a9df8:	mov    %r14,%rdx
+   1413a9dfb:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9e00:	test   %rax,%rax
+   1413a9e03:	je     1413a9e66 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1fc6>
+   1413a9e05:	mov    0x338(%rsp),%rax
+   1413a9e0d:	mov    (%rax),%rdi
+   1413a9e10:	lea    0x18(%rdi),%rcx
+   1413a9e14:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9e19:	mov    0x18(%rdi),%rdi
+   1413a9e1d:	add    0x10(%rdi),%rdi
+   1413a9e21:	lea    0x130(%rdi),%rcx
+   1413a9e28:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a9e2d:	mov    0x130(%rdi),%rax
+   1413a9e34:	lea    (%rsi,%rsi,2),%rdx
+   1413a9e38:	mov    0x78(%rsp),%rcx
+   1413a9e3d:	lea    (%rsi,%rdx,4),%rdx
+   1413a9e41:	add    0x10(%rax),%rax
+   1413a9e45:	lea    (%rax,%rdx,4),%rdx
+   1413a9e49:	call   141957940 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEE4findERS2_>
+   1413a9e4e:	test   %rax,%rax
+   1413a9e51:	je     1413a9e66 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1fc6>
+   1413a9e53:	movupd 0x40(%rax),%xmm1
+   1413a9e58:	movsd  0x50(%rax),%xmm0
+   1413a9e5d:	movups %xmm1,0x68(%rbx)
+   1413a9e61:	movsd  %xmm0,0x78(%rbx)
+   1413a9e66:	mov    0x60(%rsp),%rcx
+   1413a9e6b:	mov    %r15,%rdx
+   1413a9e6e:	call   141964fb0 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEE4findERS1_>
+   1413a9e73:	test   %rax,%rax
+   1413a9e76:	je     1413a9ee1 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2041>
+   1413a9e78:	mov    0x338(%rsp),%rax
+   1413a9e80:	mov    (%rax),%rsi
+   1413a9e83:	lea    0x18(%rsi),%rcx
+   1413a9e87:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9e8c:	mov    0x18(%rsi),%rsi
+   1413a9e90:	add    0x10(%rsi),%rsi
+   1413a9e94:	lea    0x130(%rsi),%rcx
+   1413a9e9b:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   1413a9ea0:	mov    0x130(%rsi),%rax
+   1413a9ea7:	lea    0x0(%rbp,%rbp,2),%rdx
+   1413a9eac:	mov    0x78(%rsp),%rcx
+   1413a9eb1:	lea    0x0(%rbp,%rdx,4),%rdx
+   1413a9eb6:	add    0x10(%rax),%rax
+   1413a9eba:	lea    (%rax,%rdx,4),%rdx
+   1413a9ebe:	call   141957940 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEE4findERS2_>
+   1413a9ec3:	test   %rax,%rax
+   1413a9ec6:	je     1413a9ee1 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2041>
+   1413a9ec8:	movupd 0x40(%rax),%xmm1
+   1413a9ecd:	movsd  0x50(%rax),%xmm0
+   1413a9ed2:	movups %xmm1,0x80(%rbx)
+   1413a9ed9:	movsd  %xmm0,0x90(%rbx)
+   1413a9ee1:	add    $0xa8,%rbx
+   1413a9ee8:	mov    0x338(%rsp),%rax
+   1413a9ef0:	mov    (%rax),%rsi
+   1413a9ef3:	lea    0x18(%rsi),%rcx
+   1413a9ef7:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413a9efc:	mov    0x18(%rsi),%rsi
+   1413a9f00:	add    0x10(%rsi),%rsi
+   1413a9f04:	lea    0x128(%rsi),%rcx
+   1413a9f0b:	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a9f10:	mov    0x128(%rsi),%rax
+   1413a9f17:	mov    0x10(%rax),%rdx
+   1413a9f1b:	add    %rax,%rdx
+   1413a9f1e:	movslq 0x4(%rax),%rax
+   1413a9f22:	lea    (%rax,%rax,4),%rcx
+   1413a9f26:	lea    (%rax,%rcx,4),%rax
+   1413a9f2a:	lea    (%rdx,%rax,8),%rax
+   1413a9f2e:	cmp    %rax,%rbx
+   1413a9f31:	jne    1413a9d52 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1eb2>
+   1413a9f37:	lea    0x1e0(%rsp),%rcx
+   1413a9f3f:	call   141957b10 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEED1Ev>
+   1413a9f44:	mov    0x330(%rsp),%rax
+   1413a9f4c:	mov    0x58(%rax),%eax
+   1413a9f4f:	sub    $0x1,%eax
+   1413a9f52:	cmp    $0x1,%eax
+   1413a9f55:	jbe    1413a9a42 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1ba2>
+   1413a9f5b:	mov    0x338(%rsp),%rax
+   1413a9f63:	mov    (%rax),%rdi
+   1413a9f66:	jmp    1413a9990 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1af0>
+   1413a9f6b:	nopl   0x0(%rax,%rax,1)
+   1413a9f70:	mov    0x14e8879(%rip),%rax        # 1428927f0 <__imp__ZN12QMapDataBase11shared_nullE>
+   1413a9f77:	lea    0x40(%rbx),%rcx
+   1413a9f7b:	mov    %rax,0xd0(%rsp)
+   1413a9f83:	lea    0xd0(%rsp),%rax
+   1413a9f8b:	mov    %rax,0x60(%rsp)
+   1413a9f90:	call   1417c7500 <_ZN4QMapI15Au3dsGLSLVertexdE6detachEv>
+   1413a9f95:	mov    0x40(%rbx),%rax
+   1413a9f99:	cmpq   $0x0,0x10(%rax)
+   1413a9f9e:	lea    0x8(%rax),%r12
+   1413a9fa2:	je     1413a9fa8 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2108>
+   1413a9fa4:	mov    0x20(%rax),%r12
+   1413a9fa8:	lea    0xd0(%rsp),%rdi
+   1413a9fb0:	mov    0x14e8841(%rip),%rbp        # 1428927f8 <__imp__ZN12QMapDataBase18recalcMostLeftNodeEv>
+   1413a9fb7:	mov    0x14e9002(%rip),%rsi        # 142892fc0 <__imp__ZNK12QMapNodeBase8nextNodeEv>
+   1413a9fbe:	mov    %rdi,0x60(%rsp)
+   1413a9fc3:	mov    0x14e8816(%rip),%rdi        # 1428927e0 <__imp__ZN12QMapDataBase10createDataEv>
+   1413a9fca:	jmp    1413aa0dd <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x223d>
+   1413a9fcf:	lea    0x8(%rax),%rdx
+   1413a9fd3:	cmp    %rdx,%r12
+   1413a9fd6:	je     1413aa140 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x22a0>
+   1413a9fdc:	lea    0x190(%rsp),%rcx
+   1413a9fe4:	lea    0x18(%r12),%rdx
+   1413a9fe9:	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a9fee:	movsd  0x50(%r12),%xmm0
+   1413a9ff5:	pxor   %xmm1,%xmm1
+   1413a9ff9:	mov    0x338(%rsp),%rax
+   1413aa001:	cvtss2sd 0x1c0(%rsp),%xmm1
+   1413aa00a:	movsd  %xmm1,0x160(%rsp)
+   1413aa013:	movsd  %xmm0,0x110(%rsp)
+   1413aa01c:	mov    (%rax),%r13
+   1413aa01f:	movq   0x1b8(%rsp),%xmm0
+   1413aa028:	lea    0x18(%r13),%rcx
+   1413aa02c:	cvtps2pd %xmm0,%xmm0
+   1413aa02f:	movaps %xmm0,0x150(%rsp)
+   1413aa037:	call   141855820 <_ZN7QVectorI15Au3dsGLSLObjectE6detachEv>
+   1413aa03c:	mov    0x18(%r13),%rdx
+   1413aa040:	lea    0x1e0(%rsp),%r13
+   1413aa048:	lea    0x150(%rsp),%r8
+   1413aa050:	mov    %r13,%rcx
+   1413aa053:	add    0x10(%rdx),%rdx
+   1413aa057:	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413aa05c:	mov    0x60(%rsp),%rcx
+   1413aa061:	lea    0x110(%rsp),%r8
+   1413aa069:	mov    %r13,%rdx
+   1413aa06c:	movsd  0x1f0(%rsp),%xmm0
+   1413aa075:	movapd 0x1e0(%rsp),%xmm5
+   1413aa07e:	movq   $0x0,0x200(%rsp)
+   1413aa08a:	movsd  %xmm0,0x160(%rsp)
+   1413aa093:	cvtsd2ss %xmm0,%xmm0
+   1413aa097:	movss  %xmm0,0x210(%rsp)
+   1413aa0a0:	pxor   %xmm0,%xmm0
+   1413aa0a4:	cvtpd2ps %xmm5,%xmm1
+   1413aa0a8:	movaps %xmm0,0x1f0(%rsp)
+   1413aa0b0:	pxor   %xmm0,%xmm0
+   1413aa0b4:	movaps %xmm5,0x150(%rsp)
+   1413aa0bc:	movlps %xmm1,0x208(%rsp)
+   1413aa0c4:	movaps %xmm0,0x1e0(%rsp)
+   1413aa0cc:	call   1417c7590 <_ZN4QMapI15Au3dsGLSLVertexdE6insertERKS0_RKd>
+   1413aa0d1:	mov    %r12,%rcx
+   1413aa0d4:	call   *%rsi
+   1413aa0d6:	mov    %rax,%r12
+   1413aa0d9:	mov    0x40(%rbx),%rax
+   1413aa0dd:	mov    (%rax),%edx
+   1413aa0df:	cmp    $0x1,%edx
+   1413aa0e2:	jbe    1413a9fcf <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x212f>
+   1413aa0e8:	call   *%rdi
+   1413aa0ea:	mov    0x40(%rbx),%rcx
+   1413aa0ee:	mov    %rax,%r13
+   1413aa0f1:	mov    0x10(%rcx),%r8
+   1413aa0f5:	test   %r8,%r8
+   1413aa0f8:	je     1413aa11d <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x227d>
+   1413aa0fa:	mov    %rax,%rdx
+   1413aa0fd:	mov    %r8,%rcx
+   1413aa100:	call   141948d00 <_ZNK8QMapNodeI15Au3dsGLSLVertexdE4copyEP8QMapDataIS0_dE>
+   1413aa105:	mov    (%rax),%rdx
+   1413aa108:	lea    0x8(%r13),%rcx
+   1413aa10c:	mov    %rax,0x10(%r13)
+   1413aa110:	and    $0x3,%edx
+   1413aa113:	or     %rcx,%rdx
+   1413aa116:	mov    0x40(%rbx),%rcx
+   1413aa11a:	mov    %rdx,(%rax)
+   1413aa11d:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413aa122:	test   %al,%al
+   1413aa124:	je     1413aa184 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x22e4>
+   1413aa126:	mov    %r13,0x40(%rbx)
+   1413aa12a:	mov    %r13,%rcx
+   1413aa12d:	call   *%rbp
+   1413aa12f:	mov    0x40(%rbx),%rax
+   1413aa133:	lea    0x8(%rax),%rdx
+   1413aa137:	cmp    %rdx,%r12
+   1413aa13a:	jne    1413a9fdc <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x213c>
+   1413aa140:	mov    0xd0(%rsp),%rdi
+   1413aa148:	cmp    %rdi,%rax
+   1413aa14b:	je     1413aa175 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x22d5>
+   1413aa14d:	mov    %rdi,%rcx
+   1413aa150:	call   1418f04a0 <_ZN9QtPrivate8RefCount3refEv>
+   1413aa155:	test   %al,%al
+   1413aa157:	je     1413aa1f3 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2353>
+   1413aa15d:	mov    0x40(%rbx),%r12
+   1413aa161:	mov    %rdi,0x40(%rbx)
+   1413aa165:	mov    %r12,%rcx
+   1413aa168:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   1413aa16d:	test   %al,%al
+   1413aa16f:	je     1413aa232 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2392>
+   1413aa175:	mov    0x60(%rsp),%rcx
+   1413aa17a:	call   1417c7740 <_ZN4QMapI15Au3dsGLSLVertexdED1Ev>
+   1413aa17f:	jmp    1413a8470 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x5d0>
+   1413aa184:	mov    0x40(%rbx),%rcx
+   1413aa188:	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1413aa18d:	jmp    1413aa126 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x2286>
+   1413aa18f:	lea    0x1e0(%rsp),%r13
+   1413aa197:	lea    0xf2503e(%rip),%rdx        # 1422cf1dc <.rdata+0x3bc>
+   1413aa19e:	mov    %r13,%rcx
+   1413aa1a1:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1413aa1a6:	mov    $0x1a8,%ecx
+   1413aa1ab:	call   141753f98 <_Znwy>
+   1413aa1b0:	mov    %r13,%rdx
+   1413aa1b3:	mov    %rax,%rcx
+   1413aa1b6:	mov    %rax,%rbx
+   1413aa1b9:	call   1417b0bb0 <_ZN22Au3dsGLSLModelInstanceC1ERK7QString>
+   1413aa1be:	mov    0x338(%rsp),%rax
+   1413aa1c6:	mov    %r13,%rcx
+   1413aa1c9:	mov    %rbx,(%rax)
+   1413aa1cc:	call   141850e10 <_ZN7QStringD1Ev>
+   1413aa1d1:	mov    0x338(%rsp),%rax
+   1413aa1d9:	mov    0x330(%rsp),%rdx
+   1413aa1e1:	mov    (%rax),%rcx
+   1413aa1e4:	call   1417ad9f0 <_ZN22Au3dsGLSLModelInstance12CopyInstanceEPKS_>
+   1413aa1e9:	movb   $0x1,0x77(%rsp)
+   1413aa1ee:	jmp    1413a9a78 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1bd8>
+   1413aa1f3:	call   *0x14e85e7(%rip)        # 1428927e0 <__imp__ZN12QMapDataBase10createDataEv>
+   1413aa1f9:	mov    0x10(%rdi),%rcx
+   1413aa1fd:	mov    %rax,%rsi
+   1413aa200:	test   %rcx,%rcx
+   1413aa203:	je     1413aa22a <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x238a>
+   1413aa205:	mov    %rax,%rdx
+   1413aa208:	call   141948d00 <_ZNK8QMapNodeI15Au3dsGLSLVertexdE4copyEP8QMapDataIS0_dE>
+   1413aa20d:	mov    (%rax),%rdx
+   1413aa210:	lea    0x8(%rsi),%rcx
+   1413aa214:	mov    %rax,0x10(%rsi)
+   1413aa218:	and    $0x3,%edx
+   1413aa21b:	or     %rcx,%rdx
+   1413aa21e:	mov    %rsi,%rcx
+   1413aa221:	mov    %rdx,(%rax)
+   1413aa224:	call   *0x14e85ce(%rip)        # 1428927f8 <__imp__ZN12QMapDataBase18recalcMostLeftNodeEv>
+   1413aa22a:	mov    %rsi,%rdi
+   1413aa22d:	jmp    1413aa15d <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x22bd>
+   1413aa232:	mov    %r12,%rcx
+   1413aa235:	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1413aa23a:	jmp    1413aa175 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x22d5>
+   1413aa23f:	mov    %rax,%r12
+   1413aa242:	mov    %r13,%rcx
+   1413aa245:	call   141850e10 <_ZN7QStringD1Ev>
+   1413aa24a:	mov    %r12,%rcx
+   1413aa24d:	call   141755338 <_Unwind_Resume>
+   1413aa252:	mov    %rax,%rbx
+   1413aa255:	jmp    1413aa29b <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23fb>
+   1413aa257:	call   *0x14e8333(%rip)        # 142892590 <__imp__Z9qBadAllocv>
+   1413aa25d:	jmp    1413a9872 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x19d2>
+   1413aa262:	call   *0x14e8328(%rip)        # 142892590 <__imp__Z9qBadAllocv>
+   1413aa268:	mov    0x20(%rbx),%rax
+   1413aa26c:	jmp    1413a98e9 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1a49>
+   1413aa271:	call   *0x14e8319(%rip)        # 142892590 <__imp__Z9qBadAllocv>
+   1413aa277:	mov    0x20(%r12),%rax
+   1413aa27c:	jmp    1413a98b4 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1a14>
+   1413aa281:	lea    0x1e0(%rsp),%rcx
+   1413aa289:	mov    %rax,%rbx
+   1413aa28c:	call   141957b10 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEED1Ev>
+   1413aa291:	mov    0x78(%rsp),%rcx
+   1413aa296:	call   141957b10 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_7AuPointESaIS4_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS6_18_Mod_range_hashingENS6_20_Default_ranged_hashENS6_20_Prime_rehash_policyENS6_17_Hashtable_traitsILb1ELb0ELb1EEEED1Ev>
+   1413aa29b:	mov    0x68(%rsp),%rcx
+   1413aa2a0:	call   141965130 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEED1Ev>
+   1413aa2a5:	mov    0x60(%rsp),%rcx
+   1413aa2aa:	call   141965130 <_ZNSt10_HashtableIiSt4pairIKiiESaIS2_ENSt8__detail10_Select1stESt8equal_toIiESt4hashIiENS4_18_Mod_range_hashingENS4_20_Default_ranged_hashENS4_20_Prime_rehash_policyENS4_17_Hashtable_traitsILb0ELb0ELb1EEEED1Ev>
+   1413aa2af:	lea    0xb8(%rsp),%rcx
+   1413aa2b7:	call   141860dc0 <_ZN7QVectorIiED1Ev>
+   1413aa2bc:	mov    %rbx,%rcx
+   1413aa2bf:	call   141755338 <_Unwind_Resume>
+   1413aa2c4:	mov    %rax,%rcx
+   1413aa2c7:	call   141753f80 <__cxa_begin_catch>
+   1413aa2cc:	lea    0x18(%rbx),%rcx
+   1413aa2d0:	call   141850e10 <_ZN7QStringD1Ev>
+   1413aa2d5:	call   141753f50 <__cxa_rethrow>
+   1413aa2da:	mov    %r14,%rcx
+   1413aa2dd:	mov    %rax,%rbx
+   1413aa2e0:	lea    0xc0(%rsp),%r15
+   1413aa2e8:	call   141861600 <_ZN7QVectorItED1Ev>
+   1413aa2ed:	mov    %r15,%rcx
+   1413aa2f0:	call   141861600 <_ZN7QVectorItED1Ev>
+   1413aa2f5:	jmp    1413aa291 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23f1>
+   1413aa2f7:	mov    %rax,%rcx
+   1413aa2fa:	call   141753f80 <__cxa_begin_catch>
+   1413aa2ff:	lea    0x18(%r12),%rcx
+   1413aa304:	call   141850e10 <_ZN7QStringD1Ev>
+   1413aa309:	call   141753f50 <__cxa_rethrow>
+   1413aa30e:	mov    %rax,%r12
+   1413aa311:	call   141753f78 <__cxa_end_catch>
+   1413aa316:	mov    %r12,%rcx
+   1413aa319:	call   141753f80 <__cxa_begin_catch>
+   1413aa31e:	mov    %rbx,%rdx
+   1413aa321:	mov    %r14,%rcx
+   1413aa324:	call   *0x14e84d6(%rip)        # 142892800 <__imp__ZN12QMapDataBase20freeNodeAndRebalanceEP12QMapNodeBase>
+   1413aa32a:	call   141753f50 <__cxa_rethrow>
+   1413aa32f:	mov    %rax,%r13
+   1413aa332:	call   141753f78 <__cxa_end_catch>
+   1413aa337:	mov    %r13,%rcx
+   1413aa33a:	call   141753f80 <__cxa_begin_catch>
+   1413aa33f:	mov    %r12,%rdx
+   1413aa342:	mov    %r15,%rcx
+   1413aa345:	call   *0x14e84b5(%rip)        # 142892800 <__imp__ZN12QMapDataBase20freeNodeAndRebalanceEP12QMapNodeBase>
+   1413aa34b:	call   141753f50 <__cxa_rethrow>
+   1413aa350:	mov    %rax,%rbx
+   1413aa353:	call   141753f78 <__cxa_end_catch>
+   1413aa358:	lea    0xc8(%rsp),%rcx
+   1413aa360:	call   141861600 <_ZN7QVectorItED1Ev>
+   1413aa365:	jmp    1413aa2ed <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x244d>
+   1413aa367:	mov    %rax,%rbx
+   1413aa36a:	call   141753f78 <__cxa_end_catch>
+   1413aa36f:	mov    %r14,%rcx
+   1413aa372:	call   141861600 <_ZN7QVectorItED1Ev>
+   1413aa377:	jmp    1413aa291 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23f1>
+   1413aa37c:	mov    0x60(%rsp),%rcx
+   1413aa381:	mov    %rax,%r12
+   1413aa384:	call   1417c7740 <_ZN4QMapI15Au3dsGLSLVertexdED1Ev>
+   1413aa389:	mov    %r12,%rcx
+   1413aa38c:	call   141755338 <_Unwind_Resume>
+   1413aa391:	mov    %rax,%rbx
+   1413aa394:	jmp    1413aa291 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x23f1>
+   1413aa399:	mov    %rax,%rbx
+   1413aa39c:	jmp    1413aa36f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x24cf>
+   1413aa39e:	mov    %rax,%rbx
+   1413aa3a1:	lea    0xc0(%rsp),%r15
+   1413aa3a9:	jmp    1413aa2ed <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x244d>
+   1413aa3ae:	mov    %rax,%rbx
+   1413aa3b1:	jmp    1413aa358 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x24b8>
+   1413aa3b3:	call   *0x14e81d7(%rip)        # 142892590 <__imp__Z9qBadAllocv>
+   1413aa3b9:	jmp    1413a9352 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x14b2>
+   1413aa3be:	call   *0x14e81cc(%rip)        # 142892590 <__imp__Z9qBadAllocv>
+   1413aa3c4:	mov    0x20(%r12),%rax
+   1413aa3c9:	jmp    1413a950f <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x166f>
+   1413aa3ce:	call   *0x14e81bc(%rip)        # 142892590 <__imp__Z9qBadAllocv>
+   1413aa3d4:	mov    0x20(%rbx),%rax
+   1413aa3d8:	jmp    1413a95a9 <_ZN22Au3dsGLSLModelInstance21MergeHeadWithInstanceERPS_d+0x1709>
+   1413aa3dd:	nop
+   1413aa3de:	xchg   %ax,%ax

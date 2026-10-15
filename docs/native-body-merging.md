@@ -52,3 +52,28 @@ map mutation, ordered collision handling and partial-error state.
 
 CopyInstance, source-object preparation, welding/remapping and instance
 publication remain unimplemented. Do not call this stage a complete merge.
+
+## Head source-vertex mapping
+
+`NativeBodyMergeBake::append_head_vertices` now reconstructs the next head
+vertex loop (retained pseudocode lines275..502), with complete independent GNU
+disassembly retained in `evidence/native-body-merge-head-gnu.txt`. The caller
+must provide an already baked destination and source deformation after native
+connection-point inheritance. This API does not perform that inheritance.
+
+For each source vertex, only the first kind8 TopConnect group determines
+connection membership, before source xyz mutation. ApplyScaleFactor writes
+the narrowed stored coordinate. Nonconnections call AddIfUnique on a copy;
+connections instead scan destination vertices with inclusive per-axis tolerance,
+snap xyz, and always append. Destination kind9 group existence (not candidate
+membership in its map) makes the first match terminate the scan. Without such
+a group, snapping can continue from the updated position through later matches.
+The stage retains ordered source-to-destination indices and the native two
+first-insertion-wins connection remap tables. Source group keys and payloads
+are not rewritten by this loop. Tests distinguish these rules from generic
+position welding. Nonfinite tolerance, unfinished destination baking and index
+capacity beyond the native signed-int range are explicit unsupported cases.
+
+Still required: complete instance CopyInstance/state inheritance, head face,
+material/group update stages, torso's different vertex/remap path, and final
+cache/model publication. No complete merge or runtime parity is claimed.
