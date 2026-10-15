@@ -14,7 +14,7 @@ pub struct NativeBodyDeformation {
 }
 
 impl NativeBodyDeformation {
-    /// Tail/Head/Neck/Foot/Torso branches and the proven no-membership branch.
+    /// Anatomical branches except HandWing, plus the no-membership branch.
     /// Other branches are errors, NEVER successful uniform-scale substitutes.
     pub fn apply_vertex(
         &self,
@@ -25,7 +25,7 @@ impl NativeBodyDeformation {
             return Ok(self.base.apply_unweighted_vertex(point));
         }
         // Native precedence is Tail, Head, Neck, Hand, Foot, Torso, then
-        // top/bottom-only paths. Higher-priority unsupported Hand must not
+        // top/bottom-only paths. Higher-priority unsupported HandWing must not
         // accidentally fall through to a supported Foot group.
         let (pivot, uniform, vertical, torso) = if let Some(pivot) = selected.anatomical[4] {
             (pivot, false, true, false)
@@ -33,8 +33,11 @@ impl NativeBodyDeformation {
             (pivot, true, false, false)
         } else if let Some(pivot) = selected.anatomical[3] {
             (pivot, false, true, false)
-        } else if selected.anatomical[1].is_some() {
-            return Err(unsupported());
+        } else if let Some(pivot) = selected.anatomical[1] {
+            if selected.hand_wing {
+                return Err(unsupported());
+            }
+            (pivot, true, true, false)
         } else if let Some(pivot) = selected.anatomical[2] {
             (pivot, true, true, false)
         } else if let Some(pivot) = selected.anatomical[0] {

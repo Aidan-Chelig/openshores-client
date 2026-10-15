@@ -1,7 +1,10 @@
 //! Actual user-supplied body-group records, entirely offline and read-only.
 use openshores_client::{
     asset_mount::AssetMount,
-    model::{ModelVariant, NativeBodyObjectGroups, NativeBodyObjectScale, NativeBodyVertexGroup},
+    model::{
+        ModelVariant, NativeBodyDeformation, NativeBodyObjectGroups, NativeBodyObjectScale,
+        NativeBodyVertexGroup,
+    },
     world::{native_body::NativeDpHandResource, native_dna::NativeDhDna},
 };
 
@@ -18,6 +21,9 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
     let mut retained = 0;
     let mut connections = 0;
     let mut point_only_meshes = 0;
+    let mut deformed_meshes = 0;
+    let mut unsupported_meshes = 0;
+    let mut changed_points = 0;
     for selector in 0..=64 {
         let mut dna = NativeDhDna([0; 24]);
         dna.0[16] = selector / 8;
@@ -54,6 +60,39 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
                 fields_1c0: [0.; 3],
                 fields_1f4: [0.; 3],
             };
+            // Explicit non-unit fixture values, NOT recovered Person model
+            // definitions. This checks real asset composition without claiming
+            // native execution, complete model construction or visual parity.
+            let deformation = NativeBodyDeformation {
+                base: definition,
+                field_170: 1.2,
+                field_178: 1.3,
+                field_180: 1.4,
+                field_188: 1.5,
+            };
+            match mesh.body_deformed_positions(ModelVariant::N, 1., &deformation, [0.; 3], [0.; 3])
+            {
+                Ok(points) => {
+                    deformed_meshes += 1;
+                    assert_eq!(points.len(), mesh.vertices.len());
+                    let mut base = definition;
+                    if let Some(connection) = state.control_point(0x1cc) {
+                        base.fields_1f4 = connection;
+                    }
+                    for (point, loaded) in points
+                        .into_iter()
+                        .zip(mesh.loaded_positions(ModelVariant::N, 1.).unwrap())
+                    {
+                        assert!(point.iter().all(|v| v.is_finite()));
+                        changed_points +=
+                            usize::from(point != base.apply_unweighted_vertex(loaded));
+                    }
+                }
+                Err(error) => {
+                    assert_eq!(error.kind(), std::io::ErrorKind::Unsupported);
+                    unsupported_meshes += 1;
+                }
+            }
             if state.retained_groups().is_empty() {
                 point_only_meshes += 1;
                 let actual = mesh
@@ -81,7 +120,11 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
         }
     }
     assert!(groups > 0 && keys > 0 && pivots > 0);
+    assert!(deformed_meshes > 0 && changed_points > 0);
     eprintln!(
         "Mounted body groups: {groups} parsed, {keys} native position keys, {pivots} nonzero pivots; {retained} retained groups, {connections} connection writes, {point_only_meshes} point-only meshes. No weighted-deformation or rendered-avatar parity claim."
+    );
+    eprintln!(
+        "Explicit-definition mesh deformation: {deformed_meshes} supported, {unsupported_meshes} unsupported, {changed_points} points differ from the unweighted branch. Not complete avatar generation or rendering."
     );
 }

@@ -385,7 +385,7 @@ cancellation and full mesh composition; `just test-native-body-deformation`
 also verifies digest-bound static branch/final-correction anchors against
 the existing evidence. No reimport, query or reference-client execution occurs.
 
-Hand, top/bottom-only and other matched branches remain Unsupported.
+HandWing, top/bottom-only and other matched branches remain Unsupported.
 Model definition generation, complete part assembly, bone weights and live
 renderer publication remain required: these APIs do not yet render avatars.
 
@@ -400,3 +400,20 @@ checks the entire torso block14139724d..141397371 against the original PE,
 including absence of limb field reads, XZ/Y multiplication and the shared exit.
 These checks reuse the same complete ApplyScaleFactor evidence; no new import,
 reference-client execution or avatar-rendering verification is claimed.
+
+Non-wing Hand now uses its native uniform180 then Y188 operations on both
+vertex and connection, followed by the shared connection correction. Native
+Hand priority over Foot/Torso is retained. A separate Wing match does not make
+it HandWing; actual HandWing membership still fails Unsupported. Tests cover
+this distinction, native priority and the raw mesh path. Static checks pin
+all six Hand uniform multiplications and its188 load/continuation to the same
+digest-bound retained routine; no new analysis import was performed.
+
+The mounted65-resource fixture now additionally runs the connected deformation
+API with explicit non-unit test parameters (NOT generated Person definitions).
+All65 sampled hand meshes succeed, and11,699 output points differ from the
+unweighted branch. The test checks finite, count-preserving output and requires
+some genuine grouped deformation. This demonstrates mounted-asset CPU pipeline
+coverage, not native runtime parity, complete avatar generation or rendering.
+Wing and top/bottom-only branches, live definition generation, assembly and
+renderer publication are still required.

@@ -94,6 +94,7 @@ fn torso_remains_lower_priority_than_foot_and_unsupported_hand() {
         [28., 92., 72.]
     );
     selection.anatomical[1] = Some([7., 8., 9.]);
+    selection.hand_wing = true;
     assert_eq!(
         definition()
             .apply_vertex([4., 5., 10.], &selection)
@@ -107,6 +108,7 @@ fn torso_remains_lower_priority_than_foot_and_unsupported_hand() {
 fn native_priority_and_unsupported_hand_cannot_fall_through() {
     let mut selection = selected(2);
     selection.anatomical[1] = Some([0.; 3]);
+    selection.hand_wing = true;
     assert_eq!(
         definition()
             .apply_vertex([4., 5., 10.], &selection)
@@ -258,9 +260,44 @@ fn mesh_pipeline_selects_actual_members_and_rejects_unsupported_vertices() {
     mesh.vertex_groups[0].name = Some(b"Hand".to_vec());
     assert_eq!(
         mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
+            .unwrap(),
+        [[28., 92., 72.], [10., 20., 30.]]
+    );
+    mesh.vertex_groups[0].name = Some(b"HandWing".to_vec());
+    assert_eq!(
+        mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
             .unwrap_err()
             .kind(),
         io::ErrorKind::Unsupported
     );
     assert_eq!(mesh.vertices, [[4., 5., 10.], [1., 2., 3.]]);
+}
+
+#[test]
+fn non_wing_hand_uses_both_scales_and_precedes_foot_and_torso() {
+    let mut selection = selected(1);
+    selection.anatomical[2] = Some([1e30; 3]);
+    selection.anatomical[0] = Some([f64::NAN; 3]);
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [28., 92., 72.]
+    );
+    selection.wing = true; // A different Wing group alone is NOT HandWing.
+    selection.top = Some([0., 2., 0.]);
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [28., 260., 72.]
+    );
+    selection.hand_wing = true;
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap_err()
+            .kind(),
+        io::ErrorKind::Unsupported
+    );
 }
