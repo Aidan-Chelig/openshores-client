@@ -25,6 +25,7 @@ mod head_pose;
 mod initialization;
 mod neck;
 mod neck_bend;
+mod position_heads;
 pub use initialization::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]

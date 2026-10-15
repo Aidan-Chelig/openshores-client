@@ -431,7 +431,7 @@ unsupported paths, and exact dense nonaffine scalar bit patterns independently
 evaluated from the instruction stages. Mounted sixteen-part initialization now
 composes bending, rotation and leaning on each head and checks preserved current
 attachments. This remains Rust/offline evidence, not native runtime parity.
-PositionHeads' pose logic, full body animation, production Person ownership and
+Full body animation, production Person ownership and
 actual rendered native avatar state still remain required work.
 
 Concrete `TiltHeadTo` now composes the verified head operations in
@@ -442,6 +442,28 @@ f32 pi/2 across the neck, BendNeck, and assemble the final head matrix using
 the original pitch and roll around the projected local head point. Missing Rust
 head-joint state is rejected before mutation; other part kinds are Unsupported.
 The body-level PositionHeads dispatcher is not implemented by this operation.
+
+`NativeDpInitialization::position_heads` now implements that separate stage
+for calculated body parts. It consumes the actual body pose words at40/54
+(indices1/6 in the existing pose state), explicit body pitch30/roll34, the
+original body DNA and the required native rhythm timer interface. Both pitch
+selections run in order before any matrix mutation, even with one head. The
+one-head branch tilts the first concrete head and returns; the two-head branch
+tilts both in part order, then leans them apart with the native f32 spacing.
+This composes real head/neck transforms rather than returning pose metadata.
+Calling before part calculations complete is a Rust InvalidData safety error.
+
+`docs/evidence/native-dp-position-heads.json` retains the complete existing REA
+record, corroborated by `native-dp-position-heads-gnu.txt`; no reimport or new
+query was needed. `just test-native-dp-position-heads` verifies both 53-entry
+native jump tables, four additional float constants, and all seven virtual
+IsHeadAndNeck bindings, then runs head-pitch fixtures. Full-width unknown poses
+retain native default behavior, not byte truncation. Mounted-body fixtures
+compare complete bone state with the ordered tilt/lean composition, exercise
+distinct rhythm phases and timer order, and check that a second-pose timer
+failure preserves all bones in both one- and two-headed bodies. Complete
+Animate, production timer ownership, Person context and renderer publication
+are still required; this stage does not claim those are implemented.
 
 Retained complete REA records are `docs/evidence/native-dp-head-tilt.json` and
 `native-dp-head-move-by.json`, with full GNU disassembly retained in

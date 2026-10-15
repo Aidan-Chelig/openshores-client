@@ -95,10 +95,10 @@ impl NativeDpPartState {
 /// the remaining body runtime state must be composed too.
 #[derive(Clone, Debug)]
 pub struct NativeDpInitialization {
-    dna: NativeDhDna,
-    dimensions: NativeDpDimensions,
-    parts: Vec<NativeDpPartState>,
-    bones: NativeDpBoneTransforms,
+    pub(super) dna: NativeDhDna,
+    pub(super) dimensions: NativeDpDimensions,
+    pub(super) parts: Vec<NativeDpPartState>,
+    pub(super) bones: NativeDpBoneTransforms,
     next_part: usize,
 }
 

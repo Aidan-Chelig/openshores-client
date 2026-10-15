@@ -4,7 +4,7 @@ use openshores_client::{
     world::{
         native_body::{
             NativeDpDimensions, NativeDpFootCache, NativeDpFootResource, NativeDpHandCache,
-            NativeDpHandResource, NativeDpInitialization, NativeDpPartJoints,
+            NativeDpHandResource, NativeDpInitialization, NativeDpPartJoints, NativeDpPartKind,
         },
         native_dna::NativeDhDna,
     },
@@ -207,4 +207,99 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
     let completed = body.parts().to_vec();
     body.finish_part_calculations(0, &mut cache).unwrap();
     assert_eq!(body.parts(), completed);
+    verify_head_positioning(&mut body, &mut cache);
+}
+
+fn verify_head_positioning(body: &mut NativeDpInitialization, cache: &mut NativeDpHandCache<'_>) {
+    use openshores_client::world::native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer};
+    struct Timer {
+        events: Vec<&'static str>,
+        fail_at: usize,
+    }
+    impl NativePoseRhythmTimer for Timer {
+        fn start(&mut self) -> std::io::Result<()> {
+            self.events.push("start");
+            if self.events.len() == self.fail_at {
+                Err(std::io::ErrorKind::Unsupported.into())
+            } else {
+                Ok(())
+            }
+        }
+        fn msecs_since_reference(&mut self) -> std::io::Result<i64> {
+            self.events.push("sample");
+            Ok(12345)
+        }
+    }
+    let mut pose = NativeDpBodyPoseState::default();
+    pose.fields_3c[1] = 4;
+    pose.fields_3c[6] = 0x12;
+    let mut expected = body.bones().clone();
+    let heads: Vec<_> = body
+        .parts()
+        .iter()
+        .filter(|p| p.allocation.kind == NativeDpPartKind::HeadAndNeck)
+        .collect();
+    for (i, head) in heads.iter().enumerate() {
+        let pitch = if i == 0 {
+            0.25 - f32::from_bits(0x3fc90fdb)
+        } else {
+            -f32::from_bits(0x3fc90fdb)
+        };
+        head.tilt_head_to(&mut expected, body.dimensions(), pitch, -0.125)
+            .unwrap();
+    }
+    let spread = f32::from_bits(0x3f32b8c2);
+    heads[0].lean_neck(&mut expected, -spread * 0.5).unwrap();
+    heads[1]
+        .lean_neck(&mut expected, -spread * 0.5 + spread)
+        .unwrap();
+    let mut timer = Timer {
+        events: Vec::new(),
+        fail_at: usize::MAX,
+    };
+    body.position_heads(&pose, 0.25, -0.125, &mut timer)
+        .unwrap();
+    assert_eq!(*body.bones(), expected);
+    assert!(timer.events.is_empty());
+    pose.fields_3c[1] = 0x31;
+    pose.fields_3c[6] = 0x38;
+    let before = body.bones().clone();
+    timer.fail_at = 3; // Fail at second head's start, before either head is written.
+    assert_eq!(
+        body.position_heads(&pose, 0., 0., &mut timer)
+            .unwrap_err()
+            .kind(),
+        std::io::ErrorKind::Unsupported
+    );
+    assert_eq!(*body.bones(), before);
+    assert_eq!(timer.events, ["start", "sample", "start"]);
+    timer.events.clear();
+    timer.fail_at = usize::MAX;
+    body.position_heads(&pose, 0., 0., &mut timer).unwrap();
+    assert_eq!(timer.events, ["start", "sample", "start", "sample"]);
+    let mut single = NativeDpInitialization::begin(&NativeDhDna([0; 24]));
+    single.finish_part_calculations(0, cache).unwrap();
+    pose.fields_3c[1] = 0;
+    pose.fields_3c[6] = 0x31;
+    timer.events.clear();
+    timer.fail_at = 1;
+    let before = single.bones().clone();
+    assert_eq!(
+        single
+            .position_heads(&pose, 0.25, 0., &mut timer)
+            .unwrap_err()
+            .kind(),
+        std::io::ErrorKind::Unsupported
+    );
+    assert_eq!(*single.bones(), before);
+    assert_eq!(timer.events, ["start"]);
+    timer.events.clear();
+    timer.fail_at = usize::MAX;
+    let mut expected = single.bones().clone();
+    single.parts()[1]
+        .tilt_head_to(&mut expected, single.dimensions(), 0.25, 0.)
+        .unwrap();
+    single.position_heads(&pose, 0.25, 0., &mut timer).unwrap();
+    assert_eq!(*single.bones(), expected);
+    assert_eq!(timer.events, ["start", "sample"]);
 }
