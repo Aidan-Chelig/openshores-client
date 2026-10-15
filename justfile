@@ -166,6 +166,10 @@ test-native-dp-body-waist:
     nix develop .#server-test --command python tests/native_dp_body_waist.py
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::arm_move
 
+test-native-dp-torso-base:
+    nix develop .#server-test --command python tests/native_dp_torso_base.py
+    nix develop .#server-test --command cargo test --offline --lib native_body::dp::torso_base
+
 # Mounted hands, feet, part calculations and standing heights; entirely offline.
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture

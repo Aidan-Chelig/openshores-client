@@ -791,6 +791,36 @@ Torso/limb stages, full Animate ordering, production body/timer/model ownership,
 actual Person context/session application and native avatar mesh publication
 remain required under the original end-to-end objective.
 
+### PositionTorso geometric prelude
+
+`NativeDpHandCache::torso_base_angle` implements the actual pre-pose
+hand-walking calculation with the owner's DNA, dimensions, full4068 and
+mounted HandLength(false). Non-walkers return zero; flat/zero-waist walkers
+return the native half-pi literal. Zero waist-length bypasses measurement;
+otherwise only bodies without wrist bend request hand geometry. Resource
+errors propagate. This is a geometric dependency, not a pose dispatcher or
+an avatar rendering fallback.
+
+The complete retained PositionTorso record is
+`docs/evidence/native-dp-position-torso.json` (REA
+`ev_a48a9fd78ab4f10f062d62c3bf02d494c1ae432dd39d1fbb40735e94a8da2e41`),
+alongside complete selector records and full GNU disassembly. Reusing these
+records required no fresh import or analysis session. GNU corrects two
+important pseudocode ambiguities: limb dimensions are added BEFORE adding
+hand length, and COMISS/JA then COMISS/JAE reject only ordered comparisons.
+Unordered inputs can consequently reach asinf. Multiplication by0.95 is
+single precision, not the decompiler's apparent double literal. The function
+returns a float in XMM0, not its inferred integer signature; downstream pose
+bit selections must not be translated as float-to-integer casts.
+
+`python tests/native_dp_torso_base.py` binds these anchors and the literal to
+the supplied executable's SHA256; Rust tests cover packed selectors,
+resource call guards/errors, cancellation-sensitive addition ordering,
+ordered boundaries and NaNs. Neither static checks nor host Rust asin prove
+original-client execution or cross-platform libm bit parity. The full torso
+pose dispatcher and its body-wide RotateWaist connection remain next, then
+remaining animation and the production Person/model/presentation gates above.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or

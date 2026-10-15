@@ -34,6 +34,16 @@ pub fn native_dh_arm_vertices(dna: &NativeDhDna) -> u32 {
     available.min(arms)
 }
 
+/// DhDNA::WalksOnHands, excluding the native object's eight-byte vptr.
+pub fn native_dh_walks_on_hands(dna: &NativeDhDna) -> bool {
+    let arms = dna.0[1] & 3;
+    !matches!(dna.0[11] & 0xe0, 0x60 | 0xc0) && arms != 0 && (dna.0[2] & 6 == 0 || arms > 1)
+}
+
+pub fn native_dh_has_wrist_bend(dna: &NativeDhDna) -> bool {
+    dna.0[11] & 0xa0 != 0x80
+}
+
 pub fn native_dh_waist_vertex(dna: &NativeDhDna) -> u32 {
     let last = u32::from(dna.0[20] >> 5);
     let legs = u32::from((dna.0[12] >> 2) & 3);

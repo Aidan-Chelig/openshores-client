@@ -7,7 +7,10 @@ pub use bones::{NativeDpBoneTransform, NativeDpBoneTransforms};
 mod dimensions;
 pub use dimensions::NativeDpDimensions;
 mod layout;
-pub use layout::{native_dh_arm_vertices, native_dh_waist_vertex, native_dp_size_factor};
+pub use layout::{
+    native_dh_arm_vertices, native_dh_has_wrist_bend, native_dh_waist_vertex,
+    native_dh_walks_on_hands, native_dp_size_factor,
+};
 mod model_dna;
 pub use model_dna::NativeDpModelDna;
 mod hand_resource;
@@ -26,6 +29,7 @@ mod tail_motion;
 mod tail_slither;
 mod tail_slither_pose;
 mod tail_special;
+mod torso_base;
 mod waist;
 pub use foot::{NativeDpFootCache, NativeDpFootResource, native_dh_has_ankle_bend};
 mod hand_cache;
