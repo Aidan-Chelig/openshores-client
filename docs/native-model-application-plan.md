@@ -376,9 +376,33 @@ returned these queries in0.077–0.093s without another import.
 The next retained dependencies include `dp-tail-{dead-down,dead-left,fold,bend}.json`
 and `aumatrix-project.json` under `target/native-model-analysis-4`. Body wrapper
 dispatch and the actual tail bend/Slither/Fold paths must still be composed;
-retention is not implementation. The Project decompilation has hidden-return
-ABI artifacts and an unusual all-zero-coordinate branch; check its instructions
-before translating it rather than replacing it with a conventional dot product.
+retention is not implementation. The Project decompilation's hidden-return ABI
+artifacts and unusual origin branch have now been resolved as described below.
+
+`NativeDpBoneTransform::project` now implements the native sparse coordinate
+paths and homogeneous normalization. Non-origin zero coordinates skip their
+columns entirely (including unused nonfinite values). Origin copies translation
+but computes W from all four homogeneous-row entries, not just matrix[15].
+Division is skipped only for W=0 or1. The native SIMD groups each column sum
+before adding translation; this differs from the decompiler's apparent
+left-associated expression and is covered by a cancellation-sensitive fixture.
+Projection is read-only and does not invalidate slot+0x100.
+
+`NativeDpPartState::tail_current_connect_loc` composes the stored ConnectLoc
+with actual owner slot17 (body offset0x11f8), including multi-bone tail DNA.
+Other part kinds return Unsupported rather than borrowing this tail mapping.
+This establishes one concrete animated attachment reader, not complete tail
+bending or other parts' CurrentConnectLoc mappings. The caller must supply the
+actual owner bones; production ownership/context assembly remains required.
+
+Complete static records are `docs/evidence/native-aumatrix-project.json` and
+`native-dp-tail-current-connect.json`; GNU corroboration is in
+`native-bone-projection-gnu.txt`. The existing session was reused for the one
+new tail-connection query (0.087s); Project's retained result was read without
+decompiling it again. Offline fixtures cover sparse coordinate subsets,
+origin/nonaffine W cases, read-only flags, skipped nonfinite columns, numerator
+grouping and concrete tail slot selection. NaN payload identity and native
+runtime/render parity remain unclaimed.
 
 The shared native pose-rhythm dependency is now implemented in
 `native_creature/pose_rhythm`: full-width pose classification, exact immediate

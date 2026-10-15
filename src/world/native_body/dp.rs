@@ -20,6 +20,7 @@ mod standing;
 pub use foot::{NativeDpFootCache, NativeDpFootResource, native_dh_has_ankle_bend};
 mod hand_cache;
 pub use hand_cache::NativeDpHandCache;
+mod connection;
 mod initialization;
 pub use initialization::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 
