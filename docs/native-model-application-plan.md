@@ -357,6 +357,33 @@ position/rotation routines, body mesh generation or production Person context.
 
 ### Remaining integration gates
 
+`NativeDpPartState::rotate_neck` now implements the concrete
+DpHeadAndNeck::RotateNeck wrapper and nonzero path. It obtains the current owner
+attachment before mutation, builds the native pivot/RotateX/negative-pivot
+transform with the widened f32 angle, then premultiplies the inclusive head/neck
+bone range. Index1 selects the second head; other indices retain native first
+head selection. Only affected slot+0x100 bytes are cleared. Both signed zeros
+skip the operation entirely, while NaN enters the native arithmetic path.
+Non-head parts return Unsupported rather than borrowing a head bone mapping.
+
+The scalar implementation retains the inline multiply's observed addition
+grouping, rather than the decompiler's misleading reassociation. Its complete
+static record is `docs/evidence/native-dp-head-rotate-part0.json`; wrapper and
+instruction corroboration are in `native-dp-neck-rotation-gnu.txt`. The query
+reused the live analyzed database (0.134s). Platform sin/cos and NaN payload
+limitations from the underlying transform reconstruction still apply.
+
+`just test-native-dp-neck` covers pivot preservation, inclusive ranges for every
+count/second-head combination, out-of-range head-index native fallback, unchanged
+neighbors/flags, zero/NaN paths and cancellation-sensitive multiplication.
+The mounted sixteen-part initialization test additionally reads every concrete
+attachment and rotates each actual initialized head around its attachment.
+This is a real skeletal mutation, not full TiltHeadTo or PositionHeads: BendNeck,
+LeanNeck, head matrix assembly and body pose dispatch still require composition.
+The newly retained `dp-head-bend-part0.json` is evidence for that next work, not
+a claim it is implemented. Production Person context and presentation remain
+required gates below.
+
 Bone transforms now implement the native in-place RotateX/RotateY/RotateZ and
 Translate operations on `NativeDpBoneTransform`. These mix the existing columns
 including their homogeneous fourth row, preserve unaffected columns, and clear

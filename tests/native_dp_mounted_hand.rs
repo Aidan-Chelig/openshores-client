@@ -165,6 +165,16 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
     assert!(body.parts_calculated());
     for part in body.parts() {
         assert!(part.connect_30.iter().all(|n| n.is_finite()));
+        let attachment = part.current_connect_loc(body.bones()).unwrap();
+        assert!(attachment.iter().all(|n| n.is_finite()));
+        if matches!(part.joints, NativeDpPartJoints::Head { .. }) {
+            let mut bones = body.bones().clone();
+            part.rotate_neck(&mut bones, 0.25).unwrap();
+            let moved = part.current_connect_loc(&bones).unwrap();
+            for axis in 0..3 {
+                assert!((moved[axis] - attachment[axis]).abs() < 1e-12);
+            }
+        }
         if let NativeDpPartJoints::Arm {
             field_70, field_88, ..
         } = part.joints

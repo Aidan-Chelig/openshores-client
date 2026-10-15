@@ -22,6 +22,9 @@ impl NativeDpBoneTransform {
         matrix_00: IDENTITY,
         field_100: 0,
     };
+    pub fn identity() -> Self {
+        Self::RESET
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]
