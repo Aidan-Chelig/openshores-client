@@ -77,6 +77,10 @@ test-native-person-dispatch:
 test-native-dna-application:
     nix develop .#server-test --command python tests/native_dna_application.py
 
+# Person virtual scalar binding and native head-angle operation anchors.
+test-native-head-tilt:
+    nix develop .#server-test --command python tests/native_head_tilt.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

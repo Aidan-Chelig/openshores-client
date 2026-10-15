@@ -328,3 +328,12 @@ prior HP/pose transfer, body destruction and distinct timer branches are tested;
 nested actual constructors/morphology/animation remain mandatory operations,
 not successful no-ops. See native-dna-application.md. Production runtime context
 and actual avatar presentation remain unfinished.
+
+Head-angle runtime follow-up: Person's actual virtual+1e0 is now independently
+bound to DaCreature::TiltHeadTo(float), not an inferred scale field. Concrete
+angle/pose-gate/timer application and mandatory conditional animation/motion
+operations are implemented, including NaN/signed-zero and pre-clamp comparisons.
+The actual function is composed in full native Person packet fixtures for all
+profiles. Evidence/tests are documented in native-head-tilt.md. Movement-speed
+dependencies, actual skeletal animation and production client presentation
+remain unfinished; fixture observations are not substituted for those effects.

@@ -48,7 +48,9 @@ handling without post-update success.
 
 The fixture's model/environment context is explicitly synthetic: it tracks its
 own HP/time/model selection and supplies declared clock/matrix/seat observations,
-while rejecting unsupported DNA/pose/scalar/console operations. These tests
+while rejecting unsupported DNA/pose/console operations. Its scalar stage now
+composes verified native head-angle application with explicitly synthetic
+speed/parent/animation observations; see native-head-tilt.md. These tests
 therefore establish packet/storage/owner orchestration, not an actual rendered
 avatar or native world/model parity. A concrete client runtime context, remaining
 model effects and the minimal client's native presentation bridge are still

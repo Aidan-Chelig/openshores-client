@@ -10,11 +10,16 @@ use crate::world::{
     native_sentient::NativeOrderSeed,
 };
 use std::collections::BTreeMap;
+mod head;
+use head::HeadEffects;
 
 pub(super) struct BodyContext {
     pub kind: NativeCreatureBodyKind,
     pub hp: i16,
     pub time: i64,
+    pub head: crate::world::native_creature::NativeHeadTiltState,
+    pose: [u32; 10],
+    head_effects: HeadEffects,
 }
 fn unsupported() -> io::Error {
     io::Error::from(io::ErrorKind::Unsupported)
@@ -24,6 +29,9 @@ impl NativeCreatureReceiveContext for BodyContext {
         if created {
             self.hp = 0;
             self.time = 0;
+            self.head.vertical = 0.;
+            self.head.horizontal = 0.;
+            self.pose = [0; 10];
         }
         self.kind = kind;
         Ok(())
@@ -34,8 +42,11 @@ impl NativeCreatureReceiveContext for BodyContext {
     fn set_dna(&mut self, _: &NativeDna, _: u8) -> io::Result<()> {
         Err(unsupported())
     }
-    fn set_scalar_1e0(&mut self, _: f32) -> io::Result<()> {
-        Err(unsupported())
+    fn set_scalar_1e0(&mut self, value: f32) -> io::Result<()> {
+        let _report = self
+            .head
+            .apply(value, self.kind, &self.pose, &mut self.head_effects)?;
+        Ok(())
     }
     fn set_hit_points(&mut self, kind: NativeCreatureBodyKind, hp: i16) -> io::Result<()> {
         assert_eq!(kind, self.kind);
@@ -131,6 +142,9 @@ impl NativePersonDispatchHooks for Hooks {
                 kind: NativeCreatureBodyKind::DpBody,
                 hp: 0,
                 time: 0,
+                head: Default::default(),
+                pose: [0; 10],
+                head_effects: HeadEffects,
             },
         );
         Ok(())

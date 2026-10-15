@@ -17,7 +17,8 @@ pub trait NativeCreatureReceiveContext {
     /// setters can initialize poses/restart timers; storing DNA is insufficient.
     fn set_dna(&mut self, dna: &NativeDna, configuration: u8) -> io::Result<()>;
 
-    /// The real virtual setter at +1e0, not just its last received float value.
+    /// Person's verified +1e0 is DaCreature::TiltHeadTo(float), including body
+    /// angle/timer/conditional animation effects, not just received float storage.
     fn set_scalar_1e0(&mut self, value: f32) -> io::Result<()>;
 
     fn set_hit_points(&mut self, kind: NativeCreatureBodyKind, clamped: i16) -> io::Result<()>;

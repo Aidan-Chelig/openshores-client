@@ -18,6 +18,8 @@ It is not directly the common atom base followed by Creature fields.
   Receive `AuDNA` for Animalia or `DhDNA` for DpBody, then call SetDNA;
   Animalia additionally receives SetDNA/SetLeftHanded effects.
 - `0x002`: read floating value and invoke virtual setter at vtable `0x1e0`.
+  Person binds this to TiltHeadTo(float); see native-head-tilt.md for the
+  verified head-angle/timer/animation operation and remaining runtime boundary.
 - `0x004`: read signed short hit points. DpBody clamps only the lower bound
   to -30; Animalia uses its SetHitPoints helper.
 - Sample old console type (default `0x3d`) before pose reception.

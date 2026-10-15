@@ -82,7 +82,12 @@ fn complete(profile: FloatEncoding) -> Vec<u8> {
     bytes.extend(u32::MAX.to_be_bytes());
     bytes.extend((-7_i32).to_be_bytes());
     bytes.push(0x80); // Unit
-    bytes.extend(0x204_u16.to_be_bytes());
+    bytes.extend(0x206_u16.to_be_bytes());
+    if profile == FloatEncoding::DoublePrecision {
+        bytes.extend(0.5_f64.to_be_bytes());
+    } else {
+        bytes.extend(0.5_f32.to_be_bytes());
+    }
     bytes.extend(i16::MIN.to_be_bytes());
     bytes.extend([0xab, 0xff, 0x80]); // Creature
     bytes.extend([6, 0x29]);
@@ -148,6 +153,9 @@ fn complete_native_person_packets_construct_attach_receive_reuse_and_dispose_can
         assert!(!h.connector.0.is_empty());
         assert!(h.connector.0.iter().all(|(handle, _)| *handle == 90));
         assert_eq!(h.hooks.live[&90].hp, -30);
+        assert_eq!(h.hooks.live[&90].head.vertical, 0.5);
+        assert!(h.hooks.live[&90].head.timer_5e8.is_some());
+        let tilt_epoch = h.hooks.live[&90].head.timer_5e8;
         assert_eq!(
             h.hooks.reports[0]
                 .1
@@ -169,6 +177,8 @@ fn complete_native_person_packets_construct_attach_receive_reuse_and_dispose_can
         assert!(h.graph.node(91).is_none());
         assert!(!h.hooks.live.contains_key(&91));
         assert_eq!(h.people.get(90).unwrap().base.received_time, 456);
+        assert_eq!(h.hooks.live[&90].head.vertical, 0.5);
+        assert_eq!(h.hooks.live[&90].head.timer_5e8, tilt_epoch);
         assert_eq!(h.people.get(90).unwrap().body.person.field_83d, Some(11));
         assert_eq!(h.connector.0.len(), signal_count);
         assert_eq!(h.owner.assigned, [90]);
