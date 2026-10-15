@@ -30,6 +30,15 @@ vptrs = [0x14241A510,0x142435960,0x14241A660,0x14241A900,0x14241A7B0,0x1423D0500
 overrides = {8:0x141205B90,9:0x141205D30,10:0x141205E70,11:0x141206110,
              17:0x1412065E0,19:0x1412066D0,20:0x1412067F0,27:0x141206910}
 assert len(vptrs) == 28
+for address, bits, width in [
+    (0x1422B4668, 0x3F6AE06B81AE06B0, 8),
+    (0x1422B4660, 0x3FE0000000000000, 8),
+    (0x1422B4578, 0x40860A92, 4),
+    (0x1422B457C, 0x40490FDB, 4),
+    (0x1422B4588, 0x40A00000, 4),
+    (0x1422B45B0, 0x3F333333, 4),
+]:
+    assert int.from_bytes(read(address, width), "little") == bits, hex(address)
 for kind, vptr in enumerate(vptrs):
     assert struct.unpack("<Q", read(vptr + 0x128, 8))[0] == overrides.get(kind,0x141900F50), kind
 zero = subprocess.check_output(["objdump","-d","--disassemble=_ZNK12AuChromosome6VolumeEv",str(target)],text=True)
@@ -37,4 +46,4 @@ assert "pxor   %xmm0,%xmm0" in zero and "141900f54:" in zero
 chromatid = subprocess.check_output(["objdump","-d","--disassemble=_ZNK11AuChromatid6VolumeEv",str(target)],text=True)
 assert "call   *0x128(%rax)" in chromatid
 assert "addss  %xmm0,%xmm6" in chromatid and "movaps %xmm6,%xmm0" in chromatid
-print("Verified28 factory-vptr volume slots:20 shared zero methods and8 distinct implementations, plus ordered chromatid f32 accumulation. Static evidence only; morphology/formulas remain unimplemented.")
+print("Verified28 factory-vptr volume slots:20 shared zero methods and8 distinct implementations, six constant patterns, plus ordered chromatid f32 accumulation. Binding/constant checks only; no runtime or morphology validation.")

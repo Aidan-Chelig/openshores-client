@@ -51,12 +51,18 @@ The distinct volume implementations are:
 | 20 | Mouth | 1412067f0 |
 | 27 | Mammary | 141206910 |
 
+`native_dna/volume.rs` now implements Head, Ear and Mammary from the independent
+GNU disassembly retained in `docs/evidence/native-chromosome-volume-gnu.txt`.
 Head reads stored shorts1e/20/22 with double scaling then float multiplication;
-Mammary reads short12, early-outs for zero or field0c==1, and otherwise uses
-ordered double/float scaling and cubing. These preliminary independent static
-observations select further queries; they do not establish all eight formulas
-or an implemented chromatid-volume provider. Preserve exact conversions and
-sum order, not algebraically simplified geometric approximations.
+Ear uses short12 and preserves division after two float products. Mammary reads
+short12, early-outs for zero or field0c==1, and otherwise uses ordered
+double/float scaling and cubing. The twenty shared base methods return positive
+zero. The other five overrides explicitly return Unsupported; chromatid summing
+propagates that error, so this is not yet a general production volume provider.
+Tests exercise wire-decoded records, unsigned-short extremes, exact float bits,
+Mammary suppression, ordered sums and malformed storage. The static verifier
+also pins the six consumed constant bit patterns to the original PE.
+Preserve exact conversions and sum order, not simplified geometric formulas.
 
 ## Required implementation and verification
 

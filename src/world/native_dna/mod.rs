@@ -1,4 +1,5 @@
-//! Native DNA wire storage, not decoded creature morphology.
+//! Native DNA wire storage and verified chromosome-volume arithmetic.
+//! Full creature morphology/model generation is not implemented here.
 use crate::protocol::QtReader;
 use std::io;
 
@@ -12,6 +13,8 @@ mod gene_chromosome;
 pub use gene_chromosome::{NativeChromosomeField, NativeChromosomeValue};
 mod animal;
 pub use animal::{NativeAuDna, NativeDna};
+mod volume;
+pub use volume::native_chromatid_volume;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeDhDna(pub [u8; 24]);
