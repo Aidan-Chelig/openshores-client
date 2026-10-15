@@ -20,8 +20,8 @@ Native type0 is Assassin,20 is InterdictSystem,24 is Story. The source-server's
 Story type31 is **not** a valid native Story job and is never source-decoded.
 Types1/2/3 are BountyHunter variants whose +50 returns true; every other +50
 returns false. Obsolete jobs must still have their real bodies received before
-being discarded, not skipped based on type. Those three bodies are currently
-Unsupported, so no unimplemented filtering is presented as successful reception.
+being discarded, not skipped based on type. Those three bodies are now fully
+decoded before discard; wire index/type are reported in obsolete_jobs.
 
 NativeJobList clears **before** reading the16-bit count; its decrement-to-zero
 loop uses all16 bits, including high-bit counts. A null factory consumes that
@@ -29,8 +29,9 @@ type then warns/returns immediately, leaving remaining job bytes untouched.
 NativeJobListReceive surfaces the stop and remaining declared count. The Person
 suffix continues its own following native fields, exactly as the enclosing
 native function does; it does not guess where unreceived job bodies would end.
-The nested result remains must-use through Person/body results. Known but
-unimplemented valid bodies instead fail Unsupported, preserving prior appends.
+The nested result remains must-use through Person/body results. All27 factory
+body layouts are now implemented; unsupported datetime profiles still fail
+explicitly, preserving earlier completed appends.
 
 ## Implemented bodies
 
@@ -48,14 +49,14 @@ non-obsolete; additional implemented families are listed in the next section.
 
 Other exact-symbol reader results were batched and retained separately in
 native-job-remaining-readers-gnu.txt. The additional families below have now
-been reviewed/implemented; the rest remain unsupported. No Ghidra import was
+been reviewed/implemented, including the final six below. No Ghidra import was
 needed for these small static reconstructions.
 
 ## Expanded delivery/passenger/travel families
 
-Current supported factory types are0,6..24,26 (21 of27), all with verified
-non-obsolete predicates. Types1/2/3 (BountyHunter),4/5 (CommandShip) and25
-(TransferPrisoners) remain Unsupported. Timestamp limitations below still apply.
+The delivery/passenger/travel extension covered types0,6..24,26 (21 of27), all
+with verified non-obsolete predicates. The final six are now implemented as
+described below. Timestamp limitations still apply to every type.
 
 - Types6/7/8/10/11/12/13 bind DeliverCargo1409079f0: timestamp08, short→unsigned
   zero-extended32 field10, ID14, QString18, signed32 field20, byte24 (zero→1),
@@ -83,7 +84,42 @@ Ignored bytes are wire observations, not invented stored native fields.
 All raw byte values, zero→one normalization, both short zero extensions across
 every16-bit value, exact string/ID tails, every truncated body prefix, mixed
 lists and Person suffix continuation have offline fixtures. The remaining
-six bodies are not treated as empty/obsolete without real decoding.
+six bodies were subsequently implemented with real decoding as follows.
+
+## Ship-command, prisoner-transfer and obsolete BountyHunter bodies
+
+All27 factory types0..26 now have actual readers; no valid factory type is
+treated as an empty body. Their complete saved assembly was reused, without
+another Ghidra import or native execution.
+
+Types4/5 bind CommandShipInOrbit1409074c0/OnGround140907660. Both receive
+timestamp08, QString10/18, one ignored signed32 temporary, ID20, QString28,
+ID30, QString38/40. There are **no vector reads** in these two bodies. The
+ignored integer is exposed only as a wire observation, not invented storage.
+
+Type25 binds TransferPrisoners1409077f0: timestamp08, ID10, QString18/20, ID28,
+QString30, signed32 fields38/3c, ID40, QString48/50, ID58, final QString60.
+Its final string is a tail call and must still be consumed.
+
+Types1/2/3 bind BountyHunter14091f880: timestamp08, QString10, ID18, QString20,
+QList<QString>28 and a double-overload field30. The concrete counted-string
+helper1418eb5f0 is fully retained in evidence/native-job-string-list-gnu.txt:
+32 count bits, then that many nullable QStrings. No count-based reservation is
+made in Rust. Qt status restoration, allocation/copy and failed-list clearing
+are not claimed by the fresh-value atomic Rust reader. Tests cover count65536
+and truncated maximal raw count without allocating from that declared count.
+
+The field30 tail is f64 under TypeWidths/DoublePrecision, float narrowed/widened
+under SinglePrecision. Explicit-profile job/list APIs propagate the Person
+profile; the existing short-form APIs intentionally use TypeWidths. No finite
+filter or guessed scalar conversion is added. Floating fields require PartialEq
+rather than Eq, consistent with native raw floating values.
+
+Only after the **entire** BountyHunter body succeeds does NativeJobList discard
+it according to its verified +50 predicate. Other types append in order.
+obsolete_jobs records completed discarded wire index/type pairs, not skipped
+bodies. Truncated obsolete jobs fail rather than silently disappearing and
+misaligning later jobs/Person fields. Person fixtures verify this in all profiles.
 
 ## Timestamp profile
 
@@ -103,13 +139,13 @@ support. Local/invalid datetime semantics remain required follow-up work.
 
 ## Verification and remaining goal
 
-Fixtures cover all16 count bits, every null factory byte, all known unsupported
-body types, every Story ignored byte, the actual three bodies and truncation
+Fixtures cover all16 count bits, every null factory byte, all27 real factory
+body readers, every Story ignored byte and truncation
 prefixes, UTC epoch vectors, explicit unsupported datetime profiles, clear-before-
 count, retained prior appends, and real Person suffix composition/late fields.
 The independent static verifier checks all27 factory/reader/discard bindings.
 
-Remaining job bodies/local-time semantics, item inventory/weight, concrete
+Remaining job local-time/invalid semantics, item inventory/weight, concrete
 Creature runtime context, inherited native construction/dispatch and actual
 avatar presentation still belong to the unchanged end-to-end goal. These job
 fixtures do not establish complete native Person packet reception.
@@ -120,4 +156,7 @@ all-target Clippy. `just test-native-jobs` passes the independent static binding
 and datetime-anchor verification without compiling or executing the native target.
 
 After the family extension, `just check` passes414 headless and435 client
+library tests, CLI tests, formatting and strict client-feature all-target Clippy.
+
+After the final six readers, `just check` passes417 headless and438 client
 library tests, CLI tests, formatting and strict client-feature all-target Clippy.

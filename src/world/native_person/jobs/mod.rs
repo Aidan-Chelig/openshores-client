@@ -4,9 +4,14 @@ mod receive;
 pub use delivery::{NativeJobCargo, NativeJobFood};
 mod passengers;
 pub use passengers::{NativeJobPassengerDelivery, NativeJobPassengerPickup};
+mod remaining;
+pub use remaining::{NativeJobBountyHunter, NativeJobShipCommand, NativeJobTransferPrisoners};
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum NativeJobBody {
+    BountyHunter(NativeJobBountyHunter),
+    ShipCommand(NativeJobShipCommand),
+    TransferPrisoners(NativeJobTransferPrisoners),
     DeliverPassengers(NativeJobPassengerDelivery),
     PickUpPassengers(NativeJobPassengerPickup),
     PickUpPassengersOverpopulated {
@@ -53,13 +58,13 @@ pub enum NativeJobBody {
         string_28: Option<String>,
     },
 }
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct NativeJob {
     pub kind: u8,
     pub time_08: i64,
     pub body: NativeJobBody,
 }
-#[derive(Clone, Debug, Default, PartialEq, Eq)]
+#[derive(Clone, Debug, Default, PartialEq)]
 pub struct NativeJobList(pub Vec<NativeJob>);
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct NativeJobStop {
@@ -70,6 +75,8 @@ pub struct NativeJobStop {
 #[must_use = "inspect native null-factory stop; remaining jobs were not skipped"]
 pub struct NativeJobListReceive {
     pub declared_count: u16,
+    /// Wire index and factory type, discarded only after complete reception.
+    pub obsolete_jobs: Vec<(u16, u8)>,
     pub stop: Option<NativeJobStop>,
     pub consumed_bytes: usize,
 }

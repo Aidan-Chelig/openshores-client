@@ -1,0 +1,362 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001418eb5f0 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_>:
+   1418eb5f0:	41 57                	push   %r15
+   1418eb5f2:	41 56                	push   %r14
+   1418eb5f4:	41 55                	push   %r13
+   1418eb5f6:	41 54                	push   %r12
+   1418eb5f8:	55                   	push   %rbp
+   1418eb5f9:	57                   	push   %rdi
+   1418eb5fa:	56                   	push   %rsi
+   1418eb5fb:	53                   	push   %rbx
+   1418eb5fc:	48 83 ec 48          	sub    $0x48,%rsp
+   1418eb600:	48 8b 3d 79 79 fa 00 	mov    0xfa7979(%rip),%rdi        # 142892f80 <__imp__ZNK11QDataStream6statusEv>
+   1418eb607:	49 89 cc             	mov    %rcx,%r12
+   1418eb60a:	48 89 d6             	mov    %rdx,%rsi
+   1418eb60d:	ff d7                	call   *%rdi
+   1418eb60f:	49 8b 4c 24 08       	mov    0x8(%r12),%rcx
+   1418eb614:	89 44 24 2c          	mov    %eax,0x2c(%rsp)
+   1418eb618:	48 85 c9             	test   %rcx,%rcx
+   1418eb61b:	0f 84 17 01 00 00    	je     1418eb738 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x148>
+   1418eb621:	ff 15 49 7d fa 00    	call   *0xfa7d49(%rip)        # 142893370 <__imp__ZNK9QIODevice20isTransactionStartedEv>
+   1418eb627:	84 c0                	test   %al,%al
+   1418eb629:	0f 84 09 01 00 00    	je     1418eb738 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x148>
+   1418eb62f:	4c 8b 2e             	mov    (%rsi),%r13
+   1418eb632:	4c 8b 3d 07 78 fa 00 	mov    0xfa7807(%rip),%r15        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   1418eb639:	4c 89 3e             	mov    %r15,(%rsi)
+   1418eb63c:	41 8b 45 00          	mov    0x0(%r13),%eax
+   1418eb640:	85 c0                	test   %eax,%eax
+   1418eb642:	0f 84 08 01 00 00    	je     1418eb750 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x160>
+   1418eb648:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1418eb64b:	74 0c                	je     1418eb659 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x69>
+   1418eb64d:	f0 41 83 6d 00 01    	lock subl $0x1,0x0(%r13)
+   1418eb653:	0f 84 f7 00 00 00    	je     1418eb750 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x160>
+   1418eb659:	41 8b 07             	mov    (%r15),%eax
+   1418eb65c:	85 c0                	test   %eax,%eax
+   1418eb65e:	0f 84 5b 01 00 00    	je     1418eb7bf <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x1cf>
+   1418eb664:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1418eb667:	74 0b                	je     1418eb674 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x84>
+   1418eb669:	f0 41 83 2f 01       	lock subl $0x1,(%r15)
+   1418eb66e:	0f 84 4b 01 00 00    	je     1418eb7bf <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x1cf>
+   1418eb674:	48 8d 54 24 34       	lea    0x34(%rsp),%rdx
+   1418eb679:	4c 89 e1             	mov    %r12,%rcx
+   1418eb67c:	ff 15 7e 70 fa 00    	call   *0xfa707e(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1418eb682:	48 8b 06             	mov    (%rsi),%rax
+   1418eb685:	8b 54 24 34          	mov    0x34(%rsp),%edx
+   1418eb689:	3b 50 04             	cmp    0x4(%rax),%edx
+   1418eb68c:	0f 8f de 02 00 00    	jg     1418eb970 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x380>
+   1418eb692:	85 d2                	test   %edx,%edx
+   1418eb694:	74 7e                	je     1418eb714 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x124>
+   1418eb696:	48 8b 2d 0b 6f fa 00 	mov    0xfa6f0b(%rip),%rbp        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1418eb69d:	4c 8b 35 6c 7d fa 00 	mov    0xfa7d6c(%rip),%r14        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1418eb6a4:	31 db                	xor    %ebx,%ebx
+   1418eb6a6:	4c 8d 6c 24 38       	lea    0x38(%rsp),%r13
+   1418eb6ab:	eb 1c                	jmp    1418eb6c9 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0xd9>
+   1418eb6ad:	0f 1f 00             	nopl   (%rax)
+   1418eb6b0:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1418eb6b3:	74 0b                	je     1418eb6c0 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0xd0>
+   1418eb6b5:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1418eb6b9:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1418eb6be:	74 3a                	je     1418eb6fa <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x10a>
+   1418eb6c0:	83 c3 01             	add    $0x1,%ebx
+   1418eb6c3:	39 5c 24 34          	cmp    %ebx,0x34(%rsp)
+   1418eb6c7:	76 4b                	jbe    1418eb714 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x124>
+   1418eb6c9:	48 89 6c 24 38       	mov    %rbp,0x38(%rsp)
+   1418eb6ce:	4c 89 ea             	mov    %r13,%rdx
+   1418eb6d1:	4c 89 e1             	mov    %r12,%rcx
+   1418eb6d4:	41 ff d6             	call   *%r14
+   1418eb6d7:	4c 89 e1             	mov    %r12,%rcx
+   1418eb6da:	ff d7                	call   *%rdi
+   1418eb6dc:	85 c0                	test   %eax,%eax
+   1418eb6de:	0f 85 4c 01 00 00    	jne    1418eb830 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x240>
+   1418eb6e4:	4c 89 ea             	mov    %r13,%rdx
+   1418eb6e7:	48 89 f1             	mov    %rsi,%rcx
+   1418eb6ea:	e8 91 13 f4 ff       	call   14182ca80 <_ZN5QListI7QStringE6appendERKS0_>
+   1418eb6ef:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1418eb6f4:	8b 01                	mov    (%rcx),%eax
+   1418eb6f6:	85 c0                	test   %eax,%eax
+   1418eb6f8:	75 b6                	jne    1418eb6b0 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0xc0>
+   1418eb6fa:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1418eb700:	ba 02 00 00 00       	mov    $0x2,%edx
+   1418eb705:	83 c3 01             	add    $0x1,%ebx
+   1418eb708:	ff 15 92 6e fa 00    	call   *0xfa6e92(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1418eb70e:	39 5c 24 34          	cmp    %ebx,0x34(%rsp)
+   1418eb712:	77 b5                	ja     1418eb6c9 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0xd9>
+   1418eb714:	8b 44 24 2c          	mov    0x2c(%rsp),%eax
+   1418eb718:	85 c0                	test   %eax,%eax
+   1418eb71a:	0f 85 58 01 00 00    	jne    1418eb878 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x288>
+   1418eb720:	4c 89 e0             	mov    %r12,%rax
+   1418eb723:	48 83 c4 48          	add    $0x48,%rsp
+   1418eb727:	5b                   	pop    %rbx
+   1418eb728:	5e                   	pop    %rsi
+   1418eb729:	5f                   	pop    %rdi
+   1418eb72a:	5d                   	pop    %rbp
+   1418eb72b:	41 5c                	pop    %r12
+   1418eb72d:	41 5d                	pop    %r13
+   1418eb72f:	41 5e                	pop    %r14
+   1418eb731:	41 5f                	pop    %r15
+   1418eb733:	c3                   	ret
+   1418eb734:	0f 1f 40 00          	nopl   0x0(%rax)
+   1418eb738:	4c 89 e1             	mov    %r12,%rcx
+   1418eb73b:	ff 15 17 6f fa 00    	call   *0xfa6f17(%rip)        # 142892658 <__imp__ZN11QDataStream11resetStatusEv>
+   1418eb741:	e9 e9 fe ff ff       	jmp    1418eb62f <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x3f>
+   1418eb746:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1418eb74d:	00 00 00
+   1418eb750:	49 63 55 0c          	movslq 0xc(%r13),%rdx
+   1418eb754:	49 8d 45 10          	lea    0x10(%r13),%rax
+   1418eb758:	48 8b 2d 41 6e fa 00 	mov    0xfa6e41(%rip),%rbp        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1418eb75f:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1418eb763:	49 63 55 08          	movslq 0x8(%r13),%rdx
+   1418eb767:	4c 8d 34 d0          	lea    (%rax,%rdx,8),%r14
+   1418eb76b:	4c 39 f3             	cmp    %r14,%rbx
+   1418eb76e:	75 18                	jne    1418eb788 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x198>
+   1418eb770:	eb 39                	jmp    1418eb7ab <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x1bb>
+   1418eb772:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1418eb778:	83 fa ff             	cmp    $0xffffffff,%edx
+   1418eb77b:	74 06                	je     1418eb783 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x193>
+   1418eb77d:	f0 83 28 01          	lock subl $0x1,(%rax)
+   1418eb781:	74 13                	je     1418eb796 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x1a6>
+   1418eb783:	49 39 de             	cmp    %rbx,%r14
+   1418eb786:	74 23                	je     1418eb7ab <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x1bb>
+   1418eb788:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+   1418eb78c:	48 83 eb 08          	sub    $0x8,%rbx
+   1418eb790:	8b 10                	mov    (%rax),%edx
+   1418eb792:	85 d2                	test   %edx,%edx
+   1418eb794:	75 e2                	jne    1418eb778 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x188>
+   1418eb796:	48 8b 0b             	mov    (%rbx),%rcx
+   1418eb799:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1418eb79f:	ba 02 00 00 00       	mov    $0x2,%edx
+   1418eb7a4:	ff d5                	call   *%rbp
+   1418eb7a6:	49 39 de             	cmp    %rbx,%r14
+   1418eb7a9:	75 dd                	jne    1418eb788 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x198>
+   1418eb7ab:	4c 89 e9             	mov    %r13,%rcx
+   1418eb7ae:	ff 15 c4 76 fa 00    	call   *0xfa76c4(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1418eb7b4:	41 8b 07             	mov    (%r15),%eax
+   1418eb7b7:	85 c0                	test   %eax,%eax
+   1418eb7b9:	0f 85 a5 fe ff ff    	jne    1418eb664 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x74>
+   1418eb7bf:	49 63 57 0c          	movslq 0xc(%r15),%rdx
+   1418eb7c3:	49 8d 47 10          	lea    0x10(%r15),%rax
+   1418eb7c7:	48 8b 2d d2 6d fa 00 	mov    0xfa6dd2(%rip),%rbp        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1418eb7ce:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1418eb7d2:	49 63 57 08          	movslq 0x8(%r15),%rdx
+   1418eb7d6:	4c 8d 2c d0          	lea    (%rax,%rdx,8),%r13
+   1418eb7da:	4c 39 eb             	cmp    %r13,%rbx
+   1418eb7dd:	75 19                	jne    1418eb7f8 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x208>
+   1418eb7df:	eb 3a                	jmp    1418eb81b <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x22b>
+   1418eb7e1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1418eb7e8:	83 fa ff             	cmp    $0xffffffff,%edx
+   1418eb7eb:	74 06                	je     1418eb7f3 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x203>
+   1418eb7ed:	f0 83 28 01          	lock subl $0x1,(%rax)
+   1418eb7f1:	74 13                	je     1418eb806 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x216>
+   1418eb7f3:	49 39 dd             	cmp    %rbx,%r13
+   1418eb7f6:	74 23                	je     1418eb81b <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x22b>
+   1418eb7f8:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+   1418eb7fc:	48 83 eb 08          	sub    $0x8,%rbx
+   1418eb800:	8b 10                	mov    (%rax),%edx
+   1418eb802:	85 d2                	test   %edx,%edx
+   1418eb804:	75 e2                	jne    1418eb7e8 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x1f8>
+   1418eb806:	48 8b 0b             	mov    (%rbx),%rcx
+   1418eb809:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1418eb80f:	ba 02 00 00 00       	mov    $0x2,%edx
+   1418eb814:	ff d5                	call   *%rbp
+   1418eb816:	49 39 dd             	cmp    %rbx,%r13
+   1418eb819:	75 dd                	jne    1418eb7f8 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x208>
+   1418eb81b:	4c 89 f9             	mov    %r15,%rcx
+   1418eb81e:	ff 15 54 76 fa 00    	call   *0xfa7654(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1418eb824:	e9 4b fe ff ff       	jmp    1418eb674 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x84>
+   1418eb829:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1418eb830:	4c 8b 36             	mov    (%rsi),%r14
+   1418eb833:	4c 89 3e             	mov    %r15,(%rsi)
+   1418eb836:	41 8b 06             	mov    (%r14),%eax
+   1418eb839:	85 c0                	test   %eax,%eax
+   1418eb83b:	0f 84 cf 00 00 00    	je     1418eb910 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x320>
+   1418eb841:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1418eb844:	74 0b                	je     1418eb851 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x261>
+   1418eb846:	f0 41 83 2e 01       	lock subl $0x1,(%r14)
+   1418eb84b:	0f 84 bf 00 00 00    	je     1418eb910 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x320>
+   1418eb851:	41 8b 07             	mov    (%r15),%eax
+   1418eb854:	85 c0                	test   %eax,%eax
+   1418eb856:	74 40                	je     1418eb898 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2a8>
+   1418eb858:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1418eb85b:	74 07                	je     1418eb864 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x274>
+   1418eb85d:	f0 41 83 2f 01       	lock subl $0x1,(%r15)
+   1418eb862:	74 34                	je     1418eb898 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2a8>
+   1418eb864:	4c 89 e9             	mov    %r13,%rcx
+   1418eb867:	e8 a4 55 f6 ff       	call   141850e10 <_ZN7QStringD1Ev>
+   1418eb86c:	8b 44 24 2c          	mov    0x2c(%rsp),%eax
+   1418eb870:	85 c0                	test   %eax,%eax
+   1418eb872:	0f 84 a8 fe ff ff    	je     1418eb720 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x130>
+   1418eb878:	4c 89 e1             	mov    %r12,%rcx
+   1418eb87b:	ff 15 d7 6d fa 00    	call   *0xfa6dd7(%rip)        # 142892658 <__imp__ZN11QDataStream11resetStatusEv>
+   1418eb881:	8b 54 24 2c          	mov    0x2c(%rsp),%edx
+   1418eb885:	4c 89 e1             	mov    %r12,%rcx
+   1418eb888:	ff 15 ea 6d fa 00    	call   *0xfa6dea(%rip)        # 142892678 <__imp__ZN11QDataStream9setStatusENS_6StatusE>
+   1418eb88e:	e9 8d fe ff ff       	jmp    1418eb720 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x130>
+   1418eb893:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1418eb898:	49 63 57 0c          	movslq 0xc(%r15),%rdx
+   1418eb89c:	49 8d 47 10          	lea    0x10(%r15),%rax
+   1418eb8a0:	48 8b 35 f9 6c fa 00 	mov    0xfa6cf9(%rip),%rsi        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1418eb8a7:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1418eb8ab:	49 63 57 08          	movslq 0x8(%r15),%rdx
+   1418eb8af:	48 8d 3c d0          	lea    (%rax,%rdx,8),%rdi
+   1418eb8b3:	48 39 fb             	cmp    %rdi,%rbx
+   1418eb8b6:	75 30                	jne    1418eb8e8 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2f8>
+   1418eb8b8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1418eb8bf:	00
+   1418eb8c0:	4c 89 f9             	mov    %r15,%rcx
+   1418eb8c3:	ff 15 af 75 fa 00    	call   *0xfa75af(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1418eb8c9:	4c 89 e9             	mov    %r13,%rcx
+   1418eb8cc:	e8 3f 55 f6 ff       	call   141850e10 <_ZN7QStringD1Ev>
+   1418eb8d1:	eb 99                	jmp    1418eb86c <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x27c>
+   1418eb8d3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1418eb8d8:	83 fa ff             	cmp    $0xffffffff,%edx
+   1418eb8db:	74 06                	je     1418eb8e3 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2f3>
+   1418eb8dd:	f0 83 28 01          	lock subl $0x1,(%rax)
+   1418eb8e1:	74 13                	je     1418eb8f6 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x306>
+   1418eb8e3:	48 39 df             	cmp    %rbx,%rdi
+   1418eb8e6:	74 d8                	je     1418eb8c0 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2d0>
+   1418eb8e8:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+   1418eb8ec:	48 83 eb 08          	sub    $0x8,%rbx
+   1418eb8f0:	8b 10                	mov    (%rax),%edx
+   1418eb8f2:	85 d2                	test   %edx,%edx
+   1418eb8f4:	75 e2                	jne    1418eb8d8 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2e8>
+   1418eb8f6:	48 8b 0b             	mov    (%rbx),%rcx
+   1418eb8f9:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1418eb8ff:	ba 02 00 00 00       	mov    $0x2,%edx
+   1418eb904:	ff d6                	call   *%rsi
+   1418eb906:	eb db                	jmp    1418eb8e3 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x2f3>
+   1418eb908:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1418eb90f:	00
+   1418eb910:	49 63 56 0c          	movslq 0xc(%r14),%rdx
+   1418eb914:	49 8d 46 10          	lea    0x10(%r14),%rax
+   1418eb918:	48 8b 35 81 6c fa 00 	mov    0xfa6c81(%rip),%rsi        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1418eb91f:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1418eb923:	49 63 56 08          	movslq 0x8(%r14),%rdx
+   1418eb927:	48 8d 3c d0          	lea    (%rax,%rdx,8),%rdi
+   1418eb92b:	48 39 fb             	cmp    %rdi,%rbx
+   1418eb92e:	75 20                	jne    1418eb950 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x360>
+   1418eb930:	4c 89 f1             	mov    %r14,%rcx
+   1418eb933:	ff 15 3f 75 fa 00    	call   *0xfa753f(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1418eb939:	e9 13 ff ff ff       	jmp    1418eb851 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x261>
+   1418eb93e:	66 90                	xchg   %ax,%ax
+   1418eb940:	83 fa ff             	cmp    $0xffffffff,%edx
+   1418eb943:	74 06                	je     1418eb94b <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x35b>
+   1418eb945:	f0 83 28 01          	lock subl $0x1,(%rax)
+   1418eb949:	74 13                	je     1418eb95e <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x36e>
+   1418eb94b:	48 39 df             	cmp    %rbx,%rdi
+   1418eb94e:	74 e0                	je     1418eb930 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x340>
+   1418eb950:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+   1418eb954:	48 83 eb 08          	sub    $0x8,%rbx
+   1418eb958:	8b 10                	mov    (%rax),%edx
+   1418eb95a:	85 d2                	test   %edx,%edx
+   1418eb95c:	75 e2                	jne    1418eb940 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x350>
+   1418eb95e:	48 8b 0b             	mov    (%rbx),%rcx
+   1418eb961:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1418eb967:	ba 02 00 00 00       	mov    $0x2,%edx
+   1418eb96c:	ff d6                	call   *%rsi
+   1418eb96e:	eb db                	jmp    1418eb94b <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x35b>
+   1418eb970:	8b 08                	mov    (%rax),%ecx
+   1418eb972:	83 f9 01             	cmp    $0x1,%ecx
+   1418eb975:	0f 86 d5 00 00 00    	jbe    1418eba50 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x460>
+   1418eb97b:	48 63 48 08          	movslq 0x8(%rax),%rcx
+   1418eb97f:	48 8d 5c c8 10       	lea    0x10(%rax,%rcx,8),%rbx
+   1418eb984:	48 89 f1             	mov    %rsi,%rcx
+   1418eb987:	ff 15 d3 74 fa 00    	call   *0xfa74d3(%rip)        # 142892e60 <__imp__ZN9QListData6detachEi>
+   1418eb98d:	49 89 c5             	mov    %rax,%r13
+   1418eb990:	48 8b 06             	mov    (%rsi),%rax
+   1418eb993:	48 8d 50 10          	lea    0x10(%rax),%rdx
+   1418eb997:	48 63 48 0c          	movslq 0xc(%rax),%rcx
+   1418eb99b:	48 63 40 08          	movslq 0x8(%rax),%rax
+   1418eb99f:	4c 8d 04 ca          	lea    (%rdx,%rcx,8),%r8
+   1418eb9a3:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1418eb9a7:	49 39 c0             	cmp    %rax,%r8
+   1418eb9aa:	75 11                	jne    1418eb9bd <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x3cd>
+   1418eb9ac:	eb 30                	jmp    1418eb9de <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x3ee>
+   1418eb9ae:	66 90                	xchg   %ax,%ax
+   1418eb9b0:	48 83 c0 08          	add    $0x8,%rax
+   1418eb9b4:	48 83 c3 08          	add    $0x8,%rbx
+   1418eb9b8:	49 39 c0             	cmp    %rax,%r8
+   1418eb9bb:	74 21                	je     1418eb9de <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x3ee>
+   1418eb9bd:	48 8b 0b             	mov    (%rbx),%rcx
+   1418eb9c0:	48 89 08             	mov    %rcx,(%rax)
+   1418eb9c3:	8b 11                	mov    (%rcx),%edx
+   1418eb9c5:	83 c2 01             	add    $0x1,%edx
+   1418eb9c8:	83 fa 01             	cmp    $0x1,%edx
+   1418eb9cb:	76 e3                	jbe    1418eb9b0 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x3c0>
+   1418eb9cd:	f0 83 01 01          	lock addl $0x1,(%rcx)
+   1418eb9d1:	48 83 c0 08          	add    $0x8,%rax
+   1418eb9d5:	48 83 c3 08          	add    $0x8,%rbx
+   1418eb9d9:	49 39 c0             	cmp    %rax,%r8
+   1418eb9dc:	75 df                	jne    1418eb9bd <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x3cd>
+   1418eb9de:	41 8b 45 00          	mov    0x0(%r13),%eax
+   1418eb9e2:	85 c0                	test   %eax,%eax
+   1418eb9e4:	74 0d                	je     1418eb9f3 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x403>
+   1418eb9e6:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1418eb9e9:	74 6e                	je     1418eba59 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x469>
+   1418eb9eb:	f0 41 83 6d 00 01    	lock subl $0x1,0x0(%r13)
+   1418eb9f1:	75 66                	jne    1418eba59 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x469>
+   1418eb9f3:	49 63 55 0c          	movslq 0xc(%r13),%rdx
+   1418eb9f7:	49 8d 45 10          	lea    0x10(%r13),%rax
+   1418eb9fb:	48 8b 2d 9e 6b fa 00 	mov    0xfa6b9e(%rip),%rbp        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1418eba02:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1418eba06:	49 63 55 08          	movslq 0x8(%r13),%rdx
+   1418eba0a:	4c 8d 34 d0          	lea    (%rax,%rdx,8),%r14
+   1418eba0e:	4c 39 f3             	cmp    %r14,%rbx
+   1418eba11:	75 15                	jne    1418eba28 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x438>
+   1418eba13:	eb 4d                	jmp    1418eba62 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x472>
+   1418eba15:	0f 1f 00             	nopl   (%rax)
+   1418eba18:	83 fa ff             	cmp    $0xffffffff,%edx
+   1418eba1b:	74 06                	je     1418eba23 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x433>
+   1418eba1d:	f0 83 28 01          	lock subl $0x1,(%rax)
+   1418eba21:	74 13                	je     1418eba36 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x446>
+   1418eba23:	49 39 de             	cmp    %rbx,%r14
+   1418eba26:	74 3a                	je     1418eba62 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x472>
+   1418eba28:	48 8b 43 f8          	mov    -0x8(%rbx),%rax
+   1418eba2c:	48 83 eb 08          	sub    $0x8,%rbx
+   1418eba30:	8b 10                	mov    (%rax),%edx
+   1418eba32:	85 d2                	test   %edx,%edx
+   1418eba34:	75 e2                	jne    1418eba18 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x428>
+   1418eba36:	48 8b 0b             	mov    (%rbx),%rcx
+   1418eba39:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1418eba3f:	ba 02 00 00 00       	mov    $0x2,%edx
+   1418eba44:	ff d5                	call   *%rbp
+   1418eba46:	eb db                	jmp    1418eba23 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x433>
+   1418eba48:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1418eba4f:	00
+   1418eba50:	48 89 f1             	mov    %rsi,%rcx
+   1418eba53:	ff 15 2f 74 fa 00    	call   *0xfa742f(%rip)        # 142892e88 <__imp__ZN9QListData7reallocEi>
+   1418eba59:	8b 54 24 34          	mov    0x34(%rsp),%edx
+   1418eba5d:	e9 30 fc ff ff       	jmp    1418eb692 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0xa2>
+   1418eba62:	4c 89 e9             	mov    %r13,%rcx
+   1418eba65:	ff 15 0d 74 fa 00    	call   *0xfa740d(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1418eba6b:	eb ec                	jmp    1418eba59 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x469>
+   1418eba6d:	49 89 c5             	mov    %rax,%r13
+   1418eba70:	83 7c 24 2c 00       	cmpl   $0x0,0x2c(%rsp)
+   1418eba75:	74 16                	je     1418eba8d <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x49d>
+   1418eba77:	4c 89 e1             	mov    %r12,%rcx
+   1418eba7a:	ff 15 d8 6b fa 00    	call   *0xfa6bd8(%rip)        # 142892658 <__imp__ZN11QDataStream11resetStatusEv>
+   1418eba80:	8b 54 24 2c          	mov    0x2c(%rsp),%edx
+   1418eba84:	4c 89 e1             	mov    %r12,%rcx
+   1418eba87:	ff 15 eb 6b fa 00    	call   *0xfa6beb(%rip)        # 142892678 <__imp__ZN11QDataStream9setStatusENS_6StatusE>
+   1418eba8d:	4c 89 e9             	mov    %r13,%rcx
+   1418eba90:	e8 a3 98 e6 ff       	call   141755338 <_Unwind_Resume>
+   1418eba95:	48 89 c3             	mov    %rax,%rbx
+   1418eba98:	4c 89 e9             	mov    %r13,%rcx
+   1418eba9b:	e8 70 53 f6 ff       	call   141850e10 <_ZN7QStringD1Ev>
+   1418ebaa0:	49 89 dd             	mov    %rbx,%r13
+   1418ebaa3:	eb cb                	jmp    1418eba70 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_+0x480>
+   1418ebaa5:	90                   	nop
+   1418ebaa6:	90                   	nop
+   1418ebaa7:	90                   	nop
+   1418ebaa8:	90                   	nop
+   1418ebaa9:	90                   	nop
+   1418ebaaa:	90                   	nop
+   1418ebaab:	90                   	nop
+   1418ebaac:	90                   	nop
+   1418ebaad:	90                   	nop
+   1418ebaae:	90                   	nop
+   1418ebaaf:	90                   	nop

@@ -258,8 +258,10 @@ fn every_truncated_supported_suffix_fails_without_claiming_success() {
 
 #[test]
 fn unsupported_readers_stop_in_order_and_keep_completed_prior_state() {
-    // Jobs stop after domain, before the extended scalars/state bits.
-    let bytes = [0x80, 0xcd, 0, 0, 1, 1, 0xaa, 0xbb];
+    // Unsupported invalid job datetime stops after domain, before scalars/bits.
+    let mut bytes = vec![0x80, 0xcd, 0, 0, 1, 1];
+    bytes.extend([0; 8]);
+    bytes.extend([2, 0xaa, 0xbb]);
     let mut input = QtReader::new(&bytes);
     let mut state = NativePersonSuffixState::with_prior_fields(0, 0x8000);
     assert_eq!(
@@ -271,7 +273,7 @@ fn unsupported_readers_stop_in_order_and_keep_completed_prior_state() {
     );
     assert!(state.domain_1018.unwrap().0.is_empty());
     assert_eq!(state.state_1130, Some(0x8000));
-    assert_eq!(input.remaining_bytes(), [0xaa, 0xbb]);
+    assert_eq!(input.remaining_bytes(), &bytes[6..]);
     // Inventory stops after state-bit changes, before its body or late tails.
     let mut state = NativePersonSuffixState::with_prior_fields(0, 0x8000);
     let bytes = [0x88, 0x40, 0xc5, 0xaa, 0xbb];

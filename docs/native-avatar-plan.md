@@ -250,3 +250,12 @@ tails and manufacture/overpopulated extensions are implemented and tested from
 retained GNU records without another analysis import. Six job bodies and
 non-UTC/invalid datetime semantics remain explicit Unsupported; inventory/weight,
 concrete runtime context/dispatch and presentation remain open.
+
+Final job-body extension: all27 factory body layouts now decode, including both
+ship-command classes, prisoner transfer, and all three obsolete BountyHunter
+classes. BountyHunter's real32-bit QString count/double tail are read before
+filtering; Person propagates the actual floating profile and obsolete/null-stop
+diagnostics. Offline fixtures verify remaining bodies, every truncated prefix,
+large counts, discard ordering and later Person fields. Non-UTC/invalid job time
+semantics and the remaining inventory/weight/runtime/dispatch/presentation gates
+are still unfinished; this component milestone does not complete the goal.

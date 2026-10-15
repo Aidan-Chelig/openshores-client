@@ -94,7 +94,7 @@ impl NativePersonSuffixState {
             Some(
                 self.jobs_13b8
                     .get_or_insert_with(Default::default)
-                    .receive_qt7(input)?,
+                    .receive_qt7_with_profile(input, profile)?,
             )
         } else {
             None

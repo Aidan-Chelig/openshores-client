@@ -2,10 +2,19 @@ use super::*;
 
 impl NativeJob {
     /// Caller already consumed the factory byte. All27 factory identities are
-    /// known; remaining unimplemented bodies fail explicitly below.
+    /// known and have real readers. This entry uses TypeWidths; the explicit
+    /// profile variant handles the BountyHunter double overload.
     /// Fresh-value atomicity on errors is Rust safety, not Qt stream parity.
     pub fn read_qt7(kind: u8, input: &mut QtReader<'_>) -> io::Result<Self> {
-        if !matches!(kind, 0 | 6..=24 | 26) {
+        Self::read_qt7_with_profile(kind, input, FloatEncoding::TypeWidths)
+    }
+
+    pub fn read_qt7_with_profile(
+        kind: u8,
+        input: &mut QtReader<'_>,
+        profile: FloatEncoding,
+    ) -> io::Result<Self> {
+        if kind > 26 {
             return Err(io::Error::new(
                 io::ErrorKind::Unsupported,
                 format!("native job body {kind} is not implemented"),
@@ -14,6 +23,11 @@ impl NativeJob {
         let mut record = QtReader::new(input.remaining_bytes());
         let time_08 = utc_datetime_qt7(&mut record)?;
         let body = match kind {
+            1..=3 => {
+                NativeJobBody::BountyHunter(NativeJobBountyHunter::read(&mut record, profile)?)
+            }
+            4 | 5 => NativeJobBody::ShipCommand(NativeJobShipCommand::read(&mut record)?),
+            25 => NativeJobBody::TransferPrisoners(NativeJobTransferPrisoners::read(&mut record)?),
             16..=18 => {
                 NativeJobBody::DeliverPassengers(NativeJobPassengerDelivery::read(&mut record)?)
             }
@@ -77,12 +91,21 @@ impl NativeJob {
 impl NativeJobList {
     /// Native clears before count; uses all16 count bits. Types outside0..26
     /// are verified null factories: warn/stop immediately, not continue/skip.
-    /// Known but unimplemented bodies are explicit Unsupported instead.
+    /// BountyHunter types1/2/3 are discarded only after receiving their bodies.
     pub fn receive_qt7(&mut self, input: &mut QtReader<'_>) -> io::Result<NativeJobListReceive> {
+        self.receive_qt7_with_profile(input, FloatEncoding::TypeWidths)
+    }
+
+    pub fn receive_qt7_with_profile(
+        &mut self,
+        input: &mut QtReader<'_>,
+        profile: FloatEncoding,
+    ) -> io::Result<NativeJobListReceive> {
         let length = input.remaining();
         self.0.clear();
         let declared_count = input.read_u16()?;
         let mut stop = None;
+        let mut obsolete_jobs = vec![];
         for index in 0..declared_count {
             let kind = input.read_u8()?;
             if kind > 26 {
@@ -92,10 +115,16 @@ impl NativeJobList {
                 });
                 break;
             }
-            self.0.push(NativeJob::read_qt7(kind, input)?);
+            let job = NativeJob::read_qt7_with_profile(kind, input, profile)?;
+            if matches!(kind, 1..=3) {
+                obsolete_jobs.push((index, kind));
+            } else {
+                self.0.push(job);
+            }
         }
         Ok(NativeJobListReceive {
             declared_count,
+            obsolete_jobs,
             stop,
             consumed_bytes: length - input.remaining(),
         })

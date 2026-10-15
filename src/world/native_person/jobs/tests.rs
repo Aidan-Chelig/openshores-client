@@ -2,6 +2,7 @@ use super::*;
 use crate::protocol::QtWriter;
 mod delivery;
 mod passengers;
+mod remaining;
 
 fn string(value: Option<&str>, bytes: &mut Vec<u8>) {
     let mut writer = QtWriter::default();
@@ -112,15 +113,12 @@ fn all_count_bits_and_unknown_factories_stop_without_skipping() {
         assert_eq!(report.stop.unwrap().unknown_type, kind);
     }
     for kind in 0..=26 {
-        if matches!(kind, 0 | 6..=24 | 26) {
-            continue;
-        }
         assert_eq!(
             NativeJobList::default()
                 .receive_qt7(&mut QtReader::new(&[0, 1, kind]))
                 .unwrap_err()
                 .kind(),
-            io::ErrorKind::Unsupported
+            io::ErrorKind::UnexpectedEof
         );
     }
 }

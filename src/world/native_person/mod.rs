@@ -10,8 +10,9 @@ mod body;
 pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
 mod jobs;
 pub use jobs::{
-    NativeJob, NativeJobBody, NativeJobCargo, NativeJobFood, NativeJobList, NativeJobListReceive,
-    NativeJobPassengerDelivery, NativeJobPassengerPickup, NativeJobStop,
+    NativeJob, NativeJobBody, NativeJobBountyHunter, NativeJobCargo, NativeJobFood, NativeJobList,
+    NativeJobListReceive, NativeJobPassengerDelivery, NativeJobPassengerPickup,
+    NativeJobShipCommand, NativeJobStop, NativeJobTransferPrisoners,
 };
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
