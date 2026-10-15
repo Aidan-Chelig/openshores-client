@@ -63,5 +63,28 @@ same entry `0x1408b63b0`. Other receive entries are distinct: ImplantDNA
 `0x1408b6c60`, Bounty `0x1408b6db0`. Symbol aliasing alone is not the full
 virtual-table binding proof or a reconstruction of their nested bodies.
 
-Next resolve time and concrete virtual receive bindings, then compose
+## Scalar condition bodies
+
+Full reviewed Poison evidence: `evidence/native-condition-poison.json`,
+`ev_3c92f5122de57b110763de3bb0285c0c2759a7d988a111feb6a98ffa3c8c64f7`.
+Poison receives full-width AuTime, byte `0x10`, byte `0x11`; it changes the
+last byte to one only when zero. This is not boolean conversion: all nonzero
+byte values remain unchanged.
+
+Independent GNU assembly completely reviews these scalar readers, pinning all
+byte reads to the signed-char Qt overload (raw byte bits are retained):
+
+- Poison `0x1408b65e0..0x1408b6622`: timestamp + two bytes, last zero → one.
+- Disease `0x1408b6630..0x1408b667b`: timestamp + three bytes at `0x10..0x12`,
+  last zero → one; the preceding two bytes are not normalized.
+- Paralysis `0x1408b6680..0x1408b66c2` and Acid
+  `0x1408b66d0..0x1408b6712`: same wire sequence/normalization as Poison.
+- Bandage `0x1408b6720..0x1408b6754` and Antitoxin
+  `0x1408b6760..0x1408b6794`: timestamp + one byte, zero → one.
+
+These establish direct method layouts, not yet the factory-created vtable
+slot `0x70` bindings. Check those bindings before making the type dispatcher
+authoritative. Complex DNA/species/string/pregnancy/bounty bodies remain open.
+
+Next resolve concrete virtual receive bindings and remaining nested bodies, then compose
 the concrete counted layer into Unit reception.
