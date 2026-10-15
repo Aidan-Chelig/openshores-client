@@ -122,3 +122,67 @@ fn condition_error_stops_before_vector_even_when_vector_would_be_reset() {
     assert_eq!(fields.vector_330, Some([9.; 3]));
     assert_eq!(input.read_u8().unwrap(), 0xde);
 }
+
+#[test]
+fn double_precision_narrows_before_storage_and_preserves_nonfinite_wire_values() {
+    for values in [
+        [1.0000000001_f64, -0.0, f64::MAX],
+        [f64::NAN, f64::INFINITY, f64::NEG_INFINITY],
+    ] {
+        let mut bytes = vec![4];
+        for value in values {
+            bytes.extend(value.to_be_bytes());
+        }
+        let mut fields = NativeUnitFields::default();
+        fields
+            .receive(
+                &mut QtReader::new(&bytes),
+                FloatEncoding::DoublePrecision,
+                |_| panic!(),
+            )
+            .unwrap();
+        for (actual, wire) in fields.vector_330.unwrap().into_iter().zip(values) {
+            let expected = f64::from(wire as f32);
+            if expected.is_nan() {
+                assert!(actual.is_nan());
+            } else {
+                assert_eq!(actual.to_bits(), expected.to_bits());
+            }
+        }
+    }
+}
+
+#[test]
+fn truncated_scalars_keep_only_the_completed_identity_assignments() {
+    let mut bytes = vec![1, 0xff, 0xff, 0xff, 0xff];
+    bytes.extend(123_i32.to_be_bytes());
+    bytes.push(0x81);
+    for end in 0..bytes.len() {
+        let mut fields = NativeUnitFields {
+            field_3b0: Some(Some("old".into())),
+            field_3a8: Some(-7),
+            field_39c: Some(2),
+            vector_330: Some([9.; 3]),
+        };
+        assert!(
+            fields
+                .receive(
+                    &mut QtReader::new(&bytes[..end]),
+                    FloatEncoding::TypeWidths,
+                    |_| panic!()
+                )
+                .is_err()
+        );
+        assert_eq!(
+            fields.field_3b0,
+            if end >= 5 {
+                Some(None)
+            } else {
+                Some(Some("old".into()))
+            }
+        );
+        assert_eq!(fields.field_3a8, Some(if end >= 9 { 123 } else { -7 }));
+        assert_eq!(fields.field_39c, Some(2));
+        assert_eq!(fields.vector_330, Some([9.; 3]));
+    }
+}
