@@ -1,0 +1,312 @@
+Independent bounded GNU disassembly; not REA evidence or runtime.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+Command: objdump -d -C --start-address=0x14118ca70 --stop-address=0x14118cada reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118ca70 <AuSensorBlip::RxMin(QDataStream&)>:
+   14118ca70:	41 54                	push   %r12
+   14118ca72:	56                   	push   %rsi
+   14118ca73:	53                   	push   %rbx
+   14118ca74:	48 83 ec 30          	sub    $0x30,%rsp
+   14118ca78:	49 89 d4             	mov    %rdx,%r12
+   14118ca7b:	48 89 cb             	mov    %rcx,%rbx
+   14118ca7e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118ca82:	e8 39 89 4a 00       	call   1416353c0 <AuId::operator<<(QDataStream&)>
+   14118ca87:	48 8b 35 6a 5c 70 01 	mov    0x1705c6a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118ca8e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118ca93:	4c 89 e1             	mov    %r12,%rcx
+   14118ca96:	ff d6                	call   *%rsi
+   14118ca98:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118ca9d:	4c 89 e1             	mov    %r12,%rcx
+   14118caa0:	ff d6                	call   *%rsi
+   14118caa2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118caa7:	4c 89 e1             	mov    %r12,%rcx
+   14118caaa:	ff d6                	call   *%rsi
+   14118caac:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118cab2:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118cab8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118cabc:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118cac2:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118cac7:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118caca:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118cacd:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118cad1:	48 83 c4 30          	add    $0x30,%rsp
+   14118cad5:	5b                   	pop    %rbx
+   14118cad6:	5e                   	pop    %rsi
+   14118cad7:	41 5c                	pop    %r12
+   14118cad9:	c3                   	ret
+
+Command: objdump -d -C --start-address=0x14118f670 --stop-address=0x14118f6e7 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118f670 <AuBlipEmpire::RxMin(QDataStream&)>:
+   14118f670:	41 54                	push   %r12
+   14118f672:	56                   	push   %rsi
+   14118f673:	53                   	push   %rbx
+   14118f674:	48 83 ec 30          	sub    $0x30,%rsp
+   14118f678:	49 89 d4             	mov    %rdx,%r12
+   14118f67b:	48 89 cb             	mov    %rcx,%rbx
+   14118f67e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118f682:	e8 39 5d 4a 00       	call   1416353c0 <AuId::operator<<(QDataStream&)>
+   14118f687:	48 8b 35 6a 30 70 01 	mov    0x170306a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118f68e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118f693:	4c 89 e1             	mov    %r12,%rcx
+   14118f696:	ff d6                	call   *%rsi
+   14118f698:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118f69d:	4c 89 e1             	mov    %r12,%rcx
+   14118f6a0:	ff d6                	call   *%rsi
+   14118f6a2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118f6a7:	4c 89 e1             	mov    %r12,%rcx
+   14118f6aa:	ff d6                	call   *%rsi
+   14118f6ac:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118f6b2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118f6b6:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14118f6ba:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118f6c0:	4c 89 e1             	mov    %r12,%rcx
+   14118f6c3:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118f6c9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118f6ce:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118f6d1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118f6d4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118f6d8:	48 83 c4 30          	add    $0x30,%rsp
+   14118f6dc:	5b                   	pop    %rbx
+   14118f6dd:	5e                   	pop    %rsi
+   14118f6de:	41 5c                	pop    %r12
+   14118f6e0:	48 ff 25 f9 2f 70 01 	rex.W jmp *0x1702ff9(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+
+Command: objdump -d -C --start-address=0x1411906a0 --stop-address=0x141190741 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411906a0 <AuBlipAnimal::RxMin(QDataStream&)>:
+   1411906a0:	41 55                	push   %r13
+   1411906a2:	41 54                	push   %r12
+   1411906a4:	56                   	push   %rsi
+   1411906a5:	53                   	push   %rbx
+   1411906a6:	48 83 ec 38          	sub    $0x38,%rsp
+   1411906aa:	48 89 cb             	mov    %rcx,%rbx
+   1411906ad:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   1411906b2:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411906b6:	49 89 d4             	mov    %rdx,%r12
+   1411906b9:	e8 02 4d 4a 00       	call   1416353c0 <AuId::operator<<(QDataStream&)>
+   1411906be:	48 8b 35 33 20 70 01 	mov    0x1702033(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411906c5:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411906ca:	4c 89 e1             	mov    %r12,%rcx
+   1411906cd:	ff d6                	call   *%rsi
+   1411906cf:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411906d4:	4c 89 e1             	mov    %r12,%rcx
+   1411906d7:	ff d6                	call   *%rsi
+   1411906d9:	4c 89 ea             	mov    %r13,%rdx
+   1411906dc:	4c 89 e1             	mov    %r12,%rcx
+   1411906df:	ff d6                	call   *%rsi
+   1411906e1:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   1411906e7:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411906eb:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1411906ef:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411906f5:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411906fb:	48 8b 35 de 1f 70 01 	mov    0x1701fde(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190702:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190707:	4c 89 e1             	mov    %r12,%rcx
+   14119070a:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14119070d:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190710:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190714:	ff d6                	call   *%rsi
+   141190716:	4c 89 ea             	mov    %r13,%rdx
+   141190719:	4c 89 e1             	mov    %r12,%rcx
+   14119071c:	ff d6                	call   *%rsi
+   14119071e:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   141190723:	89 c2                	mov    %eax,%edx
+   141190725:	d1 f8                	sar    $1,%eax
+   141190727:	88 43 40             	mov    %al,0x40(%rbx)
+   14119072a:	f7 d2                	not    %edx
+   14119072c:	80 63 40 01          	andb   $0x1,0x40(%rbx)
+   141190730:	83 e2 01             	and    $0x1,%edx
+   141190733:	89 53 28             	mov    %edx,0x28(%rbx)
+   141190736:	48 83 c4 38          	add    $0x38,%rsp
+   14119073a:	5b                   	pop    %rbx
+   14119073b:	5e                   	pop    %rsi
+   14119073c:	41 5c                	pop    %r12
+   14119073e:	41 5d                	pop    %r13
+   141190740:	c3                   	ret
+
+Command: objdump -d -C --start-address=0x14118ff80 --stop-address=0x141190006 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118ff80 <AuBlipBd::RxMin(QDataStream&)>:
+   14118ff80:	41 54                	push   %r12
+   14118ff82:	56                   	push   %rsi
+   14118ff83:	53                   	push   %rbx
+   14118ff84:	48 83 ec 30          	sub    $0x30,%rsp
+   14118ff88:	49 89 d4             	mov    %rdx,%r12
+   14118ff8b:	48 89 cb             	mov    %rcx,%rbx
+   14118ff8e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118ff92:	e8 29 54 4a 00       	call   1416353c0 <AuId::operator<<(QDataStream&)>
+   14118ff97:	48 8b 35 5a 27 70 01 	mov    0x170275a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118ff9e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118ffa3:	4c 89 e1             	mov    %r12,%rcx
+   14118ffa6:	ff d6                	call   *%rsi
+   14118ffa8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118ffad:	4c 89 e1             	mov    %r12,%rcx
+   14118ffb0:	ff d6                	call   *%rsi
+   14118ffb2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118ffb7:	4c 89 e1             	mov    %r12,%rcx
+   14118ffba:	ff d6                	call   *%rsi
+   14118ffbc:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118ffc2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118ffc6:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14118ffca:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118ffd0:	48 8b 35 09 27 70 01 	mov    0x1702709(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14118ffd7:	4c 89 e1             	mov    %r12,%rcx
+   14118ffda:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118ffe0:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118ffe5:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118ffe8:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118ffeb:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118ffef:	ff d6                	call   *%rsi
+   14118fff1:	48 8d 53 34          	lea    0x34(%rbx),%rdx
+   14118fff5:	4c 89 e1             	mov    %r12,%rcx
+   14118fff8:	48 89 f0             	mov    %rsi,%rax
+   14118fffb:	48 83 c4 30          	add    $0x30,%rsp
+   14118ffff:	5b                   	pop    %rbx
+   141190000:	5e                   	pop    %rsi
+   141190001:	41 5c                	pop    %r12
+   141190003:	48 ff e0             	rex.W jmp *%rax
+
+Command: objdump -d -C --start-address=0x141199b90 --stop-address=0x141199d40 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141199b90 <AuSensorBlipList::RxMin(QDataStream&)>:
+   141199b90:	41 56                	push   %r14
+   141199b92:	41 55                	push   %r13
+   141199b94:	41 54                	push   %r12
+   141199b96:	55                   	push   %rbp
+   141199b97:	57                   	push   %rdi
+   141199b98:	56                   	push   %rsi
+   141199b99:	53                   	push   %rbx
+   141199b9a:	48 83 ec 60          	sub    $0x60,%rsp
+   141199b9e:	48 89 cb             	mov    %rcx,%rbx
+   141199ba1:	48 89 d7             	mov    %rdx,%rdi
+   141199ba4:	48 8d 71 08          	lea    0x8(%rcx),%rsi
+   141199ba8:	eb 29                	jmp    141199bd3 <AuSensorBlipList::RxMin(QDataStream&)+0x43>
+   141199baa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   141199bb0:	4d 8b 6c 24 10       	mov    0x10(%r12),%r13
+   141199bb5:	48 83 6b 18 01       	subq   $0x1,0x18(%rbx)
+   141199bba:	4c 89 e1             	mov    %r12,%rcx
+   141199bbd:	e8 66 a4 5b 00       	call   141754028 <std::__detail::_List_node_base::_M_unhook()>
+   141199bc2:	4c 89 e1             	mov    %r12,%rcx
+   141199bc5:	e8 de a3 5b 00       	call   141753fa8 <operator delete(void*)>
+   141199bca:	4d 85 ed             	test   %r13,%r13
+   141199bcd:	0f 85 6d 01 00 00    	jne    141199d40 <AuSensorBlipList::RxMin(QDataStream&)+0x1b0>
+   141199bd3:	4c 8b 63 08          	mov    0x8(%rbx),%r12
+   141199bd7:	49 39 f4             	cmp    %rsi,%r12
+   141199bda:	75 d4                	jne    141199bb0 <AuSensorBlipList::RxMin(QDataStream&)+0x20>
+   141199bdc:	48 8d 54 24 2e       	lea    0x2e(%rsp),%rdx
+   141199be1:	48 89 f9             	mov    %rdi,%rcx
+   141199be4:	48 8d 6c 24 2d       	lea    0x2d(%rsp),%rbp
+   141199be9:	ff 15 19 8b 6f 01    	call   *0x16f8b19(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141199bef:	0f b7 44 24 2e       	movzwl 0x2e(%rsp),%eax
+   141199bf4:	4c 8b 2d e5 8a 6f 01 	mov    0x16f8ae5(%rip),%r13        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141199bfb:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141199bfe:	66 89 54 24 2e       	mov    %dx,0x2e(%rsp)
+   141199c03:	66 85 c0             	test   %ax,%ax
+   141199c06:	75 4b                	jne    141199c53 <AuSensorBlipList::RxMin(QDataStream&)+0xc3>
+   141199c08:	e9 23 01 00 00       	jmp    141199d30 <AuSensorBlipList::RxMin(QDataStream&)+0x1a0>
+   141199c0d:	0f 1f 00             	nopl   (%rax)
+   141199c10:	48 8b 00             	mov    (%rax),%rax
+   141199c13:	48 89 fa             	mov    %rdi,%rdx
+   141199c16:	4c 89 e1             	mov    %r12,%rcx
+   141199c19:	ff 90 90 01 00 00    	call   *0x190(%rax)
+   141199c1f:	b9 18 00 00 00       	mov    $0x18,%ecx
+   141199c24:	e8 6f a3 5b 00       	call   141753f98 <operator new(unsigned long long)>
+   141199c29:	48 89 f2             	mov    %rsi,%rdx
+   141199c2c:	4c 89 60 10          	mov    %r12,0x10(%rax)
+   141199c30:	48 89 c1             	mov    %rax,%rcx
+   141199c33:	e8 f8 a3 5b 00       	call   141754030 <std::__detail::_List_node_base::_M_hook(std::__detail::_List_node_base*)>
+   141199c38:	0f b7 44 24 2e       	movzwl 0x2e(%rsp),%eax
+   141199c3d:	48 83 43 18 01       	addq   $0x1,0x18(%rbx)
+   141199c42:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141199c45:	66 89 54 24 2e       	mov    %dx,0x2e(%rsp)
+   141199c4a:	66 85 c0             	test   %ax,%ax
+   141199c4d:	0f 84 dd 00 00 00    	je     141199d30 <AuSensorBlipList::RxMin(QDataStream&)+0x1a0>
+   141199c53:	48 89 ea             	mov    %rbp,%rdx
+   141199c56:	48 89 f9             	mov    %rdi,%rcx
+   141199c59:	41 ff d5             	call   *%r13
+   141199c5c:	0f b6 4c 24 2d       	movzbl 0x2d(%rsp),%ecx
+   141199c61:	e8 9a e1 ff ff       	call   141197e00 <AuSensorBlip::Create(AuSensorBlip::TYPE)>
+   141199c66:	49 89 c4             	mov    %rax,%r12
+   141199c69:	48 85 c0             	test   %rax,%rax
+   141199c6c:	75 a2                	jne    141199c10 <AuSensorBlipList::RxMin(QDataStream&)+0x80>
+   141199c6e:	48 8b 05 db 67 11 01 	mov    0x11167db(%rip),%rax        # 1422b0450 <CSWTCH.1352+0x190>
+   141199c75:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141199c79:	4c 8d 6c 24 30       	lea    0x30(%rsp),%r13
+   141199c7e:	4c 8d 64 24 38       	lea    0x38(%rsp),%r12
+   141199c83:	48 8d 54 24 40       	lea    0x40(%rsp),%rdx
+   141199c88:	4c 89 e9             	mov    %r13,%rcx
+   141199c8b:	0f 11 44 24 48       	movups %xmm0,0x48(%rsp)
+   141199c90:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   141199c95:	48 8d 05 11 5f 11 01 	lea    0x1115f11(%rip),%rax        # 1422afbad <.rdata+0x120d>
+   141199c9c:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+   141199ca1:	ff 15 61 93 6f 01    	call   *0x16f9361(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   141199ca7:	4c 8b 74 24 30       	mov    0x30(%rsp),%r14
+   141199cac:	41 b8 33 00 00 00    	mov    $0x33,%r8d
+   141199cb2:	4c 89 e1             	mov    %r12,%rcx
+   141199cb5:	48 8d 15 fc 5e 11 01 	lea    0x1115efc(%rip),%rdx        # 1422afbb8 <.rdata+0x1218>
+   141199cbc:	ff 15 b6 8e 6f 01    	call   *0x16f8eb6(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   141199cc2:	4c 89 e2             	mov    %r12,%rdx
+   141199cc5:	4c 89 f1             	mov    %r14,%rcx
+   141199cc8:	ff 15 aa 8a 6f 01    	call   *0x16f8aaa(%rip)        # 142892778 <__imp__ZN11QTextStreamlsERK7QString>
+   141199cce:	4c 89 e1             	mov    %r12,%rcx
+   141199cd1:	e8 3a 71 6b 00       	call   141850e10 <QString::~QString()>
+   141199cd6:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141199cdb:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141199cdf:	0f 85 9e 00 00 00    	jne    141199d83 <AuSensorBlipList::RxMin(QDataStream&)+0x1f3>
+   141199ce5:	0f b6 54 24 2d       	movzbl 0x2d(%rsp),%edx
+   141199cea:	ff 15 a8 8a 6f 01    	call   *0x16f8aa8(%rip)        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   141199cf0:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141199cf5:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141199cf9:	75 73                	jne    141199d6e <AuSensorBlipList::RxMin(QDataStream&)+0x1de>
+   141199cfb:	0f b7 54 24 2e       	movzwl 0x2e(%rsp),%edx
+   141199d00:	ff 15 aa 8a 6f 01    	call   *0x16f8aaa(%rip)        # 1428927b0 <__imp__ZN11QTextStreamlsEt>
+   141199d06:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141199d0b:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141199d0f:	75 4b                	jne    141199d5c <AuSensorBlipList::RxMin(QDataStream&)+0x1cc>
+   141199d11:	48 8b 53 18          	mov    0x18(%rbx),%rdx
+   141199d15:	ff 15 a5 8a 6f 01    	call   *0x16f8aa5(%rip)        # 1428927c0 <__imp__ZN11QTextStreamlsEy>
+   141199d1b:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141199d20:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141199d24:	75 29                	jne    141199d4f <AuSensorBlipList::RxMin(QDataStream&)+0x1bf>
+   141199d26:	4c 89 e9             	mov    %r13,%rcx
+   141199d29:	ff 15 f9 8c 6f 01    	call   *0x16f8cf9(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   141199d2f:	90                   	nop
+   141199d30:	48 83 c4 60          	add    $0x60,%rsp
+   141199d34:	5b                   	pop    %rbx
+   141199d35:	5e                   	pop    %rsi
+   141199d36:	5f                   	pop    %rdi
+   141199d37:	5d                   	pop    %rbp
+   141199d38:	41 5c                	pop    %r12
+   141199d3a:	41 5d                	pop    %r13
+   141199d3c:	41 5e                	pop    %r14
+   141199d3e:	c3                   	ret
+   141199d3f:	90                   	nop
+

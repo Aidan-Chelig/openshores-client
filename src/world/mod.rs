@@ -24,6 +24,7 @@ pub mod native_item;
 pub mod native_position_updates;
 pub mod native_prefix;
 pub mod native_runaways;
+pub mod native_sensor_blip;
 pub mod native_sentient;
 pub mod native_signals;
 pub mod native_subatoms;

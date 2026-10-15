@@ -17,7 +17,7 @@ Clear/destroy all old entries before receiving short count. Per iteration read
 byte type, Create, receive +190 and append. **A null factory breaks out and
 returns after diagnostics**, leaving the unprocessed remainder unread. This is
 not the condition/chromatid unknown-type continuation rule. Count overload/loop
-width still needs independent corroboration before implementation.
+width is now independently corroborated below.
 
 | Type | Factory class | Full reader | Minimal reader |
 | --- | --- | --- | --- |
@@ -67,8 +67,48 @@ width still needs independent corroboration before implementation.
 
 The 41 distinct reader results are saved under target/avatar-analysis-session-2
 as sensor-blip-reader-<address>.json, all successful in the same warm process.
-Their bodies still require full review and nested-helper reconstruction before
-Rust implementation. No opaque sensor payload skipping or complete Creature
+The four minimal bodies are implemented; full readers still need review and
+nested-helper reconstruction. No opaque sensor skipping or complete Creature
 receiver is claimed. Sensor/Weapon/Transporter station readers also have local
 capsule/environment augmentation after wire reception, separately documented
 in native-consoles.md.
+
+## Minimal receive implementation
+
+Reviewed complete records in evidence/:
+
+- native-sensor-blip-reader-14118ca70.json:
+  ev_dc7d7ac70de361caadf4f8ef85f02c8e505ad7a6321397a9094bf75f74dcaf05.
+- native-sensor-blip-reader-14118f670.json:
+  ev_bbd51e6f1a3fe6684b52c09263edf776ed76f7c874a00e966f72793a9ece9fec.
+- native-sensor-blip-reader-1411906a0.json:
+  ev_5b39abb6b37426279fcc55dbeff001677001e9bb2f94125eaa7a22712c336d31.
+- native-sensor-blip-reader-14118ff80.json:
+  ev_29a6a09180366db785ea9ad6837f82baf5c708ecf134baf97ca01d77a0cf1847.
+
+Independent native-sensor-min-gnu.txt corroborates all four layouts and imported
+overloads. Base: ID08 then three float-overload values widened to doubles at
+10/18/20. Empire adds raw byte2c. Animal adds byte2c then packed byte B:
+bit1→byte40 and inverse bit0→u32 at28. Bd adds byte2c then byte34. This is
+minimal reception only: do not append full species/string/model suffixes.
+The factory-written vptr's +190 slot selects the actual layout for all 43
+types, including subclasses whose minimal layout differs from their full one.
+
+The same GNU record at141199be9..141199c6c pins the count to a short overload,
+zero-extended word, low-word decrement/store and zero test: all 16 count bits
+are used. Its successful body dispatch is +190, not +158.
+
+world::native_sensor_blip implements all minimal bodies and the real counted
+replacement list. Unknown factory types stop the list and return a must-use
+result reporting type, declared count and remaining unread entries. There is
+no guessed skip and no condition-list-style continuation. Earlier completed
+appends remain on a later Rust error; fresh body decoding itself is atomic.
+These are Rust error policies, not Qt failed-stream/destructor parity. Counts
+do not directly allocate storage; their 16-bit range bounds the list.
+
+Fixtures cover all 256 factory bytes and all profiles, all Animal packed bytes,
+high-bit IDs/raw bytes, signed zero/non-finite coordinates, every truncated
+body prefix, all 43 types together, zero/high-bit counts, destructive clearing,
+partial-list retention, explicit unknown-stop reporting and exact suffixes.
+Full blip bodies, local sensor augmentation and Creature/Person dispatch remain
+unfinished; successful minimal reception does not imply complete avatar reception.

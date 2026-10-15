@@ -102,3 +102,12 @@ The remaining Sensor/Weapon/Transporter formats require full and minimal blip
 reception: factory/list behavior and 43 vptr bindings are retained, and all 41
 distinct reader results are saved in the warm session for review. Native
 Creature/Person construction, complete dispatch and presentation remain open.
+
+Minimal sensor milestone: all 43 factory types dispatch to their four verified
+minimal readers; the counted replacement layer clears before count, retains
+completed entries on later errors, and explicitly reports/stops at null factory
+types without opaque skipping. Full and minimal blips have separate APIs.
+`just check` passes formatting, 327 headless and 348 client-feature library
+tests, 9 CLI tests per profile, 1 graphical-entry CLI test and strict
+client-feature all-target Clippy. Full +158 readers and remaining station
+application still need completion before concrete Creature/Person reception.
