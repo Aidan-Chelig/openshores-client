@@ -44,4 +44,10 @@ for suffix in ["", ".part.0"]:
         assert "call   *0x30(%rax)" in a and "call   *0x30(%rax)" in b
     else:
         assert "ucomiss" in a and "jp" in a and "je" in a and "ret" in a
-print("Verified both zero-angle wrappers and396 normalized nonzero instructions: LeanNeck differs from RotateNeck only by RotateY versus RotateX. Static structural comparison, not native runtime parity.")
+bend = "_ZN13DpHeadAndNeck8BendNeckEf"
+assert normalize(assembly(bend),bend) == normalize(assembly(rotate),rotate)
+bending = assembly(bend+".part.0")
+for instruction in ["mulss  0x40a8(%rax),%xmm6", "cvtss2sd %xmm6,%xmm2",
+                    "lea    -0x1(%rbx),%edx", "cmp    %ebx,%ecx", "jbe", "<sincos>"]:
+    assert instruction in bending, instruction
+print("Verified all three zero-angle wrappers,396 shared rotation/lean instructions, and bending's f32 spacing/descending-prefix loop anchors. Static structural checks, not runtime parity.")

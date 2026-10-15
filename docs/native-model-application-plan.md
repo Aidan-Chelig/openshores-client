@@ -378,10 +378,10 @@ count/second-head combination, out-of-range head-index native fallback, unchange
 neighbors/flags, zero/NaN paths and cancellation-sensitive multiplication.
 The mounted sixteen-part initialization test additionally reads every concrete
 attachment and rotates each actual initialized head around its attachment.
-This is a real skeletal mutation, not full TiltHeadTo or PositionHeads: BendNeck,
+This is a real skeletal mutation, not full TiltHeadTo or PositionHeads:
 head matrix assembly and body pose dispatch still require composition.
-The newly retained `dp-head-bend-part0.json` is evidence for that next work, not
-a claim it is implemented. Production Person context and presentation remain
+The retained `dp-head-bend-part0.json` supplies the later bending phase described
+below. Production Person context and presentation remain
 required gates below.
 
 `NativeDpPartState::lean_neck` now implements the LeanNeck companion operation.
@@ -404,7 +404,36 @@ analysis was reused without another executable import or decompilation query.
 Tests exercise both operations across head/count ranges, verify Y-axis signs and
 pivot translation, zero/NaN behavior and unsupported non-head parts. The mounted
 sixteen-part body test composes rotation and leaning on each initialized head.
-BendNeck and the remaining full head/body animation gates still apply.
+The remaining full head/body animation gates still apply.
+
+`NativeDpPartState::bend_neck` now implements BendNeck's distinct staged path.
+Starting at the last neck joint, it projects the stored local connection through
+the current joint matrix, constructs the expanded native pivot transform, and
+applies it to the inclusive prefix of head/neck bones. It then advances local Y
+by body40a8*0.5 rounded in f32 before widening, descends to the next joint, and
+reprojects against already-mutated bones. A single pivot, forward traversal or
+one shared rotation for all neck bones would not implement this routine.
+The real owner dimensions are required, not inferred from the part's DNA copy.
+
+Expanded coefficient/pivot arithmetic and literal zero products are retained,
+including homogeneous-row writes, native addition grouping and flag clears.
+Signed-zero input angles skip the whole operation; NaN enters the arithmetic;
+non-head parts report Unsupported. Full static Evidence is retained in
+`docs/evidence/native-dp-head-bend-part0.json`, with complete wrapper/clone GNU
+corroboration in `native-dp-neck-bend-gnu.txt`. No new analysis import or repeated
+REA query was needed. The neck static verifier now checks all three zero-angle
+wrappers plus the mixed-precision spacing and descending-prefix loop anchors;
+the attachment verifier also binds the non-torso concrete ConnectLoc slots.
+
+Fixtures verify per-bone accumulated angles across both head selections/all count
+combinations, unchanged neighboring slots, actual-owner spacing, zero/NaN and
+unsupported paths, and exact dense nonaffine scalar bit patterns independently
+evaluated from the instruction stages. Mounted sixteen-part initialization now
+composes bending, rotation and leaning on each head and checks preserved current
+attachments. This remains Rust/offline evidence, not native runtime parity.
+TiltHeadTo's reset/reattachment, orientation extraction and final head matrix,
+PositionHeads' pose logic, full body animation, production Person ownership and
+actual rendered native avatar state still remain required work.
 
 Bone transforms now implement the native in-place RotateX/RotateY/RotateZ and
 Translate operations on `NativeDpBoneTransform`. These mix the existing columns

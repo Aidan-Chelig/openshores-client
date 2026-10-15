@@ -28,6 +28,8 @@ bindings = [(0x1424818A0,0x1412B6860,None), (0x1423F97A0,0x1412B7FD0,None),
             (0x142434AC0,0x1412B8330,0x1412B5E10)]
 for vptr,current,bones in bindings:
     assert struct.unpack("<Q",read(vptr+0x30,8))[0] == current
+    if vptr != 0x1424818A0:
+        assert struct.unpack("<Q",read(vptr+0x20,8))[0] == 0x1412B5B40
     if bones is not None:
         assert struct.unpack("<Q",read(vptr+0xA0,8))[0] == bones
 for name in ["_ZNK12DpArmAndHand17CurrentConnectLocEv","_ZNK12DpLegAndFoot17CurrentConnectLocEv"]:

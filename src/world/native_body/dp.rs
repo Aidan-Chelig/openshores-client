@@ -23,6 +23,7 @@ pub use hand_cache::NativeDpHandCache;
 mod connection;
 mod initialization;
 mod neck;
+mod neck_bend;
 pub use initialization::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
