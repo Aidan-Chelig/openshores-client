@@ -1,0 +1,1062 @@
+Independent GNU static observations, not REA Evidence IDs.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Exact COFF symbol; trailing whitespace normalized. No native target execution.
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014097efb0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt>:
+   14097efb0:	41 57                	push   %r15
+   14097efb2:	41 56                	push   %r14
+   14097efb4:	41 55                	push   %r13
+   14097efb6:	41 54                	push   %r12
+   14097efb8:	55                   	push   %rbp
+   14097efb9:	57                   	push   %rdi
+   14097efba:	56                   	push   %rsi
+   14097efbb:	53                   	push   %rbx
+   14097efbc:	48 81 ec a8 00 00 00 	sub    $0xa8,%rsp
+   14097efc3:	8b bc 24 20 01 00 00 	mov    0x120(%rsp),%edi
+   14097efca:	49 89 cc             	mov    %rcx,%r12
+   14097efcd:	48 89 d1             	mov    %rdx,%rcx
+   14097efd0:	48 89 d3             	mov    %rdx,%rbx
+   14097efd3:	44 89 c6             	mov    %r8d,%esi
+   14097efd6:	45 89 cd             	mov    %r9d,%r13d
+   14097efd9:	e8 b2 f6 1a 00       	call   140b2e690 <_ZNK6DaAtom6ParentEv>
+   14097efde:	49 89 c7             	mov    %rax,%r15
+   14097efe1:	48 85 c0             	test   %rax,%rax
+   14097efe4:	74 1c                	je     14097f002 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x52>
+   14097efe6:	45 31 c9             	xor    %r9d,%r9d
+   14097efe9:	4c 8d 05 c0 62 a3 01 	lea    0x1a362c0(%rip),%r8        # 1423b52b0 <_ZTI9DaCapsule>
+   14097eff0:	48 8d 15 69 55 a3 01 	lea    0x1a35569(%rip),%rdx        # 1423b4560 <_ZTI6DaAtom>
+   14097eff7:	48 89 c1             	mov    %rax,%rcx
+   14097effa:	e8 39 4f dd 00       	call   141753f38 <__dynamic_cast>
+   14097efff:	49 89 c7             	mov    %rax,%r15
+   14097f002:	44 8b 8c 24 18 01 00 	mov    0x118(%rsp),%r9d
+   14097f009:	00
+   14097f00a:	44 8b 84 24 10 01 00 	mov    0x110(%rsp),%r8d
+   14097f011:	00
+   14097f012:	44 89 ea             	mov    %r13d,%edx
+   14097f015:	4c 89 e1             	mov    %r12,%rcx
+   14097f018:	e8 03 ee b3 00       	call   1414bde20 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi>
+   14097f01d:	41 83 fd 3c          	cmp    $0x3c,%r13d
+   14097f021:	0f 87 dd 0c 00 00    	ja     14097fd04 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd54>
+   14097f027:	48 8d 15 16 73 84 01 	lea    0x1847316(%rip),%rdx        # 1421c6344 <.rdata+0x784>
+   14097f02e:	44 89 e8             	mov    %r13d,%eax
+   14097f031:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+   14097f035:	48 01 d0             	add    %rdx,%rax
+   14097f038:	ff e0                	jmp    *%rax
+   14097f03a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14097f040:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f045:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f04c:	48 8b 2d dd 37 f1 01 	mov    0x1f137dd(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f053:	4c 89 e9             	mov    %r13,%rcx
+   14097f056:	ff d5                	call   *%rbp
+   14097f058:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f05f:	48 85 c9             	test   %rcx,%rcx
+   14097f062:	74 11                	je     14097f075 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xc5>
+   14097f064:	48 8b 01             	mov    (%rcx),%rax
+   14097f067:	ff 50 08             	call   *0x8(%rax)
+   14097f06a:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f071:	00 00 00 00
+   14097f075:	4c 89 e9             	mov    %r13,%rcx
+   14097f078:	4c 8b 2d c1 37 f1 01 	mov    0x1f137c1(%rip),%r13        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14097f07f:	41 ff d5             	call   *%r13
+   14097f082:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14097f088:	4c 8d bb 98 04 00 00 	lea    0x498(%rbx),%r15
+   14097f08f:	4c 89 f9             	mov    %r15,%rcx
+   14097f092:	ff d5                	call   *%rbp
+   14097f094:	48 8b 8b b0 05 00 00 	mov    0x5b0(%rbx),%rcx
+   14097f09b:	48 85 c9             	test   %rcx,%rcx
+   14097f09e:	0f 84 8c 00 00 00    	je     14097f130 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x180>
+   14097f0a4:	66 41 0f 6e 0c 24    	movd   (%r12),%xmm1
+   14097f0aa:	48 83 bb 90 06 00 00 	cmpq   $0x0,0x690(%rbx)
+   14097f0b1:	00
+   14097f0b2:	4c 89 f2             	mov    %r14,%rdx
+   14097f0b5:	41 0f 95 c0          	setne  %r8b
+   14097f0b9:	f3 0f 10 1d 5b ab 84 	movss  0x184ab5b(%rip),%xmm3        # 1421c9c1c <CSWTCH.2080+0x10c>
+   14097f0c0:	01
+   14097f0c1:	66 0f 70 c1 00       	pshufd $0x0,%xmm1,%xmm0
+   14097f0c6:	45 0f b6 c0          	movzbl %r8b,%r8d
+   14097f0ca:	0f 29 44 24 70       	movaps %xmm0,0x70(%rsp)
+   14097f0cf:	0f 29 84 24 80 00 00 	movaps %xmm0,0x80(%rsp)
+   14097f0d6:	00
+   14097f0d7:	66 0f 70 c1 e0       	pshufd $0xe0,%xmm1,%xmm0
+   14097f0dc:	66 0f d6 84 24 90 00 	movq   %xmm0,0x90(%rsp)
+   14097f0e3:	00 00
+   14097f0e5:	e8 d6 2d 97 00       	call   1412f1ec0 <_ZN6DpBody4PoseEPK6AuPosebf>
+   14097f0ea:	84 c0                	test   %al,%al
+   14097f0ec:	75 09                	jne    14097f0f7 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x147>
+   14097f0ee:	66 39 b3 c0 05 00 00 	cmp    %si,0x5c0(%rbx)
+   14097f0f5:	74 14                	je     14097f10b <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x15b>
+   14097f0f7:	66 89 b3 c0 05 00 00 	mov    %si,0x5c0(%rbx)
+   14097f0fe:	48 8d 8b 30 06 00 00 	lea    0x630(%rbx),%rcx
+   14097f105:	ff 15 15 37 f1 01    	call   *0x1f13715(%rip)        # 142892820 <__imp__ZN13QElapsedTimer7restartEv>
+   14097f10b:	4c 89 f9             	mov    %r15,%rcx
+   14097f10e:	41 ff d5             	call   *%r13
+   14097f111:	4c 89 e0             	mov    %r12,%rax
+   14097f114:	66 89 bb 92 04 00 00 	mov    %di,0x492(%rbx)
+   14097f11b:	48 81 c4 a8 00 00 00 	add    $0xa8,%rsp
+   14097f122:	5b                   	pop    %rbx
+   14097f123:	5e                   	pop    %rsi
+   14097f124:	5f                   	pop    %rdi
+   14097f125:	5d                   	pop    %rbp
+   14097f126:	41 5c                	pop    %r12
+   14097f128:	41 5d                	pop    %r13
+   14097f12a:	41 5e                	pop    %r14
+   14097f12c:	41 5f                	pop    %r15
+   14097f12e:	c3                   	ret
+   14097f12f:	90                   	nop
+   14097f130:	45 31 c9             	xor    %r9d,%r9d
+   14097f133:	4c 89 f2             	mov    %r14,%rdx
+   14097f136:	4c 89 e1             	mov    %r12,%rcx
+   14097f139:	48 8b ab a0 04 00 00 	mov    0x4a0(%rbx),%rbp
+   14097f140:	48 83 bb 90 06 00 00 	cmpq   $0x0,0x690(%rbx)
+   14097f147:	00
+   14097f148:	48 c7 44 24 70 00 00 	movq   $0x0,0x70(%rsp)
+   14097f14f:	00 00
+   14097f151:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   14097f158:	00 00
+   14097f15a:	41 0f 95 c1          	setne  %r9b
+   14097f15e:	44 89 4c 24 38       	mov    %r9d,0x38(%rsp)
+   14097f163:	48 c7 84 24 80 00 00 	movq   $0x0,0x80(%rsp)
+   14097f16a:	00 00 00 00 00
+   14097f16f:	48 c7 84 24 88 00 00 	movq   $0x0,0x88(%rsp)
+   14097f176:	00 00 00 00 00
+   14097f17b:	48 c7 84 24 90 00 00 	movq   $0x0,0x90(%rsp)
+   14097f182:	00 00 00 00 00
+   14097f187:	e8 04 ae 86 00       	call   1411e9f90 <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_>
+   14097f18c:	44 8b 4c 24 38       	mov    0x38(%rsp),%r9d
+   14097f191:	4d 89 f0             	mov    %r14,%r8
+   14097f194:	48 89 e9             	mov    %rbp,%rcx
+   14097f197:	c7 44 24 20 00 00 80 	movl   $0x3f800000,0x20(%rsp)
+   14097f19e:	3f
+   14097f19f:	48 8d 53 14          	lea    0x14(%rbx),%rdx
+   14097f1a3:	e8 28 b0 86 00       	call   1411ea1d0 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf>
+   14097f1a8:	84 c0                	test   %al,%al
+   14097f1aa:	0f 84 3e ff ff ff    	je     14097f0ee <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x13e>
+   14097f1b0:	e9 42 ff ff ff       	jmp    14097f0f7 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x147>
+   14097f1b5:	48 8d 83 78 06 00 00 	lea    0x678(%rbx),%rax
+   14097f1bc:	48 8b 2d 6d 36 f1 01 	mov    0x1f1366d(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f1c3:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   14097f1c8:	48 89 c1             	mov    %rax,%rcx
+   14097f1cb:	ff d5                	call   *%rbp
+   14097f1cd:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f1d4:	00
+   14097f1d5:	74 3b                	je     14097f212 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x262>
+   14097f1d7:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f1dc:	48 89 da             	mov    %rbx,%rdx
+   14097f1df:	4c 89 f1             	mov    %r14,%rcx
+   14097f1e2:	e8 39 fb ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f1e7:	8b 44 24 70          	mov    0x70(%rsp),%eax
+   14097f1eb:	41 39 04 24          	cmp    %eax,(%r12)
+   14097f1ef:	0f 84 cb 0c 00 00    	je     14097fec0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xf10>
+   14097f1f5:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f1fc:	48 85 c9             	test   %rcx,%rcx
+   14097f1ff:	74 06                	je     14097f207 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x257>
+   14097f201:	48 8b 01             	mov    (%rcx),%rax
+   14097f204:	ff 50 08             	call   *0x8(%rax)
+   14097f207:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f20e:	00 00 00 00
+   14097f212:	b9 28 00 00 00       	mov    $0x28,%ecx
+   14097f217:	e8 7c 4d dd 00       	call   141753f98 <_Znwy>
+   14097f21c:	44 0f b7 c7          	movzwl %di,%r8d
+   14097f220:	44 89 ea             	mov    %r13d,%edx
+   14097f223:	48 89 c1             	mov    %rax,%rcx
+   14097f226:	49 89 c6             	mov    %rax,%r14
+   14097f229:	e8 e2 96 70 00       	call   141088910 <_ZN13DpConsoleGameC1EN9AuStation4TYPEEt>
+   14097f22e:	4c 89 b3 80 06 00 00 	mov    %r14,0x680(%rbx)
+   14097f235:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f23a:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   14097f23f:	4c 8b 2d fa 35 f1 01 	mov    0x1f135fa(%rip),%r13        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14097f246:	41 ff d5             	call   *%r13
+   14097f249:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14097f250:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f257:	00
+   14097f258:	0f 84 2a fe ff ff    	je     14097f088 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd8>
+   14097f25e:	4d 85 ff             	test   %r15,%r15
+   14097f261:	0f 84 21 fe ff ff    	je     14097f088 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd8>
+   14097f267:	49 8b 07             	mov    (%r15),%rax
+   14097f26a:	48 89 da             	mov    %rbx,%rdx
+   14097f26d:	4c 89 f9             	mov    %r15,%rcx
+   14097f270:	ff 90 48 0d 00 00    	call   *0xd48(%rax)
+   14097f276:	e9 0d fe ff ff       	jmp    14097f088 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd8>
+   14097f27b:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f282:	48 8b 2d a7 35 f1 01 	mov    0x1f135a7(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f289:	4c 89 e9             	mov    %r13,%rcx
+   14097f28c:	ff d5                	call   *%rbp
+   14097f28e:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f295:	00
+   14097f296:	74 3b                	je     14097f2d3 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x323>
+   14097f298:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f29d:	48 89 da             	mov    %rbx,%rdx
+   14097f2a0:	4c 89 f1             	mov    %r14,%rcx
+   14097f2a3:	e8 78 fa ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f2a8:	41 8b 04 24          	mov    (%r12),%eax
+   14097f2ac:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f2b0:	0f 84 da 0b 00 00    	je     14097fe90 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xee0>
+   14097f2b6:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f2bd:	48 85 c9             	test   %rcx,%rcx
+   14097f2c0:	74 06                	je     14097f2c8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x318>
+   14097f2c2:	48 8b 01             	mov    (%rcx),%rax
+   14097f2c5:	ff 50 08             	call   *0x8(%rax)
+   14097f2c8:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f2cf:	00 00 00 00
+   14097f2d3:	b9 98 01 00 00       	mov    $0x198,%ecx
+   14097f2d8:	e8 bb 4c dd 00       	call   141753f98 <_Znwy>
+   14097f2dd:	48 89 c1             	mov    %rax,%rcx
+   14097f2e0:	49 89 c6             	mov    %rax,%r14
+   14097f2e3:	e8 98 8b 71 00       	call   141097e80 <_ZN8DpScHelmC1Ev>
+   14097f2e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14097f2ef:	00
+   14097f2f0:	4c 89 b3 80 06 00 00 	mov    %r14,0x680(%rbx)
+   14097f2f7:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f2fc:	4c 89 e9             	mov    %r13,%rcx
+   14097f2ff:	4c 8b 2d 3a 35 f1 01 	mov    0x1f1353a(%rip),%r13        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14097f306:	41 ff d5             	call   *%r13
+   14097f309:	e9 42 ff ff ff       	jmp    14097f250 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x2a0>
+   14097f30e:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f315:	48 8b 2d 14 35 f1 01 	mov    0x1f13514(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f31c:	4c 89 e9             	mov    %r13,%rcx
+   14097f31f:	ff d5                	call   *%rbp
+   14097f321:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f328:	00
+   14097f329:	74 3b                	je     14097f366 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x3b6>
+   14097f32b:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f330:	48 89 da             	mov    %rbx,%rdx
+   14097f333:	4c 89 f1             	mov    %r14,%rcx
+   14097f336:	e8 e5 f9 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f33b:	8b 44 24 70          	mov    0x70(%rsp),%eax
+   14097f33f:	41 39 04 24          	cmp    %eax,(%r12)
+   14097f343:	0f 84 5f 0b 00 00    	je     14097fea8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xef8>
+   14097f349:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f350:	48 85 c9             	test   %rcx,%rcx
+   14097f353:	74 06                	je     14097f35b <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x3ab>
+   14097f355:	48 8b 01             	mov    (%rcx),%rax
+   14097f358:	ff 50 08             	call   *0x8(%rax)
+   14097f35b:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f362:	00 00 00 00
+   14097f366:	b9 28 00 00 00       	mov    $0x28,%ecx
+   14097f36b:	e8 28 4c dd 00       	call   141753f98 <_Znwy>
+   14097f370:	44 0f b7 c7          	movzwl %di,%r8d
+   14097f374:	ba 23 00 00 00       	mov    $0x23,%edx
+   14097f379:	48 89 c1             	mov    %rax,%rcx
+   14097f37c:	49 89 c6             	mov    %rax,%r14
+   14097f37f:	e8 8c 95 70 00       	call   141088910 <_ZN13DpConsoleGameC1EN9AuStation4TYPEEt>
+   14097f384:	e9 67 ff ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f389:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f390:	48 8b 2d 99 34 f1 01 	mov    0x1f13499(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f397:	4c 89 e9             	mov    %r13,%rcx
+   14097f39a:	ff d5                	call   *%rbp
+   14097f39c:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f3a3:	00
+   14097f3a4:	74 3b                	je     14097f3e1 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x431>
+   14097f3a6:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f3ab:	48 89 da             	mov    %rbx,%rdx
+   14097f3ae:	4c 89 f1             	mov    %r14,%rcx
+   14097f3b1:	e8 6a f9 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f3b6:	41 8b 04 24          	mov    (%r12),%eax
+   14097f3ba:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f3be:	0f 84 b4 0a 00 00    	je     14097fe78 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xec8>
+   14097f3c4:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f3cb:	48 85 c9             	test   %rcx,%rcx
+   14097f3ce:	74 06                	je     14097f3d6 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x426>
+   14097f3d0:	48 8b 01             	mov    (%rcx),%rax
+   14097f3d3:	ff 50 08             	call   *0x8(%rax)
+   14097f3d6:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f3dd:	00 00 00 00
+   14097f3e1:	b9 40 00 00 00       	mov    $0x40,%ecx
+   14097f3e6:	e8 ad 4b dd 00       	call   141753f98 <_Znwy>
+   14097f3eb:	48 89 c1             	mov    %rax,%rcx
+   14097f3ee:	49 89 c6             	mov    %rax,%r14
+   14097f3f1:	e8 1a 85 70 00       	call   141087910 <_ZN14DpConsoleEmptyC1Ev>
+   14097f3f6:	e9 f5 fe ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f3fb:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f402:	48 8b 2d 27 34 f1 01 	mov    0x1f13427(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f409:	4c 89 e9             	mov    %r13,%rcx
+   14097f40c:	ff d5                	call   *%rbp
+   14097f40e:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f415:	00
+   14097f416:	74 3b                	je     14097f453 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x4a3>
+   14097f418:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f41d:	48 89 da             	mov    %rbx,%rdx
+   14097f420:	4c 89 f1             	mov    %r14,%rcx
+   14097f423:	e8 f8 f8 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f428:	41 8b 04 24          	mov    (%r12),%eax
+   14097f42c:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f430:	0f 84 2a 0a 00 00    	je     14097fe60 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xeb0>
+   14097f436:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f43d:	48 85 c9             	test   %rcx,%rcx
+   14097f440:	74 06                	je     14097f448 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x498>
+   14097f442:	48 8b 01             	mov    (%rcx),%rax
+   14097f445:	ff 50 08             	call   *0x8(%rax)
+   14097f448:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f44f:	00 00 00 00
+   14097f453:	b9 70 00 00 00       	mov    $0x70,%ecx
+   14097f458:	e8 3b 4b dd 00       	call   141753f98 <_Znwy>
+   14097f45d:	0f b7 d7             	movzwl %di,%edx
+   14097f460:	48 89 c1             	mov    %rax,%rcx
+   14097f463:	49 89 c6             	mov    %rax,%r14
+   14097f466:	e8 05 ce 70 00       	call   14108c270 <_ZN16DpConsoleSurgeryC1Et>
+   14097f46b:	e9 80 fe ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f470:	48 8b 05 71 a7 84 01 	mov    0x184a771(%rip),%rax        # 1421c9be8 <CSWTCH.2080+0xd8>
+   14097f477:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14097f47b:	48 8d 6c 24 50       	lea    0x50(%rsp),%rbp
+   14097f480:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f485:	4c 89 f2             	mov    %r14,%rdx
+   14097f488:	48 89 e9             	mov    %rbp,%rcx
+   14097f48b:	0f 11 44 24 78       	movups %xmm0,0x78(%rsp)
+   14097f490:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+   14097f495:	48 8d 05 9b 67 84 01 	lea    0x184679b(%rip),%rax        # 1421c5c37 <.rdata+0x77>
+   14097f49c:	48 89 84 24 88 00 00 	mov    %rax,0x88(%rsp)
+   14097f4a3:	00
+   14097f4a4:	ff 15 5e 3b f1 01    	call   *0x1f13b5e(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   14097f4aa:	48 8d 15 ff 6d 84 01 	lea    0x1846dff(%rip),%rdx        # 1421c62b0 <.rdata+0x6f0>
+   14097f4b1:	48 89 e9             	mov    %rbp,%rcx
+   14097f4b4:	e8 d7 bc ec 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14097f4b9:	48 8b 00             	mov    (%rax),%rax
+   14097f4bc:	4c 8d 7c 24 60       	lea    0x60(%rsp),%r15
+   14097f4c1:	4c 8d 43 14          	lea    0x14(%rbx),%r8
+   14097f4c5:	4c 89 f9             	mov    %r15,%rcx
+   14097f4c8:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+   14097f4cd:	83 40 18 01          	addl   $0x1,0x18(%rax)
+   14097f4d1:	48 8d 44 24 58       	lea    0x58(%rsp),%rax
+   14097f4d6:	48 89 c2             	mov    %rax,%rdx
+   14097f4d9:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   14097f4de:	e8 1d 62 cb 00       	call   141635700 <_Zls6QDebugRK4AuId>
+   14097f4e3:	48 8d 44 24 68       	lea    0x68(%rsp),%rax
+   14097f4e8:	48 89 da             	mov    %rbx,%rdx
+   14097f4eb:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   14097f4f0:	48 89 c1             	mov    %rax,%rcx
+   14097f4f3:	48 8b 03             	mov    (%rbx),%rax
+   14097f4f6:	ff 90 20 03 00 00    	call   *0x320(%rax)
+   14097f4fc:	48 8b 44 24 68       	mov    0x68(%rsp),%rax
+   14097f501:	4c 89 f9             	mov    %r15,%rcx
+   14097f504:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   14097f508:	44 8b 40 04          	mov    0x4(%rax),%r8d
+   14097f50c:	48 01 c2             	add    %rax,%rdx
+   14097f50f:	ff 15 0b 35 f1 01    	call   *0x1f1350b(%rip)        # 142892a20 <__imp__ZN6QDebug9putStringEPK5QChary>
+   14097f515:	48 8b 4c 24 60       	mov    0x60(%rsp),%rcx
+   14097f51a:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14097f51e:	0f 85 4c 0b 00 00    	jne    140980070 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10c0>
+   14097f524:	48 8d 15 a5 6d 84 01 	lea    0x1846da5(%rip),%rdx        # 1421c62d0 <.rdata+0x710>
+   14097f52b:	4c 89 f9             	mov    %r15,%rcx
+   14097f52e:	e8 5d bc ec 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14097f533:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   14097f538:	e8 d3 18 ed 00       	call   141850e10 <_ZN7QStringD1Ev>
+   14097f53d:	4c 8b 2d e4 34 f1 01 	mov    0x1f134e4(%rip),%r13        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   14097f544:	4c 89 f9             	mov    %r15,%rcx
+   14097f547:	41 ff d5             	call   *%r13
+   14097f54a:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   14097f54f:	41 ff d5             	call   *%r13
+   14097f552:	48 89 e9             	mov    %rbp,%rcx
+   14097f555:	41 ff d5             	call   *%r13
+   14097f558:	e9 e8 fa ff ff       	jmp    14097f045 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x95>
+   14097f55d:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f564:	48 8b 2d c5 32 f1 01 	mov    0x1f132c5(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f56b:	4c 89 e9             	mov    %r13,%rcx
+   14097f56e:	ff d5                	call   *%rbp
+   14097f570:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f577:	00
+   14097f578:	74 3b                	je     14097f5b5 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x605>
+   14097f57a:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f57f:	48 89 da             	mov    %rbx,%rdx
+   14097f582:	4c 89 f1             	mov    %r14,%rcx
+   14097f585:	e8 96 f7 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f58a:	41 8b 04 24          	mov    (%r12),%eax
+   14097f58e:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f592:	0f 84 b0 08 00 00    	je     14097fe48 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xe98>
+   14097f598:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f59f:	48 85 c9             	test   %rcx,%rcx
+   14097f5a2:	74 06                	je     14097f5aa <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x5fa>
+   14097f5a4:	48 8b 01             	mov    (%rcx),%rax
+   14097f5a7:	ff 50 08             	call   *0x8(%rax)
+   14097f5aa:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f5b1:	00 00 00 00
+   14097f5b5:	b9 d0 00 00 00       	mov    $0xd0,%ecx
+   14097f5ba:	e8 d9 49 dd 00       	call   141753f98 <_Znwy>
+   14097f5bf:	48 89 c1             	mov    %rax,%rcx
+   14097f5c2:	49 89 c6             	mov    %rax,%r14
+   14097f5c5:	e8 36 9a 70 00       	call   141089000 <_ZN13DpConsoleHelmC1Ev>
+   14097f5ca:	e9 21 fd ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f5cf:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f5d6:	48 8b 2d 53 32 f1 01 	mov    0x1f13253(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f5dd:	4c 89 e9             	mov    %r13,%rcx
+   14097f5e0:	ff d5                	call   *%rbp
+   14097f5e2:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f5e9:	00
+   14097f5ea:	74 3b                	je     14097f627 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x677>
+   14097f5ec:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f5f1:	48 89 da             	mov    %rbx,%rdx
+   14097f5f4:	4c 89 f1             	mov    %r14,%rcx
+   14097f5f7:	e8 24 f7 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f5fc:	41 8b 04 24          	mov    (%r12),%eax
+   14097f600:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f604:	0f 84 06 0a 00 00    	je     140980010 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1060>
+   14097f60a:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f611:	48 85 c9             	test   %rcx,%rcx
+   14097f614:	74 06                	je     14097f61c <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x66c>
+   14097f616:	48 8b 01             	mov    (%rcx),%rax
+   14097f619:	ff 50 08             	call   *0x8(%rax)
+   14097f61c:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f623:	00 00 00 00
+   14097f627:	b9 b8 00 00 00       	mov    $0xb8,%ecx
+   14097f62c:	e8 67 49 dd 00       	call   141753f98 <_Znwy>
+   14097f631:	0f b7 d7             	movzwl %di,%edx
+   14097f634:	48 89 c1             	mov    %rax,%rcx
+   14097f637:	49 89 c6             	mov    %rax,%r14
+   14097f63a:	e8 61 e0 70 00       	call   14108d6a0 <_ZN15DpConsoleWeaponC1Et>
+   14097f63f:	e9 ac fc ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f644:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f64b:	48 8b 2d de 31 f1 01 	mov    0x1f131de(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f652:	4c 89 e9             	mov    %r13,%rcx
+   14097f655:	ff d5                	call   *%rbp
+   14097f657:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f65e:	00
+   14097f65f:	74 3b                	je     14097f69c <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x6ec>
+   14097f661:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f666:	48 89 da             	mov    %rbx,%rdx
+   14097f669:	4c 89 f1             	mov    %r14,%rcx
+   14097f66c:	e8 af f6 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f671:	41 8b 04 24          	mov    (%r12),%eax
+   14097f675:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f679:	0f 84 a9 09 00 00    	je     140980028 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1078>
+   14097f67f:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f686:	48 85 c9             	test   %rcx,%rcx
+   14097f689:	74 06                	je     14097f691 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x6e1>
+   14097f68b:	48 8b 01             	mov    (%rcx),%rax
+   14097f68e:	ff 50 08             	call   *0x8(%rax)
+   14097f691:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f698:	00 00 00 00
+   14097f69c:	b9 80 01 00 00       	mov    $0x180,%ecx
+   14097f6a1:	e8 f2 48 dd 00       	call   141753f98 <_Znwy>
+   14097f6a6:	0f b7 d7             	movzwl %di,%edx
+   14097f6a9:	48 89 c1             	mov    %rax,%rcx
+   14097f6ac:	49 89 c6             	mov    %rax,%r14
+   14097f6af:	e8 1c 9c 73 00       	call   1410b92d0 <_ZN10DpScWeaponC1Et>
+   14097f6b4:	e9 37 fc ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f6b9:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f6c0:	48 8b 2d 69 31 f1 01 	mov    0x1f13169(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f6c7:	4c 89 e9             	mov    %r13,%rcx
+   14097f6ca:	ff d5                	call   *%rbp
+   14097f6cc:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f6d3:	00
+   14097f6d4:	74 3b                	je     14097f711 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x761>
+   14097f6d6:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f6db:	48 89 da             	mov    %rbx,%rdx
+   14097f6de:	4c 89 f1             	mov    %r14,%rcx
+   14097f6e1:	e8 3a f6 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f6e6:	41 8b 04 24          	mov    (%r12),%eax
+   14097f6ea:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f6ee:	0f 84 04 09 00 00    	je     14097fff8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1048>
+   14097f6f4:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f6fb:	48 85 c9             	test   %rcx,%rcx
+   14097f6fe:	74 06                	je     14097f706 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x756>
+   14097f700:	48 8b 01             	mov    (%rcx),%rax
+   14097f703:	ff 50 08             	call   *0x8(%rax)
+   14097f706:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f70d:	00 00 00 00
+   14097f711:	b9 90 01 00 00       	mov    $0x190,%ecx
+   14097f716:	e8 7d 48 dd 00       	call   141753f98 <_Znwy>
+   14097f71b:	48 89 c1             	mov    %rax,%rcx
+   14097f71e:	49 89 c6             	mov    %rax,%r14
+   14097f721:	e8 8a d3 71 00       	call   14109cab0 <_ZN7DpScNavC1Ev>
+   14097f726:	e9 c5 fb ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f72b:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f732:	48 8b 2d f7 30 f1 01 	mov    0x1f130f7(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f739:	4c 89 e9             	mov    %r13,%rcx
+   14097f73c:	ff d5                	call   *%rbp
+   14097f73e:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f745:	00
+   14097f746:	74 3b                	je     14097f783 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x7d3>
+   14097f748:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f74d:	48 89 da             	mov    %rbx,%rdx
+   14097f750:	4c 89 f1             	mov    %r14,%rcx
+   14097f753:	e8 c8 f5 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f758:	41 8b 04 24          	mov    (%r12),%eax
+   14097f75c:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f760:	0f 84 7a 08 00 00    	je     14097ffe0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1030>
+   14097f766:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f76d:	48 85 c9             	test   %rcx,%rcx
+   14097f770:	74 06                	je     14097f778 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x7c8>
+   14097f772:	48 8b 01             	mov    (%rcx),%rax
+   14097f775:	ff 50 08             	call   *0x8(%rax)
+   14097f778:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f77f:	00 00 00 00
+   14097f783:	b9 78 00 00 00       	mov    $0x78,%ecx
+   14097f788:	e8 0b 48 dd 00       	call   141753f98 <_Znwy>
+   14097f78d:	48 89 c1             	mov    %rax,%rcx
+   14097f790:	49 89 c6             	mov    %rax,%r14
+   14097f793:	e8 d8 c0 70 00       	call   14108b870 <_ZN15DpConsoleShieldC1Ev>
+   14097f798:	e9 53 fb ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f79d:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f7a4:	48 8b 2d 85 30 f1 01 	mov    0x1f13085(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f7ab:	4c 89 e9             	mov    %r13,%rcx
+   14097f7ae:	ff d5                	call   *%rbp
+   14097f7b0:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f7b7:	00
+   14097f7b8:	74 3b                	je     14097f7f5 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x845>
+   14097f7ba:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f7bf:	48 89 da             	mov    %rbx,%rdx
+   14097f7c2:	4c 89 f1             	mov    %r14,%rcx
+   14097f7c5:	e8 56 f5 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f7ca:	41 8b 04 24          	mov    (%r12),%eax
+   14097f7ce:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f7d2:	0f 84 f0 07 00 00    	je     14097ffc8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1018>
+   14097f7d8:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f7df:	48 85 c9             	test   %rcx,%rcx
+   14097f7e2:	74 06                	je     14097f7ea <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x83a>
+   14097f7e4:	48 8b 01             	mov    (%rcx),%rax
+   14097f7e7:	ff 50 08             	call   *0x8(%rax)
+   14097f7ea:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f7f1:	00 00 00 00
+   14097f7f5:	b9 60 01 00 00       	mov    $0x160,%ecx
+   14097f7fa:	e8 99 47 dd 00       	call   141753f98 <_Znwy>
+   14097f7ff:	48 89 c1             	mov    %rax,%rcx
+   14097f802:	49 89 c6             	mov    %rax,%r14
+   14097f805:	e8 06 6b 72 00       	call   1410a6310 <_ZN10DpScSensorC1Ev>
+   14097f80a:	e9 e1 fa ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f80f:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f816:	48 8b 2d 13 30 f1 01 	mov    0x1f13013(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f81d:	4c 89 e9             	mov    %r13,%rcx
+   14097f820:	ff d5                	call   *%rbp
+   14097f822:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f829:	00
+   14097f82a:	74 3b                	je     14097f867 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x8b7>
+   14097f82c:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f831:	48 89 da             	mov    %rbx,%rdx
+   14097f834:	4c 89 f1             	mov    %r14,%rcx
+   14097f837:	e8 e4 f4 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f83c:	41 8b 04 24          	mov    (%r12),%eax
+   14097f840:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f844:	0f 84 66 07 00 00    	je     14097ffb0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1000>
+   14097f84a:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f851:	48 85 c9             	test   %rcx,%rcx
+   14097f854:	74 06                	je     14097f85c <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x8ac>
+   14097f856:	48 8b 01             	mov    (%rcx),%rax
+   14097f859:	ff 50 08             	call   *0x8(%rax)
+   14097f85c:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f863:	00 00 00 00
+   14097f867:	b9 08 01 00 00       	mov    $0x108,%ecx
+   14097f86c:	e8 27 47 dd 00       	call   141753f98 <_Znwy>
+   14097f871:	48 89 c1             	mov    %rax,%rcx
+   14097f874:	49 89 c6             	mov    %rax,%r14
+   14097f877:	e8 64 ec 70 00       	call   14108e4e0 <_ZN11DpScCommandC1Ev>
+   14097f87c:	e9 6f fa ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f881:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f888:	48 8b 2d a1 2f f1 01 	mov    0x1f12fa1(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f88f:	4c 89 e9             	mov    %r13,%rcx
+   14097f892:	ff d5                	call   *%rbp
+   14097f894:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f89b:	00
+   14097f89c:	74 3b                	je     14097f8d9 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x929>
+   14097f89e:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f8a3:	48 89 da             	mov    %rbx,%rdx
+   14097f8a6:	4c 89 f1             	mov    %r14,%rcx
+   14097f8a9:	e8 72 f4 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f8ae:	41 8b 04 24          	mov    (%r12),%eax
+   14097f8b2:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f8b6:	0f 84 dc 06 00 00    	je     14097ff98 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xfe8>
+   14097f8bc:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f8c3:	48 85 c9             	test   %rcx,%rcx
+   14097f8c6:	74 06                	je     14097f8ce <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x91e>
+   14097f8c8:	48 8b 01             	mov    (%rcx),%rax
+   14097f8cb:	ff 50 08             	call   *0x8(%rax)
+   14097f8ce:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f8d5:	00 00 00 00
+   14097f8d9:	b9 90 01 00 00       	mov    $0x190,%ecx
+   14097f8de:	e8 b5 46 dd 00       	call   141753f98 <_Znwy>
+   14097f8e3:	0f b7 d7             	movzwl %di,%edx
+   14097f8e6:	48 89 c1             	mov    %rax,%rcx
+   14097f8e9:	49 89 c6             	mov    %rax,%r14
+   14097f8ec:	e8 9f 4d 73 00       	call   1410b4690 <_ZN15DpScTransporterC1Et>
+   14097f8f1:	e9 fa f9 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f8f6:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f8fd:	48 8b 2d 2c 2f f1 01 	mov    0x1f12f2c(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f904:	4c 89 e9             	mov    %r13,%rcx
+   14097f907:	ff d5                	call   *%rbp
+   14097f909:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f910:	00
+   14097f911:	74 3b                	je     14097f94e <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x99e>
+   14097f913:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f918:	48 89 da             	mov    %rbx,%rdx
+   14097f91b:	4c 89 f1             	mov    %r14,%rcx
+   14097f91e:	e8 fd f3 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f923:	41 8b 04 24          	mov    (%r12),%eax
+   14097f927:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f92b:	0f 84 4f 06 00 00    	je     14097ff80 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xfd0>
+   14097f931:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f938:	48 85 c9             	test   %rcx,%rcx
+   14097f93b:	74 06                	je     14097f943 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x993>
+   14097f93d:	48 8b 01             	mov    (%rcx),%rax
+   14097f940:	ff 50 08             	call   *0x8(%rax)
+   14097f943:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f94a:	00 00 00 00
+   14097f94e:	b9 e8 00 00 00       	mov    $0xe8,%ecx
+   14097f953:	e8 40 46 dd 00       	call   141753f98 <_Znwy>
+   14097f958:	48 89 c1             	mov    %rax,%rcx
+   14097f95b:	49 89 c6             	mov    %rax,%r14
+   14097f95e:	e8 dd aa 70 00       	call   14108a440 <_ZN14DpConsolePowerC1Ev>
+   14097f963:	e9 88 f9 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f968:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f96f:	48 8b 2d ba 2e f1 01 	mov    0x1f12eba(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f976:	4c 89 e9             	mov    %r13,%rcx
+   14097f979:	ff d5                	call   *%rbp
+   14097f97b:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f982:	00
+   14097f983:	74 3b                	je     14097f9c0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xa10>
+   14097f985:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f98a:	48 89 da             	mov    %rbx,%rdx
+   14097f98d:	4c 89 f1             	mov    %r14,%rcx
+   14097f990:	e8 8b f3 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097f995:	41 8b 04 24          	mov    (%r12),%eax
+   14097f999:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097f99d:	0f 84 c5 05 00 00    	je     14097ff68 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xfb8>
+   14097f9a3:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097f9aa:	48 85 c9             	test   %rcx,%rcx
+   14097f9ad:	74 06                	je     14097f9b5 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xa05>
+   14097f9af:	48 8b 01             	mov    (%rcx),%rax
+   14097f9b2:	ff 50 08             	call   *0x8(%rax)
+   14097f9b5:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097f9bc:	00 00 00 00
+   14097f9c0:	b9 28 01 00 00       	mov    $0x128,%ecx
+   14097f9c5:	e8 ce 45 dd 00       	call   141753f98 <_Znwy>
+   14097f9ca:	0f b7 d7             	movzwl %di,%edx
+   14097f9cd:	48 89 c1             	mov    %rax,%rcx
+   14097f9d0:	49 89 c6             	mov    %rax,%r14
+   14097f9d3:	e8 c8 89 70 00       	call   1410883a0 <_ZN17DpConsoleEngineerC1Et>
+   14097f9d8:	e9 13 f9 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097f9dd:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097f9e4:	48 8b 2d 45 2e f1 01 	mov    0x1f12e45(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097f9eb:	4c 89 e9             	mov    %r13,%rcx
+   14097f9ee:	ff d5                	call   *%rbp
+   14097f9f0:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097f9f7:	00
+   14097f9f8:	74 3b                	je     14097fa35 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xa85>
+   14097f9fa:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097f9ff:	48 89 da             	mov    %rbx,%rdx
+   14097fa02:	4c 89 f1             	mov    %r14,%rcx
+   14097fa05:	e8 16 f3 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097fa0a:	41 8b 04 24          	mov    (%r12),%eax
+   14097fa0e:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fa12:	0f 84 38 05 00 00    	je     14097ff50 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xfa0>
+   14097fa18:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fa1f:	48 85 c9             	test   %rcx,%rcx
+   14097fa22:	74 06                	je     14097fa2a <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xa7a>
+   14097fa24:	48 8b 01             	mov    (%rcx),%rax
+   14097fa27:	ff 50 08             	call   *0x8(%rax)
+   14097fa2a:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097fa31:	00 00 00 00
+   14097fa35:	b9 f0 01 00 00       	mov    $0x1f0,%ecx
+   14097fa3a:	e8 59 45 dd 00       	call   141753f98 <_Znwy>
+   14097fa3f:	0f b7 d7             	movzwl %di,%edx
+   14097fa42:	48 89 c1             	mov    %rax,%rcx
+   14097fa45:	49 89 c6             	mov    %rax,%r14
+   14097fa48:	e8 f3 37 71 00       	call   141093240 <_ZN12DpScEngineerC1Et>
+   14097fa4d:	e9 9e f8 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fa52:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097fa59:	48 8b 2d d0 2d f1 01 	mov    0x1f12dd0(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097fa60:	4c 89 e9             	mov    %r13,%rcx
+   14097fa63:	ff d5                	call   *%rbp
+   14097fa65:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fa6c:	00
+   14097fa6d:	74 3b                	je     14097faaa <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xafa>
+   14097fa6f:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fa74:	48 89 da             	mov    %rbx,%rdx
+   14097fa77:	4c 89 f1             	mov    %r14,%rcx
+   14097fa7a:	e8 a1 f2 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097fa7f:	41 8b 04 24          	mov    (%r12),%eax
+   14097fa83:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fa87:	0f 84 ab 04 00 00    	je     14097ff38 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xf88>
+   14097fa8d:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fa94:	48 85 c9             	test   %rcx,%rcx
+   14097fa97:	74 06                	je     14097fa9f <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xaef>
+   14097fa99:	48 8b 01             	mov    (%rcx),%rax
+   14097fa9c:	ff 50 08             	call   *0x8(%rax)
+   14097fa9f:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097faa6:	00 00 00 00
+   14097faaa:	b9 38 01 00 00       	mov    $0x138,%ecx
+   14097faaf:	e8 e4 44 dd 00       	call   141753f98 <_Znwy>
+   14097fab4:	0f b7 d7             	movzwl %di,%edx
+   14097fab7:	48 89 c1             	mov    %rax,%rcx
+   14097faba:	49 89 c6             	mov    %rax,%r14
+   14097fabd:	e8 fe ff 72 00       	call   1410afac0 <_ZN11DpScSurgeryC1Et>
+   14097fac2:	e9 29 f8 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fac7:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097face:	48 8b 2d 5b 2d f1 01 	mov    0x1f12d5b(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097fad5:	4c 89 e9             	mov    %r13,%rcx
+   14097fad8:	ff d5                	call   *%rbp
+   14097fada:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fae1:	00
+   14097fae2:	74 3b                	je     14097fb1f <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xb6f>
+   14097fae4:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fae9:	48 89 da             	mov    %rbx,%rdx
+   14097faec:	4c 89 f1             	mov    %r14,%rcx
+   14097faef:	e8 2c f2 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097faf4:	41 8b 04 24          	mov    (%r12),%eax
+   14097faf8:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fafc:	0f 84 1e 04 00 00    	je     14097ff20 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xf70>
+   14097fb02:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fb09:	48 85 c9             	test   %rcx,%rcx
+   14097fb0c:	74 06                	je     14097fb14 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xb64>
+   14097fb0e:	48 8b 01             	mov    (%rcx),%rax
+   14097fb11:	ff 50 08             	call   *0x8(%rax)
+   14097fb14:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097fb1b:	00 00 00 00
+   14097fb1f:	b9 98 00 00 00       	mov    $0x98,%ecx
+   14097fb24:	e8 6f 44 dd 00       	call   141753f98 <_Znwy>
+   14097fb29:	48 89 c1             	mov    %rax,%rcx
+   14097fb2c:	49 89 c6             	mov    %rax,%r14
+   14097fb2f:	e8 2c b3 70 00       	call   14108ae60 <_ZN15DpConsoleSensorC1Ev>
+   14097fb34:	e9 b7 f7 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fb39:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097fb40:	48 8b 2d e9 2c f1 01 	mov    0x1f12ce9(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097fb47:	4c 89 e9             	mov    %r13,%rcx
+   14097fb4a:	ff d5                	call   *%rbp
+   14097fb4c:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fb53:	00
+   14097fb54:	74 3b                	je     14097fb91 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xbe1>
+   14097fb56:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fb5b:	48 89 da             	mov    %rbx,%rdx
+   14097fb5e:	4c 89 f1             	mov    %r14,%rcx
+   14097fb61:	e8 ba f1 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097fb66:	41 8b 04 24          	mov    (%r12),%eax
+   14097fb6a:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fb6e:	0f 84 94 03 00 00    	je     14097ff08 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xf58>
+   14097fb74:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fb7b:	48 85 c9             	test   %rcx,%rcx
+   14097fb7e:	74 06                	je     14097fb86 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xbd6>
+   14097fb80:	48 8b 01             	mov    (%rcx),%rax
+   14097fb83:	ff 50 08             	call   *0x8(%rax)
+   14097fb86:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097fb8d:	00 00 00 00
+   14097fb91:	b9 b0 01 00 00       	mov    $0x1b0,%ecx
+   14097fb96:	e8 fd 43 dd 00       	call   141753f98 <_Znwy>
+   14097fb9b:	48 89 c1             	mov    %rax,%rcx
+   14097fb9e:	49 89 c6             	mov    %rax,%r14
+   14097fba1:	e8 3a 1b 72 00       	call   1410a16e0 <_ZN9DpScPowerC1Ev>
+   14097fba6:	e9 45 f7 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fbab:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097fbb2:	48 8b 2d 77 2c f1 01 	mov    0x1f12c77(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097fbb9:	4c 89 e9             	mov    %r13,%rcx
+   14097fbbc:	ff d5                	call   *%rbp
+   14097fbbe:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fbc5:	00
+   14097fbc6:	74 3b                	je     14097fc03 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xc53>
+   14097fbc8:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fbcd:	48 89 da             	mov    %rbx,%rdx
+   14097fbd0:	4c 89 f1             	mov    %r14,%rcx
+   14097fbd3:	e8 48 f1 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097fbd8:	41 8b 04 24          	mov    (%r12),%eax
+   14097fbdc:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fbe0:	0f 84 0a 03 00 00    	je     14097fef0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xf40>
+   14097fbe6:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fbed:	48 85 c9             	test   %rcx,%rcx
+   14097fbf0:	74 06                	je     14097fbf8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xc48>
+   14097fbf2:	48 8b 01             	mov    (%rcx),%rax
+   14097fbf5:	ff 50 08             	call   *0x8(%rax)
+   14097fbf8:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097fbff:	00 00 00 00
+   14097fc03:	b9 c8 00 00 00       	mov    $0xc8,%ecx
+   14097fc08:	e8 8b 43 dd 00       	call   141753f98 <_Znwy>
+   14097fc0d:	0f b7 d7             	movzwl %di,%edx
+   14097fc10:	48 89 c1             	mov    %rax,%rcx
+   14097fc13:	49 89 c6             	mov    %rax,%r14
+   14097fc16:	e8 65 d0 70 00       	call   14108cc80 <_ZN20DpConsoleTransporterC1Et>
+   14097fc1b:	e9 d0 f6 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fc20:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097fc27:	48 8b 2d 02 2c f1 01 	mov    0x1f12c02(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097fc2e:	4c 89 e9             	mov    %r13,%rcx
+   14097fc31:	ff d5                	call   *%rbp
+   14097fc33:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fc3a:	00
+   14097fc3b:	74 3b                	je     14097fc78 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xcc8>
+   14097fc3d:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fc42:	48 89 da             	mov    %rbx,%rdx
+   14097fc45:	4c 89 f1             	mov    %r14,%rcx
+   14097fc48:	e8 d3 f0 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097fc4d:	41 8b 04 24          	mov    (%r12),%eax
+   14097fc51:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fc55:	0f 84 7d 02 00 00    	je     14097fed8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xf28>
+   14097fc5b:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fc62:	48 85 c9             	test   %rcx,%rcx
+   14097fc65:	74 06                	je     14097fc6d <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xcbd>
+   14097fc67:	48 8b 01             	mov    (%rcx),%rax
+   14097fc6a:	ff 50 08             	call   *0x8(%rax)
+   14097fc6d:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097fc74:	00 00 00 00
+   14097fc78:	b9 40 01 00 00       	mov    $0x140,%ecx
+   14097fc7d:	e8 16 43 dd 00       	call   141753f98 <_Znwy>
+   14097fc82:	48 89 c1             	mov    %rax,%rcx
+   14097fc85:	49 89 c6             	mov    %rax,%r14
+   14097fc88:	e8 83 b2 72 00       	call   1410aaf10 <_ZN10DpScShieldC1Ev>
+   14097fc8d:	e9 5e f6 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fc92:	4c 8d ab 78 06 00 00 	lea    0x678(%rbx),%r13
+   14097fc99:	48 8b 2d 90 2b f1 01 	mov    0x1f12b90(%rip),%rbp        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097fca0:	4c 89 e9             	mov    %r13,%rcx
+   14097fca3:	ff d5                	call   *%rbp
+   14097fca5:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fcac:	00
+   14097fcad:	74 3b                	je     14097fcea <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd3a>
+   14097fcaf:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fcb4:	48 89 da             	mov    %rbx,%rdx
+   14097fcb7:	4c 89 f1             	mov    %r14,%rcx
+   14097fcba:	e8 61 f0 ff ff       	call   14097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>
+   14097fcbf:	41 8b 04 24          	mov    (%r12),%eax
+   14097fcc3:	39 44 24 70          	cmp    %eax,0x70(%rsp)
+   14097fcc7:	0f 84 62 01 00 00    	je     14097fe2f <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xe7f>
+   14097fccd:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14097fcd4:	48 85 c9             	test   %rcx,%rcx
+   14097fcd7:	74 06                	je     14097fcdf <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd2f>
+   14097fcd9:	48 8b 01             	mov    (%rcx),%rax
+   14097fcdc:	ff 50 08             	call   *0x8(%rax)
+   14097fcdf:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14097fce6:	00 00 00 00
+   14097fcea:	b9 c8 00 00 00       	mov    $0xc8,%ecx
+   14097fcef:	e8 a4 42 dd 00       	call   141753f98 <_Znwy>
+   14097fcf4:	48 89 c1             	mov    %rax,%rcx
+   14097fcf7:	49 89 c6             	mov    %rax,%r14
+   14097fcfa:	e8 21 9d 70 00       	call   141089a20 <_ZN12DpConsoleNavC1Ev>
+   14097fcff:	e9 ec f5 ff ff       	jmp    14097f2f0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x340>
+   14097fd04:	48 8b 05 dd 9e 84 01 	mov    0x1849edd(%rip),%rax        # 1421c9be8 <CSWTCH.2080+0xd8>
+   14097fd0b:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14097fd0f:	48 8d 6c 24 50       	lea    0x50(%rsp),%rbp
+   14097fd14:	4c 8d 74 24 70       	lea    0x70(%rsp),%r14
+   14097fd19:	4c 89 f2             	mov    %r14,%rdx
+   14097fd1c:	48 89 e9             	mov    %rbp,%rcx
+   14097fd1f:	0f 11 44 24 78       	movups %xmm0,0x78(%rsp)
+   14097fd24:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+   14097fd29:	48 8d 05 07 5f 84 01 	lea    0x1845f07(%rip),%rax        # 1421c5c37 <.rdata+0x77>
+   14097fd30:	48 89 84 24 88 00 00 	mov    %rax,0x88(%rsp)
+   14097fd37:	00
+   14097fd38:	ff 15 ca 32 f1 01    	call   *0x1f132ca(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   14097fd3e:	48 8d 15 6b 65 84 01 	lea    0x184656b(%rip),%rdx        # 1421c62b0 <.rdata+0x6f0>
+   14097fd45:	48 89 e9             	mov    %rbp,%rcx
+   14097fd48:	e8 43 b4 ec 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14097fd4d:	48 8b 00             	mov    (%rax),%rax
+   14097fd50:	4c 8d 7c 24 60       	lea    0x60(%rsp),%r15
+   14097fd55:	4c 8d 43 14          	lea    0x14(%rbx),%r8
+   14097fd59:	4c 89 f9             	mov    %r15,%rcx
+   14097fd5c:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+   14097fd61:	83 40 18 01          	addl   $0x1,0x18(%rax)
+   14097fd65:	48 8d 44 24 58       	lea    0x58(%rsp),%rax
+   14097fd6a:	48 89 c2             	mov    %rax,%rdx
+   14097fd6d:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   14097fd72:	e8 89 59 cb 00       	call   141635700 <_Zls6QDebugRK4AuId>
+   14097fd77:	48 8d 44 24 68       	lea    0x68(%rsp),%rax
+   14097fd7c:	48 89 da             	mov    %rbx,%rdx
+   14097fd7f:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   14097fd84:	48 89 c1             	mov    %rax,%rcx
+   14097fd87:	48 8b 03             	mov    (%rbx),%rax
+   14097fd8a:	ff 90 20 03 00 00    	call   *0x320(%rax)
+   14097fd90:	48 8b 44 24 68       	mov    0x68(%rsp),%rax
+   14097fd95:	4c 89 f9             	mov    %r15,%rcx
+   14097fd98:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   14097fd9c:	44 8b 40 04          	mov    0x4(%rax),%r8d
+   14097fda0:	48 01 c2             	add    %rax,%rdx
+   14097fda3:	ff 15 77 2c f1 01    	call   *0x1f12c77(%rip)        # 142892a20 <__imp__ZN6QDebug9putStringEPK5QChary>
+   14097fda9:	48 8b 4c 24 60       	mov    0x60(%rsp),%rcx
+   14097fdae:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14097fdb2:	0f 85 98 02 00 00    	jne    140980050 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10a0>
+   14097fdb8:	48 8d 15 35 65 84 01 	lea    0x1846535(%rip),%rdx        # 1421c62f4 <.rdata+0x734>
+   14097fdbf:	4c 89 f9             	mov    %r15,%rcx
+   14097fdc2:	e8 c9 b3 ec 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14097fdc7:	44 89 ea             	mov    %r13d,%edx
+   14097fdca:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   14097fdcf:	48 8b 08             	mov    (%rax),%rcx
+   14097fdd2:	49 89 c5             	mov    %rax,%r13
+   14097fdd5:	ff 15 bd 29 f1 01    	call   *0x1f129bd(%rip)        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   14097fddb:	49 8b 4d 00          	mov    0x0(%r13),%rcx
+   14097fddf:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14097fde3:	0f 85 57 02 00 00    	jne    140980040 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1090>
+   14097fde9:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   14097fdee:	48 8d 15 0b 65 84 01 	lea    0x184650b(%rip),%rdx        # 1421c6300 <.rdata+0x740>
+   14097fdf5:	e8 96 b3 ec 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14097fdfa:	8b 94 24 18 01 00 00 	mov    0x118(%rsp),%edx
+   14097fe01:	48 8b 08             	mov    (%rax),%rcx
+   14097fe04:	49 89 c5             	mov    %rax,%r13
+   14097fe07:	ff 15 93 29 f1 01    	call   *0x1f12993(%rip)        # 1428927a0 <__imp__ZN11QTextStreamlsEj>
+   14097fe0d:	49 8b 4d 00          	mov    0x0(%r13),%rcx
+   14097fe11:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14097fe15:	0f 85 45 02 00 00    	jne    140980060 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10b0>
+   14097fe1b:	48 8d 15 ee 64 84 01 	lea    0x18464ee(%rip),%rdx        # 1421c6310 <.rdata+0x750>
+   14097fe22:	4c 89 e9             	mov    %r13,%rcx
+   14097fe25:	e8 66 b3 ec 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14097fe2a:	e9 04 f7 ff ff       	jmp    14097f533 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x583>
+   14097fe2f:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fe36:	00
+   14097fe37:	0f 85 bf f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fe3d:	e9 a8 fe ff ff       	jmp    14097fcea <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xd3a>
+   14097fe42:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14097fe48:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fe4f:	00
+   14097fe50:	0f 85 a6 f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fe56:	e9 5a f7 ff ff       	jmp    14097f5b5 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x605>
+   14097fe5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fe60:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fe67:	00
+   14097fe68:	0f 85 8e f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fe6e:	e9 e0 f5 ff ff       	jmp    14097f453 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x4a3>
+   14097fe73:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fe78:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fe7f:	00
+   14097fe80:	0f 85 76 f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fe86:	e9 56 f5 ff ff       	jmp    14097f3e1 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x431>
+   14097fe8b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fe90:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fe97:	00
+   14097fe98:	0f 85 5e f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fe9e:	e9 30 f4 ff ff       	jmp    14097f2d3 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x323>
+   14097fea3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fea8:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097feaf:	00
+   14097feb0:	0f 85 46 f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097feb6:	e9 ab f4 ff ff       	jmp    14097f366 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x3b6>
+   14097febb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fec0:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fec7:	00
+   14097fec8:	0f 85 6c f3 ff ff    	jne    14097f23a <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x28a>
+   14097fece:	e9 3f f3 ff ff       	jmp    14097f212 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x262>
+   14097fed3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fed8:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fedf:	00
+   14097fee0:	0f 85 16 f4 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fee6:	e9 8d fd ff ff       	jmp    14097fc78 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xcc8>
+   14097feeb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fef0:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097fef7:	00
+   14097fef8:	0f 85 fe f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097fefe:	e9 00 fd ff ff       	jmp    14097fc03 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xc53>
+   14097ff03:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff08:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff0f:	00
+   14097ff10:	0f 85 e6 f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ff16:	e9 76 fc ff ff       	jmp    14097fb91 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xbe1>
+   14097ff1b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff20:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff27:	00
+   14097ff28:	0f 85 ce f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ff2e:	e9 ec fb ff ff       	jmp    14097fb1f <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xb6f>
+   14097ff33:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff38:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff3f:	00
+   14097ff40:	0f 85 b6 f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ff46:	e9 5f fb ff ff       	jmp    14097faaa <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xafa>
+   14097ff4b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff50:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff57:	00
+   14097ff58:	0f 85 9e f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ff5e:	e9 d2 fa ff ff       	jmp    14097fa35 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xa85>
+   14097ff63:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff68:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff6f:	00
+   14097ff70:	0f 85 86 f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ff76:	e9 45 fa ff ff       	jmp    14097f9c0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xa10>
+   14097ff7b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff80:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff87:	00
+   14097ff88:	0f 85 6e f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ff8e:	e9 bb f9 ff ff       	jmp    14097f94e <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x99e>
+   14097ff93:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ff98:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ff9f:	00
+   14097ffa0:	0f 85 56 f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ffa6:	e9 2e f9 ff ff       	jmp    14097f8d9 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x929>
+   14097ffab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ffb0:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ffb7:	00
+   14097ffb8:	0f 85 3e f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ffbe:	e9 a4 f8 ff ff       	jmp    14097f867 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x8b7>
+   14097ffc3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ffc8:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ffcf:	00
+   14097ffd0:	0f 85 26 f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ffd6:	e9 1a f8 ff ff       	jmp    14097f7f5 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x845>
+   14097ffdb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097ffe0:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ffe7:	00
+   14097ffe8:	0f 85 0e f3 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14097ffee:	e9 90 f7 ff ff       	jmp    14097f783 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x7d3>
+   14097fff3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14097fff8:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14097ffff:	00
+   140980000:	0f 85 f6 f2 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   140980006:	e9 06 f7 ff ff       	jmp    14097f711 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x761>
+   14098000b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980010:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   140980017:	00
+   140980018:	0f 85 de f2 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   14098001e:	e9 04 f6 ff ff       	jmp    14097f627 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x677>
+   140980023:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980028:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14098002f:	00
+   140980030:	0f 85 c6 f2 ff ff    	jne    14097f2fc <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x34c>
+   140980036:	e9 61 f6 ff ff       	jmp    14097f69c <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x6ec>
+   14098003b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980040:	ba 20 00 00 00       	mov    $0x20,%edx
+   140980045:	ff 15 35 27 f1 01    	call   *0x1f12735(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14098004b:	e9 99 fd ff ff       	jmp    14097fde9 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xe39>
+   140980050:	ba 20 00 00 00       	mov    $0x20,%edx
+   140980055:	ff 15 25 27 f1 01    	call   *0x1f12725(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14098005b:	e9 58 fd ff ff       	jmp    14097fdb8 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xe08>
+   140980060:	ba 20 00 00 00       	mov    $0x20,%edx
+   140980065:	ff 15 15 27 f1 01    	call   *0x1f12715(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14098006b:	e9 ab fd ff ff       	jmp    14097fe1b <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0xe6b>
+   140980070:	ba 20 00 00 00       	mov    $0x20,%edx
+   140980075:	ff 15 05 27 f1 01    	call   *0x1f12705(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14098007b:	e9 a4 f4 ff ff       	jmp    14097f524 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x574>
+   140980080:	49 89 c4             	mov    %rax,%r12
+   140980083:	4c 89 f1             	mov    %r14,%rcx
+   140980086:	e8 1d 3f dd 00       	call   141753fa8 <_ZdlPv>
+   14098008b:	4c 89 e1             	mov    %r12,%rcx
+   14098008e:	e8 a5 52 dd 00       	call   141755338 <_Unwind_Resume>
+   140980093:	eb eb                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980095:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   14098009a:	49 89 c4             	mov    %rax,%r12
+   14098009d:	e8 6e 0d ed 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1409800a2:	48 8b 1d 7f 29 f1 01 	mov    0x1f1297f(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1409800a9:	4c 89 f9             	mov    %r15,%rcx
+   1409800ac:	ff d3                	call   *%rbx
+   1409800ae:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1409800b3:	ff d3                	call   *%rbx
+   1409800b5:	48 89 e9             	mov    %rbp,%rcx
+   1409800b8:	ff d3                	call   *%rbx
+   1409800ba:	4c 89 e1             	mov    %r12,%rcx
+   1409800bd:	e8 76 52 dd 00       	call   141755338 <_Unwind_Resume>
+   1409800c2:	49 89 c4             	mov    %rax,%r12
+   1409800c5:	eb db                	jmp    1409800a2 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10f2>
+   1409800c7:	48 8b 1d 5a 29 f1 01 	mov    0x1f1295a(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1409800ce:	49 89 c4             	mov    %rax,%r12
+   1409800d1:	eb db                	jmp    1409800ae <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10fe>
+   1409800d3:	48 8b 1d 4e 29 f1 01 	mov    0x1f1294e(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1409800da:	49 89 c4             	mov    %rax,%r12
+   1409800dd:	eb d6                	jmp    1409800b5 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1105>
+   1409800df:	eb 9f                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800e1:	eb 9d                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800e3:	eb 9b                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800e5:	eb 99                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800e7:	eb ac                	jmp    140980095 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10e5>
+   1409800e9:	eb d7                	jmp    1409800c2 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1112>
+   1409800eb:	eb da                	jmp    1409800c7 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1117>
+   1409800ed:	eb e4                	jmp    1409800d3 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x1123>
+   1409800ef:	eb 8f                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800f1:	eb 8d                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800f3:	eb 8b                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800f5:	eb 89                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800f7:	eb 87                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800f9:	eb 85                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800fb:	eb 83                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800fd:	eb 81                	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   1409800ff:	e9 7c ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980104:	e9 77 ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980109:	e9 72 ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   14098010e:	e9 6d ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980113:	e9 68 ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980118:	e9 63 ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   14098011d:	e9 5e ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980122:	e9 59 ff ff ff       	jmp    140980080 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt+0x10d0>
+   140980127:	90                   	nop
+   140980128:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14098012f:	00

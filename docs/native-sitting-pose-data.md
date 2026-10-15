@@ -72,11 +72,30 @@ different station requires it; then **always** assign trailing492. It differs
 from fallback body reception, where492 is assigned only on restart. Both real
 Instant and injected-clock paths preserve that distinction.
 
-The complete SitAtConsole operation still needs actual console creation/reuse/
-destruction, parent-capsule notification and rendering/animation effects.
-These helpers supply its real pose values and marker rules; they do not mark
-it or the required Creature context complete. Person dispatch/presentation
-also remains outstanding.
+`NativeSittingState` now composes the actual typed console constructor subset,
+general-pose-only reuse, replacement/clearing, body pose application and marker
+updates. `set_station_pose` selects DpBody word3 or Animalia word0; an unmatched
+word returns None so the caller must still perform the non-station fallback.
+It does not silently consume that pose.
+
+The retained REA SitAtConsole record has Evidence ID
+`ev_d098c3b5ad82cce591ef46706abdcda430843fb740188b354e8924908cf0673e`.
+Complete independent exact-symbol disassembly is now retained in
+`evidence/native-creature-sitting-gnu.txt` (entry14097efb0). This is static
+evidence, not a runtime oracle. Immediate-parent capsule lookup precedes OpPose;
+notification follows console installation/reuse and precedes body application.
+Reuse compares only current general pose, not console class or station short.
+Thus Game21→22 with the same pose preserves the existing Game21 object.
+Non-console station cases still clear the old console and apply the body pose.
+Integrated-designer/unknown-type diagnostics are surfaced in the result.
+
+External console resources, capsule notification, model-data availability and
+animation are required fallible context methods, not implemented runtime
+effects. The test context only traces calls. A failed DP model-data probe occurs
+before pose writes as an explicit Rust safety boundary; native fault/Qt lock
+parity is not claimed. Failed destruction removes the owned console; later
+failures preserve already completed transitions. The concrete Creature context,
+full Person dispatch and avatar presentation remain outstanding.
 
 ## Verification
 
@@ -87,5 +106,10 @@ quadrants; repeated calls share the updated seed and missing state explicitly
 fails. InitPoses tests cover every u16 word plus wide bounds, body selection
 priority and all station shorts for console-marker timing. Existing pose and
 wire-layer tests remain in the full check suite.
-`just check` passes 368 headless and 389 client library tests, CLI tests,
-formatting and strict client-feature all-target Clippy.
+Sitting orchestration fixtures additionally cover every byte station type plus
+256, both selected bodies, received-word fallback, general-pose-only reuse,
+trailing marker updates without timer restart, missing shared random state,
+model-data-empty animation suppression and required-effect error boundaries.
+The full offline test runs pass383 headless and404 client library tests,9 CLI
+tests in each profile and1 graphical-entry CLI test. Formatting and strict
+client-feature all-target Clippy pass (the initial style warning was corrected).

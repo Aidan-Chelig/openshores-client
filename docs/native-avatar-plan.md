@@ -189,3 +189,13 @@ concrete Creature context and end-to-end Person/avatar gates can be met.
 Verification: `just check` passes 368 headless and 389 client library tests,
 9 CLI tests per profile, 1 graphical-entry CLI test, formatting and strict
 client-feature all-target Clippy.
+
+Sitting lifecycle milestone: NativeSittingState now composes typed console
+creation, general-pose-only reuse, destruction/clearing, parent notification
+ordering, actual body pose state and console marker updates. Offline trace
+fixtures cover every byte station type, both body families, failure boundaries,
+repeat updates and body-dependent received-word selection. Required external
+callbacks are not final runtime effects; the concrete Creature context,
+remaining Person reception, packet dispatch and avatar presentation are still
+required. Retained REA evidence and exact GNU output were reused without a new
+analysis session/import.
