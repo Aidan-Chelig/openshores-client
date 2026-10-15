@@ -4,10 +4,11 @@ Implementation/evidence ledger: [native avatar assembly](native-avatar-assembly.
 
 ## Current checkpoint
 
-Textured head and torso inspection previews, angle-based smoothing and the CPU
-bone-skinning primitive are implemented. Complete avatar assembly and the native
-standing pose are not. The next implementation step is the standing-leg and
-standing-arm attachment chain, followed by reusable full-body generation.
+Textured part previews, angle-based smoothing, CPU skinning, composed native
+Stand bones and viewer-independent whole-body source generation are implemented.
+Two mounted anatomies pass CPU generation/pose checks. The next step is to skin
+smoothed render corners, integrate the full-body viewer and verify assembly
+visually from multiple angles. Those rendering/completion gates remain open.
 
 ## Objective
 

@@ -34,6 +34,8 @@ pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};
 mod arm_elbow;
 mod arm_move;
 mod arm_pose;
+mod neutral_pose;
+pub use neutral_pose::NativeDpStandingPose;
 mod arm_shoulder;
 mod arm_standing;
 mod arm_wrist;

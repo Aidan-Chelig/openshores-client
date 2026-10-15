@@ -32,14 +32,20 @@ test-native-skinning installation="reference/hazeron":
 test-native-standing installation="reference/hazeron":
     nix develop .#server-test --command python tests/native_leg_standing.py
     nix develop .#server-test --command python tests/native_arm_standing.py
+    nix develop .#server-test --command python tests/native_neutral_pose.py
     nix develop .#server-test --command cargo test --offline --lib leg_standing
     nix develop .#server-test --command cargo test --offline --lib leg_vertices
     nix develop .#server-test --command cargo test --offline --lib spread_legs
     nix develop .#server-test --command cargo test --offline --lib leg_pose
     nix develop .#server-test --command cargo test --offline --lib arm_standing
     nix develop .#server-test --command cargo test --offline --lib arm_pose
+    nix develop .#server-test --command cargo test --offline --lib neutral_pose
     nix develop .#server-test --command cargo test --offline --lib spread_arms
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_standing -- --ignored --nocapture
+
+# Whole-body CPU source generation and referenced-vertex skinning, no window.
+test-native-avatar installation="reference/hazeron":
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_avatar_generation -- --ignored --nocapture
 
 # Inspect assets without extraction; installation files are never executed.
 assets installation="reference/hazeron": build

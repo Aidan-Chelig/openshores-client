@@ -1,0 +1,74 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412f1ba0 <_ZN6DpBody11AnimatePoseEbf.part.0>:
+   1412f1ba0:	41 54                	push   %r12
+   1412f1ba2:	48 83 ec 50          	sub    $0x50,%rsp
+   1412f1ba6:	0f 29 74 24 30       	movaps %xmm6,0x30(%rsp)
+   1412f1bab:	0f 29 7c 24 40       	movaps %xmm7,0x40(%rsp)
+   1412f1bb0:	88 51 6c             	mov    %dl,0x6c(%rcx)
+   1412f1bb3:	49 89 cc             	mov    %rcx,%r12
+   1412f1bb6:	31 d2                	xor    %edx,%edx
+   1412f1bb8:	f3 0f 11 54 24 2c    	movss  %xmm2,0x2c(%rsp)
+   1412f1bbe:	e8 cd 68 fd ff       	call   1412c8490 <_ZNK6DpBody8CGHeightEb>
+   1412f1bc3:	4c 89 e1             	mov    %r12,%rcx
+   1412f1bc6:	0f 28 f0             	movaps %xmm0,%xmm6
+   1412f1bc9:	e8 e2 0f fd ff       	call   1412c2bb0 <_ZN6DpBody16InitBoneMatricesEv>
+   1412f1bce:	41 f6 44 24 24 0c    	testb  $0xc,0x24(%r12)
+   1412f1bd4:	f3 0f 10 54 24 2c    	movss  0x2c(%rsp),%xmm2
+   1412f1bda:	0f 85 b0 00 00 00    	jne    1412f1c90 <_ZN6DpBody11AnimatePoseEbf.part.0+0xf0>
+   1412f1be0:	41 f6 44 24 26 30    	testb  $0x30,0x26(%r12)
+   1412f1be6:	0f 85 84 00 00 00    	jne    1412f1c70 <_ZN6DpBody11AnimatePoseEbf.part.0+0xd0>
+   1412f1bec:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412f1bef:	4c 89 e1             	mov    %r12,%rcx
+   1412f1bf2:	f3 0f 11 54 24 2c    	movss  %xmm2,0x2c(%rsp)
+   1412f1bf8:	e8 f3 14 ff ff       	call   1412e30f0 <_ZN6DpBody13PositionTorsoEff>
+   1412f1bfd:	4c 89 e1             	mov    %r12,%rcx
+   1412f1c00:	0f 28 f8             	movaps %xmm0,%xmm7
+   1412f1c03:	e8 d8 1e ff ff       	call   1412e3ae0 <_ZN6DpBody13PositionHeadsEv>
+   1412f1c08:	41 0f b6 44 24 19    	movzbl 0x19(%r12),%eax
+   1412f1c0e:	83 e0 03             	and    $0x3,%eax
+   1412f1c11:	74 48                	je     1412f1c5b <_ZN6DpBody11AnimatePoseEbf.part.0+0xbb>
+   1412f1c13:	41 f6 44 24 1a 06    	testb  $0x6,0x1a(%r12)
+   1412f1c19:	f3 0f 10 54 24 2c    	movss  0x2c(%rsp),%xmm2
+   1412f1c1f:	74 1f                	je     1412f1c40 <_ZN6DpBody11AnimatePoseEbf.part.0+0xa0>
+   1412f1c21:	3c 01                	cmp    $0x1,%al
+   1412f1c23:	77 1b                	ja     1412f1c40 <_ZN6DpBody11AnimatePoseEbf.part.0+0xa0>
+   1412f1c25:	0f 28 cf             	movaps %xmm7,%xmm1
+   1412f1c28:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   1412f1c2d:	0f 28 7c 24 40       	movaps 0x40(%rsp),%xmm7
+   1412f1c32:	4c 89 e1             	mov    %r12,%rcx
+   1412f1c35:	48 83 c4 50          	add    $0x50,%rsp
+   1412f1c39:	41 5c                	pop    %r12
+   1412f1c3b:	e9 20 f9 fe ff       	jmp    1412e1560 <_ZN6DpBody13PositionWingsEf>
+   1412f1c40:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412f1c43:	4c 89 e1             	mov    %r12,%rcx
+   1412f1c46:	e8 45 c6 ff ff       	call   1412ee290 <_ZN6DpBody12PositionArmsEff>
+   1412f1c4b:	41 f6 44 24 19 03    	testb  $0x3,0x19(%r12)
+   1412f1c51:	74 08                	je     1412f1c5b <_ZN6DpBody11AnimatePoseEbf.part.0+0xbb>
+   1412f1c53:	41 f6 44 24 1a 06    	testb  $0x6,0x1a(%r12)
+   1412f1c59:	75 ca                	jne    1412f1c25 <_ZN6DpBody11AnimatePoseEbf.part.0+0x85>
+   1412f1c5b:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   1412f1c60:	0f 28 7c 24 40       	movaps 0x40(%rsp),%xmm7
+   1412f1c65:	48 83 c4 50          	add    $0x50,%rsp
+   1412f1c69:	41 5c                	pop    %r12
+   1412f1c6b:	c3                   	ret
+   1412f1c6c:	0f 1f 40 00          	nopl   0x0(%rax)
+   1412f1c70:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412f1c73:	4c 89 e1             	mov    %r12,%rcx
+   1412f1c76:	f3 0f 11 54 24 2c    	movss  %xmm2,0x2c(%rsp)
+   1412f1c7c:	e8 ef ef fe ff       	call   1412e0c70 <_ZN6DpBody12PositionTailEff>
+   1412f1c81:	f3 0f 10 54 24 2c    	movss  0x2c(%rsp),%xmm2
+   1412f1c87:	e9 60 ff ff ff       	jmp    1412f1bec <_ZN6DpBody11AnimatePoseEbf.part.0+0x4c>
+   1412f1c8c:	0f 1f 40 00          	nopl   0x0(%rax)
+   1412f1c90:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412f1c93:	4c 89 e1             	mov    %r12,%rcx
+   1412f1c96:	e8 75 f8 ff ff       	call   1412f1510 <_ZN6DpBody12PositionLegsEff>
+   1412f1c9b:	f3 0f 10 54 24 2c    	movss  0x2c(%rsp),%xmm2
+   1412f1ca1:	e9 3a ff ff ff       	jmp    1412f1be0 <_ZN6DpBody11AnimatePoseEbf.part.0+0x40>
+   1412f1ca6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1412f1cad:	00 00 00 
+

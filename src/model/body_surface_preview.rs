@@ -30,9 +30,60 @@ impl NativeBodySurfacePreview {
 }
 
 impl NativeBodyMergeGeometry {
+    /// Original unmerged object path: triangle-builder projection precedes
+    /// per-vertex deformation. Do not run merge baking on ordinary limbs.
+    pub fn textured_unmerged_preview_geometry(
+        &self,
+        source: &Mesh,
+        variant: ModelVariant,
+    ) -> io::Result<NativeBodySurfacePreview> {
+        if self.object.field_369 {
+            return Err(invalid(
+                "unmerged surface cannot deform an already baked object",
+            ));
+        }
+        let positions = source.body_deformed_positions(
+            variant,
+            1.,
+            &self.deformation,
+            self.scale_points[0],
+            self.scale_points[1],
+        )?;
+        if positions.len() != self.object.vertices.len() || source.faces.len() != self.faces.len() {
+            return Err(invalid(
+                "unmerged surface requires its original source mesh",
+            ));
+        }
+        if source.faces.iter().any(|f| {
+            f.vertices
+                .iter()
+                .any(|i| usize::from(*i) >= positions.len())
+        }) {
+            return Err(invalid("unmerged surface face index out of bounds"));
+        }
+        self.surface_controls(
+            NativeBodyMeshGeometry {
+                positions,
+                weights: self.object.vertices.iter().map(|v| v.payload).collect(),
+                faces: source.faces.clone(),
+                uvs: None,
+            },
+            variant,
+        )
+    }
+
     pub fn textured_baked_preview_geometry(
         &self,
         projection_source: &Mesh,
+        variant: ModelVariant,
+    ) -> io::Result<NativeBodySurfacePreview> {
+        let geometry = self.untextured_baked_preview_geometry(projection_source, variant)?;
+        self.surface_controls(geometry, variant)
+    }
+
+    fn surface_controls(
+        &self,
+        mut geometry: NativeBodyMeshGeometry,
         variant: ModelVariant,
     ) -> io::Result<NativeBodySurfacePreview> {
         if !matches!(variant, ModelVariant::N | ModelVariant::NT) {
@@ -49,7 +100,6 @@ impl NativeBodyMergeGeometry {
                 "textured body preview has no native mapping coordinates",
             ));
         }
-        let mut geometry = self.untextured_baked_preview_geometry(projection_source, variant)?;
         let mut uvs = Vec::with_capacity(self.object.vertices.len());
         let mut top_face = Vec::with_capacity(self.object.vertices.len());
         for vertex in &self.object.vertices {

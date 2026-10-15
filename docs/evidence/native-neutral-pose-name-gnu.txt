@@ -1,0 +1,44 @@
+Focused GNU excerpts, not a complete AuPose::Name body or runtime observation.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+AuPose::Name has hidden result RCX, receiver RDX -> RBP.
+Index0x24 addresses the translated QString at stack0x40+0x24*8=0x160.
+That slot receives source string at142304911; the static verifier reads its bytes.
+
+   1415b7ba0:	41 56                	push   %r14
+   1415b7ba2:	41 55                	push   %r13
+   1415b7ba4:	41 54                	push   %r12
+   1415b7ba6:	55                   	push   %rbp
+   1415b7ba7:	57                   	push   %rdi
+   1415b7ba8:	56                   	push   %rsi
+   1415b7ba9:	53                   	push   %rbx
+   1415b7baa:	48 81 ec 40 05 00 00 	sub    $0x540,%rsp
+   1415b7bb1:	4c 8b 2d 38 af 2d 01 	mov    0x12daf38(%rip),%r13        # 142892af0 <__imp__ZN7QObject16staticMetaObjectE>
+   1415b7bb8:	48 8b 35 d1 b3 2d 01 	mov    0x12db3d1(%rip),%rsi        # 142892f90 <__imp__ZNK11QMetaObject2trEPKcS1_i>
+   1415b7bbf:	45 31 c9             	xor    %r9d,%r9d
+   1415b7bc2:	4c 8d 05 c7 cb d4 00 	lea    0xd4cbc7(%rip),%r8        # 142304790 <.rdata+0x70>
+   1415b7bc9:	48 8d 7c 24 40       	lea    0x40(%rsp),%rdi
+   1415b7bce:	49 89 cc             	mov    %rcx,%r12
+   1415b7bd1:	48 89 d5             	mov    %rdx,%rbp
+   1415b7bd4:	c7 44 24 20 ff ff ff 	movl   $0xffffffff,0x20(%rsp)
+   1415b7bdb:	ff 
+   1415b7bdc:	4c 89 ea             	mov    %r13,%rdx
+   1415b7bdf:	48 89 f9             	mov    %rdi,%rcx
+   1415b7be2:	ff d6                	call   *%rsi
+   1415b800c:	c7 44 24 20 ff ff ff 	movl   $0xffffffff,0x20(%rsp)
+   1415b8013:	ff 
+   1415b8014:	45 31 c9             	xor    %r9d,%r9d
+   1415b8017:	4c 89 ea             	mov    %r13,%rdx
+   1415b801a:	48 8d 8c 24 60 01 00 	lea    0x160(%rsp),%rcx
+   1415b8021:	00 
+   1415b8022:	4c 8d 05 e8 c8 d4 00 	lea    0xd4c8e8(%rip),%r8        # 142304911 <.rdata+0x1f1>
+   1415b8029:	ff d6                	call   *%rsi
+   1415b8f13:	48 63 45 00          	movslq 0x0(%rbp),%rax
+   1415b8f17:	3d 9f 00 00 00       	cmp    $0x9f,%eax
+   1415b8f1c:	0f 86 cf 00 00 00    	jbe    1415b8ff1 <_ZNK6AuPose4NameEv+0x1451>
+   1415b8ff1:	48 8b 44 c4 40       	mov    0x40(%rsp,%rax,8),%rax
+   1415b8ff6:	49 89 04 24          	mov    %rax,(%r12)
+   1415b8ffa:	8b 10                	mov    (%rax),%edx
+   1415b8ffc:	83 c2 01             	add    $0x1,%edx
+   1415b8fff:	83 fa 01             	cmp    $0x1,%edx
+   1415b9002:	0f 86 79 ff ff ff    	jbe    1415b8f81 <_ZNK6AuPose4NameEv+0x13e1>
+   1415b9008:	f0 83 00 01          	lock addl $0x1,(%rax)

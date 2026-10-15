@@ -1,5 +1,52 @@
 use crate::model::*;
 
+#[test]
+fn unmerged_surface_deforms_projected_input_once_and_retains_payload_controls() {
+    let (mut mesh, _) = source([0.125, 0.25], b"Skin");
+    mesh.matrix = Some([1., 0., 0., 0., 1., 0., 0., 0., 1., 10., 20., 30.]);
+    mesh.geometry_order.push(GeometryChunk::Matrix);
+    let definition = NativeBodyModelGeometry {
+        fields_00: [1., 2., 0., 0., 0., 0.],
+        fields_40: [3., 4., 5.],
+        fields_58: [1.; 5],
+    };
+    let native = mesh
+        .body_merge_geometry(
+            ModelVariant::N,
+            &definition,
+            [0; 3],
+            NativeBodyFaceMetadata::default(),
+        )
+        .unwrap();
+    let before = native.clone();
+    let result = native
+        .textured_unmerged_preview_geometry(&mesh, ModelVariant::N)
+        .unwrap();
+    assert_eq!(
+        result.geometry.positions,
+        mesh.body_defined_positions(ModelVariant::N, 1., &definition)
+            .unwrap()
+    );
+    assert_eq!(
+        result.geometry.weights,
+        native
+            .object
+            .vertices
+            .iter()
+            .map(|v| v.payload)
+            .collect::<Vec<_>>()
+    );
+    assert_eq!(result.geometry.uvs.unwrap(), vec![[0.125, 0.25]; 3]);
+    assert_eq!(native, before);
+    let mut baked = native.clone();
+    baked.object.field_369 = true;
+    assert!(
+        baked
+            .textured_unmerged_preview_geometry(&mesh, ModelVariant::N)
+            .is_err()
+    );
+}
+
 fn source(uv: [f32; 2], name: &[u8]) -> (Mesh, NativeBodyMergeGeometry) {
     let mesh = Mesh {
         vertices: vec![[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]],

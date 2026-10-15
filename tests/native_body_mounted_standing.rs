@@ -80,6 +80,108 @@ fn mounted_standing_legs_compose_measured_angles_for_two_anatomies() {
 }
 
 #[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; full neutral CPU pose, no GPU"]
+fn mounted_neutral_pose_composes_all_stages_and_repeats_without_accumulation() {
+    use openshores_client::world::native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer};
+    use std::io;
+    struct NoTimer;
+    impl NativePoseRhythmTimer for NoTimer {
+        fn start(&mut self) -> io::Result<()> {
+            panic!("Stand must not request a rhythm")
+        }
+        fn msecs_since_reference(&mut self) -> io::Result<i64> {
+            panic!("Stand must not request a clock")
+        }
+    }
+    let mount =
+        AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
+    let mut hands = NativeDpHandCache::new(&mount);
+    let mut feet = NativeDpFootCache::new(&mount);
+    for second in [false, true] {
+        let mut dna = NativeDhDna([0; 24]);
+        dna.0[1] = if second { 2 } else { 1 };
+        dna.0[12] = if second { 8 } else { 4 };
+        dna.0[14] = if second { 0x91 } else { 0x51 };
+        dna.0[20] = if second { 0x80 } else { 0x60 };
+        if second {
+            dna.0[5] = 2;
+            dna.0[13] = 0x60;
+            dna.0[15] = 0x40;
+        }
+        let mut body = NativeDpInitialization::begin(&dna);
+        body.finish_part_calculations(0, &mut hands).unwrap();
+        let mut expected = body.clone();
+        let pose = NativeDpBodyPoseState {
+            fields_3c: [0x24; 10],
+            field_6c: false,
+        };
+        let height = feet
+            .pose_height(&dna, expected.dimensions(), 0, &pose, false)
+            .unwrap();
+        expected.stand_legs(height, 0, 0, &mut feet).unwrap();
+        expected.stand_legs(height, 1, 0, &mut feet).unwrap();
+        expected
+            .position_tail(&pose, height, 0., false, &mut NoTimer)
+            .unwrap();
+        let torso = expected
+            .position_torso(&pose, height, 0., 0, &mut hands, &mut NoTimer)
+            .unwrap();
+        expected
+            .position_heads(&pose, 0., 0., &mut NoTimer)
+            .unwrap();
+        expected.stand_arms(height, 0, None, 0, &mut hands).unwrap();
+        expected.stand_arms(height, 1, None, 0, &mut hands).unwrap();
+        let result = body
+            .pose_neutral_standing(0, &mut hands, &mut feet)
+            .unwrap();
+        assert_eq!(result.pose, pose);
+        assert_eq!(result.height, height);
+        assert_eq!(result.torso_angle, torso);
+        assert_eq!(body.bones(), expected.bones());
+        assert_eq!(body.parts(), expected.parts());
+        assert_ne!(body.bones(), &NativeDpBoneTransforms::initialized());
+        let first = body.bones().clone();
+        let again = body
+            .pose_neutral_standing(0, &mut hands, &mut feet)
+            .unwrap();
+        assert_eq!(result, again);
+        assert_eq!(body.bones(), &first);
+        for part in body.parts().iter().filter(|p| {
+            matches!(
+                p.allocation.kind,
+                NativeDpPartKind::LeftArmAndHand
+                    | NativeDpPartKind::RightArmAndHand
+                    | NativeDpPartKind::LeftLegAndFoot
+                    | NativeDpPartKind::RightLegAndFoot
+            )
+        }) {
+            for index in part.limb_bones().unwrap() {
+                assert_ne!(
+                    body.bones().slots[index],
+                    NativeDpBoneTransforms::initialized().slots[index]
+                );
+            }
+        }
+    }
+    for (legs, wings) in [(0, 0), (4, 2)] {
+        let mut dna = NativeDhDna([0; 24]);
+        dna.0[1] = 1;
+        dna.0[12] = legs;
+        dna.0[2] = wings;
+        let mut body = NativeDpInitialization::begin(&dna);
+        body.finish_part_calculations(0, &mut hands).unwrap();
+        let before = body.bones().clone();
+        assert_eq!(
+            body.pose_neutral_standing(0, &mut hands, &mut feet)
+                .unwrap_err()
+                .kind(),
+            io::ErrorKind::Unsupported
+        );
+        assert_eq!(body.bones(), &before);
+    }
+}
+
+#[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; composed arm phase, no GPU"]
 fn mounted_standing_arms_match_order_side_wings_and_first_selected_override() {
     let mount =

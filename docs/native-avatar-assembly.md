@@ -1,7 +1,8 @@
 # Assembled avatar: evidence and implementation ledger
 
 Objective: [complete assembled avatar preview](assembled-avatar-goal.md).
-Full-body generation, a standing pose and `preview-avatar body` remain unfinished.
+CPU full-body source generation and the Stand skeleton are implemented. Final
+posed render geometry, `preview-avatar body` and visual verification remain unfinished.
 
 ## Initial audit and coordinate boundary
 
@@ -273,3 +274,79 @@ parts independently of the viewer; preserve one-time object projection and
 skin normals/positions; integrate the textured full-body command; and inspect
 multi-angle GPU captures for two supported fixture anatomies. Full-body preview
 and the complete avatar goal remain unfinished.
+
+## Neutral skeleton and reusable whole-body CPU generation
+
+The native `AuPose::Name` table identifies0x24 as **Stand**: QString slot
+stack0x40+0x24*8=0x160 receives the source string at142304911. Focused receiver,
+slot-write and indexed-consumer disassembly is retained in
+`native-neutral-pose-name-gnu.txt`. `tests/native_neutral_pose.py` pins the
+string bytes and both leg/arm dispatch-table entries to the digest-checked PE.
+It also checks the retained full AnimatePose disassembly and saved REA records:
+
+- `native-dp-animate-pose.json`, ev_b2f6d8549fe666f3b3d70800cc0d20441ff51abfd74f026b6cf5f752a91ae03e.
+- `native-dp-position-legs.json`, ev_2519dd7344a1badc224e6107dd2daf6acaefcb4edfcf9b8bb8abaa2783f3c74d.
+- `native-dp-position-arms.json`, ev_17f36040ffbb5a56c997011ed3faac068c5298cb20355ac571cdd958fd71f315.
+
+`pose_neutral_standing` now selects ten explicit0x24 words, mode=false,
+speed=0 and neutral owner pitch30/roll34=0. Those owner values are fixture
+inputs, not inferred production receive state. It computes CGHeight(false),
+selectively resets active matrices, poses later leg pairs then the first pair,
+poses the optional tail, torso and heads, then runs left and right arm passes.
+No guessed body-height translation or generic parent-bone traversal is added.
+All supported branches are non-rhythmic; a rejecting timer makes an accidental
+timed branch an error rather than substituting a made-up clock. Winged and
+legless anatomy are explicitly unsupported by this neutral composer pending
+StandWings/tail-rhythm dependencies. Unsupported anatomy is rejected before
+matrix writes. General animation, mode=true arm overrides and arbitrary owner
+pitch/roll remain separate from this deterministic offline standing API.
+
+Mounted tests compare the composition with its individual native stages for two
+anatomies and prove repeat posing does not accumulate transforms. The second
+fixture has two heads, two arm pairs, two leg pairs, a longer tail and changed
+size/thigh proportions. Native planning emits one shared Neck22 mesh for that
+two-headed anatomy, not two manually duplicated necks.
+
+`NativeDpAvatarGeometry::generate` is a viewer-independent mounted CPU pipeline:
+explicit DNA/appearance -> OneTimeCalcs -> ordered native skin plans -> decoded
+resources -> head/torso merge stages or separate ordinary surfaces -> Stand
+skeleton. It retains original decoded source meshes, native object state,
+raw weight payloads, UVs, face-material memberships and skin controls. Normal
+atlas selection/offsets accompany the generated body. Nonzero armor/helmet
+appearance fields, crest merges and unsupported neutral anatomy fail explicitly.
+This is normal-skin generation, not production cache lifecycle emulation.
+
+Merged head/torso objects use their one-time baking and original seed matrix
+projection. Ordinary arm/hand/leg/foot/tail/neck objects use the native unmerged
+path: triangle-builder projection BEFORE per-vertex deformation. The new
+`textured_unmerged_preview_geometry` adapter preserves that distinction and
+shares UV/material/skin-control publication with the baked adapter. A CPU test
+checks matrix/definition sequencing, untouched payloads and rejection of an
+already baked object; it does not force merge baking onto limbs.
+
+Mounted generation produces these complete model-space upload inputs:
+
+| Fixture | Native parts | Surfaces | Vertices | Faces |
+| --- | ---: | ---: | ---: | ---: |
+| Existing head/torso DNA | 7 | 12 | 3602 | 5604 |
+| Two-headed, additional limb pairs | 12 | 21 | 6661 | 10316 |
+
+The test verifies every allocated part has a generated surface, consistent
+UV/weight/control counts, valid faces, finite positions and successful shader
+skinning of every face-referenced vertex using the posed skeleton. Unreferenced
+helper vertices/raw payloads remain retained; they are not assigned invented
+weights. The temporary test normal is only a bone-loop validity probe, not
+evidence of final smoothed-normal correctness. Run `just test-native-avatar`.
+
+These surfaces are deliberately still MODEL-space inputs alongside posed bones.
+The next required stage is render-corner smoothing followed by position/normal
+skinning exactly once, then full-body camera/material integration and actual
+multi-view GPU captures. No final visual assembly, neutral ground placement,
+up/forward convention or `preview-avatar body` availability is claimed yet.
+
+Verification: 718 default library tests pass (one ignored), 748 client library
+tests pass (five ignored), and 735 viewer library tests pass (three ignored).
+The client CLI tests, four opt-in mounted standing tests, both mounted avatar
+fixtures, static neutral-pose evidence check, formatting and warning-denying
+library/test Clippy checks pass. These are CPU/regression checks, not GPU visual
+acceptance of the assembled avatar.
