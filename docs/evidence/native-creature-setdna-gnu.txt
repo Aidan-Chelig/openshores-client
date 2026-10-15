@@ -1,0 +1,262 @@
+Independent GNU static corroboration. OpenShores.exe SHA256 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80.
+No target execution; these are not REA Evidence IDs or runtime observations.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014097c060 <_ZN10DaCreature6SetDNAERK9AuDNABase>:
+   14097c060:	41 57                	push   %r15
+   14097c062:	41 56                	push   %r14
+   14097c064:	41 55                	push   %r13
+   14097c066:	41 54                	push   %r12
+   14097c068:	55                   	push   %rbp
+   14097c069:	57                   	push   %rdi
+   14097c06a:	56                   	push   %rsi
+   14097c06b:	53                   	push   %rbx
+   14097c06c:	48 81 ec 98 00 00 00 	sub    $0x98,%rsp
+   14097c073:	48 89 cb             	mov    %rcx,%rbx
+   14097c076:	4c 8d a1 98 04 00 00 	lea    0x498(%rcx),%r12
+   14097c07d:	49 89 d5             	mov    %rdx,%r13
+   14097c080:	4c 89 e1             	mov    %r12,%rcx
+   14097c083:	ff 15 9f 67 f1 01    	call   *0x1f1679f(%rip)        # 142892828 <__imp__ZN14QReadWriteLock11lockForReadEv>
+   14097c089:	48 8b 83 a0 04 00 00 	mov    0x4a0(%rbx),%rax
+   14097c090:	48 85 c0             	test   %rax,%rax
+   14097c093:	0f 84 b7 01 00 00    	je     14097c250 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x1f0>
+   14097c099:	8b 70 08             	mov    0x8(%rax),%esi
+   14097c09c:	89 74 24 44          	mov    %esi,0x44(%rsp)
+   14097c0a0:	8b 70 2c             	mov    0x2c(%rax),%esi
+   14097c0a3:	0f b7 40 30          	movzwl 0x30(%rax),%eax
+   14097c0a7:	89 74 24 4c          	mov    %esi,0x4c(%rsp)
+   14097c0ab:	66 89 44 24 4a       	mov    %ax,0x4a(%rsp)
+   14097c0b0:	4c 8d 35 c9 8f a3 01 	lea    0x1a38fc9(%rip),%r14        # 1423b5080 <_ZTI9AuDNABase>
+   14097c0b7:	4c 89 e1             	mov    %r12,%rcx
+   14097c0ba:	48 8b 35 7f 67 f1 01 	mov    0x1f1677f(%rip),%rsi        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14097c0c1:	ff d6                	call   *%rsi
+   14097c0c3:	45 31 c9             	xor    %r9d,%r9d
+   14097c0c6:	4c 8d 05 f3 82 a3 01 	lea    0x1a382f3(%rip),%r8        # 1423b43c0 <_ZTI5AuDNA>
+   14097c0cd:	4c 89 f2             	mov    %r14,%rdx
+   14097c0d0:	4c 89 e9             	mov    %r13,%rcx
+   14097c0d3:	e8 60 7e dd 00       	call   141753f38 <__dynamic_cast>
+   14097c0d8:	49 89 c7             	mov    %rax,%r15
+   14097c0db:	48 85 c0             	test   %rax,%rax
+   14097c0de:	0f 84 4a 02 00 00    	je     14097c32e <_ZN10DaCreature6SetDNAERK9AuDNABase+0x2ce>
+   14097c0e4:	c7 44 24 5c 24 00 00 	movl   $0x24,0x5c(%rsp)
+   14097c0eb:	00 
+   14097c0ec:	4c 89 e1             	mov    %r12,%rcx
+   14097c0ef:	ff 15 3b 67 f1 01    	call   *0x1f1673b(%rip)        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097c0f5:	48 8b 8b a0 04 00 00 	mov    0x4a0(%rbx),%rcx
+   14097c0fc:	48 85 c9             	test   %rcx,%rcx
+   14097c0ff:	0f 84 f3 00 00 00    	je     14097c1f8 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x198>
+   14097c105:	8b 41 6c             	mov    0x6c(%rcx),%eax
+   14097c108:	44 8b 44 24 44       	mov    0x44(%rsp),%r8d
+   14097c10d:	4c 89 fa             	mov    %r15,%rdx
+   14097c110:	89 44 24 5c          	mov    %eax,0x5c(%rsp)
+   14097c114:	e8 37 15 87 00       	call   1411ed650 <_ZN10AuAnimalia6SetDNAERK5AuDNAN9AuDNABase9CHROMATIDE>
+   14097c119:	48 8b bb a0 04 00 00 	mov    0x4a0(%rbx),%rdi
+   14097c120:	0f bf 54 24 4a       	movswl 0x4a(%rsp),%edx
+   14097c125:	48 89 f9             	mov    %rdi,%rcx
+   14097c128:	e8 13 fc 86 00       	call   1411ebd40 <_ZN10AuAnimalia12SetHitPointsEs>
+   14097c12d:	4c 8b bb b0 05 00 00 	mov    0x5b0(%rbx),%r15
+   14097c134:	4d 85 ff             	test   %r15,%r15
+   14097c137:	74 1b                	je     14097c154 <_ZN10DaCreature6SetDNAERK9AuDNABase+0xf4>
+   14097c139:	4c 89 f9             	mov    %r15,%rcx
+   14097c13c:	e8 ff 56 96 00       	call   1412e1840 <_ZN6DpBodyD1Ev>
+   14097c141:	4c 89 f9             	mov    %r15,%rcx
+   14097c144:	e8 5f 7e dd 00       	call   141753fa8 <_ZdlPv>
+   14097c149:	48 c7 83 b0 05 00 00 	movq   $0x0,0x5b0(%rbx)
+   14097c150:	00 00 00 00 
+   14097c154:	48 8b 3d c5 66 f1 01 	mov    0x1f166c5(%rip),%rdi        # 142892820 <__imp__ZN13QElapsedTimer7restartEv>
+   14097c15b:	48 8d 8b c8 05 00 00 	lea    0x5c8(%rbx),%rcx
+   14097c162:	48 8d 6c 24 60       	lea    0x60(%rsp),%rbp
+   14097c167:	ff d7                	call   *%rdi
+   14097c169:	48 8b 83 a0 04 00 00 	mov    0x4a0(%rbx),%rax
+   14097c170:	48 89 ea             	mov    %rbp,%rdx
+   14097c173:	4c 8d 7b 14          	lea    0x14(%rbx),%r15
+   14097c177:	48 c7 44 24 60 00 00 	movq   $0x0,0x60(%rsp)
+   14097c17e:	00 00 
+   14097c180:	48 8d 4c 24 5c       	lea    0x5c(%rsp),%rcx
+   14097c185:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   14097c18a:	48 c7 44 24 68 00 00 	movq   $0x0,0x68(%rsp)
+   14097c191:	00 00 
+   14097c193:	48 c7 44 24 70 00 00 	movq   $0x0,0x70(%rsp)
+   14097c19a:	00 00 
+   14097c19c:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   14097c1a3:	00 00 
+   14097c1a5:	48 c7 84 24 80 00 00 	movq   $0x0,0x80(%rsp)
+   14097c1ac:	00 00 00 00 00 
+   14097c1b1:	e8 da dd 86 00       	call   1411e9f90 <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_>
+   14097c1b6:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   14097c1bb:	45 31 c9             	xor    %r9d,%r9d
+   14097c1be:	49 89 e8             	mov    %rbp,%r8
+   14097c1c1:	4c 89 fa             	mov    %r15,%rdx
+   14097c1c4:	c7 44 24 20 00 00 80 	movl   $0x3f800000,0x20(%rsp)
+   14097c1cb:	3f 
+   14097c1cc:	e8 ff df 86 00       	call   1411ea1d0 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf>
+   14097c1d1:	48 8d 8b 30 06 00 00 	lea    0x630(%rbx),%rcx
+   14097c1d8:	ff d7                	call   *%rdi
+   14097c1da:	4c 89 e1             	mov    %r12,%rcx
+   14097c1dd:	ff d6                	call   *%rsi
+   14097c1df:	90                   	nop
+   14097c1e0:	48 81 c4 98 00 00 00 	add    $0x98,%rsp
+   14097c1e7:	5b                   	pop    %rbx
+   14097c1e8:	5e                   	pop    %rsi
+   14097c1e9:	5f                   	pop    %rdi
+   14097c1ea:	5d                   	pop    %rbp
+   14097c1eb:	41 5c                	pop    %r12
+   14097c1ed:	41 5d                	pop    %r13
+   14097c1ef:	41 5e                	pop    %r14
+   14097c1f1:	41 5f                	pop    %r15
+   14097c1f3:	c3                   	ret
+   14097c1f4:	0f 1f 40 00          	nopl   0x0(%rax)
+   14097c1f8:	48 8b 83 b0 05 00 00 	mov    0x5b0(%rbx),%rax
+   14097c1ff:	48 85 c0             	test   %rax,%rax
+   14097c202:	74 07                	je     14097c20b <_ZN10DaCreature6SetDNAERK9AuDNABase+0x1ab>
+   14097c204:	8b 40 48             	mov    0x48(%rax),%eax
+   14097c207:	89 44 24 5c          	mov    %eax,0x5c(%rsp)
+   14097c20b:	31 ed                	xor    %ebp,%ebp
+   14097c20d:	b9 28 02 00 00       	mov    $0x228,%ecx
+   14097c212:	80 bb 94 04 00 00 00 	cmpb   $0x0,0x494(%rbx)
+   14097c219:	40 0f 94 c5          	sete   %bpl
+   14097c21d:	e8 76 7d dd 00       	call   141753f98 <_Znwy>
+   14097c222:	89 6c 24 20          	mov    %ebp,0x20(%rsp)
+   14097c226:	44 8b 4c 24 4c       	mov    0x4c(%rsp),%r9d
+   14097c22b:	4c 89 fa             	mov    %r15,%rdx
+   14097c22e:	48 89 c1             	mov    %rax,%rcx
+   14097c231:	44 8b 44 24 44       	mov    0x44(%rsp),%r8d
+   14097c236:	48 89 c7             	mov    %rax,%rdi
+   14097c239:	e8 62 24 87 00       	call   1411ee6a0 <_ZN10AuAnimaliaC1ERK5AuDNAN9AuDNABase9CHROMATIDEN5AuDef10HANDEDNESSENS5_11GROWTHSTAGEE>
+   14097c23e:	48 89 bb a0 04 00 00 	mov    %rdi,0x4a0(%rbx)
+   14097c245:	e9 d6 fe ff ff       	jmp    14097c120 <_ZN10DaCreature6SetDNAERK9AuDNABase+0xc0>
+   14097c24a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14097c250:	48 8b 8b b0 05 00 00 	mov    0x5b0(%rbx),%rcx
+   14097c257:	48 85 c9             	test   %rcx,%rcx
+   14097c25a:	74 34                	je     14097c290 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x230>
+   14097c25c:	e8 7f e7 94 00       	call   1412ca9e0 <_ZNK6DpBody9ChromatidEv>
+   14097c261:	48 8b 93 b0 05 00 00 	mov    0x5b0(%rbx),%rdx
+   14097c268:	89 44 24 44          	mov    %eax,0x44(%rsp)
+   14097c26c:	0f b6 42 3a          	movzbl 0x3a(%rdx),%eax
+   14097c270:	83 f0 01             	xor    $0x1,%eax
+   14097c273:	0f b6 c0             	movzbl %al,%eax
+   14097c276:	89 44 24 4c          	mov    %eax,0x4c(%rsp)
+   14097c27a:	0f b7 42 38          	movzwl 0x38(%rdx),%eax
+   14097c27e:	66 89 44 24 4a       	mov    %ax,0x4a(%rsp)
+   14097c283:	e9 28 fe ff ff       	jmp    14097c0b0 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x50>
+   14097c288:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14097c28f:	00 
+   14097c290:	31 c0                	xor    %eax,%eax
+   14097c292:	c7 44 24 4c 01 00 00 	movl   $0x1,0x4c(%rsp)
+   14097c299:	00 
+   14097c29a:	66 89 44 24 4a       	mov    %ax,0x4a(%rsp)
+   14097c29f:	c7 44 24 44 00 00 00 	movl   $0x0,0x44(%rsp)
+   14097c2a6:	00 
+   14097c2a7:	e9 04 fe ff ff       	jmp    14097c0b0 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x50>
+   14097c2ac:	48 89 c1             	mov    %rax,%rcx
+   14097c2af:	49 89 d7             	mov    %rdx,%r15
+   14097c2b2:	49 83 ef 01          	sub    $0x1,%r15
+   14097c2b6:	0f 85 a5 00 00 00    	jne    14097c361 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x301>
+   14097c2bc:	e8 bf 7c dd 00       	call   141753f80 <__cxa_begin_catch>
+   14097c2c1:	4c 89 f2             	mov    %r14,%rdx
+   14097c2c4:	45 31 c9             	xor    %r9d,%r9d
+   14097c2c7:	4c 89 e9             	mov    %r13,%rcx
+   14097c2ca:	4c 8d 05 3f 81 a3 01 	lea    0x1a3813f(%rip),%r8        # 1423b4410 <_ZTI5DhDNA>
+   14097c2d1:	e8 62 7c dd 00       	call   141753f38 <__dynamic_cast>
+   14097c2d6:	49 89 c6             	mov    %rax,%r14
+   14097c2d9:	48 85 c0             	test   %rax,%rax
+   14097c2dc:	0f 84 84 00 00 00    	je     14097c366 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x306>
+   14097c2e2:	4c 89 e1             	mov    %r12,%rcx
+   14097c2e5:	ff 15 45 65 f1 01    	call   *0x1f16545(%rip)        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14097c2eb:	48 8b 8b b0 05 00 00 	mov    0x5b0(%rbx),%rcx
+   14097c2f2:	48 85 c9             	test   %rcx,%rcx
+   14097c2f5:	75 74                	jne    14097c36b <_ZN10DaCreature6SetDNAERK9AuDNABase+0x30b>
+   14097c2f7:	b9 48 41 00 00       	mov    $0x4148,%ecx
+   14097c2fc:	e8 97 7c dd 00       	call   141753f98 <_Znwy>
+   14097c301:	45 31 c0             	xor    %r8d,%r8d
+   14097c304:	83 7c 24 4c 00       	cmpl   $0x0,0x4c(%rsp)
+   14097c309:	4d 89 f1             	mov    %r14,%r9
+   14097c30c:	48 89 c1             	mov    %rax,%rcx
+   14097c30f:	41 0f 94 c0          	sete   %r8b
+   14097c313:	31 d2                	xor    %edx,%edx
+   14097c315:	83 7c 24 44 00       	cmpl   $0x0,0x44(%rsp)
+   14097c31a:	49 89 c5             	mov    %rax,%r13
+   14097c31d:	0f 94 c2             	sete   %dl
+   14097c320:	e8 7b 61 96 00       	call   1412e24a0 <_ZN6DpBodyC1EcbRK5DhDNA>
+   14097c325:	4c 89 ab b0 05 00 00 	mov    %r13,0x5b0(%rbx)
+   14097c32c:	eb 4d                	jmp    14097c37b <_ZN10DaCreature6SetDNAERK9AuDNABase+0x31b>
+   14097c32e:	e8 55 7c dd 00       	call   141753f88 <__cxa_bad_cast>
+   14097c333:	48 89 c5             	mov    %rax,%rbp
+   14097c336:	48 89 f9             	mov    %rdi,%rcx
+   14097c339:	49 89 d7             	mov    %rdx,%r15
+   14097c33c:	e8 67 7c dd 00       	call   141753fa8 <_ZdlPv>
+   14097c341:	48 89 e9             	mov    %rbp,%rcx
+   14097c344:	e9 69 ff ff ff       	jmp    14097c2b2 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x252>
+   14097c349:	49 89 c4             	mov    %rax,%r12
+   14097c34c:	48 89 d0             	mov    %rdx,%rax
+   14097c34f:	48 83 e8 01          	sub    $0x1,%rax
+   14097c353:	0f 84 8e 00 00 00    	je     14097c3e7 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x387>
+   14097c359:	e8 1a 7c dd 00       	call   141753f78 <__cxa_end_catch>
+   14097c35e:	4c 89 e1             	mov    %r12,%rcx
+   14097c361:	e8 d2 8f dd 00       	call   141755338 <_Unwind_Resume>
+   14097c366:	e8 1d 7c dd 00       	call   141753f88 <__cxa_bad_cast>
+   14097c36b:	f3 0f 10 15 a9 d8 84 	movss  0x184d8a9(%rip),%xmm2        # 1421c9c1c <CSWTCH.2080+0x10c>
+   14097c372:	01 
+   14097c373:	4c 89 f2             	mov    %r14,%rdx
+   14097c376:	e8 35 5c 97 00       	call   1412f1fb0 <_ZN6DpBody6SetDNAERK5DhDNAf>
+   14097c37b:	0f b7 7c 24 4a       	movzwl 0x4a(%rsp),%edi
+   14097c380:	b8 e2 ff ff ff       	mov    $0xffffffe2,%eax
+   14097c385:	48 8b 93 b0 05 00 00 	mov    0x5b0(%rbx),%rdx
+   14097c38c:	4c 8b ab a0 04 00 00 	mov    0x4a0(%rbx),%r13
+   14097c393:	66 39 c7             	cmp    %ax,%di
+   14097c396:	0f 4d c7             	cmovge %edi,%eax
+   14097c399:	66 89 42 38          	mov    %ax,0x38(%rdx)
+   14097c39d:	4d 85 ed             	test   %r13,%r13
+   14097c3a0:	74 1b                	je     14097c3bd <_ZN10DaCreature6SetDNAERK9AuDNABase+0x35d>
+   14097c3a2:	4c 89 e9             	mov    %r13,%rcx
+   14097c3a5:	e8 f6 d5 86 00       	call   1411e99a0 <_ZN10AuAnimaliaD1Ev>
+   14097c3aa:	4c 89 e9             	mov    %r13,%rcx
+   14097c3ad:	e8 f6 7b dd 00       	call   141753fa8 <_ZdlPv>
+   14097c3b2:	48 c7 83 a0 04 00 00 	movq   $0x0,0x4a0(%rbx)
+   14097c3b9:	00 00 00 00 
+   14097c3bd:	48 8d 8b c8 05 00 00 	lea    0x5c8(%rbx),%rcx
+   14097c3c4:	ff 15 56 64 f1 01    	call   *0x1f16456(%rip)        # 142892820 <__imp__ZN13QElapsedTimer7restartEv>
+   14097c3ca:	4c 89 e1             	mov    %r12,%rcx
+   14097c3cd:	ff d6                	call   *%rsi
+   14097c3cf:	eb 23                	jmp    14097c3f4 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x394>
+   14097c3d1:	48 89 d3             	mov    %rdx,%rbx
+   14097c3d4:	4c 89 e9             	mov    %r13,%rcx
+   14097c3d7:	49 89 c4             	mov    %rax,%r12
+   14097c3da:	e8 c9 7b dd 00       	call   141753fa8 <_ZdlPv>
+   14097c3df:	48 89 d8             	mov    %rbx,%rax
+   14097c3e2:	e9 68 ff ff ff       	jmp    14097c34f <_ZN10DaCreature6SetDNAERK9AuDNABase+0x2ef>
+   14097c3e7:	4c 89 e1             	mov    %r12,%rcx
+   14097c3ea:	e8 91 7b dd 00       	call   141753f80 <__cxa_begin_catch>
+   14097c3ef:	e8 84 7b dd 00       	call   141753f78 <__cxa_end_catch>
+   14097c3f4:	e8 7f 7b dd 00       	call   141753f78 <__cxa_end_catch>
+   14097c3f9:	e9 e2 fd ff ff       	jmp    14097c1e0 <_ZN10DaCreature6SetDNAERK9AuDNABase+0x180>
+   14097c3fe:	66 90                	xchg   %ax,%ax
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412ca9e0 <_ZNK6DpBody9ChromatidEv>:
+   1412ca9e0:	31 c0                	xor    %eax,%eax
+   1412ca9e2:	80 79 64 01          	cmpb   $0x1,0x64(%rcx)
+   1412ca9e6:	0f 95 c0             	setne  %al
+   1412ca9e9:	c3                   	ret
+   1412ca9ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411ebd40 <_ZN10AuAnimalia12SetHitPointsEs>:
+   1411ebd40:	b8 e2 ff ff ff       	mov    $0xffffffe2,%eax
+   1411ebd45:	66 39 c2             	cmp    %ax,%dx
+   1411ebd48:	0f 4c d0             	cmovl  %eax,%edx
+   1411ebd4b:	66 89 51 30          	mov    %dx,0x30(%rcx)
+   1411ebd4f:	c3                   	ret

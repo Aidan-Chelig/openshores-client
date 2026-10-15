@@ -33,7 +33,12 @@ pub use pose_application::{
 mod console_state;
 mod station_construction;
 pub use console_state::{NativeConsoleBody, NativeConsoleState, NativeConsoleWireReceive};
+mod dna_application;
 mod sitting;
+pub use dna_application::{
+    NativeAnimaliaDnaPrior, NativeCreatureDnaApplication, NativeDnaModelContext,
+    NativeDnaModelSnapshot, NativeDnaTimer, NativeDpDnaPrior, native_apply_creature_dna,
+};
 pub use sitting::{
     NativeSittingChange, NativeSittingContext, NativeSittingDiagnostic, NativeSittingRequest,
     NativeSittingResult, NativeSittingState,

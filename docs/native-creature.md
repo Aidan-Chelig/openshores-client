@@ -156,8 +156,9 @@ addresses as the C2 constructors queried through REA.
 
 Do not extrapolate complete model/Person initialization from this subset.
 SetDNA includes dynamic type dispatch, inherited HP/configuration, pose resets
-and timers; its catch/control flow needs independent corroboration before a
-concrete implementation. DpBody::Pose and Animalia::Pose records establish word
+and timers. Its outer application order and DhDNA catch/control flow are now
+independently corroborated and implemented; see native-dna-application.md.
+Actual nested model generation remains required. DpBody::Pose and Animalia::Pose records establish word
 comparisons, different bool-change behavior and Animalia's final-pose fallback,
 but their AnimatePose effects remain unimplemented. MovementSpeedMod's Ghidra
 return type is incorrectly void; no value is inferred from that pseudocode.

@@ -73,6 +73,10 @@ test-native-person-construction:
 test-native-person-dispatch:
     nix develop .#server-test --command cargo test --offline --lib world::native_person::atom::tests::lifecycle::packets
 
+# Independent native outer DNA-application anchors; no target execution.
+test-native-dna-application:
+    nix develop .#server-test --command python tests/native_dna_application.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

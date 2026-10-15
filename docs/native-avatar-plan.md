@@ -320,3 +320,11 @@ prefix. Required runtime hooks have no successful no-op defaults; tests use an
 explicit fixture model/environment context, not the graphical runtime. See
 native-person-dispatch.md. Concrete runtime model effects and the presentation
 bridge remain unfinished; this adapter does not complete the overall goal.
+
+Runtime application follow-up: real outer Creature::SetDNA ordering now has a
+typed implementation, backed by retained REA and complete independent GNU
+evidence including the DhDNA catch branch. Full raw configuration-byte rules,
+prior HP/pose transfer, body destruction and distinct timer branches are tested;
+nested actual constructors/morphology/animation remain mandatory operations,
+not successful no-ops. See native-dna-application.md. Production runtime context
+and actual avatar presentation remain unfinished.
