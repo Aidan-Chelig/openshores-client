@@ -4,6 +4,26 @@ use super::{
 };
 use std::io;
 
+impl super::Mesh {
+    /// Weight every stored vertex in source order, using native zero-initialized
+    /// payloads. Positions are matched before triangle-builder projection.
+    pub fn native_body_vertex_weights(
+        &self,
+        variant: super::ModelVariant,
+        bones: [i32; 3],
+    ) -> io::Result<Vec<NativeBodyVertexWeights>> {
+        let groups = NativeBodyObjectGroups::from_mesh(self)?;
+        self.native_weight_lookup_positions(variant)?
+            .into_iter()
+            .map(|point| {
+                let mut weights = NativeBodyVertexWeights::default();
+                weights.average_at_native_vertex(point, &groups, bones)?;
+                Ok(weights)
+            })
+            .collect()
+    }
+}
+
 /// Exact first 40 bytes of an Au3dsGLSLVertex, excluding xyz.
 /// The native fifth accepted influence overlaps weight zero and word 0x20.
 /// Keep that behavior visible instead of silently capping at four influences.
@@ -174,6 +194,46 @@ mod tests {
             .average_at_native_vertex([2.; 3], &groups(&[("Torso", 1.)]), [0, 1, 2])
             .unwrap();
         assert!(state.weights().iter().all(|v| v.is_nan()));
+    }
+
+    #[test]
+    fn native_body_weights_mesh_matches_local_buffer_not_projected_position() {
+        use crate::model::{GeometryChunk, Mesh, ModelVariant};
+        let mesh = Mesh {
+            vertices: vec![[10., 20., 30.]],
+            matrix: Some([1., 0., 0., 0., 1., 0., 0., 0., 1., 10., 20., 30.]),
+            geometry_order: vec![GeometryChunk::Vertices, GeometryChunk::Matrix],
+            vertex_groups: vec![VertexGroup {
+                name: Some(b"Torso".to_vec()),
+                members: Some(vec![
+                    GroupVertex {
+                        position: [0.; 3],
+                        weight: 2.,
+                    },
+                    GroupVertex {
+                        position: [1.; 3],
+                        weight: 0.,
+                    },
+                ]),
+                field_order: vec![VertexGroupChunk::Name, VertexGroupChunk::Members],
+            }],
+            ..Default::default()
+        };
+        assert_eq!(
+            mesh.native_weight_lookup_positions(ModelVariant::N)
+                .unwrap(),
+            vec![[0.; 3]]
+        );
+        assert_eq!(
+            mesh.loaded_positions(ModelVariant::N, 2.).unwrap(),
+            vec![[20., 40., 60.]]
+        );
+        let weights = mesh
+            .native_body_vertex_weights(ModelVariant::N, [0, 1, 2])
+            .unwrap();
+        assert_eq!(weights.len(), 1);
+        assert_eq!(weights[0].weights(), [0., 1., 0., 0.]);
+        assert_eq!(mesh.vertices, vec![[10., 20., 30.]]);
     }
 
     #[test]

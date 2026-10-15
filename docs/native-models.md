@@ -718,6 +718,19 @@ writes, patched-model publication, torso merging, full bone weights and live
 client/avatar rendering remain unfinished under the original objective.
 # Native weight bone-name routing
 
+Mesh weighting now uses `native_weight_lookup_positions`: the shared ordered
+geometry loader's f32 object-buffer state, before caller scaling or the final
+matrix projection. `native_body_vertex_weights` produces one raw weight payload
+per source vertex. A translated-matrix regression proves lookup uses local
+buffer coordinates rather than projected coordinates and leaves source vertices
+unchanged. This reuses existing matrix-loading behavior and its explicit singular
+matrix/order errors. The retained `native-body-load-vertex-list.json` shows zero
+initialization of bytes 00..27 before xyz append; cache-generation evidence
+places AverageWeights before CreateBodyDeviceObjects. No runtime parity is claimed.
+
+Remaining integration: carry request bone triplets alongside mounted geometry,
+assemble torso/head parts, and publish a renderable avatar from received state.
+
 `NativeBodyVertexWeights::average_at_native_vertex` now reconstructs
 `AverageWeights` (entry 14139ad80), using the complete retained static record
 `evidence/native-body-average-weights.json`. It accepts explicitly supplied
@@ -729,10 +742,9 @@ fifth accepted influence's overlapping writes, and unconditional four-weight
 normalization are preserved. Zero denominators are not given an invented
 fallback. Four targeted offline tests cover those branches.
 
-This does not yet derive the correct pre-projection lookup coordinates from
-`Mesh::loaded_positions`, attach weights to renderer meshes, or draw avatars.
-The caller must supply actual stored vertex coordinates and initial words;
-`Default` supplies zeros but is not a claim of complete native loader emulation.
+The explicit per-vertex API still accepts caller-supplied initial words and
+stored coordinates. The mesh API initializes the verified zero payload.
+Neither API attaches weights to renderer meshes or draws avatars yet.
 
 `native_body_is_bone`, `native_body_tail_bone`, and `native_body_neck_bone`
 reconstruct the name routing called by `AverageWeights`. Complete static REA

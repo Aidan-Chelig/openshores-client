@@ -36,6 +36,35 @@ impl Mesh {
         variant: ModelVariant,
         loader_scale: f64,
     ) -> io::Result<Vec<[f64; 3]>> {
+        let (points, matrix) = self.loaded_vertex_state(variant, loader_scale)?;
+        points
+            .into_iter()
+            .map(|point| {
+                let point = matrix.project(point.map(f64::from));
+                if point.iter().any(|value| !value.is_finite()) {
+                    Err(invalid("non-finite projected mesh coordinate"))
+                } else {
+                    Ok(point)
+                }
+            })
+            .collect()
+    }
+
+    /// Stored native object xyz after ordered geometry chunks, before later
+    /// loader-scale and triangle-builder projection/deformation stages.
+    pub fn native_weight_lookup_positions(
+        &self,
+        variant: ModelVariant,
+    ) -> io::Result<Vec<[f32; 3]>> {
+        self.loaded_vertex_state(variant, 1.)
+            .map(|(points, _)| points)
+    }
+
+    fn loaded_vertex_state(
+        &self,
+        variant: ModelVariant,
+        loader_scale: f64,
+    ) -> io::Result<(Vec<[f32; 3]>, Matrix)> {
         if !loader_scale.is_finite() || loader_scale <= 0.0 {
             return Err(invalid("loader scale must be finite and positive"));
         }
@@ -99,16 +128,6 @@ impl Mesh {
                 *point = narrow(point.map(|value| f64::from(value) * loader_scale))?;
             }
         }
-        points
-            .into_iter()
-            .map(|point| {
-                let point = matrix.project(point.map(f64::from));
-                if point.iter().any(|value| !value.is_finite()) {
-                    Err(invalid("non-finite projected mesh coordinate"))
-                } else {
-                    Ok(point)
-                }
-            })
-            .collect()
+        Ok((points, matrix))
     }
 }
