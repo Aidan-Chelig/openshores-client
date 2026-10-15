@@ -33,9 +33,9 @@ records can be paged locally; do not request the same functions again.
 
 ## One-time destination preparation
 
-`NativeBodyMergeBake::bake_once` now implements the shared first-object
-preparation observed at head lines128..271 and torso lines159 onward of those
-retained pseudocode records. If field369 is clear, apply the actual object
+`NativeBodyMergeBake::bake_once` implements the head first-object
+preparation observed at head lines128..271 of the retained pseudocode record.
+Torso's distinct group selection is described below. If field369 is clear, apply the actual object
 deformation to stored f32 vertex coordinates (not triangle-builder-projected
 coordinates), narrow the result back to f32, rebuild only kind9 BottomConnect
 position maps through the same operation, then set field369. Other vertex
@@ -196,3 +196,22 @@ offline/read-only and is included in the native mounted suite.
 These checks do not establish full instance transforms/ownership, material
 object publication, torso assembly or GPU/world-placement parity. Those remain
 required before automatic in-game avatars are complete.
+
+## Torso preparation differs from head
+
+Focused review of the retained torso record lines159..315 establishes that
+its destination bake rebuilds BOTH kind7 BottomSkin and kind9 BottomConnect
+maps. Head rebuilds only kind9. `bake_torso_once` now implements this separate
+selection while sharing the verified vertex arithmetic/map rebuilding. It
+returns the last kind9 retained-group index encountered during this call's bake.
+If field369 was already set it returns None, even when kind9 groups exist;
+native local2e0 is explicitly cleared on that branch. This call-local state
+must be preserved by subsequent torso vertex processing, not replaced with a
+fresh search for a BottomConnect group. A regression contrasts head/torso
+selection and first versus repeated calls. Complete independent GNU torso
+disassembly is retained in `evidence/native-body-merge-torso-gnu.txt`.
+
+The next torso source-vertex stage uses strict Euclidean connection tolerance,
+zero-tolerance AddIfUnique for ordinary vertices, conditional mapping-coordinate
+appends from vertex20/24, and additional BottomSkin-related remap logic. Those
+paths are not implemented merely by adding this preparation stage.

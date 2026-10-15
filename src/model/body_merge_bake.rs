@@ -1,4 +1,4 @@
-//! The first object's one-time preparation in head/torso merge routines.
+//! The first object's distinct one-time head/torso merge preparation.
 use super::{NativeBodyDeformation, NativeBodyObjectGroups, NativeBodyStoredVertex};
 use std::io;
 
@@ -22,7 +22,7 @@ fn stored(point: [f64; 3]) -> io::Result<[f32; 3]> {
 
 impl NativeBodyMergeBake {
     /// Inputs are actual object deformation/control points. This is only the
-    /// shared preparation stage, not CopyInstance, welding or face remapping.
+    /// head preparation stage, not CopyInstance, welding or face remapping.
     /// On error earlier vertex/group writes survive, but field369 stays false.
     pub fn bake_once(
         &mut self,
@@ -30,8 +30,31 @@ impl NativeBodyMergeBake {
         top: [f32; 3],
         bottom: [f32; 3],
     ) -> io::Result<()> {
+        self.bake_selected(definition, top, bottom, false)
+            .map(|_| ())
+    }
+
+    /// Torso additionally rebuilds kind7 BottomSkin maps. Native retains the
+    /// LAST kind9 group only when this call performs baking; an already baked
+    /// object returns None even if it contains BottomConnect groups.
+    pub fn bake_torso_once(
+        &mut self,
+        definition: &NativeBodyDeformation,
+        top: [f32; 3],
+        bottom: [f32; 3],
+    ) -> io::Result<Option<usize>> {
+        self.bake_selected(definition, top, bottom, true)
+    }
+
+    fn bake_selected(
+        &mut self,
+        definition: &NativeBodyDeformation,
+        top: [f32; 3],
+        bottom: [f32; 3],
+        torso: bool,
+    ) -> io::Result<Option<usize>> {
         if self.field_369 {
-            return Ok(());
+            return Ok(None);
         }
         for vertex in &mut self.vertices {
             let point = vertex.position.map(f64::from);
@@ -39,8 +62,10 @@ impl NativeBodyMergeBake {
                 definition.apply_vertex(point, &self.groups.select_vertex(point, top, bottom)?)?,
             )?;
         }
+        let mut last_bottom = None;
         for index in 0..self.groups.retained_groups().len() {
-            if self.groups.retained_groups()[index].kind_34 != 9 {
+            let kind = self.groups.retained_groups()[index].kind_34;
+            if kind != 9 && !(torso && kind == 7) {
                 continue;
             }
             let group = self.groups.retained_groups()[index].remap_positions(|point| {
@@ -51,9 +76,12 @@ impl NativeBodyMergeBake {
                 )
             })?;
             self.groups.replace_retained_group(index, group);
+            if kind == 9 {
+                last_bottom = Some(index);
+            }
         }
         self.field_369 = true;
-        Ok(())
+        Ok(last_bottom)
     }
 }
 
@@ -63,6 +91,62 @@ mod tests {
     use crate::model::{
         GroupVertex, NativeBodyVertexGroup, NativeBodyVertexWeights, VertexGroup, VertexGroupChunk,
     };
+
+    #[test]
+    fn torso_bake_transforms_bottom_skin_and_returns_last_bottom_only_on_first_call() {
+        let mut groups = NativeBodyObjectGroups::default();
+        for name in ["BottomConnect", "BottomSkin", "BottomConnect"] {
+            groups.apply_group(
+                NativeBodyVertexGroup::from_group(&VertexGroup {
+                    name: Some(name.as_bytes().to_vec()),
+                    members: Some(vec![
+                        GroupVertex {
+                            position: [1.; 3],
+                            weight: 2.,
+                        },
+                        GroupVertex {
+                            position: [2.; 3],
+                            weight: 3.,
+                        },
+                    ]),
+                    field_order: vec![VertexGroupChunk::Name, VertexGroupChunk::Members],
+                })
+                .unwrap(),
+            );
+        }
+        let mut torso = NativeBodyMergeBake {
+            vertices: vec![],
+            groups,
+            field_369: false,
+        };
+        let mut head = torso.clone();
+        let mut definition = NativeBodyDeformation::native_initialized();
+        definition.base.fields_1c0 = [10.; 3];
+        head.bake_once(&definition, [0.; 3], [0.; 3]).unwrap();
+        assert_eq!(
+            head.groups.retained_groups()[1]
+                .matching_weight([1.; 3])
+                .unwrap(),
+            Some(2.)
+        );
+        assert_eq!(
+            torso
+                .bake_torso_once(&definition, [0.; 3], [0.; 3])
+                .unwrap(),
+            Some(2)
+        );
+        for group in torso.groups.retained_groups() {
+            assert_eq!(group.matching_weight([11.; 3]).unwrap(), Some(2.));
+        }
+        let baked = torso.clone();
+        assert_eq!(
+            torso
+                .bake_torso_once(&definition, [0.; 3], [0.; 3])
+                .unwrap(),
+            None
+        );
+        assert_eq!(torso, baked);
+    }
 
     #[test]
     fn native_merge_bake_rewrites_only_bottom_connection_keys_and_runs_once() {
