@@ -34,6 +34,28 @@ pub fn native_dh_arm_vertices(dna: &NativeDhDna) -> u32 {
     available.min(arms)
 }
 
+/// DhDNA::LegVertices; arms consume their share before legs are capped.
+pub fn native_dh_leg_vertices(dna: &NativeDhDna) -> u32 {
+    let legs = u32::from((dna.0[12] >> 2) & 3);
+    if legs == 0 {
+        return 0;
+    }
+    let last = u32::from(dna.0[20] >> 5);
+    if last == 0 {
+        return 1;
+    }
+    let available = last + 1 - native_dh_arm_vertices(dna);
+    if available == 0 {
+        1
+    } else {
+        available.min(legs)
+    }
+}
+
+pub(super) fn native_dh_is_exoskeletal(dna: &NativeDhDna) -> bool {
+    (0x21_u32 >> (dna.0[16] & 7)) & 1 != 0
+}
+
 /// DhDNA::WalksOnHands, excluding the native object's eight-byte vptr.
 pub fn native_dh_walks_on_hands(dna: &NativeDhDna) -> bool {
     let arms = dna.0[1] & 3;
@@ -72,6 +94,48 @@ mod tests {
                 let mut dna = NativeDhDna([0; 24]);
                 dna.0[13] = (index as u8) << 3 | low;
                 assert_eq!(native_dp_size_factor(&dna).to_bits(), bits);
+            }
+        }
+    }
+
+    #[test]
+    fn leg_vertices_match_native_integer_allocation_for_every_count() {
+        for arms in 0..4_u8 {
+            for legs in 0..4_u8 {
+                for last in 0..8_u8 {
+                    let mut dna = NativeDhDna([0; 24]);
+                    dna.0[1] = arms;
+                    dna.0[12] = legs << 2;
+                    dna.0[20] = last << 5;
+                    let expected = if legs == 0 {
+                        0
+                    } else if last == 0 {
+                        1
+                    } else {
+                        let mut remaining = u32::from(last) + 1;
+                        if arms != 0 {
+                            let mut occupied = remaining * u32::from(arms) / u32::from(arms + legs);
+                            if occupied >= remaining {
+                                occupied = u32::from(last);
+                            }
+                            if occupied == 0 {
+                                occupied = 1;
+                            }
+                            remaining -= occupied.min(u32::from(arms));
+                        }
+                        if remaining == 0 {
+                            1
+                        } else {
+                            remaining.min(u32::from(legs))
+                        }
+                    };
+                    assert_eq!(native_dh_leg_vertices(&dna), expected);
+                    // Unrelated packed bits cannot change the allocation.
+                    dna.0[1] |= 0xfc;
+                    dna.0[12] |= 0xf3;
+                    dna.0[20] |= 0x1f;
+                    assert_eq!(native_dh_leg_vertices(&dna), expected);
+                }
             }
         }
     }

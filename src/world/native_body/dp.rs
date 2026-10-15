@@ -8,8 +8,8 @@ mod dimensions;
 pub use dimensions::NativeDpDimensions;
 mod layout;
 pub use layout::{
-    native_dh_arm_vertices, native_dh_has_wrist_bend, native_dh_waist_vertex,
-    native_dh_walks_on_hands, native_dp_size_factor,
+    native_dh_arm_vertices, native_dh_has_wrist_bend, native_dh_leg_vertices,
+    native_dh_waist_vertex, native_dh_walks_on_hands, native_dp_size_factor,
 };
 mod model_dna;
 pub use model_dna::NativeDpModelDna;
@@ -38,9 +38,11 @@ mod arm_wrist;
 mod body_waist;
 mod foot;
 mod height;
+mod leg_standing;
 mod position_tail;
 mod position_torso;
 mod standing;
+pub use leg_standing::NativeDpLegStandAngles;
 mod tail_bend;
 mod tail_fold;
 mod tail_motion;

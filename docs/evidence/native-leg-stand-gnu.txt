@@ -1,0 +1,55 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412d9220 <_ZN12DpLegAndFoot5StandEf>:
+   1412d9220:	41 54                	push   %r12
+   1412d9222:	48 83 ec 50          	sub    $0x50,%rsp
+   1412d9226:	0f 29 74 24 40       	movaps %xmm6,0x40(%rsp)
+   1412d922b:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1412d922f:	48 8d 44 24 3c       	lea    0x3c(%rsp),%rax
+   1412d9234:	4c 8d 4c 24 38       	lea    0x38(%rsp),%r9
+   1412d9239:	49 89 cc             	mov    %rcx,%r12
+   1412d923c:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+   1412d9241:	4c 8d 44 24 34       	lea    0x34(%rsp),%r8
+   1412d9246:	e8 75 fb ff ff       	call   1412d8dc0 <_ZNK12DpLegAndFoot15CalcStandAnglesEfRfS0_S0_>
+   1412d924b:	f3 0f 10 4c 24 34    	movss  0x34(%rsp),%xmm1
+   1412d9251:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d9254:	7a 02                	jp     1412d9258 <_ZN12DpLegAndFoot5StandEf+0x38>
+   1412d9256:	74 08                	je     1412d9260 <_ZN12DpLegAndFoot5StandEf+0x40>
+   1412d9258:	4c 89 e1             	mov    %r12,%rcx
+   1412d925b:	e8 60 34 fe ff       	call   1412bc6c0 <_ZN12DpLegAndFoot9RotateHipEf.part.0>
+   1412d9260:	f3 0f 10 4c 24 38    	movss  0x38(%rsp),%xmm1
+   1412d9266:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d9269:	7a 02                	jp     1412d926d <_ZN12DpLegAndFoot5StandEf+0x4d>
+   1412d926b:	74 08                	je     1412d9275 <_ZN12DpLegAndFoot5StandEf+0x55>
+   1412d926d:	4c 89 e1             	mov    %r12,%rcx
+   1412d9270:	e8 7b 2c fe ff       	call   1412bbef0 <_ZN12DpLegAndFoot10RotateKneeEf.part.0>
+   1412d9275:	49 8d 4c 24 10       	lea    0x10(%r12),%rcx
+   1412d927a:	e8 31 40 fd ff       	call   1412ad2b0 <_ZNK5DhDNA12HasAnkleBendEv>
+   1412d927f:	84 c0                	test   %al,%al
+   1412d9281:	74 15                	je     1412d9298 <_ZN12DpLegAndFoot5StandEf+0x78>
+   1412d9283:	f3 0f 10 4c 24 3c    	movss  0x3c(%rsp),%xmm1
+   1412d9289:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d928c:	7a 02                	jp     1412d9290 <_ZN12DpLegAndFoot5StandEf+0x70>
+   1412d928e:	74 08                	je     1412d9298 <_ZN12DpLegAndFoot5StandEf+0x78>
+   1412d9290:	4c 89 e1             	mov    %r12,%rcx
+   1412d9293:	e8 b8 25 fe ff       	call   1412bb850 <_ZN12DpLegAndFoot11RotateAnkleEf.part.0>
+   1412d9298:	f3 41 0f 10 4c 24 48 	movss  0x48(%r12),%xmm1
+   1412d929f:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d92a2:	7a 02                	jp     1412d92a6 <_ZN12DpLegAndFoot5StandEf+0x86>
+   1412d92a4:	74 1a                	je     1412d92c0 <_ZN12DpLegAndFoot5StandEf+0xa0>
+   1412d92a6:	0f 28 74 24 40       	movaps 0x40(%rsp),%xmm6
+   1412d92ab:	4c 89 e1             	mov    %r12,%rcx
+   1412d92ae:	48 83 c4 50          	add    $0x50,%rsp
+   1412d92b2:	41 5c                	pop    %r12
+   1412d92b4:	e9 87 3b fe ff       	jmp    1412bce40 <_ZN12DpLegAndFoot8SplayHipEf.part.0>
+   1412d92b9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1412d92c0:	0f 28 74 24 40       	movaps 0x40(%rsp),%xmm6
+   1412d92c5:	48 83 c4 50          	add    $0x50,%rsp
+   1412d92c9:	41 5c                	pop    %r12
+   1412d92cb:	c3                   	ret
+   1412d92cc:	0f 1f 40 00          	nopl   0x0(%rax)
+

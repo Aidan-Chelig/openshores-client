@@ -2,6 +2,15 @@
 
 Implementation/evidence ledger: [native avatar assembly](native-avatar-assembly.md).
 
+## Current checkpoint
+
+Textured head and torso inspection previews, angle-based smoothing and the CPU
+bone-skinning primitive are implemented. Complete avatar assembly and the native
+standing pose are not. The next implementation step is the standing-leg and
+standing-arm attachment chain, followed by reusable full-body generation.
+
+## Objective
+
 Render one complete, textured avatar in a verified neutral standing pose in the
 offline Rust preview. Assemble the existing native head, torso, neck, arm/hand,
 leg/foot and optional tail geometry using the reconstructed bone hierarchy and
@@ -14,8 +23,9 @@ substitute a hand-arranged mannequin or a generic humanoid for native anatomy.
 ## Work sequence
 
 1. Audit the current part plans, geometry merges, bone transforms, neutral-pose
-   calculations and vertex weights. Reuse retained evidence and the existing
-   analyzed session; investigate only missing dependencies. Identify the native
+   calculations and vertex weights. Reuse retained evidence and saved analysis;
+   the previous warm session is closed. Investigate only missing dependencies,
+   batching any necessary new analysis in one reusable session. Identify the native
    distinction between object, bone-local and posed coordinates before applying
    transforms. Do not infer attachment offsets from rendered bounding boxes.
 2. Build a reusable CPU avatar-generation result from explicit fixture DNA and

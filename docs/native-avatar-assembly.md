@@ -84,3 +84,38 @@ Next: implement the required standing-pose/attachment chain and reusable full
 CPU part generation, compose skinning once, then extend the textured renderer,
 camera framing and multi-view/two-DNA GPU verification. None of those remaining
 completion gates is satisfied by the isolated skinning primitive.
+
+## Standing-leg angle calculation
+
+`NativeDpFootCache::leg_stand_angles` now reconstructs
+`DpLegAndFoot::CalcStandAngles` (VA1412d8dc0). Owner DNA selects the measured
+foot; part DNA selects ankle, exoskeleton and leg-vertex branches. Dimensions
+come from owner fields409c/4080. The result is hip/knee/ankle angles only, not
+a posed skeleton. The concrete caller's Bones resolution and subsequent
+RotateHip, RotateKnee, RotateAnkle and SplayHip still require composition.
+
+Retained full GNU records are `evidence/native-leg-calc-stand-angles-gnu.txt`,
+`native-dna-leg-vertices-gnu.txt` and `native-dna-is-exoskeletal-gnu.txt`.
+`tests/native_leg_standing.py` validates their contents against the supplied PE
+with SHA-256285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80,
+and pins all six embedded float/double constants. This is static reconstruction,
+not execution of or runtime equivalence against the native client.
+
+The implementation retains strict triangle inequalities, the alternate
+exoskeletal/crowded-leg solution, foot-angle subtraction, native f32 squares
+with f64 division, and the widened f32 half-pi constant used by the fallback.
+It does not clamp invalid acos/asin arguments. Nonfinite inputs or final angles
+return Unsupported as an explicit preview safety boundary. Four solution tests
+and an exhaustive packed-count selector test cover these branches. Run
+`just test-native-standing`; the full library suite passes 696 tests with one
+unrelated opt-in test ignored, and library/test Clippy passes with warnings denied.
+
+Further retained records: `native-leg-stand-gnu.txt`,
+`native-dp-stand-legs-gnu.txt`, `native-dp-spread-legs-gnu.txt`. StandLegs first
+computes SpreadLegs, then visits the contiguous leg suffix in reverse order.
+Its selector distinguishes pair index0 from later pairs, NOT left from right:
+field4c is the pair index for both sides, as initialization already proves.
+Field48 is initialized to zero and later receives SpreadLegs' splay angle.
+SpreadLegs groups by exact unposed ConnectLoc and counts all matching legs
+before applying its selector; replacing that with guessed side-based offsets
+would change native anatomy. These wrappers are retained but not yet implemented.

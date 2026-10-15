@@ -4,12 +4,13 @@ mod dp;
 mod textures;
 pub use dp::NativeDpArmSkinGeometry;
 pub use dp::NativeDpLegSkinGeometry;
+pub use dp::NativeDpLegStandAngles;
 pub use dp::NativeDpTailSkinGeometry;
 pub use dp::native_dp_torso_segment;
 pub use dp::{
     NativeDpAllocatedPart, NativeDpDimensions, NativeDpHandCache, NativeDpHandGeometry,
     NativeDpHandResource, NativeDpModelDna, NativeDpPartKind, native_allocate_dp_parts,
-    native_dh_arm_vertices, native_dh_waist_vertex, native_dp_size_factor,
+    native_dh_arm_vertices, native_dh_leg_vertices, native_dh_waist_vertex, native_dp_size_factor,
 };
 pub use dp::{NativeDpBoneTransform, NativeDpBoneTransforms, NativeDpSkinnedVertex};
 pub use dp::{

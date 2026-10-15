@@ -1,0 +1,18 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412ad2d0 <_ZNK5DhDNA13IsExoskeletalEv>:
+   1412ad2d0:	b8 21 00 00 00       	mov    $0x21,%eax
+   1412ad2d5:	0f b6 49 18          	movzbl 0x18(%rcx),%ecx
+   1412ad2d9:	83 e1 07             	and    $0x7,%ecx
+   1412ad2dc:	48 d3 e8             	shr    %cl,%rax
+   1412ad2df:	83 e0 01             	and    $0x1,%eax
+   1412ad2e2:	c3                   	ret
+   1412ad2e3:	90                   	nop
+   1412ad2e4:	90                   	nop
+   1412ad2e5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1412ad2ec:	00 00 00 00 
+
