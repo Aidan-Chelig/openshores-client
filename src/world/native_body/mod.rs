@@ -16,4 +16,5 @@ pub use dp::{
 };
 pub use dp::{NativeDpHeadSkinPiece, NativeDpHeadSkinPlan};
 pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
+pub use dp::{NativeDpPartSkinPlan, NativeDpSkinPlan};
 pub use dp::{NativeDpTorsoSkinPiece, NativeDpTorsoSkinPlan};

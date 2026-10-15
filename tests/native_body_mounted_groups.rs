@@ -7,7 +7,7 @@ use openshores_client::{
     },
     world::{
         native_body::{
-            NativeDpHandCache, NativeDpHandResource, NativeDpInitialization, NativeDpPartKind,
+            NativeDpHandCache, NativeDpHandResource, NativeDpInitialization, NativeDpSkinPlan,
         },
         native_dna::NativeDhDna,
     },
@@ -163,41 +163,34 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
     let mut points = 0;
     let mut finite_weight_vertices = 0;
     let mut nonfinite_weight_vertices = 0;
-    for (index, part) in body.parts().iter().enumerate() {
-        let requests: Vec<_> = match part.allocation.kind {
-            NativeDpPartKind::LeftArmAndHand | NativeDpPartKind::RightArmAndHand => body
-                .arm_skin_geometry_requests(index, 0, [1.; 4])
-                .unwrap()
+    let plans = body.skin_geometry_plans(0, 0, [1.; 4]).unwrap();
+    assert_eq!(plans.len(), body.parts().len());
+    for (index, planned) in plans.into_iter().enumerate() {
+        assert_eq!(planned.part_index, index);
+        let requests: Vec<_> = match planned.plan {
+            NativeDpSkinPlan::Arm(requests) => requests
                 .into_iter()
                 .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
-            NativeDpPartKind::LeftLegAndFoot | NativeDpPartKind::RightLegAndFoot => body
-                .leg_skin_geometry_requests(index, 0, [1.; 4])
-                .unwrap()
+            NativeDpSkinPlan::Leg(requests) => requests
                 .into_iter()
                 .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
-            NativeDpPartKind::Tail => body
-                .tail_skin_geometry_request(index, [1.; 4])
-                .unwrap()
+            NativeDpSkinPlan::Tail(request) => request
                 .into_iter()
                 .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
-            NativeDpPartKind::Torso => body
-                .torso_skin_geometry_plan(index, 0, [1.; 4])
-                .unwrap()
+            NativeDpSkinPlan::Torso(plan) => plan
                 .into_iter()
                 .flat_map(|p| p.fallback)
                 .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
-            NativeDpPartKind::HeadAndNeck => {
-                let plan = body.head_skin_geometry_plan(index, 0, [1.; 4]).unwrap();
-                plan.fallback
-                    .into_iter()
-                    .chain(plan.neck)
-                    .map(|r| (r.resource, r.geometry, r.bones))
-                    .collect()
-            }
+            NativeDpSkinPlan::Head(plan) => plan
+                .fallback
+                .into_iter()
+                .chain(plan.neck)
+                .map(|r| (r.resource, r.geometry, r.bones))
+                .collect(),
         };
         for (resource, geometry, bones) in requests {
             let model = openshores_client::model::Model::decode(

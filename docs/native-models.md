@@ -718,6 +718,15 @@ writes, patched-model publication, torso merging, full bone weights and live
 client/avatar rendering remain unfinished under the original objective.
 # Native weight bone-name routing
 
+`NativeDpInitialization::skin_geometry_plans` provides a single body-wide
+planning entry point in actual allocation order, rejecting unfinished part
+calculations. Required owner fields 4068, 406c and 4120..4138 remain explicit
+caller inputs, not DNA-derived guesses. Typed part plans preserve torso/head
+combined-cache keys, merge tolerances, conditional fallback pieces and separate
+eye/neck requests. The mounted integration test now consumes this API rather
+than implementing its own per-part dispatch. Planning does not load/merge or
+publish model instances, and is not itself a rendered-avatar implementation.
+
 `Mesh::body_defined_geometry` now carries deformed positions, native weight
 payloads, source faces, and UVs together without changing vertex indexing.
 The mounted initialized-part integration test no longer discards each request's
