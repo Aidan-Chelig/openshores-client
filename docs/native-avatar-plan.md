@@ -267,3 +267,9 @@ cover late identity/nibble tails, partial updates, all factory bytes/predicate
 inputs and full-width count safety. Static evidence/verifier resolves the filter
 and factory without another analysis import. Remaining item types/fixup/weight,
 runtime context/construction/dispatch and actual avatar presentation remain open.
+
+Shared factory follow-up: Gear now uses the same verified null-factory classifier
+as inventory. Known null types continue/diagnose instead of conservatively
+failing Unsupported; real unimplemented bodies still fail. All-byte Gear and
+Person Gear→zero-weight→Domain fixtures verify the corrected continuation.
+This reuses existing evidence and does not close the remaining runtime gates.

@@ -10,14 +10,14 @@ pub struct NativeGearSlot {
 
 impl NativeGearSlot {
     /// Fresh-value atomicity on Rust failure, not native partial-write parity.
-    /// None is the verified null item type0. Other unimplemented factory types
+    /// None means a verified null factory. Other unimplemented factory types
     /// and commodity2 replacement fail explicitly, never guess/skip a body.
     pub fn read(input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
         let mut record = QtReader::new(input.remaining_bytes());
         let packed = record.read_u8()?;
         let mut probe = QtReader::new(record.remaining_bytes());
         let kind = probe.read_u8()?;
-        let result = if kind == 0 {
+        let result = if NativeItemValue::factory_is_null(kind) {
             record.skip(1)?;
             None
         } else {

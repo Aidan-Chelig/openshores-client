@@ -25,11 +25,6 @@ pub fn native_commodity_is_obsolete(commodity: u16) -> bool {
     )
 }
 
-fn null_factory(kind: u8) -> bool {
-    // Verified signed-relative factory table0..24 and out-of-range branch.
-    matches!(kind, 0 | 2 | 3 | 11 | 15 | 21 | 25..=255)
-}
-
 impl NativeItemHash {
     /// Native clears before count. Completed earlier inserts survive later
     /// errors. Known null factories continue, not stop. Supported item bodies
@@ -43,7 +38,7 @@ impl NativeItemHash {
         for index in 0..declared_count_bits {
             let mut probe = QtReader::new(input.remaining_bytes());
             let kind = probe.read_u8()?;
-            if null_factory(kind) {
+            if NativeItemValue::factory_is_null(kind) {
                 input.skip(1)?;
                 null_factories.push((index, kind));
                 continue;

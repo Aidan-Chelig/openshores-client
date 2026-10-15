@@ -47,6 +47,12 @@ pub struct NativeItemValue {
 }
 
 impl NativeItemValue {
+    /// Verified AuItem::Create(byte) null cases, distinct from valid classes
+    /// whose body readers are not implemented. See native-item-byte-factory-gnu.txt.
+    pub fn factory_is_null(kind: u8) -> bool {
+        matches!(kind, 0 | 2 | 3 | 11 | 15 | 21 | 25..=255)
+    }
+
     /// Read type byte and established subtype fields. Unsupported types return
     /// None without consumption; malformed supported types return Err atomically.
     pub fn read(input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
