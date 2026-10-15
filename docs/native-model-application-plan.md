@@ -131,6 +131,25 @@ The five part calculation overrides are Torso (actual no-op), Tail,
 HeadAndNeck, ArmAndHand (both sides), and LegAndFoot (both sides).
 No no-op is substituted for the four nonempty calculations.
 
+The next phase is implemented as `NativeDpDimensions::from_dna`: all fifteen
+f32 stores at4080..40b8 from body OneTimeCalcs, backed by the literal32-entry
+SizeFactor table and actual DhDNA ArmVertices/WaistVertex helpers. Assembly
+confirms that the two1.3 multiplications widen to double then narrow, unlike a
+straight all-f32 interpretation of the decompiler expressions. The code keeps
+that sequence, the width-table branches, and the multiplication order.
+`just test-native-dp-dimensions` binds the Rust table and scalar constants to
+the original PE; Rust tests cover exact-bit15-field fixtures and packed flags.
+Evidence is retained in `native-dp-dimensions-gnu.txt` and
+`native-dp-layout-gnu.txt` under docs/evidence. REA records for SizeFactor,
+ArmVertices, WaistVertex and HandLength are already retained in session4.
+
+Part OneTimeCalcs is still required. In particular ArmAndHand calls the actual
+DpBody::HandLength(false): that method uses the geometry cache, model-DNA key,
+body-model prefix, mounted HandRight*.3dsN geometry extents and vertex/group
+information. A guessed hand length or empty geometry cannot complete this
+dependency. GetBodyModelPrefix and DhDNA::CreateModelDNA have been requested in
+the same warm session; inspect their retained files instead of querying again.
+
 All previously queued queries completed successfully after the single672.161s
 import; complete results remain in that directory. Their successful retention
 does not imply every function is reviewed or ported. In particular AuDNA equality

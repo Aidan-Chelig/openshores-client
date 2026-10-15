@@ -2,6 +2,10 @@
 //! REA ev_5ac6fc428ff8926b29782cbbd39115ee7f7c4e15713693bb2e110319920e20c6;
 //! corroborating assembly: docs/evidence/native-dp-initialization-gnu.txt.
 use crate::world::native_dna::NativeDhDna;
+mod dimensions;
+pub use dimensions::NativeDpDimensions;
+mod layout;
+pub use layout::{native_dh_arm_vertices, native_dh_waist_vertex, native_dp_size_factor};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum NativeDpPartKind {

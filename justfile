@@ -101,6 +101,10 @@ test-native-chromosome-volumes:
 test-native-model-parts:
     nix develop .#server-test --command python tests/native_model_parts.py
 
+# Static native body dimension tables/constants, not complete model creation.
+test-native-dp-dimensions:
+    nix develop .#server-test --command python tests/native_dp_dimensions.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py
