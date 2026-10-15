@@ -4,6 +4,8 @@ use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::{collections::BTreeMap, io};
 mod gear;
 pub use gear::{NativeGear, NativeGearReceive, NativeGearSlot};
+mod receiving;
+pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffixState};
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct NativeDomain(pub BTreeMap<u32, Option<String>>);

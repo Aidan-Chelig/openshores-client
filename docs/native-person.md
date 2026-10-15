@@ -15,7 +15,8 @@ common atom base prefix to Person fields or invoke the source-server Person
 decoder. Leading conditional branches include an additional byte when bit
 `0x80` is set, before the low-bit Person fields. The bounded entry review through
 `0x140a42edb` also shows explicit field `0x838` zeroing and state-bit writes at
-`0x1130`; their meanings and complete receive effects remain unresolved.
+`0x1130`; exact suffix behavior is now implemented/documented in
+native-person-suffix.md, with remaining nested-reader boundaries explicit.
 
 ## Person suffix order
 
@@ -79,8 +80,9 @@ Null slots are diagnosed and skipped without truncating the counted loop.
 ## Implemented Person dependencies
 
 `world::native_person` now contains NativeDomain, NativeGlobeLlf and
-NativeHitNotify. These are actual nested readers, not a full Person suffix or
-dispatch bridge. Their static Ghidra records are retained completely with
+NativeHitNotify, composed by NativePersonSuffixState along with Gear. These
+do not yet form complete Person reception/dispatch or a presentation bridge.
+Their static Ghidra records are retained completely with
 limitations, together with independent exact-symbol GNU disassembly in
 `evidence/native-person-helpers-gnu.txt`:
 

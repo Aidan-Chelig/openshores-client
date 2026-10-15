@@ -216,3 +216,13 @@ item types fail explicitly; native weight recomputation remains open. Retained
 REA records and exact GNU evidence establish FixItem's condition and distinguish
 inventory's separate obsolete filter/count/insertion path. Full Person suffix,
 inherited construction/context, dispatch and presentation remain required.
+
+Person ordered suffix milestone: identity, actual nested GlobeLLF/HitNotify/
+Domain/Gear, packed scalar fields, counted byte content IDs, conditional timer,
+extended doubles and sticky/replaced state bits now compose in native order.
+Empty Gear weight is verified zero; nonempty weight/jobs/inventory stop with
+Unsupported at their native stage and retain earlier mutations. Real prior660/
+state1130 are required instead of guessed constructor defaults. Offline suffix
+fixtures are not full Person packet/dispatch/presentation proof. Remaining
+nested bodies, concrete inherited construction/Creature context and client
+presentation remain open under the unchanged full goal.
