@@ -1,0 +1,666 @@
+Independent GNU static observations; not REA Evidence IDs.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Exact C1 aliases of native station constructors; trailing whitespace normalized.
+No native target execution.
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410bdc80 <_ZN9DpStationC1Ev>:
+   1410bdc80:	48 8d 05 b9 b4 3d 01 	lea    0x13db4b9(%rip),%rax        # 142499140 <_ZTV9DpStation+0x10>
+   1410bdc87:	48 89 01             	mov    %rax,(%rcx)
+   1410bdc8a:	48 c7 41 08 00 00 00 	movq   $0x0,0x8(%rcx)
+   1410bdc91:	00
+   1410bdc92:	c7 41 10 00 00 00 00 	movl   $0x0,0x10(%rcx)
+   1410bdc99:	c3                   	ret
+   1410bdc9a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410c4c30 <_ZN14DpStationEmptyC1Ev>:
+   1410c4c30:	53                   	push   %rbx
+   1410c4c31:	48 83 ec 20          	sub    $0x20,%rsp
+   1410c4c35:	48 89 cb             	mov    %rcx,%rbx
+   1410c4c38:	e8 43 90 ff ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   1410c4c3d:	48 8d 05 1c 33 34 01 	lea    0x134331c(%rip),%rax        # 142407f60 <_ZTV14DpStationEmpty+0x10>
+   1410c4c44:	c6 43 16 00          	movb   $0x0,0x16(%rbx)
+   1410c4c48:	48 89 03             	mov    %rax,(%rbx)
+   1410c4c4b:	48 8b 05 56 d9 7c 01 	mov    0x17cd956(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1410c4c52:	48 c7 43 20 00 00 00 	movq   $0x0,0x20(%rbx)
+   1410c4c59:	00
+   1410c4c5a:	48 89 43 18          	mov    %rax,0x18(%rbx)
+   1410c4c5e:	31 c0                	xor    %eax,%eax
+   1410c4c60:	66 89 43 14          	mov    %ax,0x14(%rbx)
+   1410c4c64:	c7 43 28 00 00 00 00 	movl   $0x0,0x28(%rbx)
+   1410c4c6b:	48 83 c4 20          	add    $0x20,%rsp
+   1410c4c6f:	5b                   	pop    %rbx
+   1410c4c70:	c3                   	ret
+   1410c4c71:	90                   	nop
+   1410c4c72:	0f 1f 00             	nopl   (%rax)
+   1410c4c75:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1410c4c7c:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410ca780 <_ZN17DpStationEngineerC1Et>:
+   1410ca780:	57                   	push   %rdi
+   1410ca781:	56                   	push   %rsi
+   1410ca782:	53                   	push   %rbx
+   1410ca783:	48 83 ec 20          	sub    $0x20,%rsp
+   1410ca787:	48 89 cb             	mov    %rcx,%rbx
+   1410ca78a:	89 d6                	mov    %edx,%esi
+   1410ca78c:	e8 ef 34 ff ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   1410ca791:	48 8d 7b 69          	lea    0x69(%rbx),%rdi
+   1410ca795:	31 c9                	xor    %ecx,%ecx
+   1410ca797:	ba 01 01 00 00       	mov    $0x101,%edx
+   1410ca79c:	48 8d 05 dd a3 36 01 	lea    0x136a3dd(%rip),%rax        # 142434b80 <_ZTV17DpStationEngineer+0x10>
+   1410ca7a3:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
+   1410ca7a7:	66 89 4b 5e          	mov    %cx,0x5e(%rbx)
+   1410ca7ab:	41 b8 ff ff ff ff    	mov    $0xffffffff,%r8d
+   1410ca7b1:	48 89 03             	mov    %rax,(%rbx)
+   1410ca7b4:	31 c0                	xor    %eax,%eax
+   1410ca7b6:	66 0f 76 c0          	pcmpeqd %xmm0,%xmm0
+   1410ca7ba:	66 89 43 28          	mov    %ax,0x28(%rbx)
+   1410ca7be:	89 d8                	mov    %ebx,%eax
+   1410ca7c0:	29 f8                	sub    %edi,%eax
+   1410ca7c2:	c7 43 14 00 00 00 00 	movl   $0x0,0x14(%rbx)
+   1410ca7c9:	8d 88 ea 00 00 00    	lea    0xea(%rax),%ecx
+   1410ca7cf:	31 c0                	xor    %eax,%eax
+   1410ca7d1:	48 c7 43 18 00 00 00 	movq   $0x0,0x18(%rbx)
+   1410ca7d8:	00
+   1410ca7d9:	c1 e9 03             	shr    $0x3,%ecx
+   1410ca7dc:	48 c7 43 20 00 00 00 	movq   $0x0,0x20(%rbx)
+   1410ca7e3:	00
+   1410ca7e4:	66 89 53 2c          	mov    %dx,0x2c(%rbx)
+   1410ca7e8:	48 c7 43 2e 00 00 00 	movq   $0x0,0x2e(%rbx)
+   1410ca7ef:	00
+   1410ca7f0:	48 c7 43 36 00 00 00 	movq   $0x0,0x36(%rbx)
+   1410ca7f7:	00
+   1410ca7f8:	48 c7 43 3e 00 00 00 	movq   $0x0,0x3e(%rbx)
+   1410ca7ff:	00
+   1410ca800:	48 c7 43 46 00 00 00 	movq   $0x0,0x46(%rbx)
+   1410ca807:	00
+   1410ca808:	48 c7 43 4e 00 00 00 	movq   $0x0,0x4e(%rbx)
+   1410ca80f:	00
+   1410ca810:	48 c7 43 56 00 00 00 	movq   $0x0,0x56(%rbx)
+   1410ca817:	00
+   1410ca818:	c6 43 60 00          	movb   $0x0,0x60(%rbx)
+   1410ca81c:	48 c7 43 61 00 00 00 	movq   $0x0,0x61(%rbx)
+   1410ca823:	00
+   1410ca824:	48 c7 83 e2 00 00 00 	movq   $0x0,0xe2(%rbx)
+   1410ca82b:	00 00 00 00
+   1410ca82f:	f3 48 ab             	rep stos %rax,(%rdi)
+   1410ca832:	48 8b 05 2f 6f 1b 01 	mov    0x11b6f2f(%rip),%rax        # 142281768 <.rdata+0x3628>
+   1410ca839:	66 89 73 2a          	mov    %si,0x2a(%rbx)
+   1410ca83d:	66 44 89 83 f4 00 00 	mov    %r8w,0xf4(%rbx)
+   1410ca844:	00
+   1410ca845:	48 89 83 ec 00 00 00 	mov    %rax,0xec(%rbx)
+   1410ca84c:	48 b8 ff ff ff ff 03 	movabs $0x3ffffffff,%rax
+   1410ca853:	00 00 00
+   1410ca856:	48 89 83 f8 00 00 00 	mov    %rax,0xf8(%rbx)
+   1410ca85d:	c7 83 10 01 00 00 00 	movl   $0x0,0x110(%rbx)
+   1410ca864:	00 00 00
+   1410ca867:	0f 11 83 00 01 00 00 	movups %xmm0,0x100(%rbx)
+   1410ca86e:	48 83 c4 20          	add    $0x20,%rsp
+   1410ca872:	5b                   	pop    %rbx
+   1410ca873:	5e                   	pop    %rsi
+   1410ca874:	5f                   	pop    %rdi
+   1410ca875:	c3                   	ret
+   1410ca876:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1410ca87d:	00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410cf2f0 <_ZN13DpStationGameC1EN9AuStation4TYPEEt>:
+   1410cf2f0:	57                   	push   %rdi
+   1410cf2f1:	56                   	push   %rsi
+   1410cf2f2:	53                   	push   %rbx
+   1410cf2f3:	48 83 ec 20          	sub    $0x20,%rsp
+   1410cf2f7:	48 89 cb             	mov    %rcx,%rbx
+   1410cf2fa:	89 d7                	mov    %edx,%edi
+   1410cf2fc:	44 89 c6             	mov    %r8d,%esi
+   1410cf2ff:	e8 7c e9 fe ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   1410cf304:	48 8d 05 45 a5 32 01 	lea    0x132a545(%rip),%rax        # 1423f9850 <_ZTV13DpStationGame+0x10>
+   1410cf30b:	40 88 7b 14          	mov    %dil,0x14(%rbx)
+   1410cf30f:	48 89 03             	mov    %rax,(%rbx)
+   1410cf312:	66 89 73 16          	mov    %si,0x16(%rbx)
+   1410cf316:	48 83 c4 20          	add    $0x20,%rsp
+   1410cf31a:	5b                   	pop    %rbx
+   1410cf31b:	5e                   	pop    %rsi
+   1410cf31c:	5f                   	pop    %rdi
+   1410cf31d:	c3                   	ret
+   1410cf31e:	66 90                	xchg   %ax,%ax
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410d0740 <_ZN13DpStationHelmC1Ev>:
+   1410d0740:	53                   	push   %rbx
+   1410d0741:	48 83 ec 20          	sub    $0x20,%rsp
+   1410d0745:	48 89 cb             	mov    %rcx,%rbx
+   1410d0748:	e8 33 d5 fe ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   1410d074d:	31 d2                	xor    %edx,%edx
+   1410d074f:	b9 ff ff ff ff       	mov    $0xffffffff,%ecx
+   1410d0754:	c6 43 16 00          	movb   $0x0,0x16(%rbx)
+   1410d0758:	48 8d 05 11 92 32 01 	lea    0x1329211(%rip),%rax        # 1423f9970 <_ZTV13DpStationHelm+0x10>
+   1410d075f:	66 0f 6f 05 39 70 1b 	movdqa 0x11b7039(%rip),%xmm0        # 1422877a0 <.rdata+0x3750>
+   1410d0766:	01
+   1410d0767:	66 89 53 1c          	mov    %dx,0x1c(%rbx)
+   1410d076b:	48 89 03             	mov    %rax,(%rbx)
+   1410d076e:	31 c0                	xor    %eax,%eax
+   1410d0770:	66 89 43 14          	mov    %ax,0x14(%rbx)
+   1410d0774:	48 b8 03 00 00 00 ff 	movabs $0xffffffff00000003,%rax
+   1410d077b:	ff ff ff
+   1410d077e:	48 89 43 40          	mov    %rax,0x40(%rbx)
+   1410d0782:	48 8b 05 1f 70 1b 01 	mov    0x11b701f(%rip),%rax        # 1422877a8 <.rdata+0x3758>
+   1410d0789:	0f 11 43 28          	movups %xmm0,0x28(%rbx)
+   1410d078d:	66 0f 76 c0          	pcmpeqd %xmm0,%xmm0
+   1410d0791:	0f 11 43 64          	movups %xmm0,0x64(%rbx)
+   1410d0795:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1410d0799:	48 89 43 50          	mov    %rax,0x50(%rbx)
+   1410d079d:	48 8b 05 0c 70 1b 01 	mov    0x11b700c(%rip),%rax        # 1422877b0 <.rdata+0x3760>
+   1410d07a4:	0f 11 83 80 00 00 00 	movups %xmm0,0x80(%rbx)
+   1410d07ab:	66 0f 28 05 0d 70 1b 	movapd 0x11b700d(%rip),%xmm0        # 1422877c0 <.rdata+0x3770>
+   1410d07b2:	01
+   1410d07b3:	48 89 43 74          	mov    %rax,0x74(%rbx)
+   1410d07b7:	48 8b 05 12 70 1b 01 	mov    0x11b7012(%rip),%rax        # 1422877d0 <.rdata+0x3780>
+   1410d07be:	0f 11 83 90 00 00 00 	movups %xmm0,0x90(%rbx)
+   1410d07c5:	66 0f 28 05 03 70 1b 	movapd 0x11b7003(%rip),%xmm0        # 1422877d0 <.rdata+0x3780>
+   1410d07cc:	01
+   1410d07cd:	c7 43 18 00 00 00 00 	movl   $0x0,0x18(%rbx)
+   1410d07d4:	48 c7 43 20 00 00 00 	movq   $0x0,0x20(%rbx)
+   1410d07db:	00
+   1410d07dc:	c7 43 38 ff ff ff ff 	movl   $0xffffffff,0x38(%rbx)
+   1410d07e3:	c6 43 3c 00          	movb   $0x0,0x3c(%rbx)
+   1410d07e7:	48 c7 43 48 00 00 00 	movq   $0x0,0x48(%rbx)
+   1410d07ee:	00
+   1410d07ef:	48 c7 43 58 00 00 80 	movq   $0xffffffffbf800000,0x58(%rbx)
+   1410d07f6:	bf
+   1410d07f7:	66 89 4b 60          	mov    %cx,0x60(%rbx)
+   1410d07fb:	48 89 83 b0 00 00 00 	mov    %rax,0xb0(%rbx)
+   1410d0802:	c7 43 7c 00 00 00 00 	movl   $0x0,0x7c(%rbx)
+   1410d0809:	c7 83 b8 00 00 00 00 	movl   $0x0,0xb8(%rbx)
+   1410d0810:	00 00 00
+   1410d0813:	0f 11 83 a0 00 00 00 	movups %xmm0,0xa0(%rbx)
+   1410d081a:	48 83 c4 20          	add    $0x20,%rsp
+   1410d081e:	5b                   	pop    %rbx
+   1410d081f:	c3                   	ret
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410e4800 <_ZN12DpStationNavC1Ev>:
+   1410e4800:	41 55                	push   %r13
+   1410e4802:	41 54                	push   %r12
+   1410e4804:	48 83 ec 28          	sub    $0x28,%rsp
+   1410e4808:	49 89 cc             	mov    %rcx,%r12
+   1410e480b:	e8 70 94 fd ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   1410e4810:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1410e4814:	48 8d 05 b5 3d 30 01 	lea    0x1303db5(%rip),%rax        # 1423e85d0 <_ZTV12DpStationNav+0x10>
+   1410e481b:	31 d2                	xor    %edx,%edx
+   1410e481d:	49 89 04 24          	mov    %rax,(%r12)
+   1410e4821:	49 8d 8c 24 88 00 00 	lea    0x88(%r12),%rcx
+   1410e4828:	00
+   1410e4829:	41 c7 44 24 58 00 00 	movl   $0x0,0x58(%r12)
+   1410e4830:	00 00
+   1410e4832:	41 c7 44 24 68 00 00 	movl   $0x0,0x68(%r12)
+   1410e4839:	00 00
+   1410e483b:	49 c7 84 24 80 00 00 	movq   $0x0,0x80(%r12)
+   1410e4842:	00 00 00 00 00
+   1410e4847:	41 0f 11 44 24 28    	movups %xmm0,0x28(%r12)
+   1410e484d:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1410e4853:	41 0f 11 44 24 48    	movups %xmm0,0x48(%r12)
+   1410e4859:	41 0f 11 44 24 70    	movups %xmm0,0x70(%r12)
+   1410e485f:	ff 15 e3 df 7a 01    	call   *0x17adfe3(%rip)        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   1410e4865:	48 8b 05 3c dd 7a 01 	mov    0x17add3c(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1410e486c:	41 c6 44 24 18 00    	movb   $0x0,0x18(%r12)
+   1410e4872:	41 c7 44 24 14 00 00 	movl   $0x1000000,0x14(%r12)
+   1410e4879:	00 01
+   1410e487b:	49 89 84 24 90 00 00 	mov    %rax,0x90(%r12)
+   1410e4882:	00
+   1410e4883:	48 8b 05 d6 65 1a 01 	mov    0x11a65d6(%rip),%rax        # 14228ae60 <.rdata+0x3340>
+   1410e488a:	41 c6 44 24 5c 00    	movb   $0x0,0x5c(%r12)
+   1410e4890:	49 89 44 24 1c       	mov    %rax,0x1c(%r12)
+   1410e4895:	48 8b 05 cc 65 1a 01 	mov    0x11a65cc(%rip),%rax        # 14228ae68 <.rdata+0x3348>
+   1410e489c:	41 c6 44 24 6c 00    	movb   $0x0,0x6c(%r12)
+   1410e48a2:	49 89 44 24 60       	mov    %rax,0x60(%r12)
+   1410e48a7:	48 b8 ff ff ff 00 01 	movabs $0x100ffffff,%rax
+   1410e48ae:	00 00 00
+   1410e48b1:	49 89 84 24 98 00 00 	mov    %rax,0x98(%r12)
+   1410e48b8:	00
+   1410e48b9:	48 b8 00 00 00 00 ff 	movabs $0xffffffff00000000,%rax
+   1410e48c0:	ff ff ff
+   1410e48c3:	49 89 84 24 a0 00 00 	mov    %rax,0xa0(%r12)
+   1410e48ca:	00
+   1410e48cb:	48 8b 05 9e 65 1a 01 	mov    0x11a659e(%rip),%rax        # 14228ae70 <.rdata+0x3350>
+   1410e48d2:	41 c6 84 24 a8 00 00 	movb   $0xff,0xa8(%r12)
+   1410e48d9:	00 ff
+   1410e48db:	49 89 84 24 ac 00 00 	mov    %rax,0xac(%r12)
+   1410e48e2:	00
+   1410e48e3:	41 c7 84 24 b4 00 00 	movl   $0x0,0xb4(%r12)
+   1410e48ea:	00 00 00 00 00
+   1410e48ef:	48 83 c4 28          	add    $0x28,%rsp
+   1410e48f3:	41 5c                	pop    %r12
+   1410e48f5:	41 5d                	pop    %r13
+   1410e48f7:	c3                   	ret
+   1410e48f8:	49 89 c5             	mov    %rax,%r13
+   1410e48fb:	4c 89 e1             	mov    %r12,%rcx
+   1410e48fe:	e8 9d 93 fd ff       	call   1410bdca0 <_ZN9DpStationD1Ev>
+   1410e4903:	4c 89 e9             	mov    %r13,%rcx
+   1410e4906:	e8 2d 0a 67 00       	call   141755338 <_Unwind_Resume>
+   1410e490b:	90                   	nop
+   1410e490c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410f77d0 <_ZN14DpStationPowerC1Ev>:
+   1410f77d0:	53                   	push   %rbx
+   1410f77d1:	48 83 ec 20          	sub    $0x20,%rsp
+   1410f77d5:	48 89 cb             	mov    %rcx,%rbx
+   1410f77d8:	e8 a3 64 fc ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   1410f77dd:	48 8d 05 ac 08 31 01 	lea    0x13108ac(%rip),%rax        # 142408090 <_ZTV14DpStationPower+0x10>
+   1410f77e4:	c7 43 68 00 00 00 00 	movl   $0x0,0x68(%rbx)
+   1410f77eb:	66 0f 6f 05 bd 6d 19 	movdqa 0x1196dbd(%rip),%xmm0        # 14228e5b0 <.rdata+0x3420>
+   1410f77f2:	01
+   1410f77f3:	48 89 03             	mov    %rax,(%rbx)
+   1410f77f6:	48 8b 05 eb b5 79 01 	mov    0x179b5eb(%rip),%rax        # 142892de8 <__imp__ZN9QHashData11shared_nullE>
+   1410f77fd:	c6 43 6c 00          	movb   $0x0,0x6c(%rbx)
+   1410f7801:	48 89 43 60          	mov    %rax,0x60(%rbx)
+   1410f7805:	c7 83 b4 00 00 00 ff 	movl   $0xffffffff,0xb4(%rbx)
+   1410f780c:	ff ff ff
+   1410f780f:	48 c7 83 b8 00 00 00 	movq   $0x0,0xb8(%rbx)
+   1410f7816:	00 00 00 00
+   1410f781a:	48 c7 83 c0 00 00 00 	movq   $0x0,0xc0(%rbx)
+   1410f7821:	00 00 00 00
+   1410f7825:	48 c7 43 34 00 00 00 	movq   $0x0,0x34(%rbx)
+   1410f782c:	00
+   1410f782d:	48 c7 43 74 00 00 00 	movq   $0x0,0x74(%rbx)
+   1410f7834:	00
+   1410f7835:	48 c7 43 7c 00 00 00 	movq   $0x0,0x7c(%rbx)
+   1410f783c:	00
+   1410f783d:	48 c7 83 84 00 00 00 	movq   $0x0,0x84(%rbx)
+   1410f7844:	00 00 00 00
+   1410f7848:	48 c7 83 8c 00 00 00 	movq   $0x0,0x8c(%rbx)
+   1410f784f:	00 00 00 00
+   1410f7853:	48 c7 83 c8 00 00 00 	movq   $0x0,0xc8(%rbx)
+   1410f785a:	00 00 00 00
+   1410f785e:	48 c7 83 94 00 00 00 	movq   $0x0,0x94(%rbx)
+   1410f7865:	00 00 00 00
+   1410f7869:	48 c7 83 9c 00 00 00 	movq   $0x0,0x9c(%rbx)
+   1410f7870:	00 00 00 00
+   1410f7874:	48 c7 83 a4 00 00 00 	movq   $0x0,0xa4(%rbx)
+   1410f787b:	00 00 00 00
+   1410f787f:	48 c7 83 ac 00 00 00 	movq   $0x0,0xac(%rbx)
+   1410f7886:	00 00 00 00
+   1410f788a:	c7 43 6e ff ff ff ff 	movl   $0xffffffff,0x6e(%rbx)
+   1410f7891:	c7 83 d0 00 00 00 00 	movl   $0x0,0xd0(%rbx)
+   1410f7898:	00 00 00
+   1410f789b:	0f 11 43 3c          	movups %xmm0,0x3c(%rbx)
+   1410f789f:	0f 11 43 4c          	movups %xmm0,0x4c(%rbx)
+   1410f78a3:	0f 11 43 14          	movups %xmm0,0x14(%rbx)
+   1410f78a7:	0f 11 43 24          	movups %xmm0,0x24(%rbx)
+   1410f78ab:	48 83 c4 20          	add    $0x20,%rsp
+   1410f78af:	5b                   	pop    %rbx
+   1410f78b0:	c3                   	ret
+   1410f78b1:	90                   	nop
+   1410f78b2:	0f 1f 00             	nopl   (%rax)
+   1410f78b5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1410f78bc:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141107310 <_ZN15DpStationSensorC1Ev>:
+   141107310:	41 55                	push   %r13
+   141107312:	41 54                	push   %r12
+   141107314:	48 83 ec 28          	sub    $0x28,%rsp
+   141107318:	49 89 cc             	mov    %rcx,%r12
+   14110731b:	e8 60 69 fb ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   141107320:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141107324:	49 8d 4c 24 48       	lea    0x48(%r12),%rcx
+   141107329:	31 d2                	xor    %edx,%edx
+   14110732b:	48 8d 05 6e 17 31 01 	lea    0x131176e(%rip),%rax        # 142418aa0 <_ZTV15DpStationSensor+0x10>
+   141107332:	41 0f 11 44 24 20    	movups %xmm0,0x20(%r12)
+   141107338:	49 89 04 24          	mov    %rax,(%r12)
+   14110733c:	41 c7 44 24 1c 00 00 	movl   $0x0,0x1c(%r12)
+   141107343:	00 00
+   141107345:	49 c7 44 24 30 00 00 	movq   $0x0,0x30(%r12)
+   14110734c:	00 00
+   14110734e:	ff 15 f4 b4 78 01    	call   *0x178b4f4(%rip)        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   141107354:	49 8d 44 24 60       	lea    0x60(%r12),%rax
+   141107359:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14110735d:	31 d2                	xor    %edx,%edx
+   14110735f:	41 c7 44 24 14 01 01 	movl   $0x10101,0x14(%r12)
+   141107366:	01 00
+   141107368:	49 89 44 24 68       	mov    %rax,0x68(%r12)
+   14110736d:	49 89 44 24 60       	mov    %rax,0x60(%r12)
+   141107372:	48 8d 05 97 ce 31 01 	lea    0x131ce97(%rip),%rax        # 142424210 <_ZTV16AuSensorBlipList+0x10>
+   141107379:	49 89 44 24 58       	mov    %rax,0x58(%r12)
+   14110737e:	b8 01 01 00 00       	mov    $0x101,%eax
+   141107383:	66 41 89 44 24 18    	mov    %ax,0x18(%r12)
+   141107389:	48 b8 ff ff ff ff ff 	movabs $0xffffffffffffff,%rax
+   141107390:	ff ff 00
+   141107393:	49 89 44 24 78       	mov    %rax,0x78(%r12)
+   141107398:	48 8b 05 b1 a3 18 01 	mov    0x118a3b1(%rip),%rax        # 142291750 <.rdata+0x3110>
+   14110739f:	41 c6 44 24 1a 01    	movb   $0x1,0x1a(%r12)
+   1411073a5:	49 c7 44 24 30 00 00 	movq   $0x0,0x30(%r12)
+   1411073ac:	00 00
+   1411073ae:	49 c7 44 24 50 00 00 	movq   $0x0,0x50(%r12)
+   1411073b5:	00 00
+   1411073b7:	41 c7 44 24 40 01 01 	movl   $0x1010101,0x40(%r12)
+   1411073be:	01 01
+   1411073c0:	49 c7 44 24 70 00 00 	movq   $0x0,0x70(%r12)
+   1411073c7:	00 00
+   1411073c9:	66 41 89 94 24 80 00 	mov    %dx,0x80(%r12)
+   1411073d0:	00 00
+   1411073d2:	49 89 44 24 38       	mov    %rax,0x38(%r12)
+   1411073d7:	41 c7 84 24 84 00 00 	movl   $0x0,0x84(%r12)
+   1411073de:	00 00 00 00 00
+   1411073e3:	41 0f 11 44 24 20    	movups %xmm0,0x20(%r12)
+   1411073e9:	48 83 c4 28          	add    $0x28,%rsp
+   1411073ed:	41 5c                	pop    %r12
+   1411073ef:	41 5d                	pop    %r13
+   1411073f1:	c3                   	ret
+   1411073f2:	49 89 c5             	mov    %rax,%r13
+   1411073f5:	4c 89 e1             	mov    %r12,%rcx
+   1411073f8:	e8 a3 68 fb ff       	call   1410bdca0 <_ZN9DpStationD1Ev>
+   1411073fd:	4c 89 e9             	mov    %r13,%rcx
+   141107400:	e8 33 df 64 00       	call   141755338 <_Unwind_Resume>
+   141107405:	90                   	nop
+   141107406:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14110740d:	00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141117500 <_ZN15DpStationShieldC1Ev>:
+   141117500:	53                   	push   %rbx
+   141117501:	48 83 ec 20          	sub    $0x20,%rsp
+   141117505:	48 89 cb             	mov    %rcx,%rbx
+   141117508:	e8 73 67 fa ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   14111750d:	48 8d 05 bc 16 30 01 	lea    0x13016bc(%rip),%rax        # 142418bd0 <_ZTV15DpStationShield+0x10>
+   141117514:	0f 28 05 85 d1 17 01 	movaps 0x117d185(%rip),%xmm0        # 1422946a0 <.rdata+0x2db0>
+   14111751b:	c7 43 38 03 00 00 00 	movl   $0x3,0x38(%rbx)
+   141117522:	48 89 03             	mov    %rax,(%rbx)
+   141117525:	48 8b 05 6c d1 17 01 	mov    0x117d16c(%rip),%rax        # 142294698 <.rdata+0x2da8>
+   14111752c:	48 c7 43 14 00 00 00 	movq   $0x0,0x14(%rbx)
+   141117533:	00
+   141117534:	48 89 43 40          	mov    %rax,0x40(%rbx)
+   141117538:	48 8b 05 61 d1 17 01 	mov    0x117d161(%rip),%rax        # 1422946a0 <.rdata+0x2db0>
+   14111753f:	48 c7 43 1c 00 00 00 	movq   $0x0,0x1c(%rbx)
+   141117546:	00
+   141117547:	48 89 43 58          	mov    %rax,0x58(%rbx)
+   14111754b:	48 c7 43 24 00 00 00 	movq   $0x0,0x24(%rbx)
+   141117552:	00
+   141117553:	48 c7 43 30 00 00 00 	movq   $0x0,0x30(%rbx)
+   14111755a:	00
+   14111755b:	c7 43 60 00 00 00 00 	movl   $0x0,0x60(%rbx)
+   141117562:	0f 11 43 48          	movups %xmm0,0x48(%rbx)
+   141117566:	48 83 c4 20          	add    $0x20,%rsp
+   14111756a:	5b                   	pop    %rbx
+   14111756b:	c3                   	ret
+   14111756c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141119820 <_ZN16DpStationSurgeryC1Et>:
+   141119820:	41 55                	push   %r13
+   141119822:	41 54                	push   %r12
+   141119824:	53                   	push   %rbx
+   141119825:	48 83 ec 20          	sub    $0x20,%rsp
+   141119829:	49 89 cc             	mov    %rcx,%r12
+   14111982c:	89 d3                	mov    %edx,%ebx
+   14111982e:	e8 4d 44 fa ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   141119833:	48 8d 05 96 c1 30 01 	lea    0x130c196(%rip),%rax        # 1424259d0 <_ZTV16DpStationSurgery+0x10>
+   14111983a:	49 8d 4c 24 30       	lea    0x30(%r12),%rcx
+   14111983f:	31 d2                	xor    %edx,%edx
+   141119841:	49 89 04 24          	mov    %rax,(%r12)
+   141119845:	48 8b 05 5c 8d 77 01 	mov    0x1778d5c(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   14111984c:	49 89 44 24 20       	mov    %rax,0x20(%r12)
+   141119851:	ff 15 f1 8f 77 01    	call   *0x1778ff1(%rip)        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   141119857:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+   14111985c:	31 d2                	xor    %edx,%edx
+   14111985e:	31 c9                	xor    %ecx,%ecx
+   141119860:	41 b8 ff ff ff ff    	mov    $0xffffffff,%r8d
+   141119866:	f3 0f 7e 05 d2 95 77 	movq   0x17795d2(%rip),%xmm0        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   14111986d:	01
+   14111986e:	66 41 89 44 24 38    	mov    %ax,0x38(%r12)
+   141119874:	66 41 89 54 24 14    	mov    %dx,0x14(%r12)
+   14111987a:	66 0f 6c c0          	punpcklqdq %xmm0,%xmm0
+   14111987e:	41 c6 44 24 16 ff    	movb   $0xff,0x16(%r12)
+   141119884:	66 41 89 4c 24 18    	mov    %cx,0x18(%r12)
+   14111988a:	41 c7 44 24 50 ff 7f 	movl   $0xfffe7fff,0x50(%r12)
+   141119891:	fe ff
+   141119893:	66 45 89 44 24 54    	mov    %r8w,0x54(%r12)
+   141119899:	66 41 89 5c 24 28    	mov    %bx,0x28(%r12)
+   14111989f:	41 c7 44 24 58 00 00 	movl   $0x0,0x58(%r12)
+   1411198a6:	00 00
+   1411198a8:	41 0f 11 44 24 40    	movups %xmm0,0x40(%r12)
+   1411198ae:	48 83 c4 20          	add    $0x20,%rsp
+   1411198b2:	5b                   	pop    %rbx
+   1411198b3:	41 5c                	pop    %r12
+   1411198b5:	41 5d                	pop    %r13
+   1411198b7:	c3                   	ret
+   1411198b8:	49 8d 4c 24 20       	lea    0x20(%r12),%rcx
+   1411198bd:	49 89 c5             	mov    %rax,%r13
+   1411198c0:	e8 4b 75 73 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1411198c5:	4c 89 e1             	mov    %r12,%rcx
+   1411198c8:	e8 d3 43 fa ff       	call   1410bdca0 <_ZN9DpStationD1Ev>
+   1411198cd:	4c 89 e9             	mov    %r13,%rcx
+   1411198d0:	e8 63 ba 63 00       	call   141755338 <_Unwind_Resume>
+   1411198d5:	90                   	nop
+   1411198d6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1411198dd:	00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014112b7a0 <_ZN20DpStationTransporterC1Et>:
+   14112b7a0:	41 55                	push   %r13
+   14112b7a2:	41 54                	push   %r12
+   14112b7a4:	53                   	push   %rbx
+   14112b7a5:	48 83 ec 20          	sub    $0x20,%rsp
+   14112b7a9:	49 89 cc             	mov    %rcx,%r12
+   14112b7ac:	89 d3                	mov    %edx,%ebx
+   14112b7ae:	e8 cd 24 f9 ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   14112b7b3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14112b7b7:	49 8d 4c 24 68       	lea    0x68(%r12),%rcx
+   14112b7bc:	31 d2                	xor    %edx,%edx
+   14112b7be:	48 8d 05 db 78 32 01 	lea    0x13278db(%rip),%rax        # 1424530a0 <_ZTV20DpStationTransporter+0x10>
+   14112b7c5:	41 0f 11 44 24 20    	movups %xmm0,0x20(%r12)
+   14112b7cb:	49 89 04 24          	mov    %rax,(%r12)
+   14112b7cf:	41 c7 44 24 14 00 00 	movl   $0x0,0x14(%r12)
+   14112b7d6:	00 00
+   14112b7d8:	49 c7 44 24 30 00 00 	movq   $0x0,0x30(%r12)
+   14112b7df:	00 00
+   14112b7e1:	49 c7 44 24 60 00 00 	movq   $0x0,0x60(%r12)
+   14112b7e8:	00 00
+   14112b7ea:	41 0f 11 44 24 50    	movups %xmm0,0x50(%r12)
+   14112b7f0:	ff 15 52 70 76 01    	call   *0x1767052(%rip)        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   14112b7f6:	ba ff ff ff ff       	mov    $0xffffffff,%edx
+   14112b7fb:	49 8d 84 24 80 00 00 	lea    0x80(%r12),%rax
+   14112b802:	00
+   14112b803:	b9 01 00 00 00       	mov    $0x1,%ecx
+   14112b808:	41 c6 44 24 42 01    	movb   $0x1,0x42(%r12)
+   14112b80e:	49 89 84 24 88 00 00 	mov    %rax,0x88(%r12)
+   14112b815:	00
+   14112b816:	49 89 84 24 80 00 00 	mov    %rax,0x80(%r12)
+   14112b81d:	00
+   14112b81e:	48 8d 05 eb 89 2f 01 	lea    0x12f89eb(%rip),%rax        # 142424210 <_ZTV16AuSensorBlipList+0x10>
+   14112b825:	49 89 44 24 78       	mov    %rax,0x78(%r12)
+   14112b82a:	48 b8 00 00 80 3f 01 	movabs $0x10101013f800000,%rax
+   14112b831:	01 01 01
+   14112b834:	49 89 44 24 38       	mov    %rax,0x38(%r12)
+   14112b839:	b8 01 01 00 00       	mov    $0x101,%eax
+   14112b83e:	66 41 89 44 24 40    	mov    %ax,0x40(%r12)
+   14112b844:	48 b8 00 00 00 00 ff 	movabs $0xffffffff00000000,%rax
+   14112b84b:	ff ff ff
+   14112b84e:	49 89 84 24 98 00 00 	mov    %rax,0x98(%r12)
+   14112b855:	00
+   14112b856:	48 8b 05 03 f8 16 01 	mov    0x116f803(%rip),%rax        # 14229b060 <.rdata+0x3610>
+   14112b85d:	49 c7 44 24 70 00 00 	movq   $0x0,0x70(%r12)
+   14112b864:	00 00
+   14112b866:	49 89 84 24 a0 00 00 	mov    %rax,0xa0(%r12)
+   14112b86d:	00
+   14112b86e:	48 b8 00 00 00 00 00 	movabs $0x101010000000000,%rax
+   14112b875:	01 01 01
+   14112b878:	49 c7 84 24 90 00 00 	movq   $0x0,0x90(%r12)
+   14112b87f:	00 00 00 00 00
+   14112b884:	41 c7 84 24 a8 00 00 	movl   $0xffffffff,0xa8(%r12)
+   14112b88b:	00 ff ff ff ff
+   14112b890:	66 41 89 94 24 ac 00 	mov    %dx,0xac(%r12)
+   14112b897:	00 00
+   14112b899:	49 89 44 24 44       	mov    %rax,0x44(%r12)
+   14112b89e:	66 41 89 4c 24 4c    	mov    %cx,0x4c(%r12)
+   14112b8a4:	49 c7 44 24 18 00 00 	movq   $0x0,0x18(%r12)
+   14112b8ab:	00 00
+   14112b8ad:	66 41 89 9c 24 ae 00 	mov    %bx,0xae(%r12)
+   14112b8b4:	00 00
+   14112b8b6:	41 c7 84 24 b0 00 00 	movl   $0x0,0xb0(%r12)
+   14112b8bd:	00 00 00 00 00
+   14112b8c2:	48 83 c4 20          	add    $0x20,%rsp
+   14112b8c6:	5b                   	pop    %rbx
+   14112b8c7:	41 5c                	pop    %r12
+   14112b8c9:	41 5d                	pop    %r13
+   14112b8cb:	c3                   	ret
+   14112b8cc:	49 89 c5             	mov    %rax,%r13
+   14112b8cf:	4c 89 e1             	mov    %r12,%rcx
+   14112b8d2:	e8 c9 23 f9 ff       	call   1410bdca0 <_ZN9DpStationD1Ev>
+   14112b8d7:	4c 89 e9             	mov    %r13,%rcx
+   14112b8da:	e8 59 9a 62 00       	call   141755338 <_Unwind_Resume>
+   14112b8df:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014113ce60 <_ZN15DpStationWeaponC1Et>:
+   14113ce60:	41 55                	push   %r13
+   14113ce62:	41 54                	push   %r12
+   14113ce64:	56                   	push   %rsi
+   14113ce65:	53                   	push   %rbx
+   14113ce66:	48 83 ec 28          	sub    $0x28,%rsp
+   14113ce6a:	49 89 cc             	mov    %rcx,%r12
+   14113ce6d:	89 d3                	mov    %edx,%ebx
+   14113ce6f:	e8 0c 0e f8 ff       	call   1410bdc80 <_ZN9DpStationC1Ev>
+   14113ce74:	4d 8d 6c 24 58       	lea    0x58(%r12),%r13
+   14113ce79:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14113ce7d:	31 d2                	xor    %edx,%edx
+   14113ce7f:	48 8d 05 7a be 2d 01 	lea    0x12dbe7a(%rip),%rax        # 142418d00 <_ZTV15DpStationWeapon+0x10>
+   14113ce86:	41 0f 11 44 24 20    	movups %xmm0,0x20(%r12)
+   14113ce8c:	4c 89 e9             	mov    %r13,%rcx
+   14113ce8f:	48 8b 35 b2 59 75 01 	mov    0x17559b2(%rip),%rsi        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   14113ce96:	49 89 04 24          	mov    %rax,(%r12)
+   14113ce9a:	41 c7 44 24 1c 00 00 	movl   $0x0,0x1c(%r12)
+   14113cea1:	00 00
+   14113cea3:	49 c7 44 24 30 00 00 	movq   $0x0,0x30(%r12)
+   14113ceaa:	00 00
+   14113ceac:	ff d6                	call   *%rsi
+   14113ceae:	49 8d 4c 24 68       	lea    0x68(%r12),%rcx
+   14113ceb3:	31 d2                	xor    %edx,%edx
+   14113ceb5:	ff d6                	call   *%rsi
+   14113ceb7:	49 8d 84 24 80 00 00 	lea    0x80(%r12),%rax
+   14113cebe:	00
+   14113cebf:	ba ff ff ff ff       	mov    $0xffffffff,%edx
+   14113cec4:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14113cec8:	45 31 c0             	xor    %r8d,%r8d
+   14113cecb:	49 89 84 24 88 00 00 	mov    %rax,0x88(%r12)
+   14113ced2:	00
+   14113ced3:	b9 01 00 00 00       	mov    $0x1,%ecx
+   14113ced8:	49 89 84 24 80 00 00 	mov    %rax,0x80(%r12)
+   14113cedf:	00
+   14113cee0:	48 8d 05 29 73 2e 01 	lea    0x12e7329(%rip),%rax        # 142424210 <_ZTV16AuSensorBlipList+0x10>
+   14113cee7:	49 89 44 24 78       	mov    %rax,0x78(%r12)
+   14113ceec:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+   14113cef1:	66 41 89 84 24 9c 00 	mov    %ax,0x9c(%r12)
+   14113cef8:	00 00
+   14113cefa:	48 b8 47 0d 2c 49 00 	movabs $0x10000492c0d47,%rax
+   14113cf01:	00 01 00
+   14113cf04:	49 c7 84 24 90 00 00 	movq   $0x0,0x90(%r12)
+   14113cf0b:	00 00 00 00 00
+   14113cf10:	41 c7 44 24 14 01 01 	movl   $0x1010101,0x14(%r12)
+   14113cf17:	01 01
+   14113cf19:	41 c6 44 24 18 01    	movb   $0x1,0x18(%r12)
+   14113cf1f:	41 c7 44 24 44 00 00 	movl   $0x0,0x44(%r12)
+   14113cf26:	00 00
+   14113cf28:	41 c6 44 24 48 00    	movb   $0x0,0x48(%r12)
+   14113cf2e:	49 c7 44 24 70 00 00 	movq   $0x0,0x70(%r12)
+   14113cf35:	00 00
+   14113cf37:	41 c7 84 24 98 00 00 	movl   $0xffffffff,0x98(%r12)
+   14113cf3e:	00 ff ff ff ff
+   14113cf43:	41 c6 84 24 9e 00 00 	movb   $0xff,0x9e(%r12)
+   14113cf4a:	00 ff
+   14113cf4c:	66 41 89 94 24 a0 00 	mov    %dx,0xa0(%r12)
+   14113cf53:	00 00
+   14113cf55:	49 c7 44 24 60 00 00 	movq   $0x0,0x60(%r12)
+   14113cf5c:	00 00
+   14113cf5e:	49 c7 44 24 30 00 00 	movq   $0x0,0x30(%r12)
+   14113cf65:	00 00
+   14113cf67:	49 89 44 24 38       	mov    %rax,0x38(%r12)
+   14113cf6c:	66 41 89 4c 24 40    	mov    %cx,0x40(%r12)
+   14113cf72:	41 c7 44 24 4c 00 00 	movl   $0x0,0x4c(%r12)
+   14113cf79:	00 00
+   14113cf7b:	66 45 89 44 24 50    	mov    %r8w,0x50(%r12)
+   14113cf81:	66 41 89 9c 24 a2 00 	mov    %bx,0xa2(%r12)
+   14113cf88:	00 00
+   14113cf8a:	41 c7 84 24 a4 00 00 	movl   $0x0,0xa4(%r12)
+   14113cf91:	00 00 00 00 00
+   14113cf96:	41 0f 11 44 24 20    	movups %xmm0,0x20(%r12)
+   14113cf9c:	48 83 c4 28          	add    $0x28,%rsp
+   14113cfa0:	5b                   	pop    %rbx
+   14113cfa1:	5e                   	pop    %rsi
+   14113cfa2:	41 5c                	pop    %r12
+   14113cfa4:	41 5d                	pop    %r13
+   14113cfa6:	c3                   	ret
+   14113cfa7:	49 89 c5             	mov    %rax,%r13
+   14113cfaa:	4c 89 e1             	mov    %r12,%rcx
+   14113cfad:	e8 ee 0c f8 ff       	call   1410bdca0 <_ZN9DpStationD1Ev>
+   14113cfb2:	4c 89 e9             	mov    %r13,%rcx
+   14113cfb5:	e8 7e 83 61 00       	call   141755338 <_Unwind_Resume>
+   14113cfba:	48 89 c3             	mov    %rax,%rbx
+   14113cfbd:	4c 89 e9             	mov    %r13,%rcx
+   14113cfc0:	ff 15 8a 58 75 01    	call   *0x175588a(%rip)        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   14113cfc6:	49 89 dd             	mov    %rbx,%r13
+   14113cfc9:	eb df                	jmp    14113cfaa <_ZN15DpStationWeaponC1Et+0x14a>
+   14113cfcb:	90                   	nop
+   14113cfcc:	0f 1f 40 00          	nopl   0x0(%rax)

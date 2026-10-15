@@ -1,0 +1,32 @@
+Independent GNU static observations, not REA Evidence IDs.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Referenced constructor constants and Empty primary+c0 slot; no target execution.
+
+$ objdump -s --start-address=0x14228ae60 --stop-address=0x14228ae78 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14228ae60 00000000 03000000 06000000 00000000  ................
+ 14228ae70 ffffffff ffffffff                    ........
+
+$ objdump -s --start-address=0x14228e5b0 --stop-address=0x14228e5c0 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14228e5b0 11000000 11000000 11000000 11000000  ................
+
+$ objdump -s --start-address=0x142291750 --stop-address=0x142291758 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142291750 470d2c49 00000000                    G.,I....
+
+$ objdump -s --start-address=0x142407d70 --stop-address=0x142407d78 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142407d70 60dc0b41 01000000                    `..A....

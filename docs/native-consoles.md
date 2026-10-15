@@ -127,3 +127,9 @@ Rust readers return fresh values atomically on errors, explicitly not native
 failed-stream partial mutation. Tests cover all 65,536 Engineer flag/B pairs,
 all Helm flags, unsigned widening, raw ff state, precedence, high-bit shorts,
 field order, every truncated layout prefix and exact following-field alignment.
+
+Typed factory follow-up: native-console-state.md documents explicit
+constructor-established station subsets, all bound wire-reader compositions
+and independently resolved primary+e0/+f0 metadata getters. This now resolves
+the previously outstanding station defaults and getter binding; enclosing
+context/lifecycle/settings/augmentation effects still require implementation.

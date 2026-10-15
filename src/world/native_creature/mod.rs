@@ -30,6 +30,9 @@ pub use pose_application::{
     native_current_general_pose, native_station_body_pose, native_station_occupant_position,
     native_station_operator_pose,
 };
+mod console_state;
+mod station_construction;
+pub use console_state::{NativeConsoleBody, NativeConsoleState, NativeConsoleWireReceive};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeCreaturePose {

@@ -176,6 +176,16 @@ explicitly instead of inventing a seed. Tests cover raw bounds, signed indices,
 table mappings, random overflow/sequencing and sitting-vs-fallback markers.
 Actual console lifecycle/capsule notification/animation, the concrete Creature
 context and complete Person dispatch/presentation remain open.
+
+Typed console milestone: explicit constructor-established receive subsets now
+initialize every station family, and NativeConsoleState composes all bound
+wire readers for23 class/type cases including Empty's verified base no-op.
+Primary+e0/+f0 bindings are retained and implemented, including Game's dynamic
+type, Empty's nonzero predicate and literal-zero station getters. Power's sparse
+groups start at17, not guessed zero. Full checks pass375 headless/396 client
+library tests, CLI tests, formatting and strict Clippy. Enclosing matching/
+sitting lifecycle, settings and capsule augmentation remain open before the
+concrete Creature context and end-to-end Person/avatar gates can be met.
 Verification: `just check` passes 368 headless and 389 client library tests,
 9 CLI tests per profile, 1 graphical-entry CLI test, formatting and strict
 client-feature all-target Clippy.

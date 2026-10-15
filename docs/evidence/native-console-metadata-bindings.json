@@ -1,0 +1,342 @@
+{
+  "target_sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80",
+  "scope": "Independent static constructor-confirmed primary +e0/+f0 slots and complete getter bodies through their first return; later bytes in GNU windows are unrelated.",
+  "bindings": [
+    {
+      "class": "DpConsoleGame",
+      "vptr": "0x1423f9500",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x14190eb10",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n000000014190eb10 <_ZNK13DpStationGame11SystemWhichEv>:\n   14190eb10:\t0f b7 41 16          \tmovzwl 0x16(%rcx),%eax\n   14190eb14:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x14190eb20",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n000000014190eb20 <_ZNK13DpStationGame4TypeEv>:\n   14190eb20:\t0f b6 41 14          \tmovzbl 0x14(%rcx),%eax\n   14190eb24:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsolePower",
+      "vptr": "0x142407e10",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141911680",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141911680 <_ZNK14DpConsolePower4TypeEv>:\n   141911680:\tb8 07 00 00 00       \tmov    $0x7,%eax\n   141911685:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleSurgery",
+      "vptr": "0x142425700",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141917a20",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141917a20 <_ZNK16DpStationSurgery11SystemWhichEv>:\n   141917a20:\t0f b7 41 28          \tmovzwl 0x28(%rcx),%eax\n   141917a24:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419177d0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419177d0 <_ZNK16DpConsoleSurgery4TypeEv>:\n   1419177d0:\tb8 04 00 00 00       \tmov    $0x4,%eax\n   1419177d5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScTransporter",
+      "vptr": "0x142418970",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141922380",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141922380 <_ZNK20DpStationTransporter11SystemWhichEv>:\n   141922380:\t0f b7 81 ae 00 00 00 \tmovzwl 0xae(%rcx),%eax\n   141922387:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419147f0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419147f0 <_ZNK15DpScTransporter4TypeEv>:\n   1419147f0:\tb8 15 00 00 00       \tmov    $0x15,%eax\n   1419147f5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScNav",
+      "vptr": "0x142481770",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419423f0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419423f0 <_ZNK7DpScNav4TypeEv>:\n   1419423f0:\tb8 10 00 00 00       \tmov    $0x10,%eax\n   1419423f5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleEngineer",
+      "vptr": "0x142434850",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141919b50",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141919b50 <_ZNK17DpStationEngineer11SystemWhichEv>:\n   141919b50:\t0f b7 41 2a          \tmovzwl 0x2a(%rcx),%eax\n   141919b54:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141919920",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141919920 <_ZNK17DpConsoleEngineer4TypeEv>:\n   141919920:\tb8 01 00 00 00       \tmov    $0x1,%eax\n   141919925:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScSurgery",
+      "vptr": "0x1423d7fe0",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141917a20",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141917a20 <_ZNK16DpStationSurgery11SystemWhichEv>:\n   141917a20:\t0f b7 41 28          \tmovzwl 0x28(%rcx),%eax\n   141917a24:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1418ff7b0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001418ff7b0 <_ZNK11DpScSurgery4TypeEv>:\n   1418ff7b0:\tb8 0f 00 00 00       \tmov    $0xf,%eax\n   1418ff7b5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScHelm",
+      "vptr": "0x14248f390",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419480d0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419480d0 <_ZNK8DpScHelm4TypeEv>:\n   1419480d0:\tb8 0e 00 00 00       \tmov    $0xe,%eax\n   1419480d5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleHelm",
+      "vptr": "0x1423f9650",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x14190ea00",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n000000014190ea00 <_ZNK13DpConsoleHelm4TypeEv>:\n   14190ea00:\tb8 03 00 00 00       \tmov    $0x3,%eax\n   14190ea05:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScShield",
+      "vptr": "0x1423cd810",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1418f7190",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001418f7190 <_ZNK10DpScShield4TypeEv>:\n   1418f7190:\tb8 14 00 00 00       \tmov    $0x14,%eax\n   1418f7195:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScWeapon",
+      "vptr": "0x1423cd940",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141914800",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141914800 <_ZNK15DpStationWeapon11SystemWhichEv>:\n   141914800:\t0f b7 81 a2 00 00 00 \tmovzwl 0xa2(%rcx),%eax\n   141914807:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1418f71a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001418f71a0 <_ZNK10DpScWeapon4TypeEv>:\n   1418f71a0:\tb8 0d 00 00 00       \tmov    $0xd,%eax\n   1418f71a5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleShield",
+      "vptr": "0x1424186d0",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419147d0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419147d0 <_ZNK15DpConsoleShield4TypeEv>:\n   1419147d0:\tb8 09 00 00 00       \tmov    $0x9,%eax\n   1419147d5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScSensor",
+      "vptr": "0x1423cd6e0",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1418f7180",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001418f7180 <_ZNK10DpScSensor4TypeEv>:\n   1418f7180:\tb8 13 00 00 00       \tmov    $0x13,%eax\n   1418f7185:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleWeapon",
+      "vptr": "0x142418820",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141914800",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141914800 <_ZNK15DpStationWeapon11SystemWhichEv>:\n   141914800:\t0f b7 81 a2 00 00 00 \tmovzwl 0xa2(%rcx),%eax\n   141914807:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419147e0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419147e0 <_ZNK15DpConsoleWeapon4TypeEv>:\n   1419147e0:\tb8 02 00 00 00       \tmov    $0x2,%eax\n   1419147e5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScCommand",
+      "vptr": "0x1423d7eb0",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1418ff7a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001418ff7a0 <_ZNK11DpScCommand4TypeEv>:\n   1418ff7a0:\tb8 0b 00 00 00       \tmov    $0xb,%eax\n   1418ff7a5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScEngineer",
+      "vptr": "0x1423e84a0",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141919b50",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141919b50 <_ZNK17DpStationEngineer11SystemWhichEv>:\n   141919b50:\t0f b7 41 2a          \tmovzwl 0x2a(%rcx),%eax\n   141919b54:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141907a40",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141907a40 <_ZNK12DpScEngineer4TypeEv>:\n   141907a40:\tb8 0c 00 00 00       \tmov    $0xc,%eax\n   141907a45:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpScPower",
+      "vptr": "0x142499010",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141954280",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141954280 <_ZNK9DpScPower4TypeEv>:\n   141954280:\tb8 12 00 00 00       \tmov    $0x12,%eax\n   141954285:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleNav",
+      "vptr": "0x1423e8290",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141907a10",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141907a10 <_ZNK12DpConsoleNav4TypeEv>:\n   141907a10:\tb8 05 00 00 00       \tmov    $0x5,%eax\n   141907a15:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleTransporter",
+      "vptr": "0x142452f50",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x141922380",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141922380 <_ZNK20DpStationTransporter11SystemWhichEv>:\n   141922380:\t0f b7 81 ae 00 00 00 \tmovzwl 0xae(%rcx),%eax\n   141922387:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141922370",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141922370 <_ZNK20DpConsoleTransporter4TypeEv>:\n   141922370:\tb8 0a 00 00 00       \tmov    $0xa,%eax\n   141922375:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleSensor",
+      "vptr": "0x142418580",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x1419147c0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419147c0 <_ZNK15DpConsoleSensor4TypeEv>:\n   1419147c0:\tb8 08 00 00 00       \tmov    $0x8,%eax\n   1419147c5:\tc3                   \tret"
+        }
+      ]
+    },
+    {
+      "class": "DpConsoleEmpty",
+      "vptr": "0x142407cb0",
+      "getters": [
+        {
+          "slot": "station",
+          "address": "0x1419542a0",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n00000001419542a0 <_ZNK9DpStation11SystemWhichEv>:\n   1419542a0:\t31 c0                \txor    %eax,%eax\n   1419542a2:\tc3                   \tret"
+        },
+        {
+          "slot": "type",
+          "address": "0x141911670",
+          "body": "\nreference/openshores-full/OpenShores.exe:     file format pei-x86-64\n\n\nDisassembly of section .text:\n\n0000000141911670 <_ZNK14DpConsoleEmpty4TypeEv>:\n   141911670:\t48 8b 41 20          \tmov    0x20(%rcx),%rax\n   141911674:\t48 f7 d8             \tneg    %rax\n   141911677:\t19 c0                \tsbb    %eax,%eax\n   141911679:\t83 e0 3d             \tand    $0x3d,%eax\n   14191167c:\tc3                   \tret"
+        }
+      ]
+    }
+  ]
+}
