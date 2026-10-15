@@ -10,6 +10,10 @@ mod model_dna;
 pub use model_dna::NativeDpModelDna;
 mod hand_resource;
 pub use hand_resource::NativeDpHandResource;
+mod hand_geometry;
+pub use hand_geometry::NativeDpHandGeometry;
+mod hand_cache;
+pub use hand_cache::NativeDpHandCache;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum NativeDpPartKind {

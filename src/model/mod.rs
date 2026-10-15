@@ -74,6 +74,14 @@ pub struct Mesh {
 pub struct VertexGroup {
     pub name: Option<Vec<u8>>,
     pub members: Option<Vec<GroupVertex>>,
+    /// Native metadata assignment depends on whether names precede members.
+    pub field_order: Vec<VertexGroupChunk>,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum VertexGroupChunk {
+    Name,
+    Members,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

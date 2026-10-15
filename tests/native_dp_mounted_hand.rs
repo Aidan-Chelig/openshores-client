@@ -1,7 +1,10 @@
 //! Opt-in real user-installation check, entirely offline and read-only.
 use openshores_client::{
     asset_mount::AssetMount,
-    world::{native_body::NativeDpHandResource, native_dna::NativeDhDna},
+    world::{
+        native_body::{NativeDpHandCache, NativeDpHandResource},
+        native_dna::NativeDhDna,
+    },
 };
 
 #[test]
@@ -12,6 +15,7 @@ fn native_hand_selection_reads_and_decodes_user_mounted_resources() {
     let mut decoded = 0;
     let mut missing = 0;
     let mut vertices = 0;
+    let mut cache = NativeDpHandCache::new(&mount);
     for prefix in 0..8 {
         for hand in 0..8 {
             let mut dna = NativeDhDna([0; 24]);
@@ -27,6 +31,16 @@ fn native_hand_selection_reads_and_decodes_user_mounted_resources() {
                         .map(|mesh| mesh.vertices.len())
                         .sum::<usize>();
                     decoded += 1;
+                    let length = cache.hand_length(&dna, 0, false).unwrap();
+                    assert!(
+                        length.is_finite() && length >= 0.0,
+                        "{}: {length}",
+                        request.resource()
+                    );
+                    assert_eq!(
+                        cache.hand_length(&dna, 0, false).unwrap().to_bits(),
+                        length.to_bits()
+                    );
                 }
                 Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
                     missing += 1;
@@ -42,6 +56,10 @@ fn native_hand_selection_reads_and_decodes_user_mounted_resources() {
     let pa = NativeDpHandResource::new(&NativeDhDna([0; 24]), 0x41, false);
     let model = pa.read_model(&mount).expect("actual PA hand resource");
     assert!(!model.meshes.is_empty());
+    let pa_length = cache
+        .hand_length(&NativeDhDna([0; 24]), 0x41, false)
+        .unwrap();
+    assert!(pa_length.is_finite() && pa_length >= 0.0);
     eprintln!(
         "Mounted native hands: {decoded} decoded, {missing} absent, {vertices} raw vertices; PA hand decoded. No native HandLength/render parity claim."
     );

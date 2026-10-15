@@ -26,6 +26,10 @@ fn custom_groups_keep_raw_names_members_signed_zero_and_unknown_children() {
     let mut model = Model::decode(&bytes, ModelVariant::N).unwrap();
     let field = &model.meshes[0].vertex_groups[0];
     assert_eq!(field.name.as_deref(), Some(b"Screen1".as_slice()));
+    assert_eq!(
+        field.field_order,
+        [VertexGroupChunk::Name, VertexGroupChunk::Members]
+    );
     let member = field.members.as_ref().unwrap()[0];
     assert_eq!(member.position, [1., 2., -0.]);
     assert_eq!(member.position[2].to_bits(), (-0.0f32).to_bits());
@@ -40,6 +44,17 @@ fn custom_groups_keep_raw_names_members_signed_zero_and_unknown_children() {
     for end in 0..bytes.len() {
         assert!(Model::decode(&bytes[..end], ModelVariant::N).is_err());
     }
+}
+
+#[test]
+fn vertex_group_field_order_is_retained_without_normalizing_reversed_chunks() {
+    let bytes = fixture(&[chunk(0x4114, &0u16.to_le_bytes()), chunk(0x4113, b"Hand\0")].concat());
+    let model = Model::decode(&bytes, ModelVariant::N).unwrap();
+    assert_eq!(
+        model.meshes[0].vertex_groups[0].field_order,
+        [VertexGroupChunk::Members, VertexGroupChunk::Name]
+    );
+    assert_eq!(model.source, bytes);
 }
 
 #[test]

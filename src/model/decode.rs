@@ -207,6 +207,9 @@ impl Decoder<'_> {
                     {
                         return Err(invalid("duplicate vertex group name"));
                     }
+                    self.model.meshes[index].vertex_groups[group]
+                        .field_order
+                        .push(VertexGroupChunk::Name);
                 }
                 (Group(index, group), 0x4114) => {
                     let count = usize::from(field.u16()?);
@@ -226,6 +229,9 @@ impl Decoder<'_> {
                     {
                         return Err(invalid("duplicate vertex group members"));
                     }
+                    self.model.meshes[index].vertex_groups[group]
+                        .field_order
+                        .push(VertexGroupChunk::Members);
                 }
                 (Mesh(index), 0x4140) => {
                     let count = field.u16()? as usize;

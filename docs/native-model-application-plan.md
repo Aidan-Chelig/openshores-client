@@ -181,6 +181,52 @@ HandLength's apparent decompiled void return is contradicted by its actual
 `cvtsd2ss` and `movaps xmm6,xmm0` return path; use the float return when porting
 the retained geometry/cache calculations, not the recovered signature.
 
+`NativeDpHandGeometry` and `NativeDpHandCache` now provide that mounted
+HandLength dependency. Bounds include native TestForExtents-eligible objects;
+the first object retained after station/weapon/up-vector removal supplies its
+ConnectPt and first Hand-tagged group pivot. ConnectPt uses the final serialized
+point. The Hand-tagged group does so only on the multi-record path: the native
+single-record fast path does not assign a Hand-flagged anchor. This is not a
+weighted centroid. Group names have ordered, case-sensitive classification;
+ScalePt/ConnectPt/MidPt/BottomSkin/Torso and exact special names precede Hand.
+Raw vertex-group name/member chunk order is now retained by the decoder and
+respected by metadata assignment. Raw records, source bytes and groups remain
+unchanged; unknown/missing group order in manually constructed storage errors.
+
+Hand arithmetic keeps the native f32 size/0.84 division, double multiply/divide
+inside the broad factor before narrowing, initial double coordinate scaling,
+unscaled pivot, conditional broad/width stages (including non-Y subtract/add
+round trips), and cached `[0,maxY-connectY,connectZ-minZ]`. HandLength returns the
+cached Y narrowed to float. The mounted cache uses the verified model-key order
+and treats an all-zero offset as a cache miss, as native does. It is tied to one
+borrowed mount, with a20,000-entry Rust safety budget; switching installations
+requires a new cache. Missing geometry/errors propagate without a fallback.
+Screen-bearing first objects or models without extent-bearing/retained objects
+remain explicit Unsupported rather than fabricated metadata.
+
+Full independent HandLength assembly is retained in
+`docs/evidence/native-dp-hand-length-gnu.txt`. Additional matching REA results
+are retained in the same warm session directory: `glsl-vgroup-loadchunk.json`
+(name priority/flags), `glsl-vgroup-loadvertices.json`
+(`ev_ee5907c272b7213258a4647ea21954cbfc8217d4be3d3d67e1a1cebe0c8bcf08`),
+`glsl-object-loadmeshchunk.json` (group transfer/object bounds),
+`object-test-extents.json`
+(`ev_92a28710d471af6e6808fc4a47ee34036bb14434d07c20a762af7ca9120132ac`),
+`glsl-model-loadeditor.json` (bounds aggregation), `glsl-model-load.json`
+(`ev_8fb5472cb9b6fe59577bb644df4e7dc5d9151d73c31b9df5591f59e2cfe33057`),
+`modelcache-creategeometry.json`, and `modelinstance-loadmodels.json`.
+The raw HandLength record was already retained; it was not decompiled again.
+Selected SSE instruction ranges corroborate numeric widths where the decompiler
+loses them. All of this is static reconstruction, not original-game execution.
+
+Synthetic tests cover precedence, single/multiple points, reversed chunk order,
+first-object anchors, excluded helpers and exact offset bits. The mounted test
+now also computes and repeats HandLength for all64 numbered resources and PA,
+checking finite nonnegative results and stable cached bits. This tests actual
+user assets in Rust, not native runtime or rendering parity. Body initialization
+still needs to consume this provider in the four nonempty part OneTimeCalcs
+methods, followed by real poses/animation and production dispatch integration.
+
 All previously queued queries completed successfully after the single672.161s
 import; complete results remain in that directory. Their successful retention
 does not imply every function is reviewed or ported. In particular AuDNA equality

@@ -15,6 +15,7 @@ fn mesh(name: &[u8]) -> Mesh {
 }
 fn group(name: &[u8], count: usize) -> VertexGroup {
     VertexGroup {
+        field_order: vec![VertexGroupChunk::Name, VertexGroupChunk::Members],
         name: Some(name.to_vec()),
         members: Some(
             (0..count)
