@@ -3,6 +3,8 @@ use crate::protocol::QtReader;
 use std::io;
 mod console;
 pub use console::{NativeStationGame, NativeStationShield};
+mod station_controls;
+pub use station_controls::{NativeStationEngineer, NativeStationHelm};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeCreaturePose {

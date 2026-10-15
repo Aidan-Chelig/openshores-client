@@ -1,0 +1,204 @@
+Independent GNU observations, not REA evidence or runtime.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+Command: objdump -d -C --start-address=0x1410cb0c0 --stop-address=0x1410cb210 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410cb0c0 <DpStationEngineer::Rx(QDataStream&, DaCapsule&)>:
+   1410cb0c0:	41 55                	push   %r13
+   1410cb0c2:	41 54                	push   %r12
+   1410cb0c4:	56                   	push   %rsi
+   1410cb0c5:	53                   	push   %rbx
+   1410cb0c6:	48 83 ec 38          	sub    $0x38,%rsp
+   1410cb0ca:	49 89 d4             	mov    %rdx,%r12
+   1410cb0cd:	48 89 cb             	mov    %rcx,%rbx
+   1410cb0d0:	e8 8b 2b ff ff       	call   1410bdc60 <DpStation::Rx(QDataStream&, DaCapsule&)>
+   1410cb0d5:	48 8d 54 24 2d       	lea    0x2d(%rsp),%rdx
+   1410cb0da:	48 8b 35 ff 75 7c 01 	mov    0x17c75ff(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1410cb0e1:	4c 89 e1             	mov    %r12,%rcx
+   1410cb0e4:	ff d6                	call   *%rsi
+   1410cb0e6:	0f b6 54 24 2d       	movzbl 0x2d(%rsp),%edx
+   1410cb0eb:	c6 43 16 00          	movb   $0x0,0x16(%rbx)
+   1410cb0ef:	89 d0                	mov    %edx,%eax
+   1410cb0f1:	a8 01                	test   $0x1,%al
+   1410cb0f3:	0f 84 e7 00 00 00    	je     1410cb1e0 <DpStationEngineer::Rx(QDataStream&, DaCapsule&)+0x120>
+   1410cb0f9:	c6 43 16 01          	movb   $0x1,0x16(%rbx)
+   1410cb0fd:	b9 01 00 00 00       	mov    $0x1,%ecx
+   1410cb102:	a8 04                	test   $0x4,%al
+   1410cb104:	75 09                	jne    1410cb10f <DpStationEngineer::Rx(QDataStream&, DaCapsule&)+0x4f>
+   1410cb106:	c0 e8 03             	shr    $0x3,%al
+   1410cb109:	83 e0 01             	and    $0x1,%eax
+   1410cb10c:	8d 0c 00             	lea    (%rax,%rax,1),%ecx
+   1410cb10f:	89 d0                	mov    %edx,%eax
+   1410cb111:	c1 fa 06             	sar    $0x6,%edx
+   1410cb114:	89 4b 18             	mov    %ecx,0x18(%rbx)
+   1410cb117:	4c 89 e1             	mov    %r12,%rcx
+   1410cb11a:	c1 f8 04             	sar    $0x4,%eax
+   1410cb11d:	88 53 29             	mov    %dl,0x29(%rbx)
+   1410cb120:	48 8d 54 24 2e       	lea    0x2e(%rsp),%rdx
+   1410cb125:	4c 8d 6c 24 2f       	lea    0x2f(%rsp),%r13
+   1410cb12a:	80 63 29 01          	andb   $0x1,0x29(%rbx)
+   1410cb12e:	88 43 1c             	mov    %al,0x1c(%rbx)
+   1410cb131:	80 63 1c 01          	andb   $0x1,0x1c(%rbx)
+   1410cb135:	ff d6                	call   *%rsi
+   1410cb137:	0f b6 44 24 2e       	movzbl 0x2e(%rsp),%eax
+   1410cb13c:	4c 89 ea             	mov    %r13,%rdx
+   1410cb13f:	89 c1                	mov    %eax,%ecx
+   1410cb141:	c0 e8 02             	shr    $0x2,%al
+   1410cb144:	83 e1 03             	and    $0x3,%ecx
+   1410cb147:	0f b6 c0             	movzbl %al,%eax
+   1410cb14a:	66 0f 6e c8          	movd   %eax,%xmm1
+   1410cb14e:	66 0f 6e c1          	movd   %ecx,%xmm0
+   1410cb152:	4c 89 e1             	mov    %r12,%rcx
+   1410cb155:	66 0f 62 c1          	punpckldq %xmm1,%xmm0
+   1410cb159:	66 0f d6 43 20       	movq   %xmm0,0x20(%rbx)
+   1410cb15e:	ff d6                	call   *%rsi
+   1410cb160:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cb165:	4c 89 ea             	mov    %r13,%rdx
+   1410cb168:	4c 89 e1             	mov    %r12,%rcx
+   1410cb16b:	88 43 17             	mov    %al,0x17(%rbx)
+   1410cb16e:	ff d6                	call   *%rsi
+   1410cb170:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cb175:	4c 89 ea             	mov    %r13,%rdx
+   1410cb178:	4c 89 e1             	mov    %r12,%rcx
+   1410cb17b:	88 43 1e             	mov    %al,0x1e(%rbx)
+   1410cb17e:	ff d6                	call   *%rsi
+   1410cb180:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cb185:	4c 89 ea             	mov    %r13,%rdx
+   1410cb188:	4c 89 e1             	mov    %r12,%rcx
+   1410cb18b:	88 43 1f             	mov    %al,0x1f(%rbx)
+   1410cb18e:	ff d6                	call   *%rsi
+   1410cb190:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cb195:	4c 89 ea             	mov    %r13,%rdx
+   1410cb198:	4c 89 e1             	mov    %r12,%rcx
+   1410cb19b:	88 43 14             	mov    %al,0x14(%rbx)
+   1410cb19e:	ff d6                	call   *%rsi
+   1410cb1a0:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cb1a5:	4c 89 ea             	mov    %r13,%rdx
+   1410cb1a8:	4c 89 e1             	mov    %r12,%rcx
+   1410cb1ab:	88 43 1d             	mov    %al,0x1d(%rbx)
+   1410cb1ae:	ff d6                	call   *%rsi
+   1410cb1b0:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cb1b5:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1410cb1b9:	4c 89 e1             	mov    %r12,%rcx
+   1410cb1bc:	88 43 15             	mov    %al,0x15(%rbx)
+   1410cb1bf:	ff d6                	call   *%rsi
+   1410cb1c1:	f6 44 24 2d 20       	testb  $0x20,0x2d(%rsp)
+   1410cb1c6:	75 30                	jne    1410cb1f8 <DpStationEngineer::Rx(QDataStream&, DaCapsule&)+0x138>
+   1410cb1c8:	31 c0                	xor    %eax,%eax
+   1410cb1ca:	66 89 43 2a          	mov    %ax,0x2a(%rbx)
+   1410cb1ce:	48 83 c4 38          	add    $0x38,%rsp
+   1410cb1d2:	5b                   	pop    %rbx
+   1410cb1d3:	5e                   	pop    %rsi
+   1410cb1d4:	41 5c                	pop    %r12
+   1410cb1d6:	41 5d                	pop    %r13
+   1410cb1d8:	c3                   	ret
+   1410cb1d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1410cb1e0:	a8 02                	test   $0x2,%al
+   1410cb1e2:	0f 84 15 ff ff ff    	je     1410cb0fd <DpStationEngineer::Rx(QDataStream&, DaCapsule&)+0x3d>
+   1410cb1e8:	c6 43 16 ff          	movb   $0xff,0x16(%rbx)
+   1410cb1ec:	e9 0c ff ff ff       	jmp    1410cb0fd <DpStationEngineer::Rx(QDataStream&, DaCapsule&)+0x3d>
+   1410cb1f1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1410cb1f8:	48 8d 53 2a          	lea    0x2a(%rbx),%rdx
+   1410cb1fc:	4c 89 e1             	mov    %r12,%rcx
+   1410cb1ff:	ff 15 03 75 7c 01    	call   *0x17c7503(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1410cb205:	90                   	nop
+   1410cb206:	48 83 c4 38          	add    $0x38,%rsp
+   1410cb20a:	5b                   	pop    %rbx
+   1410cb20b:	5e                   	pop    %rsi
+   1410cb20c:	41 5c                	pop    %r12
+   1410cb20e:	41 5d                	pop    %r13
+
+Command: objdump -d -C --start-address=0x1410d9ba0 --stop-address=0x1410d9c90 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410d9ba0 <DpStationHelm::Rx(QDataStream&, DaCapsule&)>:
+   1410d9ba0:	41 55                	push   %r13
+   1410d9ba2:	41 54                	push   %r12
+   1410d9ba4:	56                   	push   %rsi
+   1410d9ba5:	53                   	push   %rbx
+   1410d9ba6:	48 83 ec 38          	sub    $0x38,%rsp
+   1410d9baa:	49 89 d4             	mov    %rdx,%r12
+   1410d9bad:	48 89 cb             	mov    %rcx,%rbx
+   1410d9bb0:	e8 ab 40 fe ff       	call   1410bdc60 <DpStation::Rx(QDataStream&, DaCapsule&)>
+   1410d9bb5:	48 8d 54 24 2e       	lea    0x2e(%rsp),%rdx
+   1410d9bba:	4c 89 e1             	mov    %r12,%rcx
+   1410d9bbd:	48 8b 35 1c 8b 7b 01 	mov    0x17b8b1c(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1410d9bc4:	ff d6                	call   *%rsi
+   1410d9bc6:	0f b6 44 24 2e       	movzbl 0x2e(%rsp),%eax
+   1410d9bcb:	b9 01 00 00 00       	mov    $0x1,%ecx
+   1410d9bd0:	89 c2                	mov    %eax,%edx
+   1410d9bd2:	a8 01                	test   $0x1,%al
+   1410d9bd4:	75 09                	jne    1410d9bdf <DpStationHelm::Rx(QDataStream&, DaCapsule&)+0x3f>
+   1410d9bd6:	89 c1                	mov    %eax,%ecx
+   1410d9bd8:	d0 e9                	shr    $1,%cl
+   1410d9bda:	83 e1 01             	and    $0x1,%ecx
+   1410d9bdd:	f7 d9                	neg    %ecx
+   1410d9bdf:	88 4b 15             	mov    %cl,0x15(%rbx)
+   1410d9be2:	b9 01 00 00 00       	mov    $0x1,%ecx
+   1410d9be7:	f6 c2 04             	test   $0x4,%dl
+   1410d9bea:	75 0a                	jne    1410d9bf6 <DpStationHelm::Rx(QDataStream&, DaCapsule&)+0x56>
+   1410d9bec:	89 d1                	mov    %edx,%ecx
+   1410d9bee:	c0 e9 03             	shr    $0x3,%cl
+   1410d9bf1:	83 e1 01             	and    $0x1,%ecx
+   1410d9bf4:	01 c9                	add    %ecx,%ecx
+   1410d9bf6:	41 89 c0             	mov    %eax,%r8d
+   1410d9bf9:	41 89 d1             	mov    %edx,%r9d
+   1410d9bfc:	c1 f8 05             	sar    $0x5,%eax
+   1410d9bff:	89 4b 18             	mov    %ecx,0x18(%rbx)
+   1410d9c02:	41 c1 f8 04          	sar    $0x4,%r8d
+   1410d9c06:	41 83 e1 c0          	and    $0xffffffc0,%r9d
+   1410d9c0a:	83 e0 01             	and    $0x1,%eax
+   1410d9c0d:	b9 39 00 00 00       	mov    $0x39,%ecx
+   1410d9c12:	41 83 e0 01          	and    $0x1,%r8d
+   1410d9c16:	41 80 f9 c0          	cmp    $0xc0,%r9b
+   1410d9c1a:	74 0a                	je     1410d9c26 <DpStationHelm::Rx(QDataStream&, DaCapsule&)+0x86>
+   1410d9c1c:	b9 01 00 00 00       	mov    $0x1,%ecx
+   1410d9c21:	f6 c2 40             	test   $0x40,%dl
+   1410d9c24:	74 5a                	je     1410d9c80 <DpStationHelm::Rx(QDataStream&, DaCapsule&)+0xe0>
+   1410d9c26:	4c 8d 6c 24 2f       	lea    0x2f(%rsp),%r13
+   1410d9c2b:	44 88 43 1c          	mov    %r8b,0x1c(%rbx)
+   1410d9c2f:	48 8d 53 1d          	lea    0x1d(%rbx),%rdx
+   1410d9c33:	89 4b 20             	mov    %ecx,0x20(%rbx)
+   1410d9c36:	4c 89 e1             	mov    %r12,%rcx
+   1410d9c39:	88 43 24             	mov    %al,0x24(%rbx)
+   1410d9c3c:	ff d6                	call   *%rsi
+   1410d9c3e:	4c 89 ea             	mov    %r13,%rdx
+   1410d9c41:	4c 89 e1             	mov    %r12,%rcx
+   1410d9c44:	ff d6                	call   *%rsi
+   1410d9c46:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410d9c4b:	4c 89 ea             	mov    %r13,%rdx
+   1410d9c4e:	4c 89 e1             	mov    %r12,%rcx
+   1410d9c51:	88 43 14             	mov    %al,0x14(%rbx)
+   1410d9c54:	ff d6                	call   *%rsi
+   1410d9c56:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410d9c5b:	48 8d 53 25          	lea    0x25(%rbx),%rdx
+   1410d9c5f:	4c 89 e1             	mov    %r12,%rcx
+   1410d9c62:	88 43 16             	mov    %al,0x16(%rbx)
+   1410d9c65:	ff d6                	call   *%rsi
+   1410d9c67:	48 8d 53 26          	lea    0x26(%rbx),%rdx
+   1410d9c6b:	4c 89 e1             	mov    %r12,%rcx
+   1410d9c6e:	ff 15 94 8a 7b 01    	call   *0x17b8a94(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1410d9c74:	90                   	nop
+   1410d9c75:	48 83 c4 38          	add    $0x38,%rsp
+   1410d9c79:	5b                   	pop    %rbx
+   1410d9c7a:	5e                   	pop    %rsi
+   1410d9c7b:	41 5c                	pop    %r12
+   1410d9c7d:	41 5d                	pop    %r13
+   1410d9c7f:	c3                   	ret
+   1410d9c80:	0f be ca             	movsbl %dl,%ecx
+   1410d9c83:	c1 f9 1f             	sar    $0x1f,%ecx
+   1410d9c86:	83 e1 07             	and    $0x7,%ecx
+   1410d9c89:	eb 9b                	jmp    1410d9c26 <DpStationHelm::Rx(QDataStream&, DaCapsule&)+0x86>
+   1410d9c8b:	90                   	nop
+   1410d9c8c:	0f 1f 40 00          	nopl   0x0(%rax)
+

@@ -79,6 +79,6 @@ Animalia passes pose+0; downstream application must preserve this distinction.
 body Pose, movement-speed effects and timer updates are separate unresolved
 application stages, not implied by reading the packet successfully.
 
-See native-consoles.md for 20 candidate primary-vptr bindings to 11 shared
+See native-consoles.md for 20 constructor-confirmed primary-vptr bindings to 11 shared
 station readers, their complete evidence IDs, resolved matching-console
-control flow, remaining nested readers and the two implemented station bodies.
+control flow, remaining nested readers and the four implemented station bodies.

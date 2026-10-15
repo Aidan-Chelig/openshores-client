@@ -7,16 +7,19 @@ readers have complete reviewed Ghidra MCP records in evidence/. Keep their
 provider limitations and imported tail-jump warnings; signatures sometimes
 misrecover the this/stream argument positions.
 
-## Candidate virtual slot map
+## Verified virtual slot map
 
 Independent symbol-relative .rdata reads are retained in
-`evidence/native-console-slot-bindings.json`. These use the standard primary
-vptr hypothesis (vtable symbol +16); constructor corroboration remains pending.
-They are not a runtime observation or a complete factory implementation.
+`evidence/native-console-slot-bindings.json`. That original symbol-relative map
+is now corroborated by the 22 complete constructor records indexed in
+`evidence/native-console-constructors-index.json`. All 20 selected constructors
+assign the mapped primary vptr at object offset zero. Secondary DpConsole
+subobject vptrs are distinct and must not be substituted. Base/empty constructors
+are retained too. Binding is not a runtime observation or a complete factory.
 Slot +c0 yields shared DpStation readers, including the inherited no-op for
 ScCommand. The same reader is shared by ordinary and spacecraft consoles.
 
-| Class | Candidate vptr | Receive address |
+| Class | Constructor-confirmed vptr | Receive address |
 | --- | --- | --- |
 | DpConsoleGame | 0x1423f9500 | 0x1410cfbe0 |
 | DpConsolePower | 0x142407e10 | 0x141100210 |
@@ -65,8 +68,8 @@ Each file below is prefixed native-console-reader- and ends .json in evidence/.
   short16, otherwise writes zero. No other flag adds wire fields.
 - Shield: six float overloads at14..28, then double30. Destination floats
   still narrow under a DoublePrecision wire profile.
-- Engineer and Helm use packed status bytes plus scalar fields; their full
-  records are retained, but packed expressions need GNU corroboration.
+- Engineer and Helm use packed status bytes plus scalar fields; their packed
+  expressions and imported overloads are now GNU-corroborated below.
 - Power uses sparse loops (8 entries) and an ignored byte branch; preserve
   wire ordering and omitted fields rather than treating it as one fixed blob.
 - Surgery receives a real ConditionList, short38, Qt QList<QPoint>, short14,
@@ -79,7 +82,7 @@ Each file below is prefixed native-console-reader- and ends .json in evidence/.
   after wire reads. Those effects must not be confused with extra packet fields
   or silently replaced by a no-op in a claimed complete native integration.
 
-Rust currently implements the standalone Game and Shield wire bodies, plus
+Rust currently implements standalone Engineer, Helm, Game and Shield bodies, plus
 Creature's pose wire block. These are not a complete console dispatcher or
 Creature receiver. Game tests cover all flags; Shield tests cover all explicit
 float profiles, narrowing/non-finite values and exact suffix boundaries. Both
@@ -95,5 +98,28 @@ console's +e0 station field, compare +f0 type and may restore client settings.
 At 14099ba54, edi controls fallback: nonzero continues after console handling;
 zero re-enters the temporary-console context check. This is not the undefined
 return value of a void station Rx reader. If the second context check is also
-null, no console body is consumed. Exact context lookup and constructors still
-need reconstruction before composing this with concrete Creature reception.
+null, no console body is consumed. Exact context lookup and base-station
+initialization/application still need reconstruction before composing this
+with concrete Creature reception.
+
+## Engineer and Helm wire fields
+
+Independent GNU corroboration: evidence/native-station-controls-gnu.txt.
+Both start with a flags byte. Low-bit direction is 1 when mask01 is set,
+otherwise ff when mask02 is set, otherwise zero. Mode is 1 when mask04 is
+set, otherwise 2 when mask08 is set, otherwise zero. These branches have
+precedence and are not independent booleans.
+
+Engineer then reads packed byte B: field20 gets B&3 and field24 gets B>>2,
+both widened to u32. Next wire bytes assign offsets 17,1e,1f,14,1d,15,28 in
+that order. Mask20 receives short2a; absent writes zero. Flags also write
+field1c from bit4 and field29 from bit6. Direction is stored at16, mode at18.
+
+Helm stores direction15/mode18, bit4→1c and bit5→24. Flags' top two bits map
+00→0, 01→1, 10→7, 11→39 at field20. Next wire bytes assign 1d,14,16,25,
+then short26. These are raw offsets/values, not inferred controls semantics.
+
+Rust readers return fresh values atomically on errors, explicitly not native
+failed-stream partial mutation. Tests cover all 65,536 Engineer flag/B pairs,
+all Helm flags, unsigned widening, raw ff state, precedence, high-bit shorts,
+field order, every truncated layout prefix and exact following-field alignment.

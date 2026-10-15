@@ -82,3 +82,11 @@ saved in the existing warm session for review, not reimport. Headless checks
 pass 313 library tests, 9 CLI tests and strict all-target Clippy. A full Creature
 receiver, its state/application effects and inherited Person dispatch remain
 unfinished; these helper successes do not establish avatar presentation.
+
+Console binding follow-up: all 20 mapped primary vptrs are now confirmed by
+the corresponding constructor assignments; complete records for those and the
+base/empty classes are retained with an index. Engineer/Helm bodies now decode
+their packed state and ordered scalar fields, with all flag/packed-byte pairs
+tested. Headless verification passes 315 library tests, 9 CLI tests and strict
+all-target Clippy. Pose application and remaining console nested formats are
+still being reconstructed; this does not yet close Creature reception.
