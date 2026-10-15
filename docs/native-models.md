@@ -547,3 +547,36 @@ through definition projection and CPU deformation. Its metadata defaults are
 explicit fixtures, not reconstructed object-constructor defaults or a claim of
 native/rendering parity. Leg/torso/head/tail skin generation, full model state,
 bone weights and renderer publication still remain under the original goal.
+
+## Initialized leg/foot skin geometry requests
+
+`leg_skin_geometry` and the completed-owner wrapper now produce ordered Leg
+then Foot requests from actual part DNA, owner prefix/dimensions and supplied
+body4120..4138. Leg variants use DNA12 bits4..5; Foot variants use DNA10 high
+bits, except PA uses the actual HasAnkleBend predicate. The first Bones output
+and literal0xfbefbfffffffffff mask choose the side. Invalid leg pair indices
+leave native outputs unwritten and remain Unsupported, unlike arm fallback.
+
+Geometry factors use the verified DNA15/16 high bits for58/60 and DNA2/3 high
+bits for68/70, retaining native float stages and subsequent double division/
+multiplication. The Foot replaces68 with the doubled float foot factor and
+translationY with (body409c + connectionY) + body4080. Disassembly supplies1.0
+in constructor XMM1 and forwards4120 with MOVSD: the decompiler's literal0 and
+integer cast are not copied into Rust. Owner uniform scale still divides by
+0.84 in f32 before widening. Other definition values and bone order survive.
+
+Complete evidence `native-dp-leg-create-skin.json`
+(`ev_8d30ccd22ac7761832a6d7e056724355aa0c81029ef3b3ecaa1600ff648c27de`)
+and full GNU `native-dp-leg-create-skin-gnu.txt` are retained. The query reused
+the warm analyzed session in0.252s with no import. `just test-native-dp-leg-skin`
+checks digest-bound call/resource/precision/attachment/ABI anchors and fixtures
+for both sides, all pairs/variants/PA foot selectors, field mapping and errors.
+This is the geometry projection only: native CreateSkin also invokes FootLength
+for cache side effects, materials, bounds and actual model creation/publication;
+those effects are NOT reported as implemented by the request builder.
+
+The mounted initialized-body fixture now includes one arm pair and one leg
+pair: eight selected Arm/Hand/Leg/Foot resources and1,758 CPU vertices pass
+through definitions and deformation. Object metadata defaults remain explicit
+fixture inputs, not reconstructed production defaults. Torso/head/tail requests,
+full skin assembly, bone weights and actual avatar rendering remain unfinished.

@@ -1,0 +1,768 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412e5900 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache>:
+   1412e5900:	push   %r15
+   1412e5902:	push   %r14
+   1412e5904:	push   %r13
+   1412e5906:	push   %r12
+   1412e5908:	push   %rbp
+   1412e5909:	push   %rdi
+   1412e590a:	push   %rsi
+   1412e590b:	push   %rbx
+   1412e590c:	sub    $0x3b8,%rsp
+   1412e5913:	movaps %xmm6,0x310(%rsp)
+   1412e591b:	movaps %xmm7,0x320(%rsp)
+   1412e5923:	movaps %xmm8,0x330(%rsp)
+   1412e592c:	movaps %xmm9,0x340(%rsp)
+   1412e5935:	movaps %xmm10,0x350(%rsp)
+   1412e593e:	movaps %xmm11,0x360(%rsp)
+   1412e5947:	movaps %xmm12,0x370(%rsp)
+   1412e5950:	movaps %xmm13,0x380(%rsp)
+   1412e5959:	movaps %xmm14,0x390(%rsp)
+   1412e5962:	movaps %xmm15,0x3a0(%rsp)
+   1412e596b:	mov    (%rcx),%rax
+   1412e596e:	mov    %rcx,%rbx
+   1412e5971:	mov    %rdx,0x408(%rsp)
+   1412e5979:	mov    %r8,0x410(%rsp)
+   1412e5981:	call   *0x10(%rax)
+   1412e5984:	mov    (%rbx),%rax
+   1412e5987:	mov    %rbx,%rcx
+   1412e598a:	lea    0xfc(%rsp),%rdx
+   1412e5992:	lea    0x104(%rsp),%r9
+   1412e599a:	lea    0x100(%rsp),%r8
+   1412e59a2:	call   *0xa0(%rax)
+   1412e59a8:	mov    (%rbx),%rax
+   1412e59ab:	lea    -0x2fe72(%rip),%rdx        # 1412b5b40 <_ZNK12DpArmAndHand10ConnectLocEv>
+   1412e59b2:	mov    0x20(%rax),%rax
+   1412e59b6:	cmp    %rdx,%rax
+   1412e59b9:	jne    1412e6708 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xe08>
+   1412e59bf:	movupd 0x30(%rbx),%xmm5
+   1412e59c4:	movsd  0x40(%rbx),%xmm0
+   1412e59c9:	movaps %xmm5,0x170(%rsp)
+   1412e59d1:	movsd  %xmm0,0x180(%rsp)
+   1412e59da:	mov    0x8(%rbx),%rcx
+   1412e59de:	xor    %edx,%edx
+   1412e59e0:	pxor   %xmm9,%xmm9
+   1412e59e5:	pxor   %xmm12,%xmm12
+   1412e59ea:	pxor   %xmm6,%xmm6
+   1412e59ee:	lea    0x128(%rsp),%rsi
+   1412e59f6:	movss  0x409c(%rcx),%xmm10
+   1412e59ff:	movss  0x4080(%rcx),%xmm11
+   1412e5a08:	call   1412c6b80 <_ZNK6DpBody10FootLengthEb>
+   1412e5a0d:	movzbl 0x27(%rbx),%eax
+   1412e5a11:	pxor   %xmm0,%xmm0
+   1412e5a15:	mov    %rsi,%rcx
+   1412e5a18:	movss  0xfda1a4(%rip),%xmm1        # 1422bfbc4 <CSWTCH.2328+0x424>
+   1412e5a20:	movss  0xfd9e68(%rip),%xmm4        # 1422bf890 <CSWTCH.2328+0xf0>
+   1412e5a28:	shr    $0x3,%al
+   1412e5a2b:	movss  0xfda0d9(%rip),%xmm3        # 1422bfb0c <CSWTCH.2328+0x36c>
+   1412e5a33:	movss  0xfd9e65(%rip),%xmm2        # 1422bf8a0 <CSWTCH.2328+0x100>
+   1412e5a3b:	movzbl %al,%eax
+   1412e5a3e:	mov    0x8(%rbx),%rdx
+   1412e5a42:	cvtsi2ss %eax,%xmm9
+   1412e5a47:	movzbl 0x28(%rbx),%eax
+   1412e5a4b:	shr    $0x3,%al
+   1412e5a4e:	movzbl %al,%eax
+   1412e5a51:	cvtsi2ss %eax,%xmm0
+   1412e5a55:	movzbl 0x1a(%rbx),%eax
+   1412e5a59:	mulss  %xmm1,%xmm9
+   1412e5a5e:	shr    $0x3,%al
+   1412e5a61:	movzbl %al,%eax
+   1412e5a64:	mulss  %xmm1,%xmm0
+   1412e5a68:	cvtsi2ss %eax,%xmm12
+   1412e5a6d:	movzbl 0x1b(%rbx),%eax
+   1412e5a71:	addss  %xmm2,%xmm9
+   1412e5a76:	shr    $0x3,%al
+   1412e5a79:	movzbl %al,%eax
+   1412e5a7c:	mulss  %xmm1,%xmm12
+   1412e5a81:	addss  %xmm4,%xmm0
+   1412e5a85:	movaps %xmm0,%xmm7
+   1412e5a88:	pxor   %xmm0,%xmm0
+   1412e5a8c:	cvtsi2ss %eax,%xmm0
+   1412e5a90:	movzbl 0x22(%rbx),%eax
+   1412e5a94:	mulss  %xmm3,%xmm7
+   1412e5a98:	addss  %xmm2,%xmm12
+   1412e5a9d:	and    $0x1f,%eax
+   1412e5aa0:	cvtsi2ss %eax,%xmm6
+   1412e5aa4:	mov    0x15acafd(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1412e5aab:	mulss  %xmm1,%xmm0
+   1412e5aaf:	mov    %rax,0x118(%rsp)
+   1412e5ab7:	mov    %rax,0x120(%rsp)
+   1412e5abf:	mulss  %xmm1,%xmm6
+   1412e5ac3:	addss  %xmm4,%xmm0
+   1412e5ac7:	mulss  %xmm3,%xmm0
+   1412e5acb:	addss  %xmm2,%xmm6
+   1412e5acf:	mulss  %xmm3,%xmm6
+   1412e5ad3:	movaps %xmm0,%xmm8
+   1412e5ad7:	call   1412c2820 <_ZNK6DpBody18GetBodyModelPrefixEv>
+   1412e5adc:	mov    0x8(%rbx),%rdx
+   1412e5ae0:	mov    0x4068(%rdx),%eax
+   1412e5ae6:	cmp    $0x99,%eax
+   1412e5aeb:	je     1412e6670 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xd70>
+   1412e5af1:	jg     1412e5fb8 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x6b8>
+   1412e5af7:	cmp    $0x41,%eax
+   1412e5afa:	je     1412e6670 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xd70>
+   1412e5b00:	cmp    $0x50,%eax
+   1412e5b03:	sete   %al
+   1412e5b06:	sete   %dil
+   1412e5b0a:	movzbl %al,%eax
+   1412e5b0d:	cvtss2sd %xmm12,%xmm12
+   1412e5b12:	cvtss2sd %xmm9,%xmm9
+   1412e5b17:	mov    %rax,%r8
+   1412e5b1a:	pxor   %xmm0,%xmm0
+   1412e5b1e:	movsd  0xfda0b2(%rip),%xmm1        # 1422bfbd8 <CSWTCH.2328+0x438>
+   1412e5b26:	shl    $0x4,%r8
+   1412e5b2a:	lea    (%rdx,%rax,4),%r9
+   1412e5b2e:	cvtss2sd %xmm8,%xmm0
+   1412e5b33:	add    %rdx,%r8
+   1412e5b36:	addsd  %xmm0,%xmm0
+   1412e5b3a:	movss  0x4114(%r9),%xmm15
+   1412e5b43:	movss  0x410c(%r9),%xmm14
+   1412e5b4c:	divsd  %xmm1,%xmm12
+   1412e5b51:	mov    0x40e4(%r8),%ecx
+   1412e5b58:	movss  0x4104(%r9),%xmm13
+   1412e5b61:	lea    0x250(%rsp),%r12
+   1412e5b69:	lea    0x160(%rsp),%r13
+   1412e5b71:	lea    0x190(%rsp),%r15
+   1412e5b79:	mov    %ecx,0x250(%rsp)
+   1412e5b80:	lea    0x40e(%rax),%rcx
+   1412e5b87:	add    $0x40b,%rax
+   1412e5b8d:	shl    $0x4,%rcx
+   1412e5b91:	shl    $0x4,%rax
+   1412e5b95:	add    %rdx,%rcx
+   1412e5b98:	add    %rdx,%rax
+   1412e5b9b:	mov    0x8(%rcx),%r10
+   1412e5b9f:	mov    %r10,0x254(%rsp)
+   1412e5ba7:	movzwl 0x10(%rcx),%ecx
+   1412e5bab:	mov    %cx,0x25c(%rsp)
+   1412e5bb3:	mov    0x40bc(%r8),%ecx
+   1412e5bba:	movss  0x40dc(%r9),%xmm5
+   1412e5bc3:	mov    %ecx,0x160(%rsp)
+   1412e5bca:	mov    0x10(%rax),%rcx
+   1412e5bce:	mov    %rcx,0x164(%rsp)
+   1412e5bd6:	movzwl 0x18(%rax),%eax
+   1412e5bda:	mov    %rdx,%rcx
+   1412e5bdd:	mov    %ax,0x16c(%rsp)
+   1412e5be5:	divsd  %xmm1,%xmm9
+   1412e5bea:	mulsd  %xmm12,%xmm0
+   1412e5bef:	movapd %xmm0,%xmm8
+   1412e5bf4:	pxor   %xmm0,%xmm0
+   1412e5bf8:	cvtss2sd %xmm7,%xmm0
+   1412e5bfc:	addsd  %xmm0,%xmm0
+   1412e5c00:	movapd %xmm0,%xmm4
+   1412e5c04:	call   1412c6700 <_ZNK6DpBody10SizeFactorEv>
+   1412e5c09:	lea    0x170(%rsp),%rax
+   1412e5c11:	mov    %r15,%rcx
+   1412e5c14:	movsd  0x4120(%rdx),%xmm3
+   1412e5c1c:	movsd  0xfd9ddc(%rip),%xmm1        # 1422bfa00 <CSWTCH.2328+0x260>
+   1412e5c24:	mov    %rax,0x50(%rsp)
+   1412e5c29:	divss  0xfd9f8f(%rip),%xmm0        # 1422bfbc0 <CSWTCH.2328+0x420>
+   1412e5c31:	mov    0x104(%rsp),%eax
+   1412e5c38:	movl   $0x303,0xc8(%rsp)
+   1412e5c43:	movl   $0x0,0xc0(%rsp)
+   1412e5c4e:	movl   $0x0,0xb8(%rsp)
+   1412e5c59:	movl   $0x1,0xb0(%rsp)
+   1412e5c64:	mov    %r12,0x90(%rsp)
+   1412e5c6c:	mov    %r13,0x80(%rsp)
+   1412e5c74:	movss  %xmm15,0xa8(%rsp)
+   1412e5c7e:	movss  %xmm14,0xa0(%rsp)
+   1412e5c88:	mulsd  %xmm9,%xmm4
+   1412e5c8d:	movsd  %xmm1,0x78(%rsp)
+   1412e5c93:	movss  %xmm13,0x98(%rsp)
+   1412e5c9d:	movss  %xmm5,0x88(%rsp)
+   1412e5ca6:	movsd  %xmm8,0x70(%rsp)
+   1412e5cad:	movsd  %xmm12,0x68(%rsp)
+   1412e5cb4:	movsd  %xmm4,0x60(%rsp)
+   1412e5cba:	movsd  %xmm9,0x58(%rsp)
+   1412e5cc1:	mov    %eax,0x48(%rsp)
+   1412e5cc5:	mov    0x100(%rsp),%eax
+   1412e5ccc:	mov    %eax,0x40(%rsp)
+   1412e5cd0:	mov    0xfc(%rsp),%eax
+   1412e5cd7:	mov    %eax,0x38(%rsp)
+   1412e5cdb:	movsd  0x4138(%rdx),%xmm2
+   1412e5ce3:	movsd  %xmm2,0x30(%rsp)
+   1412e5ce9:	movsd  0x4130(%rdx),%xmm2
+   1412e5cf1:	movsd  %xmm2,0x28(%rsp)
+   1412e5cf7:	movsd  0x4128(%rdx),%xmm2
+   1412e5cff:	movsd  %xmm2,0x20(%rsp)
+   1412e5d05:	pxor   %xmm2,%xmm2
+   1412e5d09:	cvtss2sd %xmm0,%xmm2
+   1412e5d0d:	call   1413994c0 <_ZN24Au3dsGLSLModelDefinitionC1EddddddiiiRK7AuPointddddd6QColorfS3_fffbbbj>
+   1412e5d12:	mov    0xfc(%rsp),%eax
+   1412e5d19:	cmp    $0x3a,%eax
+   1412e5d1c:	jbe    1412e5fd0 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x6d0>
+   1412e5d22:	lea    0x118(%rsp),%rax
+   1412e5d2a:	lea    0x120(%rsp),%r14
+   1412e5d32:	mov    %rax,0xd8(%rsp)
+   1412e5d3a:	test   %dil,%dil
+   1412e5d3d:	jne    1412e6720 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xe20>
+   1412e5d43:	lea    0xfd8e3d(%rip),%rdx        # 1422beb87 <.rdata+0x10c7>
+   1412e5d4a:	mov    %r13,%rcx
+   1412e5d4d:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412e5d52:	mov    0x15ad42f(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412e5d59:	xor    %r9d,%r9d
+   1412e5d5c:	mov    %rsi,%r8
+   1412e5d5f:	mov    %r13,%rdx
+   1412e5d62:	mov    $0x20,%r10d
+   1412e5d68:	mov    %r12,%rcx
+   1412e5d6b:	mov    %r10w,0x20(%rsp)
+   1412e5d71:	mov    %rax,0xe8(%rsp)
+   1412e5d79:	call   *%rax
+   1412e5d7b:	movzbl 0x24(%rbx),%r8d
+   1412e5d80:	mov    $0x20,%r9d
+   1412e5d86:	mov    %r12,%rdx
+   1412e5d89:	lea    0x158(%rsp),%rbp
+   1412e5d91:	mov    %r9w,0x28(%rsp)
+   1412e5d97:	mov    %rbp,%rcx
+   1412e5d9a:	xor    %r9d,%r9d
+   1412e5d9d:	shr    $0x4,%r8b
+   1412e5da1:	movl   $0xa,0x20(%rsp)
+   1412e5da9:	and    $0x3,%r8d
+   1412e5dad:	call   *0x15ad3f5(%rip)        # 1428931a8 <__imp__ZNK7QString3argEyii5QChar>
+   1412e5db3:	mov    0x118(%rsp),%rax
+   1412e5dbb:	mov    0x158(%rsp),%rdx
+   1412e5dc3:	mov    %rbp,%rcx
+   1412e5dc6:	mov    %rdx,0x118(%rsp)
+   1412e5dce:	mov    %rax,0x158(%rsp)
+   1412e5dd6:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e5ddb:	mov    %r12,%rcx
+   1412e5dde:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e5de3:	mov    %r13,%rcx
+   1412e5de6:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e5deb:	mov    %r15,%rdx
+   1412e5dee:	mov    %r12,%rcx
+   1412e5df1:	call   1417b8cb0 <_ZN24Au3dsGLSLModelDefinitionC1ERKS_>
+   1412e5df6:	mov    0x8(%rbx),%rax
+   1412e5dfa:	lea    0x118(%rsp),%rdx
+   1412e5e02:	mov    %r12,0x30(%rsp)
+   1412e5e07:	mov    %rdx,0xd8(%rsp)
+   1412e5e0f:	mov    %rdx,%r8
+   1412e5e12:	mov    0x410(%rsp),%rcx
+   1412e5e1a:	lea    0x4030(%rax),%rdx
+   1412e5e21:	movl   $0x0,0x28(%rsp)
+   1412e5e29:	lea    0x4018(%rax),%r9
+   1412e5e30:	mov    %rdx,0x20(%rsp)
+   1412e5e35:	mov    0x408(%rsp),%rdx
+   1412e5e3d:	call   1413ff650 <_ZN14AuGLModelCache15CreateBodyModelER17AuOpenGLFunctionsRK7QStringR7AuPointS6_b24Au3dsGLSLModelDefinition>
+   1412e5e42:	mov    %r12,%rcx
+   1412e5e45:	mov    %rax,0xe0(%rsp)
+   1412e5e4d:	lea    0x158(%rsp),%rbp
+   1412e5e55:	lea    0x120(%rsp),%r14
+   1412e5e5d:	mov    %rax,0x108(%rsp)
+   1412e5e65:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e5e6a:	cvtss2sd %xmm10,%xmm10
+   1412e5e6f:	cvtss2sd %xmm11,%xmm11
+   1412e5e74:	mov    %rbp,%rcx
+   1412e5e77:	addsd  0x178(%rsp),%xmm10
+   1412e5e81:	lea    0xfd8d10(%rip),%rdx        # 1422beb98 <.rdata+0x10d8>
+   1412e5e88:	addsd  %xmm11,%xmm10
+   1412e5e8d:	movsd  %xmm10,0x178(%rsp)
+   1412e5e97:	test   %dil,%dil
+   1412e5e9a:	je     1412e6798 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xe98>
+   1412e5ea0:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412e5ea5:	mov    $0x20,%r8d
+   1412e5eab:	xor    %r9d,%r9d
+   1412e5eae:	mov    %rbp,%rdx
+   1412e5eb1:	mov    %r12,%rcx
+   1412e5eb4:	mov    %r8w,0x20(%rsp)
+   1412e5eba:	mov    0xe8(%rsp),%rax
+   1412e5ec2:	mov    %rsi,%r8
+   1412e5ec5:	call   *%rax
+   1412e5ec7:	lea    0x10(%rbx),%rcx
+   1412e5ecb:	call   1412ad2b0 <_ZNK5DhDNA12HasAnkleBendEv>
+   1412e5ed0:	mov    $0x20,%ecx
+   1412e5ed5:	xor    %r9d,%r9d
+   1412e5ed8:	movzbl %al,%r8d
+   1412e5edc:	mov    %r12,%rdx
+   1412e5edf:	mov    %cx,0x28(%rsp)
+   1412e5ee4:	mov    %r13,%rcx
+   1412e5ee7:	movl   $0xa,0x20(%rsp)
+   1412e5eef:	call   *0x15ad2ab(%rip)        # 1428931a0 <__imp__ZNK7QString3argExii5QChar>
+   1412e5ef5:	mov    0x120(%rsp),%rax
+   1412e5efd:	mov    0x160(%rsp),%rdx
+   1412e5f05:	mov    %r13,%rcx
+   1412e5f08:	mov    %rdx,0x120(%rsp)
+   1412e5f10:	mov    %rax,0x160(%rsp)
+   1412e5f18:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e5f1d:	mov    %r12,%rcx
+   1412e5f20:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e5f25:	mov    %rbp,%rcx
+   1412e5f28:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e5f2d:	addss  %xmm6,%xmm6
+   1412e5f31:	mov    %r15,%rdx
+   1412e5f34:	mov    %r12,%rcx
+   1412e5f37:	movapd 0x170(%rsp),%xmm3
+   1412e5f40:	movsd  0x180(%rsp),%xmm0
+   1412e5f49:	lea    0x120(%rsp),%r14
+   1412e5f51:	movaps %xmm3,0x1d0(%rsp)
+   1412e5f59:	movsd  %xmm0,0x1e0(%rsp)
+   1412e5f62:	cvtss2sd %xmm6,%xmm6
+   1412e5f66:	movsd  %xmm6,0x1f8(%rsp)
+   1412e5f6f:	call   1417b8cb0 <_ZN24Au3dsGLSLModelDefinitionC1ERKS_>
+   1412e5f74:	mov    0x8(%rbx),%rax
+   1412e5f78:	mov    %r12,0x30(%rsp)
+   1412e5f7d:	mov    %r14,%r8
+   1412e5f80:	movl   $0x0,0x28(%rsp)
+   1412e5f88:	mov    0x410(%rsp),%rcx
+   1412e5f90:	lea    0x4030(%rax),%rdx
+   1412e5f97:	lea    0x4018(%rax),%r9
+   1412e5f9e:	mov    %rdx,0x20(%rsp)
+   1412e5fa3:	mov    0x408(%rsp),%rdx
+   1412e5fab:	call   1413ff650 <_ZN14AuGLModelCache15CreateBodyModelER17AuOpenGLFunctionsRK7QStringR7AuPointS6_b24Au3dsGLSLModelDefinition>
+   1412e5fb0:	jmp    1412e64b4 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xbb4>
+   1412e5fb5:	nopl   (%rax)
+   1412e5fb8:	cmp    $0x9b,%eax
+   1412e5fbd:	sete   %al
+   1412e5fc0:	sete   %dil
+   1412e5fc4:	movzbl %al,%eax
+   1412e5fc7:	jmp    1412e5b0d <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x20d>
+   1412e5fcc:	nopl   0x0(%rax)
+   1412e5fd0:	movabs $0xfbefbfffffffffff,%rdx
+   1412e5fda:	bt     %rax,%rdx
+   1412e5fde:	jb     1412e5d22 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x422>
+   1412e5fe4:	test   %dil,%dil
+   1412e5fe7:	jne    1412e65b8 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xcb8>
+   1412e5fed:	lea    0x118(%rsp),%rax
+   1412e5ff5:	mov    0x15acb8c(%rip),%rbp        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   1412e5ffc:	mov    $0x11,%edx
+   1412e6001:	lea    0xfd8b5e(%rip),%rcx        # 1422beb66 <.rdata+0x10a6>
+   1412e6008:	mov    %rax,0xd8(%rsp)
+   1412e6010:	lea    0x120(%rsp),%r14
+   1412e6018:	call   *%rbp
+   1412e601a:	mov    $0x20,%r10d
+   1412e6020:	xor    %r9d,%r9d
+   1412e6023:	mov    %rsi,%r8
+   1412e6026:	mov    %r13,%rdx
+   1412e6029:	mov    %rax,0x160(%rsp)
+   1412e6031:	mov    0x15ad150(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412e6038:	mov    %r12,%rcx
+   1412e603b:	mov    %r10w,0x20(%rsp)
+   1412e6041:	mov    %rax,0xe8(%rsp)
+   1412e6049:	call   *%rax
+   1412e604b:	movzbl 0x24(%rbx),%r8d
+   1412e6050:	mov    $0x20,%r9d
+   1412e6056:	mov    %r12,%rdx
+   1412e6059:	lea    0x138(%rsp),%r14
+   1412e6061:	mov    %r9w,0x28(%rsp)
+   1412e6067:	mov    %r14,%rcx
+   1412e606a:	xor    %r9d,%r9d
+   1412e606d:	shr    $0x4,%r8b
+   1412e6071:	movl   $0xa,0x20(%rsp)
+   1412e6079:	and    $0x3,%r8d
+   1412e607d:	call   *0x15ad125(%rip)        # 1428931a8 <__imp__ZNK7QString3argEyii5QChar>
+   1412e6083:	mov    0x118(%rsp),%rax
+   1412e608b:	mov    0x138(%rsp),%rdx
+   1412e6093:	mov    %r14,%rcx
+   1412e6096:	mov    %rdx,0x118(%rsp)
+   1412e609e:	mov    %rax,0x138(%rsp)
+   1412e60a6:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e60ab:	mov    %r12,%rcx
+   1412e60ae:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e60b3:	mov    %r13,%rcx
+   1412e60b6:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e60bb:	mov    0x1c0(%rsp),%rax
+   1412e60c3:	movapd 0x190(%rsp),%xmm5
+   1412e60cc:	lea    0x118(%rsp),%rdx
+   1412e60d4:	movapd 0x1b0(%rsp),%xmm7
+   1412e60dd:	mov    %rdx,%r8
+   1412e60e0:	movapd 0x1f0(%rsp),%xmm3
+   1412e60e9:	mov    %rax,0x280(%rsp)
+   1412e60f1:	mov    0x1c8(%rsp),%eax
+   1412e60f8:	movaps %xmm5,0x250(%rsp)
+   1412e6100:	movapd 0x1a0(%rsp),%xmm5
+   1412e6109:	mov    %eax,0x288(%rsp)
+   1412e6110:	movzbl 0x210(%rsp),%eax
+   1412e6118:	movaps %xmm5,0x260(%rsp)
+   1412e6120:	movapd 0x1d0(%rsp),%xmm5
+   1412e6129:	mov    %al,0x2d0(%rsp)
+   1412e6130:	mov    0x214(%rsp),%rax
+   1412e6138:	movaps %xmm7,0x270(%rsp)
+   1412e6140:	movapd 0x1e0(%rsp),%xmm7
+   1412e6149:	mov    %rax,0x2d4(%rsp)
+   1412e6151:	mov    0x21c(%rsp),%rax
+   1412e6159:	movaps %xmm5,0x290(%rsp)
+   1412e6161:	movapd 0x200(%rsp),%xmm5
+   1412e616a:	mov    %rax,0x2dc(%rsp)
+   1412e6172:	movzwl 0x224(%rsp),%eax
+   1412e617a:	movaps %xmm7,0x2a0(%rsp)
+   1412e6182:	mov    %ax,0x2e4(%rsp)
+   1412e618a:	mov    0x228(%rsp),%eax
+   1412e6191:	movaps %xmm3,0x2b0(%rsp)
+   1412e6199:	mov    %eax,0x2e8(%rsp)
+   1412e61a0:	mov    0x22c(%rsp),%rax
+   1412e61a8:	movaps %xmm5,0x2c0(%rsp)
+   1412e61b0:	mov    %rax,0x2ec(%rsp)
+   1412e61b8:	movzwl 0x234(%rsp),%eax
+   1412e61c0:	mov    %ax,0x2f4(%rsp)
+   1412e61c8:	movups 0x238(%rsp),%xmm7
+   1412e61d0:	movzwl 0x248(%rsp),%eax
+   1412e61d8:	mov    %rdx,0xd8(%rsp)
+   1412e61e0:	mov    0x410(%rsp),%rcx
+   1412e61e8:	movups %xmm7,0x2f8(%rsp)
+   1412e61f0:	mov    %ax,0x308(%rsp)
+   1412e61f8:	mov    0x8(%rbx),%rax
+   1412e61fc:	mov    %r12,0x30(%rsp)
+   1412e6201:	lea    0x4030(%rax),%rdx
+   1412e6208:	movl   $0x0,0x28(%rsp)
+   1412e6210:	lea    0x4018(%rax),%r9
+   1412e6217:	mov    %rdx,0x20(%rsp)
+   1412e621c:	mov    0x408(%rsp),%rdx
+   1412e6224:	call   1413ff650 <_ZN14AuGLModelCache15CreateBodyModelER17AuOpenGLFunctionsRK7QStringR7AuPointS6_b24Au3dsGLSLModelDefinition>
+   1412e6229:	mov    %r12,%rcx
+   1412e622c:	mov    %rax,0xe0(%rsp)
+   1412e6234:	lea    0x120(%rsp),%r14
+   1412e623c:	mov    %rax,0x108(%rsp)
+   1412e6244:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e6249:	cvtss2sd %xmm10,%xmm10
+   1412e624e:	addsd  0x178(%rsp),%xmm10
+   1412e6258:	cvtss2sd %xmm11,%xmm11
+   1412e625d:	mov    $0x12,%edx
+   1412e6262:	lea    0xfd7b0f(%rip),%rcx        # 1422bdd78 <.rdata+0x2b8>
+   1412e6269:	addsd  %xmm11,%xmm10
+   1412e626e:	movsd  %xmm10,0x178(%rsp)
+   1412e6278:	test   %dil,%dil
+   1412e627b:	je     1412e6680 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xd80>
+   1412e6281:	call   *%rbp
+   1412e6283:	mov    $0x20,%ecx
+   1412e6288:	xor    %r9d,%r9d
+   1412e628b:	mov    %rsi,%r8
+   1412e628e:	mov    %r13,%rdx
+   1412e6291:	mov    %rax,0x160(%rsp)
+   1412e6299:	mov    0xe8(%rsp),%rax
+   1412e62a1:	mov    %cx,0x20(%rsp)
+   1412e62a6:	mov    %r12,%rcx
+   1412e62a9:	call   *%rax
+   1412e62ab:	lea    0x10(%rbx),%rcx
+   1412e62af:	call   1412ad2b0 <_ZNK5DhDNA12HasAnkleBendEv>
+   1412e62b4:	mov    $0x20,%edx
+   1412e62b9:	lea    0x140(%rsp),%r14
+   1412e62c1:	xor    %r9d,%r9d
+   1412e62c4:	movzbl %al,%r8d
+   1412e62c8:	mov    %dx,0x28(%rsp)
+   1412e62cd:	mov    %r14,%rcx
+   1412e62d0:	mov    %r12,%rdx
+   1412e62d3:	movl   $0xa,0x20(%rsp)
+   1412e62db:	call   *0x15acebf(%rip)        # 1428931a0 <__imp__ZNK7QString3argExii5QChar>
+   1412e62e1:	mov    0x120(%rsp),%rax
+   1412e62e9:	mov    0x140(%rsp),%rdx
+   1412e62f1:	mov    %rax,0x140(%rsp)
+   1412e62f9:	mov    %rdx,0x120(%rsp)
+   1412e6301:	mov    %r14,%rcx
+   1412e6304:	lea    0x120(%rsp),%r14
+   1412e630c:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6311:	mov    %r12,%rcx
+   1412e6314:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6319:	mov    %r13,%rcx
+   1412e631c:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6321:	mov    0x1c0(%rsp),%rax
+   1412e6329:	addss  %xmm6,%xmm6
+   1412e632d:	mov    %r14,%r8
+   1412e6330:	movsd  0x180(%rsp),%xmm0
+   1412e6339:	movapd 0x170(%rsp),%xmm1
+   1412e6342:	mov    %rax,0x280(%rsp)
+   1412e634a:	mov    0x1c8(%rsp),%eax
+   1412e6351:	movapd 0x190(%rsp),%xmm4
+   1412e635a:	cvtss2sd %xmm6,%xmm6
+   1412e635e:	movapd 0x1a0(%rsp),%xmm3
+   1412e6367:	movsd  %xmm0,0x1e0(%rsp)
+   1412e6370:	movapd 0x1b0(%rsp),%xmm5
+   1412e6379:	mov    %eax,0x288(%rsp)
+   1412e6380:	movzbl 0x210(%rsp),%eax
+   1412e6388:	movupd 0x1e8(%rsp),%xmm7
+   1412e6391:	movsd  %xmm0,0x2a0(%rsp)
+   1412e639a:	movsd  0x208(%rsp),%xmm0
+   1412e63a3:	movaps %xmm4,0x250(%rsp)
+   1412e63ab:	mov    %al,0x2d0(%rsp)
+   1412e63b2:	mov    0x214(%rsp),%rax
+   1412e63ba:	movsd  %xmm6,0x1f8(%rsp)
+   1412e63c3:	movhpd 0x200(%rsp),%xmm6
+   1412e63cc:	mov    %rax,0x2d4(%rsp)
+   1412e63d4:	mov    0x21c(%rsp),%rax
+   1412e63dc:	movaps %xmm1,0x1d0(%rsp)
+   1412e63e4:	mov    %rax,0x2dc(%rsp)
+   1412e63ec:	movzwl 0x224(%rsp),%eax
+   1412e63f4:	movaps %xmm3,0x260(%rsp)
+   1412e63fc:	mov    %ax,0x2e4(%rsp)
+   1412e6404:	mov    0x228(%rsp),%eax
+   1412e640b:	movaps %xmm5,0x270(%rsp)
+   1412e6413:	movaps %xmm1,0x290(%rsp)
+   1412e641b:	movups %xmm7,0x2a8(%rsp)
+   1412e6423:	movups %xmm6,0x2b8(%rsp)
+   1412e642b:	movsd  %xmm0,0x2c8(%rsp)
+   1412e6434:	mov    %eax,0x2e8(%rsp)
+   1412e643b:	mov    0x22c(%rsp),%rax
+   1412e6443:	movups 0x238(%rsp),%xmm4
+   1412e644b:	mov    0x410(%rsp),%rcx
+   1412e6453:	mov    %rax,0x2ec(%rsp)
+   1412e645b:	movzwl 0x234(%rsp),%eax
+   1412e6463:	movups %xmm4,0x2f8(%rsp)
+   1412e646b:	mov    %ax,0x2f4(%rsp)
+   1412e6473:	movzwl 0x248(%rsp),%eax
+   1412e647b:	mov    %ax,0x308(%rsp)
+   1412e6483:	mov    0x8(%rbx),%rax
+   1412e6487:	mov    %r12,0x30(%rsp)
+   1412e648c:	lea    0x4030(%rax),%rdx
+   1412e6493:	movl   $0x0,0x28(%rsp)
+   1412e649b:	lea    0x4018(%rax),%r9
+   1412e64a2:	mov    %rdx,0x20(%rsp)
+   1412e64a7:	mov    0x408(%rsp),%rdx
+   1412e64af:	call   1413ff650 <_ZN14AuGLModelCache15CreateBodyModelER17AuOpenGLFunctionsRK7QStringR7AuPointS6_b24Au3dsGLSLModelDefinition>
+   1412e64b4:	mov    %r12,%rcx
+   1412e64b7:	mov    %rax,0x110(%rsp)
+   1412e64bf:	mov    %rax,%rbp
+   1412e64c2:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e64c7:	cmpq   $0x0,0xe0(%rsp)
+   1412e64d0:	je     1412e64ea <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xbea>
+   1412e64d2:	mov    0x8(%rbx),%rax
+   1412e64d6:	lea    0x108(%rsp),%rdx
+   1412e64de:	lea    0x4048(%rax),%rcx
+   1412e64e5:	call   14185f610 <_ZN7QVectorIP22Au3dsGLSLModelInstanceE6appendERKS1_>
+   1412e64ea:	test   %rbp,%rbp
+   1412e64ed:	je     1412e6507 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xc07>
+   1412e64ef:	mov    0x8(%rbx),%rcx
+   1412e64f3:	lea    0x110(%rsp),%rdx
+   1412e64fb:	add    $0x4048,%rcx
+   1412e6502:	call   14185f610 <_ZN7QVectorIP22Au3dsGLSLModelInstanceE6appendERKS1_>
+   1412e6507:	mov    %r15,%rcx
+   1412e650a:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e650f:	mov    %rsi,%rcx
+   1412e6512:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6517:	mov    %r14,%rcx
+   1412e651a:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e651f:	mov    0x118(%rsp),%rcx
+   1412e6527:	mov    (%rcx),%eax
+   1412e6529:	test   %eax,%eax
+   1412e652b:	je     1412e6658 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xd58>
+   1412e6531:	cmp    $0xffffffff,%eax
+   1412e6534:	je     1412e6548 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xc48>
+   1412e6536:	lock subl $0x1,(%rcx)
+   1412e653a:	mov    0x118(%rsp),%rcx
+   1412e6542:	je     1412e6658 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xd58>
+   1412e6548:	movaps 0x310(%rsp),%xmm6
+   1412e6550:	movaps 0x320(%rsp),%xmm7
+   1412e6558:	movaps 0x330(%rsp),%xmm8
+   1412e6561:	movaps 0x340(%rsp),%xmm9
+   1412e656a:	movaps 0x350(%rsp),%xmm10
+   1412e6573:	movaps 0x360(%rsp),%xmm11
+   1412e657c:	movaps 0x370(%rsp),%xmm12
+   1412e6585:	movaps 0x380(%rsp),%xmm13
+   1412e658e:	movaps 0x390(%rsp),%xmm14
+   1412e6597:	movaps 0x3a0(%rsp),%xmm15
+   1412e65a0:	add    $0x3b8,%rsp
+   1412e65a7:	pop    %rbx
+   1412e65a8:	pop    %rsi
+   1412e65a9:	pop    %rdi
+   1412e65aa:	pop    %rbp
+   1412e65ab:	pop    %r12
+   1412e65ad:	pop    %r13
+   1412e65af:	pop    %r14
+   1412e65b1:	pop    %r15
+   1412e65b3:	ret
+   1412e65b4:	nopl   0x0(%rax)
+   1412e65b8:	lea    0x118(%rsp),%rax
+   1412e65c0:	mov    0x15ac5c1(%rip),%rbp        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   1412e65c7:	mov    $0xf,%edx
+   1412e65cc:	lea    0xfd8583(%rip),%rcx        # 1422beb56 <.rdata+0x1096>
+   1412e65d3:	mov    %rax,0xd8(%rsp)
+   1412e65db:	lea    0x120(%rsp),%r14
+   1412e65e3:	call   *%rbp
+   1412e65e5:	mov    $0x20,%r11d
+   1412e65eb:	xor    %r9d,%r9d
+   1412e65ee:	mov    %rsi,%r8
+   1412e65f1:	mov    %r12,%rdx
+   1412e65f4:	mov    %rax,0x250(%rsp)
+   1412e65fc:	mov    0x15acb85(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412e6603:	lea    0x130(%rsp),%r14
+   1412e660b:	mov    %r11w,0x20(%rsp)
+   1412e6611:	mov    %r14,%rcx
+   1412e6614:	mov    %rax,0xe8(%rsp)
+   1412e661c:	call   *%rax
+   1412e661e:	mov    0x118(%rsp),%rax
+   1412e6626:	mov    0x130(%rsp),%rdx
+   1412e662e:	mov    %r14,%rcx
+   1412e6631:	mov    %rdx,0x118(%rsp)
+   1412e6639:	mov    %rax,0x130(%rsp)
+   1412e6641:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6646:	mov    %r12,%rcx
+   1412e6649:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e664e:	jmp    1412e60bb <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x7bb>
+   1412e6653:	nopl   0x0(%rax,%rax,1)
+   1412e6658:	mov    $0x8,%r8d
+   1412e665e:	mov    $0x2,%edx
+   1412e6663:	call   *0x15abf37(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1412e6669:	jmp    1412e6548 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xc48>
+   1412e666e:	xchg   %ax,%ax
+   1412e6670:	mov    $0x1,%eax
+   1412e6675:	mov    $0x1,%edi
+   1412e667a:	jmp    1412e5b0d <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x20d>
+   1412e667f:	nop
+   1412e6680:	call   *%rbp
+   1412e6682:	mov    $0x20,%ebp
+   1412e6687:	xor    %r9d,%r9d
+   1412e668a:	mov    %rsi,%r8
+   1412e668d:	mov    %r13,%rdx
+   1412e6690:	mov    %rax,0x160(%rsp)
+   1412e6698:	mov    %r12,%rcx
+   1412e669b:	mov    0xe8(%rsp),%rax
+   1412e66a3:	mov    %bp,0x20(%rsp)
+   1412e66a8:	call   *%rax
+   1412e66aa:	movzbl 0x22(%rbx),%r8d
+   1412e66af:	mov    $0x20,%edi
+   1412e66b4:	xor    %r9d,%r9d
+   1412e66b7:	mov    %r12,%rdx
+   1412e66ba:	lea    0x148(%rsp),%r14
+   1412e66c2:	mov    %di,0x28(%rsp)
+   1412e66c7:	shr    $0x5,%r8b
+   1412e66cb:	movl   $0xa,0x20(%rsp)
+   1412e66d3:	mov    %r14,%rcx
+   1412e66d6:	and    $0x7,%r8d
+   1412e66da:	call   *0x15acac8(%rip)        # 1428931a8 <__imp__ZNK7QString3argEyii5QChar>
+   1412e66e0:	mov    0x120(%rsp),%rax
+   1412e66e8:	mov    0x148(%rsp),%rdx
+   1412e66f0:	mov    %rax,0x148(%rsp)
+   1412e66f8:	mov    %rdx,0x120(%rsp)
+   1412e6700:	jmp    1412e6301 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xa01>
+   1412e6705:	nopl   (%rax)
+   1412e6708:	lea    0x170(%rsp),%rcx
+   1412e6710:	mov    %rbx,%rdx
+   1412e6713:	call   *%rax
+   1412e6715:	jmp    1412e59da <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xda>
+   1412e671a:	nopw   0x0(%rax,%rax,1)
+   1412e6720:	lea    0xfd8451(%rip),%rdx        # 1422beb78 <.rdata+0x10b8>
+   1412e6727:	mov    %r12,%rcx
+   1412e672a:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412e672f:	mov    0x15aca52(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412e6736:	xor    %r9d,%r9d
+   1412e6739:	mov    %rsi,%r8
+   1412e673c:	mov    %r12,%rdx
+   1412e673f:	lea    0x150(%rsp),%r14
+   1412e6747:	mov    $0x20,%r11d
+   1412e674d:	mov    %r11w,0x20(%rsp)
+   1412e6753:	mov    %r14,%rcx
+   1412e6756:	mov    %rax,0xe8(%rsp)
+   1412e675e:	call   *%rax
+   1412e6760:	mov    0x118(%rsp),%rax
+   1412e6768:	mov    0x150(%rsp),%rdx
+   1412e6770:	mov    %r14,%rcx
+   1412e6773:	mov    %rdx,0x118(%rsp)
+   1412e677b:	mov    %rax,0x150(%rsp)
+   1412e6783:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6788:	mov    %r12,%rcx
+   1412e678b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6790:	jmp    1412e5deb <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x4eb>
+   1412e6795:	nopl   (%rax)
+   1412e6798:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412e679d:	mov    $0x20,%edx
+   1412e67a2:	xor    %r9d,%r9d
+   1412e67a5:	mov    %rsi,%r8
+   1412e67a8:	mov    %r13,%rcx
+   1412e67ab:	mov    %dx,0x20(%rsp)
+   1412e67b0:	mov    0xe8(%rsp),%rax
+   1412e67b8:	mov    %rbp,%rdx
+   1412e67bb:	call   *%rax
+   1412e67bd:	movzbl 0x22(%rbx),%r8d
+   1412e67c2:	mov    $0x20,%eax
+   1412e67c7:	xor    %r9d,%r9d
+   1412e67ca:	mov    %r13,%rdx
+   1412e67cd:	mov    %ax,0x28(%rsp)
+   1412e67d2:	mov    %r12,%rcx
+   1412e67d5:	shr    $0x5,%r8b
+   1412e67d9:	movl   $0xa,0x20(%rsp)
+   1412e67e1:	and    $0x7,%r8d
+   1412e67e5:	call   *0x15ac9bd(%rip)        # 1428931a8 <__imp__ZNK7QString3argEyii5QChar>
+   1412e67eb:	mov    0x120(%rsp),%rax
+   1412e67f3:	mov    0x250(%rsp),%rdx
+   1412e67fb:	mov    %r12,%rcx
+   1412e67fe:	mov    %rdx,0x120(%rsp)
+   1412e6806:	mov    %rax,0x250(%rsp)
+   1412e680e:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6813:	mov    %r13,%rcx
+   1412e6816:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e681b:	mov    %rbp,%rcx
+   1412e681e:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6823:	jmp    1412e5f2d <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x62d>
+   1412e6828:	mov    %rax,%rbx
+   1412e682b:	mov    %r13,%rcx
+   1412e682e:	lea    0x120(%rsp),%r14
+   1412e6836:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e683b:	lea    0x118(%rsp),%rax
+   1412e6843:	mov    %rax,0xd8(%rsp)
+   1412e684b:	mov    %r15,%rcx
+   1412e684e:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e6853:	mov    %rsi,%rcx
+   1412e6856:	mov    %rbx,%r12
+   1412e6859:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e685e:	mov    %r14,%rcx
+   1412e6861:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6866:	mov    0xd8(%rsp),%rcx
+   1412e686e:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6873:	mov    %r12,%rcx
+   1412e6876:	call   141755338 <_Unwind_Resume>
+   1412e687b:	mov    %rax,%r12
+   1412e687e:	lea    0x118(%rsp),%rax
+   1412e6886:	lea    0x120(%rsp),%r14
+   1412e688e:	mov    %rax,0xd8(%rsp)
+   1412e6896:	jmp    1412e685e <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf5e>
+   1412e6898:	jmp    1412e6828 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf28>
+   1412e689a:	mov    %rax,%rbx
+   1412e689d:	jmp    1412e684b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf4b>
+   1412e689f:	mov    %r12,%rcx
+   1412e68a2:	mov    %rax,%rbx
+   1412e68a5:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e68aa:	jmp    1412e682b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf2b>
+   1412e68af:	mov    %r12,%rcx
+   1412e68b2:	mov    %rax,%rbx
+   1412e68b5:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e68ba:	mov    %r13,%rcx
+   1412e68bd:	lea    0x120(%rsp),%r14
+   1412e68c5:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e68ca:	jmp    1412e684b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf4b>
+   1412e68cf:	mov    %rax,%rbx
+   1412e68d2:	lea    0x118(%rsp),%rax
+   1412e68da:	lea    0x120(%rsp),%r14
+   1412e68e2:	mov    %rax,0xd8(%rsp)
+   1412e68ea:	jmp    1412e6853 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf53>
+   1412e68ef:	mov    %rax,%rbx
+   1412e68f2:	jmp    1412e68ba <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xfba>
+   1412e68f4:	mov    %r12,%rcx
+   1412e68f7:	mov    %rax,%rbx
+   1412e68fa:	lea    0x120(%rsp),%r14
+   1412e6902:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6907:	lea    0x118(%rsp),%rax
+   1412e690f:	mov    %rax,0xd8(%rsp)
+   1412e6917:	jmp    1412e684b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf4b>
+   1412e691c:	mov    %r12,%rcx
+   1412e691f:	mov    %rax,%rbx
+   1412e6922:	lea    0x120(%rsp),%r14
+   1412e692a:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e692f:	jmp    1412e684b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf4b>
+   1412e6934:	jmp    1412e68ef <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xfef>
+   1412e6936:	jmp    1412e68af <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xfaf>
+   1412e693b:	mov    %r12,%rcx
+   1412e693e:	mov    %rax,%rbx
+   1412e6941:	call   141399650 <_ZN24Au3dsGLSLModelDefinitionD1Ev>
+   1412e6946:	jmp    1412e684b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf4b>
+   1412e694b:	mov    %r13,%rcx
+   1412e694e:	mov    %rax,%rbx
+   1412e6951:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6956:	mov    %rbp,%rcx
+   1412e6959:	lea    0x120(%rsp),%r14
+   1412e6961:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6966:	jmp    1412e684b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf4b>
+   1412e696b:	mov    %r12,%rcx
+   1412e696e:	mov    %rax,%rbx
+   1412e6971:	call   141850e10 <_ZN7QStringD1Ev>
+   1412e6976:	jmp    1412e6956 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x1056>
+   1412e6978:	mov    %rax,%rbx
+   1412e697b:	jmp    1412e6956 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x1056>
+   1412e697d:	jmp    1412e691c <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x101c>
+   1412e697f:	jmp    1412e689f <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xf9f>
+   1412e6984:	jmp    1412e68f4 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0xff4>
+   1412e6989:	jmp    1412e693b <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x103b>
+   1412e698b:	jmp    1412e6978 <_ZN12DpLegAndFoot10CreateSkinER11AuGLEffectsR14AuGLModelCache+0x1078>
+   1412e698d:	nop
+   1412e698e:	xchg   %ax,%ax

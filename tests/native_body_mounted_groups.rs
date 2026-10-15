@@ -146,28 +146,38 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
 
 #[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION pointing to a user-provided copy"]
-fn initialized_arm_skin_requests_load_and_deform_mounted_models() {
+fn initialized_limb_skin_requests_load_and_deform_mounted_models() {
     let mount = AssetMount::open(
         std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation path"),
     )
     .unwrap();
     let mut dna = NativeDhDna([0; 24]);
     dna.0[1] = 1;
+    dna.0[12] = 4;
     let mut body = NativeDpInitialization::begin(&dna);
     body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))
         .unwrap();
     let mut resources = 0;
     let mut points = 0;
     for (index, part) in body.parts().iter().enumerate() {
-        if !matches!(
-            part.allocation.kind,
-            NativeDpPartKind::LeftArmAndHand | NativeDpPartKind::RightArmAndHand
-        ) {
-            continue;
-        }
-        for request in body.arm_skin_geometry_requests(index, 0, [1.; 4]).unwrap() {
+        let requests: Vec<_> = match part.allocation.kind {
+            NativeDpPartKind::LeftArmAndHand | NativeDpPartKind::RightArmAndHand => body
+                .arm_skin_geometry_requests(index, 0, [1.; 4])
+                .unwrap()
+                .into_iter()
+                .map(|r| (r.resource, r.geometry))
+                .collect(),
+            NativeDpPartKind::LeftLegAndFoot | NativeDpPartKind::RightLegAndFoot => body
+                .leg_skin_geometry_requests(index, 0, [1.; 4])
+                .unwrap()
+                .into_iter()
+                .map(|r| (r.resource, r.geometry))
+                .collect(),
+            _ => continue,
+        };
+        for (resource, geometry) in requests {
             let model = openshores_client::model::Model::decode(
-                &mount.read_resource(&request.resource).unwrap(),
+                &mount.read_resource(&resource).unwrap(),
                 ModelVariant::N,
             )
             .unwrap();
@@ -190,7 +200,7 @@ fn initialized_arm_skin_requests_load_and_deform_mounted_models() {
                     fields_2c4: [0.; 3],
                     fields_25c: [0.; 3],
                 };
-                request.geometry.apply_to_deformation(&mut definition);
+                geometry.apply_to_deformation(&mut definition);
                 let output = mesh
                     .body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
                     .unwrap();
@@ -200,9 +210,9 @@ fn initialized_arm_skin_requests_load_and_deform_mounted_models() {
             }
         }
     }
-    assert_eq!(resources, 4);
+    assert_eq!(resources, 8);
     assert!(points > 0);
     eprintln!(
-        "Initialized arm skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."
+        "Initialized limb skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."
     );
 }
