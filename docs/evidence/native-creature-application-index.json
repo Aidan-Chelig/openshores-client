@@ -174,6 +174,57 @@
       "raw_limitations": [
         "Ghidra Listing reports a terminal call at 0x14097c361 to 0x141755338 _Unwind_Resume (external=false, thunk=true, hasNoReturn=true); fallthrough is excluded by Ghidra's flow model. This records Ghidra's FunctionManager flag, not an independent verification that the callee cannot return."
       ]
+    },
+    {
+      "record": "native-creature-sit-at-console.json",
+      "evidence_id": "ev_d098c3b5ad82cce591ef46706abdcda430843fb740188b354e8924908cf0673e",
+      "parameters": {
+        "procedure": "_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt"
+      },
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+      ],
+      "raw_limitations": []
+    },
+    {
+      "record": "native-unit-default-constructor.json",
+      "evidence_id": "ev_d03d263d06a43541f48ad0b45c4519ba59fc33c2608354a1d0548119012ecfb7",
+      "parameters": {
+        "procedure": "_ZN6DaUnitC2Ev"
+      },
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+      ],
+      "raw_limitations": []
+    },
+    {
+      "record": "native-sentient-default-constructor.json",
+      "evidence_id": "ev_ff6faf7efabfd7b18000b9ad48d163ff0ecbb9e2a3c80a4478bf9e8c492c8cfe",
+      "parameters": {
+        "procedure": "_ZN10DaSentientC2Ev"
+      },
+      "limitations": [
+        "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+        "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+        "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+        "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+        "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+        "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+        "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+      ],
+      "raw_limitations": []
     }
   ]
 }

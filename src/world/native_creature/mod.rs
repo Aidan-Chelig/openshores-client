@@ -23,6 +23,11 @@ pub use receiving::{
     NativeCreatureBodyKind, NativeCreatureBodyReceiveState, NativeCreatureReceive,
     NativeCreatureReceiveContext, NativeCreatureReceiveState,
 };
+mod pose_application;
+pub use pose_application::{
+    NativeAnimaliaPoseChange, NativeAnimaliaPoseState, NativeCreaturePoseMarkers,
+    NativeDpBodyPoseState, NativeStationPoseRequest, native_station_occupant_position,
+};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeCreaturePose {

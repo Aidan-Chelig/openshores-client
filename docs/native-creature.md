@@ -161,5 +161,7 @@ concrete implementation. DpBody::Pose and Animalia::Pose records establish word
 comparisons, different bool-change behavior and Animalia's final-pose fallback,
 but their AnimatePose effects remain unimplemented. MovementSpeedMod's Ghidra
 return type is incorrectly void; no value is inferred from that pseudocode.
-OccPosForPose uses a 133-byte lookup table at 1422de160 for values 3..135 and
-defaults to 3 outside that range; the table has not yet been retained/implemented.
+OccPosForPose's 133-byte table and SetStationPose's relative jump table are now
+retained and implemented, along with concrete body pose data/change rules and
+fallback markers. See native-pose-application.md. Animation callbacks and station
+requests explicitly still require real effects; no full runtime context is claimed.

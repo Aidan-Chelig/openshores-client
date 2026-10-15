@@ -51,3 +51,12 @@ unavailable after interruption; its evidence remains reusable, not its database.
 The next unresolved-reader session uses target/avatar-analysis-session-2.
 This verifies reuse for new functions, not merely replay of a saved
 answer. Returned pseudocode still requires review before implementation.
+
+The second session continued serving new constructor/helper queries in
+0.079..0.266s after its initial import, including SitAtConsole and Unit/Sentient
+constructors. Its process handle was later authoritatively missing (not merely
+an observation timeout); all completed records remain reusable. Three follow-up
+requests for OpPose, InitPoses and CurrentGeneralPose were not accepted and
+have no saved results. Do not treat them as queued/completed or repeat any of
+the successful queries. For those unresolved functions, use independent static
+evidence where sufficient, or start ONE new session/import and batch them there.

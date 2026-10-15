@@ -1,0 +1,39 @@
+$ objdump -s --start-address=0x1421c6438 --stop-address=0x1421c664c reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1421c6438 01a37bfe 389d7bfe dea27bfe bba27bfe  ..{.8.{...{...{.
+ 1421c6448 98a27bfe 75a27bfe 52a27bfe 2fa27bfe  ..{.u.{.R.{./.{.
+ 1421c6458 0ca27bfe e9a17bfe 389d7bfe c6a17bfe  ..{...{.8.{...{.
+ 1421c6468 a3a17bfe 389d7bfe 389d7bfe 389d7bfe  ..{.8.{.8.{.8.{.
+ 1421c6478 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c6488 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c6498 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c64a8 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c64b8 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c64c8 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c64d8 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c64e8 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c64f8 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c6508 389d7bfe 389d7bfe 80a17bfe 5da17bfe  8.{.8.{...{.].{.
+ 1421c6518 3aa17bfe 17a17bfe f4a07bfe d1a07bfe  :.{...{...{...{.
+ 1421c6528 aea07bfe 8ba07bfe 6ba07bfe 48a07bfe  ..{...{.k.{.H.{.
+ 1421c6538 25a07bfe 02a07bfe df9f7bfe bc9f7bfe  %.{...{...{...{.
+ 1421c6548 999f7bfe 769f7bfe 539f7bfe 389d7bfe  ..{.v.{.S.{.8.{.
+ 1421c6558 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c6568 389d7bfe 389d7bfe 389d7bfe 389d7bfe  8.{.8.{.8.{.8.{.
+ 1421c6578 389d7bfe 089f7bfe 089f7bfe 089f7bfe  8.{...{...{...{.
+ 1421c6588 089f7bfe e09e7bfe e09e7bfe e09e7bfe  ..{...{...{...{.
+ 1421c6598 e09e7bfe b89e7bfe b89e7bfe b89e7bfe  ..{...{...{...{.
+ 1421c65a8 b89e7bfe 909e7bfe 909e7bfe 909e7bfe  ..{...{...{...{.
+ 1421c65b8 909e7bfe f09d7bfe f09d7bfe f09d7bfe  ..{...{...{...{.
+ 1421c65c8 f09d7bfe c89d7bfe c89d7bfe c89d7bfe  ..{...{...{...{.
+ 1421c65d8 c89d7bfe 889d7bfe 889d7bfe 889d7bfe  ..{...{...{...{.
+ 1421c65e8 889d7bfe 889d7bfe a89d7bfe a89d7bfe  ..{...{...{...{.
+ 1421c65f8 a89d7bfe a89d7bfe 689e7bfe 689e7bfe  ..{...{.h.{.h.{.
+ 1421c6608 689e7bfe 689e7bfe 409e7bfe 409e7bfe  h.{.h.{.@.{.@.{.
+ 1421c6618 409e7bfe 409e7bfe 189e7bfe 189e7bfe  @.{.@.{...{...{.
+ 1421c6628 189e7bfe 189e7bfe 489d7bfe 489d7bfe  ..{...{.H.{.H.{.
+ 1421c6638 489d7bfe 489d7bfe 489d7bfe 309f7bfe  H.{.H.{.H.{.0.{.
+ 1421c6648 309f7bfe                             0.{.

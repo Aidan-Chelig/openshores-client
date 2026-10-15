@@ -153,3 +153,16 @@ open. This milestone must not be counted as end-to-end avatar completion.
 `just check` passes formatting, 355 headless and 376 client library tests,
 9 CLI tests per profile, 1 graphical-entry CLI test and strict client-feature
 all-target Clippy.
+
+Pose data/application milestone: concrete DpBody/Animalia word comparisons,
+Animalia final-pose normalization, required animation callback conditions and
+fallback timer/marker updates now exist. Station-pose requests use the exact
+body-dependent word, native occupant bytes and independently corroborated
+jump-table type/variant mappings. `just check` passes363 headless/384 client
+library tests, CLI tests, formatting and strict Clippy. SitAtConsole and inherited
+Unit/Sentient constructors are retained/reviewed. The analysis process handle
+is now missing; successful records remain reusable and three unresolved follow-up
+requests were not accepted. Next reconstruct OpPose/InitPoses/CurrentGeneralPose
+and concrete console/body effects, then complete Person reception/dispatch and
+presentation. Required animation callbacks and typed sit requests are not
+substitutes for these outstanding runtime effects.

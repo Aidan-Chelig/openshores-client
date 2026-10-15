@@ -1,0 +1,695 @@
+Independent GNU static observations, not REA Evidence IDs.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Exact COFF symbols; trailing whitespace normalized. No supplied target execution.
+
+$ objdump -d --disassemble=_ZN6DpBody4PoseEPK6AuPosebf reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412f1ec0 <_ZN6DpBody4PoseEPK6AuPosebf>:
+   1412f1ec0:	41 54                	push   %r12
+   1412f1ec2:	48 83 ec 20          	sub    $0x20,%rsp
+   1412f1ec6:	45 31 e4             	xor    %r12d,%r12d
+   1412f1ec9:	48 89 d0             	mov    %rdx,%rax
+   1412f1ecc:	0f 28 d3             	movaps %xmm3,%xmm2
+   1412f1ecf:	8b 12                	mov    (%rdx),%edx
+   1412f1ed1:	39 51 3c             	cmp    %edx,0x3c(%rcx)
+   1412f1ed4:	74 09                	je     1412f1edf <_ZN6DpBody4PoseEPK6AuPosebf+0x1f>
+   1412f1ed6:	89 51 3c             	mov    %edx,0x3c(%rcx)
+   1412f1ed9:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1edf:	8b 50 04             	mov    0x4(%rax),%edx
+   1412f1ee2:	39 51 40             	cmp    %edx,0x40(%rcx)
+   1412f1ee5:	74 09                	je     1412f1ef0 <_ZN6DpBody4PoseEPK6AuPosebf+0x30>
+   1412f1ee7:	89 51 40             	mov    %edx,0x40(%rcx)
+   1412f1eea:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1ef0:	8b 50 08             	mov    0x8(%rax),%edx
+   1412f1ef3:	39 51 44             	cmp    %edx,0x44(%rcx)
+   1412f1ef6:	74 09                	je     1412f1f01 <_ZN6DpBody4PoseEPK6AuPosebf+0x41>
+   1412f1ef8:	89 51 44             	mov    %edx,0x44(%rcx)
+   1412f1efb:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f01:	8b 50 0c             	mov    0xc(%rax),%edx
+   1412f1f04:	39 51 48             	cmp    %edx,0x48(%rcx)
+   1412f1f07:	74 09                	je     1412f1f12 <_ZN6DpBody4PoseEPK6AuPosebf+0x52>
+   1412f1f09:	89 51 48             	mov    %edx,0x48(%rcx)
+   1412f1f0c:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f12:	8b 50 10             	mov    0x10(%rax),%edx
+   1412f1f15:	39 51 4c             	cmp    %edx,0x4c(%rcx)
+   1412f1f18:	74 09                	je     1412f1f23 <_ZN6DpBody4PoseEPK6AuPosebf+0x63>
+   1412f1f1a:	89 51 4c             	mov    %edx,0x4c(%rcx)
+   1412f1f1d:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f23:	8b 50 14             	mov    0x14(%rax),%edx
+   1412f1f26:	39 51 50             	cmp    %edx,0x50(%rcx)
+   1412f1f29:	74 09                	je     1412f1f34 <_ZN6DpBody4PoseEPK6AuPosebf+0x74>
+   1412f1f2b:	89 51 50             	mov    %edx,0x50(%rcx)
+   1412f1f2e:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f34:	8b 50 18             	mov    0x18(%rax),%edx
+   1412f1f37:	39 51 54             	cmp    %edx,0x54(%rcx)
+   1412f1f3a:	74 09                	je     1412f1f45 <_ZN6DpBody4PoseEPK6AuPosebf+0x85>
+   1412f1f3c:	89 51 54             	mov    %edx,0x54(%rcx)
+   1412f1f3f:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f45:	8b 50 1c             	mov    0x1c(%rax),%edx
+   1412f1f48:	39 51 58             	cmp    %edx,0x58(%rcx)
+   1412f1f4b:	74 09                	je     1412f1f56 <_ZN6DpBody4PoseEPK6AuPosebf+0x96>
+   1412f1f4d:	89 51 58             	mov    %edx,0x58(%rcx)
+   1412f1f50:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f56:	8b 50 20             	mov    0x20(%rax),%edx
+   1412f1f59:	39 51 5c             	cmp    %edx,0x5c(%rcx)
+   1412f1f5c:	74 09                	je     1412f1f67 <_ZN6DpBody4PoseEPK6AuPosebf+0xa7>
+   1412f1f5e:	89 51 5c             	mov    %edx,0x5c(%rcx)
+   1412f1f61:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f67:	8b 40 24             	mov    0x24(%rax),%eax
+   1412f1f6a:	39 41 60             	cmp    %eax,0x60(%rcx)
+   1412f1f6d:	74 09                	je     1412f1f78 <_ZN6DpBody4PoseEPK6AuPosebf+0xb8>
+   1412f1f6f:	89 41 60             	mov    %eax,0x60(%rcx)
+   1412f1f72:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f78:	44 38 41 6c          	cmp    %r8b,0x6c(%rcx)
+   1412f1f7c:	74 0a                	je     1412f1f88 <_ZN6DpBody4PoseEPK6AuPosebf+0xc8>
+   1412f1f7e:	44 88 41 6c          	mov    %r8b,0x6c(%rcx)
+   1412f1f82:	41 bc 01 00 00 00    	mov    $0x1,%r12d
+   1412f1f88:	48 8b 01             	mov    (%rcx),%rax
+   1412f1f8b:	8b 40 04             	mov    0x4(%rax),%eax
+   1412f1f8e:	85 c0                	test   %eax,%eax
+   1412f1f90:	74 09                	je     1412f1f9b <_ZN6DpBody4PoseEPK6AuPosebf+0xdb>
+   1412f1f92:	41 0f b6 d0          	movzbl %r8b,%edx
+   1412f1f96:	e8 05 fc ff ff       	call   1412f1ba0 <_ZN6DpBody11AnimatePoseEbf.part.0>
+   1412f1f9b:	44 89 e0             	mov    %r12d,%eax
+   1412f1f9e:	48 83 c4 20          	add    $0x20,%rsp
+   1412f1fa2:	41 5c                	pop    %r12
+   1412f1fa4:	c3                   	ret
+   1412f1fa5:	90                   	nop
+   1412f1fa6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1412f1fad:	00 00 00
+
+$ objdump -d --disassemble=_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411ea1d0 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf>:
+   1411ea1d0:	41 57                	push   %r15
+   1411ea1d2:	41 56                	push   %r14
+   1411ea1d4:	41 55                	push   %r13
+   1411ea1d6:	41 54                	push   %r12
+   1411ea1d8:	57                   	push   %rdi
+   1411ea1d9:	56                   	push   %rsi
+   1411ea1da:	53                   	push   %rbx
+   1411ea1db:	48 83 ec 60          	sub    $0x60,%rsp
+   1411ea1df:	45 31 ed             	xor    %r13d,%r13d
+   1411ea1e2:	41 8b 00             	mov    (%r8),%eax
+   1411ea1e5:	49 89 cc             	mov    %rcx,%r12
+   1411ea1e8:	49 89 d6             	mov    %rdx,%r14
+   1411ea1eb:	3b 41 6c             	cmp    0x6c(%rcx),%eax
+   1411ea1ee:	74 09                	je     1411ea1f9 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x29>
+   1411ea1f0:	89 41 6c             	mov    %eax,0x6c(%rcx)
+   1411ea1f3:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea1f9:	41 8b 40 04          	mov    0x4(%r8),%eax
+   1411ea1fd:	41 39 44 24 70       	cmp    %eax,0x70(%r12)
+   1411ea202:	74 0b                	je     1411ea20f <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x3f>
+   1411ea204:	41 89 44 24 70       	mov    %eax,0x70(%r12)
+   1411ea209:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea20f:	41 8b 40 08          	mov    0x8(%r8),%eax
+   1411ea213:	41 39 44 24 74       	cmp    %eax,0x74(%r12)
+   1411ea218:	74 0b                	je     1411ea225 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x55>
+   1411ea21a:	41 89 44 24 74       	mov    %eax,0x74(%r12)
+   1411ea21f:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea225:	41 8b 40 0c          	mov    0xc(%r8),%eax
+   1411ea229:	41 39 44 24 78       	cmp    %eax,0x78(%r12)
+   1411ea22e:	74 0b                	je     1411ea23b <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x6b>
+   1411ea230:	41 89 44 24 78       	mov    %eax,0x78(%r12)
+   1411ea235:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea23b:	41 8b 40 10          	mov    0x10(%r8),%eax
+   1411ea23f:	41 39 44 24 7c       	cmp    %eax,0x7c(%r12)
+   1411ea244:	74 0b                	je     1411ea251 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x81>
+   1411ea246:	41 89 44 24 7c       	mov    %eax,0x7c(%r12)
+   1411ea24b:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea251:	41 8b 40 14          	mov    0x14(%r8),%eax
+   1411ea255:	41 39 84 24 80 00 00 	cmp    %eax,0x80(%r12)
+   1411ea25c:	00
+   1411ea25d:	74 0e                	je     1411ea26d <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x9d>
+   1411ea25f:	41 89 84 24 80 00 00 	mov    %eax,0x80(%r12)
+   1411ea266:	00
+   1411ea267:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea26d:	41 8b 40 18          	mov    0x18(%r8),%eax
+   1411ea271:	41 39 84 24 84 00 00 	cmp    %eax,0x84(%r12)
+   1411ea278:	00
+   1411ea279:	74 0e                	je     1411ea289 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0xb9>
+   1411ea27b:	41 89 84 24 84 00 00 	mov    %eax,0x84(%r12)
+   1411ea282:	00
+   1411ea283:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea289:	41 8b 40 1c          	mov    0x1c(%r8),%eax
+   1411ea28d:	41 39 84 24 88 00 00 	cmp    %eax,0x88(%r12)
+   1411ea294:	00
+   1411ea295:	74 0e                	je     1411ea2a5 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0xd5>
+   1411ea297:	41 89 84 24 88 00 00 	mov    %eax,0x88(%r12)
+   1411ea29e:	00
+   1411ea29f:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea2a5:	41 8b 40 20          	mov    0x20(%r8),%eax
+   1411ea2a9:	41 39 84 24 8c 00 00 	cmp    %eax,0x8c(%r12)
+   1411ea2b0:	00
+   1411ea2b1:	74 0e                	je     1411ea2c1 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0xf1>
+   1411ea2b3:	41 89 84 24 8c 00 00 	mov    %eax,0x8c(%r12)
+   1411ea2ba:	00
+   1411ea2bb:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea2c1:	41 8b 40 24          	mov    0x24(%r8),%eax
+   1411ea2c5:	41 39 84 24 90 00 00 	cmp    %eax,0x90(%r12)
+   1411ea2cc:	00
+   1411ea2cd:	74 0e                	je     1411ea2dd <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x10d>
+   1411ea2cf:	41 89 84 24 90 00 00 	mov    %eax,0x90(%r12)
+   1411ea2d6:	00
+   1411ea2d7:	41 bd 01 00 00 00    	mov    $0x1,%r13d
+   1411ea2dd:	41 8b 84 24 90 00 00 	mov    0x90(%r12),%eax
+   1411ea2e4:	00
+   1411ea2e5:	45 88 4c 24 40       	mov    %r9b,0x40(%r12)
+   1411ea2ea:	48 8d 5c 24 40       	lea    0x40(%rsp),%rbx
+   1411ea2ef:	f3 0f 10 84 24 c0 00 	movss  0xc0(%rsp),%xmm0
+   1411ea2f6:	00 00
+   1411ea2f8:	2d 8b 00 00 00       	sub    $0x8b,%eax
+   1411ea2fd:	f3 41 0f 11 84 24 94 	movss  %xmm0,0x94(%r12)
+   1411ea304:	00 00 00
+   1411ea307:	83 f8 14             	cmp    $0x14,%eax
+   1411ea30a:	0f 86 e4 00 00 00    	jbe    1411ea3f4 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x224>
+   1411ea310:	48 8b 05 19 85 0c 01 	mov    0x10c8519(%rip),%rax        # 1422b2830 <CSWTCH.788+0x110>
+   1411ea317:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1411ea31b:	48 8d 74 24 28       	lea    0x28(%rsp),%rsi
+   1411ea320:	48 8d 5c 24 40       	lea    0x40(%rsp),%rbx
+   1411ea325:	4c 8d 7c 24 38       	lea    0x38(%rsp),%r15
+   1411ea32a:	48 89 da             	mov    %rbx,%rdx
+   1411ea32d:	48 89 f1             	mov    %rsi,%rcx
+   1411ea330:	0f 11 44 24 48       	movups %xmm0,0x48(%rsp)
+   1411ea335:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   1411ea33a:	48 8d 05 df 81 0c 01 	lea    0x10c81df(%rip),%rax        # 1422b2520 <.rdata>
+   1411ea341:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+   1411ea346:	ff 15 bc 8c 6a 01    	call   *0x16a8cbc(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   1411ea34c:	48 8b 7c 24 28       	mov    0x28(%rsp),%rdi
+   1411ea351:	41 b8 28 00 00 00    	mov    $0x28,%r8d
+   1411ea357:	4c 89 f9             	mov    %r15,%rcx
+   1411ea35a:	48 8d 15 c7 81 0c 01 	lea    0x10c81c7(%rip),%rdx        # 1422b2528 <.rdata+0x8>
+   1411ea361:	ff 15 11 88 6a 01    	call   *0x16a8811(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1411ea367:	4c 89 fa             	mov    %r15,%rdx
+   1411ea36a:	48 89 f9             	mov    %rdi,%rcx
+   1411ea36d:	ff 15 05 84 6a 01    	call   *0x16a8405(%rip)        # 142892778 <__imp__ZN11QTextStreamlsERK7QString>
+   1411ea373:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1411ea378:	8b 01                	mov    (%rcx),%eax
+   1411ea37a:	85 c0                	test   %eax,%eax
+   1411ea37c:	74 10                	je     1411ea38e <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x1be>
+   1411ea37e:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1411ea381:	74 1c                	je     1411ea39f <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x1cf>
+   1411ea383:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1411ea387:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1411ea38c:	75 11                	jne    1411ea39f <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x1cf>
+   1411ea38e:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1411ea394:	ba 02 00 00 00       	mov    $0x2,%edx
+   1411ea399:	ff 15 01 82 6a 01    	call   *0x16a8201(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1411ea39f:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+   1411ea3a4:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1411ea3a8:	0f 85 82 00 00 00    	jne    1411ea430 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x260>
+   1411ea3ae:	83 41 18 01          	addl   $0x1,0x18(%rcx)
+   1411ea3b2:	48 8d 7c 24 30       	lea    0x30(%rsp),%rdi
+   1411ea3b7:	4d 8d 84 24 90 00 00 	lea    0x90(%r12),%r8
+   1411ea3be:	00
+   1411ea3bf:	48 89 4c 24 30       	mov    %rcx,0x30(%rsp)
+   1411ea3c4:	48 89 fa             	mov    %rdi,%rdx
+   1411ea3c7:	4c 89 f9             	mov    %r15,%rcx
+   1411ea3ca:	e8 a1 f4 3c 00       	call   1415b9870 <_Zls6QDebugRK6AuPose>
+   1411ea3cf:	4c 89 f9             	mov    %r15,%rcx
+   1411ea3d2:	4c 8b 3d 4f 86 6a 01 	mov    0x16a864f(%rip),%r15        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1411ea3d9:	41 ff d7             	call   *%r15
+   1411ea3dc:	48 89 f9             	mov    %rdi,%rcx
+   1411ea3df:	41 ff d7             	call   *%r15
+   1411ea3e2:	48 89 f1             	mov    %rsi,%rcx
+   1411ea3e5:	41 ff d7             	call   *%r15
+   1411ea3e8:	41 c7 84 24 90 00 00 	movl   $0x8c,0x90(%r12)
+   1411ea3ef:	00 8c 00 00 00
+   1411ea3f4:	66 0f 6f 05 44 84 0c 	movdqa 0x10c8444(%rip),%xmm0        # 1422b2840 <CSWTCH.788+0x120>
+   1411ea3fb:	01
+   1411ea3fc:	48 89 d9             	mov    %rbx,%rcx
+   1411ea3ff:	0f 29 44 24 40       	movaps %xmm0,0x40(%rsp)
+   1411ea404:	ff 15 0e 84 6a 01    	call   *0x16a840e(%rip)        # 142892818 <__imp__ZN13QElapsedTimer5startEv>
+   1411ea40a:	49 89 d8             	mov    %rbx,%r8
+   1411ea40d:	4c 89 f2             	mov    %r14,%rdx
+   1411ea410:	4c 89 e1             	mov    %r12,%rcx
+   1411ea413:	e8 08 fc ff ff       	call   1411ea020 <_ZN10AuAnimalia11AnimatePoseERK4AuIdRK14AuElapsedTimer>
+   1411ea418:	44 89 e8             	mov    %r13d,%eax
+   1411ea41b:	48 83 c4 60          	add    $0x60,%rsp
+   1411ea41f:	5b                   	pop    %rbx
+   1411ea420:	5e                   	pop    %rsi
+   1411ea421:	5f                   	pop    %rdi
+   1411ea422:	41 5c                	pop    %r12
+   1411ea424:	41 5d                	pop    %r13
+   1411ea426:	41 5e                	pop    %r14
+   1411ea428:	41 5f                	pop    %r15
+   1411ea42a:	c3                   	ret
+   1411ea42b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1411ea430:	ba 20 00 00 00       	mov    $0x20,%edx
+   1411ea435:	ff 15 45 83 6a 01    	call   *0x16a8345(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1411ea43b:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+   1411ea440:	e9 69 ff ff ff       	jmp    1411ea3ae <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x1de>
+   1411ea445:	48 8b 1d dc 85 6a 01 	mov    0x16a85dc(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1411ea44c:	49 89 c4             	mov    %rax,%r12
+   1411ea44f:	eb 0f                	jmp    1411ea460 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x290>
+   1411ea451:	48 8b 1d d0 85 6a 01 	mov    0x16a85d0(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1411ea458:	49 89 c4             	mov    %rax,%r12
+   1411ea45b:	48 89 f9             	mov    %rdi,%rcx
+   1411ea45e:	ff d3                	call   *%rbx
+   1411ea460:	48 89 f1             	mov    %rsi,%rcx
+   1411ea463:	ff d3                	call   *%rbx
+   1411ea465:	4c 89 e1             	mov    %r12,%rcx
+   1411ea468:	e8 cb ae 56 00       	call   141755338 <_Unwind_Resume>
+   1411ea46d:	4c 89 f9             	mov    %r15,%rcx
+   1411ea470:	49 89 c4             	mov    %rax,%r12
+   1411ea473:	e8 98 69 66 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1411ea478:	48 8b 1d a9 85 6a 01 	mov    0x16a85a9(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1411ea47f:	eb df                	jmp    1411ea460 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf+0x290>
+   1411ea481:	90                   	nop
+   1411ea482:	0f 1f 00             	nopl   (%rax)
+   1411ea485:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1411ea48c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN10DaCreature14SetStationPoseERK6AuPosett reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140980130 <_ZN10DaCreature14SetStationPoseERK6AuPosett>:
+   140980130:	41 54                	push   %r12
+   140980132:	57                   	push   %rdi
+   140980133:	56                   	push   %rsi
+   140980134:	53                   	push   %rbx
+   140980135:	48 83 ec 58          	sub    $0x58,%rsp
+   140980139:	49 89 cc             	mov    %rcx,%r12
+   14098013c:	48 89 d1             	mov    %rdx,%rcx
+   14098013f:	48 89 d6             	mov    %rdx,%rsi
+   140980142:	44 89 c7             	mov    %r8d,%edi
+   140980145:	44 89 cb             	mov    %r9d,%ebx
+   140980148:	e8 a3 dc b3 00       	call   1414bddf0 <_ZN9AuStation13OccPosForPoseERK6AuPose>
+   14098014d:	89 c1                	mov    %eax,%ecx
+   14098014f:	8b 06                	mov    (%rsi),%eax
+   140980151:	83 e8 03             	sub    $0x3,%eax
+   140980154:	3d 84 00 00 00       	cmp    $0x84,%eax
+   140980159:	77 15                	ja     140980170 <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x40>
+   14098015b:	48 8d 15 d6 62 84 01 	lea    0x18462d6(%rip),%rdx        # 1421c6438 <.rdata+0x878>
+   140980162:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+   140980166:	48 01 d0             	add    %rdx,%rax
+   140980169:	ff e0                	jmp    *%rax
+   14098016b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980170:	31 c0                	xor    %eax,%eax
+   140980172:	48 83 c4 58          	add    $0x58,%rsp
+   140980176:	5b                   	pop    %rbx
+   140980177:	5e                   	pop    %rsi
+   140980178:	5f                   	pop    %rdi
+   140980179:	41 5c                	pop    %r12
+   14098017b:	c3                   	ret
+   14098017c:	0f 1f 40 00          	nopl   0x0(%rax)
+   140980180:	0f b7 db             	movzwl %bx,%ebx
+   140980183:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980187:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098018c:	41 b9 16 00 00 00    	mov    $0x16,%r9d
+   140980192:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980196:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098019d:	00
+   14098019e:	44 0f b7 c7          	movzwl %di,%r8d
+   1409801a2:	4c 89 e2             	mov    %r12,%rdx
+   1409801a5:	4c 89 d1             	mov    %r10,%rcx
+   1409801a8:	e8 03 ee ff ff       	call   14097efb0 <_ZN10DaCreature12SitAtConsoleEtN9AuStation4TYPEENS0_17OCCUPANT_POSITIONEjt>
+   1409801ad:	b8 01 00 00 00       	mov    $0x1,%eax
+   1409801b2:	48 83 c4 58          	add    $0x58,%rsp
+   1409801b6:	5b                   	pop    %rbx
+   1409801b7:	5e                   	pop    %rsi
+   1409801b8:	5f                   	pop    %rdi
+   1409801b9:	41 5c                	pop    %r12
+   1409801bb:	c3                   	ret
+   1409801bc:	0f 1f 40 00          	nopl   0x0(%rax)
+   1409801c0:	0f b7 db             	movzwl %bx,%ebx
+   1409801c3:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409801c7:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409801cc:	41 b9 11 00 00 00    	mov    $0x11,%r9d
+   1409801d2:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409801d6:	c7 44 24 28 01 00 00 	movl   $0x1,0x28(%rsp)
+   1409801dd:	00
+   1409801de:	eb be                	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409801e0:	0f b7 db             	movzwl %bx,%ebx
+   1409801e3:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409801e7:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409801ec:	41 b9 12 00 00 00    	mov    $0x12,%r9d
+   1409801f2:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409801f6:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409801fd:	00
+   1409801fe:	eb 9e                	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980200:	0f b7 db             	movzwl %bx,%ebx
+   140980203:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980207:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098020c:	41 b9 10 00 00 00    	mov    $0x10,%r9d
+   140980212:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980216:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098021d:	00
+   14098021e:	e9 7b ff ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980223:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980228:	0f b7 db             	movzwl %bx,%ebx
+   14098022b:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098022f:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980234:	41 b9 0f 00 00 00    	mov    $0xf,%r9d
+   14098023a:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098023e:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980245:	00
+   140980246:	e9 53 ff ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098024b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980250:	0f b7 db             	movzwl %bx,%ebx
+   140980253:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980257:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098025c:	41 b9 15 00 00 00    	mov    $0x15,%r9d
+   140980262:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980266:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098026d:	00
+   14098026e:	e9 2b ff ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980273:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980278:	0f b7 db             	movzwl %bx,%ebx
+   14098027b:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098027f:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980284:	41 b9 14 00 00 00    	mov    $0x14,%r9d
+   14098028a:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098028e:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980295:	00
+   140980296:	e9 03 ff ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098029b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1409802a0:	0f b7 db             	movzwl %bx,%ebx
+   1409802a3:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409802a7:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409802ac:	41 b9 13 00 00 00    	mov    $0x13,%r9d
+   1409802b2:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409802b6:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409802bd:	00
+   1409802be:	e9 db fe ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409802c3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1409802c8:	0f b7 db             	movzwl %bx,%ebx
+   1409802cb:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409802cf:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409802d4:	41 b9 0e 00 00 00    	mov    $0xe,%r9d
+   1409802da:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409802de:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409802e5:	00
+   1409802e6:	e9 b3 fe ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409802eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1409802f0:	0f b7 db             	movzwl %bx,%ebx
+   1409802f3:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409802f7:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409802fc:	41 b9 0d 00 00 00    	mov    $0xd,%r9d
+   140980302:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980306:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098030d:	00
+   14098030e:	e9 8b fe ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980313:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980318:	0f b7 db             	movzwl %bx,%ebx
+   14098031b:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098031f:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980324:	41 b9 0c 00 00 00    	mov    $0xc,%r9d
+   14098032a:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098032e:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980335:	00
+   140980336:	e9 63 fe ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098033b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980340:	0f b7 db             	movzwl %bx,%ebx
+   140980343:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980347:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098034c:	41 b9 0b 00 00 00    	mov    $0xb,%r9d
+   140980352:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980356:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098035d:	00
+   14098035e:	e9 3b fe ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980363:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140980368:	0f b7 db             	movzwl %bx,%ebx
+   14098036b:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098036f:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980374:	41 b9 39 00 00 00    	mov    $0x39,%r9d
+   14098037a:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098037e:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980385:	00
+   140980386:	e9 13 fe ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098038b:	0f b7 db             	movzwl %bx,%ebx
+   14098038e:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980392:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980397:	41 b9 23 00 00 00    	mov    $0x23,%r9d
+   14098039d:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409803a1:	c7 44 24 28 03 00 00 	movl   $0x3,0x28(%rsp)
+   1409803a8:	00
+   1409803a9:	e9 f0 fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409803ae:	0f b7 db             	movzwl %bx,%ebx
+   1409803b1:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409803b5:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409803ba:	41 b9 23 00 00 00    	mov    $0x23,%r9d
+   1409803c0:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409803c4:	c7 44 24 28 02 00 00 	movl   $0x2,0x28(%rsp)
+   1409803cb:	00
+   1409803cc:	e9 cd fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409803d1:	0f b7 db             	movzwl %bx,%ebx
+   1409803d4:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409803d8:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409803dd:	41 b9 23 00 00 00    	mov    $0x23,%r9d
+   1409803e3:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409803e7:	c7 44 24 28 01 00 00 	movl   $0x1,0x28(%rsp)
+   1409803ee:	00
+   1409803ef:	e9 aa fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409803f4:	0f b7 db             	movzwl %bx,%ebx
+   1409803f7:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409803fb:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980400:	41 b9 23 00 00 00    	mov    $0x23,%r9d
+   140980406:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098040a:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980411:	00
+   140980412:	e9 87 fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980417:	0f b7 db             	movzwl %bx,%ebx
+   14098041a:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098041e:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980423:	41 b9 22 00 00 00    	mov    $0x22,%r9d
+   140980429:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098042d:	c7 44 24 28 03 00 00 	movl   $0x3,0x28(%rsp)
+   140980434:	00
+   140980435:	e9 64 fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098043a:	0f b7 db             	movzwl %bx,%ebx
+   14098043d:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980441:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980446:	41 b9 22 00 00 00    	mov    $0x22,%r9d
+   14098044c:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980450:	c7 44 24 28 02 00 00 	movl   $0x2,0x28(%rsp)
+   140980457:	00
+   140980458:	e9 41 fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098045d:	0f b7 db             	movzwl %bx,%ebx
+   140980460:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980464:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980469:	41 b9 22 00 00 00    	mov    $0x22,%r9d
+   14098046f:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980473:	c7 44 24 28 01 00 00 	movl   $0x1,0x28(%rsp)
+   14098047a:	00
+   14098047b:	e9 1e fd ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980480:	0f b7 db             	movzwl %bx,%ebx
+   140980483:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980487:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098048c:	41 b9 22 00 00 00    	mov    $0x22,%r9d
+   140980492:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980496:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098049d:	00
+   14098049e:	e9 fb fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409804a3:	0f b7 db             	movzwl %bx,%ebx
+   1409804a6:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409804aa:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409804af:	45 31 c9             	xor    %r9d,%r9d
+   1409804b2:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409804b6:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409804bd:	00
+   1409804be:	e9 db fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409804c3:	0f b7 db             	movzwl %bx,%ebx
+   1409804c6:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409804ca:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409804cf:	41 b9 20 00 00 00    	mov    $0x20,%r9d
+   1409804d5:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409804d9:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409804e0:	00
+   1409804e1:	e9 b8 fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409804e6:	0f b7 db             	movzwl %bx,%ebx
+   1409804e9:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409804ed:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409804f2:	41 b9 1f 00 00 00    	mov    $0x1f,%r9d
+   1409804f8:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409804fc:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980503:	00
+   140980504:	e9 95 fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980509:	0f b7 db             	movzwl %bx,%ebx
+   14098050c:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980510:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980515:	41 b9 1e 00 00 00    	mov    $0x1e,%r9d
+   14098051b:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098051f:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980526:	00
+   140980527:	e9 72 fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098052c:	0f b7 db             	movzwl %bx,%ebx
+   14098052f:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980533:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980538:	41 b9 1d 00 00 00    	mov    $0x1d,%r9d
+   14098053e:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980542:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980549:	00
+   14098054a:	e9 4f fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098054f:	0f b7 db             	movzwl %bx,%ebx
+   140980552:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980556:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098055b:	41 b9 1c 00 00 00    	mov    $0x1c,%r9d
+   140980561:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980565:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098056c:	00
+   14098056d:	e9 2c fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980572:	0f b7 db             	movzwl %bx,%ebx
+   140980575:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980579:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098057e:	41 b9 1b 00 00 00    	mov    $0x1b,%r9d
+   140980584:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980588:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098058f:	00
+   140980590:	e9 09 fc ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980595:	0f b7 db             	movzwl %bx,%ebx
+   140980598:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098059c:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409805a1:	41 b9 1a 00 00 00    	mov    $0x1a,%r9d
+   1409805a7:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409805ab:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409805b2:	00
+   1409805b3:	e9 e6 fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409805b8:	0f b7 db             	movzwl %bx,%ebx
+   1409805bb:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409805bf:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409805c4:	41 b9 17 00 00 00    	mov    $0x17,%r9d
+   1409805ca:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409805ce:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409805d5:	00
+   1409805d6:	e9 c3 fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409805db:	0f b7 db             	movzwl %bx,%ebx
+   1409805de:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409805e2:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409805e7:	41 b9 18 00 00 00    	mov    $0x18,%r9d
+   1409805ed:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409805f1:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409805f8:	00
+   1409805f9:	e9 a0 fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409805fe:	0f b7 db             	movzwl %bx,%ebx
+   140980601:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980605:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098060a:	41 b9 19 00 00 00    	mov    $0x19,%r9d
+   140980610:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980614:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098061b:	00
+   14098061c:	e9 7d fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980621:	0f b7 db             	movzwl %bx,%ebx
+   140980624:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980628:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   14098062d:	41 b9 0a 00 00 00    	mov    $0xa,%r9d
+   140980633:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980637:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   14098063e:	00
+   14098063f:	e9 5a fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980644:	0f b7 db             	movzwl %bx,%ebx
+   140980647:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098064b:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980650:	41 b9 09 00 00 00    	mov    $0x9,%r9d
+   140980656:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098065a:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980661:	00
+   140980662:	e9 37 fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980667:	0f b7 db             	movzwl %bx,%ebx
+   14098066a:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098066e:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980673:	41 b9 08 00 00 00    	mov    $0x8,%r9d
+   140980679:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098067d:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980684:	00
+   140980685:	e9 14 fb ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098068a:	0f b7 db             	movzwl %bx,%ebx
+   14098068d:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980691:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980696:	41 b9 07 00 00 00    	mov    $0x7,%r9d
+   14098069c:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409806a0:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409806a7:	00
+   1409806a8:	e9 f1 fa ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409806ad:	0f b7 db             	movzwl %bx,%ebx
+   1409806b0:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409806b4:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409806b9:	41 b9 03 00 00 00    	mov    $0x3,%r9d
+   1409806bf:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409806c3:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409806ca:	00
+   1409806cb:	e9 ce fa ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409806d0:	0f b7 db             	movzwl %bx,%ebx
+   1409806d3:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409806d7:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409806dc:	41 b9 04 00 00 00    	mov    $0x4,%r9d
+   1409806e2:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   1409806e6:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   1409806ed:	00
+   1409806ee:	e9 ab fa ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   1409806f3:	0f b7 db             	movzwl %bx,%ebx
+   1409806f6:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   1409806fa:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   1409806ff:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   140980705:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   140980709:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980710:	00
+   140980711:	e9 88 fa ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980716:	0f b7 db             	movzwl %bx,%ebx
+   140980719:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   14098071d:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980722:	41 b9 01 00 00 00    	mov    $0x1,%r9d
+   140980728:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098072c:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980733:	00
+   140980734:	e9 65 fa ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   140980739:	0f b7 db             	movzwl %bx,%ebx
+   14098073c:	89 4c 24 20          	mov    %ecx,0x20(%rsp)
+   140980740:	4c 8d 54 24 4c       	lea    0x4c(%rsp),%r10
+   140980745:	41 b9 05 00 00 00    	mov    $0x5,%r9d
+   14098074b:	89 5c 24 30          	mov    %ebx,0x30(%rsp)
+   14098074f:	c7 44 24 28 00 00 00 	movl   $0x0,0x28(%rsp)
+   140980756:	00
+   140980757:	e9 42 fa ff ff       	jmp    14098019e <_ZN10DaCreature14SetStationPoseERK6AuPosett+0x6e>
+   14098075c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+$ objdump -d --disassemble=_ZN9AuStation13OccPosForPoseERK6AuPose reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414bddf0 <_ZN9AuStation13OccPosForPoseERK6AuPose>:
+   1414bddf0:	41 b8 03 00 00 00    	mov    $0x3,%r8d
+   1414bddf6:	8b 01                	mov    (%rcx),%eax
+   1414bddf8:	83 e8 03             	sub    $0x3,%eax
+   1414bddfb:	3d 84 00 00 00       	cmp    $0x84,%eax
+   1414bde00:	77 0c                	ja     1414bde0e <_ZN9AuStation13OccPosForPoseERK6AuPose+0x1e>
+   1414bde02:	48 8d 15 57 03 e2 00 	lea    0xe20357(%rip),%rdx        # 1422de160 <CSWTCH.40>
+   1414bde09:	44 0f b6 04 02       	movzbl (%rdx,%rax,1),%r8d
+   1414bde0e:	44 89 c0             	mov    %r8d,%eax
+   1414bde11:	c3                   	ret
+   1414bde12:	0f 1f 00             	nopl   (%rax)
+   1414bde15:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1414bde1c:	00 00 00 00
+
+$ objdump -s --start-address=0x1422de160 --stop-address=0x1422de1e5 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422de160 00030000 00000000 00000300 00030303  ................
+ 1422de170 03030303 03030303 03030303 03030303  ................
+ 1422de180 03030303 03030303 03030303 03030303  ................
+ 1422de190 03030303 03030000 00000000 00000000  ................
+ 1422de1a0 00000000 00000004 04050505 05050505  ................
+ 1422de1b0 05000103 04000103 04000103 04000103  ................
+ 1422de1c0 04000103 04000103 04050001 03040001  ................
+ 1422de1d0 03040001 03040001 03040001 03040001  ................
+ 1422de1e0 02030400 03                          .....
