@@ -89,6 +89,10 @@ test-native-head-tilt:
 test-native-movement:
     nix develop .#server-test --command python tests/native_movement.py
 
+# Native model HP cache/volume/wing and growth-operation anchors.
+test-native-health:
+    nix develop .#server-test --command python tests/native_health.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

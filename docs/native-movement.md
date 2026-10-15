@@ -45,5 +45,7 @@ Focused remaining model-getter disassemblies are retained in
 `evidence/native-movement-dependencies-gnu.txt`: Dp MaxHP1412c60a0 depends on
 model-part volume/cache and body-byte flags; Animalia MaxHP1411eb820 depends on
 chromatid volume and fly-capable wings; its GrowthTime1411ebb40 calls MaxHP.
-Their presence in the evidence ledger is not an implementation claim. Reuse
-these complete records rather than reanalyzing the executable for each helper.
+The HP/growth arithmetic and ordered provider operations are now implemented;
+see native-health.md. Actual model/chromatid volume and wing generation remain
+required, not fabricated. Reuse these complete records rather than reanalyzing
+the executable for each helper.

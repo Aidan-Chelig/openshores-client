@@ -35,9 +35,15 @@ mod station_construction;
 pub use console_state::{NativeConsoleBody, NativeConsoleState, NativeConsoleWireReceive};
 mod dna_application;
 mod head_tilt;
+mod health;
 mod movement;
 pub use head_tilt::{
     NativeHeadTiltContext, NativeHeadTiltResult, NativeHeadTiltState, native_pose_is_locked,
+};
+pub use health::{
+    NativeAnimaliaHealthContext, NativeDpHealthFlags, NativeDpHealthState, NativeHealthResult,
+    NativePartVolumeContext, native_animalia_growth_time, native_animalia_max_hit_points,
+    native_dp_growth_time, native_growth_adjusted_hit_points,
 };
 pub use movement::{NativeMovementBody, NativeMovementContext, native_movement_speed_modifier};
 mod sitting;

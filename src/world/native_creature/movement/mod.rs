@@ -31,17 +31,7 @@ pub fn native_movement_speed_modifier(context: &mut impl NativeMovementContext) 
     };
     let growth = context.growth_byte_494()?;
     if growth != 0 && hp > 0 {
-        let time = i32::from(context.growth_time()?);
-        if time == 0 {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidData,
-                "native MovementSpeedMod integer division by zero GrowthTime",
-            ));
-        }
-        hp = ((time - (i32::from(growth) - 1)) * i32::from(hp) / time) as i16;
-        if hp == 0 {
-            hp = 1;
-        }
+        hp = super::native_growth_adjusted_hit_points(hp, growth, context.growth_time()?)?;
     }
     if hp <= 0 {
         return Ok(1.);

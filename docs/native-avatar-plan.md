@@ -354,3 +354,11 @@ fixtures reach actual marker/Text components in all profiles and test retained
 updates and disposal/identity guards. This is diagnostic presentation, not native
 body geometry/world placement; production model/session context and faithful
 avatar presentation remain unfinished. See native-avatar-presentation.md.
+
+Model-health dependency follow-up: Dp volume caching/flag reductions and Animalia
+chromatid-volume/wing reductions now compose exact native f32 HP conversion,
+overflow diagnostics and growth arithmetic. Movement reuses the verified growth
+adjustment; tests include host-SSE arithmetic corroboration without executing
+the supplied client. Actual geometry/wing providers remain mandatory and fail
+explicitly when unavailable. See native-health.md; production model generation,
+runtime context and real avatar presentation remain unfinished.
