@@ -38,3 +38,10 @@ nested DNA layout. Preserve its terminal-flow limitation when retaining it.
 Active batch started in target/avatar-analysis-session: DhDNA_ fields, Bounty,
 ImplantDNA and ImplantSpecies. Keep that server alive for subsequent queries;
 do not start a separate single-function CLI process for each dependency.
+
+Verification after Unit scalar implementation (`fb813c5`): `just check` passed
+format checking, 285 headless library tests, 306 client-feature library tests,
+9 CLI tests in each configuration, 1 graphical-entry CLI test, and strict
+client-feature all-target Clippy. This verifies the implemented components,
+not the still-missing full Person dispatch/presentation pipeline. The first
+shared analysis query remains in progress; warm-query timing is not yet proven.
