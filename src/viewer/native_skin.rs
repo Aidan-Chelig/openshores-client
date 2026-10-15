@@ -16,6 +16,8 @@ use bevy::{
     shader::ShaderRef,
 };
 use std::path::PathBuf;
+mod avatar;
+pub use avatar::{NativeAvatarView, run_textured_avatar};
 
 pub struct NativeSkinPreviewOptions {
     pub smoke_frames: Option<u32>,
@@ -35,6 +37,9 @@ struct SkinExtension {
 }
 type SkinMaterial = ExtendedMaterial<StandardMaterial, SkinExtension>;
 impl MaterialExtension for SkinExtension {
+    fn vertex_shader() -> ShaderRef {
+        "embedded://openshores_client/viewer/native_skin_vertex.wgsl".into()
+    }
     fn fragment_shader() -> ShaderRef {
         "embedded://openshores_client/viewer/native_skin.wgsl".into()
     }
@@ -47,12 +52,14 @@ pub(super) struct SkinPreview {
     offsets: Vec4,
     screenshot: Option<PathBuf>,
     frames: u32,
+    pub(super) view: Option<NativeAvatarView>,
 }
 
 pub(super) struct SkinPlugin;
 impl Plugin for SkinPlugin {
     fn build(&self, app: &mut App) {
         embedded_asset!(app, "native_skin.wgsl");
+        embedded_asset!(app, "native_skin_vertex.wgsl");
         app.add_plugins(MaterialPlugin::<SkinMaterial>::default())
             .add_systems(Startup, setup.run_if(resource_exists::<SkinPreview>))
             .add_systems(
@@ -278,6 +285,7 @@ pub fn run_textured_body(
             offsets: Vec4::from_array(offsets.map(|v| v as f32)),
             screenshot: options.screenshot,
             frames: 0,
+            view: None,
         }),
     )
 }

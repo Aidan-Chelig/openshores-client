@@ -4,24 +4,28 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 default:
     @just --list
 
-# Offline merged fixture head/torso inspector; no server or original executable.
-preview-avatar part="head" installation="reference/hazeron" angle="60":
-    nix develop .#server-test --command cargo run --offline --features viewer --bin openshores-client -- view-native-body {{quote(installation)}} {{quote(part)}} --smooth-angle {{quote(angle)}}
+# Offline body/head/torso inspector; body supports base/many anatomy and view.
+preview-avatar part="head" installation="reference/hazeron" angle="60" fixture="base" view="oblique":
+    nix develop .#server-test --command cargo run --offline --features viewer --bin openshores-client -- view-native-body {{quote(installation)}} {{quote(part)}} --smooth-angle {{quote(angle)}} {{if part == "body" { "--fixture " + quote(fixture) + " --view " + quote(view) } else { "" }}}
 
 # Untextured comparison, using the same geometry and smoothing settings.
-preview-avatar-untextured part="head" installation="reference/hazeron" angle="60":
-    nix develop .#server-test --command cargo run --offline --features viewer --bin openshores-client -- view-native-body {{quote(installation)}} {{quote(part)}} --smooth-angle {{quote(angle)}} --untextured
+preview-avatar-untextured part="head" installation="reference/hazeron" angle="60" fixture="base" view="oblique":
+    nix develop .#server-test --command cargo run --offline --features viewer --bin openshores-client -- view-native-body {{quote(installation)}} {{quote(part)}} --smooth-angle {{quote(angle)}} --untextured {{if part == "body" { "--fixture " + quote(fixture) + " --view " + quote(view) } else { "" }}}
 
 # Static texture anchors plus real mounted head/torso CPU surface upload inputs.
 test-native-textures installation="reference/hazeron":
     nix develop .#server-test --command python tests/native_body_textures.py
     nix develop .#server-test --command cargo test --offline --features viewer --lib --quiet
-    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --features viewer --lib viewer::native_skin -- --ignored --skip captured_previews_are_nonblank --nocapture
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --features viewer --lib viewer::native_skin -- --ignored --skip captured_previews_are_nonblank --skip captured_bodies_are_nonblank --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --features viewer --bin openshores-client mounted_visual_preview_geometry -- --ignored --nocapture
 
 # Actual GPU windows, warm-up, screenshots, shader-error and nonblank checks.
 test-avatar-previews installation="reference/hazeron":
     nix develop .#server-test --command python tests/avatar_previews.py {{quote(installation)}}
+
+# Both native standing anatomies, four views, untextured and head/torso regression.
+test-avatar-body-previews installation="reference/hazeron":
+    nix develop .#server-test --command python tests/avatar_previews.py {{quote(installation)}} --body
 
 # CPU shader bone loop and the mounted body vertex-shader contract; no window.
 test-native-skinning installation="reference/hazeron":

@@ -382,3 +382,76 @@ library tests pass (one, three and five ignored respectively); the existing
 client binary tests and both mounted avatar fixtures pass. Formatting,
 diff whitespace checks and warning-denying default/viewer library/test Clippy
 checks pass. No full-body GPU launch or capture is claimed.
+
+## Full-body GPU adapter and first visual audit
+
+`just preview-avatar body` now invokes the reusable generated/posed surfaces,
+not a hand-arranged model. Optional positional task arguments select installation,
+crease angle, fixture (`base`/`many`) and view (`oblique`/`front`/`side`/`back`).
+The underlying CLI adds `body`, `--fixture` and `--view` while retaining head,
+torso and untextured diagnostics. Body untextured mode uses the SAME skinned
+corners/normals with an explicit white one-pixel atlas. It does not recompute
+normals on posed geometry. R resets to the selected view; ordinary orbit, zoom,
+lighting and wire controls remain available.
+
+The renderer frames only drawn, posed corners. No original source/native cache
+state or part attachment is modified. CPU output retains homogeneous coordinates;
+the upload uses xyz/W for Bevy's affine model/world position and stores the
+original positive W in vertex color R (previously always white). The skin
+fragment already replaces vertex color before lighting, so alpha still carries
+only the native top/bottom texture control. A focused vertex shader multiplies
+the projected clip coordinate by that W, restoring `P * View * Display * native`
+including perspective-correct interpolation. Silently discarding W would produce
+the same point locations but different interpolation when W varies. CPU tests
+verify this equality under a nontrivial view/projection, UV/control routing,
+preserved posed normals and explicit rejection of nonpositive/nonfinite W.
+This positive-W renderer restriction does not change the reusable native bone
+loop's accepted finite weights or homogeneous output.
+
+For these neutral fixtures, coordinates stay native XYZ with no corrective axis
+rotation. The server's `gameplay/natives/village.py::body_axes` names X right,
+Y forward and Z up (see `native-entity-transforms.md`); that alone was insufficient
+to assert authored model axes. The native Stand/TiltHeadTo composition plus the
+new front (+Y camera), side (+X) and back (-Y) captures now corroborate those
+axes for these POSED avatars: +Y shows the eyes/nose/mouth and -Y the backs of
+the heads, while +Z is the upright head direction. This does not generalize to
+every source mesh's pre-pose authored axes. Relevant retained records remain
+`native-dp-head-tilt.json` (ev_0b59362eb4555ddf39adab5030c8118f943e673f530ebbc4dc1ba656fedd67eb),
+`native-dp-position-heads.json` (ev_7dbc25c94fb3c6fc3e20ab4337be151ef1606282bf2028fd81dcd7848778ffa6),
+and the already verified neutral-pose records; no fresh native import was needed.
+
+`just test-avatar-body-previews` captures both anatomies in four views, a white
+untextured body, and head/torso regression views. The first complete run passed
+all eleven nonblank/color-variation checks, with no reported shader errors,
+on AMD Radeon AI PRO R9700 / RADV GFX1201, Mesa26.2.4, Vulkan. Local ignored
+captures: `target/avatar-textures-fh5jjd7j/` (not redistributable installation
+assets). Both fixtures' four views, the untextured body and the two part views
+were opened and visually inspected. Foreground pixel counts:
+
+| Fixture | Oblique | Front | Side | Back |
+| --- | ---: | ---: | ---: | ---: |
+| base | 73853 | 111628 | 45219 | 37868 |
+| many | 46895 | 47673 | 44110 | 43410 |
+
+Untextured base:40798; head:160462; torso:64748. The native plan produces
+12/21 complete surfaces, split into14/24 material partitions respectively.
+The extra heads/limb pairs and changed proportions are visible without
+fixture-specific attachment offsets. Texture-region controls remain CPU-checked
+and visible across all parts, with modern lighting intentionally retained.
+
+**Visual acceptance is still open.** Captures show small apparent gaps near
+some hand/foot ends, and thin/open torso geometry already present in the part
+preview. The mounted test now reports nearest drawn-vertex distances between
+same-part surfaces as a diagnostic: base arms~0.0040/0.0045, legs~0.0064;
+many arms~0.0048..0.0051, legs~0.0184 (native coordinate units). This is NOT
+triangle distance, proof of a gap, a tolerated-error threshold or native runtime
+parity. Next compare joint/control-point coordinates and source/deformation
+stages against retained native evidence, then inspect close views. Do not repair
+these with bounding-box offsets or declare the complete-avatar goal finished
+merely because smoke/CPU tests pass. No in-world ground placement is claimed.
+
+Verification: 740 viewer library tests pass (four ignored), 753 client library
+tests pass (six ignored), 11 CLI tests pass (one mounted test ignored), and the
+client slice test passes. The explicit mounted CPU avatar test and eleven GPU
+captures pass; static neutral/head-pose anchors pass. Viewer library/test/binary
+Clippy passes with warnings denied, as do formatting and diff whitespace checks.

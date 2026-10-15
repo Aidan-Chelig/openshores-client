@@ -188,6 +188,7 @@ fn setup_attaches_atlas_offsets_mesh_attributes_and_lighting_mode() {
         .init_resource::<Assets<SkinMaterial>>()
         .init_resource::<Orbit>()
         .insert_resource(SkinPreview {
+            view: None,
             meshes: render_meshes(&source, &display, 60.).unwrap(),
             image: Some(decode_atlas(&png()).unwrap()),
             offsets: Vec4::new(0.25, 0.75, 0.5, 0.),
@@ -280,6 +281,36 @@ fn captured_previews_are_nonblank() {
         );
         println!(
             "{part}: {foreground} foreground pixels, {} colors",
+            colors.len()
+        );
+    }
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_AVATAR_SCREENSHOT_DIR with both body fixtures/four views and untextured captures"]
+fn captured_bodies_are_nonblank() {
+    let directory =
+        std::path::PathBuf::from(std::env::var_os("OPENSHORES_AVATAR_SCREENSHOT_DIR").unwrap());
+    let mut names = vec!["body-base-untextured".to_string()];
+    for fixture in ["base", "many"] {
+        for view in ["oblique", "front", "side", "back"] {
+            names.push(format!("body-{fixture}-{view}"));
+        }
+    }
+    for name in names {
+        let image =
+            decode_atlas(&std::fs::read(directory.join(format!("{name}.png"))).unwrap()).unwrap();
+        let pixels = image.data.unwrap();
+        let background = &pixels[..4];
+        let foreground = pixels.chunks_exact(4).filter(|p| *p != background).count();
+        let colors: std::collections::BTreeSet<_> = pixels.chunks_exact(4).collect();
+        assert!(
+            foreground > pixels.len() / 4 / 100,
+            "{name}: blank/tiny render"
+        );
+        assert!(colors.len() > 64, "{name}: insufficient color variation");
+        println!(
+            "{name}: {foreground} foreground pixels, {} colors",
             colors.len()
         );
     }

@@ -4,7 +4,8 @@ use openshores_client::{
     model::{Mesh, Model, ModelVariant, NativeBodyFaceMetadata, NativeBodyMergeGeometry},
     world::{
         native_body::{
-            NativeDpHandCache, NativeDpInitialization, NativeDpSkinPlan, native_dp_skin_offsets,
+            NativeDpAvatarGeometry, NativeDpHandCache, NativeDpInitialization, NativeDpSkinPlan,
+            native_dp_skin_offsets,
         },
         native_dna::NativeDhDna,
     },
@@ -12,18 +13,36 @@ use openshores_client::{
 use std::{io, path::Path};
 
 pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
-    if args.len() < 2 || !matches!(args[1].as_str(), "head" | "torso") {
+    if args.len() < 2 || !matches!(args[1].as_str(), "head" | "torso" | "body") {
         return Err(
-            "usage: view-native-body INSTALLATION head|torso [--smooth-angle DEGREES] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames N]".into(),
+            "usage: view-native-body INSTALLATION head|torso|body [--fixture base|many] [--view oblique|front|side|back] [--smooth-angle DEGREES] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames N]".into(),
         );
     }
     let (angle, options) = smoothing_options(&args[2..])?;
     let mut untextured = false;
     let mut screenshot = None;
     let mut flags = Vec::new();
+    let mut fixture = None;
+    let mut view = None;
     let mut options = options.iter();
     while let Some(option) = options.next() {
         match option.as_str() {
+            "--fixture" if fixture.is_none() => {
+                fixture = Some(
+                    options
+                        .next()
+                        .ok_or("--fixture requires base or many")?
+                        .as_str(),
+                )
+            }
+            "--view" if view.is_none() => {
+                view = Some(
+                    options
+                        .next()
+                        .ok_or("--view requires oblique, front, side or back")?
+                        .as_str(),
+                )
+            }
             "--untextured" if !untextured => untextured = true,
             "--screenshot" if screenshot.is_none() => {
                 screenshot = Some(std::path::PathBuf::from(
@@ -32,22 +51,66 @@ pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
                         .ok_or("--screenshot requires a new PNG path")?,
                 ))
             }
-            "--untextured" | "--screenshot" => return Err("duplicate preview option".into()),
+            "--untextured" | "--screenshot" | "--fixture" | "--view" => {
+                return Err("duplicate preview option".into());
+            }
             _ => flags.push(option.clone()),
         }
     }
     let (frames, unlit) = super::terrain::viewer_options(&flags)?;
+    if args[1] == "body" {
+        use openshores_client::viewer::{
+            NativeAvatarView, NativeSkinPreviewOptions, run_textured_avatar,
+        };
+        let dna = match fixture.unwrap_or("base") {
+            "base" => fixture_dna(),
+            "many" => {
+                let mut dna = fixture_dna();
+                dna.0[1] = 2;
+                dna.0[12] = 8;
+                dna.0[14] = 0x91;
+                dna.0[20] = 0x80;
+                dna.0[5] = 2;
+                dna.0[13] = 0x60;
+                dna.0[15] = 0x40;
+                dna
+            }
+            _ => return Err("--fixture must be base or many".into()),
+        };
+        let view = match view.unwrap_or("oblique") {
+            "oblique" => NativeAvatarView::Oblique,
+            "front" => NativeAvatarView::Front,
+            "side" => NativeAvatarView::Side,
+            "back" => NativeAvatarView::Back,
+            _ => return Err("--view must be oblique, front, side or back".into()),
+        };
+        let mount = AssetMount::open(&args[0])?;
+        validate_screenshot(&mount, screenshot.as_deref())?;
+        let avatar = NativeDpAvatarGeometry::generate(&mount, &dna, 0, 0)?;
+        let atlas = if untextured {
+            None
+        } else {
+            Some(avatar.skin.read_skin(&mount)?)
+        };
+        run_textured_avatar(
+            &avatar,
+            atlas.as_deref(),
+            NativeSkinPreviewOptions {
+                smoke_frames: frames,
+                unlit,
+                angle_degrees: angle,
+                screenshot,
+            },
+            view,
+        )?;
+        return Ok(());
+    }
+    if fixture.is_some() || view.is_some() {
+        return Err("--fixture and --view are currently body-only options".into());
+    }
     if !untextured {
         let mount = AssetMount::open(&args[0])?;
-        if let Some(path) = &screenshot {
-            let parent = path
-                .parent()
-                .filter(|p| !p.as_os_str().is_empty())
-                .unwrap_or(Path::new("."));
-            if parent.canonicalize()?.starts_with(mount.root()) {
-                return Err("screenshot must be outside the Hazeron installation".into());
-            }
-        }
+        validate_screenshot(&mount, screenshot.as_deref())?;
         let (native, seed) = build_native(Path::new(&args[0]), args[1] == "head")?;
         let surface = native.textured_baked_preview_geometry(&seed, ModelVariant::N)?;
         let dna = fixture_dna();
@@ -86,6 +149,22 @@ pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
         "Preview auto smoothing: {angle} degrees (0 = flat). Source normal records are unchanged."
     );
     openshores_client::viewer::run_auto_smooth(&model, frames, unlit, angle)?;
+    Ok(())
+}
+
+fn validate_screenshot(mount: &AssetMount, path: Option<&Path>) -> io::Result<()> {
+    if let Some(path) = path {
+        let parent = path
+            .parent()
+            .filter(|p| !p.as_os_str().is_empty())
+            .unwrap_or(Path::new("."));
+        if parent.canonicalize()?.starts_with(mount.root()) {
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidInput,
+                "screenshot must be outside the Hazeron installation",
+            ));
+        }
+    }
     Ok(())
 }
 
@@ -234,6 +313,35 @@ fn build(installation: &Path, head: bool) -> io::Result<Model> {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn body_options_reject_invalid_or_duplicate_inputs_before_mounting() {
+        for flags in [
+            vec!["--fixture", "unknown"],
+            vec!["--fixture"],
+            vec!["--view", "unknown"],
+            vec!["--view"],
+            vec!["--fixture", "base", "--fixture", "many"],
+            vec!["--view", "front", "--view", "back"],
+        ] {
+            let args = [vec!["absent-installation", "body"], flags].concat();
+            let err = super::run(&args.iter().map(|s| s.to_string()).collect::<Vec<_>>())
+                .unwrap_err()
+                .to_string();
+            assert!(
+                err.contains("--fixture") || err.contains("--view") || err.contains("duplicate"),
+                "{err}"
+            );
+        }
+        for part in ["head", "torso"] {
+            let args = ["absent-installation", part, "--view", "front"].map(String::from);
+            assert!(
+                super::run(&args)
+                    .unwrap_err()
+                    .to_string()
+                    .contains("body-only")
+            );
+        }
+    }
     #[test]
     fn smoothing_options_validate_angles_and_preserve_viewer_flags() {
         let parse = |args: &[&str]| {

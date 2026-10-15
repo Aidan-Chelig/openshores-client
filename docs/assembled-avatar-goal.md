@@ -6,10 +6,13 @@ Implementation/evidence ledger: [native avatar assembly](native-avatar-assembly.
 
 Textured part previews, angle-based smoothing, CPU skinning, composed native
 Stand bones and viewer-independent whole-body source generation are implemented.
-Both mounted anatomies also pass smoothed render-corner position/normal skinning
-checks, preserving UVs, material memberships and homogeneous W. The next step is
-to integrate the full-body viewer and verify assembly visually from multiple
-angles. Those rendering/completion gates remain open.
+Both mounted anatomies pass smoothed render-corner position/normal skinning
+checks, preserving UVs, material memberships and homogeneous W. The full-body
+viewer now runs via `just preview-avatar body`; both fixtures have nonblank GPU
+captures inspected from four angles, plus an untextured comparison. Visual
+inspection found apparent small hand/foot-end gaps and the existing thin/open
+torso surfaces. Those require evidence-led investigation before visual assembly
+can be accepted. The goal remains active; passing smoke checks are not completion.
 
 ## Objective
 

@@ -11,7 +11,9 @@ use bevy::{
 use std::io;
 mod auto_smooth;
 mod native_skin;
-pub use native_skin::{NativeSkinPreviewOptions, run_textured_body};
+pub use native_skin::{
+    NativeAvatarView, NativeSkinPreviewOptions, run_textured_avatar, run_textured_body,
+};
 
 #[derive(Resource)]
 struct DisplayGeometry {
@@ -43,6 +45,8 @@ struct Orbit {
     distance: f32,
     wire: bool,
     lit: bool,
+    home_yaw: f32,
+    home_pitch: f32,
 }
 impl Default for Orbit {
     fn default() -> Self {
@@ -52,6 +56,8 @@ impl Default for Orbit {
             distance: 4.5,
             wire: false,
             lit: true,
+            home_yaw: 0.75,
+            home_pitch: 0.35,
         }
     }
 }
@@ -236,10 +242,15 @@ fn launch_with_skin(
         ));
     }
     let mut app = App::new();
+    let (yaw, pitch) = skin
+        .as_ref()
+        .and_then(|s| s.view)
+        .map(|v| v.orbit())
+        .unwrap_or((0.75, 0.35));
     app
         .insert_resource(geometry)
         .init_resource::<ProbeSelection>()
-        .insert_resource(Orbit { lit: !unlit, ..Default::default() })
+        .insert_resource(Orbit { yaw, pitch, home_yaw: yaw, home_pitch: pitch, lit: !unlit, ..Default::default() })
         .insert_resource(ClearColor(Color::srgb(0.035, 0.055, 0.075)))
         .add_plugins(DefaultPlugins.set(WindowPlugin {
             primary_window: Some(Window {
@@ -531,8 +542,8 @@ fn controls(
     }
     if keys.just_pressed(KeyCode::KeyR) {
         let reset = Orbit::default();
-        orbit.yaw = reset.yaw;
-        orbit.pitch = reset.pitch;
+        orbit.yaw = orbit.home_yaw;
+        orbit.pitch = orbit.home_pitch;
         orbit.distance = reset.distance;
     }
     if keys.just_pressed(KeyCode::KeyL) {

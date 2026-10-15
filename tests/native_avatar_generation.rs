@@ -120,5 +120,42 @@ fn mounted_complete_native_avatar_inputs_cover_two_anatomies() {
             }
         }
         assert!(avatar.posed_surfaces(f64::NAN).is_err());
+        for part_index in 0..avatar.body.parts().len() {
+            let surfaces: Vec<_> = posed
+                .iter()
+                .filter(|s| s.part_index == part_index)
+                .collect();
+            if surfaces.len() != 2 {
+                continue;
+            }
+            let points =
+                |surface: &openshores_client::world::native_body::NativeDpPosedAvatarSurface| {
+                    surface
+                        .corners
+                        .iter()
+                        .map(|c| {
+                            (
+                                c.source_vertex,
+                                std::array::from_fn::<_, 3, _>(|i| {
+                                    f64::from(c.position[i]) / f64::from(c.position[3])
+                                }),
+                            )
+                        })
+                        .collect::<std::collections::BTreeMap<_, _>>()
+                };
+            let first = points(surfaces[0]);
+            let second_surface = points(surfaces[1]);
+            let mut nearest = f64::INFINITY;
+            for a in first.values() {
+                for b in second_surface.values() {
+                    let distance = (0..3).map(|i| (a[i] - b[i]).powi(2)).sum::<f64>().sqrt();
+                    nearest = nearest.min(distance);
+                }
+            }
+            println!(
+                "fixture{} part{part_index}: closest surface vertex separation {nearest}",
+                u8::from(second)
+            );
+        }
     }
 }

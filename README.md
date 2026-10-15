@@ -18,6 +18,15 @@ conversion run in the background and write only to a user-local cache, never
 to the installation or repository. `HAZERON_INSTALL` preselects a folder.
 See [asset mounting, cache and current conversion scope](docs/assets.md).
 
+For the offline native avatar diagnostic, run `just preview-avatar body`.
+`just preview-avatar body reference/hazeron 60 many side` selects the second
+anatomy and side view; views are `oblique`, `front`, `side`, and `back`.
+`just preview-avatar-untextured body` checks the same posed geometry without
+skin. Existing `head` and `torso` inspection remains available. This is fixture
+DNA, not received player appearance or in-game avatar integration. Apparent
+extremity gaps and torso surface fidelity remain under investigation; see the
+[assembly evidence and verification ledger](docs/native-avatar-assembly.md).
+
 Try the complete slice in an owned disposable world:
 
 ```sh
