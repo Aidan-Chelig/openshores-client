@@ -360,3 +360,31 @@ ordered replacement, flag precedence, sticky/case-sensitive wing flags,
 overrides and absent/NaN keys. No new REA import or query was performed.
 This collects inputs for the still-required weighted arithmetic, not a uniform
 fallback, complete skin assembly or renderer publication.
+
+## Anatomical CPU deformation: first connected branches
+
+`NativeBodyDeformation::apply_vertex` implements Tail, Head, Neck and Foot
+branches from the retained ApplyScaleFactor record and GNU. Native precedence
+is Tail > Head > Neck > Hand > Foot > Torso; an unsupported Hand cannot fall
+through to Foot. Head scales all axes with object180; Tail/Neck scale XZ with
+180 then Y with188; Foot scales all axes with180 then Y with188. Both vertex
+and connection undergo these operations about raw group pivots. Uniform140
+scaling happens first, except zero skips input/connection arithmetic entirely.
+Even unchanged axes preserve native subtract/add cancellation within taken
+branches. The shared anatomical exit optionally applies178 to the connection
+alone when Top AND Wing matched, then returns (offset - connection) + vertex.
+
+`Mesh::body_deformed_positions` now connects existing coordinate loading,
+ordered object metadata extraction, per-vertex membership selection and these
+arithmetic branches. Callers must supply actual initialized definition fields
+and top/bottom defaults. Extracted control points override those defaults.
+Unsupported vertices fail the whole mesh result instead of publishing a
+partially deformed or uniformly substituted mesh. Seven Rust fixtures cover
+the four branches, precedence, connection-only correction, zero/NaN inputs,
+cancellation and full mesh composition; `just test-native-body-deformation`
+also verifies digest-bound static branch/final-correction anchors against
+the existing evidence. No reimport, query or reference-client execution occurs.
+
+Hand, Torso, top/bottom-only and other matched branches remain Unsupported.
+Model definition generation, complete part assembly, bone weights and live
+renderer publication remain required: these APIs do not yet render avatars.

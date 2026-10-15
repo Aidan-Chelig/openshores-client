@@ -18,6 +18,8 @@ mod body_object_groups;
 pub use body_object_groups::NativeBodyObjectGroups;
 mod body_selection;
 pub use body_selection::NativeBodyVertexSelection;
+mod body_deformation;
+pub use body_deformation::NativeBodyDeformation;
 mod decode;
 mod fingerprint;
 mod roles;

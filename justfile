@@ -73,6 +73,10 @@ test-native-body-selection:
     nix develop .#server-test --command python tests/native_body_selection.py
     nix develop .#server-test --command cargo test --offline --lib model::body_selection
 
+test-native-body-deformation:
+    nix develop .#server-test --command python tests/native_body_deformation.py
+    nix develop .#server-test --command cargo test --offline --lib model::body_deformation
+
 # Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
 test-native-jobs:
     nix develop .#server-test --command python tests/native_jobs.py
