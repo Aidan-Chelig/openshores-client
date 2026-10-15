@@ -171,4 +171,11 @@ Complete MCP responses in docs/evidence, reviewed in the reused session:
   signed 32-bit Qt scalar copied into AuId. Preserve all raw ID bits, including
   the high bit; this is not a variable-length integer or a textual ID.
 
-These observations establish additional layouts, not yet Rust implementations.
+Rust now implements Bounty (type 11), alongside ImplantDNA and ImplantSpecies.
+The condition API requires the enclosing stream's explicit FloatEncoding:
+Bounty's double overload consumes four bytes for SinglePrecision and eight for
+TypeWidths/DoublePrecision. IDs retain all 32 bits; nullable strings and raw
+floating values (including signed zero and non-finite values) are preserved.
+Offline fixtures exercise all profiles, high-bit IDs, null/Unicode strings,
+every truncated prefix, and following-field alignment. Pregnant remains
+Unsupported; counted-list and avatar-pipeline integration are still pending.

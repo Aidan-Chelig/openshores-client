@@ -1,17 +1,23 @@
 //! Verified native condition bodies; see docs/native-conditions.md.
 //! List replacement and Unit/Person composition are separate receive stages.
 use super::native_dna::{NativeDhDna, NativeSpecies};
-use crate::protocol::QtReader;
+use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::io;
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct NativeCondition {
     pub time_08: i64,
     pub body: NativeConditionBody,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum NativeConditionBody {
+    Bounty {
+        id_10: u32,
+        field_18: Option<String>,
+        field_20: Option<String>,
+        field_28: f64,
+    },
     ImplantDna {
         field_10: NativeDhDna,
     },
@@ -52,20 +58,35 @@ impl NativeCondition {
     /// native factory returns null. Known but unreconstructed bodies return
     /// Unsupported, never None. Errors leave the reader unchanged as Rust
     /// safety, not a claim about Qt malformed-stream or destructor behavior.
-    pub fn read(kind: u8, input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
+    pub fn read(
+        kind: u8,
+        input: &mut QtReader<'_>,
+        encoding: FloatEncoding,
+    ) -> io::Result<Option<Self>> {
         match kind {
-            9 | 11 => {
+            9 => {
                 return Err(io::Error::new(
                     io::ErrorKind::Unsupported,
                     "native condition body not reconstructed",
                 ));
             }
-            1..=5 | 7 | 8 | 10 | 12 | 13 => (),
+            1..=5 | 7 | 8 | 10..=13 => (),
             _ => return Ok(None),
         }
         let mut record = QtReader::new(input.remaining_bytes());
         let time_08 = record.read_i64()?;
         let body = match kind {
+            11 => NativeConditionBody::Bounty {
+                id_10: record.read_u32()?,
+                field_18: record.read_string()?,
+                field_20: record.read_string()?,
+                field_28: match encoding {
+                    FloatEncoding::SinglePrecision => f64::from(record.read_f32()?),
+                    FloatEncoding::TypeWidths | FloatEncoding::DoublePrecision => {
+                        record.read_f64()?
+                    }
+                },
+            },
             4 => NativeConditionBody::ImplantDna {
                 field_10: NativeDhDna::read(&mut record)?,
             },
