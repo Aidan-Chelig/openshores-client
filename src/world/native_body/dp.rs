@@ -25,6 +25,8 @@ mod torso_segment;
 pub use torso_segment::native_dp_torso_segment;
 mod torso_skin;
 pub use torso_skin::{NativeDpTorsoSkinPiece, NativeDpTorsoSkinPlan};
+mod head_skin;
+pub use head_skin::{NativeDpHeadSkinPiece, NativeDpHeadSkinPlan};
 mod hand_geometry;
 pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};
 mod arm_elbow;

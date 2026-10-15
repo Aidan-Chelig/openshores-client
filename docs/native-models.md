@@ -679,3 +679,40 @@ composition, unchanged input and explicit malformed-group errors.
 These establish geometry defaults only, not device/material/bone defaults or
 original-client runtime parity. Head/neck generation, torso merging, complete
 weights/model assembly and actual avatar rendering remain unfinished.
+
+## Head/neck skin geometry planning
+
+`head_skin_plan` and its completed-owner wrapper now preserve head combined-key
+and fallback order, actual head attachment, base bone7/12 and DNA-derived
+definition scales. Helmet selection uses full body406c and the literal mask,
+not body4068's PA rules. PA heads append the part's skull selector to their
+skull prefix and load a separate ordinary skull for eye-reference state. Normal
+fallbacks are Skull, Eye, Ear, Nose, Mouth, optional Horn, optional HeadCrest;
+skull5 suppresses its integrated Eye4/Ear4/Nose3/Mouth5 pieces independently.
+Default untranslated Qt format strings are pinned to the original PE bytes;
+localized resource-key translation is outside this plan.
+
+Optional Neck preserves native head-index/count gating, initialized definition
+fields, float attachment subtraction and literal bone triples, including count4
+using the default end bone8. Neck is separately published, not merged; its
+merge tolerance is absent rather than an invented numeric threshold. Head
+pieces preserve (width*0.001)*uniform versus the crest's (uniform*width)*0.001.
+The wrapper recalculates OneTimeCalcs on a copy before deriving attachment, so
+a prior posed field50 does not become a fabricated rest-definition position.
+It does not report native live-part mutation as performed.
+
+Complete retained records are `native-dp-head-create-skin.json`
+(`ev_3c792d45c4c6bf3d03eb3a6a1ef7ce75b05a71d21a3ab192e442aba9baabe426`)
+and `native-dp-helmet-model-prefix.json`
+(`ev_a3402fecae027acdc9a399c9d5af591fe399bdef52e56e9f27c43188fc514b65`),
+with full GNU in `native-dp-head-create-skin-gnu.txt`. Queries reused the warm
+session in1.738s/0.094s without reimport. `just test-native-dp-head-skin` checks
+digest-bound strings, helmet mask, definition/neck/bone anchors and Rust
+resource ordering, integrated features, PA, neck, attachment and error fixtures.
+
+The mounted initialized-part fixture now loads17 resources and deforms3,410
+vertices across every allocated part kind using verified geometry defaults.
+These are individual selected fallback pieces, NOT a successfully merged or
+rendered avatar. MergeHeadWithInstance, cache/failure conditions, eye-location
+writes, patched-model publication, torso merging, full bone weights and live
+client/avatar rendering remain unfinished under the original objective.

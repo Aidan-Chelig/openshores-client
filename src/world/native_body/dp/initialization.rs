@@ -51,7 +51,7 @@ impl NativeDpPartState {
         }
     }
 
-    fn calculate(
+    pub(super) fn calculate(
         &mut self,
         dimensions: &NativeDpDimensions,
         hand_length: &mut impl FnMut() -> io::Result<f32>,

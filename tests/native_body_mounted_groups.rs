@@ -154,7 +154,7 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
     let mut dna = NativeDhDna([0; 24]);
     dna.0[1] = 1;
     dna.0[12] = 4;
-    dna.0[14] = 0x50;
+    dna.0[14] = 0x51;
     dna.0[20] = 0x40;
     let mut body = NativeDpInitialization::begin(&dna);
     body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))
@@ -188,7 +188,14 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
                 .flat_map(|p| p.fallback)
                 .map(|r| (r.resource, r.geometry))
                 .collect(),
-            _ => continue,
+            NativeDpPartKind::HeadAndNeck => {
+                let plan = body.head_skin_geometry_plan(index, 0, [1.; 4]).unwrap();
+                plan.fallback
+                    .into_iter()
+                    .chain(plan.neck)
+                    .map(|r| (r.resource, r.geometry))
+                    .collect()
+            }
         };
         for (resource, geometry) in requests {
             let model = openshores_client::model::Model::decode(
@@ -207,7 +214,7 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
             }
         }
     }
-    assert_eq!(resources, 11);
+    assert_eq!(resources, 17);
     assert!(points > 0);
     eprintln!(
         "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices; verified native geometry defaults, no complete model/rendering parity claim."

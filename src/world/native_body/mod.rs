@@ -14,5 +14,6 @@ pub use dp::{NativeDpBoneTransform, NativeDpBoneTransforms};
 pub use dp::{
     NativeDpFootCache, NativeDpFootGeometry, NativeDpFootResource, native_dh_has_ankle_bend,
 };
+pub use dp::{NativeDpHeadSkinPiece, NativeDpHeadSkinPlan};
 pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 pub use dp::{NativeDpTorsoSkinPiece, NativeDpTorsoSkinPlan};
