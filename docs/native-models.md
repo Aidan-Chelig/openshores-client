@@ -718,6 +718,22 @@ writes, patched-model publication, torso merging, full bone weights and live
 client/avatar rendering remain unfinished under the original objective.
 # Native weight bone-name routing
 
+`NativeBodyVertexWeights::average_at_native_vertex` now reconstructs
+`AverageWeights` (entry 14139ad80), using the complete retained static record
+`evidence/native-body-average-weights.json`. It accepts explicitly supplied
+native-buffer f32 coordinates and preserves the ten raw words before xyz.
+Object flag 3a9 gates all writes. Ordered matching, zero-weight membership,
+connection duplication without count increments, overwritten destinations,
+pair-local neck/tail sorting (including displaced-weight accumulation), the
+fifth accepted influence's overlapping writes, and unconditional four-weight
+normalization are preserved. Zero denominators are not given an invented
+fallback. Four targeted offline tests cover those branches.
+
+This does not yet derive the correct pre-projection lookup coordinates from
+`Mesh::loaded_positions`, attach weights to renderer meshes, or draw avatars.
+The caller must supply actual stored vertex coordinates and initial words;
+`Default` supplies zeros but is not a claim of complete native loader emulation.
+
 `native_body_is_bone`, `native_body_tail_bone`, and `native_body_neck_bone`
 reconstruct the name routing called by `AverageWeights`. Complete static REA
 records are retained in `evidence/native-body-is-bone.json`,

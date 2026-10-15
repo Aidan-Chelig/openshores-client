@@ -13,6 +13,8 @@ mod body_scale;
 mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
 mod body_bone_names;
+mod body_weights;
+pub use body_weights::NativeBodyVertexWeights;
 mod body_groups;
 pub use body_bone_names::{native_body_is_bone, native_body_neck_bone, native_body_tail_bone};
 pub use body_groups::NativeBodyVertexGroup;
