@@ -167,6 +167,18 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
         assert!(part.connect_30.iter().all(|n| n.is_finite()));
         let attachment = part.current_connect_loc(body.bones()).unwrap();
         assert!(attachment.iter().all(|n| n.is_finite()));
+        if part.allocation.kind == NativeDpPartKind::Torso {
+            assert_eq!(body.current_waist_loc().unwrap(), attachment);
+            let mut bones = body.bones().clone();
+            part.rotate_torso_waist(&mut bones, 0.25).unwrap();
+            let after = part.current_connect_loc(&bones).unwrap();
+            for axis in 0..3 {
+                assert!((attachment[axis] - after[axis]).abs() < 1e-12);
+            }
+            let count =
+                openshores_client::world::native_body::native_dh_waist_vertex(&dna) as usize;
+            assert_eq!(&bones.slots[count..], &body.bones().slots[count..]);
+        }
         if part.allocation.kind == NativeDpPartKind::Tail {
             let mut bones = body.bones().clone();
             part.bend_tail(&mut bones, body.dimensions(), 0.25, -0.125, 0.)

@@ -790,3 +790,37 @@ not original-client execution, libm/NaN-payload bit parity or a rendered avatar.
 Torso/limb stages, full Animate ordering, production body/timer/model ownership,
 actual Person context/session application and native avatar mesh publication
 remain required under the original end-to-end objective.
+
+### Waist location and concrete torso rotation
+
+`current_waist_loc` implements the native first-part-only lookup: absent or
+non-torso first part returns zero, otherwise the torso's actual current
+connection is projected through bone max(WaistVertex-1,0), including the native
+homogeneous-origin denominator. It does not search the remaining parts or
+substitute a stored local point. `rotate_torso_waist` implements the separate
+concrete DpTorso routine: zero angles and zero waist return without writes;
+otherwise it builds the native pivot RotateX transform, premultiplies exactly
+bones0..WaistVertex-1 including homogeneous rows, and clears their flags. NaN
+angles enter arithmetic; wrong part kinds fail Unsupported before writes.
+
+Complete static records are retained as `docs/evidence/native-dp-current-waist.json`
+and `native-dp-torso-rotate-waist.json`, with full GNU corroboration in
+`native-dp-waist-gnu.txt`. Related queries reused the warm analyzed session in
+0.09–0.14s each. `just test-native-dp-waist` checks all seven torso identity slots
+and waist/pivot/RotateX/stride anchors, then exercises all eight waist selections,
+first-part behavior, actual homogeneous projection, dense non-affine matrix
+premultiplication, unchanged neighboring bones and zero/NaN/wrong-kind cases.
+The mounted16-part fixture now rotates its concrete torso and checks preserved
+waist attachment and unchanged remaining slots. These remain static/Rust checks,
+not original-client execution or general libm/NaN-payload bit parity.
+
+This is NOT body-wide RotateWaist. Its retained wrapper/clone records are
+`target/native-model-analysis-4/dp-rotate-waist{,-part0}.json`; that stage must
+also move head/arm attachments in part order and rotate each head's neck.
+The required arm MoveBy record is `dp-arm-move-by.json`; its first two bones
+call the real matrix operator*, including a secondary-matrix flag path not yet
+established by the current primary-only bone representation. That dependency
+must be resolved rather than treating the body operation as torso-only or
+adding successful no-op attachments. PositionTorso, other limb stages, full
+Animate, production Person/body/timer ownership and actual avatar publication
+remain required under the original objective.
