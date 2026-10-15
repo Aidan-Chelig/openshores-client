@@ -2,6 +2,8 @@
 //! Static anchors: docs/evidence/native-chromosome-volume-gnu.txt.
 use super::{NativeChromosome, NativeChromosomeBody, NativeChromosomeValue, invalid};
 use std::io;
+mod face;
+mod limbs;
 
 // Original PE constants at 1422b4668, 1422b4660, 1422b4578, 1422b457c.
 const SCALE: f64 = f64::from_bits(0x3f6a_e06b_81ae_06b0);
@@ -15,10 +17,13 @@ fn dimension(raw: u16) -> f32 {
 }
 
 impl NativeChromosome {
-    /// Native Volume slot for a factory-decoded chromosome. Unreconstructed
-    /// overrides fail, rather than silently contribute zero to health/growth.
+    /// Native Volume slot for a factory-decoded chromosome. All 28 factory
+    /// types are bound; malformed Rust storage fails rather than yielding zero.
     pub fn native_volume(&self) -> io::Result<f32> {
         match self.kind {
+            9 => self.torso_volume(),
+            10 => self.arm_volume(),
+            11 => self.leg_volume(),
             8 => Ok(dimension(self.volume_short(0x1e)?)
                 * C4578
                 * dimension(self.volume_short(0x20)?)
@@ -27,6 +32,8 @@ impl NativeChromosome {
                 let radius = dimension(self.volume_short(0x12)?);
                 Ok(C457C * radius * radius * (radius / 5.0))
             }
+            19 => self.nose_volume(),
+            20 => self.mouth_volume(),
             27 => match self.body {
                 NativeChromosomeBody::Mammary {
                     field_12, field_0c, ..
@@ -39,13 +46,6 @@ impl NativeChromosome {
                 }
                 _ => Err(invalid("Mammary volume requires Mammary storage")),
             },
-            9..=11 | 19 | 20 => Err(io::Error::new(
-                io::ErrorKind::Unsupported,
-                format!(
-                    "native chromosome {} Volume formula is not reconstructed",
-                    self.kind
-                ),
-            )),
             // All twenty factory vptrs dispatch to AuChromosome::Volume,
             // whose complete body returns positive zero, even Wing/Fin.
             0..=7 | 12..=16 | 18 | 21..=26 => Ok(0.0),

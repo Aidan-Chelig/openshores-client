@@ -1,0 +1,125 @@
+Independent GNU static disassembly, not REA Evidence or runtime observation.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412066d0 <_ZNK12AuChromoNose6VolumeEv>:
+   1412066d0:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1412066d4:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412066d8:	f2 0f 10 05 88 df 0a 	movsd  0x10adf88(%rip),%xmm0        # 1422b4668 <.rdata+0x1cb8>
+   1412066df:	01 
+   1412066e0:	f2 0f 10 25 78 df 0a 	movsd  0x10adf78(%rip),%xmm4        # 1422b4660 <.rdata+0x1cb0>
+   1412066e7:	01 
+   1412066e8:	0f b7 41 12          	movzwl 0x12(%rcx),%eax
+   1412066ec:	f2 0f 2a d8          	cvtsi2sd %eax,%xmm3
+   1412066f0:	0f b7 41 14          	movzwl 0x14(%rcx),%eax
+   1412066f4:	f2 0f 2a c8          	cvtsi2sd %eax,%xmm1
+   1412066f8:	89 c2                	mov    %eax,%edx
+   1412066fa:	0f b7 41 16          	movzwl 0x16(%rcx),%eax
+   1412066fe:	f2 0f 59 d8          	mulsd  %xmm0,%xmm3
+   141206702:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   141206706:	f2 0f 59 cc          	mulsd  %xmm4,%xmm1
+   14120670a:	66 39 d0             	cmp    %dx,%ax
+   14120670d:	0f 84 9d 00 00 00    	je     1412067b0 <_ZNK12AuChromoNose6VolumeEv+0xe0>
+   141206713:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141206717:	f2 0f 2a d0          	cvtsi2sd %eax,%xmm2
+   14120671b:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+   14120671f:	f2 0f 59 d4          	mulsd  %xmm4,%xmm2
+   141206723:	66 0f 2f ca          	comisd %xmm2,%xmm1
+   141206727:	77 67                	ja     141206790 <_ZNK12AuChromoNose6VolumeEv+0xc0>
+   141206729:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14120672d:	f2 0f 5a c2          	cvtsd2ss %xmm2,%xmm0
+   141206731:	f2 0f 5c d1          	subsd  %xmm1,%xmm2
+   141206735:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141206739:	f2 0f 5e d3          	divsd  %xmm3,%xmm2
+   14120673d:	f2 0f 5a ca          	cvtsd2ss %xmm2,%xmm1
+   141206741:	0f 28 d0             	movaps %xmm0,%xmm2
+   141206744:	f3 0f 5e d1          	divss  %xmm1,%xmm2
+   141206748:	f3 0f 10 0d 2c de 0a 	movss  0x10ade2c(%rip),%xmm1        # 1422b457c <.rdata+0x1bcc>
+   14120674f:	01 
+   141206750:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+   141206754:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+   141206758:	0f 28 c1             	movaps %xmm1,%xmm0
+   14120675b:	f3 0f 5a c9          	cvtss2sd %xmm1,%xmm1
+   14120675f:	f3 0f 59 c2          	mulss  %xmm2,%xmm0
+   141206763:	f3 0f 5a d2          	cvtss2sd %xmm2,%xmm2
+   141206767:	f2 0f 5c d3          	subsd  %xmm3,%xmm2
+   14120676b:	f3 0f 5e 05 0d de 0a 	divss  0x10ade0d(%rip),%xmm0        # 1422b4580 <.rdata+0x1bd0>
+   141206772:	01 
+   141206773:	f2 0f 59 d1          	mulsd  %xmm1,%xmm2
+   141206777:	f2 0f 5e 15 19 de 0a 	divsd  0x10ade19(%rip),%xmm2        # 1422b4598 <.rdata+0x1be8>
+   14120677e:	01 
+   14120677f:	f2 0f 5a d2          	cvtsd2ss %xmm2,%xmm2
+   141206783:	f3 0f 5c c2          	subss  %xmm2,%xmm0
+   141206787:	c3                   	ret
+   141206788:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14120678f:	00 
+   141206790:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141206794:	f2 0f 5a c1          	cvtsd2ss %xmm1,%xmm0
+   141206798:	f2 0f 5c ca          	subsd  %xmm2,%xmm1
+   14120679c:	0f 28 d0             	movaps %xmm0,%xmm2
+   14120679f:	f2 0f 5e cb          	divsd  %xmm3,%xmm1
+   1412067a3:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
+   1412067a7:	f3 0f 5e d1          	divss  %xmm1,%xmm2
+   1412067ab:	eb 9b                	jmp    141206748 <_ZNK12AuChromoNose6VolumeEv+0x78>
+   1412067ad:	0f 1f 00             	nopl   (%rax)
+   1412067b0:	f2 0f 10 05 d8 dd 0a 	movsd  0x10addd8(%rip),%xmm0        # 1422b4590 <.rdata+0x1be0>
+   1412067b7:	01 
+   1412067b8:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+   1412067bc:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+   1412067c0:	f2 0f 59 c3          	mulsd  %xmm3,%xmm0
+   1412067c4:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   1412067c8:	c3                   	ret
+   1412067c9:	90                   	nop
+   1412067ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412067f0 <_ZNK13AuChromoMouth6VolumeEv>:
+   1412067f0:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1412067f4:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1412067f8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1412067fc:	f2 0f 10 25 64 de 0a 	movsd  0x10ade64(%rip),%xmm4        # 1422b4668 <.rdata+0x1cb8>
+   141206803:	01 
+   141206804:	f2 0f 10 0d 94 dd 0a 	movsd  0x10add94(%rip),%xmm1        # 1422b45a0 <.rdata+0x1bf0>
+   14120680b:	01 
+   14120680c:	0f b7 41 20          	movzwl 0x20(%rcx),%eax
+   141206810:	f2 0f 2a d0          	cvtsi2sd %eax,%xmm2
+   141206814:	0f b7 41 14          	movzwl 0x14(%rcx),%eax
+   141206818:	f2 0f 2a d8          	cvtsi2sd %eax,%xmm3
+   14120681c:	0f b7 41 10          	movzwl 0x10(%rcx),%eax
+   141206820:	f2 0f 59 d4          	mulsd  %xmm4,%xmm2
+   141206824:	f2 0f 2a c0          	cvtsi2sd %eax,%xmm0
+   141206828:	f2 0f 59 15 30 de 0a 	mulsd  0x10ade30(%rip),%xmm2        # 1422b4660 <.rdata+0x1cb0>
+   14120682f:	01 
+   141206830:	f2 0f 59 dc          	mulsd  %xmm4,%xmm3
+   141206834:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   141206838:	f2 0f 10 25 68 dd 0a 	movsd  0x10add68(%rip),%xmm4        # 1422b45a8 <.rdata+0x1bf8>
+   14120683f:	01 
+   141206840:	f2 0f 59 ca          	mulsd  %xmm2,%xmm1
+   141206844:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+   141206848:	f2 0f 59 ca          	mulsd  %xmm2,%xmm1
+   14120684c:	f2 0f 59 c3          	mulsd  %xmm3,%xmm0
+   141206850:	f2 0f 59 cb          	mulsd  %xmm3,%xmm1
+   141206854:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   141206858:	f2 0f 59 cc          	mulsd  %xmm4,%xmm1
+   14120685c:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
+   141206860:	f3 0f 5a c9          	cvtss2sd %xmm1,%xmm1
+   141206864:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+   141206868:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   14120686c:	c3                   	ret
+   14120686d:	90                   	nop
+   14120686e:	66 90                	xchg   %ax,%ax
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422b4590 00000060 fb210940 00000000 00000840  ...`.!.@.......@
+ 1422b45a0 00000040 52c11040 00000000 0000d03f  ...@R..@.......?
+

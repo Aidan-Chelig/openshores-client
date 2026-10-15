@@ -61,7 +61,7 @@ fn mammary_field0c_suppresses_only_exact_one() {
 }
 
 #[test]
-fn chromatid_accumulates_in_order_and_propagates_unsupported() {
+fn chromatid_accumulates_in_order_and_propagates_invalid_storage() {
     let large = decoded(8, 65535);
     let small = decoded(8, 1000);
     let a = large.native_volume().unwrap();
@@ -73,15 +73,68 @@ fn chromatid_accumulates_in_order_and_propagates_unsupported() {
         ((a + b) + b).to_bits()
     );
     assert_eq!(native_chromatid_volume(&[]).unwrap().to_bits(), 0);
-    for kind in [9, 10, 11, 19, 20] {
+    for kind in [9, 10, 11] {
         let chromosome = NativeChromosome {
             kind,
             body: NativeChromosomeBody::Empty,
         };
         assert_eq!(
             native_chromatid_volume(&[chromosome]).unwrap_err().kind(),
-            io::ErrorKind::Unsupported
+            io::ErrorKind::InvalidData
         );
+    }
+}
+
+#[test]
+fn face_volumes_preserve_mixed_precision_and_unequal_branches() {
+    for (x, y, z, mouth, nose) in [
+        (1000_u16, 1000_u16, 1000_u16, 0x41dd_e37b, 0x41dd_e37b),
+        (123, 456, 789, 0x405c_5613, 0x3f35_3a1c),
+        (65535, 1, 30000, 0x4232_b2af, 0x4905_2192),
+        (0, 1000, 2000, 0x4213_ecfd, 0),
+        (1, 65535, 65535, 0x4a1e_d4e6, 0x42ee_3e6a),
+    ] {
+        for (kind, expected) in [(19, nose), (20, mouth)] {
+            let mut wire = vec![0];
+            if kind == 19 {
+                for short in [0, x, y, z] {
+                    wire.extend(short.to_be_bytes());
+                }
+            } else {
+                for short in [x, 0, y, 0] {
+                    wire.extend(short.to_be_bytes());
+                }
+                wire.push(0);
+                for short in [0, 0, z] {
+                    wire.extend(short.to_be_bytes());
+                }
+            }
+            let mut input = QtReader::new(&wire);
+            let chromosome = NativeChromosome::read_qt7(kind, &mut input)
+                .unwrap()
+                .unwrap();
+            assert_eq!(input.remaining(), 0);
+            assert_eq!(
+                chromosome.native_volume().unwrap().to_bits(),
+                expected,
+                "kind={kind} ({x},{y},{z})"
+            );
+            if kind == 19 && y != z {
+                let mut swapped = chromosome.clone();
+                let NativeChromosomeBody::WithGenes { fields, .. } = &mut swapped.body else {
+                    unreachable!()
+                };
+                for field in fields {
+                    if field.offset == 0x14 {
+                        field.value = NativeChromosomeValue::Short(z);
+                    }
+                    if field.offset == 0x16 {
+                        field.value = NativeChromosomeValue::Short(y);
+                    }
+                }
+                assert_eq!(swapped.native_volume().unwrap().to_bits(), expected);
+            }
+        }
     }
 }
 

@@ -37,6 +37,15 @@ for address, bits, width in [
     (0x1422B457C, 0x40490FDB, 4),
     (0x1422B4588, 0x40A00000, 4),
     (0x1422B45B0, 0x3F333333, 4),
+    (0x1422B4590, 0x400921FB60000000, 8),
+    (0x1422B4598, 0x4008000000000000, 8),
+    (0x1422B45A0, 0x4010C15240000000, 8),
+    (0x1422B45A8, 0x3FD0000000000000, 8),
+    (0x1422B4580, 0x40400000, 4),
+    (0x1422B4584, 0x3F99999A, 4),
+    (0x1422B4600, 0, 4),
+    (0x1422B49B0, 0x3F000000, 4),
+    (0x1422B49D0, 0x3E800000, 4),
 ]:
     assert int.from_bytes(read(address, width), "little") == bits, hex(address)
 for kind, vptr in enumerate(vptrs):
@@ -46,4 +55,4 @@ assert "pxor   %xmm0,%xmm0" in zero and "141900f54:" in zero
 chromatid = subprocess.check_output(["objdump","-d","--disassemble=_ZNK11AuChromatid6VolumeEv",str(target)],text=True)
 assert "call   *0x128(%rax)" in chromatid
 assert "addss  %xmm0,%xmm6" in chromatid and "movaps %xmm6,%xmm0" in chromatid
-print("Verified28 factory-vptr volume slots:20 shared zero methods and8 distinct implementations, six constant patterns, plus ordered chromatid f32 accumulation. Binding/constant checks only; no runtime or morphology validation.")
+print("Verified28 factory-vptr volume slots:20 shared zero methods and8 distinct implementations, fifteen constant patterns, plus ordered chromatid f32 accumulation. Binding/constant checks only; no runtime or morphology validation.")

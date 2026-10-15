@@ -1,0 +1,442 @@
+Independent GNU static disassembly, not REA Evidence or runtime observation.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141205d30 <_ZNK13AuChromoTorso6VolumeEv>:
+   141205d30:	48 83 ec 18          	sub    $0x18,%rsp
+   141205d34:	0f 29 34 24          	movaps %xmm6,(%rsp)
+   141205d38:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141205d3c:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141205d40:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141205d44:	f2 0f 10 25 1c e9 0a 	movsd  0x10ae91c(%rip),%xmm4        # 1422b4668 <.rdata+0x1cb8>
+   141205d4b:	01 
+   141205d4c:	f2 0f 10 2d 0c e9 0a 	movsd  0x10ae90c(%rip),%xmm5        # 1422b4660 <.rdata+0x1cb0>
+   141205d53:	01 
+   141205d54:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141205d58:	0f b7 51 14          	movzwl 0x14(%rcx),%edx
+   141205d5c:	f3 0f 10 35 18 e8 0a 	movss  0x10ae818(%rip),%xmm6        # 1422b457c <.rdata+0x1bcc>
+   141205d63:	01 
+   141205d64:	0f b7 41 18          	movzwl 0x18(%rcx),%eax
+   141205d68:	f2 0f 2a ca          	cvtsi2sd %edx,%xmm1
+   141205d6c:	0f b7 51 12          	movzwl 0x12(%rcx),%edx
+   141205d70:	f2 0f 2a c2          	cvtsi2sd %edx,%xmm0
+   141205d74:	0f b7 51 10          	movzwl 0x10(%rcx),%edx
+   141205d78:	f2 0f 59 cc          	mulsd  %xmm4,%xmm1
+   141205d7c:	f2 0f 2a da          	cvtsi2sd %edx,%xmm3
+   141205d80:	0f b7 51 1e          	movzwl 0x1e(%rcx),%edx
+   141205d84:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   141205d88:	f2 0f 2a d2          	cvtsi2sd %edx,%xmm2
+   141205d8c:	0f b7 51 1c          	movzwl 0x1c(%rcx),%edx
+   141205d90:	f2 0f 59 dc          	mulsd  %xmm4,%xmm3
+   141205d94:	f2 0f 59 cd          	mulsd  %xmm5,%xmm1
+   141205d98:	f2 0f 59 d4          	mulsd  %xmm4,%xmm2
+   141205d9c:	f2 0f 59 c5          	mulsd  %xmm5,%xmm0
+   141205da0:	f2 0f 5a db          	cvtsd2ss %xmm3,%xmm3
+   141205da4:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
+   141205da8:	f3 0f 59 ce          	mulss  %xmm6,%xmm1
+   141205dac:	f2 0f 59 d5          	mulsd  %xmm5,%xmm2
+   141205db0:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   141205db4:	f3 0f 59 c8          	mulss  %xmm0,%xmm1
+   141205db8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141205dbc:	f2 0f 2a c2          	cvtsi2sd %edx,%xmm0
+   141205dc0:	f2 0f 5a d2          	cvtsd2ss %xmm2,%xmm2
+   141205dc4:	f3 0f 59 d6          	mulss  %xmm6,%xmm2
+   141205dc8:	0f b7 51 1a          	movzwl 0x1a(%rcx),%edx
+   141205dcc:	0f 28 34 24          	movaps (%rsp),%xmm6
+   141205dd0:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   141205dd4:	f3 0f 59 d9          	mulss  %xmm1,%xmm3
+   141205dd8:	f2 0f 59 c5          	mulsd  %xmm5,%xmm0
+   141205ddc:	f3 0f 10 2d ec eb 0a 	movss  0x10aebec(%rip),%xmm5        # 1422b49d0 <.rdata+0x2020>
+   141205de3:	01 
+   141205de4:	f3 0f 59 cd          	mulss  %xmm5,%xmm1
+   141205de8:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   141205dec:	f3 0f 59 d0          	mulss  %xmm0,%xmm2
+   141205df0:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141205df4:	f2 0f 2a c2          	cvtsi2sd %edx,%xmm0
+   141205df8:	0f b7 51 16          	movzwl 0x16(%rcx),%edx
+   141205dfc:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   141205e00:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   141205e04:	f3 0f 59 c2          	mulss  %xmm2,%xmm0
+   141205e08:	f3 0f 59 d5          	mulss  %xmm5,%xmm2
+   141205e0c:	f3 0f 58 c3          	addss  %xmm3,%xmm0
+   141205e10:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141205e14:	f2 0f 2a da          	cvtsi2sd %edx,%xmm3
+   141205e18:	f2 0f 59 dc          	mulsd  %xmm4,%xmm3
+   141205e1c:	f2 0f 5a db          	cvtsd2ss %xmm3,%xmm3
+   141205e20:	f3 0f 59 da          	mulss  %xmm2,%xmm3
+   141205e24:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141205e28:	f2 0f 2a d0          	cvtsi2sd %eax,%xmm2
+   141205e2c:	f2 0f 59 d4          	mulsd  %xmm4,%xmm2
+   141205e30:	f3 0f 58 d8          	addss  %xmm0,%xmm3
+   141205e34:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141205e38:	f2 0f 5a c2          	cvtsd2ss %xmm2,%xmm0
+   141205e3c:	f3 0f 59 c1          	mulss  %xmm1,%xmm0
+   141205e40:	f3 0f 58 c3          	addss  %xmm3,%xmm0
+   141205e44:	48 83 c4 18          	add    $0x18,%rsp
+   141205e48:	c3                   	ret
+   141205e49:	90                   	nop
+   141205e4a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141205e70 <_ZNK11AuChromoArm6VolumeEv>:
+   141205e70:	48 83 ec 68          	sub    $0x68,%rsp
+   141205e74:	0f 29 34 24          	movaps %xmm6,(%rsp)
+   141205e78:	0f 29 7c 24 10       	movaps %xmm7,0x10(%rsp)
+   141205e7d:	44 0f 29 44 24 20    	movaps %xmm8,0x20(%rsp)
+   141205e83:	44 0f 29 4c 24 30    	movaps %xmm9,0x30(%rsp)
+   141205e89:	44 0f 29 54 24 40    	movaps %xmm10,0x40(%rsp)
+   141205e8f:	44 0f 29 5c 24 50    	movaps %xmm11,0x50(%rsp)
+   141205e95:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141205e99:	66 45 0f ef c9       	pxor   %xmm9,%xmm9
+   141205e9e:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   141205ea2:	f3 0f 10 0d ce e6 0a 	movss  0x10ae6ce(%rip),%xmm1        # 1422b4578 <.rdata+0x1bc8>
+   141205ea9:	01 
+   141205eaa:	66 0f ef ed          	pxor   %xmm5,%xmm5
+   141205eae:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141205eb2:	f2 44 0f 10 05 ad e7 	movsd  0x10ae7ad(%rip),%xmm8        # 1422b4668 <.rdata+0x1cb8>
+   141205eb9:	0a 01 
+   141205ebb:	0f b7 51 18          	movzwl 0x18(%rcx),%edx
+   141205ebf:	f2 0f 2a c2          	cvtsi2sd %edx,%xmm0
+   141205ec3:	48 89 c8             	mov    %rcx,%rax
+   141205ec6:	89 d1                	mov    %edx,%ecx
+   141205ec8:	44 0f b7 40 10       	movzwl 0x10(%rax),%r8d
+   141205ecd:	0f b7 50 1e          	movzwl 0x1e(%rax),%edx
+   141205ed1:	f2 41 0f 59 c0       	mulsd  %xmm8,%xmm0
+   141205ed6:	f2 44 0f 2a ca       	cvtsi2sd %edx,%xmm9
+   141205edb:	44 89 c2             	mov    %r8d,%edx
+   141205ede:	f2 41 0f 2a f8       	cvtsi2sd %r8d,%xmm7
+   141205ee3:	44 0f b7 40 12       	movzwl 0x12(%rax),%r8d
+   141205ee8:	f2 41 0f 2a e8       	cvtsi2sd %r8d,%xmm5
+   141205eed:	44 0f b7 40 22       	movzwl 0x22(%rax),%r8d
+   141205ef2:	0f b7 40 14          	movzwl 0x14(%rax),%eax
+   141205ef6:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   141205efa:	f2 45 0f 59 c8       	mulsd  %xmm8,%xmm9
+   141205eff:	0f 28 e0             	movaps %xmm0,%xmm4
+   141205f02:	f3 0f 59 e1          	mulss  %xmm1,%xmm4
+   141205f06:	f2 0f 2a d8          	cvtsi2sd %eax,%xmm3
+   141205f0a:	f2 41 0f 59 f8       	mulsd  %xmm8,%xmm7
+   141205f0f:	f2 41 0f 59 e8       	mulsd  %xmm8,%xmm5
+   141205f14:	f2 41 0f 59 d8       	mulsd  %xmm8,%xmm3
+   141205f19:	f2 45 0f 5a c9       	cvtsd2ss %xmm9,%xmm9
+   141205f1e:	f3 0f 59 e0          	mulss  %xmm0,%xmm4
+   141205f22:	f2 0f 5a ff          	cvtsd2ss %xmm7,%xmm7
+   141205f26:	f2 0f 5a ed          	cvtsd2ss %xmm5,%xmm5
+   141205f2a:	f2 0f 5a db          	cvtsd2ss %xmm3,%xmm3
+   141205f2e:	f3 0f 59 e0          	mulss  %xmm0,%xmm4
+   141205f32:	f3 0f 58 25 c6 e6 0a 	addss  0x10ae6c6(%rip),%xmm4        # 1422b4600 <.rdata+0x1c50>
+   141205f39:	01 
+   141205f3a:	66 39 d1             	cmp    %dx,%cx
+   141205f3d:	0f 84 3d 01 00 00    	je     141206080 <_ZNK11AuChromoArm6VolumeEv+0x210>
+   141205f43:	0f 2f c7             	comiss %xmm7,%xmm0
+   141205f46:	0f 87 14 01 00 00    	ja     141206060 <_ZNK11AuChromoArm6VolumeEv+0x1f0>
+   141205f4c:	0f 28 d7             	movaps %xmm7,%xmm2
+   141205f4f:	0f 28 f7             	movaps %xmm7,%xmm6
+   141205f52:	f3 0f 5c d0          	subss  %xmm0,%xmm2
+   141205f56:	0f 28 c7             	movaps %xmm7,%xmm0
+   141205f59:	f3 41 0f 5e d1       	divss  %xmm9,%xmm2
+   141205f5e:	f3 0f 5e f2          	divss  %xmm2,%xmm6
+   141205f62:	f3 0f 10 15 12 e6 0a 	movss  0x10ae612(%rip),%xmm2        # 1422b457c <.rdata+0x1bcc>
+   141205f69:	01 
+   141205f6a:	44 0f 28 d0          	movaps %xmm0,%xmm10
+   141205f6e:	f3 44 0f 10 1d 09 e6 	movss  0x10ae609(%rip),%xmm11        # 1422b4580 <.rdata+0x1bd0>
+   141205f75:	0a 01 
+   141205f77:	f3 44 0f 59 d2       	mulss  %xmm2,%xmm10
+   141205f7c:	f3 44 0f 59 d0       	mulss  %xmm0,%xmm10
+   141205f81:	41 0f 28 c2          	movaps %xmm10,%xmm0
+   141205f85:	f3 0f 59 c6          	mulss  %xmm6,%xmm0
+   141205f89:	f3 41 0f 5c f1       	subss  %xmm9,%xmm6
+   141205f8e:	f3 41 0f 59 f2       	mulss  %xmm10,%xmm6
+   141205f93:	f3 41 0f 5e c3       	divss  %xmm11,%xmm0
+   141205f98:	f3 41 0f 5e f3       	divss  %xmm11,%xmm6
+   141205f9d:	f3 0f 5c c6          	subss  %xmm6,%xmm0
+   141205fa1:	f3 0f 58 e0          	addss  %xmm0,%xmm4
+   141205fa5:	66 44 39 c2          	cmp    %r8w,%dx
+   141205fa9:	0f 84 f7 00 00 00    	je     1412060a6 <_ZNK11AuChromoArm6VolumeEv+0x236>
+   141205faf:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141205fb3:	f2 41 0f 2a c0       	cvtsi2sd %r8d,%xmm0
+   141205fb8:	f2 41 0f 59 c0       	mulsd  %xmm8,%xmm0
+   141205fbd:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   141205fc1:	0f 2f f8             	comiss %xmm0,%xmm7
+   141205fc4:	0f 86 f6 00 00 00    	jbe    1412060c0 <_ZNK11AuChromoArm6VolumeEv+0x250>
+   141205fca:	0f 28 f7             	movaps %xmm7,%xmm6
+   141205fcd:	f3 0f 5c f0          	subss  %xmm0,%xmm6
+   141205fd1:	f3 0f 5e f5          	divss  %xmm5,%xmm6
+   141205fd5:	0f 28 c6             	movaps %xmm6,%xmm0
+   141205fd8:	0f 28 f7             	movaps %xmm7,%xmm6
+   141205fdb:	f3 0f 5e f0          	divss  %xmm0,%xmm6
+   141205fdf:	0f 28 c7             	movaps %xmm7,%xmm0
+   141205fe2:	f3 0f 59 d0          	mulss  %xmm0,%xmm2
+   141205fe6:	f3 0f 10 3d 92 e5 0a 	movss  0x10ae592(%rip),%xmm7        # 1422b4580 <.rdata+0x1bd0>
+   141205fed:	01 
+   141205fee:	f3 0f 59 c2          	mulss  %xmm2,%xmm0
+   141205ff2:	0f 28 d0             	movaps %xmm0,%xmm2
+   141205ff5:	f3 0f 59 d6          	mulss  %xmm6,%xmm2
+   141205ff9:	f3 0f 5c f5          	subss  %xmm5,%xmm6
+   141205ffd:	f3 0f 59 f0          	mulss  %xmm0,%xmm6
+   141206001:	f3 0f 5e d7          	divss  %xmm7,%xmm2
+   141206005:	f3 0f 5e f7          	divss  %xmm7,%xmm6
+   141206009:	f3 0f 5c d6          	subss  %xmm6,%xmm2
+   14120600d:	f3 0f 58 e2          	addss  %xmm2,%xmm4
+   141206011:	f3 0f 10 15 97 e9 0a 	movss  0x10ae997(%rip),%xmm2        # 1422b49b0 <.rdata+0x2000>
+   141206018:	01 
+   141206019:	0f 28 34 24          	movaps (%rsp),%xmm6
+   14120601d:	0f 28 7c 24 10       	movaps 0x10(%rsp),%xmm7
+   141206022:	44 0f 28 44 24 20    	movaps 0x20(%rsp),%xmm8
+   141206028:	f3 0f 59 da          	mulss  %xmm2,%xmm3
+   14120602c:	44 0f 28 4c 24 30    	movaps 0x30(%rsp),%xmm9
+   141206032:	44 0f 28 54 24 40    	movaps 0x40(%rsp),%xmm10
+   141206038:	44 0f 28 5c 24 50    	movaps 0x50(%rsp),%xmm11
+   14120603e:	f3 0f 59 cb          	mulss  %xmm3,%xmm1
+   141206042:	0f 28 c1             	movaps %xmm1,%xmm0
+   141206045:	f3 0f 59 c3          	mulss  %xmm3,%xmm0
+   141206049:	f3 0f 59 c3          	mulss  %xmm3,%xmm0
+   14120604d:	f3 0f 59 c2          	mulss  %xmm2,%xmm0
+   141206051:	f3 0f 58 c4          	addss  %xmm4,%xmm0
+   141206055:	48 83 c4 68          	add    $0x68,%rsp
+   141206059:	c3                   	ret
+   14120605a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   141206060:	0f 28 d0             	movaps %xmm0,%xmm2
+   141206063:	0f 28 f0             	movaps %xmm0,%xmm6
+   141206066:	f3 0f 5c d7          	subss  %xmm7,%xmm2
+   14120606a:	f3 41 0f 5e d1       	divss  %xmm9,%xmm2
+   14120606f:	f3 0f 5e f2          	divss  %xmm2,%xmm6
+   141206073:	e9 ea fe ff ff       	jmp    141205f62 <_ZNK11AuChromoArm6VolumeEv+0xf2>
+   141206078:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14120607f:	00 
+   141206080:	f3 0f 10 15 f4 e4 0a 	movss  0x10ae4f4(%rip),%xmm2        # 1422b457c <.rdata+0x1bcc>
+   141206087:	01 
+   141206088:	0f 28 f0             	movaps %xmm0,%xmm6
+   14120608b:	f3 0f 59 f2          	mulss  %xmm2,%xmm6
+   14120608f:	f3 0f 59 c6          	mulss  %xmm6,%xmm0
+   141206093:	f3 41 0f 59 c1       	mulss  %xmm9,%xmm0
+   141206098:	f3 0f 58 e0          	addss  %xmm0,%xmm4
+   14120609c:	66 44 39 c2          	cmp    %r8w,%dx
+   1412060a0:	0f 85 09 ff ff ff    	jne    141205faf <_ZNK11AuChromoArm6VolumeEv+0x13f>
+   1412060a6:	f3 0f 59 d7          	mulss  %xmm7,%xmm2
+   1412060aa:	f3 0f 59 d7          	mulss  %xmm7,%xmm2
+   1412060ae:	f3 0f 59 d5          	mulss  %xmm5,%xmm2
+   1412060b2:	f3 0f 58 e2          	addss  %xmm2,%xmm4
+   1412060b6:	e9 56 ff ff ff       	jmp    141206011 <_ZNK11AuChromoArm6VolumeEv+0x1a1>
+   1412060bb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412060c0:	0f 28 f0             	movaps %xmm0,%xmm6
+   1412060c3:	f3 0f 5c f7          	subss  %xmm7,%xmm6
+   1412060c7:	0f 28 fe             	movaps %xmm6,%xmm7
+   1412060ca:	0f 28 f0             	movaps %xmm0,%xmm6
+   1412060cd:	f3 0f 5e fd          	divss  %xmm5,%xmm7
+   1412060d1:	f3 0f 5e f7          	divss  %xmm7,%xmm6
+   1412060d5:	e9 08 ff ff ff       	jmp    141205fe2 <_ZNK11AuChromoArm6VolumeEv+0x172>
+   1412060da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141206110 <_ZNK11AuChromoLeg6VolumeEv>:
+   141206110:	48 81 ec 98 00 00 00 	sub    $0x98,%rsp
+   141206117:	0f 29 34 24          	movaps %xmm6,(%rsp)
+   14120611b:	0f 29 7c 24 10       	movaps %xmm7,0x10(%rsp)
+   141206120:	44 0f 29 44 24 20    	movaps %xmm8,0x20(%rsp)
+   141206126:	44 0f 29 4c 24 30    	movaps %xmm9,0x30(%rsp)
+   14120612c:	44 0f 29 54 24 40    	movaps %xmm10,0x40(%rsp)
+   141206132:	44 0f 29 5c 24 50    	movaps %xmm11,0x50(%rsp)
+   141206138:	44 0f 29 64 24 60    	movaps %xmm12,0x60(%rsp)
+   14120613e:	44 0f 29 6c 24 70    	movaps %xmm13,0x70(%rsp)
+   141206144:	44 0f 29 b4 24 80 00 	movaps %xmm14,0x80(%rsp)
+   14120614b:	00 00 
+   14120614d:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   141206151:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141206155:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   141206159:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   14120615d:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141206161:	66 45 0f ef e4       	pxor   %xmm12,%xmm12
+   141206166:	f2 44 0f 10 15 f9 e4 	movsd  0x10ae4f9(%rip),%xmm10        # 1422b4668 <.rdata+0x1cb8>
+   14120616d:	0a 01 
+   14120616f:	0f b7 51 10          	movzwl 0x10(%rcx),%edx
+   141206173:	66 45 0f ef c9       	pxor   %xmm9,%xmm9
+   141206178:	66 45 0f ef db       	pxor   %xmm11,%xmm11
+   14120617d:	f3 0f 10 2d 2b e8 0a 	movss  0x10ae82b(%rip),%xmm5        # 1422b49b0 <.rdata+0x2000>
+   141206184:	01 
+   141206185:	f3 0f 10 1d f7 e3 0a 	movss  0x10ae3f7(%rip),%xmm3        # 1422b4584 <.rdata+0x1bd4>
+   14120618c:	01 
+   14120618d:	f2 0f 2a f2          	cvtsi2sd %edx,%xmm6
+   141206191:	48 89 c8             	mov    %rcx,%rax
+   141206194:	0f b7 49 12          	movzwl 0x12(%rcx),%ecx
+   141206198:	0f b7 50 14          	movzwl 0x14(%rax),%edx
+   14120619c:	44 0f b7 48 20       	movzwl 0x20(%rax),%r9d
+   1412061a1:	f2 41 0f 59 f2       	mulsd  %xmm10,%xmm6
+   1412061a6:	f2 0f 2a ca          	cvtsi2sd %edx,%xmm1
+   1412061aa:	0f b7 50 16          	movzwl 0x16(%rax),%edx
+   1412061ae:	f2 45 0f 2a c9       	cvtsi2sd %r9d,%xmm9
+   1412061b3:	f2 0f 2a fa          	cvtsi2sd %edx,%xmm7
+   1412061b7:	0f b7 50 18          	movzwl 0x18(%rax),%edx
+   1412061bb:	f2 0f 2a d2          	cvtsi2sd %edx,%xmm2
+   1412061bf:	0f b7 50 1a          	movzwl 0x1a(%rax),%edx
+   1412061c3:	f2 41 0f 59 ca       	mulsd  %xmm10,%xmm1
+   1412061c8:	f2 0f 5a f6          	cvtsd2ss %xmm6,%xmm6
+   1412061cc:	f2 45 0f 59 ca       	mulsd  %xmm10,%xmm9
+   1412061d1:	f2 0f 2a c2          	cvtsi2sd %edx,%xmm0
+   1412061d5:	0f b7 50 1c          	movzwl 0x1c(%rax),%edx
+   1412061d9:	0f b7 40 24          	movzwl 0x24(%rax),%eax
+   1412061dd:	f2 41 0f 59 fa       	mulsd  %xmm10,%xmm7
+   1412061e2:	f2 41 0f 59 d2       	mulsd  %xmm10,%xmm2
+   1412061e7:	f2 44 0f 2a d8       	cvtsi2sd %eax,%xmm11
+   1412061ec:	41 89 d0             	mov    %edx,%r8d
+   1412061ef:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
+   1412061f3:	f3 0f 59 d9          	mulss  %xmm1,%xmm3
+   1412061f7:	f2 41 0f 59 c2       	mulsd  %xmm10,%xmm0
+   1412061fc:	f2 45 0f 5a c9       	cvtsd2ss %xmm9,%xmm9
+   141206201:	f2 0f 5a ff          	cvtsd2ss %xmm7,%xmm7
+   141206205:	f2 45 0f 59 da       	mulsd  %xmm10,%xmm11
+   14120620a:	f2 44 0f 5a e2       	cvtsd2ss %xmm2,%xmm12
+   14120620f:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141206213:	f2 0f 2a d2          	cvtsi2sd %edx,%xmm2
+   141206217:	44 89 ca             	mov    %r9d,%edx
+   14120621a:	f2 0f 5a c0          	cvtsd2ss %xmm0,%xmm0
+   14120621e:	f3 0f 59 c5          	mulss  %xmm5,%xmm0
+   141206222:	f2 45 0f 5a db       	cvtsd2ss %xmm11,%xmm11
+   141206227:	f2 41 0f 59 d2       	mulsd  %xmm10,%xmm2
+   14120622c:	f2 0f 5a d2          	cvtsd2ss %xmm2,%xmm2
+   141206230:	0f 2f ca             	comiss %xmm2,%xmm1
+   141206233:	77 09                	ja     14120623e <_ZNK11AuChromoLeg6VolumeEv+0x12e>
+   141206235:	0f 2f da             	comiss %xmm2,%xmm3
+   141206238:	0f 86 82 01 00 00    	jbe    1412063c0 <_ZNK11AuChromoLeg6VolumeEv+0x2b0>
+   14120623e:	f3 44 0f 10 05 31 e3 	movss  0x10ae331(%rip),%xmm8        # 1422b4578 <.rdata+0x1bc8>
+   141206245:	0a 01 
+   141206247:	0f 28 e2             	movaps %xmm2,%xmm4
+   14120624a:	f3 41 0f 59 e0       	mulss  %xmm8,%xmm4
+   14120624f:	f3 0f 59 cc          	mulss  %xmm4,%xmm1
+   141206253:	f3 0f 59 cb          	mulss  %xmm3,%xmm1
+   141206257:	f3 0f 59 cd          	mulss  %xmm5,%xmm1
+   14120625b:	f3 0f 58 0d 9d e3 0a 	addss  0x10ae39d(%rip),%xmm1        # 1422b4600 <.rdata+0x1c50>
+   141206262:	01 
+   141206263:	66 41 39 d0          	cmp    %dx,%r8w
+   141206267:	0f 84 6a 01 00 00    	je     1412063d7 <_ZNK11AuChromoLeg6VolumeEv+0x2c7>
+   14120626d:	41 0f 2f d1          	comiss %xmm9,%xmm2
+   141206271:	0f 87 29 01 00 00    	ja     1412063a0 <_ZNK11AuChromoLeg6VolumeEv+0x290>
+   141206277:	41 0f 28 d9          	movaps %xmm9,%xmm3
+   14120627b:	41 0f 28 e1          	movaps %xmm9,%xmm4
+   14120627f:	f3 0f 5c da          	subss  %xmm2,%xmm3
+   141206283:	41 0f 28 d1          	movaps %xmm9,%xmm2
+   141206287:	f3 41 0f 5e db       	divss  %xmm11,%xmm3
+   14120628c:	f3 0f 5e e3          	divss  %xmm3,%xmm4
+   141206290:	f3 0f 10 1d e4 e2 0a 	movss  0x10ae2e4(%rip),%xmm3        # 1422b457c <.rdata+0x1bcc>
+   141206297:	01 
+   141206298:	44 0f 28 f2          	movaps %xmm2,%xmm14
+   14120629c:	f3 44 0f 10 2d db e2 	movss  0x10ae2db(%rip),%xmm13        # 1422b4580 <.rdata+0x1bd0>
+   1412062a3:	0a 01 
+   1412062a5:	f3 44 0f 59 f3       	mulss  %xmm3,%xmm14
+   1412062aa:	f3 44 0f 59 f2       	mulss  %xmm2,%xmm14
+   1412062af:	41 0f 28 d6          	movaps %xmm14,%xmm2
+   1412062b3:	f3 0f 59 d4          	mulss  %xmm4,%xmm2
+   1412062b7:	f3 41 0f 5c e3       	subss  %xmm11,%xmm4
+   1412062bc:	f3 41 0f 59 e6       	mulss  %xmm14,%xmm4
+   1412062c1:	f3 41 0f 5e d5       	divss  %xmm13,%xmm2
+   1412062c6:	f3 41 0f 5e e5       	divss  %xmm13,%xmm4
+   1412062cb:	f3 0f 5c d4          	subss  %xmm4,%xmm2
+   1412062cf:	f3 0f 58 ca          	addss  %xmm2,%xmm1
+   1412062d3:	66 39 d1             	cmp    %dx,%cx
+   1412062d6:	0f 84 20 01 00 00    	je     1412063fc <_ZNK11AuChromoLeg6VolumeEv+0x2ec>
+   1412062dc:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1412062e0:	f2 0f 2a d1          	cvtsi2sd %ecx,%xmm2
+   1412062e4:	f2 41 0f 59 d2       	mulsd  %xmm10,%xmm2
+   1412062e9:	f2 0f 5a d2          	cvtsd2ss %xmm2,%xmm2
+   1412062ed:	44 0f 2f ca          	comiss %xmm2,%xmm9
+   1412062f1:	0f 86 21 01 00 00    	jbe    141206418 <_ZNK11AuChromoLeg6VolumeEv+0x308>
+   1412062f7:	41 0f 28 e1          	movaps %xmm9,%xmm4
+   1412062fb:	f3 0f 5c e2          	subss  %xmm2,%xmm4
+   1412062ff:	f3 0f 5e e7          	divss  %xmm7,%xmm4
+   141206303:	0f 28 d4             	movaps %xmm4,%xmm2
+   141206306:	41 0f 28 e1          	movaps %xmm9,%xmm4
+   14120630a:	f3 0f 5e e2          	divss  %xmm2,%xmm4
+   14120630e:	41 0f 28 d1          	movaps %xmm9,%xmm2
+   141206312:	f3 44 0f 10 0d 65 e2 	movss  0x10ae265(%rip),%xmm9        # 1422b4580 <.rdata+0x1bd0>
+   141206319:	0a 01 
+   14120631b:	f3 0f 59 da          	mulss  %xmm2,%xmm3
+   14120631f:	f3 0f 59 da          	mulss  %xmm2,%xmm3
+   141206323:	0f 28 d3             	movaps %xmm3,%xmm2
+   141206326:	f3 0f 59 d4          	mulss  %xmm4,%xmm2
+   14120632a:	f3 0f 5c e7          	subss  %xmm7,%xmm4
+   14120632e:	f3 0f 59 e3          	mulss  %xmm3,%xmm4
+   141206332:	f3 41 0f 5e d1       	divss  %xmm9,%xmm2
+   141206337:	f3 41 0f 5e e1       	divss  %xmm9,%xmm4
+   14120633c:	f3 0f 5c d4          	subss  %xmm4,%xmm2
+   141206340:	f3 0f 58 ca          	addss  %xmm2,%xmm1
+   141206344:	41 0f 28 d4          	movaps %xmm12,%xmm2
+   141206348:	0f 28 7c 24 10       	movaps 0x10(%rsp),%xmm7
+   14120634d:	44 0f 28 4c 24 30    	movaps 0x30(%rsp),%xmm9
+   141206353:	f3 0f 59 d5          	mulss  %xmm5,%xmm2
+   141206357:	44 0f 28 54 24 40    	movaps 0x40(%rsp),%xmm10
+   14120635d:	44 0f 28 5c 24 50    	movaps 0x50(%rsp),%xmm11
+   141206363:	f3 41 0f 59 c0       	mulss  %xmm8,%xmm0
+   141206368:	44 0f 28 64 24 60    	movaps 0x60(%rsp),%xmm12
+   14120636e:	44 0f 28 44 24 20    	movaps 0x20(%rsp),%xmm8
+   141206374:	44 0f 28 b4 24 80 00 	movaps 0x80(%rsp),%xmm14
+   14120637b:	00 00 
+   14120637d:	44 0f 28 6c 24 70    	movaps 0x70(%rsp),%xmm13
+   141206383:	f3 0f 59 c2          	mulss  %xmm2,%xmm0
+   141206387:	f3 0f 59 c6          	mulss  %xmm6,%xmm0
+   14120638b:	0f 28 34 24          	movaps (%rsp),%xmm6
+   14120638f:	f3 0f 59 c5          	mulss  %xmm5,%xmm0
+   141206393:	f3 0f 58 c1          	addss  %xmm1,%xmm0
+   141206397:	48 81 c4 98 00 00 00 	add    $0x98,%rsp
+   14120639e:	c3                   	ret
+   14120639f:	90                   	nop
+   1412063a0:	0f 28 da             	movaps %xmm2,%xmm3
+   1412063a3:	0f 28 e2             	movaps %xmm2,%xmm4
+   1412063a6:	f3 41 0f 5c d9       	subss  %xmm9,%xmm3
+   1412063ab:	f3 41 0f 5e db       	divss  %xmm11,%xmm3
+   1412063b0:	f3 0f 5e e3          	divss  %xmm3,%xmm4
+   1412063b4:	e9 d7 fe ff ff       	jmp    141206290 <_ZNK11AuChromoLeg6VolumeEv+0x180>
+   1412063b9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1412063c0:	f3 44 0f 10 05 af e1 	movss  0x10ae1af(%rip),%xmm8        # 1422b4578 <.rdata+0x1bc8>
+   1412063c7:	0a 01 
+   1412063c9:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412063cd:	66 41 39 d0          	cmp    %dx,%r8w
+   1412063d1:	0f 85 96 fe ff ff    	jne    14120626d <_ZNK11AuChromoLeg6VolumeEv+0x15d>
+   1412063d7:	f3 0f 10 1d 9d e1 0a 	movss  0x10ae19d(%rip),%xmm3        # 1422b457c <.rdata+0x1bcc>
+   1412063de:	01 
+   1412063df:	0f 28 e2             	movaps %xmm2,%xmm4
+   1412063e2:	f3 0f 59 e3          	mulss  %xmm3,%xmm4
+   1412063e6:	f3 0f 59 d4          	mulss  %xmm4,%xmm2
+   1412063ea:	f3 41 0f 59 d3       	mulss  %xmm11,%xmm2
+   1412063ef:	f3 0f 58 ca          	addss  %xmm2,%xmm1
+   1412063f3:	66 39 d1             	cmp    %dx,%cx
+   1412063f6:	0f 85 e0 fe ff ff    	jne    1412062dc <_ZNK11AuChromoLeg6VolumeEv+0x1cc>
+   1412063fc:	f3 41 0f 59 d9       	mulss  %xmm9,%xmm3
+   141206401:	f3 41 0f 59 d9       	mulss  %xmm9,%xmm3
+   141206406:	f3 0f 59 df          	mulss  %xmm7,%xmm3
+   14120640a:	f3 0f 58 cb          	addss  %xmm3,%xmm1
+   14120640e:	e9 31 ff ff ff       	jmp    141206344 <_ZNK11AuChromoLeg6VolumeEv+0x234>
+   141206413:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   141206418:	0f 28 e2             	movaps %xmm2,%xmm4
+   14120641b:	f3 41 0f 5c e1       	subss  %xmm9,%xmm4
+   141206420:	f3 0f 5e e7          	divss  %xmm7,%xmm4
+   141206424:	44 0f 28 cc          	movaps %xmm4,%xmm9
+   141206428:	0f 28 e2             	movaps %xmm2,%xmm4
+   14120642b:	f3 41 0f 5e e1       	divss  %xmm9,%xmm4
+   141206430:	e9 dd fe ff ff       	jmp    141206312 <_ZNK11AuChromoLeg6VolumeEv+0x202>
+   141206435:	90                   	nop
+   141206436:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14120643d:	00 00 00 
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422b49b0 0000003f 0000003f 0000003f 0000003f  ...?...?...?...?
+ 1422b49c0 0000003f 0000003f 0000003f cdcccc3e  ...?...?...?...>
+ 1422b49d0 0000803e 0000803e                    ...>...>        
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422b4600 00000000                             ....            
+

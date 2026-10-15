@@ -51,17 +51,25 @@ The distinct volume implementations are:
 | 20 | Mouth | 1412067f0 |
 | 27 | Mammary | 141206910 |
 
-`native_dna/volume.rs` now implements Head, Ear and Mammary from the independent
-GNU disassembly retained in `docs/evidence/native-chromosome-volume-gnu.txt`.
+`native_dna/volume.rs` and its face/limbs modules now implement all eight
+overrides from independent GNU disassembly retained in
+`docs/evidence/native-chromosome-volume-gnu.txt`,
+`docs/evidence/native-face-volume-gnu.txt`, and
+`docs/evidence/native-limb-volume-gnu.txt`.
 Head reads stored shorts1e/20/22 with double scaling then float multiplication;
 Ear uses short12 and preserves division after two float products. Mammary reads
 short12, early-outs for zero or field0c==1, and otherwise uses ordered
 double/float scaling and cubing. The twenty shared base methods return positive
-zero. The other five overrides explicitly return Unsupported; chromatid summing
-propagates that error, so this is not yet a general production volume provider.
+zero. Torso preserves the ordered ellipse/length contributions; Arm/Leg preserve
+raw-short equality branches and their actual cone subtraction (the larger
+radius's area is used for both cone terms). Nose preserves its distinct mixed
+double/float path; Mouth narrows only its second summand before the double add.
+Ordered chromatid summing now handles all factory-decoded chromosome kinds,
+with errors for malformed Rust field storage or non-factory type identifiers.
+This does not choose the model's chromatid or establish wing capabilities.
 Tests exercise wire-decoded records, unsigned-short extremes, exact float bits,
 Mammary suppression, ordered sums and malformed storage. The static verifier
-also pins the six consumed constant bit patterns to the original PE.
+also pins fifteen consumed constant bit patterns to the original PE.
 Preserve exact conversions and sum order, not simplified geometric formulas.
 
 ## Required implementation and verification
