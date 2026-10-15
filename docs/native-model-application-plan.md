@@ -110,6 +110,35 @@ The same live analysis session also queues MakeParts, AuDNA equality, the
 Animalia DNA constructor, the seven MakePart overrides, Wing CanFly, and the
 four nontrivial BoneLoc methods. Do not resubmit these while queued or completed.
 
+### DpBody allocation and retained initialization evidence
+
+`native_body::native_allocate_dp_parts` implements DpBody::Init's allocation
+phase: Torso, optional Tail (DNA byte14 mask30), one/two HeadAndNeck parts
+(byte5 bit1), ordered left/right arm pairs (byte1 low2), then left/right leg
+pairs (byte12 bits2..3). Every part owns its DNA copy and actual head/pair index.
+When multiple arm pairs and byte2 mask6 are set, all but the last pair clear
+their own byte2 low3 bits; the body's original DNA is not changed.
+The 65,536 count/wing-byte combinations and every optional count byte are tested.
+
+This phase is not a complete body constructor. Init continues through bone
+matrix reset, body OneTimeCalcs and part virtual10 OneTimeCalcs. Those methods
+are now retained in `target/native-model-analysis-4`, along with SetDNA and
+AnimatePose. DpBody::Init Evidence is
+`ev_5ac6fc428ff8926b29782cbbd39115ee7f7c4e15713693bb2e110319920e20c6`,
+corroborated by complete GNU assembly in
+`docs/evidence/native-dp-initialization-gnu.txt`.
+The five part calculation overrides are Torso (actual no-op), Tail,
+HeadAndNeck, ArmAndHand (both sides), and LegAndFoot (both sides).
+No no-op is substituted for the four nonempty calculations.
+
+All previously queued queries completed successfully after the single672.161s
+import; complete results remain in that directory. Their successful retention
+does not imply every function is reviewed or ported. In particular AuDNA equality
+has a decompiled void return and needs return-register/child equality evidence;
+DpBody::DeleteBodyParts resolves a wrapper whose apparent recursive name must
+not be copied as a recursive Rust implementation. Preserve raw limitations and
+follow the actual target addresses when resolving those dependencies.
+
 ### Remaining integration gates
 
 1. Implement the real model/part state and mounted-resource selection from the

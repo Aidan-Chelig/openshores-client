@@ -74,6 +74,18 @@ does not authorize a restart: verify the specific process/session first.
 
 ## Measured reuse
 
+The recovered cold-import session `target/native-model-analysis-4` completed
+DpBody::SetDNA in672.161s, then served new constructor/model/volume queries in
+0.074..0.172s without another import. Subsequent MakeParts, part generators,
+bone locations and OneTimeCalcs queries also reused that same session. The
+complete responses have matching target SHA256 and analysis-profile digest
+`8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2`.
+Read `.structuredContent.normalized_result` and both raw/provider limitations
+from those files; several methods have terminal-tail-call observations, and
+decompiled apparent integer/void returns still require instruction-level type
+verification. These are static results, not observations of the game running.
+Keep this warm session open for the remaining model/animation dependencies.
+
 The first batch in `target/avatar-analysis-session` returned these elapsed
 times from one live server: DhDNA_ 665.655s (initial import/analysis), Bounty
 0.348s, ImplantDNA 0.078s, ImplantSpecies 0.079s. All four MCP responses reported

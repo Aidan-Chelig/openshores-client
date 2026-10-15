@@ -1,0 +1,65 @@
+//! DpBody::Init's ordered part allocation and per-part DNA copies.
+//! REA ev_5ac6fc428ff8926b29782cbbd39115ee7f7c4e15713693bb2e110319920e20c6;
+//! corroborating assembly: docs/evidence/native-dp-initialization-gnu.txt.
+use crate::world::native_dna::NativeDhDna;
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum NativeDpPartKind {
+    Torso,
+    Tail,
+    HeadAndNeck,
+    LeftArmAndHand,
+    RightArmAndHand,
+    LeftLegAndFoot,
+    RightLegAndFoot,
+}
+
+/// Actual initialized part identity/DNA before body and virtual part
+/// OneTimeCalcs. No geometry, volume, pose or mounted resource is fabricated.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct NativeDpAllocatedPart {
+    pub kind: NativeDpPartKind,
+    /// Head field48, arm field50 or leg field4c; zero for torso/tail.
+    pub index: u32,
+    pub dna: NativeDhDna,
+}
+
+/// Allocation phase only. A production body constructor must still initialize
+/// bone matrices, body OneTimeCalcs and each part's virtual10 OneTimeCalcs;
+/// returning these records is not a substitute for those required operations.
+#[must_use]
+pub fn native_allocate_dp_parts(dna: &NativeDhDna) -> Vec<NativeDpAllocatedPart> {
+    use NativeDpPartKind::*;
+    let mut parts = Vec::new();
+    let mut append = |kind, index, dna: &NativeDhDna| {
+        parts.push(NativeDpAllocatedPart {
+            kind,
+            index,
+            dna: dna.clone(),
+        });
+    };
+    append(Torso, 0, dna);
+    if dna.0[14] & 0x30 != 0 {
+        append(Tail, 0, dna);
+    }
+    for index in 0..=u32::from((dna.0[5] >> 1) & 1) {
+        append(HeadAndNeck, index, dna);
+    }
+    let arm_pairs = u32::from(dna.0[1] & 3);
+    for index in 0..arm_pairs {
+        let mut arm_dna = dna.clone();
+        if arm_pairs > 1 && dna.0[2] & 6 != 0 && index < arm_pairs - 1 {
+            arm_dna.0[2] &= 0xf8;
+        }
+        append(LeftArmAndHand, index, &arm_dna);
+        append(RightArmAndHand, index, &arm_dna);
+    }
+    for index in 0..u32::from((dna.0[12] >> 2) & 3) {
+        append(LeftLegAndFoot, index, dna);
+        append(RightLegAndFoot, index, dna);
+    }
+    parts
+}
+
+#[cfg(test)]
+mod tests;

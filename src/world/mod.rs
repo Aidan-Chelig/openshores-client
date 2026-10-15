@@ -13,6 +13,7 @@ fn invalid(message: &str) -> io::Error {
 }
 
 pub mod native_atom;
+pub mod native_body;
 pub mod native_capture;
 pub mod native_condition;
 pub mod native_controller;
