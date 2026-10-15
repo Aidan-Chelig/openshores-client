@@ -906,6 +906,50 @@ Clippy pass. Remaining elbow/wrist/wing and limb stages, full Animate,
 production model/timer/Person ownership and actual native avatar mesh
 publication remain required by the original end-to-end goal.
 
+### Concrete arm RotateElbow dependency
+
+`rotate_arm_elbow` now follows the actual second/third Bones outputs rather
+than assuming an anatomical index ordering. Ordinary arms and wing forms5/6
+project the initialized Arm field58 vector through the SECOND output's
+current matrix, then premultiply outputs2 and3 in that order. Other active
+wing forms use CurrentConnectLoc (the FIRST output's projected ConnectLoc)
+as pivot and premultiply only output2. Native primary-only operator* clears
+the result flags; the secondary-copy branches are consequently unreachable.
+Both branches construct fresh pivot Translate/RotateX/post-Translate matrices,
+retaining the distinct X/Y operand orders in the ordinary and wing SIMD paths.
+The f32 angle is widened before rotation. Zero/signed-zero are bit-preserving
+no-ops; NaN enters rotation. Non-arm kinds return Unsupported; absent Arm
+field58 on a required nonzero ordinary path returns InvalidData before writes.
+The wing and zero paths do not acquire a spurious joint dependency.
+
+This step reused the already retained wrapper/concrete-clone records; no new
+analysis/import or original target execution was required. Complete Evidence
+`ev_e260d988c9033831aaea2500a5fc79c74c8aec110f632e680dcd64646ad938c9`
+and clone
+`ev_8a207fc8b94cc043360652c808c66690f790ea3a81b0ae60e9c0d1b2813bdcb1`
+are retained in `docs/evidence/native-dp-arm-rotate-elbow{,-part0}.json`,
+with full GNU in `native-dp-arm-elbow-gnu.txt`. The decompiler's Project
+signature/register splice is misleading: GNU Win64 registers establish the
+actual matrix, hidden result storage and field58/60/68 coordinate bindings.
+Two virtual Bones calls occur on the ordinary path but neither mutates the
+part; the Rust mapping is reused without inventing a side effect.
+
+`just test-native-dp-arm-elbow` checks the wrapper/NaN guard, both concrete
+pivots, real out-reference selection and SIMD addition order against the
+supplied executable, then runs exhaustive packed wing-byte/count/side/pair
+fixtures, repeated dense non-affine transforms and missing-joint/unsupported/
+zero/NaN cases. The opt-in mounted `native_dp_mounted_arm_elbow` fixture uses
+actual initialized16-part bodies for five wing forms, full4068=-7 and real
+hand resources. After real waist and repeated shoulder transforms, it checks
+both elbow branches against independently rotated projected points, preserved
+pivots and unchanged unselected bones. It is part of
+`just test-native-dp-mounted`. These checks are static/Rust/offline composition,
+not original-client runtime or general libm/NaN-payload bit parity.
+
+Wrist/bow/flap and complete wing/limb stages, full Animate ordering, production
+model/timer/Person ownership and actual avatar mesh publication remain
+unfinished requirements of the original end-to-end objective.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or

@@ -17,6 +17,7 @@ mod hand_resource;
 pub use hand_resource::NativeDpHandResource;
 mod hand_geometry;
 pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};
+mod arm_elbow;
 mod arm_move;
 mod arm_shoulder;
 mod body_waist;
