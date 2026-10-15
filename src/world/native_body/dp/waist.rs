@@ -37,7 +37,7 @@ impl NativeDpPartState {
             return Ok(());
         }
         let pivot = self.current_connect_loc(owner)?;
-        let transform = pivot_rotation(pivot, angle);
+        let transform = pivot_rotation(pivot, angle, false);
         for bone in &mut owner.slots[..count as usize] {
             apply(bone, &transform);
         }
@@ -45,7 +45,13 @@ impl NativeDpPartState {
     }
 }
 
-fn pivot_rotation([x, y, z]: [f64; 3], angle: f32) -> NativeDpBoneTransform {
+// Body and torso clones use different native operand orders.
+#[allow(clippy::if_same_then_else)]
+pub(super) fn pivot_rotation(
+    [x, y, z]: [f64; 3],
+    angle: f32,
+    y_first: bool,
+) -> NativeDpBoneTransform {
     let xz = x * 0.;
     let yz = y * 0.;
     let zz = z * 0.;
@@ -57,8 +63,11 @@ fn pivot_rotation([x, y, z]: [f64; 3], angle: f32) -> NativeDpBoneTransform {
     transform.rotate_x(f64::from(angle));
     let m = transform.matrix_00;
     for row in 0..3 {
-        transform.matrix_00[12 + row] =
-            ((m[row] * -x + m[4 + row] * -y) + m[8 + row] * -z) + m[12 + row];
+        transform.matrix_00[12 + row] = if y_first {
+            ((-y * m[4 + row] + -x * m[row]) + -z * m[8 + row]) + m[12 + row]
+        } else {
+            ((m[row] * -x + m[4 + row] * -y) + m[8 + row] * -z) + m[12 + row]
+        };
     }
     // Fourth row has native Y/X/Z order, unlike Translate's usual X/Y/Z.
     transform.matrix_00[15] = ((-y * m[7] + -x * m[3]) + -z * m[11]) + m[15];

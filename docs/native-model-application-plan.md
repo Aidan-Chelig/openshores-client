@@ -814,13 +814,54 @@ The mounted16-part fixture now rotates its concrete torso and checks preserved
 waist attachment and unchanged remaining slots. These remain static/Rust checks,
 not original-client execution or general libm/NaN-payload bit parity.
 
-This is NOT body-wide RotateWaist. Its retained wrapper/clone records are
+This concrete torso operation alone is NOT body-wide RotateWaist. Its retained wrapper/clone records are
 `target/native-model-analysis-4/dp-rotate-waist{,-part0}.json`; that stage must
 also move head/arm attachments in part order and rotate each head's neck.
 The required arm MoveBy record is `dp-arm-move-by.json`; its first two bones
-call the real matrix operator*, including a secondary-matrix flag path not yet
-established by the current primary-only bone representation. That dependency
-must be resolved rather than treating the body operation as torso-only or
-adding successful no-op attachments. PositionTorso, other limb stages, full
+call the real matrix operator*. Subsequent analysis below resolves its apparent
+secondary-copy path without inventing secondary matrix state. PositionTorso, other limb stages, full
 Animate, production Person/body/timer ownership and actual avatar publication
 remain required under the original objective.
+
+### Body-wide waist rotation and actual arm MoveBy
+
+`rotate_waist` now implements the full body wrapper: false on zero angle or
+zero owner waist, otherwise capture CurrentWaistLoc, construct the native
+pivot RotateX transform, and visit parts in native order. Torso receives its
+concrete rotation; each head moves by projected-current minus current
+attachment and then rotates its neck; each arm translates its three actual
+Bones outputs. Tail and legs are untouched. The return is true after the
+nonzero-waist path, rather than inferred from whether any matrix changed.
+Required part initialization is enforced before nontrivial body mutation as
+Rust InvalidData safety policy. Partial writes survive a later operation error.
+
+The missing matrix operator* was queried once against the warm database in
+0.119s. Its decompiled signature mistakes hidden return storage for `this`;
+the Win64 registers and full GNU routine establish independent left/right
+primary matrices,64 scalar products,48 left-associated additions, no input
+cache reads and an unconditional result+100=0. Consequently the arm caller's
+conditional secondary-copy path is unreachable for BOTH actual calls; no
+secondary matrix representation or successful fallback was introduced.
+`NativeDpBoneTransform::multiply` implements that operator. `move_arm_by`
+uses it for the first two out-reference bones, then preserves the separately
+inlined third-bone product ordering. Unlike head MoveBy, zero arm displacement
+still multiplies all three bones and clears their flags. Non-arm kinds are
+Unsupported before mutation; native arm-index fallback mapping is preserved.
+
+Complete records are retained in `docs/evidence/native-aumatrix-multiply.json`,
+`native-dp-arm-move-by.json` and `native-dp-body-rotate-waist{,-part0}.json`,
+with full GNU corroboration in `native-dp-body-waist-gnu.txt`. The body's and
+torso's distinct pivot post-translation operand orders remain explicit.
+`just test-native-dp-body-waist` checks the entire product's instruction counts,
+flag write and lack of branch/call paths, arm type/MoveBy bindings and body
+dispatch anchors, then runs dense product, cancellation-order, all arm pair/
+side/fallback, non-affine column, zero-write and error/guard fixtures. The
+new opt-in `native_dp_mounted_waist` fixture initializes the real16-part body
+from mounted user assets, applies repeated waist rotations and independently
+checks head/arm attachments, unchanged arm orientations and untouched tail/
+leg bones. `just test-native-dp-mounted` includes this fixture.
+
+These are static and Rust/offline checks, not original-client execution or
+general libm/NaN-payload bit parity. PositionTorso, remaining limb/body animation,
+production model/timer/Person context and actual native avatar mesh publication
+remain required under the original end-to-end objective.
