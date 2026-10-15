@@ -86,5 +86,37 @@ These establish direct method layouts, not yet the factory-created vtable
 slot `0x70` bindings. Check those bindings before making the type dispatcher
 authoritative. Complex DNA/species/string/pregnancy/bounty bodies remain open.
 
-Next resolve concrete virtual receive bindings and remaining nested bodies, then compose
+## Thought and virtual bindings
+
+Full reviewed Thought evidence: `evidence/native-condition-thought.json`,
+`ev_2698c41c47376db27e823a9b3ef9b33d017ba6fe43cd232bb20319941e0b0f53`.
+It reads AuTime at `0x08`, then QString at `0x10`, with no extra flag byte.
+The decompiler flags the final imported QString tail call as an unresolved
+jump table; this is a provider warning, not evidence of extra switch cases.
+
+Independent GNU `.rdata` reads now corroborate every factory vptr's receive
+slot (`vptr + 0x70`, little-endian 64-bit pointers). These bind the direct
+reader methods previously located to the actual list dispatcher:
+
+| Type | Slot address | Receive entry |
+| --- | --- | --- |
+| 1 Poison | `0x1423d0990` | `0x1408b65e0` |
+| 2 Disease | `0x1423dbc80` | `0x1408b6630` |
+| 3 Paralysis | `0x1423fd710` | `0x1408b6680` |
+| 4 ImplantDNA | `0x14240c830` | `0x1408b63c0` |
+| 5 Acid | `0x142490eb0` | `0x1408b66d0` |
+| 7 Thought | `0x1423dbd40` | `0x1408b6b80` |
+| 8 Fire | `0x142490f70` | `0x1408b63b0` |
+| 9 Pregnant | `0x1423ebeb0` | `0x1408b6c60` |
+| 10 Bandage | `0x1423dbbc0` | `0x1408b6720` |
+| 11 Bounty | `0x1423d08d0` | `0x1408b6db0` |
+| 12 ImplantSpecies | `0x142442260` | `0x1408b6b50` |
+| 13 Antitoxin | `0x1423fd650` | `0x1408b6760` |
+
+Fire therefore consumes only the shared full-width timestamp. Eight condition
+types now have verified body layouts; the four complex types still need their
+nested readers. Unsupported known bodies must produce an explicit error, not
+be confused with native null factory results.
+
+Next implement the verified bodies and resolve remaining nested readers, then compose
 the concrete counted layer into Unit reception.
