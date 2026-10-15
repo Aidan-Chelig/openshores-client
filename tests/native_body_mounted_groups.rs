@@ -198,26 +198,8 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
             .unwrap();
             resources += 1;
             for mesh in model.meshes {
-                // Explicit metadata fixture defaults: not a reconstructed
-                // object constructor, device object or rendered model.
-                let mut definition = NativeBodyDeformation {
-                    base: NativeBodyObjectScale {
-                        field_140: 1.,
-                        fields_1c0: [0.; 3],
-                        fields_1f4: [0.; 3],
-                    },
-                    field_170: 1.,
-                    field_178: 1.,
-                    field_180: 1.,
-                    field_188: 1.,
-                    field_190: 1.,
-                    fields_228: [0.; 3],
-                    fields_2c4: [0.; 3],
-                    fields_25c: [0.; 3],
-                };
-                geometry.apply_to_deformation(&mut definition);
                 let output = mesh
-                    .body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
+                    .body_defined_positions(ModelVariant::N, 1., &geometry)
                     .unwrap();
                 points += output.len();
                 assert_eq!(output.len(), mesh.vertices.len());
@@ -228,6 +210,6 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
     assert_eq!(resources, 11);
     assert!(points > 0);
     eprintln!(
-        "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."
+        "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices; verified native geometry defaults, no complete model/rendering parity claim."
     );
 }

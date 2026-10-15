@@ -649,3 +649,33 @@ explicit fixtures. The plan does NOT implement cache lookup, failed-load
 semantics, MergeTorsoWithInstance, CreatePatchedModel, bounds/materials or
 publication. Head/neck requests, production defaults and weights, full model
 assembly and avatar rendering remain unfinished under the original goal.
+
+## Constructor-established deformation defaults
+
+`NativeBodyDeformation::native_initialized` now reconstructs the actual
+Au3dsGLSLObject constructor's deformation subset:140/170/178/180/188/190 are
+double1.0, and translation, connection, midpoint, midpoint-scale, HandWingPt,
+TopScalePt and BottomScalePt XYZ fields are positive float zero. This is not
+blanket zero initialization of the native object or a complete GL model type.
+Raw `NativeBodyObjectGroups` still distinguishes absent writes from zero
+writes; constructor defaults belong to the object state, not its input stream.
+
+`Mesh::body_defined_positions` composes the verified constructor geometry,
+definition projection, serialized group metadata and CPU deformation. The
+mounted initialized-part test now uses this API, removing its handwritten
+metadata defaults. Supplied body4120..4138 test values remain explicit, and
+the torso fixture still exercises fallback pieces rather than merging them.
+
+Complete constructor evidence is `native-body-object-constructor.json`
+(`ev_df29903cd2d7019d4ccdeb46d7cafaabafcc6a3695cb67e32a606eef86b5620c`),
+with full GNU in `native-body-object-constructor-gnu.txt`. The actual52-byte
+vertex assignment is retained independently in `native-body-vertex-assignment-gnu.txt`.
+The query reused the warm session in0.127s without an import.
+`just test-native-body-defaults` pins the original digest, both unity doubles,
+scale writes, seven XYZ zero fields and assignment copy instructions. Rust
+fixtures check positive-zero bits, constructor/definition/control-point
+composition, unchanged input and explicit malformed-group errors.
+
+These establish geometry defaults only, not device/material/bone defaults or
+original-client runtime parity. Head/neck generation, torso merging, complete
+weights/model assembly and actual avatar rendering remain unfinished.

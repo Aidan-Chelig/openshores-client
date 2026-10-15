@@ -1,0 +1,19 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>:
+   1413931f0:	movdqu (%rdx),%xmm1
+   1413931f4:	movups %xmm1,(%rcx)
+   1413931f7:	movdqu 0x10(%rdx),%xmm2
+   1413931fc:	movups %xmm2,0x10(%rcx)
+   141393200:	movups 0x20(%rdx),%xmm3
+   141393204:	movups %xmm3,0x20(%rcx)
+   141393208:	movss  0x30(%rdx),%xmm0
+   14139320d:	movss  %xmm0,0x30(%rcx)
+   141393212:	ret
+   141393213:	nop
+   141393214:	nop
+   141393215:	data16 cs nopw 0x0(%rax,%rax,1)

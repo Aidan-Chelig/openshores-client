@@ -81,6 +81,10 @@ test-native-body-definition:
     nix develop .#server-test --command python tests/native_body_definition.py
     nix develop .#server-test --command cargo test --offline --lib model::body_definition
 
+test-native-body-defaults:
+    nix develop .#server-test --command python tests/native_body_defaults.py
+    nix develop .#server-test --command cargo test --offline --lib model::body_defaults
+
 test-native-dp-arm-skin:
     nix develop .#server-test --command python tests/native_dp_arm_skin.py
     nix develop .#server-test --command cargo test --offline --lib world::native_body::dp::arm_skin

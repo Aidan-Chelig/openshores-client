@@ -1,0 +1,481 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141788c80 <_ZN15Au3dsGLSLObjectC1Ev>:
+   141788c80:	push   %r15
+   141788c82:	push   %r14
+   141788c84:	push   %r13
+   141788c86:	push   %r12
+   141788c88:	push   %rbp
+   141788c89:	push   %rdi
+   141788c8a:	push   %rsi
+   141788c8b:	push   %rbx
+   141788c8c:	sub    $0xd8,%rsp
+   141788c93:	movaps %xmm6,0xa0(%rsp)
+   141788c9b:	movaps %xmm7,0xb0(%rsp)
+   141788ca3:	movaps %xmm8,0xc0(%rsp)
+   141788cac:	mov    0x11098f5(%rip),%r8        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   141788cb3:	pxor   %xmm4,%xmm4
+   141788cb7:	pxor   %xmm5,%xmm5
+   141788cbb:	movsd  0xb4658d(%rip),%xmm6        # 1422cf250 <.rdata+0x430>
+   141788cc3:	xor    %r12d,%r12d
+   141788cc6:	xor    %r11d,%r11d
+   141788cc9:	movq   %r8,%xmm0
+   141788cce:	movq   %r8,%xmm1
+   141788cd3:	punpcklqdq %xmm0,%xmm0
+   141788cd7:	lea    0x10(%rcx),%rdi
+   141788cdb:	mov    %ecx,%eax
+   141788cdd:	mov    %rcx,%rbx
+   141788ce0:	movq   $0x0,0x8(%rcx)
+   141788ce8:	and    $0xfffffffffffffff8,%rdi
+   141788cec:	movq   $0x0,0x70(%rcx)
+   141788cf4:	lea    0x108(%rbx),%rsi
+   141788cfb:	lea    0x198(%rbx),%rdx
+   141788d02:	sub    %edi,%eax
+   141788d04:	lea    0x3e0(%rbx),%rbp
+   141788d0b:	lea    0x78(%rax),%ecx
+   141788d0e:	xor    %eax,%eax
+   141788d10:	shr    $0x3,%ecx
+   141788d13:	rep stos %rax,(%rdi)
+   141788d16:	mov    %rsi,0x58(%rsp)
+   141788d1b:	mov    0x1109ace(%rip),%rsi        # 1428927f0 <__imp__ZN12QMapDataBase11shared_nullE>
+   141788d22:	lea    0x120(%rbx),%rax
+   141788d29:	mov    %rdx,0x20(%rsp)
+   141788d2e:	lea    0x200(%rbx),%rdx
+   141788d35:	lea    0x2d0(%rbx),%rcx
+   141788d3c:	movq   %rsi,%xmm2
+   141788d41:	movups %xmm0,0x118(%rbx)
+   141788d48:	lea    0x234(%rbx),%rdi
+   141788d4f:	punpcklqdq %xmm2,%xmm1
+   141788d53:	movups %xmm0,0x128(%rbx)
+   141788d5a:	movups %xmm1,0x108(%rbx)
+   141788d61:	mov    %rax,0x48(%rsp)
+   141788d66:	mov    %rdx,0x28(%rsp)
+   141788d6b:	lea    0x268(%rbx),%rdx
+   141788d72:	movb   $0x0,0x100(%rbx)
+   141788d79:	mov    %r8,0x138(%rbx)
+   141788d80:	movl   $0x0,0x1c8(%rbx)
+   141788d8a:	movl   $0x0,0x1fc(%rbx)
+   141788d94:	movl   $0x0,0x230(%rbx)
+   141788d9e:	movl   $0x0,0x264(%rbx)
+   141788da8:	movsd  %xmm6,(%rbx)
+   141788dac:	movsd  %xmm6,0x28(%rbx)
+   141788db1:	movsd  %xmm6,0x50(%rbx)
+   141788db6:	movsd  %xmm6,0x78(%rbx)
+   141788dbb:	movups %xmm4,0x1a8(%rbx)
+   141788dc2:	movups %xmm4,0x1b8(%rbx)
+   141788dc9:	movups %xmm5,0x198(%rbx)
+   141788dd0:	movups %xmm4,0x1dc(%rbx)
+   141788dd7:	movups %xmm4,0x1ec(%rbx)
+   141788dde:	movups %xmm5,0x1cc(%rbx)
+   141788de5:	movups %xmm4,0x210(%rbx)
+   141788dec:	movups %xmm4,0x220(%rbx)
+   141788df3:	movups %xmm5,0x200(%rbx)
+   141788dfa:	movups %xmm4,0x244(%rbx)
+   141788e01:	mov    0xb46438(%rip),%rax        # 1422cf240 <.rdata+0x420>
+   141788e08:	mov    %rdx,0x30(%rsp)
+   141788e0d:	lea    0x29c(%rbx),%rdx
+   141788e14:	mov    %rdx,0x38(%rsp)
+   141788e19:	lea    0x3ac(%rbx),%rdx
+   141788e20:	mov    %rax,0x33c(%rbx)
+   141788e27:	lea    0x3a0(%rbx),%rax
+   141788e2e:	mov    %rdx,0x40(%rsp)
+   141788e33:	movl   $0x0,0x298(%rbx)
+   141788e3d:	movl   $0x0,0x2cc(%rbx)
+   141788e47:	movl   $0x0,0x300(%rbx)
+   141788e51:	movl   $0x0,0x334(%rbx)
+   141788e5b:	movl   $0x0,0x338(%rbx)
+   141788e65:	mov    %r11w,0x344(%rbx)
+   141788e6d:	mov    %rax,0x370(%rbx)
+   141788e74:	movq   $0x1,0x378(%rbx)
+   141788e7f:	movq   $0x0,0x380(%rbx)
+   141788e8a:	movq   $0x0,0x388(%rbx)
+   141788e95:	movl   $0x3f800000,0x390(%rbx)
+   141788e9f:	movq   $0x0,0x398(%rbx)
+   141788eaa:	movq   $0x0,0x3a0(%rbx)
+   141788eb5:	movups %xmm4,0x254(%rbx)
+   141788ebc:	movups %xmm5,0x234(%rbx)
+   141788ec3:	movups %xmm4,0x278(%rbx)
+   141788eca:	movups %xmm4,0x288(%rbx)
+   141788ed1:	movups %xmm5,0x268(%rbx)
+   141788ed8:	movups %xmm4,0x2ac(%rbx)
+   141788edf:	movups %xmm4,0x2bc(%rbx)
+   141788ee6:	movups %xmm5,0x29c(%rbx)
+   141788eed:	movups %xmm4,0x2e0(%rbx)
+   141788ef4:	movups %xmm4,0x2f0(%rbx)
+   141788efb:	movups %xmm5,0x2d0(%rbx)
+   141788f02:	movups %xmm4,0x314(%rbx)
+   141788f09:	movups %xmm4,0x324(%rbx)
+   141788f10:	movups %xmm5,0x304(%rbx)
+   141788f17:	movl   $0x0,0x3dc(%rbx)
+   141788f21:	movq   0xb4631e(%rip),%xmm8        # 1422cf248 <.rdata+0x428>
+   141788f2a:	mov    %r12w,0x358(%rbx)
+   141788f32:	lea    0x60(%rsp),%r12
+   141788f37:	movl   $0x0,0x410(%rbx)
+   141788f41:	mov    %r12,%rdx
+   141788f44:	movl   $0x1,0x34c(%rbx)
+   141788f4e:	movb   $0x0,0x368(%rbx)
+   141788f55:	movb   $0x0,0x3a8(%rbx)
+   141788f5c:	movups %xmm4,0x3bc(%rbx)
+   141788f63:	movups %xmm4,0x3cc(%rbx)
+   141788f6a:	movups %xmm5,0x3ac(%rbx)
+   141788f71:	movups %xmm4,0x3f0(%rbx)
+   141788f78:	movups %xmm4,0x400(%rbx)
+   141788f7f:	movups %xmm5,0x3e0(%rbx)
+   141788f86:	movq   %xmm8,0x350(%rbx)
+   141788f8f:	movl   $0x0,0x90(%rsp)
+   141788f9a:	movaps %xmm4,0x70(%rsp)
+   141788f9f:	movaps %xmm4,0x80(%rsp)
+   141788fa7:	movaps %xmm5,0x60(%rsp)
+   141788fac:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141788fb1:	movb   $0x0,0x369(%rbx)
+   141788fb8:	lea    0x1cc(%rbx),%rcx
+   141788fbf:	movl   $0x0,0x35c(%rbx)
+   141788fc9:	movl   $0x0,0x90(%rsp)
+   141788fd4:	movaps %xmm4,0x70(%rsp)
+   141788fd9:	movaps %xmm4,0x80(%rsp)
+   141788fe1:	movaps %xmm5,0x60(%rsp)
+   141788fe6:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141788feb:	lea    0x304(%rbx),%rcx
+   141788ff2:	movaps %xmm4,0x70(%rsp)
+   141788ff7:	movl   $0x0,0x90(%rsp)
+   141789002:	movaps %xmm4,0x80(%rsp)
+   14178900a:	movaps %xmm5,0x60(%rsp)
+   14178900f:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141789014:	mov    0x4(%r8),%r13d
+   141789018:	lea    0x128(%rbx),%rdx
+   14178901f:	mov    %rdx,0x50(%rsp)
+   141789024:	test   %r13d,%r13d
+   141789027:	jne    1417892d0 <_ZN15Au3dsGLSLObjectC1Ev+0x650>
+   14178902d:	pxor   %xmm0,%xmm0
+   141789031:	mov    %rdi,%rcx
+   141789034:	mov    %r12,%rdx
+   141789037:	movq   $0x0,0x360(%rbx)
+   141789042:	movaps %xmm0,0x70(%rsp)
+   141789047:	movaps %xmm0,0x80(%rsp)
+   14178904f:	pxor   %xmm0,%xmm0
+   141789053:	movsd  %xmm6,0x190(%rbx)
+   14178905b:	movl   $0x0,0x90(%rsp)
+   141789066:	movaps %xmm0,0x60(%rsp)
+   14178906b:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141789070:	mov    0x380(%rbx),%rdi
+   141789077:	test   %rdi,%rdi
+   14178907a:	je     141789090 <_ZN15Au3dsGLSLObjectC1Ev+0x410>
+   14178907c:	nopl   0x0(%rax)
+   141789080:	mov    %rdi,%rcx
+   141789083:	mov    (%rdi),%rdi
+   141789086:	call   141753fa8 <_ZdlPv>
+   14178908b:	test   %rdi,%rdi
+   14178908e:	jne    141789080 <_ZN15Au3dsGLSLObjectC1Ev+0x400>
+   141789090:	mov    0x378(%rbx),%r8
+   141789097:	mov    0x370(%rbx),%rcx
+   14178909e:	xor    %edx,%edx
+   1417890a0:	shl    $0x3,%r8
+   1417890a4:	call   14175c198 <memset>
+   1417890a9:	mov    0x118(%rbx),%rax
+   1417890b0:	movapd 0xb46198(%rip),%xmm7        # 1422cf250 <.rdata+0x430>
+   1417890b8:	movq   $0x0,0x388(%rbx)
+   1417890c3:	movq   $0x0,0x380(%rbx)
+   1417890ce:	mov    0x4(%rax),%r9d
+   1417890d2:	movsd  %xmm6,0x148(%rbx)
+   1417890da:	movups %xmm7,0x180(%rbx)
+   1417890e1:	test   %r9d,%r9d
+   1417890e4:	jne    141789440 <_ZN15Au3dsGLSLObjectC1Ev+0x7c0>
+   1417890ea:	mov    0x110(%rbx),%r13
+   1417890f1:	mov    %rsi,0x110(%rbx)
+   1417890f8:	mov    %r13,%rcx
+   1417890fb:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   141789100:	test   %al,%al
+   141789102:	je     141789540 <_ZN15Au3dsGLSLObjectC1Ev+0x8c0>
+   141789108:	mov    %rsi,%rcx
+   14178910b:	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   141789110:	test   %al,%al
+   141789112:	je     141789490 <_ZN15Au3dsGLSLObjectC1Ev+0x810>
+   141789118:	mov    0x28(%rsp),%rcx
+   14178911d:	pxor   %xmm4,%xmm4
+   141789121:	pxor   %xmm5,%xmm5
+   141789125:	mov    %r12,%rdx
+   141789128:	movl   $0x0,0x90(%rsp)
+   141789133:	movaps %xmm4,0x70(%rsp)
+   141789138:	movaps %xmm4,0x80(%rsp)
+   141789140:	movaps %xmm5,0x60(%rsp)
+   141789145:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   14178914a:	mov    0x38(%rsp),%rcx
+   14178914f:	movaps %xmm4,0x70(%rsp)
+   141789154:	movl   $0x0,0x90(%rsp)
+   14178915f:	movaps %xmm4,0x80(%rsp)
+   141789167:	movaps %xmm5,0x60(%rsp)
+   14178916c:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141789171:	mov    0x20(%rsp),%rcx
+   141789176:	movaps %xmm4,0x70(%rsp)
+   14178917b:	movl   $0x0,0x90(%rsp)
+   141789186:	movaps %xmm4,0x80(%rsp)
+   14178918e:	movaps %xmm5,0x60(%rsp)
+   141789193:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141789198:	xor    %ecx,%ecx
+   14178919a:	movl   $0x1,0x338(%rbx)
+   1417891a4:	mov    %cx,0x344(%rbx)
+   1417891ab:	mov    0x30(%rsp),%rcx
+   1417891b0:	movsd  %xmm6,0x140(%rbx)
+   1417891b8:	movq   %xmm8,0x33c(%rbx)
+   1417891c1:	movl   $0x0,0x90(%rsp)
+   1417891cc:	movaps %xmm4,0x70(%rsp)
+   1417891d1:	movaps %xmm4,0x80(%rsp)
+   1417891d9:	movaps %xmm5,0x60(%rsp)
+   1417891de:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1417891e3:	mov    0x130(%rbx),%rax
+   1417891ea:	pxor   %xmm0,%xmm0
+   1417891ee:	movl   $0x0,0x348(%rbx)
+   1417891f8:	movq   $0x0,0x150(%rbx)
+   141789203:	mov    0x4(%rax),%r8d
+   141789207:	movups %xmm0,0x160(%rbx)
+   14178920e:	movups %xmm7,0x170(%rbx)
+   141789215:	test   %r8d,%r8d
+   141789218:	jne    141789400 <_ZN15Au3dsGLSLObjectC1Ev+0x780>
+   14178921e:	mov    0x138(%rbx),%rax
+   141789225:	mov    0x4(%rax),%edx
+   141789228:	test   %edx,%edx
+   14178922a:	jne    141789340 <_ZN15Au3dsGLSLObjectC1Ev+0x6c0>
+   141789230:	xor    %eax,%eax
+   141789232:	mov    0x40(%rsp),%rcx
+   141789237:	pxor   %xmm4,%xmm4
+   14178923b:	pxor   %xmm5,%xmm5
+   14178923f:	movq   $0x0,0x158(%rbx)
+   14178924a:	mov    %r12,%rdx
+   14178924d:	mov    %ax,0x3a9(%rbx)
+   141789254:	movl   $0x0,0x90(%rsp)
+   14178925f:	movaps %xmm4,0x70(%rsp)
+   141789264:	movaps %xmm4,0x80(%rsp)
+   14178926c:	movaps %xmm5,0x60(%rsp)
+   141789271:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   141789276:	mov    %rbp,%rcx
+   141789279:	movaps %xmm4,0x70(%rsp)
+   14178927e:	movl   $0x0,0x90(%rsp)
+   141789289:	movaps %xmm4,0x80(%rsp)
+   141789291:	movaps %xmm5,0x60(%rsp)
+   141789296:	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   14178929b:	nop
+   14178929c:	movaps 0xa0(%rsp),%xmm6
+   1417892a4:	movaps 0xb0(%rsp),%xmm7
+   1417892ac:	movaps 0xc0(%rsp),%xmm8
+   1417892b5:	add    $0xd8,%rsp
+   1417892bc:	pop    %rbx
+   1417892bd:	pop    %rsi
+   1417892be:	pop    %rdi
+   1417892bf:	pop    %rbp
+   1417892c0:	pop    %r12
+   1417892c2:	pop    %r13
+   1417892c4:	pop    %r14
+   1417892c6:	pop    %r15
+   1417892c8:	ret
+   1417892c9:	nopl   0x0(%rax)
+   1417892d0:	mov    %rdx,%rcx
+   1417892d3:	lea    0x118(%rbx),%r13
+   1417892da:	lea    0x130(%rbx),%r14
+   1417892e1:	lea    0x138(%rbx),%r15
+   1417892e8:	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1417892ed:	mov    0x50(%rsp),%rcx
+   1417892f2:	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1417892f7:	mov    0x128(%rbx),%rax
+   1417892fe:	movl   $0x0,0x4(%rax)
+   141789305:	mov    0x120(%rbx),%rax
+   14178930c:	mov    0x4(%rax),%r10d
+   141789310:	test   %r10d,%r10d
+   141789313:	je     14178902d <_ZN15Au3dsGLSLObjectC1Ev+0x3ad>
+   141789319:	mov    0x48(%rsp),%rcx
+   14178931e:	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   141789323:	mov    0x48(%rsp),%rcx
+   141789328:	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   14178932d:	mov    0x120(%rbx),%rax
+   141789334:	movl   $0x0,0x4(%rax)
+   14178933b:	jmp    14178902d <_ZN15Au3dsGLSLObjectC1Ev+0x3ad>
+   141789340:	lea    0x138(%rbx),%r15
+   141789347:	lea    0x118(%rbx),%r13
+   14178934e:	mov    %r15,%rcx
+   141789351:	lea    0x130(%rbx),%r14
+   141789358:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   14178935d:	mov    0x138(%rbx),%rax
+   141789364:	mov    %r15,%rcx
+   141789367:	mov    0x10(%rax),%rsi
+   14178936b:	add    %rax,%rsi
+   14178936e:	movslq 0x4(%rax),%rax
+   141789372:	lea    (%rax,%rax,8),%rax
+   141789376:	shl    $0x4,%rax
+   14178937a:	add    %rax,%rsi
+   14178937d:	call   141855ec0 <_ZN7QVectorI15Au3dsGLSLVGroupE6detachEv>
+   141789382:	mov    0x138(%rbx),%rax
+   141789389:	mov    0x10(%rax),%rdi
+   14178938d:	add    %rax,%rdi
+   141789390:	cmp    %rdi,%rsi
+   141789393:	jne    1417893bd <_ZN15Au3dsGLSLObjectC1Ev+0x73d>
+   141789395:	jmp    1417893eb <_ZN15Au3dsGLSLObjectC1Ev+0x76b>
+   141789397:	nopw   0x0(%rax,%rax,1)
+   1417893a0:	cmp    $0xffffffff,%eax
+   1417893a3:	je     1417893af <_ZN15Au3dsGLSLObjectC1Ev+0x72f>
+   1417893a5:	lock subl $0x1,(%rcx)
+   1417893a9:	je     141789480 <_ZN15Au3dsGLSLObjectC1Ev+0x800>
+   1417893af:	lea    -0x58(%rdi),%rcx
+   1417893b3:	call   141850e10 <_ZN7QStringD1Ev>
+   1417893b8:	cmp    %rdi,%rsi
+   1417893bb:	je     1417893e4 <_ZN15Au3dsGLSLObjectC1Ev+0x764>
+   1417893bd:	mov    %rdi,%rdx
+   1417893c0:	add    $0x90,%rdi
+   1417893c7:	mov    0x40(%rdx),%rcx
+   1417893cb:	mov    (%rcx),%eax
+   1417893cd:	test   %eax,%eax
+   1417893cf:	jne    1417893a0 <_ZN15Au3dsGLSLObjectC1Ev+0x720>
+   1417893d1:	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1417893d6:	lea    -0x58(%rdi),%rcx
+   1417893da:	call   141850e10 <_ZN7QStringD1Ev>
+   1417893df:	cmp    %rdi,%rsi
+   1417893e2:	jne    1417893bd <_ZN15Au3dsGLSLObjectC1Ev+0x73d>
+   1417893e4:	mov    0x138(%rbx),%rax
+   1417893eb:	movl   $0x0,0x4(%rax)
+   1417893f2:	jmp    141789230 <_ZN15Au3dsGLSLObjectC1Ev+0x5b0>
+   1417893f7:	nopw   0x0(%rax,%rax,1)
+   141789400:	lea    0x130(%rbx),%r14
+   141789407:	lea    0x118(%rbx),%r13
+   14178940e:	mov    %r14,%rcx
+   141789411:	lea    0x138(%rbx),%r15
+   141789418:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   14178941d:	mov    %r14,%rcx
+   141789420:	call   141856390 <_ZN7QVectorI15Au3dsGLSLVertexE6detachEv>
+   141789425:	mov    0x130(%rbx),%rax
+   14178942c:	movl   $0x0,0x4(%rax)
+   141789433:	jmp    14178921e <_ZN15Au3dsGLSLObjectC1Ev+0x59e>
+   141789438:	nopl   0x0(%rax,%rax,1)
+   141789440:	lea    0x118(%rbx),%r13
+   141789447:	lea    0x130(%rbx),%r14
+   14178944e:	mov    %r13,%rcx
+   141789451:	lea    0x138(%rbx),%r15
+   141789458:	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   14178945d:	mov    %r13,%rcx
+   141789460:	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   141789465:	mov    0x118(%rbx),%rax
+   14178946c:	movl   $0x0,0x4(%rax)
+   141789473:	jmp    1417890ea <_ZN15Au3dsGLSLObjectC1Ev+0x46a>
+   141789478:	nopl   0x0(%rax,%rax,1)
+   141789480:	mov    0x40(%rdx),%rcx
+   141789484:	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   141789489:	jmp    1417893d6 <_ZN15Au3dsGLSLObjectC1Ev+0x756>
+   14178948e:	xchg   %ax,%ax
+   141789490:	mov    0x10(%rsi),%rdi
+   141789494:	test   %rdi,%rdi
+   141789497:	je     141789530 <_ZN15Au3dsGLSLObjectC1Ev+0x8b0>
+   14178949d:	lea    0x18(%rdi),%rcx
+   1417894a1:	call   141850e10 <_ZN7QStringD1Ev>
+   1417894a6:	lea    0x20(%rdi),%rcx
+   1417894aa:	call   141861600 <_ZN7QVectorItED1Ev>
+   1417894af:	mov    0x8(%rdi),%r13
+   1417894b3:	test   %r13,%r13
+   1417894b6:	je     1417894e6 <_ZN15Au3dsGLSLObjectC1Ev+0x866>
+   1417894b8:	lea    0x18(%r13),%rcx
+   1417894bc:	call   141850e10 <_ZN7QStringD1Ev>
+   1417894c1:	lea    0x20(%r13),%rcx
+   1417894c5:	call   141861600 <_ZN7QVectorItED1Ev>
+   1417894ca:	mov    0x8(%r13),%rcx
+   1417894ce:	test   %rcx,%rcx
+   1417894d1:	je     1417894d8 <_ZN15Au3dsGLSLObjectC1Ev+0x858>
+   1417894d3:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1417894d8:	mov    0x10(%r13),%rcx
+   1417894dc:	test   %rcx,%rcx
+   1417894df:	je     1417894e6 <_ZN15Au3dsGLSLObjectC1Ev+0x866>
+   1417894e1:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1417894e6:	mov    0x10(%rdi),%rdi
+   1417894ea:	test   %rdi,%rdi
+   1417894ed:	je     14178951d <_ZN15Au3dsGLSLObjectC1Ev+0x89d>
+   1417894ef:	lea    0x18(%rdi),%rcx
+   1417894f3:	call   141850e10 <_ZN7QStringD1Ev>
+   1417894f8:	lea    0x20(%rdi),%rcx
+   1417894fc:	call   141861600 <_ZN7QVectorItED1Ev>
+   141789501:	mov    0x8(%rdi),%rcx
+   141789505:	test   %rcx,%rcx
+   141789508:	je     14178950f <_ZN15Au3dsGLSLObjectC1Ev+0x88f>
+   14178950a:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   14178950f:	mov    0x10(%rdi),%rcx
+   141789513:	test   %rcx,%rcx
+   141789516:	je     14178951d <_ZN15Au3dsGLSLObjectC1Ev+0x89d>
+   141789518:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   14178951d:	mov    0x10(%rsi),%rdx
+   141789521:	mov    $0x8,%r8d
+   141789527:	mov    %rsi,%rcx
+   14178952a:	call   *0x11092e0(%rip)        # 142892810 <__imp__ZN12QMapDataBase8freeTreeEP12QMapNodeBasei>
+   141789530:	mov    %rsi,%rcx
+   141789533:	call   *0x11092cf(%rip)        # 142892808 <__imp__ZN12QMapDataBase8freeDataEPS_>
+   141789539:	jmp    141789118 <_ZN15Au3dsGLSLObjectC1Ev+0x498>
+   14178953e:	xchg   %ax,%ax
+   141789540:	mov    0x10(%r13),%rdi
+   141789544:	test   %rdi,%rdi
+   141789547:	je     1417895e0 <_ZN15Au3dsGLSLObjectC1Ev+0x960>
+   14178954d:	lea    0x18(%rdi),%rcx
+   141789551:	call   141850e10 <_ZN7QStringD1Ev>
+   141789556:	lea    0x20(%rdi),%rcx
+   14178955a:	call   141861600 <_ZN7QVectorItED1Ev>
+   14178955f:	mov    0x8(%rdi),%r14
+   141789563:	test   %r14,%r14
+   141789566:	je     141789596 <_ZN15Au3dsGLSLObjectC1Ev+0x916>
+   141789568:	lea    0x18(%r14),%rcx
+   14178956c:	call   141850e10 <_ZN7QStringD1Ev>
+   141789571:	lea    0x20(%r14),%rcx
+   141789575:	call   141861600 <_ZN7QVectorItED1Ev>
+   14178957a:	mov    0x8(%r14),%rcx
+   14178957e:	test   %rcx,%rcx
+   141789581:	je     141789588 <_ZN15Au3dsGLSLObjectC1Ev+0x908>
+   141789583:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   141789588:	mov    0x10(%r14),%rcx
+   14178958c:	test   %rcx,%rcx
+   14178958f:	je     141789596 <_ZN15Au3dsGLSLObjectC1Ev+0x916>
+   141789591:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   141789596:	mov    0x10(%rdi),%rdi
+   14178959a:	test   %rdi,%rdi
+   14178959d:	je     1417895cd <_ZN15Au3dsGLSLObjectC1Ev+0x94d>
+   14178959f:	lea    0x18(%rdi),%rcx
+   1417895a3:	call   141850e10 <_ZN7QStringD1Ev>
+   1417895a8:	lea    0x20(%rdi),%rcx
+   1417895ac:	call   141861600 <_ZN7QVectorItED1Ev>
+   1417895b1:	mov    0x8(%rdi),%rcx
+   1417895b5:	test   %rcx,%rcx
+   1417895b8:	je     1417895bf <_ZN15Au3dsGLSLObjectC1Ev+0x93f>
+   1417895ba:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1417895bf:	mov    0x10(%rdi),%rcx
+   1417895c3:	test   %rcx,%rcx
+   1417895c6:	je     1417895cd <_ZN15Au3dsGLSLObjectC1Ev+0x94d>
+   1417895c8:	call   1418d7190 <_ZN8QMapNodeI7QString7QVectorItEE14destroySubTreeEv>
+   1417895cd:	mov    0x10(%r13),%rdx
+   1417895d1:	mov    $0x8,%r8d
+   1417895d7:	mov    %r13,%rcx
+   1417895da:	call   *0x1109230(%rip)        # 142892810 <__imp__ZN12QMapDataBase8freeTreeEP12QMapNodeBasei>
+   1417895e0:	mov    %r13,%rcx
+   1417895e3:	call   *0x110921f(%rip)        # 142892808 <__imp__ZN12QMapDataBase8freeDataEPS_>
+   1417895e9:	jmp    141789108 <_ZN15Au3dsGLSLObjectC1Ev+0x488>
+   1417895ee:	lea    0x370(%rbx),%rcx
+   1417895f5:	mov    %rax,%r12
+   1417895f8:	call   141958000 <_ZNSt10_HashtableI15Au3dsGLSLVertexSt4pairIKS0_iESaIS3_ENSt8__detail10_Select1stESt8equal_toIS0_E20Au3dsGLSLVertex_HashNS5_18_Mod_range_hashingENS5_20_Default_ranged_hashENS5_20_Prime_rehash_policyENS5_17_Hashtable_traitsILb1ELb0ELb0EEEED1Ev>
+   1417895fd:	mov    %r15,%rcx
+   141789600:	call   141856270 <_ZN7QVectorI15Au3dsGLSLVGroupED2Ev>
+   141789605:	mov    %r14,%rcx
+   141789608:	call   141856520 <_ZN7QVectorI15Au3dsGLSLVertexED2Ev>
+   14178960d:	mov    0x50(%rsp),%rcx
+   141789612:	call   141853e80 <_ZN7QVectorI13Au3dsGLSLFaceED2Ev>
+   141789617:	mov    0x48(%rsp),%rcx
+   14178961c:	call   141861030 <_ZN7QVectorIjED1Ev>
+   141789621:	mov    %r13,%rcx
+   141789624:	call   141858980 <_ZN7QVectorI21Au3dsGLSLMappingCoordED2Ev>
+   141789629:	lea    0x110(%rbx),%rcx
+   141789630:	call   1417d59f0 <_ZN4QMapI7QString7QVectorItEED1Ev>
+   141789635:	mov    0x58(%rsp),%rcx
+   14178963a:	call   141850e10 <_ZN7QStringD1Ev>
+   14178963f:	mov    %r12,%rcx
+   141789642:	call   141755338 <_Unwind_Resume>
+   141789647:	nop
+   141789648:	nop
+   141789649:	nop
+   14178964a:	nop
+   14178964b:	nop
+   14178964c:	nop
+   14178964d:	nop
+   14178964e:	nop
+   14178964f:	nop
