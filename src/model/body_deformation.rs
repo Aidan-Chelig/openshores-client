@@ -7,13 +7,14 @@ use std::io;
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NativeBodyDeformation {
     pub base: NativeBodyObjectScale,
+    pub field_170: f64,
     pub field_178: f64,
     pub field_180: f64,
     pub field_188: f64,
 }
 
 impl NativeBodyDeformation {
-    /// Tail/Head/Neck/Foot branches and the proven no-membership branch.
+    /// Tail/Head/Neck/Foot/Torso branches and the proven no-membership branch.
     /// Other branches are errors, NEVER successful uniform-scale substitutes.
     pub fn apply_vertex(
         &self,
@@ -26,16 +27,18 @@ impl NativeBodyDeformation {
         // Native precedence is Tail, Head, Neck, Hand, Foot, Torso, then
         // top/bottom-only paths. Higher-priority unsupported Hand must not
         // accidentally fall through to a supported Foot group.
-        let (pivot, uniform, vertical) = if let Some(pivot) = selected.anatomical[4] {
-            (pivot, false, true)
+        let (pivot, uniform, vertical, torso) = if let Some(pivot) = selected.anatomical[4] {
+            (pivot, false, true, false)
         } else if let Some(pivot) = selected.anatomical[5] {
-            (pivot, true, false)
+            (pivot, true, false, false)
         } else if let Some(pivot) = selected.anatomical[3] {
-            (pivot, false, true)
+            (pivot, false, true, false)
         } else if selected.anatomical[1].is_some() {
             return Err(unsupported());
         } else if let Some(pivot) = selected.anatomical[2] {
-            (pivot, true, true)
+            (pivot, true, true, false)
+        } else if let Some(pivot) = selected.anatomical[0] {
+            (pivot, false, true, true)
         } else {
             return Err(unsupported());
         };
@@ -48,18 +51,24 @@ impl NativeBodyDeformation {
                 self.base.fields_1f4.map(|value| f64::from(value) * scale),
             )
         };
-        if self.field_180 != 1. {
-            let scales = [
-                self.field_180,
-                if uniform { self.field_180 } else { 1. },
-                self.field_180,
-            ];
+        let radial = if torso {
+            self.field_170
+        } else {
+            self.field_180
+        };
+        if radial != 1. {
+            let scales = [radial, if uniform { radial } else { 1. }, radial];
             around(&mut vertex, pivot, scales);
             around(&mut connection, pivot, scales);
         }
-        if vertical && self.field_188 != 1. {
-            around(&mut vertex, pivot, [1., self.field_188, 1.]);
-            around(&mut connection, pivot, [1., self.field_188, 1.]);
+        let height = if torso {
+            self.field_178
+        } else {
+            self.field_188
+        };
+        if vertical && height != 1. {
+            around(&mut vertex, pivot, [1., height, 1.]);
+            around(&mut connection, pivot, [1., height, 1.]);
         }
         // Shared581->5cd: anatomical membership reaches the additional
         // connection-only Y operation only when Top AND Wing matched.

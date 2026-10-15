@@ -385,6 +385,18 @@ cancellation and full mesh composition; `just test-native-body-deformation`
 also verifies digest-bound static branch/final-correction anchors against
 the existing evidence. No reimport, query or reference-client execution occurs.
 
-Hand, Torso, top/bottom-only and other matched branches remain Unsupported.
+Hand, top/bottom-only and other matched branches remain Unsupported.
 Model definition generation, complete part assembly, bone weights and live
 renderer publication remain required: these APIs do not yet render avatars.
+
+The same connected mesh path now supports Torso: XZ use object170, Y uses178,
+independently of limb180/188. Both vertex and connection receive the torso
+transforms. After a non-unit178 stage the native exit goes through5cd, so
+Top+Wing membership can apply178 to the connection a second time, around the
+Top pivot. Tests explicitly distinguish this from a single height transform,
+poison unused limb fields with NaNs, check native group priority and exercise
+the Torso branch through raw mesh classification/loading. The static verifier
+checks the entire torso block14139724d..141397371 against the original PE,
+including absence of limb field reads, XZ/Y multiplication and the shared exit.
+These checks reuse the same complete ApplyScaleFactor evidence; no new import,
+reference-client execution or avatar-rendering verification is claimed.

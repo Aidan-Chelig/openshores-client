@@ -7,6 +7,7 @@ fn definition() -> NativeBodyDeformation {
             fields_1c0: [10., 20., 30.],
             fields_1f4: [1., 2., 3.],
         },
+        field_170: 7.,
         field_178: 5.,
         field_180: 3.,
         field_188: 4.,
@@ -37,6 +38,69 @@ fn all_four_branches_transform_vertex_and_connection_before_final_offset() {
             expected
         );
     }
+}
+
+#[test]
+fn torso_uses_distinct_radial_and_height_fields_not_limb_scales() {
+    let mut definition = definition();
+    definition.field_180 = f64::NAN;
+    definition.field_188 = f64::NAN;
+    assert_eq!(
+        definition
+            .apply_vertex([4., 5., 10.], &selected(0))
+            .unwrap(),
+        [52., 50., 128.]
+    );
+    definition.field_170 = 1.;
+    definition.field_178 = 1.;
+    assert_eq!(
+        definition
+            .apply_vertex([4., 5., 10.], &selected(0))
+            .unwrap(),
+        [16., 26., 44.]
+    );
+}
+
+#[test]
+fn torso_top_wing_correction_runs_after_torso_height_scaling() {
+    let mut selection = selected(0);
+    selection.top = Some([0., 2., 0.]);
+    selection.wing = true;
+    // Connection y4 -> (4-8)*5+8=-12 -> (-12-2)*5+2=-68;
+    // vertex y10 ->18, final20-(-68)+18=106.
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [52., 106., 128.]
+    );
+    selection.wing = false;
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [52., 50., 128.]
+    );
+}
+
+#[test]
+fn torso_remains_lower_priority_than_foot_and_unsupported_hand() {
+    let mut selection = selected(0);
+    selection.anatomical[2] = Some([7., 8., 9.]);
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [28., 92., 72.]
+    );
+    selection.anatomical[1] = Some([7., 8., 9.]);
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap_err()
+            .kind(),
+        io::ErrorKind::Unsupported
+    );
 }
 
 #[test]
@@ -184,6 +248,12 @@ fn mesh_pipeline_selects_actual_members_and_rejects_unsupported_vertices() {
         mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
             .unwrap(),
         [[28., 38., 72.], [10., 20., 30.]]
+    );
+    mesh.vertex_groups[0].name = Some(b"Torso".to_vec());
+    assert_eq!(
+        mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
+            .unwrap(),
+        [[52., 50., 128.], [10., 20., 30.]]
     );
     mesh.vertex_groups[0].name = Some(b"Hand".to_vec());
     assert_eq!(
