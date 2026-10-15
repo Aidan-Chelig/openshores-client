@@ -6,7 +6,7 @@ use crate::{
 };
 use std::io;
 
-fn uses_pa(field_4068: i32) -> bool {
+pub(super) fn uses_pa(field_4068: i32) -> bool {
     matches!(field_4068, 0x41 | 0x50 | 0x99 | 0x9b)
 }
 
@@ -23,7 +23,7 @@ impl NativeDpHandResource {
         let pa = uses_pa(field_4068);
         let mut key = NativeDpModelDna::from_dhdna(dna);
         if pa && !mode {
-            key.force_hand_field_bc();
+            key.force_field_bc();
         }
         let resource = if pa {
             ":data/PAHandRight.3dsN".to_owned()

@@ -7,4 +7,7 @@ pub use dp::{
     native_dh_arm_vertices, native_dh_waist_vertex, native_dp_size_factor,
 };
 pub use dp::{NativeDpBoneTransform, NativeDpBoneTransforms};
+pub use dp::{
+    NativeDpFootCache, NativeDpFootGeometry, NativeDpFootResource, native_dh_has_ankle_bend,
+};
 pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};

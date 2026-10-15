@@ -94,7 +94,7 @@ impl NativeDpModelDna {
         }
     }
 
-    pub(super) fn force_hand_field_bc(&mut self) {
+    pub(super) fn force_field_bc(&mut self) {
         self.fields[0xbc / 4] = 1;
     }
 }

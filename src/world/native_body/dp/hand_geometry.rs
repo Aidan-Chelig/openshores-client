@@ -2,6 +2,8 @@
 use super::{NativeDhDna, native_dp_size_factor};
 use crate::model::{MeshRole, Model, ModelVariant, VertexGroup, VertexGroupChunk};
 use std::io;
+mod foot;
+pub use foot::NativeDpFootGeometry;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeDpHandGeometry {
@@ -35,7 +37,13 @@ fn point_kind(name: &[u8]) -> u8 {
     {
         return 0;
     }
-    if contains(name, b"Hand") { 2 } else { 0 }
+    if contains(name, b"Hand") {
+        2
+    } else if contains(name, b"Foot") {
+        3
+    } else {
+        0
+    }
 }
 
 fn point(group: &VertexGroup) -> io::Result<(u8, [f64; 3])> {
@@ -77,7 +85,7 @@ fn point(group: &VertexGroup) -> io::Result<(u8, [f64; 3])> {
                 // Single-record fast path assigns ConnectPt but not Hand.
                 // Multi-record paths use the final serialized point, not a
                 // weighted centroid or the sorted map's final key.
-                if (kind == 1 || (kind == 2 && members.len() > 1))
+                if (kind == 1 || (matches!(kind, 2 | 3) && members.len() > 1))
                     && let Some(last) = members.last()
                 {
                     position = last.position.map(f64::from);
@@ -92,6 +100,10 @@ impl NativeDpHandGeometry {
     /// Native N-model extent/first-retained-object metadata at loader scale1.
     /// Missing/unsupported metadata stays an error, not guessed primitive data.
     pub fn from_model(model: &Model) -> io::Result<Self> {
+        Self::from_model_pivot(model, 2)
+    }
+
+    fn from_model_pivot(model: &Model, pivot_kind: u8) -> io::Result<Self> {
         let roles = model.mesh_roles(ModelVariant::N);
         let mut bounds: Option<([f64; 3], [f64; 3])> = None;
         let mut first = None;
@@ -126,7 +138,7 @@ impl NativeDpHandGeometry {
                 if role == MeshRole::Screens {
                     return Err(io::Error::new(
                         io::ErrorKind::Unsupported,
-                        "screen-bearing native hand model",
+                        "screen-bearing native limb model",
                     ));
                 }
                 let mut connect = [0.0; 3];
@@ -136,7 +148,7 @@ impl NativeDpHandGeometry {
                     if kind == 1 {
                         connect = p;
                     }
-                    if kind == 2 && pivot.is_none() {
+                    if kind == pivot_kind && pivot.is_none() {
                         pivot = Some(p);
                     }
                 }
@@ -146,13 +158,13 @@ impl NativeDpHandGeometry {
         let (minimum, maximum) = bounds.ok_or_else(|| {
             io::Error::new(
                 io::ErrorKind::Unsupported,
-                "native hand model has no extent-bearing object",
+                "native limb model has no extent-bearing object",
             )
         })?;
         let (connect, pivot) = first.ok_or_else(|| {
             io::Error::new(
                 io::ErrorKind::Unsupported,
-                "native hand model has no retained object",
+                "native limb model has no retained object",
             )
         })?;
         Ok(Self {
@@ -166,14 +178,24 @@ impl NativeDpHandGeometry {
     /// AuGlobal's cached hand offset is [0, hand length, z offset]. Native
     /// HandLength returns its Y component narrowed to f32, not a void return.
     pub fn offset_for_dna(&self, dna: &NativeDhDna) -> [f64; 3] {
+        self.offset_for_fields(dna, dna.0[8], dna.0[6], dna.0[11])
+    }
+
+    fn offset_for_fields(
+        &self,
+        dna: &NativeDhDna,
+        a_byte: u8,
+        b_byte: u8,
+        width_byte: u8,
+    ) -> [f64; 3] {
         let scale = f64::from(native_dp_size_factor(dna) / f32::from_bits(0x3f57_0a3d));
         let mut minimum = self.minimum.map(|v| v * scale);
         let mut maximum = self.maximum.map(|v| v * scale);
         let mut connect = self.connect.map(|v| v * scale);
-        let a = (f32::from(dna.0[8] >> 3) * 0.0625 + 1.0) * 0.25;
-        let b = f32::from(dna.0[6] >> 3) * 0.0625 + 0.5;
+        let a = (f32::from(a_byte >> 3) * 0.0625 + 1.0) * 0.25;
+        let b = f32::from(b_byte >> 3) * 0.0625 + 0.5;
         let broad = ((f64::from(a) + f64::from(a)) * (f64::from(b) / 1.5)) as f32;
-        let width = (f32::from(dna.0[11] & 31) * 0.0625 + 0.5) * 0.25;
+        let width = (f32::from(width_byte & 31) * 0.0625 + 0.5) * 0.25;
         let width = width + width;
         // Native pivot is NOT multiplied by the initial size scale.
         for p in [&mut minimum, &mut maximum, &mut connect] {

@@ -3,7 +3,8 @@ use openshores_client::{
     asset_mount::AssetMount,
     world::{
         native_body::{
-            NativeDpHandCache, NativeDpHandResource, NativeDpInitialization, NativeDpPartJoints,
+            NativeDpDimensions, NativeDpFootCache, NativeDpFootResource, NativeDpHandCache,
+            NativeDpHandResource, NativeDpInitialization, NativeDpPartJoints,
         },
         native_dna::NativeDhDna,
     },
@@ -64,6 +65,61 @@ fn native_hand_selection_reads_and_decodes_user_mounted_resources() {
     assert!(pa_length.is_finite() && pa_length >= 0.0);
     eprintln!(
         "Mounted native hands: {decoded} decoded, {missing} absent, {vertices} raw vertices; PA hand decoded. No native HandLength/render parity claim."
+    );
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION pointing to a user-provided copy"]
+fn native_foot_measurements_and_standing_height_use_mounted_resources() {
+    let path = std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation path");
+    let mount = AssetMount::open(path).unwrap();
+    let mut cache = NativeDpFootCache::new(&mount);
+    let mut decoded = 0;
+    for field in [0, 0x41] {
+        for prefix in 0..8 {
+            for foot in 0..8 {
+                let mut dna = NativeDhDna([0; 24]);
+                dna.0[16] = prefix;
+                dna.0[10] = foot << 5;
+                dna.0[12] = 4;
+                let request = NativeDpFootResource::new(&dna, field, false);
+                let model = request
+                    .read_model(&mount)
+                    .unwrap_or_else(|e| panic!("{}: {e}", request.resource()));
+                assert!(!model.meshes.is_empty());
+                decoded += 1;
+                let length = cache.foot_length(&dna, field, false).unwrap();
+                let height = cache.foot_height(&dna, field).unwrap();
+                assert!(
+                    length.is_finite() && height.is_finite(),
+                    "{}: {length}, {height}",
+                    request.resource()
+                );
+                assert_eq!(
+                    cache.foot_length(&dna, field, false).unwrap().to_bits(),
+                    length.to_bits()
+                );
+                assert_eq!(
+                    cache.foot_height(&dna, field).unwrap().to_bits(),
+                    height.to_bits()
+                );
+                for class in 0..4 {
+                    dna.0[1] = class << 2;
+                    let dimensions = NativeDpDimensions::from_dna(&dna);
+                    for include in [false, true] {
+                        assert!(
+                            cache
+                                .standing_height(&dna, &dimensions, field, include)
+                                .unwrap()
+                                .is_finite()
+                        );
+                    }
+                }
+            }
+        }
+    }
+    eprintln!(
+        "Mounted foot requests decoded: {decoded}; numbered and both PA ankle resources, cached measurements and standing heights verified in Rust. No native runtime/render parity claim."
     );
 }
 

@@ -290,6 +290,43 @@ DpBody::DeleteBodyParts resolves a wrapper whose apparent recursive name must
 not be copied as a recursive Rust implementation. Preserve raw limitations and
 follow the actual target addresses when resolving those dependencies.
 
+### Mounted feet and standing-height dependency
+
+`NativeDpFootResource` selects the exact numbered FootRight resources, or PA
+FootRight0/1 using `HasAnkleBend` (DNA byte10 masked with0xa0), from the full
+body4068 value. FootLength's mode affects the PA key, not resource selection;
+FootHeight always uses mode=false. Both measurements share a mount-owned offset
+cache with the native all-zero miss sentinel and complete model-DNA keys.
+Missing or unsupported geometry propagates an error instead of native loader
+failure's zero fallback. The20000-key limit is a Rust safety budget.
+
+Foot metadata uses the first retained object's first Foot-flagged group, not
+Hand, retaining name/member chunk order and the single-member fast-path behavior.
+The verified common extent/scaling pipeline is shared with HandLength, but feet
+use DNA bytes3,2,10 in place of8,6,11. Numeric stages follow SSE, including the
+double intermediates absent from the decompiler's broad-factor expression.
+The cache stores [0,length,height]; FootLength returns Y and FootHeight returns
+Z as f32, despite the decompiler reporting void for both.
+
+`NativeDpFootCache::standing_height` composes the mounted measurements with the
+actual initialized dimensions and ankle/class branches. No-leg bodies do not
+request feet. Legged bodies always request FootLength, even when its result is
+discarded, and eligible height-inclusive branches call FootHeight twice. The
+native instruction order adds the two segment lengths before adding foot length;
+the decompiler's differing association was not copied.
+
+Full static records are retained in `docs/evidence/native-dp-foot-{length,height}.json`,
+`native-dp-standing-height{,-part0}.json` and `native-dhdna-ankle-bend.json`;
+`native-dp-feet-gnu.txt` corroborates the numeric widths, sums and float returns.
+Offline fixtures cover all256 foot-selector bytes and runtime-field/mode cases,
+pivot priority/chunk order, exact scalar offset fixtures, all standing branches
+and error propagation. `just test-native-dp-mounted reference/hazeron` now also
+decodes128 foot requests (64 numbered resources, repeated PA requests covering
+both ankle variants), checks cached length/height bits and exercises standing
+heights for all four classes. These are real user assets executed by Rust, not
+native executable observations or proof of render parity. Pose-specific CGHeight
+and full skeletal animation remain unimplemented dependencies.
+
 ### Remaining integration gates
 
 The shared native pose-rhythm dependency is now implemented in
