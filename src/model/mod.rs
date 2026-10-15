@@ -12,6 +12,8 @@ fn invalid(message: &str) -> io::Error {
 mod body_scale;
 mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
+mod body_groups;
+pub use body_groups::NativeBodyVertexGroup;
 mod decode;
 mod fingerprint;
 mod roles;

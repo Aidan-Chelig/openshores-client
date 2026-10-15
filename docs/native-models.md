@@ -268,3 +268,46 @@ zero/nonzero branch arithmetic, then tests cancellation-sensitive products,
 zero/NaN/nonfinite inputs, coordinate-stage ordering, input preservation and
 explicit grouped-mesh rejection. These are static/Rust checks, not native
 execution, weighted-mesh parity or rendering verification.
+
+## Native body vertex-group membership
+
+`NativeBodyVertexGroup::from_group` now reconstructs native classification,
+point extraction and the position-key weight map from raw ordered group fields.
+The default type is1. ASCII tokens are tested case-sensitively in native order:
+ScalePt/ConnectPt/MidPt and exact point names precede Torso/Hand/Foot/Neck/Tail/
+Head flags and special helper names. Consequently TopScalePt matches the early
+ScalePt substring; the later exact subtype test is not substituted for it.
+Native WeaponUDPt/LRPt types19/20 and original missile-name spellings are kept.
+
+One serialized record NEVER inserts membership. It assigns a point only for
+the verified type3/type10 or literal-mask fast path. Multi-record groups insert
+position/weight pairs except the final record, which becomes a point for types
+2..6/10/11 or any anatomical flag. Classification at the time the Members field
+is read is authoritative; a later Name cannot retroactively remove a weight
+or recover a pivot. Duplicate positions replace the weight but retain the first
+stored key bits. Signed zeros compare equal; entries are sorted numerically by
+XYZ, and weights widen from f32 to f64. Zero weight still denotes membership.
+ApplyScaleFactor narrows queried coordinates to f32 before lookup. NaN keys
+return Unsupported instead of guessing unordered Qt map behavior; malformed
+field order/nonfinite raw records return InvalidData under existing Rust policy.
+
+Complete retained records are `docs/evidence/native-body-group-members.json`
+(`ev_ee5907c272b7213258a4647ea21954cbfc8217d4be3d3d67e1a1cebe0c8bcf08`),
+`native-body-group-classification.json`
+(`ev_b424b56c7897d03f5f9d1a3ab97f664f65fe7a0dbecde663aafd5faca9ee4c3e`)
+and `native-body-group-object-loader.json`
+(`ev_878a04dbefe1ad0e5e77303804582e10359a2509bbab1dc39bd513e75ec46285`).
+Full member-loader GNU is in `native-body-group-members-gnu.txt`. All REA records
+were reused, not requeried or reimported. `just test-native-body-groups` checks
+SHA-bound defaults, name precedence, pivot mask/flags, map replacement and lookup
+narrowing, then runs seven Rust fixtures covering those rules and error cases.
+
+The read-only mounted `native_body_mounted_groups` test (included in
+`just test-native-dp-mounted reference/hazeron`) parses all64 native-selected
+hand resources plus PA:168 groups,10,622 position keys,130 nonzero pivots in the
+supplied installation. These are actual raw carrier checks, not original-client
+execution or independent weighted deformation parity. Native object loading
+extracts some point-only groups into object fields rather than retaining them
+in its deformation list; this object metadata/selection stage, the group-based
+scaling rules, complete skin assembly, bone weights and renderer publication
+remain required. No avatar body is rendered by this membership implementation.

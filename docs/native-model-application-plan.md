@@ -1073,6 +1073,33 @@ updates, full animation and local/offline end-to-end verification remain require
 under the unchanged objective. Do not claim the diagnostic preview, unweighted
 helper or passing scalar tests satisfy those gates.
 
+### Body mesh group membership and pivot records
+
+`NativeBodyVertexGroup` now reconstructs the actual ordered group reader's
+type/flag classification, pivot records, duplicate-replacing numeric XYZ map
+and f64-to-f32 query key. This supplies the real membership dependency of
+ApplyScaleFactor; it does not apply weighted deformation or publish geometry.
+Single-record and final-record point rules are distinct, a Name read after
+Members does not retroactively change the map, and Some(0) still means present.
+Zero-key comparisons retain first-key bits when replacing a weight. Unknown
+NaN-key ordering remains Unsupported, rather than a guessed total ordering.
+
+The three complete retained reader/object-loader records were reused and
+committed alongside full GNU membership disassembly; no new session query or
+import was necessary. `docs/native-models.md` indexes the exact Evidence IDs,
+static checks and remaining object-stage boundary. Seven new Rust fixtures
+cover classification precedence/types, both record orders, pivot counts,
+duplicates/signed zero, float query narrowing and malformed/unsupported data.
+The mounted65-resource check parses168 groups,10,622 position keys and130
+nonzero pivots from the supplied installation read-only.
+
+Next: native object metadata extraction/retained-group selection, then the
+actual named-group deformation formulas using this membership data. Until
+those are implemented, the unweighted mesh API still rejects grouped meshes.
+Actual body assembly/skin bone weights, renderer publication, production
+receive ownership and full animation remain incomplete requirements; this
+milestone does not make native avatar bodies visible in the client.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or

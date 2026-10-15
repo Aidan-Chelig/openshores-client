@@ -61,6 +61,10 @@ test-native-body-scale:
     nix develop .#server-test --command python tests/native_body_scale.py
     nix develop .#server-test --command cargo test --offline --lib model::body_scale
 
+test-native-body-groups:
+    nix develop .#server-test --command python tests/native_body_groups.py
+    nix develop .#server-test --command cargo test --offline --lib model::body_groups
+
 # Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
 test-native-jobs:
     nix develop .#server-test --command python tests/native_jobs.py
@@ -202,6 +206,7 @@ test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_waist -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_position_torso -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_arm_elbow -- --ignored --nocapture
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_groups -- --ignored --nocapture
 
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build

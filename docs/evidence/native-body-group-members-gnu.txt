@@ -1,0 +1,365 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141399c00 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami>:
+   141399c00:	41 57                	push   %r15
+   141399c02:	41 56                	push   %r14
+   141399c04:	41 55                	push   %r13
+   141399c06:	41 54                	push   %r12
+   141399c08:	55                   	push   %rbp
+   141399c09:	57                   	push   %rdi
+   141399c0a:	56                   	push   %rsi
+   141399c0b:	53                   	push   %rbx
+   141399c0c:	48 81 ec d8 00 00 00 	sub    $0xd8,%rsp
+   141399c13:	0f 29 b4 24 90 00 00 	movaps %xmm6,0x90(%rsp)
+   141399c1a:	00 
+   141399c1b:	0f 29 bc 24 a0 00 00 	movaps %xmm7,0xa0(%rsp)
+   141399c22:	00 
+   141399c23:	44 0f 29 84 24 b0 00 	movaps %xmm8,0xb0(%rsp)
+   141399c2a:	00 00 
+   141399c2c:	44 0f 29 8c 24 c0 00 	movaps %xmm9,0xc0(%rsp)
+   141399c33:	00 00 
+   141399c35:	48 8b 1d a4 8a 4f 01 	mov    0x14f8aa4(%rip),%rbx        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141399c3c:	49 89 d4             	mov    %rdx,%r12
+   141399c3f:	48 8d 7c 24 4f       	lea    0x4f(%rsp),%rdi
+   141399c44:	4c 8d 6c 24 50       	lea    0x50(%rsp),%r13
+   141399c49:	44 89 c5             	mov    %r8d,%ebp
+   141399c4c:	48 89 fa             	mov    %rdi,%rdx
+   141399c4f:	49 89 cf             	mov    %rcx,%r15
+   141399c52:	4c 89 e1             	mov    %r12,%rcx
+   141399c55:	ff d3                	call   *%rbx
+   141399c57:	4c 89 ea             	mov    %r13,%rdx
+   141399c5a:	4c 89 e1             	mov    %r12,%rcx
+   141399c5d:	ff d3                	call   *%rbx
+   141399c5f:	0f b6 44 24 50       	movzbl 0x50(%rsp),%eax
+   141399c64:	0f b6 74 24 4f       	movzbl 0x4f(%rsp),%esi
+   141399c69:	c1 e0 08             	shl    $0x8,%eax
+   141399c6c:	09 c6                	or     %eax,%esi
+   141399c6e:	8d 45 fe             	lea    -0x2(%rbp),%eax
+   141399c71:	89 44 24 34          	mov    %eax,0x34(%rsp)
+   141399c75:	66 83 fe 01          	cmp    $0x1,%si
+   141399c79:	0f 84 11 04 00 00    	je     14139a090 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x490>
+   141399c7f:	4c 8d 74 24 4d       	lea    0x4d(%rsp),%r14
+   141399c84:	48 8d 6c 24 4e       	lea    0x4e(%rsp),%rbp
+   141399c89:	66 85 f6             	test   %si,%si
+   141399c8c:	0f 84 89 02 00 00    	je     141399f1b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x31b>
+   141399c92:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   141399c98:	4c 89 f2             	mov    %r14,%rdx
+   141399c9b:	4c 89 e1             	mov    %r12,%rcx
+   141399c9e:	ff d3                	call   *%rbx
+   141399ca0:	48 89 ea             	mov    %rbp,%rdx
+   141399ca3:	4c 89 e1             	mov    %r12,%rcx
+   141399ca6:	ff d3                	call   *%rbx
+   141399ca8:	48 89 fa             	mov    %rdi,%rdx
+   141399cab:	4c 89 e1             	mov    %r12,%rcx
+   141399cae:	ff d3                	call   *%rbx
+   141399cb0:	4c 89 ea             	mov    %r13,%rdx
+   141399cb3:	4c 89 e1             	mov    %r12,%rcx
+   141399cb6:	ff d3                	call   *%rbx
+   141399cb8:	0f b6 44 24 50       	movzbl 0x50(%rsp),%eax
+   141399cbd:	0f b6 54 24 4f       	movzbl 0x4f(%rsp),%edx
+   141399cc2:	4c 89 e1             	mov    %r12,%rcx
+   141399cc5:	c1 e2 10             	shl    $0x10,%edx
+   141399cc8:	c1 e0 18             	shl    $0x18,%eax
+   141399ccb:	09 d0                	or     %edx,%eax
+   141399ccd:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   141399cd2:	09 d0                	or     %edx,%eax
+   141399cd4:	0f b6 54 24 4e       	movzbl 0x4e(%rsp),%edx
+   141399cd9:	c1 e2 08             	shl    $0x8,%edx
+   141399cdc:	09 d0                	or     %edx,%eax
+   141399cde:	4c 89 f2             	mov    %r14,%rdx
+   141399ce1:	66 0f 6e f0          	movd   %eax,%xmm6
+   141399ce5:	ff d3                	call   *%rbx
+   141399ce7:	48 89 ea             	mov    %rbp,%rdx
+   141399cea:	4c 89 e1             	mov    %r12,%rcx
+   141399ced:	ff d3                	call   *%rbx
+   141399cef:	48 89 fa             	mov    %rdi,%rdx
+   141399cf2:	4c 89 e1             	mov    %r12,%rcx
+   141399cf5:	ff d3                	call   *%rbx
+   141399cf7:	4c 89 ea             	mov    %r13,%rdx
+   141399cfa:	4c 89 e1             	mov    %r12,%rcx
+   141399cfd:	ff d3                	call   *%rbx
+   141399cff:	0f b6 44 24 50       	movzbl 0x50(%rsp),%eax
+   141399d04:	0f b6 54 24 4f       	movzbl 0x4f(%rsp),%edx
+   141399d09:	4c 89 e1             	mov    %r12,%rcx
+   141399d0c:	c1 e2 10             	shl    $0x10,%edx
+   141399d0f:	c1 e0 18             	shl    $0x18,%eax
+   141399d12:	09 d0                	or     %edx,%eax
+   141399d14:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   141399d19:	09 d0                	or     %edx,%eax
+   141399d1b:	0f b6 54 24 4e       	movzbl 0x4e(%rsp),%edx
+   141399d20:	c1 e2 08             	shl    $0x8,%edx
+   141399d23:	09 d0                	or     %edx,%eax
+   141399d25:	4c 89 f2             	mov    %r14,%rdx
+   141399d28:	66 0f 6e f8          	movd   %eax,%xmm7
+   141399d2c:	ff d3                	call   *%rbx
+   141399d2e:	48 89 ea             	mov    %rbp,%rdx
+   141399d31:	4c 89 e1             	mov    %r12,%rcx
+   141399d34:	ff d3                	call   *%rbx
+   141399d36:	48 89 fa             	mov    %rdi,%rdx
+   141399d39:	4c 89 e1             	mov    %r12,%rcx
+   141399d3c:	ff d3                	call   *%rbx
+   141399d3e:	4c 89 ea             	mov    %r13,%rdx
+   141399d41:	4c 89 e1             	mov    %r12,%rcx
+   141399d44:	ff d3                	call   *%rbx
+   141399d46:	0f b6 44 24 50       	movzbl 0x50(%rsp),%eax
+   141399d4b:	0f b6 54 24 4f       	movzbl 0x4f(%rsp),%edx
+   141399d50:	4c 89 e1             	mov    %r12,%rcx
+   141399d53:	c1 e2 10             	shl    $0x10,%edx
+   141399d56:	c1 e0 18             	shl    $0x18,%eax
+   141399d59:	09 d0                	or     %edx,%eax
+   141399d5b:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   141399d60:	09 d0                	or     %edx,%eax
+   141399d62:	0f b6 54 24 4e       	movzbl 0x4e(%rsp),%edx
+   141399d67:	c1 e2 08             	shl    $0x8,%edx
+   141399d6a:	09 d0                	or     %edx,%eax
+   141399d6c:	4c 89 f2             	mov    %r14,%rdx
+   141399d6f:	66 44 0f 6e c0       	movd   %eax,%xmm8
+   141399d74:	ff d3                	call   *%rbx
+   141399d76:	48 89 ea             	mov    %rbp,%rdx
+   141399d79:	4c 89 e1             	mov    %r12,%rcx
+   141399d7c:	ff d3                	call   *%rbx
+   141399d7e:	48 89 fa             	mov    %rdi,%rdx
+   141399d81:	4c 89 e1             	mov    %r12,%rcx
+   141399d84:	ff d3                	call   *%rbx
+   141399d86:	4c 89 ea             	mov    %r13,%rdx
+   141399d89:	4c 89 e1             	mov    %r12,%rcx
+   141399d8c:	ff d3                	call   *%rbx
+   141399d8e:	83 6c 24 34 10       	subl   $0x10,0x34(%rsp)
+   141399d93:	0f b6 44 24 50       	movzbl 0x50(%rsp),%eax
+   141399d98:	0f b6 4c 24 4f       	movzbl 0x4f(%rsp),%ecx
+   141399d9d:	0f b6 54 24 4e       	movzbl 0x4e(%rsp),%edx
+   141399da2:	44 0f b6 44 24 4d    	movzbl 0x4d(%rsp),%r8d
+   141399da8:	66 83 fe 01          	cmp    $0x1,%si
+   141399dac:	0f 84 ee 00 00 00    	je     141399ea0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2a0>
+   141399db2:	c1 e1 10             	shl    $0x10,%ecx
+   141399db5:	c1 e0 18             	shl    $0x18,%eax
+   141399db8:	66 45 0f ef c9       	pxor   %xmm9,%xmm9
+   141399dbd:	09 c8                	or     %ecx,%eax
+   141399dbf:	c1 e2 08             	shl    $0x8,%edx
+   141399dc2:	49 8b 4f 40          	mov    0x40(%r15),%rcx
+   141399dc6:	44 09 c0             	or     %r8d,%eax
+   141399dc9:	09 d0                	or     %edx,%eax
+   141399dcb:	66 0f 6e c8          	movd   %eax,%xmm1
+   141399dcf:	8b 01                	mov    (%rcx),%eax
+   141399dd1:	f3 44 0f 5a c9       	cvtss2sd %xmm1,%xmm9
+   141399dd6:	83 f8 01             	cmp    $0x1,%eax
+   141399dd9:	0f 87 e9 01 00 00    	ja     141399fc8 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x3c8>
+   141399ddf:	4c 8b 49 10          	mov    0x10(%rcx),%r9
+   141399de3:	4d 85 c9             	test   %r9,%r9
+   141399de6:	0f 84 84 01 00 00    	je     141399f70 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x370>
+   141399dec:	45 31 c0             	xor    %r8d,%r8d
+   141399def:	eb 20                	jmp    141399e11 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x211>
+   141399df1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   141399df8:	0f 2f f0             	comiss %xmm0,%xmm6
+   141399dfb:	77 33                	ja     141399e30 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x230>
+   141399dfd:	49 8b 41 08          	mov    0x8(%r9),%rax
+   141399e01:	4d 89 c8             	mov    %r9,%r8
+   141399e04:	ba 01 00 00 00       	mov    $0x1,%edx
+   141399e09:	48 85 c0             	test   %rax,%rax
+   141399e0c:	74 2d                	je     141399e3b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x23b>
+   141399e0e:	49 89 c1             	mov    %rax,%r9
+   141399e11:	f3 41 0f 10 41 40    	movss  0x40(%r9),%xmm0
+   141399e17:	0f 2e f0             	ucomiss %xmm0,%xmm6
+   141399e1a:	7a dc                	jp     141399df8 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1f8>
+   141399e1c:	75 da                	jne    141399df8 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1f8>
+   141399e1e:	f3 41 0f 10 41 44    	movss  0x44(%r9),%xmm0
+   141399e24:	0f 2e f8             	ucomiss %xmm0,%xmm7
+   141399e27:	7a 02                	jp     141399e2b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x22b>
+   141399e29:	74 4d                	je     141399e78 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x278>
+   141399e2b:	0f 2f f8             	comiss %xmm0,%xmm7
+   141399e2e:	76 cd                	jbe    141399dfd <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1fd>
+   141399e30:	49 8b 41 10          	mov    0x10(%r9),%rax
+   141399e34:	31 d2                	xor    %edx,%edx
+   141399e36:	48 85 c0             	test   %rax,%rax
+   141399e39:	75 d3                	jne    141399e0e <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x20e>
+   141399e3b:	4d 85 c0             	test   %r8,%r8
+   141399e3e:	0f 84 35 01 00 00    	je     141399f79 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x379>
+   141399e44:	f3 41 0f 10 40 40    	movss  0x40(%r8),%xmm0
+   141399e4a:	0f 2e f0             	ucomiss %xmm0,%xmm6
+   141399e4d:	7a 06                	jp     141399e55 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x255>
+   141399e4f:	0f 84 e3 01 00 00    	je     14139a038 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x438>
+   141399e55:	0f 2f c6             	comiss %xmm6,%xmm0
+   141399e58:	0f 87 1b 01 00 00    	ja     141399f79 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x379>
+   141399e5e:	f2 45 0f 11 48 50    	movsd  %xmm9,0x50(%r8)
+   141399e64:	66 83 ee 01          	sub    $0x1,%si
+   141399e68:	0f 85 2a fe ff ff    	jne    141399c98 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x98>
+   141399e6e:	e9 a8 00 00 00       	jmp    141399f1b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x31b>
+   141399e73:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   141399e78:	f3 41 0f 10 41 48    	movss  0x48(%r9),%xmm0
+   141399e7e:	44 0f 2e c0          	ucomiss %xmm0,%xmm8
+   141399e82:	7a 06                	jp     141399e8a <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x28a>
+   141399e84:	0f 84 73 ff ff ff    	je     141399dfd <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1fd>
+   141399e8a:	44 0f 2f c0          	comiss %xmm0,%xmm8
+   141399e8e:	0f 86 69 ff ff ff    	jbe    141399dfd <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1fd>
+   141399e94:	49 8b 41 10          	mov    0x10(%r9),%rax
+   141399e98:	31 d2                	xor    %edx,%edx
+   141399e9a:	eb 9a                	jmp    141399e36 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x236>
+   141399e9c:	0f 1f 40 00          	nopl   0x0(%rax)
+   141399ea0:	45 8b 4f 34          	mov    0x34(%r15),%r9d
+   141399ea4:	45 8d 51 fe          	lea    -0x2(%r9),%r10d
+   141399ea8:	41 83 fa 04          	cmp    $0x4,%r10d
+   141399eac:	76 42                	jbe    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399eae:	41 83 e9 0a          	sub    $0xa,%r9d
+   141399eb2:	41 83 f9 01          	cmp    $0x1,%r9d
+   141399eb6:	76 38                	jbe    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399eb8:	41 80 7f 50 00       	cmpb   $0x0,0x50(%r15)
+   141399ebd:	75 31                	jne    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399ebf:	41 80 7f 51 00       	cmpb   $0x0,0x51(%r15)
+   141399ec4:	75 2a                	jne    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399ec6:	41 80 7f 52 00       	cmpb   $0x0,0x52(%r15)
+   141399ecb:	75 23                	jne    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399ecd:	41 80 7f 53 00       	cmpb   $0x0,0x53(%r15)
+   141399ed2:	75 1c                	jne    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399ed4:	41 80 7f 54 00       	cmpb   $0x0,0x54(%r15)
+   141399ed9:	75 15                	jne    141399ef0 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x2f0>
+   141399edb:	41 80 7f 55 00       	cmpb   $0x0,0x55(%r15)
+   141399ee0:	0f 84 cc fe ff ff    	je     141399db2 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1b2>
+   141399ee6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   141399eed:	00 00 00 
+   141399ef0:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141399ef4:	49 c7 47 20 00 00 00 	movq   $0x0,0x20(%r15)
+   141399efb:	00 
+   141399efc:	41 0f 11 07          	movups %xmm0,(%r15)
+   141399f00:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141399f04:	41 0f 11 47 10       	movups %xmm0,0x10(%r15)
+   141399f09:	f3 41 0f 11 77 28    	movss  %xmm6,0x28(%r15)
+   141399f0f:	f3 41 0f 11 7f 2c    	movss  %xmm7,0x2c(%r15)
+   141399f15:	f3 45 0f 11 47 30    	movss  %xmm8,0x30(%r15)
+   141399f1b:	8b 44 24 34          	mov    0x34(%rsp),%eax
+   141399f1f:	85 c0                	test   %eax,%eax
+   141399f21:	74 0c                	je     141399f2f <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x32f>
+   141399f23:	89 c2                	mov    %eax,%edx
+   141399f25:	4c 89 e1             	mov    %r12,%rcx
+   141399f28:	ff 15 32 87 4f 01    	call   *0x14f8732(%rip)        # 142892660 <__imp__ZN11QDataStream11skipRawDataEi>
+   141399f2e:	90                   	nop
+   141399f2f:	0f 28 b4 24 90 00 00 	movaps 0x90(%rsp),%xmm6
+   141399f36:	00 
+   141399f37:	b8 01 00 00 00       	mov    $0x1,%eax
+   141399f3c:	0f 28 bc 24 a0 00 00 	movaps 0xa0(%rsp),%xmm7
+   141399f43:	00 
+   141399f44:	44 0f 28 84 24 b0 00 	movaps 0xb0(%rsp),%xmm8
+   141399f4b:	00 00 
+   141399f4d:	44 0f 28 8c 24 c0 00 	movaps 0xc0(%rsp),%xmm9
+   141399f54:	00 00 
+   141399f56:	48 81 c4 d8 00 00 00 	add    $0xd8,%rsp
+   141399f5d:	5b                   	pop    %rbx
+   141399f5e:	5e                   	pop    %rsi
+   141399f5f:	5f                   	pop    %rdi
+   141399f60:	5d                   	pop    %rbp
+   141399f61:	41 5c                	pop    %r12
+   141399f63:	41 5d                	pop    %r13
+   141399f65:	41 5e                	pop    %r14
+   141399f67:	41 5f                	pop    %r15
+   141399f69:	c3                   	ret
+   141399f6a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   141399f70:	4c 8d 49 08          	lea    0x8(%rcx),%r9
+   141399f74:	ba 01 00 00 00       	mov    $0x1,%edx
+   141399f79:	89 54 24 20          	mov    %edx,0x20(%rsp)
+   141399f7d:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   141399f83:	ba 58 00 00 00       	mov    $0x58,%edx
+   141399f88:	ff 15 5a 88 4f 01    	call   *0x14f885a(%rip)        # 1428927e8 <__imp__ZN12QMapDataBase10createNodeEiiP12QMapNodeBaseb>
+   141399f8e:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141399f92:	0f 11 40 18          	movups %xmm0,0x18(%rax)
+   141399f96:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141399f9a:	48 c7 40 38 00 00 00 	movq   $0x0,0x38(%rax)
+   141399fa1:	00 
+   141399fa2:	0f 11 40 28          	movups %xmm0,0x28(%rax)
+   141399fa6:	f3 0f 11 70 40       	movss  %xmm6,0x40(%rax)
+   141399fab:	f3 0f 11 78 44       	movss  %xmm7,0x44(%rax)
+   141399fb0:	f3 44 0f 11 40 48    	movss  %xmm8,0x48(%rax)
+   141399fb6:	f2 44 0f 11 48 50    	movsd  %xmm9,0x50(%rax)
+   141399fbc:	e9 a3 fe ff ff       	jmp    141399e64 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x264>
+   141399fc1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   141399fc8:	ff 15 12 88 4f 01    	call   *0x14f8812(%rip)        # 1428927e0 <__imp__ZN12QMapDataBase10createDataEv>
+   141399fce:	4d 8b 4f 40          	mov    0x40(%r15),%r9
+   141399fd2:	49 89 c0             	mov    %rax,%r8
+   141399fd5:	49 8b 49 10          	mov    0x10(%r9),%rcx
+   141399fd9:	48 85 c9             	test   %rcx,%rcx
+   141399fdc:	74 2a                	je     14139a008 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x408>
+   141399fde:	48 89 c2             	mov    %rax,%rdx
+   141399fe1:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   141399fe6:	e8 15 ed 5a 00       	call   141948d00 <_ZNK8QMapNodeI15Au3dsGLSLVertexdE4copyEP8QMapDataIS0_dE>
+   141399feb:	4c 8b 44 24 38       	mov    0x38(%rsp),%r8
+   141399ff0:	4d 8b 4f 40          	mov    0x40(%r15),%r9
+   141399ff4:	48 8b 10             	mov    (%rax),%rdx
+   141399ff7:	49 8d 48 08          	lea    0x8(%r8),%rcx
+   141399ffb:	49 89 40 10          	mov    %rax,0x10(%r8)
+   141399fff:	83 e2 03             	and    $0x3,%edx
+   14139a002:	48 09 ca             	or     %rcx,%rdx
+   14139a005:	48 89 10             	mov    %rdx,(%rax)
+   14139a008:	4c 89 c9             	mov    %r9,%rcx
+   14139a00b:	4c 89 44 24 38       	mov    %r8,0x38(%rsp)
+   14139a010:	e8 ab 64 55 00       	call   1418f04c0 <_ZN9QtPrivate8RefCount5derefEv>
+   14139a015:	4c 8b 44 24 38       	mov    0x38(%rsp),%r8
+   14139a01a:	84 c0                	test   %al,%al
+   14139a01c:	74 62                	je     14139a080 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x480>
+   14139a01e:	4c 89 c1             	mov    %r8,%rcx
+   14139a021:	4d 89 47 40          	mov    %r8,0x40(%r15)
+   14139a025:	ff 15 cd 87 4f 01    	call   *0x14f87cd(%rip)        # 1428927f8 <__imp__ZN12QMapDataBase18recalcMostLeftNodeEv>
+   14139a02b:	49 8b 4f 40          	mov    0x40(%r15),%rcx
+   14139a02f:	e9 ab fd ff ff       	jmp    141399ddf <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x1df>
+   14139a034:	0f 1f 40 00          	nopl   0x0(%rax)
+   14139a038:	f3 41 0f 10 40 44    	movss  0x44(%r8),%xmm0
+   14139a03e:	0f 2e f8             	ucomiss %xmm0,%xmm7
+   14139a041:	7a 02                	jp     14139a045 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x445>
+   14139a043:	74 13                	je     14139a058 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x458>
+   14139a045:	0f 2f c7             	comiss %xmm7,%xmm0
+   14139a048:	0f 86 10 fe ff ff    	jbe    141399e5e <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x25e>
+   14139a04e:	e9 26 ff ff ff       	jmp    141399f79 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x379>
+   14139a053:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14139a058:	f3 41 0f 10 40 48    	movss  0x48(%r8),%xmm0
+   14139a05e:	44 0f 2e c0          	ucomiss %xmm0,%xmm8
+   14139a062:	7a 06                	jp     14139a06a <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x46a>
+   14139a064:	0f 84 f4 fd ff ff    	je     141399e5e <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x25e>
+   14139a06a:	41 0f 2f c0          	comiss %xmm8,%xmm0
+   14139a06e:	0f 86 ea fd ff ff    	jbe    141399e5e <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x25e>
+   14139a074:	e9 00 ff ff ff       	jmp    141399f79 <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x379>
+   14139a079:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14139a080:	49 8b 4f 40          	mov    0x40(%r15),%rcx
+   14139a084:	e8 f7 62 4d 00       	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   14139a089:	4c 8b 44 24 38       	mov    0x38(%rsp),%r8
+   14139a08e:	eb 8e                	jmp    14139a01e <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x41e>
+   14139a090:	4c 89 e1             	mov    %r12,%rcx
+   14139a093:	e8 48 7f 54 00       	call   1418e1fe0 <_ZN9Au3dsGLSL9LoadFloatER11QDataStream>
+   14139a098:	4c 89 e1             	mov    %r12,%rcx
+   14139a09b:	0f 28 f0             	movaps %xmm0,%xmm6
+   14139a09e:	e8 3d 7f 54 00       	call   1418e1fe0 <_ZN9Au3dsGLSL9LoadFloatER11QDataStream>
+   14139a0a3:	4c 89 e1             	mov    %r12,%rcx
+   14139a0a6:	0f 14 f0             	unpcklps %xmm0,%xmm6
+   14139a0a9:	e8 32 7f 54 00       	call   1418e1fe0 <_ZN9Au3dsGLSL9LoadFloatER11QDataStream>
+   14139a0ae:	4c 89 e1             	mov    %r12,%rcx
+   14139a0b1:	0f 28 f8             	movaps %xmm0,%xmm7
+   14139a0b4:	e8 27 7f 54 00       	call   1418e1fe0 <_ZN9Au3dsGLSL9LoadFloatER11QDataStream>
+   14139a0b9:	8d 45 ee             	lea    -0x12(%rbp),%eax
+   14139a0bc:	89 44 24 34          	mov    %eax,0x34(%rsp)
+   14139a0c0:	41 8b 47 34          	mov    0x34(%r15),%eax
+   14139a0c4:	83 f8 03             	cmp    $0x3,%eax
+   14139a0c7:	74 22                	je     14139a0eb <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x4eb>
+   14139a0c9:	83 f8 0a             	cmp    $0xa,%eax
+   14139a0cc:	74 1d                	je     14139a0eb <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x4eb>
+   14139a0ce:	83 f8 21             	cmp    $0x21,%eax
+   14139a0d1:	0f 87 44 fe ff ff    	ja     141399f1b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x31b>
+   14139a0d7:	48 ba 00 f8 87 f9 03 	movabs $0x3f987f800,%rdx
+   14139a0de:	00 00 00 
+   14139a0e1:	48 0f a3 c2          	bt     %rax,%rdx
+   14139a0e5:	0f 83 30 fe ff ff    	jae    141399f1b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x31b>
+   14139a0eb:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14139a0ef:	4c 89 ea             	mov    %r13,%rdx
+   14139a0f2:	4c 89 f9             	mov    %r15,%rcx
+   14139a0f5:	0f 13 74 24 78       	movlps %xmm6,0x78(%rsp)
+   14139a0fa:	0f 29 44 24 60       	movaps %xmm0,0x60(%rsp)
+   14139a0ff:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14139a103:	48 c7 44 24 70 00 00 	movq   $0x0,0x70(%rsp)
+   14139a10a:	00 00 
+   14139a10c:	f3 0f 11 bc 24 80 00 	movss  %xmm7,0x80(%rsp)
+   14139a113:	00 00 
+   14139a115:	0f 29 44 24 50       	movaps %xmm0,0x50(%rsp)
+   14139a11a:	e8 d1 90 ff ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   14139a11f:	e9 f7 fd ff ff       	jmp    141399f1b <_ZN15Au3dsGLSLVGroup20LoadVertexGroupChunkER11QDataStreami+0x31b>
+   14139a124:	90                   	nop
+   14139a125:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14139a12c:	00 00 00 00
