@@ -5,7 +5,21 @@ process owns an ephemeral Ghidra import and discards it on close; prior runs
 spent about 640–655 seconds importing/auto-analyzing the whole executable per
 query. Retained JSON is evidence, not a reusable Ghidra database.
 
-Use `tests/native_session.py` with an existing REA launcher, the selected binary
+When the connected REA MCP tools are available, prefer that persistent server:
+check `binary_session` for an already matching target before `open_binary`, then
+batch distinct unresolved procedures with `procedure_pseudo_code`. Keep the
+same target/provider open across dependent reconstruction work. Export complete
+Evidence bundles to new paths after each batch; inspect retained results instead
+of querying a function again just to read its output. A provider-neutral Evidence
+snapshot is not an analyzed Ghidra database for unseen procedures. Close the
+provider when the investigation actually finishes, not after each function or
+intermediate coding milestone. Do not start a separate CLI import alongside a
+live matching provider. First-import time and warm-query time must be reported
+separately; neither an observation timeout nor a missing progress notification
+establishes that an active analyzer has stopped.
+
+If connected tools are unavailable, or their request deadline cannot accommodate
+a cold import, use `tests/native_session.py` with an existing REA launcher, the selected binary
 and a **new** output directory. It uses the public MCP stdio interface and
 keeps one server/target session alive for multiple sequential queries. Set
 GHIDRA_INSTALL_DIR and JAVA_HOME from the development environment if needed.
@@ -40,6 +54,23 @@ are not a substitute for an analyzed database for unseen function queries.
 Legacy tests/native_decompile.py remains for isolated requests only, not the
 default reconstruction workflow. Transport tests: `python -m unittest discover
 -s tests -p test_native_session.py`.
+
+## Cold-import cancellation observed with connected tools
+
+The connected client's first `procedure_pseudo_code` request for DpBody::SetDNA
+returned `timed out awaiting tools/call after 300s` (300.004 seconds). The analyzer
+initially remained live, so it was polled rather than restarted. Subsequently
+its process and temporary project disappeared and the exported evidence bundle
+contained zero records: this attempt did not produce usable pseudocode. The
+error and empty bundle are retained in `target/native-model-analysis-3`.
+
+Only after confirming that terminal state was the connected target closed and
+one raw-stdio session started in `target/native-model-analysis-4`. The driver
+has no per-request five-minute client deadline and sets the provider startup
+timeout to thirty minutes for its own child only. This changes no global Codex,
+REA or Ghidra configuration. Keep its PTY stdin open and batch unresolved queries
+there; do not start another import while it remains live. A timeout alone still
+does not authorize a restart: verify the specific process/session first.
 
 ## Measured reuse
 

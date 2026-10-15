@@ -93,6 +93,10 @@ test-native-movement:
 test-native-health:
     nix develop .#server-test --command python tests/native_health.py
 
+# Static chromosome-volume dispatch inventory, not model generation.
+test-native-chromosome-volumes:
+    nix develop .#server-test --command python tests/native_chromosome_volumes.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py
