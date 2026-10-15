@@ -102,3 +102,22 @@ This stage does not perform the conditional connection-normal hash table,
 face-material mapping, smoothing updates or later face/group removal/rewrite.
 These remain required parts of full head merging; the returned faces alone
 must not be treated as completed instance publication.
+
+## Face-material membership and final smoothing
+
+`NativeBodyFaceMetadata` represents object110's name-keyed map with actual
+QString UTF-16 units and object120's smoothing words. The head material loop
+(retained pseudocode lines676..1230) iterates source face ordinals and sorted
+source material keys, checks vector membership once, then appends the narrowed
+destination face count AFTER the new face was appended. This is deliberately
+not changed to count-1. Duplicate membership entries do not duplicate appends;
+the source ordinal and destination count wrap through u16. Existing destination
+lists retain their order. No raw-byte-to-QString conversion is invented here.
+
+The separately callable final smoothing stage (head lines1337..1359) leaves
+N/NT lists alone and rebuilds Standard/X lists as one word1 per final face.
+Call it only after the still-incomplete connection-normal stage, not midway
+through appending faces. Signed-int capacity overflow is Unsupported before
+mutation. Three tests cover ordinary/preexisting/multiple material keys,
+duplicate membership, UTF-16 preservation, u16 wrapping, per-format smoothing
+and capacity errors. Full instance merging/publication remains unfinished.

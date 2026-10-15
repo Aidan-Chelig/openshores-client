@@ -14,6 +14,8 @@ mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
 mod body_bone_names;
 mod body_loaded_face;
+mod body_merge_face_metadata;
+pub use body_merge_face_metadata::NativeBodyFaceMetadata;
 mod body_merge;
 mod body_merge_bake;
 mod body_merge_head_vertices;
