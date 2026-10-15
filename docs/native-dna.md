@@ -31,3 +31,13 @@ New retained records use the complete MCP envelope; evidence is in
 
 Next reconstruct chromatids, then compose both DNA variants into Pregnant,
 ImplantDNA and Creature reception. Wire storage is not body-model generation.
+
+Rust `world::native_dna` now reads normalized DhDNA bytes and raw AuSpecies
+byte arrays, preserving null versus empty species storage. DhDNA rejects null
+and lengths other than 24 atomically; species storage has a Rust-only 1 MiB
+budget. These safety policies do not claim native malformed-input parity.
+ImplantDNA and ImplantSpecies are connected to the real condition decoder,
+without inserting an extra dynamic-DNA discriminator. Tests cover all 256
+DhDNA byte values, every truncated DhDNA/implant prefix, wrong lengths, null,
+raw non-text species bytes, storage bounds and following-field alignment.
+Dynamic AuDNA/chromatid and Pregnant decoding remain outstanding.

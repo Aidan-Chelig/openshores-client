@@ -1,5 +1,6 @@
 //! Verified native condition bodies; see docs/native-conditions.md.
 //! List replacement and Unit/Person composition are separate receive stages.
+use super::native_dna::{NativeDhDna, NativeSpecies};
 use crate::protocol::QtReader;
 use std::io;
 
@@ -11,6 +12,12 @@ pub struct NativeCondition {
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum NativeConditionBody {
+    ImplantDna {
+        field_10: NativeDhDna,
+    },
+    ImplantSpecies {
+        field_10: NativeSpecies,
+    },
     Poison {
         field_10: u8,
         field_11: u8,
@@ -47,18 +54,24 @@ impl NativeCondition {
     /// safety, not a claim about Qt malformed-stream or destructor behavior.
     pub fn read(kind: u8, input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
         match kind {
-            4 | 9 | 11 | 12 => {
+            9 | 11 => {
                 return Err(io::Error::new(
                     io::ErrorKind::Unsupported,
                     "native condition body not reconstructed",
                 ));
             }
-            1..=3 | 5 | 7 | 8 | 10 | 13 => (),
+            1..=5 | 7 | 8 | 10 | 12 | 13 => (),
             _ => return Ok(None),
         }
         let mut record = QtReader::new(input.remaining_bytes());
         let time_08 = record.read_i64()?;
         let body = match kind {
+            4 => NativeConditionBody::ImplantDna {
+                field_10: NativeDhDna::read(&mut record)?,
+            },
+            12 => NativeConditionBody::ImplantSpecies {
+                field_10: NativeSpecies::read(&mut record)?,
+            },
             1 => NativeConditionBody::Poison {
                 field_10: record.read_u8()?,
                 field_11: nonzero(record.read_u8()?),

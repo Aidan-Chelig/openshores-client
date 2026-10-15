@@ -17,6 +17,7 @@ pub mod native_capture;
 pub mod native_condition;
 pub mod native_controller;
 pub mod native_dispatch;
+pub mod native_dna;
 pub mod native_effect;
 pub mod native_item;
 pub mod native_position_updates;
