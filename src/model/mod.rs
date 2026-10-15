@@ -28,6 +28,7 @@ mod body_merge;
 mod body_merge_bake;
 mod body_merge_head_vertices;
 mod body_merge_torso_faces;
+mod body_merge_torso_groups;
 mod body_merge_torso_vertices;
 pub use body_loaded_face::NativeBodyLoadedFace;
 pub use body_merge_bake::NativeBodyMergeBake;

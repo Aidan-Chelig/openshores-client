@@ -242,6 +242,16 @@ impl NativeBodyVertexGroup {
         }
         Ok(result)
     }
+
+    pub(super) fn merge_weight_map_from(&mut self, source: &Self, replace: bool) {
+        if replace {
+            self.weights = source.weights.clone();
+        } else {
+            for (position, (point, weight)) in &source.weights {
+                self.weights.entry(*position).or_insert((*point, 0.)).1 = *weight;
+            }
+        }
+    }
 }
 
 #[cfg(test)]

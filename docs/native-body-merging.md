@@ -300,3 +300,25 @@ Post-face source BottomSkin/BottomConnect transformation and same-kind group-map
 transfer (torso900..1174), plus instance state/cache publication, remain required
 before composing complete torso merging. This change does not establish visible
 in-game avatars or full native runtime parity.
+
+## Torso post-face group transfer
+
+`NativeBodyMergeGeometry::transfer_torso_group_maps` now reconstructs retained
+torso900..1174. First rebuild source kind7 BottomSkin and kind9 BottomConnect
+position maps through source deformation, in group/key order; this does not
+deform source vertices again. Then iterate existing destination groups and all
+same-kind source groups in order. Kind9 REPLACES the destination position map,
+including replacement with an empty map. All other kinds insert source entries,
+overwriting duplicate-key weights while preserving existing stored keys.
+
+Matching is by kind, not group name or anatomical flags. No new groups are
+created; pivots, names, flags, control points and face/material metadata are not
+copied by this stage. Multiple matching source kind9 maps therefore leave the
+last one's contents. Two tests cover same-kind/different-name updates, ordered
+replacement, union retention/overwrites, missing kinds, empty-map clearing,
+source connection-key deformation and unchanged other source keys/metadata.
+
+This completes another geometry stage, not full model ownership/publication.
+Next integration must retain mapping-coordinate arrays, compose normal torso
+bake/vertices/faces/corners/group transfer/smoothing, and verify mounted torso
+parts. Crest handling and instance/cache lifecycle remain distinct requirements.
