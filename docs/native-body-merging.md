@@ -150,3 +150,24 @@ updates, untouched other face fields, incomplete-connection reports, format
 gating and the hash-versus-payload distinctions. Full model instance copying,
 group/material ownership integration, torso merging and cache publication are
 still required before automatic in-game avatars can be claimed.
+
+## Composed head object-geometry stages
+
+`NativeBodyMergeGeometry::append_head_geometry_stages` now connects the above
+operations: one-time destination bake; source connection xyz inheritance from
+the destination; source vertex deformation/remapping; N/NT source corner-value
+collection; fresh appended faces; face-material membership; all-face connection
+normal updates; final format-specific smoothing. It returns the actual vertex
+maps, incomplete-connection boolean and count of updated corners. Stage writes
+are not rolled back if a later stage returns an error.
+
+Three composition tests cover N connection geometry, source face preservation,
+old/new destination corner updates, native postappend material counts,
+Standard smoothing behavior and inherited connection-point deformation. They
+exercise the stages together instead of proving only isolated helper formulas.
+
+This remains explicitly an object-geometry operation on an already seeded
+destination. It is not the full MergeHeadWithInstance: model-instance fields,
+material-object arrays, CopyInstance lifecycle/cache ownership and full mounted
+construction are not supplied by this type. It must not fabricate successful
+native instance publication or complete the Person/avatar goal by itself.
