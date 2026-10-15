@@ -1,0 +1,394 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001413a5590 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE>:
+   1413a5590:	41 57                	push   %r15
+   1413a5592:	41 56                	push   %r14
+   1413a5594:	41 55                	push   %r13
+   1413a5596:	41 54                	push   %r12
+   1413a5598:	55                   	push   %rbp
+   1413a5599:	57                   	push   %rdi
+   1413a559a:	56                   	push   %rsi
+   1413a559b:	53                   	push   %rbx
+   1413a559c:	48 81 ec 28 01 00 00 	sub    $0x128,%rsp
+   1413a55a3:	0f 29 b4 24 10 01 00 	movaps %xmm6,0x110(%rsp)
+   1413a55aa:	00 
+   1413a55ab:	48 8b 05 3e d2 4e 01 	mov    0x14ed23e(%rip),%rax        # 1428927f0 <__imp__ZN12QMapDataBase11shared_nullE>
+   1413a55b2:	48 8b 3d 27 d1 4e 01 	mov    0x14ed127(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1413a55b9:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   1413a55be:	49 89 cf             	mov    %rcx,%r15
+   1413a55c1:	48 89 d6             	mov    %rdx,%rsi
+   1413a55c4:	45 89 c6             	mov    %r8d,%r14d
+   1413a55c7:	48 8b 05 da cf 4e 01 	mov    0x14ecfda(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a55ce:	4c 89 8c 24 88 01 00 	mov    %r9,0x188(%rsp)
+   1413a55d5:	00 
+   1413a55d6:	4c 8d 64 24 40       	lea    0x40(%rsp),%r12
+   1413a55db:	48 8d ac 24 80 00 00 	lea    0x80(%rsp),%rbp
+   1413a55e2:	00 
+   1413a55e3:	66 48 0f 6e f0       	movq   %rax,%xmm6
+   1413a55e8:	0f 16 74 24 38       	movhps 0x38(%rsp),%xmm6
+   1413a55ed:	eb 22                	jmp    1413a5611 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x81>
+   1413a55ef:	90                   	nop
+   1413a55f0:	66 41 81 f8 10 41    	cmp    $0x4110,%r8w
+   1413a55f6:	0f 84 64 04 00 00    	je     1413a5a60 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x4d0>
+   1413a55fc:	8d 53 fa             	lea    -0x6(%rbx),%edx
+   1413a55ff:	48 89 f1             	mov    %rsi,%rcx
+   1413a5602:	ff 15 58 d0 4e 01    	call   *0x14ed058(%rip)        # 142892660 <__imp__ZN11QDataStream11skipRawDataEi>
+   1413a5608:	45 85 ed             	test   %r13d,%r13d
+   1413a560b:	0f 8e df 00 00 00    	jle    1413a56f0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x160>
+   1413a5611:	4c 89 e2             	mov    %r12,%rdx
+   1413a5614:	48 89 f1             	mov    %rsi,%rcx
+   1413a5617:	ff d7                	call   *%rdi
+   1413a5619:	48 89 ea             	mov    %rbp,%rdx
+   1413a561c:	48 89 f1             	mov    %rsi,%rcx
+   1413a561f:	ff d7                	call   *%rdi
+   1413a5621:	0f b6 84 24 80 00 00 	movzbl 0x80(%rsp),%eax
+   1413a5628:	00 
+   1413a5629:	4c 89 e2             	mov    %r12,%rdx
+   1413a562c:	48 89 f1             	mov    %rsi,%rcx
+   1413a562f:	44 0f b6 44 24 40    	movzbl 0x40(%rsp),%r8d
+   1413a5635:	c1 e0 08             	shl    $0x8,%eax
+   1413a5638:	41 09 c0             	or     %eax,%r8d
+   1413a563b:	44 89 44 24 34       	mov    %r8d,0x34(%rsp)
+   1413a5640:	ff d7                	call   *%rdi
+   1413a5642:	48 89 ea             	mov    %rbp,%rdx
+   1413a5645:	48 89 f1             	mov    %rsi,%rcx
+   1413a5648:	ff d7                	call   *%rdi
+   1413a564a:	0f b6 84 24 80 00 00 	movzbl 0x80(%rsp),%eax
+   1413a5651:	00 
+   1413a5652:	4c 89 e2             	mov    %r12,%rdx
+   1413a5655:	48 89 f1             	mov    %rsi,%rcx
+   1413a5658:	44 0f b6 6c 24 40    	movzbl 0x40(%rsp),%r13d
+   1413a565e:	c1 e0 08             	shl    $0x8,%eax
+   1413a5661:	41 09 c5             	or     %eax,%r13d
+   1413a5664:	ff d7                	call   *%rdi
+   1413a5666:	48 89 ea             	mov    %rbp,%rdx
+   1413a5669:	48 89 f1             	mov    %rsi,%rcx
+   1413a566c:	45 0f b7 ed          	movzwl %r13w,%r13d
+   1413a5670:	ff d7                	call   *%rdi
+   1413a5672:	0f b6 84 24 80 00 00 	movzbl 0x80(%rsp),%eax
+   1413a5679:	00 
+   1413a567a:	0f b6 5c 24 40       	movzbl 0x40(%rsp),%ebx
+   1413a567f:	c1 e0 08             	shl    $0x8,%eax
+   1413a5682:	09 c3                	or     %eax,%ebx
+   1413a5684:	c1 e3 10             	shl    $0x10,%ebx
+   1413a5687:	44 09 eb             	or     %r13d,%ebx
+   1413a568a:	0f 84 e8 03 00 00    	je     1413a5a78 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x4e8>
+   1413a5690:	44 8b 44 24 34       	mov    0x34(%rsp),%r8d
+   1413a5695:	41 29 de             	sub    %ebx,%r14d
+   1413a5698:	45 89 f5             	mov    %r14d,%r13d
+   1413a569b:	66 41 81 f8 40 41    	cmp    $0x4140,%r8w
+   1413a56a1:	0f 84 31 03 00 00    	je     1413a59d8 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x448>
+   1413a56a7:	0f 8f 53 01 00 00    	jg     1413a5800 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x270>
+   1413a56ad:	66 41 81 f8 12 41    	cmp    $0x4112,%r8w
+   1413a56b3:	0f 84 87 01 00 00    	je     1413a5840 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x2b0>
+   1413a56b9:	0f 8e 31 ff ff ff    	jle    1413a55f0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x60>
+   1413a56bf:	66 41 81 f8 20 41    	cmp    $0x4120,%r8w
+   1413a56c5:	0f 85 31 ff ff ff    	jne    1413a55fc <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x6c>
+   1413a56cb:	44 8b 8c 24 98 01 00 	mov    0x198(%rsp),%r9d
+   1413a56d2:	00 
+   1413a56d3:	44 8d 43 fa          	lea    -0x6(%rbx),%r8d
+   1413a56d7:	48 89 f2             	mov    %rsi,%rdx
+   1413a56da:	4c 89 f9             	mov    %r15,%rcx
+   1413a56dd:	e8 1e e7 ff ff       	call   1413a3e00 <_ZN15Au3dsGLSLObject17LoadFaceListChunkER11QDataStreami10MODEL_TYPE>
+   1413a56e2:	45 85 ed             	test   %r13d,%r13d
+   1413a56e5:	0f 8f 26 ff ff ff    	jg     1413a5611 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x81>
+   1413a56eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a56f0:	49 8b 87 30 01 00 00 	mov    0x130(%r15),%rax
+   1413a56f7:	31 ff                	xor    %edi,%edi
+   1413a56f9:	48 8b 58 10          	mov    0x10(%rax),%rbx
+   1413a56fd:	48 01 c3             	add    %rax,%rbx
+   1413a5700:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1413a5704:	48 8d 14 40          	lea    (%rax,%rax,2),%rdx
+   1413a5708:	48 8d 04 90          	lea    (%rax,%rdx,4),%rax
+   1413a570c:	48 8d 34 83          	lea    (%rbx,%rax,4),%rsi
+   1413a5710:	48 39 f3             	cmp    %rsi,%rbx
+   1413a5713:	0f 84 c7 03 00 00    	je     1413a5ae0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x550>
+   1413a5719:	4c 8b a4 24 88 01 00 	mov    0x188(%rsp),%r12
+   1413a5720:	00 
+   1413a5721:	4c 8b ac 24 90 01 00 	mov    0x190(%rsp),%r13
+   1413a5728:	00 
+   1413a5729:	eb 2e                	jmp    1413a5759 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x1c9>
+   1413a572b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a5730:	41 0f 11 04 24       	movups %xmm0,(%r12)
+   1413a5735:	f2 41 0f 11 4c 24 10 	movsd  %xmm1,0x10(%r12)
+   1413a573c:	48 83 c3 34          	add    $0x34,%rbx
+   1413a5740:	41 0f 11 45 00       	movups %xmm0,0x0(%r13)
+   1413a5745:	bf 01 00 00 00       	mov    $0x1,%edi
+   1413a574a:	f2 41 0f 11 4d 10    	movsd  %xmm1,0x10(%r13)
+   1413a5750:	48 39 f3             	cmp    %rsi,%rbx
+   1413a5753:	0f 84 87 03 00 00    	je     1413a5ae0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x550>
+   1413a5759:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413a575d:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a5761:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a5765:	4c 89 fa             	mov    %r15,%rdx
+   1413a5768:	f3 0f 5a 5b 2c       	cvtss2sd 0x2c(%rbx),%xmm3
+   1413a576d:	f3 0f 5a 53 28       	cvtss2sd 0x28(%rbx),%xmm2
+   1413a5772:	f3 0f 5a 43 30       	cvtss2sd 0x30(%rbx),%xmm0
+   1413a5777:	48 89 e9             	mov    %rbp,%rcx
+   1413a577a:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
+   1413a5780:	e8 db 7f 55 00       	call   1418fd760 <_ZNK11AuMatrix4x47ProjectEddd>
+   1413a5785:	66 0f 28 84 24 80 00 	movapd 0x80(%rsp),%xmm0
+   1413a578c:	00 00 
+   1413a578e:	f2 0f 10 8c 24 90 00 	movsd  0x90(%rsp),%xmm1
+   1413a5795:	00 00 
+   1413a5797:	66 0f 28 f0          	movapd %xmm0,%xmm6
+   1413a579b:	66 0f 28 d8          	movapd %xmm0,%xmm3
+   1413a579f:	66 0f 15 f6          	unpckhpd %xmm6,%xmm6
+   1413a57a3:	66 0f 28 d6          	movapd %xmm6,%xmm2
+   1413a57a7:	40 84 ff             	test   %dil,%dil
+   1413a57aa:	74 84                	je     1413a5730 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x1a0>
+   1413a57ac:	f2 41 0f 5d 04 24    	minsd  (%r12),%xmm0
+   1413a57b2:	66 0f 28 ee          	movapd %xmm6,%xmm5
+   1413a57b6:	66 0f 28 e1          	movapd %xmm1,%xmm4
+   1413a57ba:	f2 41 0f 5d 6c 24 08 	minsd  0x8(%r12),%xmm5
+   1413a57c1:	f2 41 0f 5d 64 24 10 	minsd  0x10(%r12),%xmm4
+   1413a57c8:	66 0f 14 c5          	unpcklpd %xmm5,%xmm0
+   1413a57cc:	f2 41 0f 11 64 24 10 	movsd  %xmm4,0x10(%r12)
+   1413a57d3:	41 0f 11 04 24       	movups %xmm0,(%r12)
+   1413a57d8:	f2 41 0f 5f 5d 00    	maxsd  0x0(%r13),%xmm3
+   1413a57de:	f2 41 0f 5f 55 08    	maxsd  0x8(%r13),%xmm2
+   1413a57e4:	f2 41 0f 5f 4d 10    	maxsd  0x10(%r13),%xmm1
+   1413a57ea:	66 0f 28 c3          	movapd %xmm3,%xmm0
+   1413a57ee:	66 0f 14 c2          	unpcklpd %xmm2,%xmm0
+   1413a57f2:	e9 45 ff ff ff       	jmp    1413a573c <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x1ac>
+   1413a57f7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1413a57fe:	00 00 
+   1413a5800:	66 41 81 f8 65 41    	cmp    $0x4165,%r8w
+   1413a5806:	0f 84 f0 fd ff ff    	je     1413a55fc <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x6c>
+   1413a580c:	66 41 81 f8 70 41    	cmp    $0x4170,%r8w
+   1413a5812:	0f 84 e4 fd ff ff    	je     1413a55fc <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x6c>
+   1413a5818:	66 41 81 f8 60 41    	cmp    $0x4160,%r8w
+   1413a581e:	0f 85 d8 fd ff ff    	jne    1413a55fc <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x6c>
+   1413a5824:	44 8b 8c 24 98 01 00 	mov    0x198(%rsp),%r9d
+   1413a582b:	00 
+   1413a582c:	44 8d 43 fa          	lea    -0x6(%rbx),%r8d
+   1413a5830:	48 89 f2             	mov    %rsi,%rdx
+   1413a5833:	4c 89 f9             	mov    %r15,%rcx
+   1413a5836:	e8 95 6b ff ff       	call   14139c3d0 <_ZN15Au3dsGLSLObject15LoadMatrixChunkER11QDataStreami10MODEL_TYPE>
+   1413a583b:	e9 c8 fd ff ff       	jmp    1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a5840:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a5844:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a5848:	45 31 c0             	xor    %r8d,%r8d
+   1413a584b:	4c 89 e1             	mov    %r12,%rcx
+   1413a584e:	0f 29 84 24 90 00 00 	movaps %xmm0,0x90(%rsp)
+   1413a5855:	00 
+   1413a5856:	48 8d 15 7f 99 f2 00 	lea    0xf2997f(%rip),%rdx        # 1422cf1dc <.rdata+0x3bc>
+   1413a585d:	c7 84 24 b0 00 00 00 	movl   $0x0,0xb0(%rsp)
+   1413a5864:	00 00 00 00 
+   1413a5868:	c7 84 24 08 01 00 00 	movl   $0x0,0x108(%rsp)
+   1413a586f:	00 00 00 00 
+   1413a5873:	c7 84 24 b4 00 00 00 	movl   $0x1,0xb4(%rsp)
+   1413a587a:	01 00 00 00 
+   1413a587e:	0f 29 84 24 a0 00 00 	movaps %xmm0,0xa0(%rsp)
+   1413a5885:	00 
+   1413a5886:	0f 29 8c 24 80 00 00 	movaps %xmm1,0x80(%rsp)
+   1413a588d:	00 
+   1413a588e:	0f 11 b4 24 b8 00 00 	movups %xmm6,0xb8(%rsp)
+   1413a5895:	00 
+   1413a5896:	0f 11 84 24 e8 00 00 	movups %xmm0,0xe8(%rsp)
+   1413a589d:	00 
+   1413a589e:	0f 11 84 24 f8 00 00 	movups %xmm0,0xf8(%rsp)
+   1413a58a5:	00 
+   1413a58a6:	0f 11 8c 24 d8 00 00 	movups %xmm1,0xd8(%rsp)
+   1413a58ad:	00 
+   1413a58ae:	ff 15 c4 d2 4e 01    	call   *0x14ed2c4(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1413a58b4:	48 8b 84 24 b8 00 00 	mov    0xb8(%rsp),%rax
+   1413a58bb:	00 
+   1413a58bc:	48 8b 54 24 40       	mov    0x40(%rsp),%rdx
+   1413a58c1:	4c 89 e1             	mov    %r12,%rcx
+   1413a58c4:	48 89 94 24 b8 00 00 	mov    %rdx,0xb8(%rsp)
+   1413a58cb:	00 
+   1413a58cc:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   1413a58d1:	e8 3a b5 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a58d6:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   1413a58da:	66 0f ef ed          	pxor   %xmm5,%xmm5
+   1413a58de:	4c 89 e2             	mov    %r12,%rdx
+   1413a58e1:	48 89 e9             	mov    %rbp,%rcx
+   1413a58e4:	c7 44 24 70 00 00 00 	movl   $0x0,0x70(%rsp)
+   1413a58eb:	00 
+   1413a58ec:	0f 29 64 24 50       	movaps %xmm4,0x50(%rsp)
+   1413a58f1:	0f 29 64 24 60       	movaps %xmm4,0x60(%rsp)
+   1413a58f6:	0f 29 6c 24 40       	movaps %xmm5,0x40(%rsp)
+   1413a58fb:	e8 f0 d8 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5900:	48 8b 05 49 99 f2 00 	mov    0xf29949(%rip),%rax        # 1422cf250 <.rdata+0x430>
+   1413a5907:	0f 29 64 24 50       	movaps %xmm4,0x50(%rsp)
+   1413a590c:	48 8d 8c 24 d8 00 00 	lea    0xd8(%rsp),%rcx
+   1413a5913:	00 
+   1413a5914:	c7 84 24 d0 00 00 00 	movl   $0x0,0xd0(%rsp)
+   1413a591b:	00 00 00 00 
+   1413a591f:	48 89 84 24 c8 00 00 	mov    %rax,0xc8(%rsp)
+   1413a5926:	00 
+   1413a5927:	31 c0                	xor    %eax,%eax
+   1413a5929:	66 89 84 24 d4 00 00 	mov    %ax,0xd4(%rsp)
+   1413a5930:	00 
+   1413a5931:	c7 44 24 70 00 00 00 	movl   $0x0,0x70(%rsp)
+   1413a5938:	00 
+   1413a5939:	0f 29 64 24 60       	movaps %xmm4,0x60(%rsp)
+   1413a593e:	0f 29 6c 24 40       	movaps %xmm5,0x40(%rsp)
+   1413a5943:	e8 a8 d8 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5948:	48 8b 8c 24 c0 00 00 	mov    0xc0(%rsp),%rcx
+   1413a594f:	00 
+   1413a5950:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   1413a5955:	48 89 84 24 c0 00 00 	mov    %rax,0xc0(%rsp)
+   1413a595c:	00 
+   1413a595d:	8b 01                	mov    (%rcx),%eax
+   1413a595f:	85 c0                	test   %eax,%eax
+   1413a5961:	0f 84 39 01 00 00    	je     1413a5aa0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x510>
+   1413a5967:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1413a596a:	74 0a                	je     1413a5976 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x3e6>
+   1413a596c:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1413a5970:	0f 84 2a 01 00 00    	je     1413a5aa0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x510>
+   1413a5976:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   1413a597b:	8b 00                	mov    (%rax),%eax
+   1413a597d:	85 c0                	test   %eax,%eax
+   1413a597f:	0f 84 2f 01 00 00    	je     1413a5ab4 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x524>
+   1413a5985:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1413a5988:	74 0f                	je     1413a5999 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x409>
+   1413a598a:	48 8b 54 24 38       	mov    0x38(%rsp),%rdx
+   1413a598f:	f0 83 2a 01          	lock subl $0x1,(%rdx)
+   1413a5993:	0f 84 1b 01 00 00    	je     1413a5ab4 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x524>
+   1413a5999:	44 8d 43 fa          	lea    -0x6(%rbx),%r8d
+   1413a599d:	48 89 f2             	mov    %rsi,%rdx
+   1413a59a0:	48 89 e9             	mov    %rbp,%rcx
+   1413a59a3:	e8 88 47 ff ff       	call   14139a130 <_ZN15Au3dsGLSLVGroup9LoadChunkER11QDataStreami>
+   1413a59a8:	84 c0                	test   %al,%al
+   1413a59aa:	74 74                	je     1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a59ac:	8b 94 24 b4 00 00 00 	mov    0xb4(%rsp),%edx
+   1413a59b3:	83 fa 03             	cmp    $0x3,%edx
+   1413a59b6:	74 58                	je     1413a5a10 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x480>
+   1413a59b8:	8d 42 fc             	lea    -0x4(%rdx),%eax
+   1413a59bb:	83 f8 10             	cmp    $0x10,%eax
+   1413a59be:	0f 87 2c 01 00 00    	ja     1413a5af0 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x560>
+   1413a59c4:	48 8d 0d 15 98 f2 00 	lea    0xf29815(%rip),%rcx        # 1422cf1e0 <.rdata+0x3c0>
+   1413a59cb:	48 63 04 81          	movslq (%rcx,%rax,4),%rax
+   1413a59cf:	48 01 c8             	add    %rcx,%rax
+   1413a59d2:	ff e0                	jmp    *%rax
+   1413a59d4:	0f 1f 40 00          	nopl   0x0(%rax)
+   1413a59d8:	44 8d 43 fa          	lea    -0x6(%rbx),%r8d
+   1413a59dc:	48 89 f2             	mov    %rsi,%rdx
+   1413a59df:	4c 89 f9             	mov    %r15,%rcx
+   1413a59e2:	e8 c9 7b ff ff       	call   14139d5b0 <_ZN15Au3dsGLSLObject22LoadMappingCoordsChunkER11QDataStreami>
+   1413a59e7:	83 bc 24 98 01 00 00 	cmpl   $0x3,0x198(%rsp)
+   1413a59ee:	03 
+   1413a59ef:	0f 84 13 fc ff ff    	je     1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a59f5:	84 c0                	test   %al,%al
+   1413a59f7:	0f 84 0b fc ff ff    	je     1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a59fd:	4c 89 f9             	mov    %r15,%rcx
+   1413a5a00:	e8 6b f8 ff ff       	call   1413a5270 <_ZN15Au3dsGLSLObject16SetMappingCoordsEv>
+   1413a5a05:	e9 fe fb ff ff       	jmp    1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a5a0a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a5a10:	49 8d 8f cc 01 00 00 	lea    0x1cc(%r15),%rcx
+   1413a5a17:	48 89 ea             	mov    %rbp,%rdx
+   1413a5a1a:	e8 d1 d7 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5a1f:	90                   	nop
+   1413a5a20:	48 8b 8c 24 c0 00 00 	mov    0xc0(%rsp),%rcx
+   1413a5a27:	00 
+   1413a5a28:	8b 01                	mov    (%rcx),%eax
+   1413a5a2a:	85 c0                	test   %eax,%eax
+   1413a5a2c:	0f 84 96 00 00 00    	je     1413a5ac8 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x538>
+   1413a5a32:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1413a5a35:	74 12                	je     1413a5a49 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x4b9>
+   1413a5a37:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1413a5a3b:	48 8b 8c 24 c0 00 00 	mov    0xc0(%rsp),%rcx
+   1413a5a42:	00 
+   1413a5a43:	0f 84 7f 00 00 00    	je     1413a5ac8 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x538>
+   1413a5a49:	48 8d 8c 24 b8 00 00 	lea    0xb8(%rsp),%rcx
+   1413a5a50:	00 
+   1413a5a51:	e8 ba b3 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a5a56:	e9 ad fb ff ff       	jmp    1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a5a5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a5a60:	44 8d 43 fa          	lea    -0x6(%rbx),%r8d
+   1413a5a64:	48 89 f2             	mov    %rsi,%rdx
+   1413a5a67:	4c 89 f9             	mov    %r15,%rcx
+   1413a5a6a:	e8 61 58 ff ff       	call   14139b2d0 <_ZN15Au3dsGLSLObject19LoadVertexListChunkER11QDataStreami>
+   1413a5a6f:	e9 94 fb ff ff       	jmp    1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a5a74:	0f 1f 40 00          	nopl   0x0(%rax)
+   1413a5a78:	31 c0                	xor    %eax,%eax
+   1413a5a7a:	0f 28 b4 24 10 01 00 	movaps 0x110(%rsp),%xmm6
+   1413a5a81:	00 
+   1413a5a82:	48 81 c4 28 01 00 00 	add    $0x128,%rsp
+   1413a5a89:	5b                   	pop    %rbx
+   1413a5a8a:	5e                   	pop    %rsi
+   1413a5a8b:	5f                   	pop    %rdi
+   1413a5a8c:	5d                   	pop    %rbp
+   1413a5a8d:	41 5c                	pop    %r12
+   1413a5a8f:	41 5d                	pop    %r13
+   1413a5a91:	41 5e                	pop    %r14
+   1413a5a93:	41 5f                	pop    %r15
+   1413a5a95:	c3                   	ret
+   1413a5a96:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1413a5a9d:	00 00 00 
+   1413a5aa0:	e8 db a8 4c 00       	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1413a5aa5:	48 8b 44 24 38       	mov    0x38(%rsp),%rax
+   1413a5aaa:	8b 00                	mov    (%rax),%eax
+   1413a5aac:	85 c0                	test   %eax,%eax
+   1413a5aae:	0f 85 d1 fe ff ff    	jne    1413a5985 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x3f5>
+   1413a5ab4:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   1413a5ab9:	e8 c2 a8 4c 00       	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1413a5abe:	e9 d6 fe ff ff       	jmp    1413a5999 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x409>
+   1413a5ac3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a5ac8:	e8 b3 a8 4c 00       	call   141870380 <_ZN8QMapDataI15Au3dsGLSLVertexdE7destroyEv>
+   1413a5acd:	48 8d 8c 24 b8 00 00 	lea    0xb8(%rsp),%rcx
+   1413a5ad4:	00 
+   1413a5ad5:	e8 36 b3 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a5ada:	e9 29 fb ff ff       	jmp    1413a5608 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x78>
+   1413a5adf:	90                   	nop
+   1413a5ae0:	b8 01 00 00 00       	mov    $0x1,%eax
+   1413a5ae5:	eb 93                	jmp    1413a5a7a <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x4ea>
+   1413a5ae7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1413a5aee:	00 00 
+   1413a5af0:	83 fa 01             	cmp    $0x1,%edx
+   1413a5af3:	0f 85 a8 00 00 00    	jne    1413a5ba1 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x611>
+   1413a5af9:	41 c6 87 a9 03 00 00 	movb   $0x1,0x3a9(%r15)
+   1413a5b00:	01 
+   1413a5b01:	e9 9b 00 00 00       	jmp    1413a5ba1 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x611>
+   1413a5b06:	49 8d 8f e0 03 00 00 	lea    0x3e0(%r15),%rcx
+   1413a5b0d:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b10:	e8 db d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b15:	e9 06 ff ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b1a:	49 8d 8f ac 03 00 00 	lea    0x3ac(%r15),%rcx
+   1413a5b21:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b24:	e8 c7 d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b29:	e9 f2 fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b2e:	49 8d 8f d0 02 00 00 	lea    0x2d0(%r15),%rcx
+   1413a5b35:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b38:	e8 b3 d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b3d:	e9 de fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b42:	49 8d 8f 9c 02 00 00 	lea    0x29c(%r15),%rcx
+   1413a5b49:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b4c:	e8 9f d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b51:	e9 ca fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b56:	49 8d 8f 68 02 00 00 	lea    0x268(%r15),%rcx
+   1413a5b5d:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b60:	e8 8b d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b65:	e9 b6 fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b6a:	49 8d 8f 04 03 00 00 	lea    0x304(%r15),%rcx
+   1413a5b71:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b74:	e8 77 d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b79:	e9 a2 fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b7e:	49 8d 8f 34 02 00 00 	lea    0x234(%r15),%rcx
+   1413a5b85:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b88:	e8 63 d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5b8d:	e9 8e fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5b92:	49 8d 8f 00 02 00 00 	lea    0x200(%r15),%rcx
+   1413a5b99:	48 89 ea             	mov    %rbp,%rdx
+   1413a5b9c:	e8 4f d6 fe ff       	call   1413931f0 <_ZN15Au3dsGLSLVertexaSERKS_.isra.0>
+   1413a5ba1:	49 8d 8f 38 01 00 00 	lea    0x138(%r15),%rcx
+   1413a5ba8:	48 89 ea             	mov    %rbp,%rdx
+   1413a5bab:	e8 e0 01 4b 00       	call   141855d90 <_ZN7QVectorI15Au3dsGLSLVGroupE6appendERKS0_>
+   1413a5bb0:	e9 6b fe ff ff       	jmp    1413a5a20 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x490>
+   1413a5bb5:	48 8d 8c 24 c0 00 00 	lea    0xc0(%rsp),%rcx
+   1413a5bbc:	00 
+   1413a5bbd:	49 89 c4             	mov    %rax,%r12
+   1413a5bc0:	e8 7b 1b 42 00       	call   1417c7740 <_ZN4QMapI15Au3dsGLSLVertexdED1Ev>
+   1413a5bc5:	48 8d 8c 24 b8 00 00 	lea    0xb8(%rsp),%rcx
+   1413a5bcc:	00 
+   1413a5bcd:	e8 3e b2 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a5bd2:	4c 89 e1             	mov    %r12,%rcx
+   1413a5bd5:	e8 5e f7 3a 00       	call   141755338 <_Unwind_Resume>
+   1413a5bda:	eb d9                	jmp    1413a5bb5 <_ZN15Au3dsGLSLObject13LoadMeshChunkER11QDataStreamiR7AuPointS3_10MODEL_TYPE+0x625>
+   1413a5bdc:	0f 1f 40 00          	nopl   0x0(%rax)

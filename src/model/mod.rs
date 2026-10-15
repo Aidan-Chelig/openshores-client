@@ -14,6 +14,8 @@ mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
 mod body_groups;
 pub use body_groups::NativeBodyVertexGroup;
+mod body_object_groups;
+pub use body_object_groups::NativeBodyObjectGroups;
 mod decode;
 mod fingerprint;
 mod roles;

@@ -251,8 +251,9 @@ point*scale, NOT (point-origin)*scale+offset. Zero scale skips input/origin
 arithmetic completely, including NaNs; NaN scale takes the nonzero path.
 
 `Mesh::body_unweighted_positions` composes existing native coordinate loading
-with this operation ONLY when the mesh has no vertex groups. Any grouped mesh
-returns Unsupported. This is a deliberate temporary support boundary, not a
+with this operation ONLY when native object loading retains no deformation
+groups (including meshes containing only extracted control points). A mesh with
+retained groups returns Unsupported. This is a temporary support boundary, not a
 claim all grouped vertices require deformation or a successful uniform-scale
 fallback. The low-level unweighted helper requires callers to establish that
 the point has no matching groups. Renderer publication, weighted deformation,
@@ -308,6 +309,33 @@ hand resources plus PA:168 groups,10,622 position keys,130 nonzero pivots in the
 supplied installation. These are actual raw carrier checks, not original-client
 execution or independent weighted deformation parity. Native object loading
 extracts some point-only groups into object fields rather than retaining them
-in its deformation list; this object metadata/selection stage, the group-based
-scaling rules, complete skin assembly, bone weights and renderer publication
+in its deformation list; the group-based scaling rules, complete skin assembly,
+bone weights and renderer publication
 remain required. No avatar body is rendered by this membership implementation.
+
+## Native object control-point extraction
+
+`NativeBodyObjectGroups` now applies LoadMeshChunk's ordered group selection.
+Types3/10/11/12/13/14/19/20 write their respective object control points and
+are removed from the deformation list. Type4 (MidPt) both writes its control
+point and remains in that list. Other types remain in source order; type1
+additionally sets the sticky object3a9 flag. Repeated writes replace coordinates,
+including zero coordinates. Missing writes remain absent rather than inventing
+constructor defaults. Only the established xyz portion of each copied native
+vertex is represented; normals, UVs and bone fields are not inferred.
+
+The mesh unweighted path uses an extracted ConnectPt as its origin, without
+mutating the caller's definition. Point-only meshes can now use the verified
+no-retained-group branch. The mounted65-resource fixture found103 retained
+groups and65 connection writes, but ZERO point-only meshes: those actual hand
+meshes still correctly return Unsupported. This is not rendered-avatar progress
+or evidence of weighted deformation parity.
+
+`just test-native-body-object-groups` checks the original executable digest,
+all17 native switch destinations, separate type3 handling, nine destination
+offsets, sticky type1 flag and MidPt copy-and-retain path, then runs Rust tests
+for ordered writes, zero replacement, partial errors and mesh composition.
+The complete previously retained REA record is
+`docs/evidence/native-body-group-object-loader.json`; independent full GNU is
+`docs/evidence/native-body-object-groups-gnu.txt`. No binary execution or new
+analysis import was needed.

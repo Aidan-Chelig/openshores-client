@@ -1,6 +1,6 @@
 //! CPU body deformation, starting with ApplyScaleFactor's unweighted branch.
 //! This is not whole-avatar generation or renderer/world-coordinate conversion.
-use super::{Mesh, ModelVariant};
+use super::{Mesh, ModelVariant, NativeBodyObjectGroups};
 use std::io;
 
 /// Actual object fields consumed by the no-matching-group path. Values come
@@ -38,19 +38,24 @@ impl NativeBodyObjectScale {
 
 impl Mesh {
     /// Native loaded coordinates followed by the unweighted CPU body scale.
-    /// Grouped meshes are explicitly unsupported until membership/deformation
-    /// is reconstructed; they must NEVER silently use uniform scaling instead.
+    /// Point-only groups are extracted as native object metadata first. Any
+    /// retained deformation groups remain unsupported, never a uniform fallback.
     pub fn body_unweighted_positions(
         &self,
         variant: ModelVariant,
         loader_scale: f64,
         definition: &NativeBodyObjectScale,
     ) -> io::Result<Vec<[f64; 3]>> {
-        if !self.vertex_groups.is_empty() {
+        let groups = NativeBodyObjectGroups::from_mesh(self)?;
+        if !groups.retained_groups().is_empty() {
             return Err(io::Error::new(
                 io::ErrorKind::Unsupported,
                 "native body mesh requires weighted group deformation",
             ));
+        }
+        let mut definition = *definition;
+        if let Some(connection) = groups.control_point(0x1cc) {
+            definition.fields_1f4 = connection;
         }
         Ok(self
             .loaded_positions(variant, loader_scale)?

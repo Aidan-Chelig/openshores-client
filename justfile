@@ -65,6 +65,10 @@ test-native-body-groups:
     nix develop .#server-test --command python tests/native_body_groups.py
     nix develop .#server-test --command cargo test --offline --lib model::body_groups
 
+test-native-body-object-groups:
+    nix develop .#server-test --command python tests/native_body_object_groups.py
+    nix develop .#server-test --command cargo test --offline --lib model::body_object_groups
+
 # Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
 test-native-jobs:
     nix develop .#server-test --command python tests/native_jobs.py
