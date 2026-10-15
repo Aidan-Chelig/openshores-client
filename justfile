@@ -146,6 +146,10 @@ test-native-dp-tail-slither-pose:
     nix develop .#server-test --command python tests/native_dp_tail_slither_pose.py
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::tail_slither_pose
 
+test-native-dp-tail-fold:
+    nix develop .#server-test --command python tests/native_dp_tail_fold.py
+    nix develop .#server-test --command cargo test --offline --lib native_body::dp::tail_fold
+
 # Mounted hands, feet, part calculations and standing heights; entirely offline.
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture

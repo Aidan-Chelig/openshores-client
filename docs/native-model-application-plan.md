@@ -685,3 +685,35 @@ complete PositionTail/Animate, real production timer ownership, Person receive
 context/session ownership and publication of actual native avatar geometry
 still remain required work. This stage does not substitute diagnostic markers
 or pose metadata for that final presentation.
+
+### Concrete tail folding
+
+`NativeDpPartState::fold_tail` and the calculated-body `fold_tail` stage now
+implement the concrete native Fold/FoldTail sequence. The zero-segment path
+returns without writes. Otherwise f32 pi/4 is divided by twice the segment
+selector; lateral capability chooses the bend axis, and the actual owner byte3a
+reverses the lateral direction. Descending joint pivots rotate inclusive
+suffixes. Root17 replaces the small bend with the native quarter-turn, using
+the compiled double sine/cosine constants rather than recomputing them through
+the host's libm. Fold-specific pivot projection and translation accumulation
+are separate from Bend/Slither where the native summation order differs.
+
+The owner byte3a is an explicit parameter: production body ownership of that
+byte remains to be composed, and pose mode6c is not substituted. Wrong part
+kinds report Unsupported before writes; incomplete body initialization reports
+InvalidData. No tail is a native body-stage no-op, not fabricated geometry.
+
+Complete existing REA records are retained as `native-dp-tail-concrete-fold.json`
+and `native-dp-body-fold-tail.json` in `docs/evidence`, with full GNU
+corroboration in `native-dp-tail-fold-gnu.txt`. No import or new REA query was
+needed. `just test-native-dp-tail-fold` checks source digest, float/root
+constants, owner-byte and loop anchors and body dispatch, then runs fixtures.
+Fixtures cover all three segmented selections, both capability paths, both
+owner-byte values, per-bone accumulated rotations, root-specific angles,
+unchanged neighboring slots, dense non-affine pivot/premultiplication and
+no-segment/wrong-kind behavior. The mounted tail-pose fixture also folds the
+real resource-initialized body in both directions and compares complete bones.
+This is static/Rust evidence, not observed original-client runtime or general
+libm/NaN-payload bit parity. Remaining tail poses, complete PositionTail/Animate,
+production timer/body/Person context ownership and actual native avatar geometry
+publication remain required work under the original end-to-end objective.

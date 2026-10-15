@@ -56,4 +56,21 @@ fn mounted_body_pose_slither_composes_actual_resource_initialized_parts() {
         .unwrap();
     assert_eq!(*body.bones(), expected);
     assert_eq!(timer.events, ["start", "sample"]);
+    for flag in [false, true] {
+        let mut expected = body.bones().clone();
+        body.parts()
+            .iter()
+            .find(|p| p.allocation.kind == NativeDpPartKind::Tail)
+            .unwrap()
+            .fold_tail(&mut expected, body.dimensions(), flag)
+            .unwrap();
+        body.fold_tail(flag).unwrap();
+        assert_eq!(*body.bones(), expected);
+        assert!(
+            body.bones()
+                .slots
+                .iter()
+                .all(|b| b.matrix_00.iter().all(|v| v.is_finite()))
+        );
+    }
 }

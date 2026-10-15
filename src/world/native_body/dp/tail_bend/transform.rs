@@ -18,10 +18,13 @@ pub(crate) struct Bend {
 impl Bend {
     pub(crate) fn new(pitch: f32, yaw: f32) -> Self {
         let (s, c) = f64::from(pitch).sin_cos();
+        let (z, w) = f64::from(yaw).sin_cos();
+        Self::from_sin_cos(s, c, z, w)
+    }
+    pub(crate) fn from_sin_cos(s: f64, c: f64, z: f64, w: f64) -> Self {
         let cz = c * 0.;
         let sz = s * 0.;
         let sum = cz + sz;
-        let (z, w) = f64::from(yaw).sin_cos();
         let wz = w * 0.;
         let nz = -z * 0.;
         Self {
@@ -38,6 +41,17 @@ impl Bend {
             l: sum * w + nz,
             ground: false,
         }
+    }
+    pub(crate) fn about_fold(&self, [x, y, z]: [f64; 3]) -> [f64; 4] {
+        let xz = x * 0.;
+        let yz = y * 0.;
+        let zz = z * 0.;
+        [
+            (((((-x * self.a + self.b * -y) + self.d * -z) + yz) + x) + zz) + 0.,
+            (((((self.g * -z + -y * self.f) + -x * self.e) + y) + xz) + zz) + 0.,
+            ((((-z * self.j + self.i * -y) + self.h * -x) + z) + (yz + xz)) + 0.,
+            (((((-x * self.k + -y * self.l) + self.d * -z) + zz) + (yz + xz)) + 1.),
+        ]
     }
     pub(super) fn ground() -> Self {
         Self {
@@ -101,7 +115,7 @@ impl Bend {
             ((((self.k * -x + self.l * -y) + self.d * -z) + zz) + (yz + xz)) + 1.,
         ]
     }
-    pub(super) fn apply(&self, bone: &mut NativeDpBoneTransform, t: [f64; 4]) {
+    pub(crate) fn apply(&self, bone: &mut NativeDpBoneTransform, t: [f64; 4]) {
         if self.ground {
             self.apply_ground(bone, t);
             return;
