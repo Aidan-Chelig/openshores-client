@@ -41,7 +41,10 @@ fn mounted_elbows_use_initialized_joints_after_waist_and_shoulder_motion() {
             let raw = &part.allocation.dna.0;
             let special = raw[1] & 3 != 0 && matches!(raw[2] & 7, 2 | 3 | 4 | 7);
             branches[usize::from(special)] = true;
-            let NativeDpPartJoints::Arm { field_58, .. } = part.joints else {
+            let NativeDpPartJoints::Arm {
+                field_58, field_70, ..
+            } = part.joints
+            else {
                 panic!("initialized arm joints");
             };
             let selected = &indices[1..if special { 2 } else { 3 }];
@@ -69,6 +72,33 @@ fn mounted_elbows_use_initialized_joints_after_waist_and_shoulder_motion() {
                         continue;
                     }
                     assert_eq!(bone.field_100, 0);
+                    let old = before.slots[index].project([0.125, -0.25, 0.5]);
+                    let local = [old[0] - pivot[0], old[1] - pivot[1], old[2] - pivot[2]];
+                    let expected = [
+                        old[0],
+                        pivot[1] + local[1] * c - local[2] * s,
+                        pivot[2] + local[1] * s + local[2] * c,
+                    ];
+                    let actual = bone.project([0.125, -0.25, 0.5]);
+                    for axis in 0..3 {
+                        assert!((actual[axis] - expected[axis]).abs() < 1e-12);
+                    }
+                }
+                // Mounted bones are affine here, so ordinary Project is an
+                // independent numeric oracle for the inlined wrist pivot.
+                let before = bones.clone();
+                let pivot = bones.slots[indices[2]].project(field_70);
+                part.rotate_arm_wrist(&mut bones, angle).unwrap();
+                for (index, bone) in bones.slots.iter().enumerate() {
+                    if index != indices[2] {
+                        assert_eq!(*bone, before.slots[index]);
+                        continue;
+                    }
+                    assert_eq!(bone.field_100, 0);
+                    let attached = bone.project(field_70);
+                    for axis in 0..3 {
+                        assert!((attached[axis] - pivot[axis]).abs() < 1e-12);
+                    }
                     let old = before.slots[index].project([0.125, -0.25, 0.5]);
                     let local = [old[0] - pivot[0], old[1] - pivot[1], old[2] - pivot[2]];
                     let expected = [

@@ -950,6 +950,51 @@ Wrist/bow/flap and complete wing/limb stages, full Animate ordering, production
 model/timer/Person ownership and actual avatar mesh publication remain
 unfinished requirements of the original end-to-end objective.
 
+### Concrete arm RotateWrist dependency
+
+`rotate_arm_wrist` now projects initialized Arm field70 through the THIRD
+actual Bones output and applies its native expanded pivot rotation to only
+that output. It has no DNA wing-form branch. Zero/signed-zero preserve all
+matrix/flag bits; NaN enters the nonzero operation. Non-arm kinds return
+Unsupported, and missing required Arm field70 returns InvalidData before
+mutation. The two native virtual Bones calls are stateless; their concrete
+mapping is reused, not replaced with an anatomical guess.
+
+The inlined projection is deliberately separate from AuMatrix::Project:
+X sums Y/X/Z, Y/Z/W sum X/Y/Z, and each numerator adds translation last.
+All-origin input separately sums every W-row term; sparse coordinates skip
+unused columns, and W is divided only when neither zero nor one. The expanded
+RotateX pivot retains zero products and its wrist-specific product-first Y
+post-translation (shoulder adds initial Y first). The actual matrix operator*
+does not read input flags and clears its result flag, so no secondary cache
+representation is invented.
+
+The existing live session8086 supplied the wrapper in0.089s and the concrete
+clone in0.096s. Related BowWing/FlapWing clones were batched and retained in
+`target/native-model-analysis-4` in0.110/0.101s for the next stage; they are not
+claimed implemented. Complete wrist records are
+`docs/evidence/native-dp-arm-rotate-wrist{,-part0}.json`, Evidence
+`ev_f7150630edbc03923016f841a8d67a1ff7a59bf5b09e198c99bb6682d938fc7a`
+and
+`ev_165922fe22a9eea9b36a28f609be33e19760ca6a0d25b1497865d47672d3638a`,
+with full GNU in `native-dp-arm-wrist-gnu.txt`. No new import or original-target
+execution occurred. GNU establishes the two output3 uses, fields70/78/80,
+inlined projection grouping and the single primary matrix multiplication.
+
+`just test-native-dp-arm-wrist` checks those static anchors plus Rust fixtures
+for side/pair/fallback mappings, independent affine pivot/point checks,
+all-origin/sparse/non-affine/cancellation projection, repeated current pivots,
+zero/NaN/error paths and exact zero-path NaN-payload/flag preservation.
+The mounted elbow fixture additionally runs wrist motion after actual waist,
+shoulder and elbow transforms for five wing forms, using real initialized
+field70. It checks preserved pivot, independently rotated points and unchanged
+unselected bones. These remain static/host Rust/offline composition tests,
+not original-client runtime or cross-platform libm/NaN-payload parity.
+
+Bow/flap/StandWing/FlyWing and complete wing/limb stages, full Animate,
+production timer/model/Person ownership and final native avatar mesh
+publication remain unfinished under the original end-to-end objective.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or

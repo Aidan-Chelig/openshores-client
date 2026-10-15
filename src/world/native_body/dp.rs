@@ -20,6 +20,7 @@ pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};
 mod arm_elbow;
 mod arm_move;
 mod arm_shoulder;
+mod arm_wrist;
 mod body_waist;
 mod foot;
 mod height;
