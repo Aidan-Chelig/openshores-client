@@ -45,8 +45,15 @@ Complete reviewed base-reader evidence: `evidence/native-condition-base.json`,
 `ev_9db76c8fc28cdf8914d87bee588913e6d5167d46e7add7a805b07f2024c036f2`.
 The reader delegates solely to `AuTime::operator<<` for field `0x08`.
 It does not itself read a type byte or an additional condition flags byte.
-Do not assume this time uses the compressed effect-time algorithm without
-checking AuTime's reader.
+The subsequently reviewed time-reader record `evidence/native-time-reader.json`,
+`ev_fba3b904ef8e6ba0132615f32009391c4f2a902917202b298995dbc45461e753`,
+delegates directly to `QDataStream >> long long`. Independent GNU assembly
+`0x14163a380..0x14163a38f` corroborates the tail jump to imported
+`_ZN11QDataStreamrsERx` at `0x142892710`. The decompiler's jump-table warning
+does not establish a switch: this is a direct imported-overload tail call.
+For the established big-endian native stream profile this is an eight-byte
+signed timestamp, with no sampled clock, epoch adjustment or compressed Rx16
+reconstruction. Preserve zero, negative and extreme values unchanged.
 
 Independent COFF symbol inventory places base and Fire receive symbols at the
 same entry `0x1408b63b0`. Other receive entries are distinct: ImplantDNA
