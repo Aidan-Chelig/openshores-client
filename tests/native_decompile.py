@@ -1,4 +1,4 @@
-"""Retain complete static REA evidence without flooding the terminal.
+"""Legacy single-query evidence helper; prefer native_session.py for related queries.
 
 Requires an existing REA launcher and Ghidra/JDK environment; never executes
 the selected target. Output must be a new file (existing evidence is preserved).
