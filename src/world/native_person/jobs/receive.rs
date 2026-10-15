@@ -2,10 +2,10 @@ use super::*;
 
 impl NativeJob {
     /// Caller already consumed the factory byte. All27 factory identities are
-    /// known, but only the three verified bodies below are implemented yet.
+    /// known; remaining unimplemented bodies fail explicitly below.
     /// Fresh-value atomicity on errors is Rust safety, not Qt stream parity.
     pub fn read_qt7(kind: u8, input: &mut QtReader<'_>) -> io::Result<Self> {
-        if !matches!(kind, 0 | 20 | 24) {
+        if !matches!(kind, 0 | 6..=24 | 26) {
             return Err(io::Error::new(
                 io::ErrorKind::Unsupported,
                 format!("native job body {kind} is not implemented"),
@@ -14,6 +14,36 @@ impl NativeJob {
         let mut record = QtReader::new(input.remaining_bytes());
         let time_08 = utc_datetime_qt7(&mut record)?;
         let body = match kind {
+            16..=18 => {
+                NativeJobBody::DeliverPassengers(NativeJobPassengerDelivery::read(&mut record)?)
+            }
+            21 | 23 => {
+                NativeJobBody::PickUpPassengers(NativeJobPassengerPickup::read(&mut record)?)
+            }
+            22 => NativeJobBody::PickUpPassengersOverpopulated {
+                pickup: NativeJobPassengerPickup::read(&mut record)?,
+                id_48: record.read_u32()?,
+            },
+            6..=8 | 10..=13 => NativeJobBody::DeliverCargo(NativeJobCargo::read(&mut record)?),
+            9 => NativeJobBody::DeliverCargoManufacture {
+                cargo: NativeJobCargo::read(&mut record)?,
+                field_48: u32::from(record.read_u16()?),
+            },
+            14 | 15 => NativeJobBody::DeliverFood(NativeJobFood::read(&mut record)?),
+            19 => NativeJobBody::DestroyEnemyStation {
+                string_10: record.read_string()?,
+                id_18: record.read_u32()?,
+                string_20: record.read_string()?,
+                id_28: record.read_u32()?,
+                string_30: record.read_string()?,
+            },
+            26 => NativeJobBody::VisitSystem {
+                id_10: record.read_u32()?,
+                field_14: record.read_i32()?,
+                string_18: record.read_string()?,
+                id_20: record.read_u32()?,
+                string_28: record.read_string()?,
+            },
             0 => NativeJobBody::Assassin {
                 string_10: record.read_string()?,
                 id_18: record.read_u32()?,

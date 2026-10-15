@@ -9,7 +9,10 @@ pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffi
 mod body;
 pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
 mod jobs;
-pub use jobs::{NativeJob, NativeJobBody, NativeJobList, NativeJobListReceive, NativeJobStop};
+pub use jobs::{
+    NativeJob, NativeJobBody, NativeJobCargo, NativeJobFood, NativeJobList, NativeJobListReceive,
+    NativeJobPassengerDelivery, NativeJobPassengerPickup, NativeJobStop,
+};
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct NativeDomain(pub BTreeMap<u32, Option<String>>);

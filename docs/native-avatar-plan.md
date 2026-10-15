@@ -242,3 +242,11 @@ Qt7 UTC timestamps are supported, other time semantics/remaining bodies fail
 explicitly. Null factories return native stop diagnostics without opaque skip.
 Real job/Person fixtures and the static binding verifier cover this scope, not
 the still-incomplete construction/context/dispatch/avatar-presentation goal.
+
+Job-family extension: Cargo/Food/Passenger delivery and pickup variants,
+DestroyEnemyStation and VisitSystem now bring the real native job decoder to
+21 of27 types. Native short zero-extension, zero→one bytes, distinct int/string
+tails and manufacture/overpopulated extensions are implemented and tested from
+retained GNU records without another analysis import. Six job bodies and
+non-UTC/invalid datetime semantics remain explicit Unsupported; inventory/weight,
+concrete runtime context/dispatch and presentation remain open.

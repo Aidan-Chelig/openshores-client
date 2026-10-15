@@ -53,7 +53,7 @@ state1130 fails at its read-modify-write stage after preceding completed reads.
 The full inherited construction path is still required; this API is not it.
 
 Unsupported JobList bodies and ItemHash fail at their native read positions.
-JobList now supports Assassin/InterdictSystem/Story and empty lists; verified
+JobList now supports21 native types and empty lists; verified
 null factories report a stop without skipping their unreceived bodies, after
 which the Person suffix continues as native code does. See native-person-jobs.md.
 Nonempty Gear weight and commodity2 replacement are

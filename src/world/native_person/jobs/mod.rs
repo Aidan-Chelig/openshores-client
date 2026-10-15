@@ -1,8 +1,38 @@
 use super::*;
+mod delivery;
 mod receive;
+pub use delivery::{NativeJobCargo, NativeJobFood};
+mod passengers;
+pub use passengers::{NativeJobPassengerDelivery, NativeJobPassengerPickup};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum NativeJobBody {
+    DeliverPassengers(NativeJobPassengerDelivery),
+    PickUpPassengers(NativeJobPassengerPickup),
+    PickUpPassengersOverpopulated {
+        pickup: NativeJobPassengerPickup,
+        id_48: u32,
+    },
+    DeliverCargo(NativeJobCargo),
+    DeliverCargoManufacture {
+        cargo: NativeJobCargo,
+        field_48: u32,
+    },
+    DeliverFood(NativeJobFood),
+    DestroyEnemyStation {
+        string_10: Option<String>,
+        id_18: u32,
+        string_20: Option<String>,
+        id_28: u32,
+        string_30: Option<String>,
+    },
+    VisitSystem {
+        id_10: u32,
+        field_14: i32,
+        string_18: Option<String>,
+        id_20: u32,
+        string_28: Option<String>,
+    },
     Assassin {
         string_10: Option<String>,
         id_18: u32,

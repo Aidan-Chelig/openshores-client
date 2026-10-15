@@ -1,5 +1,7 @@
 use super::*;
 use crate::protocol::QtWriter;
+mod delivery;
+mod passengers;
 
 fn string(value: Option<&str>, bytes: &mut Vec<u8>) {
     let mut writer = QtWriter::default();
@@ -68,6 +70,7 @@ fn native_type_zero_is_assassin_and_story24_ignores_every_tag_byte() {
                     assert_eq!(field_20, i32::MIN);
                     assert_eq!(string_28.as_deref(), Some(""));
                 }
+                _ => unreachable!("fixture covers the initial three job families"),
             }
             for end in 0..length {
                 let mut input = QtReader::new(&bytes[..end]);
@@ -109,7 +112,7 @@ fn all_count_bits_and_unknown_factories_stop_without_skipping() {
         assert_eq!(report.stop.unwrap().unknown_type, kind);
     }
     for kind in 0..=26 {
-        if matches!(kind, 0 | 20 | 24) {
+        if matches!(kind, 0 | 6..=24 | 26) {
             continue;
         }
         assert_eq!(
