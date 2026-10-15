@@ -1,0 +1,888 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412c1310 <_ZN6DpBody14SelectTexturesER11AuGLEffects>:
+   1412c1310:	push   %r15
+   1412c1312:	push   %r14
+   1412c1314:	push   %r13
+   1412c1316:	push   %r12
+   1412c1318:	push   %rbp
+   1412c1319:	push   %rdi
+   1412c131a:	push   %rsi
+   1412c131b:	push   %rbx
+   1412c131c:	sub    $0xa8,%rsp
+   1412c1323:	mov    0x15d185e(%rip),%rsi        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   1412c132a:	mov    %rcx,%rbx
+   1412c132d:	mov    %rdx,%r14
+   1412c1330:	lea    0xffc820(%rip),%rcx        # 1422bdb57 <.rdata+0x97>
+   1412c1337:	xor    %edx,%edx
+   1412c1339:	call   *%rsi
+   1412c133b:	mov    $0x84,%edx
+   1412c1340:	mov    %rax,0x68(%rsp)
+   1412c1345:	movzbl 0x28(%rbx),%eax
+   1412c1349:	and    $0x7,%eax
+   1412c134c:	bt     %rax,%rdx
+   1412c1350:	jb     1412c1768 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x458>
+   1412c1356:	mov    $0x21,%edx
+   1412c135b:	bt     %rax,%rdx
+   1412c135f:	jb     1412c14a0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x190>
+   1412c1365:	mov    $0x42,%edx
+   1412c136a:	bt     %rax,%rdx
+   1412c136e:	jae    1412c1b80 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x870>
+   1412c1374:	lea    0x90(%rsp),%r13
+   1412c137c:	mov    $0x6,%r8d
+   1412c1382:	lea    0x68(%rsp),%rdi
+   1412c1387:	lea    0xffc80d(%rip),%rdx        # 1422bdb9b <.rdata+0xdb>
+   1412c138e:	mov    %r13,%rcx
+   1412c1391:	call   *0x15d17e1(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1412c1397:	mov    0x90(%rsp),%rdx
+   1412c139f:	mov    0x68(%rsp),%rax
+   1412c13a4:	mov    %r13,%rcx
+   1412c13a7:	mov    %rdx,0x68(%rsp)
+   1412c13ac:	mov    %rax,0x90(%rsp)
+   1412c13b4:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c13b9:	mov    0x3f60(%rbx),%edx
+   1412c13bf:	test   %edx,%edx
+   1412c13c1:	je     1412c1eb0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xba0>
+   1412c13c7:	mov    0x3f74(%rbx),%eax
+   1412c13cd:	test   %eax,%eax
+   1412c13cf:	je     1412c1f88 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xc78>
+   1412c13d5:	mov    0x3f68(%rbx),%ecx
+   1412c13db:	test   %ecx,%ecx
+   1412c13dd:	je     1412c18a7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x597>
+   1412c13e3:	mov    0x3f7c(%rbx),%edx
+   1412c13e9:	test   %edx,%edx
+   1412c13eb:	je     1412c193a <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x62a>
+   1412c13f1:	mov    0x3f80(%rbx),%eax
+   1412c13f7:	test   %eax,%eax
+   1412c13f9:	je     1412c19cd <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x6bd>
+   1412c13ff:	mov    0x3f84(%rbx),%eax
+   1412c1405:	test   %eax,%eax
+   1412c1407:	je     1412c1a60 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x750>
+   1412c140d:	mov    0x3f88(%rbx),%eax
+   1412c1413:	test   %eax,%eax
+   1412c1415:	je     1412c1af3 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x7e3>
+   1412c141b:	movzbl 0x28(%rbx),%eax
+   1412c141f:	mov    0x406c(%rbx),%edx
+   1412c1425:	and    $0x7,%eax
+   1412c1428:	cltq
+   1412c142a:	shl    $0x4,%rax
+   1412c142e:	cmp    $0x6a,%edx
+   1412c1431:	je     1412c15c0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x2b0>
+   1412c1437:	cmp    $0x9a,%edx
+   1412c143d:	je     1412c1ca0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x990>
+   1412c1443:	cmp    $0x9c,%edx
+   1412c1449:	je     1412c2120 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xe10>
+   1412c144f:	cmp    $0x48,%edx
+   1412c1452:	je     1412c1cc0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x9b0>
+   1412c1458:	movslq 0x3f8c(%rax,%rbx,1),%rsi
+   1412c1460:	test   %esi,%esi
+   1412c1462:	jne    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c1464:	sub    $0x6a,%edx
+   1412c1467:	cmp    $0x32,%edx
+   1412c146a:	ja     1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c146c:	movabs $0x5000000000001,%rax
+   1412c1476:	bt     %rdx,%rax
+   1412c147a:	jb     1412c15d0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x2c0>
+   1412c1480:	mov    %rdi,%rcx
+   1412c1483:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1488:	nop
+   1412c1489:	add    $0xa8,%rsp
+   1412c1490:	pop    %rbx
+   1412c1491:	pop    %rsi
+   1412c1492:	pop    %rdi
+   1412c1493:	pop    %rbp
+   1412c1494:	pop    %r12
+   1412c1496:	pop    %r13
+   1412c1498:	pop    %r14
+   1412c149a:	pop    %r15
+   1412c149c:	ret
+   1412c149d:	nopl   (%rax)
+   1412c14a0:	lea    0x88(%rsp),%rbp
+   1412c14a8:	mov    $0x3,%r8d
+   1412c14ae:	lea    0x68(%rsp),%rdi
+   1412c14b3:	lea    0xffc6dd(%rip),%rdx        # 1422bdb97 <.rdata+0xd7>
+   1412c14ba:	mov    %rbp,%rcx
+   1412c14bd:	call   *0x15d16b5(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1412c14c3:	mov    0x68(%rsp),%rax
+   1412c14c8:	mov    0x88(%rsp),%rdx
+   1412c14d0:	mov    %rbp,%rcx
+   1412c14d3:	mov    %rdx,0x68(%rsp)
+   1412c14d8:	mov    %rax,0x88(%rsp)
+   1412c14e0:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c14e5:	mov    0x3f5c(%rbx),%r12d
+   1412c14ec:	test   %r12d,%r12d
+   1412c14ef:	je     1412c2040 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xd30>
+   1412c14f5:	mov    0x3f70(%rbx),%r9d
+   1412c14fc:	test   %r9d,%r9d
+   1412c14ff:	jne    1412c13d5 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xc5>
+   1412c1505:	lea    0x90(%rsp),%r13
+   1412c150d:	lea    0xffc65f(%rip),%rdx        # 1422bdb73 <.rdata+0xb3>
+   1412c1514:	mov    %r13,%rcx
+   1412c1517:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c151c:	mov    0x15d1c65(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c1523:	mov    $0x20,%r8d
+   1412c1529:	xor    %r9d,%r9d
+   1412c152c:	mov    %r13,%rdx
+   1412c152f:	lea    0x98(%rsp),%r12
+   1412c1537:	mov    %r8w,0x20(%rsp)
+   1412c153d:	mov    %rdi,%r8
+   1412c1540:	mov    %rax,0x40(%rsp)
+   1412c1545:	mov    %r12,%rcx
+   1412c1548:	call   *%rax
+   1412c154a:	lea    0x80(%rsp),%r15
+   1412c1552:	lea    0xffc62c(%rip),%rdx        # 1422bdb85 <.rdata+0xc5>
+   1412c1559:	mov    %r15,%rcx
+   1412c155c:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1561:	mov    $0x20,%ecx
+   1412c1566:	mov    0x40(%rsp),%rax
+   1412c156b:	xor    %r9d,%r9d
+   1412c156e:	mov    %rdi,%r8
+   1412c1571:	mov    %cx,0x20(%rsp)
+   1412c1576:	mov    %r15,%rdx
+   1412c1579:	mov    %rbp,%rcx
+   1412c157c:	call   *%rax
+   1412c157e:	movl   $0x0,0x38(%rsp)
+   1412c1586:	mov    %r12,%r9
+   1412c1589:	mov    %rbp,%r8
+   1412c158c:	mov    $0x1,%edx
+   1412c1591:	movl   $0x0,0x30(%rsp)
+   1412c1599:	mov    %r14,%rcx
+   1412c159c:	movl   $0x2601,0x28(%rsp)
+   1412c15a4:	movl   $0x2601,0x20(%rsp)
+   1412c15ac:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c15b1:	mov    %eax,0x3f70(%rbx)
+   1412c15b7:	jmp    1412c1879 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x569>
+   1412c15bc:	nopl   0x0(%rax)
+   1412c15c0:	movslq 0x3f8c(%rax,%rbx,1),%rsi
+   1412c15c8:	test   %esi,%esi
+   1412c15ca:	jne    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c15d0:	lea    0x88(%rsp),%rbp
+   1412c15d8:	lea    0xffc683(%rip),%rdx        # 1422bdc62 <.rdata+0x1a2>
+   1412c15df:	mov    %rbp,%rcx
+   1412c15e2:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c15e7:	movzbl 0x28(%rbx),%r8d
+   1412c15ec:	mov    0x15d1bb5(%rip),%rax        # 1428931a8 <__imp__ZNK7QString3argEyii5QChar>
+   1412c15f3:	xor    %r9d,%r9d
+   1412c15f6:	mov    %rbp,%rdx
+   1412c15f9:	lea    0x90(%rsp),%r13
+   1412c1601:	mov    $0x20,%r11d
+   1412c1607:	movl   $0xa,0x20(%rsp)
+   1412c160f:	mov    %r11w,0x28(%rsp)
+   1412c1615:	and    $0x7,%r8d
+   1412c1619:	mov    %r13,%rcx
+   1412c161c:	mov    %rax,0x58(%rsp)
+   1412c1621:	call   *%rax
+   1412c1623:	mov    0x15d1b76(%rip),%r11        # 1428931a0 <__imp__ZNK7QString3argExii5QChar>
+   1412c162a:	xor    %r9d,%r9d
+   1412c162d:	mov    %rsi,%r8
+   1412c1630:	mov    %r13,%rdx
+   1412c1633:	lea    0x98(%rsp),%r12
+   1412c163b:	mov    $0x20,%r10d
+   1412c1641:	movl   $0xa,0x20(%rsp)
+   1412c1649:	mov    %r10w,0x28(%rsp)
+   1412c164f:	mov    %r12,%rcx
+   1412c1652:	mov    %r11,0x50(%rsp)
+   1412c1657:	call   *%r11
+   1412c165a:	lea    0x70(%rsp),%r15
+   1412c165f:	lea    0xffc611(%rip),%rdx        # 1422bdc77 <.rdata+0x1b7>
+   1412c1666:	mov    %r15,%rcx
+   1412c1669:	mov    %r15,0x40(%rsp)
+   1412c166e:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1673:	movzbl 0x28(%rbx),%r8d
+   1412c1678:	lea    0x78(%rsp),%rax
+   1412c167d:	mov    $0x20,%r9d
+   1412c1683:	mov    %r15,%rdx
+   1412c1686:	mov    %r9w,0x28(%rsp)
+   1412c168c:	mov    0x58(%rsp),%r10
+   1412c1691:	xor    %r9d,%r9d
+   1412c1694:	mov    %rax,%rcx
+   1412c1697:	movl   $0xa,0x20(%rsp)
+   1412c169f:	and    $0x7,%r8d
+   1412c16a3:	mov    %r15,0x40(%rsp)
+   1412c16a8:	mov    %rax,0x48(%rsp)
+   1412c16ad:	call   *%r10
+   1412c16b0:	mov    $0x20,%r8d
+   1412c16b6:	lea    0x80(%rsp),%r15
+   1412c16be:	mov    0x48(%rsp),%rdx
+   1412c16c3:	xor    %r9d,%r9d
+   1412c16c6:	mov    %r8w,0x28(%rsp)
+   1412c16cc:	mov    0x50(%rsp),%r11
+   1412c16d1:	mov    %rsi,%r8
+   1412c16d4:	mov    %r15,%rcx
+   1412c16d7:	movl   $0xa,0x20(%rsp)
+   1412c16df:	call   *%r11
+   1412c16e2:	movl   $0x0,0x38(%rsp)
+   1412c16ea:	mov    %r12,%r9
+   1412c16ed:	mov    %r15,%r8
+   1412c16f0:	mov    $0x1,%edx
+   1412c16f5:	movl   $0x0,0x30(%rsp)
+   1412c16fd:	mov    %r14,%rcx
+   1412c1700:	movl   $0x2601,0x28(%rsp)
+   1412c1708:	movl   $0x2601,0x20(%rsp)
+   1412c1710:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1715:	mov    %eax,%r8d
+   1412c1718:	movzbl 0x28(%rbx),%eax
+   1412c171c:	mov    %r15,%rcx
+   1412c171f:	and    $0x7,%eax
+   1412c1722:	lea    0xfe0(%rsi,%rax,4),%rax
+   1412c172a:	mov    %r8d,0xc(%rbx,%rax,4)
+   1412c172f:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1734:	mov    0x48(%rsp),%rcx
+   1412c1739:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c173e:	mov    0x40(%rsp),%rcx
+   1412c1743:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1748:	mov    %r12,%rcx
+   1412c174b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1750:	mov    %r13,%rcx
+   1412c1753:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1758:	mov    %rbp,%rcx
+   1412c175b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1760:	jmp    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c1765:	nopl   (%rax)
+   1412c1768:	lea    0x80(%rsp),%r15
+   1412c1770:	mov    $0x4,%r8d
+   1412c1776:	lea    0x68(%rsp),%rdi
+   1412c177b:	lea    0xffc3d6(%rip),%rdx        # 1422bdb58 <.rdata+0x98>
+   1412c1782:	mov    %r15,%rcx
+   1412c1785:	call   *0x15d13ed(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1412c178b:	mov    0x80(%rsp),%rdx
+   1412c1793:	mov    0x68(%rsp),%rax
+   1412c1798:	mov    %r15,%rcx
+   1412c179b:	mov    %rdx,0x68(%rsp)
+   1412c17a0:	mov    %rax,0x80(%rsp)
+   1412c17a8:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c17ad:	mov    0x3f58(%rbx),%edx
+   1412c17b3:	test   %edx,%edx
+   1412c17b5:	je     1412c2140 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xe30>
+   1412c17bb:	mov    0x3f6c(%rbx),%eax
+   1412c17c1:	test   %eax,%eax
+   1412c17c3:	jne    1412c13d5 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xc5>
+   1412c17c9:	lea    0x90(%rsp),%r13
+   1412c17d1:	lea    0xffc39b(%rip),%rdx        # 1422bdb73 <.rdata+0xb3>
+   1412c17d8:	mov    %r13,%rcx
+   1412c17db:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c17e0:	mov    $0x20,%eax
+   1412c17e5:	xor    %r9d,%r9d
+   1412c17e8:	mov    %rdi,%r8
+   1412c17eb:	mov    %r13,%rdx
+   1412c17ee:	mov    %ax,0x20(%rsp)
+   1412c17f3:	mov    0x15d198e(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c17fa:	lea    0x98(%rsp),%r12
+   1412c1802:	mov    %r12,%rcx
+   1412c1805:	mov    %rax,0x40(%rsp)
+   1412c180a:	call   *%rax
+   1412c180c:	lea    0xffc372(%rip),%rdx        # 1422bdb85 <.rdata+0xc5>
+   1412c1813:	mov    %r15,%rcx
+   1412c1816:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c181b:	mov    $0x20,%eax
+   1412c1820:	xor    %r9d,%r9d
+   1412c1823:	mov    %rdi,%r8
+   1412c1826:	mov    %r15,%rdx
+   1412c1829:	lea    0x88(%rsp),%rbp
+   1412c1831:	mov    %ax,0x20(%rsp)
+   1412c1836:	mov    0x40(%rsp),%rax
+   1412c183b:	mov    %rbp,%rcx
+   1412c183e:	call   *%rax
+   1412c1840:	movl   $0x0,0x38(%rsp)
+   1412c1848:	mov    %r12,%r9
+   1412c184b:	mov    %rbp,%r8
+   1412c184e:	mov    $0x1,%edx
+   1412c1853:	movl   $0x0,0x30(%rsp)
+   1412c185b:	mov    %r14,%rcx
+   1412c185e:	movl   $0x2601,0x28(%rsp)
+   1412c1866:	movl   $0x2601,0x20(%rsp)
+   1412c186e:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1873:	mov    %eax,0x3f6c(%rbx)
+   1412c1879:	mov    %rbp,%rcx
+   1412c187c:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1881:	mov    %r15,%rcx
+   1412c1884:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1889:	mov    %r12,%rcx
+   1412c188c:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1891:	mov    %r13,%rcx
+   1412c1894:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1899:	mov    0x3f68(%rbx),%ecx
+   1412c189f:	test   %ecx,%ecx
+   1412c18a1:	jne    1412c13e3 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xd3>
+   1412c18a7:	mov    $0xd,%edx
+   1412c18ac:	lea    0xffc2fb(%rip),%rcx        # 1422bdbae <.rdata+0xee>
+   1412c18b3:	call   *%rsi
+   1412c18b5:	mov    %rax,0x98(%rsp)
+   1412c18bd:	mov    $0xd,%edx
+   1412c18c2:	lea    0xffc2f3(%rip),%rcx        # 1422bdbbc <.rdata+0xfc>
+   1412c18c9:	call   *%rsi
+   1412c18cb:	movl   $0x0,0x38(%rsp)
+   1412c18d3:	mov    $0x1,%edx
+   1412c18d8:	mov    %r14,%rcx
+   1412c18db:	lea    0x98(%rsp),%r12
+   1412c18e3:	movl   $0x0,0x30(%rsp)
+   1412c18eb:	lea    0x90(%rsp),%r13
+   1412c18f3:	mov    %r12,%r9
+   1412c18f6:	movl   $0x2601,0x28(%rsp)
+   1412c18fe:	mov    %r13,%r8
+   1412c1901:	movl   $0x2601,0x20(%rsp)
+   1412c1909:	mov    %rax,0x90(%rsp)
+   1412c1911:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1916:	mov    %eax,0x3f68(%rbx)
+   1412c191c:	mov    %r13,%rcx
+   1412c191f:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1924:	mov    %r12,%rcx
+   1412c1927:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c192c:	mov    0x3f7c(%rbx),%edx
+   1412c1932:	test   %edx,%edx
+   1412c1934:	jne    1412c13f1 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xe1>
+   1412c193a:	mov    $0xf,%edx
+   1412c193f:	lea    0xffc284(%rip),%rcx        # 1422bdbca <.rdata+0x10a>
+   1412c1946:	call   *%rsi
+   1412c1948:	mov    %rax,0x98(%rsp)
+   1412c1950:	mov    $0xf,%edx
+   1412c1955:	lea    0xffc27e(%rip),%rcx        # 1422bdbda <.rdata+0x11a>
+   1412c195c:	call   *%rsi
+   1412c195e:	movl   $0x0,0x38(%rsp)
+   1412c1966:	mov    $0x1,%edx
+   1412c196b:	mov    %r14,%rcx
+   1412c196e:	lea    0x98(%rsp),%r12
+   1412c1976:	movl   $0x0,0x30(%rsp)
+   1412c197e:	lea    0x90(%rsp),%r13
+   1412c1986:	mov    %r12,%r9
+   1412c1989:	movl   $0x2601,0x28(%rsp)
+   1412c1991:	mov    %r13,%r8
+   1412c1994:	movl   $0x2601,0x20(%rsp)
+   1412c199c:	mov    %rax,0x90(%rsp)
+   1412c19a4:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c19a9:	mov    %eax,0x3f7c(%rbx)
+   1412c19af:	mov    %r13,%rcx
+   1412c19b2:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c19b7:	mov    %r12,%rcx
+   1412c19ba:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c19bf:	mov    0x3f80(%rbx),%eax
+   1412c19c5:	test   %eax,%eax
+   1412c19c7:	jne    1412c13ff <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xef>
+   1412c19cd:	mov    $0xf,%edx
+   1412c19d2:	lea    0xffc211(%rip),%rcx        # 1422bdbea <.rdata+0x12a>
+   1412c19d9:	call   *%rsi
+   1412c19db:	mov    %rax,0x98(%rsp)
+   1412c19e3:	mov    $0xf,%edx
+   1412c19e8:	lea    0xffc20b(%rip),%rcx        # 1422bdbfa <.rdata+0x13a>
+   1412c19ef:	call   *%rsi
+   1412c19f1:	movl   $0x0,0x38(%rsp)
+   1412c19f9:	mov    $0x1,%edx
+   1412c19fe:	mov    %r14,%rcx
+   1412c1a01:	lea    0x98(%rsp),%r12
+   1412c1a09:	movl   $0x0,0x30(%rsp)
+   1412c1a11:	lea    0x90(%rsp),%r13
+   1412c1a19:	mov    %r12,%r9
+   1412c1a1c:	movl   $0x2601,0x28(%rsp)
+   1412c1a24:	mov    %r13,%r8
+   1412c1a27:	movl   $0x2601,0x20(%rsp)
+   1412c1a2f:	mov    %rax,0x90(%rsp)
+   1412c1a37:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1a3c:	mov    %eax,0x3f80(%rbx)
+   1412c1a42:	mov    %r13,%rcx
+   1412c1a45:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1a4a:	mov    %r12,%rcx
+   1412c1a4d:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1a52:	mov    0x3f84(%rbx),%eax
+   1412c1a58:	test   %eax,%eax
+   1412c1a5a:	jne    1412c140d <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd>
+   1412c1a60:	mov    $0x11,%edx
+   1412c1a65:	lea    0xffc19e(%rip),%rcx        # 1422bdc0a <.rdata+0x14a>
+   1412c1a6c:	call   *%rsi
+   1412c1a6e:	mov    %rax,0x98(%rsp)
+   1412c1a76:	mov    $0x11,%edx
+   1412c1a7b:	lea    0xffc19a(%rip),%rcx        # 1422bdc1c <.rdata+0x15c>
+   1412c1a82:	call   *%rsi
+   1412c1a84:	movl   $0x0,0x38(%rsp)
+   1412c1a8c:	mov    $0x1,%edx
+   1412c1a91:	mov    %r14,%rcx
+   1412c1a94:	lea    0x98(%rsp),%r12
+   1412c1a9c:	movl   $0x0,0x30(%rsp)
+   1412c1aa4:	lea    0x90(%rsp),%r13
+   1412c1aac:	mov    %r12,%r9
+   1412c1aaf:	movl   $0x2601,0x28(%rsp)
+   1412c1ab7:	mov    %r13,%r8
+   1412c1aba:	movl   $0x2601,0x20(%rsp)
+   1412c1ac2:	mov    %rax,0x90(%rsp)
+   1412c1aca:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1acf:	mov    %eax,0x3f84(%rbx)
+   1412c1ad5:	mov    %r13,%rcx
+   1412c1ad8:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1add:	mov    %r12,%rcx
+   1412c1ae0:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1ae5:	mov    0x3f88(%rbx),%eax
+   1412c1aeb:	test   %eax,%eax
+   1412c1aed:	jne    1412c141b <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x10b>
+   1412c1af3:	mov    $0x11,%edx
+   1412c1af8:	lea    0xffc12f(%rip),%rcx        # 1422bdc2e <.rdata+0x16e>
+   1412c1aff:	call   *%rsi
+   1412c1b01:	mov    %rax,0x98(%rsp)
+   1412c1b09:	mov    $0x11,%edx
+   1412c1b0e:	lea    0xffc12b(%rip),%rcx        # 1422bdc40 <.rdata+0x180>
+   1412c1b15:	call   *%rsi
+   1412c1b17:	movl   $0x0,0x38(%rsp)
+   1412c1b1f:	mov    $0x1,%edx
+   1412c1b24:	mov    %r14,%rcx
+   1412c1b27:	lea    0x98(%rsp),%r12
+   1412c1b2f:	movl   $0x0,0x30(%rsp)
+   1412c1b37:	lea    0x90(%rsp),%r13
+   1412c1b3f:	mov    %r12,%r9
+   1412c1b42:	movl   $0x2601,0x28(%rsp)
+   1412c1b4a:	mov    %r13,%r8
+   1412c1b4d:	movl   $0x2601,0x20(%rsp)
+   1412c1b55:	mov    %rax,0x90(%rsp)
+   1412c1b5d:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1b62:	mov    %eax,0x3f88(%rbx)
+   1412c1b68:	mov    %r13,%rcx
+   1412c1b6b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1b70:	mov    %r12,%rcx
+   1412c1b73:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1b78:	jmp    1412c141b <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x10b>
+   1412c1b7d:	nopl   (%rax)
+   1412c1b80:	lea    0x98(%rsp),%r12
+   1412c1b88:	mov    $0xb,%r8d
+   1412c1b8e:	lea    0x68(%rsp),%rdi
+   1412c1b93:	lea    0xffc008(%rip),%rdx        # 1422bdba2 <.rdata+0xe2>
+   1412c1b9a:	mov    %r12,%rcx
+   1412c1b9d:	call   *0x15d0fd5(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1412c1ba3:	mov    0x68(%rsp),%rax
+   1412c1ba8:	mov    0x98(%rsp),%rdx
+   1412c1bb0:	mov    %r12,%rcx
+   1412c1bb3:	mov    %rdx,0x68(%rsp)
+   1412c1bb8:	mov    %rax,0x98(%rsp)
+   1412c1bc0:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1bc5:	mov    0x3f64(%rbx),%r13d
+   1412c1bcc:	test   %r13d,%r13d
+   1412c1bcf:	je     1412c1dd0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xac0>
+   1412c1bd5:	mov    0x3f78(%rbx),%r10d
+   1412c1bdc:	test   %r10d,%r10d
+   1412c1bdf:	jne    1412c13d5 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xc5>
+   1412c1be5:	lea    0x90(%rsp),%r13
+   1412c1bed:	lea    0xffbf7f(%rip),%rdx        # 1422bdb73 <.rdata+0xb3>
+   1412c1bf4:	mov    %r13,%rcx
+   1412c1bf7:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1bfc:	mov    0x15d1585(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c1c03:	mov    %rdi,%r8
+   1412c1c06:	mov    %r13,%rdx
+   1412c1c09:	mov    %r12,%rcx
+   1412c1c0c:	mov    $0x20,%r9d
+   1412c1c12:	mov    %r9w,0x20(%rsp)
+   1412c1c18:	xor    %r9d,%r9d
+   1412c1c1b:	mov    %rax,0x40(%rsp)
+   1412c1c20:	call   *%rax
+   1412c1c22:	lea    0x80(%rsp),%r15
+   1412c1c2a:	lea    0xffbf54(%rip),%rdx        # 1422bdb85 <.rdata+0xc5>
+   1412c1c31:	mov    %r15,%rcx
+   1412c1c34:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1c39:	mov    $0x20,%r8d
+   1412c1c3f:	mov    0x40(%rsp),%rax
+   1412c1c44:	xor    %r9d,%r9d
+   1412c1c47:	mov    %r15,%rdx
+   1412c1c4a:	lea    0x88(%rsp),%rbp
+   1412c1c52:	mov    %r8w,0x20(%rsp)
+   1412c1c58:	mov    %rdi,%r8
+   1412c1c5b:	mov    %rbp,%rcx
+   1412c1c5e:	call   *%rax
+   1412c1c60:	movl   $0x0,0x38(%rsp)
+   1412c1c68:	mov    %r12,%r9
+   1412c1c6b:	mov    %rbp,%r8
+   1412c1c6e:	mov    $0x1,%edx
+   1412c1c73:	movl   $0x0,0x30(%rsp)
+   1412c1c7b:	mov    %r14,%rcx
+   1412c1c7e:	movl   $0x2601,0x28(%rsp)
+   1412c1c86:	movl   $0x2601,0x20(%rsp)
+   1412c1c8e:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1c93:	mov    %eax,0x3f78(%rbx)
+   1412c1c99:	jmp    1412c1879 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x569>
+   1412c1c9e:	xchg   %ax,%ax
+   1412c1ca0:	mov    0x3f90(%rbx,%rax,1),%ecx
+   1412c1ca7:	test   %ecx,%ecx
+   1412c1ca9:	jne    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c1caf:	mov    $0x1,%esi
+   1412c1cb4:	jmp    1412c15d0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x2c0>
+   1412c1cb9:	nopl   0x0(%rax)
+   1412c1cc0:	mov    0x3f98(%rbx,%rax,1),%eax
+   1412c1cc7:	test   %eax,%eax
+   1412c1cc9:	jne    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c1ccf:	lea    0x90(%rsp),%r13
+   1412c1cd7:	lea    0xffbfaa(%rip),%rdx        # 1422bdc88 <.rdata+0x1c8>
+   1412c1cde:	mov    %r13,%rcx
+   1412c1ce1:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1ce6:	movzbl 0x28(%rbx),%r8d
+   1412c1ceb:	mov    $0x20,%eax
+   1412c1cf0:	xor    %r9d,%r9d
+   1412c1cf3:	mov    %r13,%rdx
+   1412c1cf6:	lea    0x98(%rsp),%r12
+   1412c1cfe:	mov    %ax,0x28(%rsp)
+   1412c1d03:	mov    0x15d149e(%rip),%rsi        # 1428931a8 <__imp__ZNK7QString3argEyii5QChar>
+   1412c1d0a:	movl   $0xa,0x20(%rsp)
+   1412c1d12:	and    $0x7,%r8d
+   1412c1d16:	mov    %r12,%rcx
+   1412c1d19:	call   *%rsi
+   1412c1d1b:	lea    0x80(%rsp),%r15
+   1412c1d23:	lea    0xffbf28(%rip),%rdx        # 1422bdc52 <.rdata+0x192>
+   1412c1d2a:	mov    %r15,%rcx
+   1412c1d2d:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1d32:	movzbl 0x28(%rbx),%r8d
+   1412c1d37:	mov    $0x20,%eax
+   1412c1d3c:	xor    %r9d,%r9d
+   1412c1d3f:	mov    %r15,%rdx
+   1412c1d42:	lea    0x88(%rsp),%rbp
+   1412c1d4a:	mov    %ax,0x28(%rsp)
+   1412c1d4f:	movl   $0xa,0x20(%rsp)
+   1412c1d57:	and    $0x7,%r8d
+   1412c1d5b:	mov    %rbp,%rcx
+   1412c1d5e:	call   *%rsi
+   1412c1d60:	movl   $0x0,0x38(%rsp)
+   1412c1d68:	mov    %r12,%r9
+   1412c1d6b:	mov    %rbp,%r8
+   1412c1d6e:	mov    $0x1,%edx
+   1412c1d73:	movl   $0x0,0x30(%rsp)
+   1412c1d7b:	mov    %r14,%rcx
+   1412c1d7e:	movl   $0x2601,0x28(%rsp)
+   1412c1d86:	movl   $0x2601,0x20(%rsp)
+   1412c1d8e:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1d93:	mov    %eax,%r8d
+   1412c1d96:	movzbl 0x28(%rbx),%eax
+   1412c1d9a:	mov    %rbp,%rcx
+   1412c1d9d:	and    $0x7,%eax
+   1412c1da0:	shl    $0x4,%rax
+   1412c1da4:	mov    %r8d,0x3f98(%rbx,%rax,1)
+   1412c1dac:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1db1:	mov    %r15,%rcx
+   1412c1db4:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1db9:	mov    %r12,%rcx
+   1412c1dbc:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1dc1:	mov    %r13,%rcx
+   1412c1dc4:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1dc9:	jmp    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c1dce:	xchg   %ax,%ax
+   1412c1dd0:	lea    0x90(%rsp),%r13
+   1412c1dd8:	lea    0xffbd7e(%rip),%rdx        # 1422bdb5d <.rdata+0x9d>
+   1412c1ddf:	mov    %r13,%rcx
+   1412c1de2:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1de7:	mov    0x15d139a(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c1dee:	xor    %r9d,%r9d
+   1412c1df1:	mov    %rdi,%r8
+   1412c1df4:	mov    %r13,%rdx
+   1412c1df7:	mov    $0x20,%ebp
+   1412c1dfc:	mov    %r12,%rcx
+   1412c1dff:	mov    %bp,0x20(%rsp)
+   1412c1e04:	mov    %rax,0x40(%rsp)
+   1412c1e09:	call   *%rax
+   1412c1e0b:	lea    0x80(%rsp),%r15
+   1412c1e13:	lea    0xffbd4e(%rip),%rdx        # 1422bdb68 <.rdata+0xa8>
+   1412c1e1a:	mov    %r15,%rcx
+   1412c1e1d:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1e22:	mov    $0x20,%r11d
+   1412c1e28:	xor    %r9d,%r9d
+   1412c1e2b:	mov    %rdi,%r8
+   1412c1e2e:	mov    %r15,%rdx
+   1412c1e31:	lea    0x88(%rsp),%rbp
+   1412c1e39:	mov    %r11w,0x20(%rsp)
+   1412c1e3f:	mov    0x40(%rsp),%rax
+   1412c1e44:	mov    %rbp,%rcx
+   1412c1e47:	call   *%rax
+   1412c1e49:	movl   $0x0,0x38(%rsp)
+   1412c1e51:	mov    %r12,%r9
+   1412c1e54:	mov    %rbp,%r8
+   1412c1e57:	mov    $0x1,%edx
+   1412c1e5c:	movl   $0x0,0x30(%rsp)
+   1412c1e64:	mov    %r14,%rcx
+   1412c1e67:	movl   $0x2601,0x28(%rsp)
+   1412c1e6f:	movl   $0x2601,0x20(%rsp)
+   1412c1e77:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1e7c:	mov    %eax,0x3f64(%rbx)
+   1412c1e82:	mov    %rbp,%rcx
+   1412c1e85:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1e8a:	mov    %r15,%rcx
+   1412c1e8d:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1e92:	mov    %r12,%rcx
+   1412c1e95:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1e9a:	mov    %r13,%rcx
+   1412c1e9d:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1ea2:	jmp    1412c1bd5 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x8c5>
+   1412c1ea7:	nopw   0x0(%rax,%rax,1)
+   1412c1eb0:	lea    0xffbca6(%rip),%rdx        # 1422bdb5d <.rdata+0x9d>
+   1412c1eb7:	mov    %r13,%rcx
+   1412c1eba:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1ebf:	mov    $0x20,%eax
+   1412c1ec4:	xor    %r9d,%r9d
+   1412c1ec7:	mov    %rdi,%r8
+   1412c1eca:	mov    %r13,%rdx
+   1412c1ecd:	mov    %ax,0x20(%rsp)
+   1412c1ed2:	mov    0x15d12af(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c1ed9:	lea    0x98(%rsp),%r12
+   1412c1ee1:	mov    %r12,%rcx
+   1412c1ee4:	mov    %rax,0x40(%rsp)
+   1412c1ee9:	call   *%rax
+   1412c1eeb:	lea    0x80(%rsp),%r15
+   1412c1ef3:	lea    0xffbc6e(%rip),%rdx        # 1422bdb68 <.rdata+0xa8>
+   1412c1efa:	mov    %r15,%rcx
+   1412c1efd:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1f02:	mov    $0x20,%eax
+   1412c1f07:	xor    %r9d,%r9d
+   1412c1f0a:	mov    %rdi,%r8
+   1412c1f0d:	mov    %r15,%rdx
+   1412c1f10:	lea    0x88(%rsp),%rbp
+   1412c1f18:	mov    %ax,0x20(%rsp)
+   1412c1f1d:	mov    0x40(%rsp),%rax
+   1412c1f22:	mov    %rbp,%rcx
+   1412c1f25:	call   *%rax
+   1412c1f27:	movl   $0x0,0x38(%rsp)
+   1412c1f2f:	mov    %r12,%r9
+   1412c1f32:	mov    %rbp,%r8
+   1412c1f35:	mov    $0x1,%edx
+   1412c1f3a:	movl   $0x0,0x30(%rsp)
+   1412c1f42:	mov    %r14,%rcx
+   1412c1f45:	movl   $0x2601,0x28(%rsp)
+   1412c1f4d:	movl   $0x2601,0x20(%rsp)
+   1412c1f55:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c1f5a:	mov    %eax,0x3f60(%rbx)
+   1412c1f60:	mov    %rbp,%rcx
+   1412c1f63:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1f68:	mov    %r15,%rcx
+   1412c1f6b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1f70:	mov    %r12,%rcx
+   1412c1f73:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1f78:	mov    %r13,%rcx
+   1412c1f7b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c1f80:	jmp    1412c13c7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xb7>
+   1412c1f85:	nopl   (%rax)
+   1412c1f88:	lea    0xffbbe4(%rip),%rdx        # 1422bdb73 <.rdata+0xb3>
+   1412c1f8f:	mov    %r13,%rcx
+   1412c1f92:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1f97:	mov    $0x20,%eax
+   1412c1f9c:	xor    %r9d,%r9d
+   1412c1f9f:	mov    %rdi,%r8
+   1412c1fa2:	mov    %r13,%rdx
+   1412c1fa5:	mov    %ax,0x20(%rsp)
+   1412c1faa:	mov    0x15d11d7(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c1fb1:	lea    0x98(%rsp),%r12
+   1412c1fb9:	mov    %r12,%rcx
+   1412c1fbc:	mov    %rax,0x40(%rsp)
+   1412c1fc1:	call   *%rax
+   1412c1fc3:	lea    0x80(%rsp),%r15
+   1412c1fcb:	lea    0xffbbb3(%rip),%rdx        # 1422bdb85 <.rdata+0xc5>
+   1412c1fd2:	mov    %r15,%rcx
+   1412c1fd5:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c1fda:	mov    $0x20,%eax
+   1412c1fdf:	xor    %r9d,%r9d
+   1412c1fe2:	mov    %rdi,%r8
+   1412c1fe5:	mov    %r15,%rdx
+   1412c1fe8:	lea    0x88(%rsp),%rbp
+   1412c1ff0:	mov    %ax,0x20(%rsp)
+   1412c1ff5:	mov    0x40(%rsp),%rax
+   1412c1ffa:	mov    %rbp,%rcx
+   1412c1ffd:	call   *%rax
+   1412c1fff:	movl   $0x0,0x38(%rsp)
+   1412c2007:	mov    %r12,%r9
+   1412c200a:	mov    %rbp,%r8
+   1412c200d:	mov    $0x1,%edx
+   1412c2012:	movl   $0x0,0x30(%rsp)
+   1412c201a:	mov    %r14,%rcx
+   1412c201d:	movl   $0x2601,0x28(%rsp)
+   1412c2025:	movl   $0x2601,0x20(%rsp)
+   1412c202d:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c2032:	mov    %eax,0x3f74(%rbx)
+   1412c2038:	jmp    1412c1879 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x569>
+   1412c203d:	nopl   (%rax)
+   1412c2040:	lea    0x90(%rsp),%r13
+   1412c2048:	lea    0xffbb0e(%rip),%rdx        # 1422bdb5d <.rdata+0x9d>
+   1412c204f:	mov    %r13,%rcx
+   1412c2052:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c2057:	mov    0x15d112a(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c205e:	xor    %r9d,%r9d
+   1412c2061:	mov    %rdi,%r8
+   1412c2064:	mov    %r13,%rdx
+   1412c2067:	lea    0x98(%rsp),%r12
+   1412c206f:	mov    $0x20,%r11d
+   1412c2075:	mov    %r11w,0x20(%rsp)
+   1412c207b:	mov    %r12,%rcx
+   1412c207e:	mov    %rax,0x40(%rsp)
+   1412c2083:	call   *%rax
+   1412c2085:	lea    0x80(%rsp),%r15
+   1412c208d:	lea    0xffbad4(%rip),%rdx        # 1422bdb68 <.rdata+0xa8>
+   1412c2094:	mov    %r15,%rcx
+   1412c2097:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c209c:	mov    $0x20,%r10d
+   1412c20a2:	xor    %r9d,%r9d
+   1412c20a5:	mov    %rdi,%r8
+   1412c20a8:	mov    %r15,%rdx
+   1412c20ab:	mov    %r10w,0x20(%rsp)
+   1412c20b1:	mov    0x40(%rsp),%rax
+   1412c20b6:	mov    %rbp,%rcx
+   1412c20b9:	call   *%rax
+   1412c20bb:	movl   $0x0,0x38(%rsp)
+   1412c20c3:	mov    %r12,%r9
+   1412c20c6:	mov    %rbp,%r8
+   1412c20c9:	mov    $0x1,%edx
+   1412c20ce:	movl   $0x0,0x30(%rsp)
+   1412c20d6:	mov    %r14,%rcx
+   1412c20d9:	movl   $0x2601,0x28(%rsp)
+   1412c20e1:	movl   $0x2601,0x20(%rsp)
+   1412c20e9:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c20ee:	mov    %eax,0x3f5c(%rbx)
+   1412c20f4:	mov    %rbp,%rcx
+   1412c20f7:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c20fc:	mov    %r15,%rcx
+   1412c20ff:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2104:	mov    %r12,%rcx
+   1412c2107:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c210c:	mov    %r13,%rcx
+   1412c210f:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2114:	jmp    1412c14f5 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x1e5>
+   1412c2119:	nopl   0x0(%rax)
+   1412c2120:	mov    0x3f94(%rbx,%rax,1),%edx
+   1412c2127:	test   %edx,%edx
+   1412c2129:	jne    1412c1480 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x170>
+   1412c212f:	mov    $0x2,%esi
+   1412c2134:	jmp    1412c15d0 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x2c0>
+   1412c2139:	nopl   0x0(%rax)
+   1412c2140:	lea    0x90(%rsp),%r13
+   1412c2148:	lea    0xffba0e(%rip),%rdx        # 1422bdb5d <.rdata+0x9d>
+   1412c214f:	mov    %r13,%rcx
+   1412c2152:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c2157:	mov    $0x20,%eax
+   1412c215c:	xor    %r9d,%r9d
+   1412c215f:	mov    %rdi,%r8
+   1412c2162:	mov    %r13,%rdx
+   1412c2165:	mov    %ax,0x20(%rsp)
+   1412c216a:	mov    0x15d1017(%rip),%rax        # 142893188 <__imp__ZNK7QString3argERKS_i5QChar>
+   1412c2171:	lea    0x98(%rsp),%r12
+   1412c2179:	mov    %r12,%rcx
+   1412c217c:	mov    %rax,0x40(%rsp)
+   1412c2181:	call   *%rax
+   1412c2183:	lea    0xffb9de(%rip),%rdx        # 1422bdb68 <.rdata+0xa8>
+   1412c218a:	mov    %r15,%rcx
+   1412c218d:	call   141850dd0 <_ZN7QStringC1EPKc>
+   1412c2192:	mov    $0x20,%eax
+   1412c2197:	xor    %r9d,%r9d
+   1412c219a:	mov    %rdi,%r8
+   1412c219d:	mov    %r15,%rdx
+   1412c21a0:	lea    0x88(%rsp),%rbp
+   1412c21a8:	mov    %ax,0x20(%rsp)
+   1412c21ad:	mov    0x40(%rsp),%rax
+   1412c21b2:	mov    %rbp,%rcx
+   1412c21b5:	call   *%rax
+   1412c21b7:	movl   $0x0,0x38(%rsp)
+   1412c21bf:	mov    %r12,%r9
+   1412c21c2:	mov    %rbp,%r8
+   1412c21c5:	mov    $0x1,%edx
+   1412c21ca:	movl   $0x0,0x30(%rsp)
+   1412c21d2:	mov    %r14,%rcx
+   1412c21d5:	movl   $0x2601,0x28(%rsp)
+   1412c21dd:	movl   $0x2601,0x20(%rsp)
+   1412c21e5:	call   1416bf560 <_ZN11AuGLEffects23CreateTextureFromBitmapEjRK7QStringS2_iibi>
+   1412c21ea:	mov    %eax,0x3f58(%rbx)
+   1412c21f0:	mov    %rbp,%rcx
+   1412c21f3:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c21f8:	mov    %r15,%rcx
+   1412c21fb:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2200:	mov    %r12,%rcx
+   1412c2203:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2208:	mov    %r13,%rcx
+   1412c220b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2210:	jmp    1412c17bb <_ZN6DpBody14SelectTexturesER11AuGLEffects+0x4ab>
+   1412c2215:	mov    %rax,%r12
+   1412c2218:	mov    %r13,%rcx
+   1412c221b:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2220:	mov    %rdi,%rcx
+   1412c2223:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2228:	mov    %r12,%rcx
+   1412c222b:	call   141755338 <_Unwind_Resume>
+   1412c2230:	mov    %r13,%rcx
+   1412c2233:	mov    %rax,%rbx
+   1412c2236:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c223b:	mov    %r12,%rcx
+   1412c223e:	mov    %rbx,%r12
+   1412c2241:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2246:	jmp    1412c2220 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf10>
+   1412c2248:	jmp    1412c2230 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf20>
+   1412c224a:	mov    %rax,%rbx
+   1412c224d:	lea    0x98(%rsp),%r12
+   1412c2255:	jmp    1412c223b <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf2b>
+   1412c2257:	jmp    1412c224a <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf3a>
+   1412c2259:	mov    %rax,%r12
+   1412c225c:	jmp    1412c2220 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf10>
+   1412c225e:	jmp    1412c2230 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf20>
+   1412c2260:	jmp    1412c224a <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf3a>
+   1412c2262:	mov    %rax,%r12
+   1412c2265:	mov    %rbp,%rcx
+   1412c2268:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c226d:	jmp    1412c2220 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf10>
+   1412c226f:	jmp    1412c2230 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf20>
+   1412c2271:	jmp    1412c2230 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf20>
+   1412c2273:	jmp    1412c224a <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf3a>
+   1412c2275:	jmp    1412c224a <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf3a>
+   1412c2277:	mov    %rax,%rbx
+   1412c227a:	mov    0x40(%rsp),%rcx
+   1412c227f:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2284:	mov    %r12,%rcx
+   1412c2287:	mov    %rbx,%r12
+   1412c228a:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c228f:	mov    %r13,%rcx
+   1412c2292:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c2297:	jmp    1412c2265 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf55>
+   1412c2299:	mov    %rax,%rbx
+   1412c229c:	mov    0x48(%rsp),%rcx
+   1412c22a1:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c22a6:	jmp    1412c227a <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf6a>
+   1412c22a8:	mov    %rax,%r12
+   1412c22ab:	jmp    1412c228f <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf7f>
+   1412c22ad:	mov    %rax,%rbx
+   1412c22b0:	jmp    1412c2284 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf74>
+   1412c22b2:	mov    %r15,%rcx
+   1412c22b5:	mov    %rax,%rbx
+   1412c22b8:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c22bd:	jmp    1412c229c <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf8c>
+   1412c22bf:	mov    %rbp,%rcx
+   1412c22c2:	mov    %rax,%rbx
+   1412c22c5:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c22ca:	mov    %r15,%rcx
+   1412c22cd:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c22d2:	mov    %r12,%rcx
+   1412c22d5:	mov    %rbx,%r12
+   1412c22d8:	call   141850e10 <_ZN7QStringD1Ev>
+   1412c22dd:	jmp    1412c2218 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf08>
+   1412c22e2:	mov    %rax,%rbx
+   1412c22e5:	jmp    1412c22ca <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfba>
+   1412c22e7:	mov    %rax,%rbx
+   1412c22ea:	jmp    1412c22d2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfc2>
+   1412c22ec:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c22f1:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c22f3:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c22f5:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c22f7:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c22fc:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c22fe:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c2300:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c2302:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c2307:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c2309:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c230b:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c230d:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c2312:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c2314:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c2316:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c2318:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c231d:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c231f:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c2321:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c2323:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c2328:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c232a:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c232c:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c232e:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c2333:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c2335:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c2337:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c2339:	jmp    1412c2215 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xf05>
+   1412c233e:	jmp    1412c22bf <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfaf>
+   1412c2343:	jmp    1412c22e2 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd2>
+   1412c2345:	jmp    1412c22e7 <_ZN6DpBody14SelectTexturesER11AuGLEffects+0xfd7>
+   1412c2347:	nop
+   1412c2348:	nopl   0x0(%rax,%rax,1)

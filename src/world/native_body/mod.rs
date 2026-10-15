@@ -1,6 +1,7 @@
 //! Reconstructed body-model state, distinct from wire storage and UI previews.
 //! Allocation is an initialization phase, not successful complete model creation.
 mod dp;
+mod textures;
 pub use dp::NativeDpArmSkinGeometry;
 pub use dp::NativeDpLegSkinGeometry;
 pub use dp::NativeDpTailSkinGeometry;
@@ -18,3 +19,4 @@ pub use dp::{NativeDpHeadSkinPiece, NativeDpHeadSkinPlan};
 pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 pub use dp::{NativeDpPartSkinPlan, NativeDpSkinPlan};
 pub use dp::{NativeDpTorsoSkinPiece, NativeDpTorsoSkinPlan};
+pub use textures::NativeDpSkinAtlas;
