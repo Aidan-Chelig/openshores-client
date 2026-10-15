@@ -65,11 +65,10 @@ width is now independently corroborated below.
 | 42 | AuBlipAsteroid | 0x14118fe60 | 0x14118ca70 |
 | 43 | AuBlipPlanetoid | 0x1411900a0 | 0x14118ca70 |
 
-The 41 distinct reader results are saved under target/avatar-analysis-session-2
-as sensor-blip-reader-<address>.json, all successful in the same warm process.
-The four minimal bodies are implemented; full readers still need review and
-nested-helper reconstruction. No opaque sensor skipping or complete Creature
-receiver is claimed. Sensor/Weapon/Transporter station readers also have local
+The 41 distinct reader results were obtained in the same warm process and are
+now retained in evidence/ as native-sensor-blip-reader-<address>.json. Full and
+minimal bodies are implemented as separate APIs. No opaque sensor skipping or
+complete Creature receiver is claimed. Sensor/Weapon/Transporter station readers also have local
 capsule/environment augmentation after wire reception, separately documented
 in native-consoles.md.
 
@@ -110,5 +109,69 @@ Fixtures cover all 256 factory bytes and all profiles, all Animal packed bytes,
 high-bit IDs/raw bytes, signed zero/non-finite coordinates, every truncated
 body prefix, all 43 types together, zero/high-bit counts, destructive clearing,
 partial-list retention, explicit unknown-stop reporting and exact suffixes.
-Full blip bodies, local sensor augmentation and Creature/Person dispatch remain
-unfinished; successful minimal reception does not imply complete avatar reception.
+Local sensor augmentation and Creature/Person dispatch remain unfinished;
+successful blip reception does not imply complete avatar reception.
+
+## Full body reception
+
+`NativeSensorBlipFull::read` implements fresh factory-created +158 bodies for
+all 43 types. `evidence/native-sensor-full-index.json` indexes the 37 distinct
+full factory reader records plus the spacecraft base and AuPoint helper by
+Evidence ID. Complete envelopes retain provider limitations and tail-call
+warnings. `evidence/native-sensor-full-gnu.txt` independently corroborates scalar
+overloads, helper calls and tail jumps using exact GNU COFF symbol selection;
+it is not REA evidence and does not describe runtime observation.
+
+All full bodies begin with AuId/u32 at08 and three float-overload coordinates,
+narrowed to f32 then widened to f64 at10/18/20. In the table, E means i32 at28
+then raw byte2c, Q means nullable QString, F float overload, D double overload,
+B boolean overload, byte means raw eight bits, and short preserves all 16 bits.
+Offsets name observed native fields, not guessed gameplay meanings.
+
+| Factory types | Ordered suffix after ID/position |
+| --- | --- |
+| 31 Anomaly | none |
+| 30 Beacon | Q28 |
+| 14 Ring | B28, F2c |
+| 10 Moon, 15 RingSection, 43 Planetoid | B28, byte29 |
+| 7 GasGiant, 9 Titan, 13 Planet | B28, byte29, byte2a |
+| 42 Asteroid | short28, byte2a |
+| 2 Animal | E, raw QByteArray species30, B40 |
+| 3 Avatar, 5 Citizen, 6 Crew, 11 Officer, 12 Passenger, 27 Troop | E, raw QByteArray species30, Q40 |
+| 21 StarCompanion, 22 Star, 28 BlackHole, 40 NeutronStar, 41 NeutronStarCompanion | bytes A/B, F2c; field28=A>>7, field32=B>>4, short30=((B<<8)\|A)&0x0f0f |
+| 1 Aircraft, 4 Boat, 8 GroundVehicle | E, short S, byte31; short2e=S&0x7fff, byte30=0 |
+| 29 Missile | E, unmasked short2e, byte30, byte31, byte32 |
+| 25 TransporterSpacecraft, 26 TransporterStation | E, byte2d, short2e, Q30 |
+| 38 TransporterBd | E, Q30, byte38, byte39, short3a |
+| 32..37 and39 Bd subclasses | E, flags, i32 at30, byte34, i32 at38, Q40 only if flags&2, F48, byte4c, i32 at50; byte35=flags&1 |
+| 16 Hiding, 17 Station, 19 Spaceship, 23 Starship | E, i32 at30, Q38, B40, B41, B42, i32 at44, Q48, F50, byte54, three D at58/60/68, i32 at70 |
+| 18/20/24 shielded spacecraft | spacecraft suffix, then F74 |
+
+Vehicle31, Missile32, Bd4c and Spacecraft54 replace zero with one, preserving
+every other byte. Absent Bd Q40 retains the fresh factory shared-null default;
+this fresh-value API does not emulate receiving into an existing full blip.
+Null and empty QString/QByteArray values remain distinct. Species reuse the
+existing raw AuSpecies reader, not DNA/chromosome decoding.
+
+The spacecraft wrappers at141191ff0/2000/2010/2020 jump to141191e10. Its call
+at141191f0b resolves to AuPoint141648040, whose three imported `rsERd` reads
+establish double overloads. Retained base/point Evidence IDs respectively:
+`ev_cebaa77b6b1d13d1216e6754a180608023667e61638bcfb9bc6bace5f48eca7c`
+and `ev_323a7bba10ba410f5b92563e005e0f034a58c90472b174508fbfaa52c675e041`.
+Under SinglePrecision these D reads consume f32 and widen; TypeWidths and
+DoublePrecision retain f64. F destinations always narrow to f32. There is no
+finite-value filtering in wire state; rendering safeguards are a separate stage.
+
+The supplied Qt5Core.dll SHA-256 is
+`3aad8885b1c7b2c0c5e2016095c8c51c3089c17a70269bc332cfe2c483b65ccc`.
+Its exported bool reader (RVA265590, VA3956b5590) reads one byte and uses
+compare-zero/setne at3956b55f8..5600: all nonzero bytes mean true. The GNU
+record includes this complete successful branch and its failed-stream branch;
+Rust errors do not claim Qt failed-stream mutation parity.
+
+Fixtures assert every full type/profile and field, every truncated prefix,
+suffix alignment through all 43 types, all boolean/zero-repair/Bd-flag bytes,
+all 65536 star-byte pairs, raw non-finite coordinates/signed zero, Unicode,
+null/empty species and names, unknown factories and malformed input budgets.
+Fresh body errors leave the parent input unchanged; strict UTF-16 and the
+1MiB species budget are explicit Rust safety policies, not native limits.

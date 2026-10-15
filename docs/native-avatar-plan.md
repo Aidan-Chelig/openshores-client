@@ -111,3 +111,17 @@ types without opaque skipping. Full and minimal blips have separate APIs.
 tests, 9 CLI tests per profile, 1 graphical-entry CLI test and strict
 client-feature all-target Clippy. Full +158 readers and remaining station
 application still need completion before concrete Creature/Person reception.
+
+Full sensor milestone: all 43 factory types now have typed fresh +158 body
+decoders, distinct from minimal reception. The 37 distinct full-reader records
+and spacecraft/AuPoint helpers are retained with an Evidence-ID index; exact
+GNU symbol disassembly corroborates imported overloads and tail jumps without
+rerunning Ghidra analysis. Fixtures cover all types/profiles, every truncated
+body prefix, packed-byte combinations, mixed-body alignment and Rust malformed
+input policies. `just check` passes formatting, 335 headless and 356 client
+library tests, 9 CLI tests per profile, 1 graphical-entry CLI test and strict
+client-feature all-target Clippy. These are nested wire bodies, not an assertion
+of complete console application or Person presentation. Next compose the
+remaining Sensor/Weapon/Transporter readers, preserving the boundary between
+wire state and capsule/environment augmentation; then finish ordered Creature,
+Person construction/dispatch and the actual presentation bridge.

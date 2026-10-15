@@ -1,0 +1,2339 @@
+Independent GNU objdump static observations; not REA Evidence IDs.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Commands below select exact COFF symbols; padding may appear after returns.
+No supplied executable was run.
+
+$ objdump -d --disassemble=_ZN13AuBlipAnomalylsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118f580 <_ZN13AuBlipAnomalylsER11QDataStream>:
+   14118f580:	41 54                	push   %r12
+   14118f582:	56                   	push   %rsi
+   14118f583:	53                   	push   %rbx
+   14118f584:	48 83 ec 30          	sub    $0x30,%rsp
+   14118f588:	49 89 d4             	mov    %rdx,%r12
+   14118f58b:	48 89 cb             	mov    %rcx,%rbx
+   14118f58e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118f592:	e8 29 5e 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118f597:	48 8b 35 5a 31 70 01 	mov    0x170315a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118f59e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118f5a3:	4c 89 e1             	mov    %r12,%rcx
+   14118f5a6:	ff d6                	call   *%rsi
+   14118f5a8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118f5ad:	4c 89 e1             	mov    %r12,%rcx
+   14118f5b0:	ff d6                	call   *%rsi
+   14118f5b2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118f5b7:	4c 89 e1             	mov    %r12,%rcx
+   14118f5ba:	ff d6                	call   *%rsi
+   14118f5bc:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118f5c2:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118f5c8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118f5cc:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118f5d2:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118f5d7:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118f5da:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118f5dd:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118f5e1:	48 83 c4 30          	add    $0x30,%rsp
+   14118f5e5:	5b                   	pop    %rbx
+   14118f5e6:	5e                   	pop    %rsi
+   14118f5e7:	41 5c                	pop    %r12
+   14118f5e9:	c3                   	ret
+   14118f5ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+$ objdump -d --disassemble=_ZN12AuBlipBeaconlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118f5f0 <_ZN12AuBlipBeaconlsER11QDataStream>:
+   14118f5f0:	41 54                	push   %r12
+   14118f5f2:	56                   	push   %rsi
+   14118f5f3:	53                   	push   %rbx
+   14118f5f4:	48 83 ec 30          	sub    $0x30,%rsp
+   14118f5f8:	49 89 d4             	mov    %rdx,%r12
+   14118f5fb:	48 89 cb             	mov    %rcx,%rbx
+   14118f5fe:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118f602:	e8 b9 5d 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118f607:	48 8b 35 ea 30 70 01 	mov    0x17030ea(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118f60e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118f613:	4c 89 e1             	mov    %r12,%rcx
+   14118f616:	ff d6                	call   *%rsi
+   14118f618:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118f61d:	4c 89 e1             	mov    %r12,%rcx
+   14118f620:	ff d6                	call   *%rsi
+   14118f622:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118f627:	4c 89 e1             	mov    %r12,%rcx
+   14118f62a:	ff d6                	call   *%rsi
+   14118f62c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118f632:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118f636:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118f63a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118f640:	4c 89 e1             	mov    %r12,%rcx
+   14118f643:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118f649:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118f64e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118f651:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118f654:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118f658:	48 83 c4 30          	add    $0x30,%rsp
+   14118f65c:	5b                   	pop    %rbx
+   14118f65d:	5e                   	pop    %rsi
+   14118f65e:	41 5c                	pop    %r12
+   14118f660:	48 ff 25 a9 3d 70 01 	rex.W jmp *0x1703da9(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   14118f667:	90                   	nop
+   14118f668:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14118f66f:	00
+
+$ objdump -d --disassemble=_ZN11AuBlipWorldlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118f6f0 <_ZN11AuBlipWorldlsER11QDataStream>:
+   14118f6f0:	41 54                	push   %r12
+   14118f6f2:	56                   	push   %rsi
+   14118f6f3:	53                   	push   %rbx
+   14118f6f4:	48 83 ec 30          	sub    $0x30,%rsp
+   14118f6f8:	49 89 d4             	mov    %rdx,%r12
+   14118f6fb:	48 89 cb             	mov    %rcx,%rbx
+   14118f6fe:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118f702:	e8 b9 5c 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118f707:	48 8b 35 ea 2f 70 01 	mov    0x1702fea(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118f70e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118f713:	4c 89 e1             	mov    %r12,%rcx
+   14118f716:	ff d6                	call   *%rsi
+   14118f718:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118f71d:	4c 89 e1             	mov    %r12,%rcx
+   14118f720:	ff d6                	call   *%rsi
+   14118f722:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118f727:	4c 89 e1             	mov    %r12,%rcx
+   14118f72a:	ff d6                	call   *%rsi
+   14118f72c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118f732:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118f736:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118f73a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118f740:	4c 89 e1             	mov    %r12,%rcx
+   14118f743:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118f749:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118f74e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118f751:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118f754:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118f758:	48 83 c4 30          	add    $0x30,%rsp
+   14118f75c:	5b                   	pop    %rbx
+   14118f75d:	5e                   	pop    %rsi
+   14118f75e:	41 5c                	pop    %r12
+   14118f760:	48 ff 25 81 2f 70 01 	rex.W jmp *0x1702f81(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14118f767:	90                   	nop
+   14118f768:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14118f76f:	00
+
+$ objdump -d --disassemble=_ZN10AuBlipRinglsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118fcb0 <_ZN10AuBlipRinglsER11QDataStream>:
+   14118fcb0:	41 54                	push   %r12
+   14118fcb2:	56                   	push   %rsi
+   14118fcb3:	53                   	push   %rbx
+   14118fcb4:	48 83 ec 30          	sub    $0x30,%rsp
+   14118fcb8:	49 89 d4             	mov    %rdx,%r12
+   14118fcbb:	48 89 cb             	mov    %rcx,%rbx
+   14118fcbe:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118fcc2:	e8 f9 56 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118fcc7:	48 8b 35 2a 2a 70 01 	mov    0x1702a2a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118fcce:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118fcd3:	4c 89 e1             	mov    %r12,%rcx
+   14118fcd6:	ff d6                	call   *%rsi
+   14118fcd8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118fcdd:	4c 89 e1             	mov    %r12,%rcx
+   14118fce0:	ff d6                	call   *%rsi
+   14118fce2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118fce7:	4c 89 e1             	mov    %r12,%rcx
+   14118fcea:	ff d6                	call   *%rsi
+   14118fcec:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118fcf2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118fcf6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118fcfa:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118fd00:	4c 89 e1             	mov    %r12,%rcx
+   14118fd03:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118fd09:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118fd0e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118fd11:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118fd14:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118fd18:	ff 15 ca 29 70 01    	call   *0x17029ca(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14118fd1e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14118fd22:	4c 89 e1             	mov    %r12,%rcx
+   14118fd25:	48 89 f0             	mov    %rsi,%rax
+   14118fd28:	48 83 c4 30          	add    $0x30,%rsp
+   14118fd2c:	5b                   	pop    %rbx
+   14118fd2d:	5e                   	pop    %rsi
+   14118fd2e:	41 5c                	pop    %r12
+   14118fd30:	48 ff e0             	rex.W jmp *%rax
+   14118fd33:	90                   	nop
+   14118fd34:	90                   	nop
+   14118fd35:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14118fd3c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN17AuBlipRingSectionlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118fd40 <_ZN17AuBlipRingSectionlsER11QDataStream>:
+   14118fd40:	41 54                	push   %r12
+   14118fd42:	56                   	push   %rsi
+   14118fd43:	53                   	push   %rbx
+   14118fd44:	48 83 ec 30          	sub    $0x30,%rsp
+   14118fd48:	49 89 d4             	mov    %rdx,%r12
+   14118fd4b:	48 89 cb             	mov    %rcx,%rbx
+   14118fd4e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118fd52:	e8 69 56 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118fd57:	48 8b 35 9a 29 70 01 	mov    0x170299a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118fd5e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118fd63:	4c 89 e1             	mov    %r12,%rcx
+   14118fd66:	ff d6                	call   *%rsi
+   14118fd68:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118fd6d:	4c 89 e1             	mov    %r12,%rcx
+   14118fd70:	ff d6                	call   *%rsi
+   14118fd72:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118fd77:	4c 89 e1             	mov    %r12,%rcx
+   14118fd7a:	ff d6                	call   *%rsi
+   14118fd7c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118fd82:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118fd86:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118fd8a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118fd90:	4c 89 e1             	mov    %r12,%rcx
+   14118fd93:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118fd99:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118fd9e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118fda1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118fda4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118fda8:	ff 15 3a 29 70 01    	call   *0x170293a(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14118fdae:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   14118fdb2:	4c 89 e1             	mov    %r12,%rcx
+   14118fdb5:	48 83 c4 30          	add    $0x30,%rsp
+   14118fdb9:	5b                   	pop    %rbx
+   14118fdba:	5e                   	pop    %rsi
+   14118fdbb:	41 5c                	pop    %r12
+   14118fdbd:	48 ff 25 1c 29 70 01 	rex.W jmp *0x170291c(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14118fdc4:	90                   	nop
+   14118fdc5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14118fdcc:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN12AuBlipEmpirelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118fdd0 <_ZN12AuBlipEmpirelsER11QDataStream>:
+   14118fdd0:	41 54                	push   %r12
+   14118fdd2:	56                   	push   %rsi
+   14118fdd3:	53                   	push   %rbx
+   14118fdd4:	48 83 ec 30          	sub    $0x30,%rsp
+   14118fdd8:	49 89 d4             	mov    %rdx,%r12
+   14118fddb:	48 89 cb             	mov    %rcx,%rbx
+   14118fdde:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118fde2:	e8 d9 55 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118fde7:	48 8b 35 0a 29 70 01 	mov    0x170290a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118fdee:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118fdf3:	4c 89 e1             	mov    %r12,%rcx
+   14118fdf6:	ff d6                	call   *%rsi
+   14118fdf8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118fdfd:	4c 89 e1             	mov    %r12,%rcx
+   14118fe00:	ff d6                	call   *%rsi
+   14118fe02:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118fe07:	4c 89 e1             	mov    %r12,%rcx
+   14118fe0a:	ff d6                	call   *%rsi
+   14118fe0c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118fe12:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118fe16:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118fe1a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118fe20:	4c 89 e1             	mov    %r12,%rcx
+   14118fe23:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118fe29:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118fe2e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118fe31:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118fe34:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118fe38:	ff 15 c2 28 70 01    	call   *0x17028c2(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14118fe3e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14118fe42:	4c 89 e1             	mov    %r12,%rcx
+   14118fe45:	48 83 c4 30          	add    $0x30,%rsp
+   14118fe49:	5b                   	pop    %rbx
+   14118fe4a:	5e                   	pop    %rsi
+   14118fe4b:	41 5c                	pop    %r12
+   14118fe4d:	48 ff 25 8c 28 70 01 	rex.W jmp *0x170288c(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14118fe54:	90                   	nop
+   14118fe55:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14118fe5c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN14AuBlipAsteroidlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118fe60 <_ZN14AuBlipAsteroidlsER11QDataStream>:
+   14118fe60:	41 54                	push   %r12
+   14118fe62:	56                   	push   %rsi
+   14118fe63:	53                   	push   %rbx
+   14118fe64:	48 83 ec 30          	sub    $0x30,%rsp
+   14118fe68:	49 89 d4             	mov    %rdx,%r12
+   14118fe6b:	48 89 cb             	mov    %rcx,%rbx
+   14118fe6e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118fe72:	e8 49 55 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118fe77:	48 8b 35 7a 28 70 01 	mov    0x170287a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118fe7e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118fe83:	4c 89 e1             	mov    %r12,%rcx
+   14118fe86:	ff d6                	call   *%rsi
+   14118fe88:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118fe8d:	4c 89 e1             	mov    %r12,%rcx
+   14118fe90:	ff d6                	call   *%rsi
+   14118fe92:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118fe97:	4c 89 e1             	mov    %r12,%rcx
+   14118fe9a:	ff d6                	call   *%rsi
+   14118fe9c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118fea2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118fea6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118feaa:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118feb0:	4c 89 e1             	mov    %r12,%rcx
+   14118feb3:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118feb9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118febe:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118fec1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118fec4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118fec8:	ff 15 3a 28 70 01    	call   *0x170283a(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14118fece:	48 8d 53 2a          	lea    0x2a(%rbx),%rdx
+   14118fed2:	4c 89 e1             	mov    %r12,%rcx
+   14118fed5:	48 83 c4 30          	add    $0x30,%rsp
+   14118fed9:	5b                   	pop    %rbx
+   14118feda:	5e                   	pop    %rsi
+   14118fedb:	41 5c                	pop    %r12
+   14118fedd:	48 ff 25 fc 27 70 01 	rex.W jmp *0x17027fc(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14118fee4:	90                   	nop
+   14118fee5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14118feec:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN10AuBlipMoonlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014118fef0 <_ZN10AuBlipMoonlsER11QDataStream>:
+   14118fef0:	41 54                	push   %r12
+   14118fef2:	56                   	push   %rsi
+   14118fef3:	53                   	push   %rbx
+   14118fef4:	48 83 ec 30          	sub    $0x30,%rsp
+   14118fef8:	49 89 d4             	mov    %rdx,%r12
+   14118fefb:	48 89 cb             	mov    %rcx,%rbx
+   14118fefe:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   14118ff02:	e8 b9 54 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14118ff07:	48 8b 35 ea 27 70 01 	mov    0x17027ea(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14118ff0e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14118ff13:	4c 89 e1             	mov    %r12,%rcx
+   14118ff16:	ff d6                	call   *%rsi
+   14118ff18:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14118ff1d:	4c 89 e1             	mov    %r12,%rcx
+   14118ff20:	ff d6                	call   *%rsi
+   14118ff22:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   14118ff27:	4c 89 e1             	mov    %r12,%rcx
+   14118ff2a:	ff d6                	call   *%rsi
+   14118ff2c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14118ff32:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14118ff36:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14118ff3a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   14118ff40:	4c 89 e1             	mov    %r12,%rcx
+   14118ff43:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14118ff49:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14118ff4e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   14118ff51:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   14118ff54:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14118ff58:	ff 15 8a 27 70 01    	call   *0x170278a(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14118ff5e:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   14118ff62:	4c 89 e1             	mov    %r12,%rcx
+   14118ff65:	48 83 c4 30          	add    $0x30,%rsp
+   14118ff69:	5b                   	pop    %rbx
+   14118ff6a:	5e                   	pop    %rsi
+   14118ff6b:	41 5c                	pop    %r12
+   14118ff6d:	48 ff 25 6c 27 70 01 	rex.W jmp *0x170276c(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14118ff74:	90                   	nop
+   14118ff75:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14118ff7c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN11AuBlipGlobelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190010 <_ZN11AuBlipGlobelsER11QDataStream>:
+   141190010:	41 54                	push   %r12
+   141190012:	56                   	push   %rsi
+   141190013:	53                   	push   %rbx
+   141190014:	48 83 ec 30          	sub    $0x30,%rsp
+   141190018:	49 89 d4             	mov    %rdx,%r12
+   14119001b:	48 89 cb             	mov    %rcx,%rbx
+   14119001e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190022:	e8 99 53 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190027:	48 8b 35 ca 26 70 01 	mov    0x17026ca(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119002e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190033:	4c 89 e1             	mov    %r12,%rcx
+   141190036:	ff d6                	call   *%rsi
+   141190038:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119003d:	4c 89 e1             	mov    %r12,%rcx
+   141190040:	ff d6                	call   *%rsi
+   141190042:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190047:	4c 89 e1             	mov    %r12,%rcx
+   14119004a:	ff d6                	call   *%rsi
+   14119004c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190052:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190056:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119005a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190060:	4c 89 e1             	mov    %r12,%rcx
+   141190063:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190069:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119006e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190071:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190074:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190078:	ff 15 6a 26 70 01    	call   *0x170266a(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14119007e:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   141190082:	4c 89 e1             	mov    %r12,%rcx
+   141190085:	48 83 c4 30          	add    $0x30,%rsp
+   141190089:	5b                   	pop    %rbx
+   14119008a:	5e                   	pop    %rsi
+   14119008b:	41 5c                	pop    %r12
+   14119008d:	48 ff 25 4c 26 70 01 	rex.W jmp *0x170264c(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190094:	90                   	nop
+   141190095:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14119009c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN15AuBlipPlanetoidlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411900a0 <_ZN15AuBlipPlanetoidlsER11QDataStream>:
+   1411900a0:	41 54                	push   %r12
+   1411900a2:	56                   	push   %rsi
+   1411900a3:	53                   	push   %rbx
+   1411900a4:	48 83 ec 30          	sub    $0x30,%rsp
+   1411900a8:	49 89 d4             	mov    %rdx,%r12
+   1411900ab:	48 89 cb             	mov    %rcx,%rbx
+   1411900ae:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411900b2:	e8 09 53 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411900b7:	48 8b 35 3a 26 70 01 	mov    0x170263a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411900be:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411900c3:	4c 89 e1             	mov    %r12,%rcx
+   1411900c6:	ff d6                	call   *%rsi
+   1411900c8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411900cd:	4c 89 e1             	mov    %r12,%rcx
+   1411900d0:	ff d6                	call   *%rsi
+   1411900d2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   1411900d7:	4c 89 e1             	mov    %r12,%rcx
+   1411900da:	ff d6                	call   *%rsi
+   1411900dc:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   1411900e2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411900e6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1411900ea:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411900f0:	4c 89 e1             	mov    %r12,%rcx
+   1411900f3:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411900f9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411900fe:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190101:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190104:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190108:	ff 15 da 25 70 01    	call   *0x17025da(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14119010e:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   141190112:	4c 89 e1             	mov    %r12,%rcx
+   141190115:	48 83 c4 30          	add    $0x30,%rsp
+   141190119:	5b                   	pop    %rbx
+   14119011a:	5e                   	pop    %rsi
+   14119011b:	41 5c                	pop    %r12
+   14119011d:	48 ff 25 bc 25 70 01 	rex.W jmp *0x17025bc(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190124:	90                   	nop
+   141190125:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14119012c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN14AuBlipGasGiantlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190130 <_ZN14AuBlipGasGiantlsER11QDataStream>:
+   141190130:	41 54                	push   %r12
+   141190132:	56                   	push   %rsi
+   141190133:	53                   	push   %rbx
+   141190134:	48 83 ec 30          	sub    $0x30,%rsp
+   141190138:	49 89 d4             	mov    %rdx,%r12
+   14119013b:	48 89 cb             	mov    %rcx,%rbx
+   14119013e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190142:	e8 79 52 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190147:	48 8b 35 aa 25 70 01 	mov    0x17025aa(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119014e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190153:	4c 89 e1             	mov    %r12,%rcx
+   141190156:	ff d6                	call   *%rsi
+   141190158:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119015d:	4c 89 e1             	mov    %r12,%rcx
+   141190160:	ff d6                	call   *%rsi
+   141190162:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190167:	4c 89 e1             	mov    %r12,%rcx
+   14119016a:	ff d6                	call   *%rsi
+   14119016c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190172:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190176:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119017a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190180:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190186:	4c 89 e1             	mov    %r12,%rcx
+   141190189:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119018e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190191:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190194:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190198:	ff 15 4a 25 70 01    	call   *0x170254a(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14119019e:	48 8b 35 3b 25 70 01 	mov    0x170253b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411901a5:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   1411901a9:	4c 89 e1             	mov    %r12,%rcx
+   1411901ac:	ff d6                	call   *%rsi
+   1411901ae:	48 8d 53 2a          	lea    0x2a(%rbx),%rdx
+   1411901b2:	4c 89 e1             	mov    %r12,%rcx
+   1411901b5:	48 89 f0             	mov    %rsi,%rax
+   1411901b8:	48 83 c4 30          	add    $0x30,%rsp
+   1411901bc:	5b                   	pop    %rbx
+   1411901bd:	5e                   	pop    %rsi
+   1411901be:	41 5c                	pop    %r12
+   1411901c0:	48 ff e0             	rex.W jmp *%rax
+   1411901c3:	90                   	nop
+   1411901c4:	90                   	nop
+   1411901c5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1411901cc:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN11AuBlipTitanlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411901d0 <_ZN11AuBlipTitanlsER11QDataStream>:
+   1411901d0:	41 54                	push   %r12
+   1411901d2:	56                   	push   %rsi
+   1411901d3:	53                   	push   %rbx
+   1411901d4:	48 83 ec 30          	sub    $0x30,%rsp
+   1411901d8:	49 89 d4             	mov    %rdx,%r12
+   1411901db:	48 89 cb             	mov    %rcx,%rbx
+   1411901de:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411901e2:	e8 d9 51 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411901e7:	48 8b 35 0a 25 70 01 	mov    0x170250a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411901ee:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411901f3:	4c 89 e1             	mov    %r12,%rcx
+   1411901f6:	ff d6                	call   *%rsi
+   1411901f8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411901fd:	4c 89 e1             	mov    %r12,%rcx
+   141190200:	ff d6                	call   *%rsi
+   141190202:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190207:	4c 89 e1             	mov    %r12,%rcx
+   14119020a:	ff d6                	call   *%rsi
+   14119020c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190212:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190216:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119021a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190220:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190226:	4c 89 e1             	mov    %r12,%rcx
+   141190229:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119022e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190231:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190234:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190238:	ff 15 aa 24 70 01    	call   *0x17024aa(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14119023e:	48 8b 35 9b 24 70 01 	mov    0x170249b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190245:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   141190249:	4c 89 e1             	mov    %r12,%rcx
+   14119024c:	ff d6                	call   *%rsi
+   14119024e:	48 8d 53 2a          	lea    0x2a(%rbx),%rdx
+   141190252:	4c 89 e1             	mov    %r12,%rcx
+   141190255:	48 89 f0             	mov    %rsi,%rax
+   141190258:	48 83 c4 30          	add    $0x30,%rsp
+   14119025c:	5b                   	pop    %rbx
+   14119025d:	5e                   	pop    %rsi
+   14119025e:	41 5c                	pop    %r12
+   141190260:	48 ff e0             	rex.W jmp *%rax
+   141190263:	90                   	nop
+   141190264:	90                   	nop
+   141190265:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14119026c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN12AuBlipPlanetlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190270 <_ZN12AuBlipPlanetlsER11QDataStream>:
+   141190270:	41 54                	push   %r12
+   141190272:	56                   	push   %rsi
+   141190273:	53                   	push   %rbx
+   141190274:	48 83 ec 30          	sub    $0x30,%rsp
+   141190278:	49 89 d4             	mov    %rdx,%r12
+   14119027b:	48 89 cb             	mov    %rcx,%rbx
+   14119027e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190282:	e8 39 51 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190287:	48 8b 35 6a 24 70 01 	mov    0x170246a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119028e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190293:	4c 89 e1             	mov    %r12,%rcx
+   141190296:	ff d6                	call   *%rsi
+   141190298:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119029d:	4c 89 e1             	mov    %r12,%rcx
+   1411902a0:	ff d6                	call   *%rsi
+   1411902a2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   1411902a7:	4c 89 e1             	mov    %r12,%rcx
+   1411902aa:	ff d6                	call   *%rsi
+   1411902ac:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   1411902b2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411902b6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1411902ba:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411902c0:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411902c6:	4c 89 e1             	mov    %r12,%rcx
+   1411902c9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411902ce:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411902d1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411902d4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   1411902d8:	ff 15 0a 24 70 01    	call   *0x170240a(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   1411902de:	48 8b 35 fb 23 70 01 	mov    0x17023fb(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411902e5:	48 8d 53 29          	lea    0x29(%rbx),%rdx
+   1411902e9:	4c 89 e1             	mov    %r12,%rcx
+   1411902ec:	ff d6                	call   *%rsi
+   1411902ee:	48 8d 53 2a          	lea    0x2a(%rbx),%rdx
+   1411902f2:	4c 89 e1             	mov    %r12,%rcx
+   1411902f5:	48 89 f0             	mov    %rsi,%rax
+   1411902f8:	48 83 c4 30          	add    $0x30,%rsp
+   1411902fc:	5b                   	pop    %rbx
+   1411902fd:	5e                   	pop    %rsi
+   1411902fe:	41 5c                	pop    %r12
+   141190300:	48 ff e0             	rex.W jmp *%rax
+   141190303:	90                   	nop
+   141190304:	90                   	nop
+   141190305:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14119030c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN14AuBlipCreaturelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190310 <_ZN14AuBlipCreaturelsER11QDataStream>:
+   141190310:	41 54                	push   %r12
+   141190312:	56                   	push   %rsi
+   141190313:	53                   	push   %rbx
+   141190314:	48 83 ec 30          	sub    $0x30,%rsp
+   141190318:	49 89 d4             	mov    %rdx,%r12
+   14119031b:	48 89 cb             	mov    %rcx,%rbx
+   14119031e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190322:	e8 99 50 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190327:	48 8b 35 ca 23 70 01 	mov    0x17023ca(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119032e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190333:	4c 89 e1             	mov    %r12,%rcx
+   141190336:	ff d6                	call   *%rsi
+   141190338:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119033d:	4c 89 e1             	mov    %r12,%rcx
+   141190340:	ff d6                	call   *%rsi
+   141190342:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190347:	4c 89 e1             	mov    %r12,%rcx
+   14119034a:	ff d6                	call   *%rsi
+   14119034c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190352:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190356:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119035a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190360:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190366:	4c 89 e1             	mov    %r12,%rcx
+   141190369:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119036e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190371:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190374:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190378:	ff 15 82 23 70 01    	call   *0x1702382(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14119037e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190382:	4c 89 e1             	mov    %r12,%rcx
+   141190385:	ff 15 55 23 70 01    	call   *0x1702355(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14119038b:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   14119038f:	4c 89 e2             	mov    %r12,%rdx
+   141190392:	48 83 c4 30          	add    $0x30,%rsp
+   141190396:	5b                   	pop    %rbx
+   141190397:	5e                   	pop    %rsi
+   141190398:	41 5c                	pop    %r12
+   14119039a:	e9 e1 6f 10 00       	jmp    141297380 <_ZN9AuSpecieslsER11QDataStream>
+   14119039f:	90                   	nop
+
+$ objdump -d --disassemble=_ZN13AuBlipCitizenlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190750 <_ZN13AuBlipCitizenlsER11QDataStream>:
+   141190750:	41 54                	push   %r12
+   141190752:	56                   	push   %rsi
+   141190753:	53                   	push   %rbx
+   141190754:	48 83 ec 30          	sub    $0x30,%rsp
+   141190758:	49 89 d4             	mov    %rdx,%r12
+   14119075b:	48 89 cb             	mov    %rcx,%rbx
+   14119075e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190762:	e8 59 4c 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190767:	48 8b 35 8a 1f 70 01 	mov    0x1701f8a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119076e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190773:	4c 89 e1             	mov    %r12,%rcx
+   141190776:	ff d6                	call   *%rsi
+   141190778:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119077d:	4c 89 e1             	mov    %r12,%rcx
+   141190780:	ff d6                	call   *%rsi
+   141190782:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190787:	4c 89 e1             	mov    %r12,%rcx
+   14119078a:	ff d6                	call   *%rsi
+   14119078c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190792:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190796:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119079a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411907a0:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411907a6:	4c 89 e1             	mov    %r12,%rcx
+   1411907a9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411907ae:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411907b1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411907b4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   1411907b8:	ff 15 42 1f 70 01    	call   *0x1701f42(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1411907be:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1411907c2:	4c 89 e1             	mov    %r12,%rcx
+   1411907c5:	ff 15 15 1f 70 01    	call   *0x1701f15(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411907cb:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   1411907cf:	4c 89 e2             	mov    %r12,%rdx
+   1411907d2:	e8 a9 6b 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   1411907d7:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   1411907db:	4c 89 e1             	mov    %r12,%rcx
+   1411907de:	48 83 c4 30          	add    $0x30,%rsp
+   1411907e2:	5b                   	pop    %rbx
+   1411907e3:	5e                   	pop    %rsi
+   1411907e4:	41 5c                	pop    %r12
+   1411907e6:	48 ff 25 23 2c 70 01 	rex.W jmp *0x1702c23(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1411907ed:	90                   	nop
+   1411907ee:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN11AuBlipTrooplsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411907f0 <_ZN11AuBlipTrooplsER11QDataStream>:
+   1411907f0:	41 54                	push   %r12
+   1411907f2:	56                   	push   %rsi
+   1411907f3:	53                   	push   %rbx
+   1411907f4:	48 83 ec 30          	sub    $0x30,%rsp
+   1411907f8:	49 89 d4             	mov    %rdx,%r12
+   1411907fb:	48 89 cb             	mov    %rcx,%rbx
+   1411907fe:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190802:	e8 b9 4b 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190807:	48 8b 35 ea 1e 70 01 	mov    0x1701eea(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119080e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190813:	4c 89 e1             	mov    %r12,%rcx
+   141190816:	ff d6                	call   *%rsi
+   141190818:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119081d:	4c 89 e1             	mov    %r12,%rcx
+   141190820:	ff d6                	call   *%rsi
+   141190822:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190827:	4c 89 e1             	mov    %r12,%rcx
+   14119082a:	ff d6                	call   *%rsi
+   14119082c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190832:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190836:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119083a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190840:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190846:	4c 89 e1             	mov    %r12,%rcx
+   141190849:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119084e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190851:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190854:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190858:	ff 15 a2 1e 70 01    	call   *0x1701ea2(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14119085e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190862:	4c 89 e1             	mov    %r12,%rcx
+   141190865:	ff 15 75 1e 70 01    	call   *0x1701e75(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14119086b:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   14119086f:	4c 89 e2             	mov    %r12,%rdx
+   141190872:	e8 09 6b 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   141190877:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   14119087b:	4c 89 e1             	mov    %r12,%rcx
+   14119087e:	48 83 c4 30          	add    $0x30,%rsp
+   141190882:	5b                   	pop    %rbx
+   141190883:	5e                   	pop    %rsi
+   141190884:	41 5c                	pop    %r12
+   141190886:	48 ff 25 83 2b 70 01 	rex.W jmp *0x1702b83(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   14119088d:	90                   	nop
+   14119088e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN12AuBlipAnimallsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190890 <_ZN12AuBlipAnimallsER11QDataStream>:
+   141190890:	41 54                	push   %r12
+   141190892:	56                   	push   %rsi
+   141190893:	53                   	push   %rbx
+   141190894:	48 83 ec 30          	sub    $0x30,%rsp
+   141190898:	49 89 d4             	mov    %rdx,%r12
+   14119089b:	48 89 cb             	mov    %rcx,%rbx
+   14119089e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411908a2:	e8 19 4b 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411908a7:	48 8b 35 4a 1e 70 01 	mov    0x1701e4a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411908ae:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411908b3:	4c 89 e1             	mov    %r12,%rcx
+   1411908b6:	ff d6                	call   *%rsi
+   1411908b8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411908bd:	4c 89 e1             	mov    %r12,%rcx
+   1411908c0:	ff d6                	call   *%rsi
+   1411908c2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   1411908c7:	4c 89 e1             	mov    %r12,%rcx
+   1411908ca:	ff d6                	call   *%rsi
+   1411908cc:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   1411908d2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411908d6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1411908da:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411908e0:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411908e6:	4c 89 e1             	mov    %r12,%rcx
+   1411908e9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411908ee:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411908f1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411908f4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   1411908f8:	ff 15 02 1e 70 01    	call   *0x1701e02(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1411908fe:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190902:	4c 89 e1             	mov    %r12,%rcx
+   141190905:	ff 15 d5 1d 70 01    	call   *0x1701dd5(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14119090b:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   14119090f:	4c 89 e2             	mov    %r12,%rdx
+   141190912:	e8 69 6a 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   141190917:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   14119091b:	4c 89 e1             	mov    %r12,%rcx
+   14119091e:	48 83 c4 30          	add    $0x30,%rsp
+   141190922:	5b                   	pop    %rbx
+   141190923:	5e                   	pop    %rsi
+   141190924:	41 5c                	pop    %r12
+   141190926:	48 ff 25 bb 1d 70 01 	rex.W jmp *0x1701dbb(%rip)        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   14119092d:	90                   	nop
+   14119092e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN10AuBlipCrewlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190930 <_ZN10AuBlipCrewlsER11QDataStream>:
+   141190930:	41 54                	push   %r12
+   141190932:	56                   	push   %rsi
+   141190933:	53                   	push   %rbx
+   141190934:	48 83 ec 30          	sub    $0x30,%rsp
+   141190938:	49 89 d4             	mov    %rdx,%r12
+   14119093b:	48 89 cb             	mov    %rcx,%rbx
+   14119093e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190942:	e8 79 4a 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190947:	48 8b 35 aa 1d 70 01 	mov    0x1701daa(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119094e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190953:	4c 89 e1             	mov    %r12,%rcx
+   141190956:	ff d6                	call   *%rsi
+   141190958:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119095d:	4c 89 e1             	mov    %r12,%rcx
+   141190960:	ff d6                	call   *%rsi
+   141190962:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190967:	4c 89 e1             	mov    %r12,%rcx
+   14119096a:	ff d6                	call   *%rsi
+   14119096c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190972:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190976:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119097a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190980:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190986:	4c 89 e1             	mov    %r12,%rcx
+   141190989:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119098e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190991:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190994:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190998:	ff 15 62 1d 70 01    	call   *0x1701d62(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14119099e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1411909a2:	4c 89 e1             	mov    %r12,%rcx
+   1411909a5:	ff 15 35 1d 70 01    	call   *0x1701d35(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411909ab:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   1411909af:	4c 89 e2             	mov    %r12,%rdx
+   1411909b2:	e8 c9 69 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   1411909b7:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   1411909bb:	4c 89 e1             	mov    %r12,%rcx
+   1411909be:	48 83 c4 30          	add    $0x30,%rsp
+   1411909c2:	5b                   	pop    %rbx
+   1411909c3:	5e                   	pop    %rsi
+   1411909c4:	41 5c                	pop    %r12
+   1411909c6:	48 ff 25 43 2a 70 01 	rex.W jmp *0x1702a43(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1411909cd:	90                   	nop
+   1411909ce:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN15AuBlipPassengerlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411909d0 <_ZN15AuBlipPassengerlsER11QDataStream>:
+   1411909d0:	41 54                	push   %r12
+   1411909d2:	56                   	push   %rsi
+   1411909d3:	53                   	push   %rbx
+   1411909d4:	48 83 ec 30          	sub    $0x30,%rsp
+   1411909d8:	49 89 d4             	mov    %rdx,%r12
+   1411909db:	48 89 cb             	mov    %rcx,%rbx
+   1411909de:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411909e2:	e8 d9 49 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411909e7:	48 8b 35 0a 1d 70 01 	mov    0x1701d0a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411909ee:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411909f3:	4c 89 e1             	mov    %r12,%rcx
+   1411909f6:	ff d6                	call   *%rsi
+   1411909f8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411909fd:	4c 89 e1             	mov    %r12,%rcx
+   141190a00:	ff d6                	call   *%rsi
+   141190a02:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190a07:	4c 89 e1             	mov    %r12,%rcx
+   141190a0a:	ff d6                	call   *%rsi
+   141190a0c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190a12:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190a16:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141190a1a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190a20:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190a26:	4c 89 e1             	mov    %r12,%rcx
+   141190a29:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190a2e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190a31:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190a34:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190a38:	ff 15 c2 1c 70 01    	call   *0x1701cc2(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141190a3e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190a42:	4c 89 e1             	mov    %r12,%rcx
+   141190a45:	ff 15 95 1c 70 01    	call   *0x1701c95(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190a4b:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   141190a4f:	4c 89 e2             	mov    %r12,%rdx
+   141190a52:	e8 29 69 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   141190a57:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   141190a5b:	4c 89 e1             	mov    %r12,%rcx
+   141190a5e:	48 83 c4 30          	add    $0x30,%rsp
+   141190a62:	5b                   	pop    %rbx
+   141190a63:	5e                   	pop    %rsi
+   141190a64:	41 5c                	pop    %r12
+   141190a66:	48 ff 25 a3 29 70 01 	rex.W jmp *0x17029a3(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141190a6d:	90                   	nop
+   141190a6e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN12AuBlipAvatarlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190a70 <_ZN12AuBlipAvatarlsER11QDataStream>:
+   141190a70:	41 54                	push   %r12
+   141190a72:	56                   	push   %rsi
+   141190a73:	53                   	push   %rbx
+   141190a74:	48 83 ec 30          	sub    $0x30,%rsp
+   141190a78:	49 89 d4             	mov    %rdx,%r12
+   141190a7b:	48 89 cb             	mov    %rcx,%rbx
+   141190a7e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190a82:	e8 39 49 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190a87:	48 8b 35 6a 1c 70 01 	mov    0x1701c6a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190a8e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190a93:	4c 89 e1             	mov    %r12,%rcx
+   141190a96:	ff d6                	call   *%rsi
+   141190a98:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141190a9d:	4c 89 e1             	mov    %r12,%rcx
+   141190aa0:	ff d6                	call   *%rsi
+   141190aa2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190aa7:	4c 89 e1             	mov    %r12,%rcx
+   141190aaa:	ff d6                	call   *%rsi
+   141190aac:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190ab2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190ab6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141190aba:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190ac0:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190ac6:	4c 89 e1             	mov    %r12,%rcx
+   141190ac9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190ace:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190ad1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190ad4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190ad8:	ff 15 22 1c 70 01    	call   *0x1701c22(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141190ade:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190ae2:	4c 89 e1             	mov    %r12,%rcx
+   141190ae5:	ff 15 f5 1b 70 01    	call   *0x1701bf5(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190aeb:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   141190aef:	4c 89 e2             	mov    %r12,%rdx
+   141190af2:	e8 89 68 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   141190af7:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   141190afb:	4c 89 e1             	mov    %r12,%rcx
+   141190afe:	48 83 c4 30          	add    $0x30,%rsp
+   141190b02:	5b                   	pop    %rbx
+   141190b03:	5e                   	pop    %rsi
+   141190b04:	41 5c                	pop    %r12
+   141190b06:	48 ff 25 03 29 70 01 	rex.W jmp *0x1702903(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141190b0d:	90                   	nop
+   141190b0e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN13AuBlipOfficerlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190b10 <_ZN13AuBlipOfficerlsER11QDataStream>:
+   141190b10:	41 54                	push   %r12
+   141190b12:	56                   	push   %rsi
+   141190b13:	53                   	push   %rbx
+   141190b14:	48 83 ec 30          	sub    $0x30,%rsp
+   141190b18:	49 89 d4             	mov    %rdx,%r12
+   141190b1b:	48 89 cb             	mov    %rcx,%rbx
+   141190b1e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190b22:	e8 99 48 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190b27:	48 8b 35 ca 1b 70 01 	mov    0x1701bca(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190b2e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190b33:	4c 89 e1             	mov    %r12,%rcx
+   141190b36:	ff d6                	call   *%rsi
+   141190b38:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141190b3d:	4c 89 e1             	mov    %r12,%rcx
+   141190b40:	ff d6                	call   *%rsi
+   141190b42:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190b47:	4c 89 e1             	mov    %r12,%rcx
+   141190b4a:	ff d6                	call   *%rsi
+   141190b4c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190b52:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190b56:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141190b5a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190b60:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190b66:	4c 89 e1             	mov    %r12,%rcx
+   141190b69:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190b6e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190b71:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190b74:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190b78:	ff 15 82 1b 70 01    	call   *0x1701b82(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141190b7e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190b82:	4c 89 e1             	mov    %r12,%rcx
+   141190b85:	ff 15 55 1b 70 01    	call   *0x1701b55(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190b8b:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   141190b8f:	4c 89 e2             	mov    %r12,%rdx
+   141190b92:	e8 e9 67 10 00       	call   141297380 <_ZN9AuSpecieslsER11QDataStream>
+   141190b97:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   141190b9b:	4c 89 e1             	mov    %r12,%rcx
+   141190b9e:	48 83 c4 30          	add    $0x30,%rsp
+   141190ba2:	5b                   	pop    %rbx
+   141190ba3:	5e                   	pop    %rsi
+   141190ba4:	41 5c                	pop    %r12
+   141190ba6:	48 ff 25 63 28 70 01 	rex.W jmp *0x1702863(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141190bad:	90                   	nop
+   141190bae:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN24AuBlipTransporterStationlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190bb0 <_ZN24AuBlipTransporterStationlsER11QDataStream>:
+   141190bb0:	41 54                	push   %r12
+   141190bb2:	56                   	push   %rsi
+   141190bb3:	53                   	push   %rbx
+   141190bb4:	48 83 ec 30          	sub    $0x30,%rsp
+   141190bb8:	49 89 d4             	mov    %rdx,%r12
+   141190bbb:	48 89 cb             	mov    %rcx,%rbx
+   141190bbe:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190bc2:	e8 f9 47 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190bc7:	48 8b 35 2a 1b 70 01 	mov    0x1701b2a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190bce:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190bd3:	4c 89 e1             	mov    %r12,%rcx
+   141190bd6:	ff d6                	call   *%rsi
+   141190bd8:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141190bdd:	4c 89 e1             	mov    %r12,%rcx
+   141190be0:	ff d6                	call   *%rsi
+   141190be2:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190be7:	4c 89 e1             	mov    %r12,%rcx
+   141190bea:	ff d6                	call   *%rsi
+   141190bec:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190bf2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190bf6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141190bfa:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190c00:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190c06:	4c 89 e1             	mov    %r12,%rcx
+   141190c09:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190c0e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190c11:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190c14:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190c18:	ff 15 e2 1a 70 01    	call   *0x1701ae2(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141190c1e:	48 8b 35 bb 1a 70 01 	mov    0x1701abb(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190c25:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190c29:	4c 89 e1             	mov    %r12,%rcx
+   141190c2c:	ff d6                	call   *%rsi
+   141190c2e:	48 8d 53 2d          	lea    0x2d(%rbx),%rdx
+   141190c32:	4c 89 e1             	mov    %r12,%rcx
+   141190c35:	ff d6                	call   *%rsi
+   141190c37:	48 8d 53 2e          	lea    0x2e(%rbx),%rdx
+   141190c3b:	4c 89 e1             	mov    %r12,%rcx
+   141190c3e:	ff 15 c4 1a 70 01    	call   *0x1701ac4(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141190c44:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   141190c48:	4c 89 e1             	mov    %r12,%rcx
+   141190c4b:	48 83 c4 30          	add    $0x30,%rsp
+   141190c4f:	5b                   	pop    %rbx
+   141190c50:	5e                   	pop    %rsi
+   141190c51:	41 5c                	pop    %r12
+   141190c53:	48 ff 25 b6 27 70 01 	rex.W jmp *0x17027b6(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141190c5a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+$ objdump -d --disassemble=_ZN27AuBlipTransporterSpacecraftlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190c60 <_ZN27AuBlipTransporterSpacecraftlsER11QDataStream>:
+   141190c60:	41 54                	push   %r12
+   141190c62:	56                   	push   %rsi
+   141190c63:	53                   	push   %rbx
+   141190c64:	48 83 ec 30          	sub    $0x30,%rsp
+   141190c68:	49 89 d4             	mov    %rdx,%r12
+   141190c6b:	48 89 cb             	mov    %rcx,%rbx
+   141190c6e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190c72:	e8 49 47 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190c77:	48 8b 35 7a 1a 70 01 	mov    0x1701a7a(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190c7e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190c83:	4c 89 e1             	mov    %r12,%rcx
+   141190c86:	ff d6                	call   *%rsi
+   141190c88:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141190c8d:	4c 89 e1             	mov    %r12,%rcx
+   141190c90:	ff d6                	call   *%rsi
+   141190c92:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141190c97:	4c 89 e1             	mov    %r12,%rcx
+   141190c9a:	ff d6                	call   *%rsi
+   141190c9c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190ca2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190ca6:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141190caa:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190cb0:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190cb6:	4c 89 e1             	mov    %r12,%rcx
+   141190cb9:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190cbe:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190cc1:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190cc4:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190cc8:	ff 15 32 1a 70 01    	call   *0x1701a32(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141190cce:	48 8b 35 0b 1a 70 01 	mov    0x1701a0b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190cd5:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190cd9:	4c 89 e1             	mov    %r12,%rcx
+   141190cdc:	ff d6                	call   *%rsi
+   141190cde:	48 8d 53 2d          	lea    0x2d(%rbx),%rdx
+   141190ce2:	4c 89 e1             	mov    %r12,%rcx
+   141190ce5:	ff d6                	call   *%rsi
+   141190ce7:	48 8d 53 2e          	lea    0x2e(%rbx),%rdx
+   141190ceb:	4c 89 e1             	mov    %r12,%rcx
+   141190cee:	ff 15 14 1a 70 01    	call   *0x1701a14(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141190cf4:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   141190cf8:	4c 89 e1             	mov    %r12,%rcx
+   141190cfb:	48 83 c4 30          	add    $0x30,%rsp
+   141190cff:	5b                   	pop    %rbx
+   141190d00:	5e                   	pop    %rsi
+   141190d01:	41 5c                	pop    %r12
+   141190d03:	48 ff 25 06 27 70 01 	rex.W jmp *0x1702706(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141190d0a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+$ objdump -d --disassemble=_ZN15AuBlipBlackHolelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190d10 <_ZN15AuBlipBlackHolelsER11QDataStream>:
+   141190d10:	41 56                	push   %r14
+   141190d12:	41 55                	push   %r13
+   141190d14:	41 54                	push   %r12
+   141190d16:	57                   	push   %rdi
+   141190d17:	56                   	push   %rsi
+   141190d18:	53                   	push   %rbx
+   141190d19:	48 83 ec 38          	sub    $0x38,%rsp
+   141190d1d:	49 89 d4             	mov    %rdx,%r12
+   141190d20:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   141190d25:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141190d2a:	48 89 cb             	mov    %rcx,%rbx
+   141190d2d:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190d31:	e8 8a 46 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190d36:	48 8b 35 bb 19 70 01 	mov    0x17019bb(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190d3d:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190d42:	4c 89 e1             	mov    %r12,%rcx
+   141190d45:	ff d6                	call   *%rsi
+   141190d47:	4c 89 f2             	mov    %r14,%rdx
+   141190d4a:	4c 89 e1             	mov    %r12,%rcx
+   141190d4d:	ff d6                	call   *%rsi
+   141190d4f:	4c 89 ea             	mov    %r13,%rdx
+   141190d52:	4c 89 e1             	mov    %r12,%rcx
+   141190d55:	ff d6                	call   *%rsi
+   141190d57:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190d5d:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190d61:	4c 89 f2             	mov    %r14,%rdx
+   141190d64:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190d6a:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190d70:	48 8b 3d 69 19 70 01 	mov    0x1701969(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190d77:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190d7c:	4c 89 e1             	mov    %r12,%rcx
+   141190d7f:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190d82:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190d85:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190d89:	ff d7                	call   *%rdi
+   141190d8b:	4c 89 ea             	mov    %r13,%rdx
+   141190d8e:	4c 89 e1             	mov    %r12,%rcx
+   141190d91:	ff d7                	call   *%rdi
+   141190d93:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190d97:	4c 89 e1             	mov    %r12,%rcx
+   141190d9a:	ff d6                	call   *%rsi
+   141190d9c:	0f b6 54 24 28       	movzbl 0x28(%rsp),%edx
+   141190da1:	89 d0                	mov    %edx,%eax
+   141190da3:	83 e2 0f             	and    $0xf,%edx
+   141190da6:	c0 e8 07             	shr    $0x7,%al
+   141190da9:	88 43 28             	mov    %al,0x28(%rbx)
+   141190dac:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   141190db1:	89 c1                	mov    %eax,%ecx
+   141190db3:	83 e0 0f             	and    $0xf,%eax
+   141190db6:	c0 e9 04             	shr    $0x4,%cl
+   141190db9:	88 4b 32             	mov    %cl,0x32(%rbx)
+   141190dbc:	31 c9                	xor    %ecx,%ecx
+   141190dbe:	88 d1                	mov    %dl,%cl
+   141190dc0:	88 c5                	mov    %al,%ch
+   141190dc2:	66 89 4b 30          	mov    %cx,0x30(%rbx)
+   141190dc6:	48 83 c4 38          	add    $0x38,%rsp
+   141190dca:	5b                   	pop    %rbx
+   141190dcb:	5e                   	pop    %rsi
+   141190dcc:	5f                   	pop    %rdi
+   141190dcd:	41 5c                	pop    %r12
+   141190dcf:	41 5d                	pop    %r13
+   141190dd1:	41 5e                	pop    %r14
+   141190dd3:	c3                   	ret
+   141190dd4:	90                   	nop
+   141190dd5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   141190ddc:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN19AuBlipStarCompanionlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190de0 <_ZN19AuBlipStarCompanionlsER11QDataStream>:
+   141190de0:	41 56                	push   %r14
+   141190de2:	41 55                	push   %r13
+   141190de4:	41 54                	push   %r12
+   141190de6:	57                   	push   %rdi
+   141190de7:	56                   	push   %rsi
+   141190de8:	53                   	push   %rbx
+   141190de9:	48 83 ec 38          	sub    $0x38,%rsp
+   141190ded:	49 89 d4             	mov    %rdx,%r12
+   141190df0:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   141190df5:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141190dfa:	48 89 cb             	mov    %rcx,%rbx
+   141190dfd:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190e01:	e8 ba 45 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190e06:	48 8b 35 eb 18 70 01 	mov    0x17018eb(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190e0d:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190e12:	4c 89 e1             	mov    %r12,%rcx
+   141190e15:	ff d6                	call   *%rsi
+   141190e17:	4c 89 f2             	mov    %r14,%rdx
+   141190e1a:	4c 89 e1             	mov    %r12,%rcx
+   141190e1d:	ff d6                	call   *%rsi
+   141190e1f:	4c 89 ea             	mov    %r13,%rdx
+   141190e22:	4c 89 e1             	mov    %r12,%rcx
+   141190e25:	ff d6                	call   *%rsi
+   141190e27:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190e2d:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190e31:	4c 89 f2             	mov    %r14,%rdx
+   141190e34:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190e3a:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190e40:	48 8b 3d 99 18 70 01 	mov    0x1701899(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190e47:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190e4c:	4c 89 e1             	mov    %r12,%rcx
+   141190e4f:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190e52:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190e55:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190e59:	ff d7                	call   *%rdi
+   141190e5b:	4c 89 ea             	mov    %r13,%rdx
+   141190e5e:	4c 89 e1             	mov    %r12,%rcx
+   141190e61:	ff d7                	call   *%rdi
+   141190e63:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190e67:	4c 89 e1             	mov    %r12,%rcx
+   141190e6a:	ff d6                	call   *%rsi
+   141190e6c:	0f b6 54 24 28       	movzbl 0x28(%rsp),%edx
+   141190e71:	89 d0                	mov    %edx,%eax
+   141190e73:	83 e2 0f             	and    $0xf,%edx
+   141190e76:	c0 e8 07             	shr    $0x7,%al
+   141190e79:	88 43 28             	mov    %al,0x28(%rbx)
+   141190e7c:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   141190e81:	89 c1                	mov    %eax,%ecx
+   141190e83:	83 e0 0f             	and    $0xf,%eax
+   141190e86:	c0 e9 04             	shr    $0x4,%cl
+   141190e89:	88 4b 32             	mov    %cl,0x32(%rbx)
+   141190e8c:	31 c9                	xor    %ecx,%ecx
+   141190e8e:	88 d1                	mov    %dl,%cl
+   141190e90:	88 c5                	mov    %al,%ch
+   141190e92:	66 89 4b 30          	mov    %cx,0x30(%rbx)
+   141190e96:	48 83 c4 38          	add    $0x38,%rsp
+   141190e9a:	5b                   	pop    %rbx
+   141190e9b:	5e                   	pop    %rsi
+   141190e9c:	5f                   	pop    %rdi
+   141190e9d:	41 5c                	pop    %r12
+   141190e9f:	41 5d                	pop    %r13
+   141190ea1:	41 5e                	pop    %r14
+   141190ea3:	c3                   	ret
+   141190ea4:	90                   	nop
+   141190ea5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   141190eac:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN17AuBlipNeutronStarlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190eb0 <_ZN17AuBlipNeutronStarlsER11QDataStream>:
+   141190eb0:	41 56                	push   %r14
+   141190eb2:	41 55                	push   %r13
+   141190eb4:	41 54                	push   %r12
+   141190eb6:	57                   	push   %rdi
+   141190eb7:	56                   	push   %rsi
+   141190eb8:	53                   	push   %rbx
+   141190eb9:	48 83 ec 38          	sub    $0x38,%rsp
+   141190ebd:	49 89 d4             	mov    %rdx,%r12
+   141190ec0:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   141190ec5:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141190eca:	48 89 cb             	mov    %rcx,%rbx
+   141190ecd:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190ed1:	e8 ea 44 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190ed6:	48 8b 35 1b 18 70 01 	mov    0x170181b(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190edd:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190ee2:	4c 89 e1             	mov    %r12,%rcx
+   141190ee5:	ff d6                	call   *%rsi
+   141190ee7:	4c 89 f2             	mov    %r14,%rdx
+   141190eea:	4c 89 e1             	mov    %r12,%rcx
+   141190eed:	ff d6                	call   *%rsi
+   141190eef:	4c 89 ea             	mov    %r13,%rdx
+   141190ef2:	4c 89 e1             	mov    %r12,%rcx
+   141190ef5:	ff d6                	call   *%rsi
+   141190ef7:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190efd:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190f01:	4c 89 f2             	mov    %r14,%rdx
+   141190f04:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190f0a:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190f10:	48 8b 3d c9 17 70 01 	mov    0x17017c9(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190f17:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190f1c:	4c 89 e1             	mov    %r12,%rcx
+   141190f1f:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190f22:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190f25:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190f29:	ff d7                	call   *%rdi
+   141190f2b:	4c 89 ea             	mov    %r13,%rdx
+   141190f2e:	4c 89 e1             	mov    %r12,%rcx
+   141190f31:	ff d7                	call   *%rdi
+   141190f33:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141190f37:	4c 89 e1             	mov    %r12,%rcx
+   141190f3a:	ff d6                	call   *%rsi
+   141190f3c:	0f b6 54 24 28       	movzbl 0x28(%rsp),%edx
+   141190f41:	89 d0                	mov    %edx,%eax
+   141190f43:	83 e2 0f             	and    $0xf,%edx
+   141190f46:	c0 e8 07             	shr    $0x7,%al
+   141190f49:	88 43 28             	mov    %al,0x28(%rbx)
+   141190f4c:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   141190f51:	89 c1                	mov    %eax,%ecx
+   141190f53:	83 e0 0f             	and    $0xf,%eax
+   141190f56:	c0 e9 04             	shr    $0x4,%cl
+   141190f59:	88 4b 32             	mov    %cl,0x32(%rbx)
+   141190f5c:	31 c9                	xor    %ecx,%ecx
+   141190f5e:	88 d1                	mov    %dl,%cl
+   141190f60:	88 c5                	mov    %al,%ch
+   141190f62:	66 89 4b 30          	mov    %cx,0x30(%rbx)
+   141190f66:	48 83 c4 38          	add    $0x38,%rsp
+   141190f6a:	5b                   	pop    %rbx
+   141190f6b:	5e                   	pop    %rsi
+   141190f6c:	5f                   	pop    %rdi
+   141190f6d:	41 5c                	pop    %r12
+   141190f6f:	41 5d                	pop    %r13
+   141190f71:	41 5e                	pop    %r14
+   141190f73:	c3                   	ret
+   141190f74:	90                   	nop
+   141190f75:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   141190f7c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN26AuBlipNeutronStarCompanionlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141190f80 <_ZN26AuBlipNeutronStarCompanionlsER11QDataStream>:
+   141190f80:	41 56                	push   %r14
+   141190f82:	41 55                	push   %r13
+   141190f84:	41 54                	push   %r12
+   141190f86:	57                   	push   %rdi
+   141190f87:	56                   	push   %rsi
+   141190f88:	53                   	push   %rbx
+   141190f89:	48 83 ec 38          	sub    $0x38,%rsp
+   141190f8d:	49 89 d4             	mov    %rdx,%r12
+   141190f90:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   141190f95:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141190f9a:	48 89 cb             	mov    %rcx,%rbx
+   141190f9d:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141190fa1:	e8 1a 44 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141190fa6:	48 8b 35 4b 17 70 01 	mov    0x170174b(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141190fad:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141190fb2:	4c 89 e1             	mov    %r12,%rcx
+   141190fb5:	ff d6                	call   *%rsi
+   141190fb7:	4c 89 f2             	mov    %r14,%rdx
+   141190fba:	4c 89 e1             	mov    %r12,%rcx
+   141190fbd:	ff d6                	call   *%rsi
+   141190fbf:	4c 89 ea             	mov    %r13,%rdx
+   141190fc2:	4c 89 e1             	mov    %r12,%rcx
+   141190fc5:	ff d6                	call   *%rsi
+   141190fc7:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141190fcd:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141190fd1:	4c 89 f2             	mov    %r14,%rdx
+   141190fd4:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141190fda:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141190fe0:	48 8b 3d f9 16 70 01 	mov    0x17016f9(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141190fe7:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141190fec:	4c 89 e1             	mov    %r12,%rcx
+   141190fef:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141190ff2:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141190ff5:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141190ff9:	ff d7                	call   *%rdi
+   141190ffb:	4c 89 ea             	mov    %r13,%rdx
+   141190ffe:	4c 89 e1             	mov    %r12,%rcx
+   141191001:	ff d7                	call   *%rdi
+   141191003:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141191007:	4c 89 e1             	mov    %r12,%rcx
+   14119100a:	ff d6                	call   *%rsi
+   14119100c:	0f b6 54 24 28       	movzbl 0x28(%rsp),%edx
+   141191011:	89 d0                	mov    %edx,%eax
+   141191013:	83 e2 0f             	and    $0xf,%edx
+   141191016:	c0 e8 07             	shr    $0x7,%al
+   141191019:	88 43 28             	mov    %al,0x28(%rbx)
+   14119101c:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   141191021:	89 c1                	mov    %eax,%ecx
+   141191023:	83 e0 0f             	and    $0xf,%eax
+   141191026:	c0 e9 04             	shr    $0x4,%cl
+   141191029:	88 4b 32             	mov    %cl,0x32(%rbx)
+   14119102c:	31 c9                	xor    %ecx,%ecx
+   14119102e:	88 d1                	mov    %dl,%cl
+   141191030:	88 c5                	mov    %al,%ch
+   141191032:	66 89 4b 30          	mov    %cx,0x30(%rbx)
+   141191036:	48 83 c4 38          	add    $0x38,%rsp
+   14119103a:	5b                   	pop    %rbx
+   14119103b:	5e                   	pop    %rsi
+   14119103c:	5f                   	pop    %rdi
+   14119103d:	41 5c                	pop    %r12
+   14119103f:	41 5d                	pop    %r13
+   141191041:	41 5e                	pop    %r14
+   141191043:	c3                   	ret
+   141191044:	90                   	nop
+   141191045:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14119104c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN14AuBlipAircraftlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191050 <_ZN14AuBlipAircraftlsER11QDataStream>:
+   141191050:	41 55                	push   %r13
+   141191052:	41 54                	push   %r12
+   141191054:	56                   	push   %rsi
+   141191055:	53                   	push   %rbx
+   141191056:	48 83 ec 38          	sub    $0x38,%rsp
+   14119105a:	48 89 cb             	mov    %rcx,%rbx
+   14119105d:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141191062:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141191066:	49 89 d4             	mov    %rdx,%r12
+   141191069:	e8 52 43 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14119106e:	48 8b 35 83 16 70 01 	mov    0x1701683(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191075:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14119107a:	4c 89 e1             	mov    %r12,%rcx
+   14119107d:	ff d6                	call   *%rsi
+   14119107f:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141191084:	4c 89 e1             	mov    %r12,%rcx
+   141191087:	ff d6                	call   *%rsi
+   141191089:	4c 89 ea             	mov    %r13,%rdx
+   14119108c:	4c 89 e1             	mov    %r12,%rcx
+   14119108f:	ff d6                	call   *%rsi
+   141191091:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191097:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14119109b:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119109f:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411910a5:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411910ab:	4c 89 e1             	mov    %r12,%rcx
+   1411910ae:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411910b3:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411910b6:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411910b9:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   1411910bd:	ff 15 3d 16 70 01    	call   *0x170163d(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1411910c3:	48 8b 35 16 16 70 01 	mov    0x1701616(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411910ca:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1411910ce:	4c 89 e1             	mov    %r12,%rcx
+   1411910d1:	ff d6                	call   *%rsi
+   1411910d3:	4c 89 ea             	mov    %r13,%rdx
+   1411910d6:	4c 89 e1             	mov    %r12,%rcx
+   1411910d9:	ff 15 29 16 70 01    	call   *0x1701629(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1411910df:	c6 43 30 00          	movb   $0x0,0x30(%rbx)
+   1411910e3:	48 8d 53 31          	lea    0x31(%rbx),%rdx
+   1411910e7:	4c 89 e1             	mov    %r12,%rcx
+   1411910ea:	0f b7 44 24 2c       	movzwl 0x2c(%rsp),%eax
+   1411910ef:	66 25 ff 7f          	and    $0x7fff,%ax
+   1411910f3:	66 89 43 2e          	mov    %ax,0x2e(%rbx)
+   1411910f7:	ff d6                	call   *%rsi
+   1411910f9:	80 7b 31 00          	cmpb   $0x0,0x31(%rbx)
+   1411910fd:	75 04                	jne    141191103 <_ZN14AuBlipAircraftlsER11QDataStream+0xb3>
+   1411910ff:	c6 43 31 01          	movb   $0x1,0x31(%rbx)
+   141191103:	48 83 c4 38          	add    $0x38,%rsp
+   141191107:	5b                   	pop    %rbx
+   141191108:	5e                   	pop    %rsi
+   141191109:	41 5c                	pop    %r12
+   14119110b:	41 5d                	pop    %r13
+   14119110d:	c3                   	ret
+   14119110e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN19AuBlipTransporterBdlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191110 <_ZN19AuBlipTransporterBdlsER11QDataStream>:
+   141191110:	41 54                	push   %r12
+   141191112:	56                   	push   %rsi
+   141191113:	53                   	push   %rbx
+   141191114:	48 83 ec 30          	sub    $0x30,%rsp
+   141191118:	49 89 d4             	mov    %rdx,%r12
+   14119111b:	48 89 cb             	mov    %rcx,%rbx
+   14119111e:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141191122:	e8 99 42 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141191127:	48 8b 35 ca 15 70 01 	mov    0x17015ca(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119112e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141191133:	4c 89 e1             	mov    %r12,%rcx
+   141191136:	ff d6                	call   *%rsi
+   141191138:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119113d:	4c 89 e1             	mov    %r12,%rcx
+   141191140:	ff d6                	call   *%rsi
+   141191142:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141191147:	4c 89 e1             	mov    %r12,%rcx
+   14119114a:	ff d6                	call   *%rsi
+   14119114c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191152:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141191156:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119115a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141191160:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141191166:	4c 89 e1             	mov    %r12,%rcx
+   141191169:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119116e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141191171:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141191174:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141191178:	ff 15 82 15 70 01    	call   *0x1701582(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14119117e:	48 8b 35 5b 15 70 01 	mov    0x170155b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141191185:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141191189:	4c 89 e1             	mov    %r12,%rcx
+   14119118c:	ff d6                	call   *%rsi
+   14119118e:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   141191192:	4c 89 e1             	mov    %r12,%rcx
+   141191195:	ff 15 75 22 70 01    	call   *0x1702275(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   14119119b:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   14119119f:	4c 89 e1             	mov    %r12,%rcx
+   1411911a2:	ff d6                	call   *%rsi
+   1411911a4:	48 8d 53 39          	lea    0x39(%rbx),%rdx
+   1411911a8:	4c 89 e1             	mov    %r12,%rcx
+   1411911ab:	ff d6                	call   *%rsi
+   1411911ad:	48 8d 53 3a          	lea    0x3a(%rbx),%rdx
+   1411911b1:	4c 89 e1             	mov    %r12,%rcx
+   1411911b4:	48 83 c4 30          	add    $0x30,%rsp
+   1411911b8:	5b                   	pop    %rbx
+   1411911b9:	5e                   	pop    %rsi
+   1411911ba:	41 5c                	pop    %r12
+   1411911bc:	48 ff 25 45 15 70 01 	rex.W jmp *0x1701545(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1411911c3:	90                   	nop
+   1411911c4:	90                   	nop
+   1411911c5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1411911cc:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN19AuBlipGroundVehiclelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411911d0 <_ZN19AuBlipGroundVehiclelsER11QDataStream>:
+   1411911d0:	41 55                	push   %r13
+   1411911d2:	41 54                	push   %r12
+   1411911d4:	56                   	push   %rsi
+   1411911d5:	53                   	push   %rbx
+   1411911d6:	48 83 ec 38          	sub    $0x38,%rsp
+   1411911da:	48 89 cb             	mov    %rcx,%rbx
+   1411911dd:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   1411911e2:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411911e6:	49 89 d4             	mov    %rdx,%r12
+   1411911e9:	e8 d2 41 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411911ee:	48 8b 35 03 15 70 01 	mov    0x1701503(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411911f5:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411911fa:	4c 89 e1             	mov    %r12,%rcx
+   1411911fd:	ff d6                	call   *%rsi
+   1411911ff:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141191204:	4c 89 e1             	mov    %r12,%rcx
+   141191207:	ff d6                	call   *%rsi
+   141191209:	4c 89 ea             	mov    %r13,%rdx
+   14119120c:	4c 89 e1             	mov    %r12,%rcx
+   14119120f:	ff d6                	call   *%rsi
+   141191211:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191217:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14119121b:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119121f:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141191225:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14119122b:	4c 89 e1             	mov    %r12,%rcx
+   14119122e:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141191233:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141191236:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141191239:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14119123d:	ff 15 bd 14 70 01    	call   *0x17014bd(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141191243:	48 8b 35 96 14 70 01 	mov    0x1701496(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14119124a:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14119124e:	4c 89 e1             	mov    %r12,%rcx
+   141191251:	ff d6                	call   *%rsi
+   141191253:	4c 89 ea             	mov    %r13,%rdx
+   141191256:	4c 89 e1             	mov    %r12,%rcx
+   141191259:	ff 15 a9 14 70 01    	call   *0x17014a9(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14119125f:	c6 43 30 00          	movb   $0x0,0x30(%rbx)
+   141191263:	48 8d 53 31          	lea    0x31(%rbx),%rdx
+   141191267:	4c 89 e1             	mov    %r12,%rcx
+   14119126a:	0f b7 44 24 2c       	movzwl 0x2c(%rsp),%eax
+   14119126f:	66 25 ff 7f          	and    $0x7fff,%ax
+   141191273:	66 89 43 2e          	mov    %ax,0x2e(%rbx)
+   141191277:	ff d6                	call   *%rsi
+   141191279:	80 7b 31 00          	cmpb   $0x0,0x31(%rbx)
+   14119127d:	75 04                	jne    141191283 <_ZN19AuBlipGroundVehiclelsER11QDataStream+0xb3>
+   14119127f:	c6 43 31 01          	movb   $0x1,0x31(%rbx)
+   141191283:	48 83 c4 38          	add    $0x38,%rsp
+   141191287:	5b                   	pop    %rbx
+   141191288:	5e                   	pop    %rsi
+   141191289:	41 5c                	pop    %r12
+   14119128b:	41 5d                	pop    %r13
+   14119128d:	c3                   	ret
+   14119128e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN10AuBlipBoatlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191290 <_ZN10AuBlipBoatlsER11QDataStream>:
+   141191290:	41 55                	push   %r13
+   141191292:	41 54                	push   %r12
+   141191294:	56                   	push   %rsi
+   141191295:	53                   	push   %rbx
+   141191296:	48 83 ec 38          	sub    $0x38,%rsp
+   14119129a:	48 89 cb             	mov    %rcx,%rbx
+   14119129d:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   1411912a2:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411912a6:	49 89 d4             	mov    %rdx,%r12
+   1411912a9:	e8 12 41 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411912ae:	48 8b 35 43 14 70 01 	mov    0x1701443(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411912b5:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411912ba:	4c 89 e1             	mov    %r12,%rcx
+   1411912bd:	ff d6                	call   *%rsi
+   1411912bf:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411912c4:	4c 89 e1             	mov    %r12,%rcx
+   1411912c7:	ff d6                	call   *%rsi
+   1411912c9:	4c 89 ea             	mov    %r13,%rdx
+   1411912cc:	4c 89 e1             	mov    %r12,%rcx
+   1411912cf:	ff d6                	call   *%rsi
+   1411912d1:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   1411912d7:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411912db:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1411912df:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411912e5:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411912eb:	4c 89 e1             	mov    %r12,%rcx
+   1411912ee:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411912f3:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411912f6:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411912f9:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   1411912fd:	ff 15 fd 13 70 01    	call   *0x17013fd(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141191303:	48 8b 35 d6 13 70 01 	mov    0x17013d6(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14119130a:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14119130e:	4c 89 e1             	mov    %r12,%rcx
+   141191311:	ff d6                	call   *%rsi
+   141191313:	4c 89 ea             	mov    %r13,%rdx
+   141191316:	4c 89 e1             	mov    %r12,%rcx
+   141191319:	ff 15 e9 13 70 01    	call   *0x17013e9(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14119131f:	c6 43 30 00          	movb   $0x0,0x30(%rbx)
+   141191323:	48 8d 53 31          	lea    0x31(%rbx),%rdx
+   141191327:	4c 89 e1             	mov    %r12,%rcx
+   14119132a:	0f b7 44 24 2c       	movzwl 0x2c(%rsp),%eax
+   14119132f:	66 25 ff 7f          	and    $0x7fff,%ax
+   141191333:	66 89 43 2e          	mov    %ax,0x2e(%rbx)
+   141191337:	ff d6                	call   *%rsi
+   141191339:	80 7b 31 00          	cmpb   $0x0,0x31(%rbx)
+   14119133d:	75 04                	jne    141191343 <_ZN10AuBlipBoatlsER11QDataStream+0xb3>
+   14119133f:	c6 43 31 01          	movb   $0x1,0x31(%rbx)
+   141191343:	48 83 c4 38          	add    $0x38,%rsp
+   141191347:	5b                   	pop    %rbx
+   141191348:	5e                   	pop    %rsi
+   141191349:	41 5c                	pop    %r12
+   14119134b:	41 5d                	pop    %r13
+   14119134d:	c3                   	ret
+   14119134e:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN10AuBlipStarlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191350 <_ZN10AuBlipStarlsER11QDataStream>:
+   141191350:	41 56                	push   %r14
+   141191352:	41 55                	push   %r13
+   141191354:	41 54                	push   %r12
+   141191356:	57                   	push   %rdi
+   141191357:	56                   	push   %rsi
+   141191358:	53                   	push   %rbx
+   141191359:	48 83 ec 38          	sub    $0x38,%rsp
+   14119135d:	49 89 d4             	mov    %rdx,%r12
+   141191360:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   141191365:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   14119136a:	48 89 cb             	mov    %rcx,%rbx
+   14119136d:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141191371:	e8 4a 40 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141191376:	48 8b 35 7b 13 70 01 	mov    0x170137b(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14119137d:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141191382:	4c 89 e1             	mov    %r12,%rcx
+   141191385:	ff d6                	call   *%rsi
+   141191387:	4c 89 f2             	mov    %r14,%rdx
+   14119138a:	4c 89 e1             	mov    %r12,%rcx
+   14119138d:	ff d6                	call   *%rsi
+   14119138f:	4c 89 ea             	mov    %r13,%rdx
+   141191392:	4c 89 e1             	mov    %r12,%rcx
+   141191395:	ff d6                	call   *%rsi
+   141191397:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   14119139d:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411913a1:	4c 89 f2             	mov    %r14,%rdx
+   1411913a4:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411913aa:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411913b0:	48 8b 3d 29 13 70 01 	mov    0x1701329(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411913b7:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   1411913bc:	4c 89 e1             	mov    %r12,%rcx
+   1411913bf:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411913c2:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411913c5:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   1411913c9:	ff d7                	call   *%rdi
+   1411913cb:	4c 89 ea             	mov    %r13,%rdx
+   1411913ce:	4c 89 e1             	mov    %r12,%rcx
+   1411913d1:	ff d7                	call   *%rdi
+   1411913d3:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1411913d7:	4c 89 e1             	mov    %r12,%rcx
+   1411913da:	ff d6                	call   *%rsi
+   1411913dc:	0f b6 54 24 28       	movzbl 0x28(%rsp),%edx
+   1411913e1:	89 d0                	mov    %edx,%eax
+   1411913e3:	83 e2 0f             	and    $0xf,%edx
+   1411913e6:	c0 e8 07             	shr    $0x7,%al
+   1411913e9:	88 43 28             	mov    %al,0x28(%rbx)
+   1411913ec:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   1411913f1:	89 c1                	mov    %eax,%ecx
+   1411913f3:	83 e0 0f             	and    $0xf,%eax
+   1411913f6:	c0 e9 04             	shr    $0x4,%cl
+   1411913f9:	88 4b 32             	mov    %cl,0x32(%rbx)
+   1411913fc:	31 c9                	xor    %ecx,%ecx
+   1411913fe:	88 d1                	mov    %dl,%cl
+   141191400:	88 c5                	mov    %al,%ch
+   141191402:	66 89 4b 30          	mov    %cx,0x30(%rbx)
+   141191406:	48 83 c4 38          	add    $0x38,%rsp
+   14119140a:	5b                   	pop    %rbx
+   14119140b:	5e                   	pop    %rsi
+   14119140c:	5f                   	pop    %rdi
+   14119140d:	41 5c                	pop    %r12
+   14119140f:	41 5d                	pop    %r13
+   141191411:	41 5e                	pop    %r14
+   141191413:	c3                   	ret
+   141191414:	90                   	nop
+   141191415:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14119141c:	00 00 00 00
+
+$ objdump -d --disassemble=_ZN13AuBlipVehiclelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191420 <_ZN13AuBlipVehiclelsER11QDataStream>:
+   141191420:	41 55                	push   %r13
+   141191422:	41 54                	push   %r12
+   141191424:	56                   	push   %rsi
+   141191425:	53                   	push   %rbx
+   141191426:	48 83 ec 38          	sub    $0x38,%rsp
+   14119142a:	48 89 cb             	mov    %rcx,%rbx
+   14119142d:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141191432:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141191436:	49 89 d4             	mov    %rdx,%r12
+   141191439:	e8 82 3f 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14119143e:	48 8b 35 b3 12 70 01 	mov    0x17012b3(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191445:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   14119144a:	4c 89 e1             	mov    %r12,%rcx
+   14119144d:	ff d6                	call   *%rsi
+   14119144f:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141191454:	4c 89 e1             	mov    %r12,%rcx
+   141191457:	ff d6                	call   *%rsi
+   141191459:	4c 89 ea             	mov    %r13,%rdx
+   14119145c:	4c 89 e1             	mov    %r12,%rcx
+   14119145f:	ff d6                	call   *%rsi
+   141191461:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191467:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14119146b:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119146f:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141191475:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   14119147b:	4c 89 e1             	mov    %r12,%rcx
+   14119147e:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141191483:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141191486:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141191489:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   14119148d:	ff 15 6d 12 70 01    	call   *0x170126d(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141191493:	48 8b 35 46 12 70 01 	mov    0x1701246(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14119149a:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   14119149e:	4c 89 e1             	mov    %r12,%rcx
+   1411914a1:	ff d6                	call   *%rsi
+   1411914a3:	4c 89 ea             	mov    %r13,%rdx
+   1411914a6:	4c 89 e1             	mov    %r12,%rcx
+   1411914a9:	ff 15 59 12 70 01    	call   *0x1701259(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1411914af:	c6 43 30 00          	movb   $0x0,0x30(%rbx)
+   1411914b3:	48 8d 53 31          	lea    0x31(%rbx),%rdx
+   1411914b7:	4c 89 e1             	mov    %r12,%rcx
+   1411914ba:	0f b7 44 24 2c       	movzwl 0x2c(%rsp),%eax
+   1411914bf:	66 25 ff 7f          	and    $0x7fff,%ax
+   1411914c3:	66 89 43 2e          	mov    %ax,0x2e(%rbx)
+   1411914c7:	ff d6                	call   *%rsi
+   1411914c9:	80 7b 31 00          	cmpb   $0x0,0x31(%rbx)
+   1411914cd:	75 04                	jne    1411914d3 <_ZN13AuBlipVehiclelsER11QDataStream+0xb3>
+   1411914cf:	c6 43 31 01          	movb   $0x1,0x31(%rbx)
+   1411914d3:	48 83 c4 38          	add    $0x38,%rsp
+   1411914d7:	5b                   	pop    %rbx
+   1411914d8:	5e                   	pop    %rsi
+   1411914d9:	41 5c                	pop    %r12
+   1411914db:	41 5d                	pop    %r13
+   1411914dd:	c3                   	ret
+   1411914de:	66 90                	xchg   %ax,%ax
+
+$ objdump -d --disassemble=_ZN13AuBlipMissilelsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411914e0 <_ZN13AuBlipMissilelsER11QDataStream>:
+   1411914e0:	41 54                	push   %r12
+   1411914e2:	56                   	push   %rsi
+   1411914e3:	53                   	push   %rbx
+   1411914e4:	48 83 ec 30          	sub    $0x30,%rsp
+   1411914e8:	49 89 d4             	mov    %rdx,%r12
+   1411914eb:	48 89 cb             	mov    %rcx,%rbx
+   1411914ee:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   1411914f2:	e8 c9 3e 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1411914f7:	48 8b 35 fa 11 70 01 	mov    0x17011fa(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411914fe:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141191503:	4c 89 e1             	mov    %r12,%rcx
+   141191506:	ff d6                	call   *%rsi
+   141191508:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14119150d:	4c 89 e1             	mov    %r12,%rcx
+   141191510:	ff d6                	call   *%rsi
+   141191512:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141191517:	4c 89 e1             	mov    %r12,%rcx
+   14119151a:	ff d6                	call   *%rsi
+   14119151c:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191522:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141191526:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14119152a:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141191530:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141191536:	4c 89 e1             	mov    %r12,%rcx
+   141191539:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   14119153e:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141191541:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141191544:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141191548:	ff 15 b2 11 70 01    	call   *0x17011b2(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14119154e:	48 8b 35 8b 11 70 01 	mov    0x170118b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141191555:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141191559:	4c 89 e1             	mov    %r12,%rcx
+   14119155c:	ff d6                	call   *%rsi
+   14119155e:	48 8d 53 2e          	lea    0x2e(%rbx),%rdx
+   141191562:	4c 89 e1             	mov    %r12,%rcx
+   141191565:	ff 15 9d 11 70 01    	call   *0x170119d(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14119156b:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   14119156f:	4c 89 e1             	mov    %r12,%rcx
+   141191572:	ff d6                	call   *%rsi
+   141191574:	48 8d 53 31          	lea    0x31(%rbx),%rdx
+   141191578:	4c 89 e1             	mov    %r12,%rcx
+   14119157b:	ff d6                	call   *%rsi
+   14119157d:	48 8d 53 32          	lea    0x32(%rbx),%rdx
+   141191581:	4c 89 e1             	mov    %r12,%rcx
+   141191584:	ff d6                	call   *%rsi
+   141191586:	80 7b 32 00          	cmpb   $0x0,0x32(%rbx)
+   14119158a:	75 04                	jne    141191590 <_ZN13AuBlipMissilelsER11QDataStream+0xb0>
+   14119158c:	c6 43 32 01          	movb   $0x1,0x32(%rbx)
+   141191590:	48 83 c4 30          	add    $0x30,%rsp
+   141191594:	5b                   	pop    %rbx
+   141191595:	5e                   	pop    %rsi
+   141191596:	41 5c                	pop    %r12
+   141191598:	c3                   	ret
+   141191599:	90                   	nop
+   14119159a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+$ objdump -d --disassemble=_ZN8AuBlipBdlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191d10 <_ZN8AuBlipBdlsER11QDataStream>:
+   141191d10:	41 55                	push   %r13
+   141191d12:	41 54                	push   %r12
+   141191d14:	55                   	push   %rbp
+   141191d15:	57                   	push   %rdi
+   141191d16:	56                   	push   %rsi
+   141191d17:	53                   	push   %rbx
+   141191d18:	48 83 ec 38          	sub    $0x38,%rsp
+   141191d1c:	49 89 d4             	mov    %rdx,%r12
+   141191d1f:	48 89 cb             	mov    %rcx,%rbx
+   141191d22:	4c 8d 6c 24 2c       	lea    0x2c(%rsp),%r13
+   141191d27:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141191d2b:	e8 90 36 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141191d30:	48 8b 2d c1 09 70 01 	mov    0x17009c1(%rip),%rbp        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191d37:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141191d3c:	4c 89 e1             	mov    %r12,%rcx
+   141191d3f:	ff d5                	call   *%rbp
+   141191d41:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141191d46:	4c 89 e1             	mov    %r12,%rcx
+   141191d49:	ff d5                	call   *%rbp
+   141191d4b:	4c 89 ea             	mov    %r13,%rdx
+   141191d4e:	4c 89 e1             	mov    %r12,%rcx
+   141191d51:	ff d5                	call   *%rbp
+   141191d53:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191d59:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141191d5d:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141191d61:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141191d67:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141191d6d:	48 8b 35 8c 09 70 01 	mov    0x170098c(%rip),%rsi        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141191d74:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141191d79:	4c 89 e1             	mov    %r12,%rcx
+   141191d7c:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141191d7f:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141191d82:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141191d86:	ff d6                	call   *%rsi
+   141191d88:	48 8b 3d 51 09 70 01 	mov    0x1700951(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141191d8f:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141191d93:	4c 89 e1             	mov    %r12,%rcx
+   141191d96:	ff d7                	call   *%rdi
+   141191d98:	4c 89 ea             	mov    %r13,%rdx
+   141191d9b:	4c 89 e1             	mov    %r12,%rcx
+   141191d9e:	ff d7                	call   *%rdi
+   141191da0:	0f b6 44 24 2c       	movzbl 0x2c(%rsp),%eax
+   141191da5:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   141191da9:	4c 89 e1             	mov    %r12,%rcx
+   141191dac:	83 e0 01             	and    $0x1,%eax
+   141191daf:	88 43 35             	mov    %al,0x35(%rbx)
+   141191db2:	ff d6                	call   *%rsi
+   141191db4:	48 8d 53 34          	lea    0x34(%rbx),%rdx
+   141191db8:	4c 89 e1             	mov    %r12,%rcx
+   141191dbb:	ff d7                	call   *%rdi
+   141191dbd:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   141191dc1:	4c 89 e1             	mov    %r12,%rcx
+   141191dc4:	ff d6                	call   *%rsi
+   141191dc6:	f6 44 24 2c 02       	testb  $0x2,0x2c(%rsp)
+   141191dcb:	75 33                	jne    141191e00 <_ZN8AuBlipBdlsER11QDataStream+0xf0>
+   141191dcd:	48 8d 53 48          	lea    0x48(%rbx),%rdx
+   141191dd1:	4c 89 e1             	mov    %r12,%rcx
+   141191dd4:	ff d5                	call   *%rbp
+   141191dd6:	48 8d 53 4c          	lea    0x4c(%rbx),%rdx
+   141191dda:	4c 89 e1             	mov    %r12,%rcx
+   141191ddd:	ff d7                	call   *%rdi
+   141191ddf:	80 7b 4c 00          	cmpb   $0x0,0x4c(%rbx)
+   141191de3:	75 04                	jne    141191de9 <_ZN8AuBlipBdlsER11QDataStream+0xd9>
+   141191de5:	c6 43 4c 01          	movb   $0x1,0x4c(%rbx)
+   141191de9:	48 8d 53 50          	lea    0x50(%rbx),%rdx
+   141191ded:	4c 89 e1             	mov    %r12,%rcx
+   141191df0:	ff d6                	call   *%rsi
+   141191df2:	90                   	nop
+   141191df3:	48 83 c4 38          	add    $0x38,%rsp
+   141191df7:	5b                   	pop    %rbx
+   141191df8:	5e                   	pop    %rsi
+   141191df9:	5f                   	pop    %rdi
+   141191dfa:	5d                   	pop    %rbp
+   141191dfb:	41 5c                	pop    %r12
+   141191dfd:	41 5d                	pop    %r13
+   141191dff:	c3                   	ret
+   141191e00:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   141191e04:	4c 89 e1             	mov    %r12,%rcx
+   141191e07:	ff 15 03 16 70 01    	call   *0x1701603(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141191e0d:	eb be                	jmp    141191dcd <_ZN8AuBlipBdlsER11QDataStream+0xbd>
+   141191e0f:	90                   	nop
+
+$ objdump -d --disassemble=_ZN16AuBlipSpacecraftlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>:
+   141191e10:	41 56                	push   %r14
+   141191e12:	41 55                	push   %r13
+   141191e14:	41 54                	push   %r12
+   141191e16:	55                   	push   %rbp
+   141191e17:	57                   	push   %rdi
+   141191e18:	56                   	push   %rsi
+   141191e19:	53                   	push   %rbx
+   141191e1a:	48 83 ec 30          	sub    $0x30,%rsp
+   141191e1e:	49 89 d4             	mov    %rdx,%r12
+   141191e21:	48 89 cb             	mov    %rcx,%rbx
+   141191e24:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141191e28:	e8 93 35 4a 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141191e2d:	48 8b 3d c4 08 70 01 	mov    0x17008c4(%rip),%rdi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191e34:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   141191e39:	4c 89 e1             	mov    %r12,%rcx
+   141191e3c:	ff d7                	call   *%rdi
+   141191e3e:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141191e43:	4c 89 e1             	mov    %r12,%rcx
+   141191e46:	ff d7                	call   *%rdi
+   141191e48:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   141191e4d:	4c 89 e1             	mov    %r12,%rcx
+   141191e50:	ff d7                	call   *%rdi
+   141191e52:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   141191e58:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   141191e5c:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   141191e60:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   141191e66:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   141191e6c:	48 8b 35 8d 08 70 01 	mov    0x170088d(%rip),%rsi        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   141191e73:	f2 0f 11 4b 20       	movsd  %xmm1,0x20(%rbx)
+   141191e78:	4c 89 e1             	mov    %r12,%rcx
+   141191e7b:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   141191e7e:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   141191e81:	0f 11 43 10          	movups %xmm0,0x10(%rbx)
+   141191e85:	ff d6                	call   *%rsi
+   141191e87:	4c 8b 2d 52 08 70 01 	mov    0x1700852(%rip),%r13        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141191e8e:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   141191e92:	4c 89 e1             	mov    %r12,%rcx
+   141191e95:	41 ff d5             	call   *%r13
+   141191e98:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   141191e9c:	4c 89 e1             	mov    %r12,%rcx
+   141191e9f:	ff d6                	call   *%rsi
+   141191ea1:	4c 8b 35 68 15 70 01 	mov    0x1701568(%rip),%r14        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141191ea8:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   141191eac:	4c 89 e1             	mov    %r12,%rcx
+   141191eaf:	41 ff d6             	call   *%r14
+   141191eb2:	48 8b 2d 2f 08 70 01 	mov    0x170082f(%rip),%rbp        # 1428926e8 <__imp__ZN11QDataStreamrsERb>
+   141191eb9:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   141191ebd:	4c 89 e1             	mov    %r12,%rcx
+   141191ec0:	ff d5                	call   *%rbp
+   141191ec2:	48 8d 53 41          	lea    0x41(%rbx),%rdx
+   141191ec6:	4c 89 e1             	mov    %r12,%rcx
+   141191ec9:	ff d5                	call   *%rbp
+   141191ecb:	48 8d 53 42          	lea    0x42(%rbx),%rdx
+   141191ecf:	4c 89 e1             	mov    %r12,%rcx
+   141191ed2:	ff d5                	call   *%rbp
+   141191ed4:	48 8d 53 44          	lea    0x44(%rbx),%rdx
+   141191ed8:	4c 89 e1             	mov    %r12,%rcx
+   141191edb:	ff d6                	call   *%rsi
+   141191edd:	48 8d 53 48          	lea    0x48(%rbx),%rdx
+   141191ee1:	4c 89 e1             	mov    %r12,%rcx
+   141191ee4:	41 ff d6             	call   *%r14
+   141191ee7:	48 8d 53 50          	lea    0x50(%rbx),%rdx
+   141191eeb:	4c 89 e1             	mov    %r12,%rcx
+   141191eee:	ff d7                	call   *%rdi
+   141191ef0:	48 8d 53 54          	lea    0x54(%rbx),%rdx
+   141191ef4:	4c 89 e1             	mov    %r12,%rcx
+   141191ef7:	41 ff d5             	call   *%r13
+   141191efa:	80 7b 54 00          	cmpb   $0x0,0x54(%rbx)
+   141191efe:	75 04                	jne    141191f04 <_ZN16AuBlipSpacecraftlsER11QDataStream+0xf4>
+   141191f00:	c6 43 54 01          	movb   $0x1,0x54(%rbx)
+   141191f04:	48 8d 53 58          	lea    0x58(%rbx),%rdx
+   141191f08:	4c 89 e1             	mov    %r12,%rcx
+   141191f0b:	e8 30 61 4b 00       	call   141648040 <_ZrsR11QDataStreamR7AuPoint>
+   141191f10:	48 8d 53 70          	lea    0x70(%rbx),%rdx
+   141191f14:	4c 89 e1             	mov    %r12,%rcx
+   141191f17:	48 89 f0             	mov    %rsi,%rax
+   141191f1a:	48 83 c4 30          	add    $0x30,%rsp
+   141191f1e:	5b                   	pop    %rbx
+   141191f1f:	5e                   	pop    %rsi
+   141191f20:	5f                   	pop    %rdi
+   141191f21:	5d                   	pop    %rbp
+   141191f22:	41 5c                	pop    %r12
+   141191f24:	41 5d                	pop    %r13
+   141191f26:	41 5e                	pop    %r14
+   141191f28:	48 ff e0             	rex.W jmp *%rax
+   141191f2b:	90                   	nop
+   141191f2c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+$ objdump -d --disassemble=_ZN24AuBlipSpacecraftShieldedlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191f30 <_ZN24AuBlipSpacecraftShieldedlsER11QDataStream>:
+   141191f30:	41 54                	push   %r12
+   141191f32:	53                   	push   %rbx
+   141191f33:	48 83 ec 28          	sub    $0x28,%rsp
+   141191f37:	48 89 cb             	mov    %rcx,%rbx
+   141191f3a:	49 89 d4             	mov    %rdx,%r12
+   141191f3d:	e8 ce fe ff ff       	call   141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141191f42:	48 8d 53 74          	lea    0x74(%rbx),%rdx
+   141191f46:	4c 89 e1             	mov    %r12,%rcx
+   141191f49:	48 83 c4 28          	add    $0x28,%rsp
+   141191f4d:	5b                   	pop    %rbx
+   141191f4e:	41 5c                	pop    %r12
+   141191f50:	48 ff 25 a1 07 70 01 	rex.W jmp *0x17007a1(%rip)        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191f57:	90                   	nop
+   141191f58:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   141191f5f:	00
+
+$ objdump -d --disassemble=_ZN21AuBlipStationShieldedlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191f60 <_ZN21AuBlipStationShieldedlsER11QDataStream>:
+   141191f60:	41 54                	push   %r12
+   141191f62:	53                   	push   %rbx
+   141191f63:	48 83 ec 28          	sub    $0x28,%rsp
+   141191f67:	48 89 cb             	mov    %rcx,%rbx
+   141191f6a:	49 89 d4             	mov    %rdx,%r12
+   141191f6d:	e8 9e fe ff ff       	call   141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141191f72:	48 8d 53 74          	lea    0x74(%rbx),%rdx
+   141191f76:	4c 89 e1             	mov    %r12,%rcx
+   141191f79:	48 83 c4 28          	add    $0x28,%rsp
+   141191f7d:	5b                   	pop    %rbx
+   141191f7e:	41 5c                	pop    %r12
+   141191f80:	48 ff 25 71 07 70 01 	rex.W jmp *0x1700771(%rip)        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191f87:	90                   	nop
+   141191f88:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   141191f8f:	00
+
+$ objdump -d --disassemble=_ZN23AuBlipSpaceshipShieldedlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191f90 <_ZN23AuBlipSpaceshipShieldedlsER11QDataStream>:
+   141191f90:	41 54                	push   %r12
+   141191f92:	53                   	push   %rbx
+   141191f93:	48 83 ec 28          	sub    $0x28,%rsp
+   141191f97:	48 89 cb             	mov    %rcx,%rbx
+   141191f9a:	49 89 d4             	mov    %rdx,%r12
+   141191f9d:	e8 6e fe ff ff       	call   141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141191fa2:	48 8d 53 74          	lea    0x74(%rbx),%rdx
+   141191fa6:	4c 89 e1             	mov    %r12,%rcx
+   141191fa9:	48 83 c4 28          	add    $0x28,%rsp
+   141191fad:	5b                   	pop    %rbx
+   141191fae:	41 5c                	pop    %r12
+   141191fb0:	48 ff 25 41 07 70 01 	rex.W jmp *0x1700741(%rip)        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191fb7:	90                   	nop
+   141191fb8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   141191fbf:	00
+
+$ objdump -d --disassemble=_ZN22AuBlipStarshipShieldedlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191fc0 <_ZN22AuBlipStarshipShieldedlsER11QDataStream>:
+   141191fc0:	41 54                	push   %r12
+   141191fc2:	53                   	push   %rbx
+   141191fc3:	48 83 ec 28          	sub    $0x28,%rsp
+   141191fc7:	48 89 cb             	mov    %rcx,%rbx
+   141191fca:	49 89 d4             	mov    %rdx,%r12
+   141191fcd:	e8 3e fe ff ff       	call   141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141191fd2:	48 8d 53 74          	lea    0x74(%rbx),%rdx
+   141191fd6:	4c 89 e1             	mov    %r12,%rcx
+   141191fd9:	48 83 c4 28          	add    $0x28,%rsp
+   141191fdd:	5b                   	pop    %rbx
+   141191fde:	41 5c                	pop    %r12
+   141191fe0:	48 ff 25 11 07 70 01 	rex.W jmp *0x1700711(%rip)        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141191fe7:	90                   	nop
+   141191fe8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   141191fef:	00
+
+$ objdump -d --disassemble=_ZN13AuBlipStationlsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141191ff0 <_ZN13AuBlipStationlsER11QDataStream>:
+   141191ff0:	e9 1b fe ff ff       	jmp    141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141191ff5:	90                   	nop
+   141191ff6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   141191ffd:	00 00 00
+
+$ objdump -d --disassemble=_ZN15AuBlipSpaceshiplsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141192000 <_ZN15AuBlipSpaceshiplsER11QDataStream>:
+   141192000:	e9 0b fe ff ff       	jmp    141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141192005:	90                   	nop
+   141192006:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14119200d:	00 00 00
+
+$ objdump -d --disassemble=_ZN14AuBlipStarshiplsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141192010 <_ZN14AuBlipStarshiplsER11QDataStream>:
+   141192010:	e9 fb fd ff ff       	jmp    141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141192015:	90                   	nop
+   141192016:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14119201d:	00 00 00
+
+$ objdump -d --disassemble=_ZN22AuBlipSpacecraftHidinglsER11QDataStream reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141192020 <_ZN22AuBlipSpacecraftHidinglsER11QDataStream>:
+   141192020:	e9 eb fd ff ff       	jmp    141191e10 <_ZN16AuBlipSpacecraftlsER11QDataStream>
+   141192025:	90                   	nop
+   141192026:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14119202d:	00 00 00
+
+$ objdump -d --start-address=0x141648040 --stop-address=0x141648076 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141648040 <_ZrsR11QDataStreamR7AuPoint>:
+   141648040:	41 54                	push   %r12
+   141648042:	56                   	push   %rsi
+   141648043:	53                   	push   %rbx
+   141648044:	48 83 ec 20          	sub    $0x20,%rsp
+   141648048:	48 8b 35 a1 a6 24 01 	mov    0x124a6a1(%rip),%rsi        # 1428926f0 <__imp__ZN11QDataStreamrsERd>
+   14164804f:	49 89 cc             	mov    %rcx,%r12
+   141648052:	48 89 d3             	mov    %rdx,%rbx
+   141648055:	ff d6                	call   *%rsi
+   141648057:	48 8d 53 08          	lea    0x8(%rbx),%rdx
+   14164805b:	4c 89 e1             	mov    %r12,%rcx
+   14164805e:	ff d6                	call   *%rsi
+   141648060:	48 8d 53 10          	lea    0x10(%rbx),%rdx
+   141648064:	4c 89 e1             	mov    %r12,%rcx
+   141648067:	ff d6                	call   *%rsi
+   141648069:	4c 89 e0             	mov    %r12,%rax
+   14164806c:	48 83 c4 20          	add    $0x20,%rsp
+   141648070:	5b                   	pop    %rbx
+   141648071:	5e                   	pop    %rsi
+   141648072:	41 5c                	pop    %r12
+   141648074:	c3                   	ret
+   141648075:	66                   	data16
+
+$ objdump -d --start-address=0x3956b5590 --stop-address=0x3956b560d reference/openshores-full/Qt5Core.dll
+
+reference/openshores-full/Qt5Core.dll:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000003956b5590 <.text+0x264590>:
+   3956b5590:	41 54                	push   %r12
+   3956b5592:	53                   	push   %rbx
+   3956b5593:	48 83 ec 38          	sub    $0x38,%rsp
+   3956b5597:	49 89 cc             	mov    %rcx,%r12
+   3956b559a:	48 8b 49 08          	mov    0x8(%rcx),%rcx
+   3956b559e:	48 89 d3             	mov    %rdx,%rbx
+   3956b55a1:	48 85 c9             	test   %rcx,%rcx
+   3956b55a4:	74 3e                	je     0x3956b55e4
+   3956b55a6:	41 8b 54 24 1c       	mov    0x1c(%r12),%edx
+   3956b55ab:	85 d2                	test   %edx,%edx
+   3956b55ad:	74 0e                	je     0x3956b55bd
+   3956b55af:	e8 8c db ec ff       	call   0x395583140
+   3956b55b4:	84 c0                	test   %al,%al
+   3956b55b6:	75 2c                	jne    0x3956b55e4
+   3956b55b8:	49 8b 4c 24 08       	mov    0x8(%r12),%rcx
+   3956b55bd:	48 8d 54 24 2f       	lea    0x2f(%rsp),%rdx
+   3956b55c2:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+   3956b55c8:	e8 a3 ca ec ff       	call   0x395582070
+   3956b55cd:	83 f8 01             	cmp    $0x1,%eax
+   3956b55d0:	74 26                	je     0x3956b55f8
+   3956b55d2:	41 8b 44 24 1c       	mov    0x1c(%r12),%eax
+   3956b55d7:	85 c0                	test   %eax,%eax
+   3956b55d9:	75 09                	jne    0x3956b55e4
+   3956b55db:	41 c7 44 24 1c 01 00 	movl   $0x1,0x1c(%r12)
+   3956b55e2:	00 00
+   3956b55e4:	31 c0                	xor    %eax,%eax
+   3956b55e6:	88 03                	mov    %al,(%rbx)
+   3956b55e8:	4c 89 e0             	mov    %r12,%rax
+   3956b55eb:	48 83 c4 38          	add    $0x38,%rsp
+   3956b55ef:	5b                   	pop    %rbx
+   3956b55f0:	41 5c                	pop    %r12
+   3956b55f2:	c3                   	ret
+   3956b55f3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   3956b55f8:	80 7c 24 2f 00       	cmpb   $0x0,0x2f(%rsp)
+   3956b55fd:	0f 95 c0             	setne  %al
+   3956b5600:	88 03                	mov    %al,(%rbx)
+   3956b5602:	4c 89 e0             	mov    %r12,%rax
+   3956b5605:	48 83 c4 38          	add    $0x38,%rsp
+   3956b5609:	5b                   	pop    %rbx
+   3956b560a:	41 5c                	pop    %r12
+   3956b560c:	c3                   	ret

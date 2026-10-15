@@ -1,6 +1,28 @@
-//! Minimal sensor blips are not full +158 bodies. See native-sensor-blips.md.
+//! Distinct full (+158) and minimal (+190) sensor blip wire representations.
+//! See docs/native-sensor-blips.md for evidence and receive-stage boundaries.
 use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::io;
+mod full;
+pub use full::{
+    NativeBlipBd, NativeBlipCreature, NativeBlipCreatureSuffix, NativeBlipEmpireFields,
+    NativeBlipFullBody, NativeBlipSpacecraft, NativeSensorBlipFull,
+};
+
+fn read_float(input: &mut QtReader<'_>, encoding: FloatEncoding) -> io::Result<f32> {
+    match encoding {
+        FloatEncoding::DoublePrecision => input.read_f64().map(|value| value as f32),
+        FloatEncoding::TypeWidths | FloatEncoding::SinglePrecision => input.read_f32(),
+    }
+}
+
+fn read_prefix(input: &mut QtReader<'_>, encoding: FloatEncoding) -> io::Result<(u32, [f64; 3])> {
+    let id = input.read_u32()?;
+    let mut position = [0.; 3];
+    for value in &mut position {
+        *value = f64::from(read_float(input, encoding)?);
+    }
+    Ok((id, position))
+}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeSensorBlipMin {
@@ -40,14 +62,7 @@ impl NativeSensorBlipMin {
             return Ok(None);
         }
         let mut record = QtReader::new(input.remaining_bytes());
-        let id_08 = record.read_u32()?;
-        let mut position_10 = [0.; 3];
-        for value in &mut position_10 {
-            *value = f64::from(match encoding {
-                FloatEncoding::DoublePrecision => record.read_f64()? as f32,
-                FloatEncoding::TypeWidths | FloatEncoding::SinglePrecision => record.read_f32()?,
-            });
-        }
+        let (id_08, position_10) = read_prefix(&mut record, encoding)?;
         let body = match kind {
             2 => {
                 let field_2c = record.read_u8()?;
