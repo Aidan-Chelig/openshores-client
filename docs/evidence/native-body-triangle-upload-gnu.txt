@@ -1,0 +1,2634 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001413a0240 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj>:
+   1413a0240:	41 57                	push   %r15
+   1413a0242:	41 56                	push   %r14
+   1413a0244:	41 55                	push   %r13
+   1413a0246:	41 54                	push   %r12
+   1413a0248:	55                   	push   %rbp
+   1413a0249:	57                   	push   %rdi
+   1413a024a:	56                   	push   %rsi
+   1413a024b:	53                   	push   %rbx
+   1413a024c:	48 81 ec c8 05 00 00 	sub    $0x5c8,%rsp
+   1413a0253:	0f 29 b4 24 20 05 00 	movaps %xmm6,0x520(%rsp)
+   1413a025a:	00 
+   1413a025b:	0f 29 bc 24 30 05 00 	movaps %xmm7,0x530(%rsp)
+   1413a0262:	00 
+   1413a0263:	44 0f 29 84 24 40 05 	movaps %xmm8,0x540(%rsp)
+   1413a026a:	00 00 
+   1413a026c:	44 0f 29 8c 24 50 05 	movaps %xmm9,0x550(%rsp)
+   1413a0273:	00 00 
+   1413a0275:	44 0f 29 94 24 60 05 	movaps %xmm10,0x560(%rsp)
+   1413a027c:	00 00 
+   1413a027e:	44 0f 29 9c 24 70 05 	movaps %xmm11,0x570(%rsp)
+   1413a0285:	00 00 
+   1413a0287:	44 0f 29 a4 24 80 05 	movaps %xmm12,0x580(%rsp)
+   1413a028e:	00 00 
+   1413a0290:	44 0f 29 ac 24 90 05 	movaps %xmm13,0x590(%rsp)
+   1413a0297:	00 00 
+   1413a0299:	44 0f 29 b4 24 a0 05 	movaps %xmm14,0x5a0(%rsp)
+   1413a02a0:	00 00 
+   1413a02a2:	44 0f 29 bc 24 b0 05 	movaps %xmm15,0x5b0(%rsp)
+   1413a02a9:	00 00 
+   1413a02ab:	48 8b 05 f6 22 4f 01 	mov    0x14f22f6(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1413a02b2:	8b b4 24 30 06 00 00 	mov    0x630(%rsp),%esi
+   1413a02b9:	44 8b b4 24 38 06 00 	mov    0x638(%rsp),%r14d
+   1413a02c0:	00 
+   1413a02c1:	48 89 84 24 48 02 00 	mov    %rax,0x248(%rsp)
+   1413a02c8:	00 
+   1413a02c9:	8d 46 ff             	lea    -0x1(%rsi),%eax
+   1413a02cc:	48 89 cb             	mov    %rcx,%rbx
+   1413a02cf:	4c 89 c7             	mov    %r8,%rdi
+   1413a02d2:	48 89 94 24 c8 01 00 	mov    %rdx,0x1c8(%rsp)
+   1413a02d9:	00 
+   1413a02da:	89 74 24 74          	mov    %esi,0x74(%rsp)
+   1413a02de:	44 88 8c 24 3f 02 00 	mov    %r9b,0x23f(%rsp)
+   1413a02e5:	00 
+   1413a02e6:	89 84 24 d0 01 00 00 	mov    %eax,0x1d0(%rsp)
+   1413a02ed:	83 f8 01             	cmp    $0x1,%eax
+   1413a02f0:	0f 86 2a 03 00 00    	jbe    1413a0620 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x3e0>
+   1413a02f6:	48 8b 81 28 01 00 00 	mov    0x128(%rcx),%rax
+   1413a02fd:	48 8b 70 10          	mov    0x10(%rax),%rsi
+   1413a0301:	48 01 c6             	add    %rax,%rsi
+   1413a0304:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1413a0308:	48 8d 14 80          	lea    (%rax,%rax,4),%rdx
+   1413a030c:	48 8d 04 90          	lea    (%rax,%rdx,4),%rax
+   1413a0310:	48 c1 e0 03          	shl    $0x3,%rax
+   1413a0314:	0f 84 fb 02 00 00    	je     1413a0615 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x3d5>
+   1413a031a:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1413a031e:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a0322:	31 ed                	xor    %ebp,%ebp
+   1413a0324:	4c 8d a4 24 00 04 00 	lea    0x400(%rsp),%r12
+   1413a032b:	00 
+   1413a032c:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a0333:	00 
+   1413a0334:	e9 20 01 00 00       	jmp    1413a0459 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x219>
+   1413a0339:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1413a0340:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
+   1413a0344:	f2 44 0f 5e d8       	divsd  %xmm0,%xmm11
+   1413a0349:	66 0f 28 d9          	movapd %xmm1,%xmm3
+   1413a034d:	f2 41 0f 59 d8       	mulsd  %xmm8,%xmm3
+   1413a0352:	f2 41 0f 59 c9       	mulsd  %xmm9,%xmm1
+   1413a0357:	f2 0f 5e d0          	divsd  %xmm0,%xmm2
+   1413a035b:	66 41 0f 28 c2       	movapd %xmm10,%xmm0
+   1413a0360:	66 0f 28 e2          	movapd %xmm2,%xmm4
+   1413a0364:	48 89 da             	mov    %rbx,%rdx
+   1413a0367:	4c 89 e1             	mov    %r12,%rcx
+   1413a036a:	f2 41 0f 59 c3       	mulsd  %xmm11,%xmm0
+   1413a036f:	f2 41 0f 59 e2       	mulsd  %xmm10,%xmm4
+   1413a0374:	f2 41 0f 59 d1       	mulsd  %xmm9,%xmm2
+   1413a0379:	f2 45 0f 59 c3       	mulsd  %xmm11,%xmm8
+   1413a037e:	f2 0f 5c c1          	subsd  %xmm1,%xmm0
+   1413a0382:	f2 0f 5c dc          	subsd  %xmm4,%xmm3
+   1413a0386:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   1413a038b:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
+   1413a0391:	e8 2a 9f 55 00       	call   1418fa2c0 <_ZNK11AuMatrix4x413ProjectVectorEddd>
+   1413a0396:	f2 44 0f 10 84 24 00 	movsd  0x400(%rsp),%xmm8
+   1413a039d:	04 00 00 
+   1413a03a0:	66 44 0f 10 8c 24 08 	movupd 0x408(%rsp),%xmm9
+   1413a03a7:	04 00 00 
+   1413a03aa:	f2 0f 10 94 24 08 04 	movsd  0x408(%rsp),%xmm2
+   1413a03b1:	00 00 
+   1413a03b3:	66 41 0f 28 c0       	movapd %xmm8,%xmm0
+   1413a03b8:	66 41 0f 28 e9       	movapd %xmm9,%xmm5
+   1413a03bd:	f2 41 0f 59 c0       	mulsd  %xmm8,%xmm0
+   1413a03c2:	66 0f 15 ed          	unpckhpd %xmm5,%xmm5
+   1413a03c6:	f2 0f 59 d2          	mulsd  %xmm2,%xmm2
+   1413a03ca:	66 0f 28 cd          	movapd %xmm5,%xmm1
+   1413a03ce:	f2 0f 59 cd          	mulsd  %xmm5,%xmm1
+   1413a03d2:	f2 0f 58 c2          	addsd  %xmm2,%xmm0
+   1413a03d6:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+   1413a03da:	66 0f 2e f8          	ucomisd %xmm0,%xmm7
+   1413a03de:	0f 87 9f 2b 00 00    	ja     1413a2f83 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2d43>
+   1413a03e4:	f2 0f 51 c0          	sqrtsd %xmm0,%xmm0
+   1413a03e8:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a03ec:	66 0f 28 d0          	movapd %xmm0,%xmm2
+   1413a03f0:	66 0f 14 d2          	unpcklpd %xmm2,%xmm2
+   1413a03f4:	7a 0a                	jp     1413a0400 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1c0>
+   1413a03f6:	f2 0f 10 0d 52 ee f2 	movsd  0xf2ee52(%rip),%xmm1        # 1422cf250 <.rdata+0x430>
+   1413a03fd:	00 
+   1413a03fe:	74 17                	je     1413a0417 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1d7>
+   1413a0400:	66 44 0f 5e ca       	divpd  %xmm2,%xmm9
+   1413a0405:	66 41 0f 28 c8       	movapd %xmm8,%xmm1
+   1413a040a:	f2 0f 5e c8          	divsd  %xmm0,%xmm1
+   1413a040e:	44 0f 11 8c 24 08 04 	movups %xmm9,0x408(%rsp)
+   1413a0415:	00 00 
+   1413a0417:	f2 0f 11 8c 24 00 04 	movsd  %xmm1,0x400(%rsp)
+   1413a041e:	00 00 
+   1413a0420:	4c 89 e2             	mov    %r12,%rdx
+   1413a0423:	4c 89 e9             	mov    %r13,%rcx
+   1413a0426:	e8 d5 98 4b 00       	call   141859d00 <_ZN7QVectorI7AuPointE6appendERKS0_>
+   1413a042b:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a0432:	48 81 c6 a8 00 00 00 	add    $0xa8,%rsi
+   1413a0439:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   1413a043d:	48 01 c2             	add    %rax,%rdx
+   1413a0440:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1413a0444:	48 8d 0c 80          	lea    (%rax,%rax,4),%rcx
+   1413a0448:	48 8d 04 88          	lea    (%rax,%rcx,4),%rax
+   1413a044c:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1413a0450:	48 39 c6             	cmp    %rax,%rsi
+   1413a0453:	0f 84 bc 01 00 00    	je     1413a0615 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x3d5>
+   1413a0459:	0f b7 16             	movzwl (%rsi),%edx
+   1413a045c:	66 45 0f ef f6       	pxor   %xmm14,%xmm14
+   1413a0461:	66 45 0f ef c9       	pxor   %xmm9,%xmm9
+   1413a0466:	48 8b 83 30 01 00 00 	mov    0x130(%rbx),%rax
+   1413a046d:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1413a0472:	48 8d 0c 52          	lea    (%rdx,%rdx,2),%rcx
+   1413a0476:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a047a:	48 8d 14 8a          	lea    (%rdx,%rcx,4),%rdx
+   1413a047e:	48 8d 0c 90          	lea    (%rax,%rdx,4),%rcx
+   1413a0482:	0f b7 56 02          	movzwl 0x2(%rsi),%edx
+   1413a0486:	f3 44 0f 10 69 28    	movss  0x28(%rcx),%xmm13
+   1413a048c:	f3 44 0f 10 59 2c    	movss  0x2c(%rcx),%xmm11
+   1413a0492:	4c 8d 04 52          	lea    (%rdx,%rdx,2),%r8
+   1413a0496:	f3 44 0f 10 61 30    	movss  0x30(%rcx),%xmm12
+   1413a049c:	4a 8d 14 82          	lea    (%rdx,%r8,4),%rdx
+   1413a04a0:	4c 8d 04 90          	lea    (%rax,%rdx,4),%r8
+   1413a04a4:	0f b7 56 04          	movzwl 0x4(%rsi),%edx
+   1413a04a8:	f3 41 0f 10 48 28    	movss  0x28(%r8),%xmm1
+   1413a04ae:	f3 41 0f 10 40 2c    	movss  0x2c(%r8),%xmm0
+   1413a04b4:	4c 8d 0c 52          	lea    (%rdx,%rdx,2),%r9
+   1413a04b8:	f3 41 0f 10 50 30    	movss  0x30(%r8),%xmm2
+   1413a04be:	f3 41 0f 5c cd       	subss  %xmm13,%xmm1
+   1413a04c3:	f3 41 0f 5c c3       	subss  %xmm11,%xmm0
+   1413a04c8:	4a 8d 14 8a          	lea    (%rdx,%r9,4),%rdx
+   1413a04cc:	f3 41 0f 5c d4       	subss  %xmm12,%xmm2
+   1413a04d1:	4c 8d 3c 90          	lea    (%rax,%rdx,4),%r15
+   1413a04d5:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1413a04d8:	f3 44 0f 5a f1       	cvtss2sd %xmm1,%xmm14
+   1413a04dd:	f3 44 0f 5a c8       	cvtss2sd %xmm0,%xmm9
+   1413a04e2:	f3 44 0f 5a c2       	cvtss2sd %xmm2,%xmm8
+   1413a04e7:	0f 9b c2             	setnp  %dl
+   1413a04ea:	0f 45 d5             	cmovne %ebp,%edx
+   1413a04ed:	0f 2e c6             	ucomiss %xmm6,%xmm0
+   1413a04f0:	0f 9b c0             	setnp  %al
+   1413a04f3:	0f 45 c5             	cmovne %ebp,%eax
+   1413a04f6:	84 c2                	test   %al,%dl
+   1413a04f8:	74 11                	je     1413a050b <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2cb>
+   1413a04fa:	0f 2e d6             	ucomiss %xmm6,%xmm2
+   1413a04fd:	0f 9b c0             	setnp  %al
+   1413a0500:	0f 45 c5             	cmovne %ebp,%eax
+   1413a0503:	84 c0                	test   %al,%al
+   1413a0505:	0f 85 7b 22 00 00    	jne    1413a2786 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2546>
+   1413a050b:	66 41 0f 28 c9       	movapd %xmm9,%xmm1
+   1413a0510:	66 41 0f 28 c6       	movapd %xmm14,%xmm0
+   1413a0515:	f2 41 0f 59 c9       	mulsd  %xmm9,%xmm1
+   1413a051a:	f2 41 0f 59 c6       	mulsd  %xmm14,%xmm0
+   1413a051f:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+   1413a0523:	66 41 0f 28 c8       	movapd %xmm8,%xmm1
+   1413a0528:	f2 41 0f 59 c8       	mulsd  %xmm8,%xmm1
+   1413a052d:	f2 0f 58 c1          	addsd  %xmm1,%xmm0
+   1413a0531:	66 0f 2e f8          	ucomisd %xmm0,%xmm7
+   1413a0535:	0f 87 3e 2a 00 00    	ja     1413a2f79 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2d39>
+   1413a053b:	f2 0f 51 c0          	sqrtsd %xmm0,%xmm0
+   1413a053f:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a0543:	7a 0b                	jp     1413a0550 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x310>
+   1413a0545:	f2 44 0f 10 15 02 ed 	movsd  0xf2ed02(%rip),%xmm10        # 1422cf250 <.rdata+0x430>
+   1413a054c:	f2 00 
+   1413a054e:	74 14                	je     1413a0564 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x324>
+   1413a0550:	f2 44 0f 5e c8       	divsd  %xmm0,%xmm9
+   1413a0555:	66 45 0f 28 d6       	movapd %xmm14,%xmm10
+   1413a055a:	f2 44 0f 5e d0       	divsd  %xmm0,%xmm10
+   1413a055f:	f2 44 0f 5e c0       	divsd  %xmm0,%xmm8
+   1413a0564:	f3 41 0f 10 5f 2c    	movss  0x2c(%r15),%xmm3
+   1413a056a:	f3 41 0f 10 47 28    	movss  0x28(%r15),%xmm0
+   1413a0570:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a0574:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a0578:	f3 41 0f 10 67 30    	movss  0x30(%r15),%xmm4
+   1413a057e:	f3 41 0f 5c db       	subss  %xmm11,%xmm3
+   1413a0583:	f3 41 0f 5c c5       	subss  %xmm13,%xmm0
+   1413a0588:	66 45 0f ef db       	pxor   %xmm11,%xmm11
+   1413a058d:	f3 41 0f 5c e4       	subss  %xmm12,%xmm4
+   1413a0592:	0f 2e de             	ucomiss %xmm6,%xmm3
+   1413a0595:	f3 0f 5a c8          	cvtss2sd %xmm0,%xmm1
+   1413a0599:	f3 44 0f 5a db       	cvtss2sd %xmm3,%xmm11
+   1413a059e:	f3 0f 5a d4          	cvtss2sd %xmm4,%xmm2
+   1413a05a2:	0f 9b c2             	setnp  %dl
+   1413a05a5:	0f 45 d5             	cmovne %ebp,%edx
+   1413a05a8:	0f 2e c6             	ucomiss %xmm6,%xmm0
+   1413a05ab:	0f 9b c0             	setnp  %al
+   1413a05ae:	0f 45 c5             	cmovne %ebp,%eax
+   1413a05b1:	84 c2                	test   %al,%dl
+   1413a05b3:	74 11                	je     1413a05c6 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x386>
+   1413a05b5:	0f 2e e6             	ucomiss %xmm6,%xmm4
+   1413a05b8:	0f 9b c0             	setnp  %al
+   1413a05bb:	0f 45 c5             	cmovne %ebp,%eax
+   1413a05be:	84 c0                	test   %al,%al
+   1413a05c0:	0f 85 dd 21 00 00    	jne    1413a27a3 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2563>
+   1413a05c6:	66 41 0f 28 db       	movapd %xmm11,%xmm3
+   1413a05cb:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   1413a05cf:	f2 41 0f 59 db       	mulsd  %xmm11,%xmm3
+   1413a05d4:	f2 0f 59 c1          	mulsd  %xmm1,%xmm0
+   1413a05d8:	f2 0f 58 c3          	addsd  %xmm3,%xmm0
+   1413a05dc:	66 0f 28 da          	movapd %xmm2,%xmm3
+   1413a05e0:	f2 0f 59 da          	mulsd  %xmm2,%xmm3
+   1413a05e4:	f2 0f 58 c3          	addsd  %xmm3,%xmm0
+   1413a05e8:	66 0f 2e f8          	ucomisd %xmm0,%xmm7
+   1413a05ec:	0f 87 65 29 00 00    	ja     1413a2f57 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2d17>
+   1413a05f2:	f2 0f 51 c0          	sqrtsd %xmm0,%xmm0
+   1413a05f6:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a05fa:	0f 8a 40 fd ff ff    	jp     1413a0340 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x100>
+   1413a0600:	0f 85 3a fd ff ff    	jne    1413a0340 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x100>
+   1413a0606:	66 41 0f 28 c9       	movapd %xmm9,%xmm1
+   1413a060b:	66 41 0f 28 d8       	movapd %xmm8,%xmm3
+   1413a0610:	e9 46 fd ff ff       	jmp    1413a035b <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x11b>
+   1413a0615:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a061a:	0f 84 9d 21 00 00    	je     1413a27bd <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x257d>
+   1413a0620:	44 8b 44 24 74       	mov    0x74(%rsp),%r8d
+   1413a0625:	48 89 fa             	mov    %rdi,%rdx
+   1413a0628:	48 89 d9             	mov    %rbx,%rcx
+   1413a062b:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a0632:	00 
+   1413a0633:	e8 48 55 ff ff       	call   141395b80 <_ZNK15Au3dsGLSLObject12TransparencyERK22Au3dsGLSLMaterialArray10MODEL_TYPE>
+   1413a0638:	48 8b 84 24 c8 01 00 	mov    0x1c8(%rsp),%rax
+   1413a063f:	00 
+   1413a0640:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a0644:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a064b:	00 
+   1413a064c:	f3 0f 5a c8          	cvtss2sd %xmm0,%xmm1
+   1413a0650:	44 89 70 08          	mov    %r14d,0x8(%rax)
+   1413a0654:	48 83 c0 0c          	add    $0xc,%rax
+   1413a0658:	48 89 84 24 30 02 00 	mov    %rax,0x230(%rsp)
+   1413a065f:	00 
+   1413a0660:	48 89 c1             	mov    %rax,%rcx
+   1413a0663:	ff 15 4f 33 4f 01    	call   *0x14f334f(%rip)        # 1428939b8 <__imp__ZN6QColor9setAlphaFEd>
+   1413a0669:	48 8d 83 28 01 00 00 	lea    0x128(%rbx),%rax
+   1413a0670:	48 89 c1             	mov    %rax,%rcx
+   1413a0673:	48 89 84 24 c0 01 00 	mov    %rax,0x1c0(%rsp)
+   1413a067a:	00 
+   1413a067b:	e8 80 35 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a0680:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   1413a0687:	00 00 
+   1413a0689:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a0690:	c7 84 24 e8 01 00 00 	movl   $0x0,0x1e8(%rsp)
+   1413a0697:	00 00 00 00 
+   1413a069b:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a069f:	48 8d 70 50          	lea    0x50(%rax),%rsi
+   1413a06a3:	48 83 e8 80          	sub    $0xffffffffffffff80,%rax
+   1413a06a7:	48 89 b4 24 a0 00 00 	mov    %rsi,0xa0(%rsp)
+   1413a06ae:	00 
+   1413a06af:	48 89 84 24 d8 01 00 	mov    %rax,0x1d8(%rsp)
+   1413a06b6:	00 
+   1413a06b7:	e9 dc 05 00 00       	jmp    1413a0c98 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xa58>
+   1413a06bc:	0f 1f 40 00          	nopl   0x0(%rax)
+   1413a06c0:	48 8b ab 18 01 00 00 	mov    0x118(%rbx),%rbp
+   1413a06c7:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a06cc:	8b 45 04             	mov    0x4(%rbp),%eax
+   1413a06cf:	0f 84 e3 14 00 00    	je     1413a1bb8 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1978>
+   1413a06d5:	85 c0                	test   %eax,%eax
+   1413a06d7:	0f 8e d3 15 00 00    	jle    1413a1cb0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1a70>
+   1413a06dd:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a06e1:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a06e8:	f2 0f 5a bc 24 58 02 	cvtsd2ss 0x258(%rsp),%xmm7
+   1413a06ef:	00 00 
+   1413a06f1:	f3 0f 11 bc 24 10 01 	movss  %xmm7,0x110(%rsp)
+   1413a06f8:	00 00 
+   1413a06fa:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a06fe:	f2 0f 5a bc 24 50 02 	cvtsd2ss 0x250(%rsp),%xmm7
+   1413a0705:	00 00 
+   1413a0707:	f3 0f 11 bc 24 00 01 	movss  %xmm7,0x100(%rsp)
+   1413a070e:	00 00 
+   1413a0710:	0f 84 b9 15 00 00    	je     1413a1ccf <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1a8f>
+   1413a0716:	f2 0f 10 ac 24 e0 02 	movsd  0x2e0(%rsp),%xmm5
+   1413a071d:	00 00 
+   1413a071f:	f2 0f 10 bc 24 e8 02 	movsd  0x2e8(%rsp),%xmm7
+   1413a0726:	00 00 
+   1413a0728:	f2 0f 11 ac 24 a8 01 	movsd  %xmm5,0x1a8(%rsp)
+   1413a072f:	00 00 
+   1413a0731:	f2 0f 10 ac 24 f0 02 	movsd  0x2f0(%rsp),%xmm5
+   1413a0738:	00 00 
+   1413a073a:	f2 0f 11 bc 24 70 01 	movsd  %xmm7,0x170(%rsp)
+   1413a0741:	00 00 
+   1413a0743:	f2 0f 11 ac 24 f0 00 	movsd  %xmm5,0xf0(%rsp)
+   1413a074a:	00 00 
+   1413a074c:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+   1413a0751:	44 0f b6 ab a9 03 00 	movzbl 0x3a9(%rbx),%r13d
+   1413a0758:	00 
+   1413a0759:	f3 0f 10 78 1c       	movss  0x1c(%rax),%xmm7
+   1413a075e:	0f 10 40 10          	movups 0x10(%rax),%xmm0
+   1413a0762:	f3 44 0f 10 40 14    	movss  0x14(%rax),%xmm8
+   1413a0768:	f3 0f 11 bc 24 c0 00 	movss  %xmm7,0xc0(%rsp)
+   1413a076f:	00 00 
+   1413a0771:	f3 0f 10 78 18       	movss  0x18(%rax),%xmm7
+   1413a0776:	f3 0f 11 84 24 b0 00 	movss  %xmm0,0xb0(%rsp)
+   1413a077d:	00 00 
+   1413a077f:	f3 0f 11 bc 24 a8 00 	movss  %xmm7,0xa8(%rsp)
+   1413a0786:	00 00 
+   1413a0788:	45 84 ed             	test   %r13b,%r13b
+   1413a078b:	0f 85 cf 15 00 00    	jne    1413a1d60 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1b20>
+   1413a0791:	f3 0f 11 b4 24 c0 00 	movss  %xmm6,0xc0(%rsp)
+   1413a0798:	00 00 
+   1413a079a:	44 0f 28 c6          	movaps %xmm6,%xmm8
+   1413a079e:	45 31 f6             	xor    %r14d,%r14d
+   1413a07a1:	c7 84 24 30 01 00 00 	movl   $0x0,0x130(%rsp)
+   1413a07a8:	00 00 00 00 
+   1413a07ac:	c7 84 24 40 01 00 00 	movl   $0x0,0x140(%rsp)
+   1413a07b3:	00 00 00 00 
+   1413a07b7:	c7 84 24 28 01 00 00 	movl   $0x0,0x128(%rsp)
+   1413a07be:	00 00 00 00 
+   1413a07c2:	f3 0f 11 b4 24 a8 00 	movss  %xmm6,0xa8(%rsp)
+   1413a07c9:	00 00 
+   1413a07cb:	f3 0f 11 b4 24 b0 00 	movss  %xmm6,0xb0(%rsp)
+   1413a07d2:	00 00 
+   1413a07d4:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+   1413a07d9:	0f 29 84 24 10 04 00 	movaps %xmm0,0x410(%rsp)
+   1413a07e0:	00 
+   1413a07e1:	4c 89 e2             	mov    %r12,%rdx
+   1413a07e4:	48 89 d9             	mov    %rbx,%rcx
+   1413a07e7:	0f 10 78 20          	movups 0x20(%rax),%xmm7
+   1413a07eb:	0f 29 bc 24 20 04 00 	movaps %xmm7,0x420(%rsp)
+   1413a07f2:	00 
+   1413a07f3:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+   1413a07f8:	0f 29 7c 24 60       	movaps %xmm7,0x60(%rsp)
+   1413a07fd:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a0801:	f3 0f 11 84 24 30 04 	movss  %xmm0,0x430(%rsp)
+   1413a0808:	00 00 
+   1413a080a:	e8 61 55 ff ff       	call   141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>
+   1413a080f:	b8 01 00 00 00       	mov    $0x1,%eax
+   1413a0814:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a0818:	0f 9a c2             	setp   %dl
+   1413a081b:	0f 44 c2             	cmove  %edx,%eax
+   1413a081e:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a0823:	41 89 c7             	mov    %eax,%r15d
+   1413a0826:	0f 84 c4 12 00 00    	je     1413a1af0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x18b0>
+   1413a082c:	8b 55 04             	mov    0x4(%rbp),%edx
+   1413a082f:	85 d2                	test   %edx,%edx
+   1413a0831:	0f 8e e1 13 00 00    	jle    1413a1c18 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x19d8>
+   1413a0837:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413a083b:	66 0f ef ed          	pxor   %xmm5,%xmm5
+   1413a083f:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a0846:	f2 0f 5a 9c 24 78 02 	cvtsd2ss 0x278(%rsp),%xmm3
+   1413a084d:	00 00 
+   1413a084f:	f2 0f 5a ac 24 70 02 	cvtsd2ss 0x270(%rsp),%xmm5
+   1413a0856:	00 00 
+   1413a0858:	f3 0f 11 9c 24 b0 01 	movss  %xmm3,0x1b0(%rsp)
+   1413a085f:	00 00 
+   1413a0861:	f3 0f 11 ac 24 a0 01 	movss  %xmm5,0x1a0(%rsp)
+   1413a0868:	00 00 
+   1413a086a:	0f 84 c7 13 00 00    	je     1413a1c37 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x19f7>
+   1413a0870:	f2 0f 10 a4 24 28 03 	movsd  0x328(%rsp),%xmm4
+   1413a0877:	00 00 
+   1413a0879:	f2 0f 10 ac 24 30 03 	movsd  0x330(%rsp),%xmm5
+   1413a0880:	00 00 
+   1413a0882:	f2 44 0f 10 94 24 20 	movsd  0x320(%rsp),%xmm10
+   1413a0889:	03 00 00 
+   1413a088c:	f2 0f 11 64 24 60    	movsd  %xmm4,0x60(%rsp)
+   1413a0892:	f2 0f 11 ac 24 80 01 	movsd  %xmm5,0x180(%rsp)
+   1413a0899:	00 00 
+   1413a089b:	45 84 ed             	test   %r13b,%r13b
+   1413a089e:	0f 85 a2 12 00 00    	jne    1413a1b46 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1906>
+   1413a08a4:	c7 84 24 60 01 00 00 	movl   $0x0,0x160(%rsp)
+   1413a08ab:	00 00 00 00 
+   1413a08af:	c7 84 24 50 01 00 00 	movl   $0x0,0x150(%rsp)
+   1413a08b6:	00 00 00 00 
+   1413a08ba:	c7 84 24 48 01 00 00 	movl   $0x0,0x148(%rsp)
+   1413a08c1:	00 00 00 00 
+   1413a08c5:	c7 84 24 20 01 00 00 	movl   $0x0,0x120(%rsp)
+   1413a08cc:	00 00 00 00 
+   1413a08d0:	f3 0f 11 b4 24 bc 01 	movss  %xmm6,0x1bc(%rsp)
+   1413a08d7:	00 00 
+   1413a08d9:	f3 0f 11 b4 24 90 01 	movss  %xmm6,0x190(%rsp)
+   1413a08e0:	00 00 
+   1413a08e2:	f3 0f 11 b4 24 b8 01 	movss  %xmm6,0x1b8(%rsp)
+   1413a08e9:	00 00 
+   1413a08eb:	f3 0f 11 b4 24 b4 01 	movss  %xmm6,0x1b4(%rsp)
+   1413a08f2:	00 00 
+   1413a08f4:	48 8b 94 24 80 00 00 	mov    0x80(%rsp),%rdx
+   1413a08fb:	00 
+   1413a08fc:	4c 89 e1             	mov    %r12,%rcx
+   1413a08ff:	e8 8c 91 3e 00       	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a0904:	4c 89 e2             	mov    %r12,%rdx
+   1413a0907:	48 89 d9             	mov    %rbx,%rcx
+   1413a090a:	e8 61 54 ff ff       	call   141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>
+   1413a090f:	b8 01 00 00 00       	mov    $0x1,%eax
+   1413a0914:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a0918:	0f 9a c2             	setp   %dl
+   1413a091b:	0f 44 c2             	cmove  %edx,%eax
+   1413a091e:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a0923:	89 c5                	mov    %eax,%ebp
+   1413a0925:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a092c:	0f 84 0e 10 00 00    	je     1413a1940 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1700>
+   1413a0932:	8b 40 04             	mov    0x4(%rax),%eax
+   1413a0935:	44 0f 28 e6          	movaps %xmm6,%xmm12
+   1413a0939:	85 c0                	test   %eax,%eax
+   1413a093b:	7e 1c                	jle    1413a0959 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x719>
+   1413a093d:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1413a0941:	66 45 0f ef e4       	pxor   %xmm12,%xmm12
+   1413a0946:	f2 0f 5a b4 24 68 02 	cvtsd2ss 0x268(%rsp),%xmm6
+   1413a094d:	00 00 
+   1413a094f:	f2 44 0f 5a a4 24 60 	cvtsd2ss 0x260(%rsp),%xmm12
+   1413a0956:	02 00 00 
+   1413a0959:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a0960:	0f 84 ba 16 00 00    	je     1413a2020 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1de0>
+   1413a0966:	f2 44 0f 10 8c 24 00 	movsd  0x300(%rsp),%xmm9
+   1413a096d:	03 00 00 
+   1413a0970:	f2 0f 10 84 24 08 03 	movsd  0x308(%rsp),%xmm0
+   1413a0977:	00 00 
+   1413a0979:	f2 0f 10 8c 24 10 03 	movsd  0x310(%rsp),%xmm1
+   1413a0980:	00 00 
+   1413a0982:	66 44 0f 14 c8       	unpcklpd %xmm0,%xmm9
+   1413a0987:	44 0f 14 e6          	unpcklps %xmm6,%xmm12
+   1413a098b:	f2 0f 10 ac 24 d0 00 	movsd  0xd0(%rsp),%xmm5
+   1413a0992:	00 00 
+   1413a0994:	f2 0f 10 a4 24 a8 01 	movsd  0x1a8(%rsp),%xmm4
+   1413a099b:	00 00 
+   1413a099d:	f3 0f 10 84 24 90 01 	movss  0x190(%rsp),%xmm0
+   1413a09a4:	00 00 
+   1413a09a6:	66 44 0f 16 54 24 60 	movhpd 0x60(%rsp),%xmm10
+   1413a09ad:	66 0f 6e b4 24 48 01 	movd   0x148(%rsp),%xmm6
+   1413a09b4:	00 00 
+   1413a09b6:	66 44 0f 16 b4 24 d8 	movhpd 0xd8(%rsp),%xmm14
+   1413a09bd:	00 00 00 
+   1413a09c0:	66 0f 16 ac 24 c8 00 	movhpd 0xc8(%rsp),%xmm5
+   1413a09c7:	00 00 
+   1413a09c9:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+   1413a09ce:	66 0f 16 a4 24 70 01 	movhpd 0x170(%rsp),%xmm4
+   1413a09d5:	00 00 
+   1413a09d7:	f3 0f 10 94 24 b0 01 	movss  0x1b0(%rsp),%xmm2
+   1413a09de:	00 00 
+   1413a09e0:	f3 0f 10 9c 24 a0 01 	movss  0x1a0(%rsp),%xmm3
+   1413a09e7:	00 00 
+   1413a09e9:	0f 29 64 24 60       	movaps %xmm4,0x60(%rsp)
+   1413a09ee:	f3 0f 10 a4 24 b4 01 	movss  0x1b4(%rsp),%xmm4
+   1413a09f5:	00 00 
+   1413a09f7:	66 44 0f 16 bc 24 90 	movhpd 0x90(%rsp),%xmm15
+   1413a09fe:	00 00 00 
+   1413a0a01:	0f 29 ac 24 80 00 00 	movaps %xmm5,0x80(%rsp)
+   1413a0a08:	00 
+   1413a0a09:	f3 0f 10 ac 24 bc 01 	movss  0x1bc(%rsp),%xmm5
+   1413a0a10:	00 00 
+   1413a0a12:	0f 14 da             	unpcklps %xmm2,%xmm3
+   1413a0a15:	66 41 0f 6e d6       	movd   %r14d,%xmm2
+   1413a0a1a:	0f 14 c5             	unpcklps %xmm5,%xmm0
+   1413a0a1d:	66 48 0f 7e de       	movq   %xmm3,%rsi
+   1413a0a22:	f3 0f 10 ac 24 b8 01 	movss  0x1b8(%rsp),%xmm5
+   1413a0a29:	00 00 
+   1413a0a2b:	f3 0f 10 9c 24 c0 00 	movss  0xc0(%rsp),%xmm3
+   1413a0a32:	00 00 
+   1413a0a34:	0f 14 e5             	unpcklps %xmm5,%xmm4
+   1413a0a37:	66 0f 6e ac 24 60 01 	movd   0x160(%rsp),%xmm5
+   1413a0a3e:	00 00 
+   1413a0a40:	0f 16 e0             	movlhps %xmm0,%xmm4
+   1413a0a43:	66 0f 6e 84 24 50 01 	movd   0x150(%rsp),%xmm0
+   1413a0a4a:	00 00 
+   1413a0a4c:	66 0f 62 c5          	punpckldq %xmm5,%xmm0
+   1413a0a50:	66 0f 6e ac 24 20 01 	movd   0x120(%rsp),%xmm5
+   1413a0a57:	00 00 
+   1413a0a59:	66 0f 62 ee          	punpckldq %xmm6,%xmm5
+   1413a0a5d:	66 0f 6e b4 24 30 01 	movd   0x130(%rsp),%xmm6
+   1413a0a64:	00 00 
+   1413a0a66:	66 0f 6c e8          	punpcklqdq %xmm0,%xmm5
+   1413a0a6a:	f3 0f 10 84 24 a8 00 	movss  0xa8(%rsp),%xmm0
+   1413a0a71:	00 00 
+   1413a0a73:	0f 14 c3             	unpcklps %xmm3,%xmm0
+   1413a0a76:	f3 0f 10 9c 24 b0 00 	movss  0xb0(%rsp),%xmm3
+   1413a0a7d:	00 00 
+   1413a0a7f:	41 0f 14 d8          	unpcklps %xmm8,%xmm3
+   1413a0a83:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1413a0a88:	0f 16 d8             	movlhps %xmm0,%xmm3
+   1413a0a8b:	66 0f 6e 84 24 40 01 	movd   0x140(%rsp),%xmm0
+   1413a0a92:	00 00 
+   1413a0a94:	66 0f 62 c6          	punpckldq %xmm6,%xmm0
+   1413a0a98:	66 0f 6e b4 24 28 01 	movd   0x128(%rsp),%xmm6
+   1413a0a9f:	00 00 
+   1413a0aa1:	66 0f 62 f2          	punpckldq %xmm2,%xmm6
+   1413a0aa5:	f3 0f 10 94 24 00 01 	movss  0x100(%rsp),%xmm2
+   1413a0aac:	00 00 
+   1413a0aae:	66 0f 6c f0          	punpcklqdq %xmm0,%xmm6
+   1413a0ab2:	f3 0f 10 84 24 10 01 	movss  0x110(%rsp),%xmm0
+   1413a0ab9:	00 00 
+   1413a0abb:	0f 14 d0             	unpcklps %xmm0,%xmm2
+   1413a0abe:	0f 10 40 10          	movups 0x10(%rax),%xmm0
+   1413a0ac2:	66 49 0f 7e d6       	movq   %xmm2,%r14
+   1413a0ac7:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a0acb:	45 84 ed             	test   %r13b,%r13b
+   1413a0ace:	0f 85 7c 12 00 00    	jne    1413a1d50 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1b10>
+   1413a0ad4:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+   1413a0ad9:	0f 29 84 24 10 04 00 	movaps %xmm0,0x410(%rsp)
+   1413a0ae0:	00 
+   1413a0ae1:	4c 89 e2             	mov    %r12,%rdx
+   1413a0ae4:	48 89 d9             	mov    %rbx,%rcx
+   1413a0ae7:	0f 29 94 24 90 00 00 	movaps %xmm2,0x90(%rsp)
+   1413a0aee:	00 
+   1413a0aef:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a0af6:	00 
+   1413a0af7:	f2 0f 11 8c 24 a8 00 	movsd  %xmm1,0xa8(%rsp)
+   1413a0afe:	00 00 
+   1413a0b00:	0f 10 48 20          	movups 0x20(%rax),%xmm1
+   1413a0b04:	0f 29 8c 24 20 04 00 	movaps %xmm1,0x420(%rsp)
+   1413a0b0b:	00 
+   1413a0b0c:	f3 0f 10 40 30       	movss  0x30(%rax),%xmm0
+   1413a0b11:	0f 29 4c 24 50       	movaps %xmm1,0x50(%rsp)
+   1413a0b16:	f3 0f 11 84 24 30 04 	movss  %xmm0,0x430(%rsp)
+   1413a0b1d:	00 00 
+   1413a0b1f:	e8 4c 52 ff ff       	call   141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>
+   1413a0b24:	66 0f 28 4c 24 60    	movapd 0x60(%rsp),%xmm1
+   1413a0b2a:	0f 11 a4 24 ac 04 00 	movups %xmm4,0x4ac(%rsp)
+   1413a0b31:	00 
+   1413a0b32:	66 0f 28 a4 24 80 00 	movapd 0x80(%rsp),%xmm4
+   1413a0b39:	00 00 
+   1413a0b3b:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a0b3f:	ba 01 00 00 00       	mov    $0x1,%edx
+   1413a0b44:	4c 89 b4 24 18 04 00 	mov    %r14,0x418(%rsp)
+   1413a0b4b:	00 
+   1413a0b4c:	0f 29 8c 24 00 04 00 	movaps %xmm1,0x400(%rsp)
+   1413a0b53:	00 
+   1413a0b54:	f2 0f 10 8c 24 f0 00 	movsd  0xf0(%rsp),%xmm1
+   1413a0b5b:	00 00 
+   1413a0b5d:	44 88 bc 24 5c 04 00 	mov    %r15b,0x45c(%rsp)
+   1413a0b64:	00 
+   1413a0b65:	f2 0f 11 8c 24 10 04 	movsd  %xmm1,0x410(%rsp)
+   1413a0b6c:	00 00 
+   1413a0b6e:	0f 9a c0             	setp   %al
+   1413a0b71:	f2 0f 10 8c 24 80 01 	movsd  0x180(%rsp),%xmm1
+   1413a0b78:	00 00 
+   1413a0b7a:	0f 45 c2             	cmovne %edx,%eax
+   1413a0b7d:	4c 89 e2             	mov    %r12,%rdx
+   1413a0b80:	48 89 b4 24 78 04 00 	mov    %rsi,0x478(%rsp)
+   1413a0b87:	00 
+   1413a0b88:	f2 0f 11 8c 24 70 04 	movsd  %xmm1,0x470(%rsp)
+   1413a0b8f:	00 00 
+   1413a0b91:	f2 0f 10 8c 24 e0 00 	movsd  0xe0(%rsp),%xmm1
+   1413a0b98:	00 00 
+   1413a0b9a:	40 88 ac 24 bc 04 00 	mov    %bpl,0x4bc(%rsp)
+   1413a0ba1:	00 
+   1413a0ba2:	f2 0f 11 8c 24 90 04 	movsd  %xmm1,0x490(%rsp)
+   1413a0ba9:	00 00 
+   1413a0bab:	f2 0f 10 8c 24 a8 00 	movsd  0xa8(%rsp),%xmm1
+   1413a0bb2:	00 00 
+   1413a0bb4:	44 0f 29 bc 24 20 04 	movaps %xmm15,0x420(%rsp)
+   1413a0bbb:	00 00 
+   1413a0bbd:	f2 44 0f 11 ac 24 30 	movsd  %xmm13,0x430(%rsp)
+   1413a0bc4:	04 00 00 
+   1413a0bc7:	f3 44 0f 11 9c 24 38 	movss  %xmm11,0x438(%rsp)
+   1413a0bce:	04 00 00 
+   1413a0bd1:	0f 11 b4 24 3c 04 00 	movups %xmm6,0x43c(%rsp)
+   1413a0bd8:	00 
+   1413a0bd9:	0f 11 9c 24 4c 04 00 	movups %xmm3,0x44c(%rsp)
+   1413a0be0:	00 
+   1413a0be1:	44 0f 29 94 24 60 04 	movaps %xmm10,0x460(%rsp)
+   1413a0be8:	00 00 
+   1413a0bea:	44 0f 29 b4 24 80 04 	movaps %xmm14,0x480(%rsp)
+   1413a0bf1:	00 00 
+   1413a0bf3:	f3 44 0f 11 9c 24 98 	movss  %xmm11,0x498(%rsp)
+   1413a0bfa:	04 00 00 
+   1413a0bfd:	0f 11 ac 24 9c 04 00 	movups %xmm5,0x49c(%rsp)
+   1413a0c04:	00 
+   1413a0c05:	44 0f 29 8c 24 c0 04 	movaps %xmm9,0x4c0(%rsp)
+   1413a0c0c:	00 00 
+   1413a0c0e:	f2 0f 11 8c 24 d0 04 	movsd  %xmm1,0x4d0(%rsp)
+   1413a0c15:	00 00 
+   1413a0c17:	44 0f 13 a4 24 d8 04 	movlps %xmm12,0x4d8(%rsp)
+   1413a0c1e:	00 00 
+   1413a0c20:	0f 29 a4 24 e0 04 00 	movaps %xmm4,0x4e0(%rsp)
+   1413a0c27:	00 
+   1413a0c28:	f2 0f 10 a4 24 e8 00 	movsd  0xe8(%rsp),%xmm4
+   1413a0c2f:	00 00 
+   1413a0c31:	48 8b 8c 24 c8 01 00 	mov    0x1c8(%rsp),%rcx
+   1413a0c38:	00 
+   1413a0c39:	66 0f 6f 94 24 90 00 	movdqa 0x90(%rsp),%xmm2
+   1413a0c40:	00 00 
+   1413a0c42:	88 84 24 1c 05 00 00 	mov    %al,0x51c(%rsp)
+   1413a0c49:	f2 0f 11 a4 24 f0 04 	movsd  %xmm4,0x4f0(%rsp)
+   1413a0c50:	00 00 
+   1413a0c52:	f3 44 0f 11 9c 24 f8 	movss  %xmm11,0x4f8(%rsp)
+   1413a0c59:	04 00 00 
+   1413a0c5c:	0f 11 94 24 fc 04 00 	movups %xmm2,0x4fc(%rsp)
+   1413a0c63:	00 
+   1413a0c64:	44 0f 11 84 24 0c 05 	movups %xmm8,0x50c(%rsp)
+   1413a0c6b:	00 00 
+   1413a0c6d:	e8 9e 62 49 00       	call   141836f10 <_ZN5QListI9AuTriBodyE6appendERKS0_>
+   1413a0c72:	48 83 44 24 78 01    	addq   $0x1,0x78(%rsp)
+   1413a0c78:	48 81 84 24 a0 00 00 	addq   $0xa8,0xa0(%rsp)
+   1413a0c7f:	00 a8 00 00 00 
+   1413a0c84:	48 81 84 24 d8 01 00 	addq   $0xa8,0x1d8(%rsp)
+   1413a0c8b:	00 a8 00 00 00 
+   1413a0c90:	83 84 24 e8 01 00 00 	addl   $0x3,0x1e8(%rsp)
+   1413a0c97:	03 
+   1413a0c98:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   1413a0c9f:	00 
+   1413a0ca0:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a0ca7:	00 
+   1413a0ca8:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a0caf:	00 
+   1413a0cb0:	48 8d 70 b0          	lea    -0x50(%rax),%rsi
+   1413a0cb4:	e8 47 2f 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a0cb9:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a0cc0:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   1413a0cc4:	48 01 c2             	add    %rax,%rdx
+   1413a0cc7:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1413a0ccb:	48 8d 0c 80          	lea    (%rax,%rax,4),%rcx
+   1413a0ccf:	48 8d 04 88          	lea    (%rax,%rcx,4),%rax
+   1413a0cd3:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1413a0cd7:	48 39 c6             	cmp    %rax,%rsi
+   1413a0cda:	0f 84 50 16 00 00    	je     1413a2330 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x20f0>
+   1413a0ce0:	0f b7 16             	movzwl (%rsi),%edx
+   1413a0ce3:	44 0f b7 66 02       	movzwl 0x2(%rsi),%r12d
+   1413a0ce8:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413a0cec:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a0cf0:	48 8b 83 30 01 00 00 	mov    0x130(%rbx),%rax
+   1413a0cf7:	44 0f b7 76 04       	movzwl 0x4(%rsi),%r14d
+   1413a0cfc:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a0d00:	48 8d 0c 52          	lea    (%rdx,%rdx,2),%rcx
+   1413a0d04:	48 89 d5             	mov    %rdx,%rbp
+   1413a0d07:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a0d0b:	48 8d 14 8a          	lea    (%rdx,%rcx,4),%rdx
+   1413a0d0f:	4c 8d 1c 90          	lea    (%rax,%rdx,4),%r11
+   1413a0d13:	41 0f b7 d4          	movzwl %r12w,%edx
+   1413a0d17:	48 8d 0c 52          	lea    (%rdx,%rdx,2),%rcx
+   1413a0d1b:	f3 41 0f 5a 5b 2c    	cvtss2sd 0x2c(%r11),%xmm3
+   1413a0d21:	4c 89 5c 24 60       	mov    %r11,0x60(%rsp)
+   1413a0d26:	f3 41 0f 5a 53 28    	cvtss2sd 0x28(%r11),%xmm2
+   1413a0d2c:	48 8d 14 8a          	lea    (%rdx,%rcx,4),%rdx
+   1413a0d30:	f3 41 0f 5a 43 30    	cvtss2sd 0x30(%r11),%xmm0
+   1413a0d36:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
+   1413a0d3c:	4c 8d 3c 90          	lea    (%rax,%rdx,4),%r15
+   1413a0d40:	41 0f b7 d6          	movzwl %r14w,%edx
+   1413a0d44:	48 8d 0c 52          	lea    (%rdx,%rdx,2),%rcx
+   1413a0d48:	4c 89 7c 24 50       	mov    %r15,0x50(%rsp)
+   1413a0d4d:	48 8d 14 8a          	lea    (%rdx,%rcx,4),%rdx
+   1413a0d51:	48 8d 8c 24 e0 02 00 	lea    0x2e0(%rsp),%rcx
+   1413a0d58:	00 
+   1413a0d59:	4c 8d 2c 90          	lea    (%rax,%rdx,4),%r13
+   1413a0d5d:	48 89 da             	mov    %rbx,%rdx
+   1413a0d60:	48 89 8c 24 c0 00 00 	mov    %rcx,0xc0(%rsp)
+   1413a0d67:	00 
+   1413a0d68:	4c 89 ac 24 80 00 00 	mov    %r13,0x80(%rsp)
+   1413a0d6f:	00 
+   1413a0d70:	e8 eb c9 55 00       	call   1418fd760 <_ZNK11AuMatrix4x47ProjectEddd>
+   1413a0d75:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413a0d79:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a0d7d:	48 89 da             	mov    %rbx,%rdx
+   1413a0d80:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a0d84:	48 8d 8c 24 00 03 00 	lea    0x300(%rsp),%rcx
+   1413a0d8b:	00 
+   1413a0d8c:	f3 41 0f 5a 5f 2c    	cvtss2sd 0x2c(%r15),%xmm3
+   1413a0d92:	f3 41 0f 5a 57 28    	cvtss2sd 0x28(%r15),%xmm2
+   1413a0d98:	f3 41 0f 5a 47 30    	cvtss2sd 0x30(%r15),%xmm0
+   1413a0d9e:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
+   1413a0da4:	48 89 8c 24 e0 01 00 	mov    %rcx,0x1e0(%rsp)
+   1413a0dab:	00 
+   1413a0dac:	e8 af c9 55 00       	call   1418fd760 <_ZNK11AuMatrix4x47ProjectEddd>
+   1413a0db1:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413a0db5:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a0db9:	48 89 da             	mov    %rbx,%rdx
+   1413a0dbc:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a0dc0:	48 8d 8c 24 20 03 00 	lea    0x320(%rsp),%rcx
+   1413a0dc7:	00 
+   1413a0dc8:	f3 41 0f 5a 5d 2c    	cvtss2sd 0x2c(%r13),%xmm3
+   1413a0dce:	f3 41 0f 5a 55 28    	cvtss2sd 0x28(%r13),%xmm2
+   1413a0dd4:	f3 41 0f 5a 45 30    	cvtss2sd 0x30(%r13),%xmm0
+   1413a0dda:	f2 0f 11 44 24 20    	movsd  %xmm0,0x20(%rsp)
+   1413a0de0:	48 89 8c 24 20 01 00 	mov    %rcx,0x120(%rsp)
+   1413a0de7:	00 
+   1413a0de8:	e8 73 c9 55 00       	call   1418fd760 <_ZNK11AuMatrix4x47ProjectEddd>
+   1413a0ded:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a0df2:	0f 84 80 0b 00 00    	je     1413a1978 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1738>
+   1413a0df8:	83 bc 24 d0 01 00 00 	cmpl   $0x1,0x1d0(%rsp)
+   1413a0dff:	01 
+   1413a0e00:	0f 87 5a 19 00 00    	ja     1413a2760 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2520>
+   1413a0e06:	f2 0f 10 7e 58       	movsd  0x58(%rsi),%xmm7
+   1413a0e0b:	f2 0f 10 66 78       	movsd  0x78(%rsi),%xmm4
+   1413a0e10:	c7 84 24 d4 01 00 00 	movl   $0x0,0x1d4(%rsp)
+   1413a0e17:	00 00 00 00 
+   1413a0e1b:	f2 44 0f 10 7e 50    	movsd  0x50(%rsi),%xmm15
+   1413a0e21:	f2 44 0f 10 6e 60    	movsd  0x60(%rsi),%xmm13
+   1413a0e27:	c7 84 24 b0 01 00 00 	movl   $0x0,0x1b0(%rsp)
+   1413a0e2e:	00 00 00 00 
+   1413a0e32:	f2 0f 11 bc 24 90 00 	movsd  %xmm7,0x90(%rsp)
+   1413a0e39:	00 00 
+   1413a0e3b:	f2 0f 10 7e 68       	movsd  0x68(%rsi),%xmm7
+   1413a0e40:	f2 44 0f 10 b6 80 00 	movsd  0x80(%rsi),%xmm14
+   1413a0e47:	00 00 
+   1413a0e49:	f2 0f 11 a4 24 e8 00 	movsd  %xmm4,0xe8(%rsp)
+   1413a0e50:	00 00 
+   1413a0e52:	f2 0f 10 a6 90 00 00 	movsd  0x90(%rsi),%xmm4
+   1413a0e59:	00 
+   1413a0e5a:	f2 0f 11 bc 24 d0 00 	movsd  %xmm7,0xd0(%rsp)
+   1413a0e61:	00 00 
+   1413a0e63:	f2 0f 10 7e 70       	movsd  0x70(%rsi),%xmm7
+   1413a0e68:	c7 84 24 a8 00 00 00 	movl   $0x0,0xa8(%rsp)
+   1413a0e6f:	00 00 00 00 
+   1413a0e73:	f2 0f 11 bc 24 c8 00 	movsd  %xmm7,0xc8(%rsp)
+   1413a0e7a:	00 00 
+   1413a0e7c:	f2 0f 10 be 88 00 00 	movsd  0x88(%rsi),%xmm7
+   1413a0e83:	00 
+   1413a0e84:	f2 0f 11 a4 24 e0 00 	movsd  %xmm4,0xe0(%rsp)
+   1413a0e8b:	00 00 
+   1413a0e8d:	f2 0f 11 bc 24 d8 00 	movsd  %xmm7,0xd8(%rsp)
+   1413a0e94:	00 00 
+   1413a0e96:	48 8b 15 ab e3 f2 00 	mov    0xf2e3ab(%rip),%rdx        # 1422cf248 <.rdata+0x428>
+   1413a0e9d:	31 f6                	xor    %esi,%esi
+   1413a0e9f:	31 ed                	xor    %ebp,%ebp
+   1413a0ea1:	45 31 e4             	xor    %r12d,%r12d
+   1413a0ea4:	48 8b 05 15 e4 f2 00 	mov    0xf2e415(%rip),%rax        # 1422cf2c0 <.rdata+0x4a0>
+   1413a0eab:	45 31 ed             	xor    %r13d,%r13d
+   1413a0eae:	45 31 f6             	xor    %r14d,%r14d
+   1413a0eb1:	45 31 ff             	xor    %r15d,%r15d
+   1413a0eb4:	83 bc 24 d0 01 00 00 	cmpl   $0x1,0x1d0(%rsp)
+   1413a0ebb:	01 
+   1413a0ebc:	48 89 94 24 84 02 00 	mov    %rdx,0x284(%rsp)
+   1413a0ec3:	00 
+   1413a0ec4:	c7 84 24 80 02 00 00 	movl   $0x1,0x280(%rsp)
+   1413a0ecb:	01 00 00 00 
+   1413a0ecf:	66 89 b4 24 8c 02 00 	mov    %si,0x28c(%rsp)
+   1413a0ed6:	00 
+   1413a0ed7:	c7 84 24 90 02 00 00 	movl   $0x1,0x290(%rsp)
+   1413a0ede:	01 00 00 00 
+   1413a0ee2:	48 89 84 24 94 02 00 	mov    %rax,0x294(%rsp)
+   1413a0ee9:	00 
+   1413a0eea:	66 89 ac 24 9c 02 00 	mov    %bp,0x29c(%rsp)
+   1413a0ef1:	00 
+   1413a0ef2:	c7 84 24 a0 02 00 00 	movl   $0x1,0x2a0(%rsp)
+   1413a0ef9:	01 00 00 00 
+   1413a0efd:	48 c7 84 24 a4 02 00 	movq   $0x0,0x2a4(%rsp)
+   1413a0f04:	00 00 00 00 00 
+   1413a0f09:	66 44 89 a4 24 ac 02 	mov    %r12w,0x2ac(%rsp)
+   1413a0f10:	00 00 
+   1413a0f12:	c7 84 24 b0 02 00 00 	movl   $0x1,0x2b0(%rsp)
+   1413a0f19:	01 00 00 00 
+   1413a0f1d:	48 89 94 24 b4 02 00 	mov    %rdx,0x2b4(%rsp)
+   1413a0f24:	00 
+   1413a0f25:	66 44 89 ac 24 bc 02 	mov    %r13w,0x2bc(%rsp)
+   1413a0f2c:	00 00 
+   1413a0f2e:	c7 84 24 c0 02 00 00 	movl   $0x1,0x2c0(%rsp)
+   1413a0f35:	01 00 00 00 
+   1413a0f39:	48 89 84 24 c4 02 00 	mov    %rax,0x2c4(%rsp)
+   1413a0f40:	00 
+   1413a0f41:	66 44 89 b4 24 cc 02 	mov    %r14w,0x2cc(%rsp)
+   1413a0f48:	00 00 
+   1413a0f4a:	c7 84 24 d0 02 00 00 	movl   $0x1,0x2d0(%rsp)
+   1413a0f51:	01 00 00 00 
+   1413a0f55:	48 c7 84 24 d4 02 00 	movq   $0x0,0x2d4(%rsp)
+   1413a0f5c:	00 00 00 00 00 
+   1413a0f61:	66 44 89 bc 24 dc 02 	mov    %r15w,0x2dc(%rsp)
+   1413a0f68:	00 00 
+   1413a0f6a:	0f 86 20 10 00 00    	jbe    1413a1f90 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1d50>
+   1413a0f70:	48 8b 07             	mov    (%rdi),%rax
+   1413a0f73:	44 8b 50 04          	mov    0x4(%rax),%r10d
+   1413a0f77:	45 85 d2             	test   %r10d,%r10d
+   1413a0f7a:	0f 85 10 0e 00 00    	jne    1413a1d90 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1b50>
+   1413a0f80:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1413a0f84:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a0f89:	48 c7 84 24 50 02 00 	movq   $0x0,0x250(%rsp)
+   1413a0f90:	00 00 00 00 00 
+   1413a0f95:	48 c7 84 24 58 02 00 	movq   $0x0,0x258(%rsp)
+   1413a0f9c:	00 00 00 00 00 
+   1413a0fa1:	44 0f 28 de          	movaps %xmm6,%xmm11
+   1413a0fa5:	0f 28 fe             	movaps %xmm6,%xmm7
+   1413a0fa8:	48 c7 84 24 60 02 00 	movq   $0x0,0x260(%rsp)
+   1413a0faf:	00 00 00 00 00 
+   1413a0fb4:	48 c7 84 24 68 02 00 	movq   $0x0,0x268(%rsp)
+   1413a0fbb:	00 00 00 00 00 
+   1413a0fc0:	48 c7 84 24 70 02 00 	movq   $0x0,0x270(%rsp)
+   1413a0fc7:	00 00 00 00 00 
+   1413a0fcc:	48 c7 84 24 78 02 00 	movq   $0x0,0x278(%rsp)
+   1413a0fd3:	00 00 00 00 00 
+   1413a0fd8:	0f 84 e7 00 00 00    	je     1413a10c5 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xe85>
+   1413a0fde:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a0fe5:	44 8b 48 04          	mov    0x4(%rax),%r9d
+   1413a0fe9:	45 85 c9             	test   %r9d,%r9d
+   1413a0fec:	7e 68                	jle    1413a1056 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xe16>
+   1413a0fee:	48 8d 84 24 78 02 00 	lea    0x278(%rsp),%rax
+   1413a0ff5:	00 
+   1413a0ff6:	4c 8b 8c 24 80 00 00 	mov    0x80(%rsp),%r9
+   1413a0ffd:	00 
+   1413a0ffe:	4c 8b 44 24 50       	mov    0x50(%rsp),%r8
+   1413a1003:	48 89 d9             	mov    %rbx,%rcx
+   1413a1006:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   1413a100b:	48 8d 84 24 70 02 00 	lea    0x270(%rsp),%rax
+   1413a1012:	00 
+   1413a1013:	48 8b 54 24 60       	mov    0x60(%rsp),%rdx
+   1413a1018:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   1413a101d:	48 8d 84 24 68 02 00 	lea    0x268(%rsp),%rax
+   1413a1024:	00 
+   1413a1025:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   1413a102a:	48 8d 84 24 60 02 00 	lea    0x260(%rsp),%rax
+   1413a1031:	00 
+   1413a1032:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+   1413a1037:	48 8d 84 24 58 02 00 	lea    0x258(%rsp),%rax
+   1413a103e:	00 
+   1413a103f:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+   1413a1044:	48 8d 84 24 50 02 00 	lea    0x250(%rsp),%rax
+   1413a104b:	00 
+   1413a104c:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+   1413a1051:	e8 9a 4d ff ff       	call   141395df0 <_ZNK15Au3dsGLSLObject18ApplyTextureOffsetERK15Au3dsGLSLVertexS2_S2_RdS3_S3_S3_S3_S3_>
+   1413a1056:	80 bb 68 03 00 00 00 	cmpb   $0x0,0x368(%rbx)
+   1413a105d:	0f 84 35 08 00 00    	je     1413a1898 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1658>
+   1413a1063:	44 0f 2e de          	ucomiss %xmm6,%xmm11
+   1413a1067:	7a 0b                	jp     1413a1074 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xe34>
+   1413a1069:	75 09                	jne    1413a1074 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xe34>
+   1413a106b:	f3 44 0f 10 9b 48 03 	movss  0x348(%rbx),%xmm11
+   1413a1072:	00 00 
+   1413a1074:	48 8b b4 24 30 02 00 	mov    0x230(%rsp),%rsi
+   1413a107b:	00 
+   1413a107c:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a1080:	f3 44 0f 10 83 60 03 	movss  0x360(%rbx),%xmm8
+   1413a1087:	00 00 
+   1413a1089:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a1090:	00 
+   1413a1091:	f3 0f 5a bb 64 03 00 	cvtss2sd 0x364(%rbx),%xmm7
+   1413a1098:	00 
+   1413a1099:	66 0f 28 cf          	movapd %xmm7,%xmm1
+   1413a109d:	48 89 f1             	mov    %rsi,%rcx
+   1413a10a0:	ff 15 ea 28 4f 01    	call   *0x14f28ea(%rip)        # 142893990 <__imp__ZN6QColor7setRedFEd>
+   1413a10a6:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a10aa:	48 89 f1             	mov    %rsi,%rcx
+   1413a10ad:	f3 41 0f 5a c8       	cvtss2sd %xmm8,%xmm1
+   1413a10b2:	ff 15 08 29 4f 01    	call   *0x14f2908(%rip)        # 1428939c0 <__imp__ZN6QColor9setGreenFEd>
+   1413a10b8:	66 0f 28 cf          	movapd %xmm7,%xmm1
+   1413a10bc:	48 89 f1             	mov    %rsi,%rcx
+   1413a10bf:	ff 15 e3 28 4f 01    	call   *0x14f28e3(%rip)        # 1428939a8 <__imp__ZN6QColor8setBlueFEd>
+   1413a10c5:	4c 8d b3 08 01 00 00 	lea    0x108(%rbx),%r14
+   1413a10cc:	ba 08 00 00 00       	mov    $0x8,%edx
+   1413a10d1:	48 8d 0d ed e0 f2 00 	lea    0xf2e0ed(%rip),%rcx        # 1422cf1c5 <.rdata+0x3a5>
+   1413a10d8:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a10df:	00 
+   1413a10e0:	ff 15 a2 1a 4f 01    	call   *0x14f1aa2(%rip)        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   1413a10e6:	4c 8d a4 24 00 04 00 	lea    0x400(%rsp),%r12
+   1413a10ed:	00 
+   1413a10ee:	41 b9 01 00 00 00    	mov    $0x1,%r9d
+   1413a10f4:	45 31 c0             	xor    %r8d,%r8d
+   1413a10f7:	4c 89 f1             	mov    %r14,%rcx
+   1413a10fa:	48 89 84 24 00 04 00 	mov    %rax,0x400(%rsp)
+   1413a1101:	00 
+   1413a1102:	4c 89 e2             	mov    %r12,%rdx
+   1413a1105:	ff 15 fd 20 4f 01    	call   *0x14f20fd(%rip)        # 142893208 <__imp__ZNK7QString7indexOfERKS_iN2Qt15CaseSensitivityE>
+   1413a110b:	89 c6                	mov    %eax,%esi
+   1413a110d:	4c 89 e1             	mov    %r12,%rcx
+   1413a1110:	e8 fb fc 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a1115:	83 fe ff             	cmp    $0xffffffff,%esi
+   1413a1118:	0f 84 a2 f5 ff ff    	je     1413a06c0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x480>
+   1413a111e:	66 41 0f 28 fd       	movapd %xmm13,%xmm7
+   1413a1123:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a112a:	66 0f 57 3d 6e e1 f2 	xorpd  0xf2e16e(%rip),%xmm7        # 1422cf2a0 <.rdata+0x480>
+   1413a1131:	00 
+   1413a1132:	f2 0f 10 84 24 10 03 	movsd  0x310(%rsp),%xmm0
+   1413a1139:	00 00 
+   1413a113b:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a1140:	f2 0f 11 bc 24 28 01 	movsd  %xmm7,0x128(%rsp)
+   1413a1147:	00 00 
+   1413a1149:	8b 40 04             	mov    0x4(%rax),%eax
+   1413a114c:	f2 0f 10 bc 24 90 00 	movsd  0x90(%rsp),%xmm7
+   1413a1153:	00 00 
+   1413a1155:	66 0f 57 3d 43 e1 f2 	xorpd  0xf2e143(%rip),%xmm7        # 1422cf2a0 <.rdata+0x480>
+   1413a115c:	00 
+   1413a115d:	66 0f 28 a4 24 e0 02 	movapd 0x2e0(%rsp),%xmm4
+   1413a1164:	00 00 
+   1413a1166:	f2 0f 11 84 24 d0 03 	movsd  %xmm0,0x3d0(%rsp)
+   1413a116d:	00 00 
+   1413a116f:	66 0f 28 ac 24 20 03 	movapd 0x320(%rsp),%xmm5
+   1413a1176:	00 00 
+   1413a1178:	f2 0f 10 84 24 30 03 	movsd  0x330(%rsp),%xmm0
+   1413a117f:	00 00 
+   1413a1181:	f2 0f 11 bc 24 40 01 	movsd  %xmm7,0x140(%rsp)
+   1413a1188:	00 00 
+   1413a118a:	66 41 0f 28 ff       	movapd %xmm15,%xmm7
+   1413a118f:	66 0f 57 3d 09 e1 f2 	xorpd  0xf2e109(%rip),%xmm7        # 1422cf2a0 <.rdata+0x480>
+   1413a1196:	00 
+   1413a1197:	f2 44 0f 10 8c 24 e8 	movsd  0x2e8(%rsp),%xmm9
+   1413a119e:	02 00 00 
+   1413a11a1:	f2 44 0f 10 a4 24 e0 	movsd  0x2e0(%rsp),%xmm12
+   1413a11a8:	02 00 00 
+   1413a11ab:	0f 29 a4 24 40 03 00 	movaps %xmm4,0x340(%rsp)
+   1413a11b2:	00 
+   1413a11b3:	f2 0f 11 bc 24 30 01 	movsd  %xmm7,0x130(%rsp)
+   1413a11ba:	00 00 
+   1413a11bc:	f2 0f 10 bc 24 f0 02 	movsd  0x2f0(%rsp),%xmm7
+   1413a11c3:	00 00 
+   1413a11c5:	0f 29 ac 24 e0 03 00 	movaps %xmm5,0x3e0(%rsp)
+   1413a11cc:	00 
+   1413a11cd:	f2 0f 11 bc 24 b0 00 	movsd  %xmm7,0xb0(%rsp)
+   1413a11d4:	00 00 
+   1413a11d6:	f2 0f 11 bc 24 50 03 	movsd  %xmm7,0x350(%rsp)
+   1413a11dd:	00 00 
+   1413a11df:	66 0f 28 bc 24 00 03 	movapd 0x300(%rsp),%xmm7
+   1413a11e6:	00 00 
+   1413a11e8:	f2 0f 11 84 24 f0 03 	movsd  %xmm0,0x3f0(%rsp)
+   1413a11ef:	00 00 
+   1413a11f1:	0f 29 bc 24 c0 03 00 	movaps %xmm7,0x3c0(%rsp)
+   1413a11f8:	00 
+   1413a11f9:	0f 84 89 0f 00 00    	je     1413a2188 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1f48>
+   1413a11ff:	85 c0                	test   %eax,%eax
+   1413a1201:	0f 8e 29 13 00 00    	jle    1413a2530 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x22f0>
+   1413a1207:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a120b:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a1212:	f2 0f 5a bc 24 58 02 	cvtsd2ss 0x258(%rsp),%xmm7
+   1413a1219:	00 00 
+   1413a121b:	f3 0f 11 bc 24 00 01 	movss  %xmm7,0x100(%rsp)
+   1413a1222:	00 00 
+   1413a1224:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a1228:	f2 0f 5a bc 24 50 02 	cvtsd2ss 0x250(%rsp),%xmm7
+   1413a122f:	00 00 
+   1413a1231:	f3 0f 11 bc 24 f0 00 	movss  %xmm7,0xf0(%rsp)
+   1413a1238:	00 00 
+   1413a123a:	0f 84 0f 13 00 00    	je     1413a254f <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x230f>
+   1413a1240:	44 0f b6 b3 a9 03 00 	movzbl 0x3a9(%rbx),%r14d
+   1413a1247:	00 
+   1413a1248:	45 84 f6             	test   %r14b,%r14b
+   1413a124b:	0f 85 ef 0f 00 00    	jne    1413a2240 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2000>
+   1413a1251:	c7 84 24 04 02 00 00 	movl   $0x0,0x204(%rsp)
+   1413a1258:	00 00 00 00 
+   1413a125c:	44 0f 28 d6          	movaps %xmm6,%xmm10
+   1413a1260:	c7 84 24 b8 01 00 00 	movl   $0x0,0x1b8(%rsp)
+   1413a1267:	00 00 00 00 
+   1413a126b:	c7 84 24 b4 01 00 00 	movl   $0x0,0x1b4(%rsp)
+   1413a1272:	00 00 00 00 
+   1413a1276:	c7 84 24 a8 01 00 00 	movl   $0x0,0x1a8(%rsp)
+   1413a127d:	00 00 00 00 
+   1413a1281:	f3 0f 11 b4 24 10 01 	movss  %xmm6,0x110(%rsp)
+   1413a1288:	00 00 
+   1413a128a:	f3 0f 11 b4 24 00 02 	movss  %xmm6,0x200(%rsp)
+   1413a1291:	00 00 
+   1413a1293:	f3 0f 11 b4 24 90 01 	movss  %xmm6,0x190(%rsp)
+   1413a129a:	00 00 
+   1413a129c:	48 8b 54 24 60       	mov    0x60(%rsp),%rdx
+   1413a12a1:	4c 89 e1             	mov    %r12,%rcx
+   1413a12a4:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1413a12a8:	e8 e3 87 3e 00       	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a12ad:	4c 89 e2             	mov    %r12,%rdx
+   1413a12b0:	48 89 d9             	mov    %rbx,%rcx
+   1413a12b3:	e8 b8 4a ff ff       	call   141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>
+   1413a12b8:	b8 01 00 00 00       	mov    $0x1,%eax
+   1413a12bd:	f2 0f 10 ac 24 e8 00 	movsd  0xe8(%rsp),%xmm5
+   1413a12c4:	00 00 
+   1413a12c6:	66 0f 57 2d d2 df f2 	xorpd  0xf2dfd2(%rip),%xmm5        # 1422cf2a0 <.rdata+0x480>
+   1413a12cd:	00 
+   1413a12ce:	f2 0f 10 a4 24 d0 00 	movsd  0xd0(%rsp),%xmm4
+   1413a12d5:	00 00 
+   1413a12d7:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a12db:	66 0f 57 25 bd df f2 	xorpd  0xf2dfbd(%rip),%xmm4        # 1422cf2a0 <.rdata+0x480>
+   1413a12e2:	00 
+   1413a12e3:	f2 0f 11 ac 24 48 01 	movsd  %xmm5,0x148(%rsp)
+   1413a12ea:	00 00 
+   1413a12ec:	f2 0f 10 ac 24 c8 00 	movsd  0xc8(%rsp),%xmm5
+   1413a12f3:	00 00 
+   1413a12f5:	66 0f 57 2d a3 df f2 	xorpd  0xf2dfa3(%rip),%xmm5        # 1422cf2a0 <.rdata+0x480>
+   1413a12fc:	00 
+   1413a12fd:	f2 0f 11 a4 24 60 01 	movsd  %xmm4,0x160(%rsp)
+   1413a1304:	00 00 
+   1413a1306:	f2 0f 11 ac 24 50 01 	movsd  %xmm5,0x150(%rsp)
+   1413a130d:	00 00 
+   1413a130f:	0f 9a c2             	setp   %dl
+   1413a1312:	0f 44 c2             	cmove  %edx,%eax
+   1413a1315:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a131a:	41 89 c7             	mov    %eax,%r15d
+   1413a131d:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a1324:	0f 84 9e 0d 00 00    	je     1413a20c8 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1e88>
+   1413a132a:	44 8b 40 04          	mov    0x4(%rax),%r8d
+   1413a132e:	45 85 c0             	test   %r8d,%r8d
+   1413a1331:	0f 8e 59 11 00 00    	jle    1413a2490 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2250>
+   1413a1337:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   1413a133b:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413a133f:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a1346:	f2 0f 5a a4 24 68 02 	cvtsd2ss 0x268(%rsp),%xmm4
+   1413a134d:	00 00 
+   1413a134f:	f2 0f 5a 9c 24 60 02 	cvtsd2ss 0x260(%rsp),%xmm3
+   1413a1356:	00 00 
+   1413a1358:	f3 0f 11 a4 24 0c 02 	movss  %xmm4,0x20c(%rsp)
+   1413a135f:	00 00 
+   1413a1361:	f3 0f 11 9c 24 08 02 	movss  %xmm3,0x208(%rsp)
+   1413a1368:	00 00 
+   1413a136a:	0f 84 3f 11 00 00    	je     1413a24af <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x226f>
+   1413a1370:	f2 0f 10 ac 24 c0 03 	movsd  0x3c0(%rsp),%xmm5
+   1413a1377:	00 00 
+   1413a1379:	f2 0f 10 9c 24 c8 03 	movsd  0x3c8(%rsp),%xmm3
+   1413a1380:	00 00 
+   1413a1382:	f2 0f 11 ac 24 28 02 	movsd  %xmm5,0x228(%rsp)
+   1413a1389:	00 00 
+   1413a138b:	f2 0f 10 ac 24 d0 03 	movsd  0x3d0(%rsp),%xmm5
+   1413a1392:	00 00 
+   1413a1394:	f2 0f 11 9c 24 20 02 	movsd  %xmm3,0x220(%rsp)
+   1413a139b:	00 00 
+   1413a139d:	f2 0f 11 ac 24 18 02 	movsd  %xmm5,0x218(%rsp)
+   1413a13a4:	00 00 
+   1413a13a6:	45 84 f6             	test   %r14b,%r14b
+   1413a13a9:	0f 85 7a 0d 00 00    	jne    1413a2129 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1ee9>
+   1413a13af:	f3 0f 11 b4 24 fc 01 	movss  %xmm6,0x1fc(%rsp)
+   1413a13b6:	00 00 
+   1413a13b8:	44 0f 28 c6          	movaps %xmm6,%xmm8
+   1413a13bc:	31 f6                	xor    %esi,%esi
+   1413a13be:	c7 84 24 f0 01 00 00 	movl   $0x0,0x1f0(%rsp)
+   1413a13c5:	00 00 00 00 
+   1413a13c9:	c7 84 24 ec 01 00 00 	movl   $0x0,0x1ec(%rsp)
+   1413a13d0:	00 00 00 00 
+   1413a13d4:	c7 84 24 bc 01 00 00 	movl   $0x0,0x1bc(%rsp)
+   1413a13db:	00 00 00 00 
+   1413a13df:	f3 0f 11 b4 24 f8 01 	movss  %xmm6,0x1f8(%rsp)
+   1413a13e6:	00 00 
+   1413a13e8:	f3 0f 11 b4 24 f4 01 	movss  %xmm6,0x1f4(%rsp)
+   1413a13ef:	00 00 
+   1413a13f1:	48 8b 54 24 50       	mov    0x50(%rsp),%rdx
+   1413a13f6:	4c 89 e1             	mov    %r12,%rcx
+   1413a13f9:	e8 92 86 3e 00       	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a13fe:	4c 89 e2             	mov    %r12,%rdx
+   1413a1401:	48 89 d9             	mov    %rbx,%rcx
+   1413a1404:	e8 67 49 ff ff       	call   141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>
+   1413a1409:	b8 01 00 00 00       	mov    $0x1,%eax
+   1413a140e:	f2 0f 10 ac 24 e0 00 	movsd  0xe0(%rsp),%xmm5
+   1413a1415:	00 00 
+   1413a1417:	66 0f 57 2d 81 de f2 	xorpd  0xf2de81(%rip),%xmm5        # 1422cf2a0 <.rdata+0x480>
+   1413a141e:	00 
+   1413a141f:	f2 0f 10 a4 24 d8 00 	movsd  0xd8(%rsp),%xmm4
+   1413a1426:	00 00 
+   1413a1428:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a142c:	66 0f 57 25 6c de f2 	xorpd  0xf2de6c(%rip),%xmm4        # 1422cf2a0 <.rdata+0x480>
+   1413a1433:	00 
+   1413a1434:	f2 0f 11 ac 24 a0 01 	movsd  %xmm5,0x1a0(%rsp)
+   1413a143b:	00 00 
+   1413a143d:	66 41 0f 28 ee       	movapd %xmm14,%xmm5
+   1413a1442:	66 0f 57 2d 56 de f2 	xorpd  0xf2de56(%rip),%xmm5        # 1422cf2a0 <.rdata+0x480>
+   1413a1449:	00 
+   1413a144a:	f2 0f 11 a4 24 70 01 	movsd  %xmm4,0x170(%rsp)
+   1413a1451:	00 00 
+   1413a1453:	f2 0f 11 ac 24 80 01 	movsd  %xmm5,0x180(%rsp)
+   1413a145a:	00 00 
+   1413a145c:	0f 9a c2             	setp   %dl
+   1413a145f:	0f 44 c2             	cmove  %edx,%eax
+   1413a1462:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a1467:	89 c5                	mov    %eax,%ebp
+   1413a1469:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a1470:	0f 84 0a 0c 00 00    	je     1413a2080 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1e40>
+   1413a1476:	8b 48 04             	mov    0x4(%rax),%ecx
+   1413a1479:	85 c9                	test   %ecx,%ecx
+   1413a147b:	0f 8e 87 0f 00 00    	jle    1413a2408 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x21c8>
+   1413a1481:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   1413a1485:	66 0f ef ed          	pxor   %xmm5,%xmm5
+   1413a1489:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a1490:	f2 0f 5a a4 24 78 02 	cvtsd2ss 0x278(%rsp),%xmm4
+   1413a1497:	00 00 
+   1413a1499:	f2 0f 5a ac 24 70 02 	cvtsd2ss 0x270(%rsp),%xmm5
+   1413a14a0:	00 00 
+   1413a14a2:	f3 0f 11 a4 24 38 02 	movss  %xmm4,0x238(%rsp)
+   1413a14a9:	00 00 
+   1413a14ab:	f3 0f 11 ac 24 10 02 	movss  %xmm5,0x210(%rsp)
+   1413a14b2:	00 00 
+   1413a14b4:	0f 84 6d 0f 00 00    	je     1413a2427 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x21e7>
+   1413a14ba:	f2 0f 10 8c 24 e0 03 	movsd  0x3e0(%rsp),%xmm1
+   1413a14c1:	00 00 
+   1413a14c3:	f2 0f 10 84 24 e8 03 	movsd  0x3e8(%rsp),%xmm0
+   1413a14ca:	00 00 
+   1413a14cc:	f2 0f 10 9c 24 f0 03 	movsd  0x3f0(%rsp),%xmm3
+   1413a14d3:	00 00 
+   1413a14d5:	f3 0f 10 94 24 38 02 	movss  0x238(%rsp),%xmm2
+   1413a14dc:	00 00 
+   1413a14de:	66 0f 28 e1          	movapd %xmm1,%xmm4
+   1413a14e2:	f3 0f 10 8c 24 10 02 	movss  0x210(%rsp),%xmm1
+   1413a14e9:	00 00 
+   1413a14eb:	f2 0f 10 ac 24 80 01 	movsd  0x180(%rsp),%xmm5
+   1413a14f2:	00 00 
+   1413a14f4:	66 0f 14 e0          	unpcklpd %xmm0,%xmm4
+   1413a14f8:	f3 0f 10 84 24 f8 01 	movss  0x1f8(%rsp),%xmm0
+   1413a14ff:	00 00 
+   1413a1501:	0f 14 ca             	unpcklps %xmm2,%xmm1
+   1413a1504:	0f 29 a4 24 80 01 00 	movaps %xmm4,0x180(%rsp)
+   1413a150b:	00 
+   1413a150c:	f3 0f 10 94 24 fc 01 	movss  0x1fc(%rsp),%xmm2
+   1413a1513:	00 00 
+   1413a1515:	f2 0f 10 a4 24 28 02 	movsd  0x228(%rsp),%xmm4
+   1413a151c:	00 00 
+   1413a151e:	66 0f 16 ac 24 70 01 	movhpd 0x170(%rsp),%xmm5
+   1413a1525:	00 00 
+   1413a1527:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1413a152a:	0f 29 ac 24 70 01 00 	movaps %xmm5,0x170(%rsp)
+   1413a1531:	00 
+   1413a1532:	f3 0f 10 94 24 f4 01 	movss  0x1f4(%rsp),%xmm2
+   1413a1539:	00 00 
+   1413a153b:	f2 0f 10 ac 24 60 01 	movsd  0x160(%rsp),%xmm5
+   1413a1542:	00 00 
+   1413a1544:	66 0f 16 a4 24 20 02 	movhpd 0x220(%rsp),%xmm4
+   1413a154b:	00 00 
+   1413a154d:	66 0f 16 ac 24 50 01 	movhpd 0x150(%rsp),%xmm5
+   1413a1554:	00 00 
+   1413a1556:	44 0f 14 c2          	unpcklps %xmm2,%xmm8
+   1413a155a:	66 0f 6e 94 24 f0 01 	movd   0x1f0(%rsp),%xmm2
+   1413a1561:	00 00 
+   1413a1563:	0f 29 a4 24 60 01 00 	movaps %xmm4,0x160(%rsp)
+   1413a156a:	00 
+   1413a156b:	0f 29 ac 24 50 01 00 	movaps %xmm5,0x150(%rsp)
+   1413a1572:	00 
+   1413a1573:	44 0f 16 c0          	movlhps %xmm0,%xmm8
+   1413a1577:	66 41 0f 28 ec       	movapd %xmm12,%xmm5
+   1413a157c:	66 0f 6e 84 24 ec 01 	movd   0x1ec(%rsp),%xmm0
+   1413a1583:	00 00 
+   1413a1585:	f2 0f 10 a4 24 30 01 	movsd  0x130(%rsp),%xmm4
+   1413a158c:	00 00 
+   1413a158e:	66 41 0f 14 e9       	unpcklpd %xmm9,%xmm5
+   1413a1593:	66 44 0f 6e 8c 24 bc 	movd   0x1bc(%rsp),%xmm9
+   1413a159a:	01 00 00 
+   1413a159d:	66 44 0f 6e a4 24 a8 	movd   0x1a8(%rsp),%xmm12
+   1413a15a4:	01 00 00 
+   1413a15a7:	66 0f 62 c2          	punpckldq %xmm2,%xmm0
+   1413a15ab:	66 0f 6e d6          	movd   %esi,%xmm2
+   1413a15af:	66 0f 16 a4 24 40 01 	movhpd 0x140(%rsp),%xmm4
+   1413a15b6:	00 00 
+   1413a15b8:	66 44 0f 62 ca       	punpckldq %xmm2,%xmm9
+   1413a15bd:	0f 13 8c 24 40 01 00 	movlps %xmm1,0x140(%rsp)
+   1413a15c4:	00 
+   1413a15c5:	f3 0f 10 94 24 08 02 	movss  0x208(%rsp),%xmm2
+   1413a15cc:	00 00 
+   1413a15ce:	f3 0f 10 8c 24 0c 02 	movss  0x20c(%rsp),%xmm1
+   1413a15d5:	00 00 
+   1413a15d7:	66 44 0f 6c c8       	punpcklqdq %xmm0,%xmm9
+   1413a15dc:	f3 0f 10 84 24 00 02 	movss  0x200(%rsp),%xmm0
+   1413a15e3:	00 00 
+   1413a15e5:	0f 14 d1             	unpcklps %xmm1,%xmm2
+   1413a15e8:	66 0f 6e 8c 24 04 02 	movd   0x204(%rsp),%xmm1
+   1413a15ef:	00 00 
+   1413a15f1:	66 49 0f 7e d5       	movq   %xmm2,%r13
+   1413a15f6:	f3 0f 10 94 24 10 01 	movss  0x110(%rsp),%xmm2
+   1413a15fd:	00 00 
+   1413a15ff:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1413a1602:	f3 0f 10 94 24 90 01 	movss  0x190(%rsp),%xmm2
+   1413a1609:	00 00 
+   1413a160b:	44 0f 14 d2          	unpcklps %xmm2,%xmm10
+   1413a160f:	66 0f 6e 94 24 b4 01 	movd   0x1b4(%rsp),%xmm2
+   1413a1616:	00 00 
+   1413a1618:	44 0f 16 d0          	movlhps %xmm0,%xmm10
+   1413a161c:	66 0f 6e 84 24 b8 01 	movd   0x1b8(%rsp),%xmm0
+   1413a1623:	00 00 
+   1413a1625:	66 44 0f 62 e2       	punpckldq %xmm2,%xmm12
+   1413a162a:	f3 0f 10 94 24 00 01 	movss  0x100(%rsp),%xmm2
+   1413a1631:	00 00 
+   1413a1633:	66 0f 62 c1          	punpckldq %xmm1,%xmm0
+   1413a1637:	f3 0f 10 8c 24 f0 00 	movss  0xf0(%rsp),%xmm1
+   1413a163e:	00 00 
+   1413a1640:	66 44 0f 6c e0       	punpcklqdq %xmm0,%xmm12
+   1413a1645:	0f 14 ca             	unpcklps %xmm2,%xmm1
+   1413a1648:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413a164c:	66 48 0f 7e ce       	movq   %xmm1,%rsi
+   1413a1651:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a1655:	45 84 f6             	test   %r14b,%r14b
+   1413a1658:	0f 85 92 0d 00 00    	jne    1413a23f0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x21b0>
+   1413a165e:	48 8b 94 24 80 00 00 	mov    0x80(%rsp),%rdx
+   1413a1665:	00 
+   1413a1666:	4c 89 e1             	mov    %r12,%rcx
+   1413a1669:	0f 29 94 24 90 01 00 	movaps %xmm2,0x190(%rsp)
+   1413a1670:	00 
+   1413a1671:	0f 29 8c 24 30 01 00 	movaps %xmm1,0x130(%rsp)
+   1413a1678:	00 
+   1413a1679:	0f 29 ac 24 10 01 00 	movaps %xmm5,0x110(%rsp)
+   1413a1680:	00 
+   1413a1681:	0f 29 a4 24 00 01 00 	movaps %xmm4,0x100(%rsp)
+   1413a1688:	00 
+   1413a1689:	f2 0f 11 9c 24 f0 00 	movsd  %xmm3,0xf0(%rsp)
+   1413a1690:	00 00 
+   1413a1692:	e8 f9 83 3e 00       	call   141789a90 <_ZN15Au3dsGLSLVertexC1ERKS_>
+   1413a1697:	4c 89 e2             	mov    %r12,%rdx
+   1413a169a:	48 89 d9             	mov    %rbx,%rcx
+   1413a169d:	e8 ce 46 ff ff       	call   141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>
+   1413a16a2:	48 8b 84 24 40 01 00 	mov    0x140(%rsp),%rax
+   1413a16a9:	00 
+   1413a16aa:	f2 0f 10 a4 24 b0 00 	movsd  0xb0(%rsp),%xmm4
+   1413a16b1:	00 00 
+   1413a16b3:	4c 89 ac 24 78 04 00 	mov    %r13,0x478(%rsp)
+   1413a16ba:	00 
+   1413a16bb:	66 0f 28 ac 24 10 01 	movapd 0x110(%rsp),%xmm5
+   1413a16c2:	00 00 
+   1413a16c4:	66 0f 2e c7          	ucomisd %xmm7,%xmm0
+   1413a16c8:	f2 0f 10 9c 24 18 02 	movsd  0x218(%rsp),%xmm3
+   1413a16cf:	00 00 
+   1413a16d1:	ba 01 00 00 00       	mov    $0x1,%edx
+   1413a16d6:	48 89 b4 24 18 04 00 	mov    %rsi,0x418(%rsp)
+   1413a16dd:	00 
+   1413a16de:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a16e5:	00 
+   1413a16e6:	f2 0f 11 a4 24 10 04 	movsd  %xmm4,0x410(%rsp)
+   1413a16ed:	00 00 
+   1413a16ef:	66 0f 28 a4 24 00 01 	movapd 0x100(%rsp),%xmm4
+   1413a16f6:	00 00 
+   1413a16f8:	0f 29 ac 24 00 04 00 	movaps %xmm5,0x400(%rsp)
+   1413a16ff:	00 
+   1413a1700:	f2 0f 10 ac 24 28 01 	movsd  0x128(%rsp),%xmm5
+   1413a1707:	00 00 
+   1413a1709:	0f 29 a4 24 20 04 00 	movaps %xmm4,0x420(%rsp)
+   1413a1710:	00 
+   1413a1711:	66 0f 28 a4 24 60 01 	movapd 0x160(%rsp),%xmm4
+   1413a1718:	00 00 
+   1413a171a:	f2 0f 11 9c 24 70 04 	movsd  %xmm3,0x470(%rsp)
+   1413a1721:	00 00 
+   1413a1723:	66 0f 28 9c 24 80 01 	movapd 0x180(%rsp),%xmm3
+   1413a172a:	00 00 
+   1413a172c:	f2 0f 11 ac 24 30 04 	movsd  %xmm5,0x430(%rsp)
+   1413a1733:	00 00 
+   1413a1735:	66 0f 28 ac 24 50 01 	movapd 0x150(%rsp),%xmm5
+   1413a173c:	00 00 
+   1413a173e:	0f 29 a4 24 60 04 00 	movaps %xmm4,0x460(%rsp)
+   1413a1745:	00 
+   1413a1746:	f2 0f 10 a4 24 48 01 	movsd  0x148(%rsp),%xmm4
+   1413a174d:	00 00 
+   1413a174f:	0f 29 9c 24 c0 04 00 	movaps %xmm3,0x4c0(%rsp)
+   1413a1756:	00 
+   1413a1757:	f2 0f 10 9c 24 f0 00 	movsd  0xf0(%rsp),%xmm3
+   1413a175e:	00 00 
+   1413a1760:	0f 29 ac 24 80 04 00 	movaps %xmm5,0x480(%rsp)
+   1413a1767:	00 
+   1413a1768:	f2 0f 11 a4 24 90 04 	movsd  %xmm4,0x490(%rsp)
+   1413a176f:	00 00 
+   1413a1771:	44 88 bc 24 5c 04 00 	mov    %r15b,0x45c(%rsp)
+   1413a1778:	00 
+   1413a1779:	40 88 ac 24 bc 04 00 	mov    %bpl,0x4bc(%rsp)
+   1413a1780:	00 
+   1413a1781:	f3 44 0f 11 9c 24 38 	movss  %xmm11,0x438(%rsp)
+   1413a1788:	04 00 00 
+   1413a178b:	44 0f 11 a4 24 3c 04 	movups %xmm12,0x43c(%rsp)
+   1413a1792:	00 00 
+   1413a1794:	44 0f 11 94 24 4c 04 	movups %xmm10,0x44c(%rsp)
+   1413a179b:	00 00 
+   1413a179d:	f3 44 0f 11 9c 24 98 	movss  %xmm11,0x498(%rsp)
+   1413a17a4:	04 00 00 
+   1413a17a7:	44 0f 11 8c 24 9c 04 	movups %xmm9,0x49c(%rsp)
+   1413a17ae:	00 00 
+   1413a17b0:	44 0f 11 84 24 ac 04 	movups %xmm8,0x4ac(%rsp)
+   1413a17b7:	00 00 
+   1413a17b9:	f2 0f 11 9c 24 d0 04 	movsd  %xmm3,0x4d0(%rsp)
+   1413a17c0:	00 00 
+   1413a17c2:	48 89 84 24 d8 04 00 	mov    %rax,0x4d8(%rsp)
+   1413a17c9:	00 
+   1413a17ca:	0f 9a c0             	setp   %al
+   1413a17cd:	66 0f 28 ac 24 70 01 	movapd 0x170(%rsp),%xmm5
+   1413a17d4:	00 00 
+   1413a17d6:	0f 45 c2             	cmovne %edx,%eax
+   1413a17d9:	0f 28 8c 24 30 01 00 	movaps 0x130(%rsp),%xmm1
+   1413a17e0:	00 
+   1413a17e1:	4c 89 e2             	mov    %r12,%rdx
+   1413a17e4:	f2 0f 10 a4 24 a0 01 	movsd  0x1a0(%rsp),%xmm4
+   1413a17eb:	00 00 
+   1413a17ed:	48 8b 8c 24 c8 01 00 	mov    0x1c8(%rsp),%rcx
+   1413a17f4:	00 
+   1413a17f5:	66 0f 6f 94 24 90 01 	movdqa 0x190(%rsp),%xmm2
+   1413a17fc:	00 00 
+   1413a17fe:	0f 29 ac 24 e0 04 00 	movaps %xmm5,0x4e0(%rsp)
+   1413a1805:	00 
+   1413a1806:	88 84 24 1c 05 00 00 	mov    %al,0x51c(%rsp)
+   1413a180d:	f2 0f 11 a4 24 f0 04 	movsd  %xmm4,0x4f0(%rsp)
+   1413a1814:	00 00 
+   1413a1816:	f3 44 0f 11 9c 24 f8 	movss  %xmm11,0x4f8(%rsp)
+   1413a181d:	04 00 00 
+   1413a1820:	0f 11 94 24 fc 04 00 	movups %xmm2,0x4fc(%rsp)
+   1413a1827:	00 
+   1413a1828:	0f 11 8c 24 0c 05 00 	movups %xmm1,0x50c(%rsp)
+   1413a182f:	00 
+   1413a1830:	e8 db 56 49 00       	call   141836f10 <_ZN5QListI9AuTriBodyE6appendERKS0_>
+   1413a1835:	e9 86 ee ff ff       	jmp    1413a06c0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x480>
+   1413a183a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a1840:	83 7c 24 74 03       	cmpl   $0x3,0x74(%rsp)
+   1413a1845:	48 c7 84 24 50 02 00 	movq   $0x0,0x250(%rsp)
+   1413a184c:	00 00 00 00 00 
+   1413a1851:	48 c7 84 24 58 02 00 	movq   $0x0,0x258(%rsp)
+   1413a1858:	00 00 00 00 00 
+   1413a185d:	48 c7 84 24 60 02 00 	movq   $0x0,0x260(%rsp)
+   1413a1864:	00 00 00 00 00 
+   1413a1869:	48 c7 84 24 68 02 00 	movq   $0x0,0x268(%rsp)
+   1413a1870:	00 00 00 00 00 
+   1413a1875:	48 c7 84 24 70 02 00 	movq   $0x0,0x270(%rsp)
+   1413a187c:	00 00 00 00 00 
+   1413a1881:	48 c7 84 24 78 02 00 	movq   $0x0,0x278(%rsp)
+   1413a1888:	00 00 00 00 00 
+   1413a188d:	0f 85 4b f7 ff ff    	jne    1413a0fde <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xd9e>
+   1413a1893:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a1898:	0f 2e fe             	ucomiss %xmm6,%xmm7
+   1413a189b:	7a 06                	jp     1413a18a3 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1663>
+   1413a189d:	0f 84 22 f8 ff ff    	je     1413a10c5 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xe85>
+   1413a18a3:	4c 8d a4 24 80 02 00 	lea    0x280(%rsp),%r12
+   1413a18aa:	00 
+   1413a18ab:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1413a18b0:	66 45 0f ef c9       	pxor   %xmm9,%xmm9
+   1413a18b5:	4c 89 e1             	mov    %r12,%rcx
+   1413a18b8:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a18bf:	00 
+   1413a18c0:	ff 15 f2 24 4f 01    	call   *0x14f24f2(%rip)        # 142893db8 <__imp__ZNK6QColor5blueFEv>
+   1413a18c6:	f3 0f 5a ff          	cvtss2sd %xmm7,%xmm7
+   1413a18ca:	4c 89 e1             	mov    %r12,%rcx
+   1413a18cd:	f2 0f 59 c7          	mulsd  %xmm7,%xmm0
+   1413a18d1:	f2 44 0f 5a c0       	cvtsd2ss %xmm0,%xmm8
+   1413a18d6:	ff 15 fc 24 4f 01    	call   *0x14f24fc(%rip)        # 142893dd8 <__imp__ZNK6QColor6greenFEv>
+   1413a18dc:	4c 89 e1             	mov    %r12,%rcx
+   1413a18df:	f2 0f 59 c7          	mulsd  %xmm7,%xmm0
+   1413a18e3:	f2 44 0f 5a c8       	cvtsd2ss %xmm0,%xmm9
+   1413a18e8:	ff 15 b2 24 4f 01    	call   *0x14f24b2(%rip)        # 142893da0 <__imp__ZNK6QColor4redFEv>
+   1413a18ee:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a18f2:	48 8b b4 24 30 02 00 	mov    0x230(%rsp),%rsi
+   1413a18f9:	00 
+   1413a18fa:	f2 0f 59 f8          	mulsd  %xmm0,%xmm7
+   1413a18fe:	48 89 f1             	mov    %rsi,%rcx
+   1413a1901:	f2 0f 5a cf          	cvtsd2ss %xmm7,%xmm1
+   1413a1905:	f3 0f 5a c9          	cvtss2sd %xmm1,%xmm1
+   1413a1909:	ff 15 81 20 4f 01    	call   *0x14f2081(%rip)        # 142893990 <__imp__ZN6QColor7setRedFEd>
+   1413a190f:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a1913:	48 89 f1             	mov    %rsi,%rcx
+   1413a1916:	f3 41 0f 5a c9       	cvtss2sd %xmm9,%xmm1
+   1413a191b:	ff 15 9f 20 4f 01    	call   *0x14f209f(%rip)        # 1428939c0 <__imp__ZN6QColor9setGreenFEd>
+   1413a1921:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413a1925:	48 89 f1             	mov    %rsi,%rcx
+   1413a1928:	f3 41 0f 5a c8       	cvtss2sd %xmm8,%xmm1
+   1413a192d:	ff 15 75 20 4f 01    	call   *0x14f2075(%rip)        # 1428939a8 <__imp__ZN6QColor8setBlueFEd>
+   1413a1933:	e9 8d f7 ff ff       	jmp    1413a10c5 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xe85>
+   1413a1938:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a193f:	00 
+   1413a1940:	8b b4 24 d4 01 00 00 	mov    0x1d4(%rsp),%esi
+   1413a1947:	39 70 04             	cmp    %esi,0x4(%rax)
+   1413a194a:	0f 8f 10 0d 00 00    	jg     1413a2660 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2420>
+   1413a1950:	f2 44 0f 10 8c 24 00 	movsd  0x300(%rsp),%xmm9
+   1413a1957:	03 00 00 
+   1413a195a:	44 0f 28 e6          	movaps %xmm6,%xmm12
+   1413a195e:	f2 0f 10 84 24 08 03 	movsd  0x308(%rsp),%xmm0
+   1413a1965:	00 00 
+   1413a1967:	f2 0f 10 8c 24 10 03 	movsd  0x310(%rsp),%xmm1
+   1413a196e:	00 00 
+   1413a1970:	e9 0d f0 ff ff       	jmp    1413a0982 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x742>
+   1413a1975:	0f 1f 00             	nopl   (%rax)
+   1413a1978:	8b 84 24 e8 01 00 00 	mov    0x1e8(%rsp),%eax
+   1413a197f:	8d 48 01             	lea    0x1(%rax),%ecx
+   1413a1982:	89 84 24 a8 00 00 00 	mov    %eax,0xa8(%rsp)
+   1413a1989:	83 c0 02             	add    $0x2,%eax
+   1413a198c:	89 8c 24 b0 01 00 00 	mov    %ecx,0x1b0(%rsp)
+   1413a1993:	89 84 24 d4 01 00 00 	mov    %eax,0x1d4(%rsp)
+   1413a199a:	48 8b 84 24 48 02 00 	mov    0x248(%rsp),%rax
+   1413a19a1:	00 
+   1413a19a2:	8b 10                	mov    (%rax),%edx
+   1413a19a4:	83 fa 01             	cmp    $0x1,%edx
+   1413a19a7:	76 30                	jbe    1413a19d9 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1799>
+   1413a19a9:	8b 50 08             	mov    0x8(%rax),%edx
+   1413a19ac:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1413a19b2:	0f 85 10 0a 00 00    	jne    1413a23c8 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2188>
+   1413a19b8:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1413a19be:	45 31 c0             	xor    %r8d,%r8d
+   1413a19c1:	ba 08 00 00 00       	mov    $0x8,%edx
+   1413a19c6:	b9 18 00 00 00       	mov    $0x18,%ecx
+   1413a19cb:	ff 15 df 0b 4f 01    	call   *0x14f0bdf(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1413a19d1:	48 89 84 24 48 02 00 	mov    %rax,0x248(%rsp)
+   1413a19d8:	00 
+   1413a19d9:	48 8b 4c 24 78       	mov    0x78(%rsp),%rcx
+   1413a19de:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a19e2:	48 8d 14 49          	lea    (%rcx,%rcx,2),%rdx
+   1413a19e6:	48 c1 e2 03          	shl    $0x3,%rdx
+   1413a19ea:	48 01 d0             	add    %rdx,%rax
+   1413a19ed:	48 89 94 24 d8 00 00 	mov    %rdx,0xd8(%rsp)
+   1413a19f4:	00 
+   1413a19f5:	48 8b 94 24 d8 01 00 	mov    0x1d8(%rsp),%rdx
+   1413a19fc:	00 
+   1413a19fd:	f2 0f 10 60 08       	movsd  0x8(%rax),%xmm4
+   1413a1a02:	f2 44 0f 10 68 10    	movsd  0x10(%rax),%xmm13
+   1413a1a08:	f2 44 0f 10 38       	movsd  (%rax),%xmm15
+   1413a1a0d:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   1413a1a14:	00 
+   1413a1a15:	66 41 0f 28 c5       	movapd %xmm13,%xmm0
+   1413a1a1a:	66 0f 28 f4          	movapd %xmm4,%xmm6
+   1413a1a1e:	66 0f 10 3a          	movupd (%rdx),%xmm7
+   1413a1a22:	f2 0f 11 a4 24 90 00 	movsd  %xmm4,0x90(%rsp)
+   1413a1a29:	00 00 
+   1413a1a2b:	66 0f 10 68 10       	movupd 0x10(%rax),%xmm5
+   1413a1a30:	66 41 0f 28 df       	movapd %xmm15,%xmm3
+   1413a1a35:	66 41 0f 14 c7       	unpcklpd %xmm15,%xmm0
+   1413a1a3a:	66 0f 14 dc          	unpcklpd %xmm4,%xmm3
+   1413a1a3e:	66 0f 10 60 20       	movupd 0x20(%rax),%xmm4
+   1413a1a43:	66 0f 28 d5          	movapd %xmm5,%xmm2
+   1413a1a47:	66 0f 58 d0          	addpd  %xmm0,%xmm2
+   1413a1a4b:	66 0f 28 c6          	movapd %xmm6,%xmm0
+   1413a1a4f:	66 0f 28 cc          	movapd %xmm4,%xmm1
+   1413a1a53:	66 0f 10 30          	movupd (%rax),%xmm6
+   1413a1a57:	66 41 0f 14 c5       	unpcklpd %xmm13,%xmm0
+   1413a1a5c:	66 0f 58 c8          	addpd  %xmm0,%xmm1
+   1413a1a60:	66 0f 28 c7          	movapd %xmm7,%xmm0
+   1413a1a64:	0f 29 b4 24 b0 00 00 	movaps %xmm6,0xb0(%rsp)
+   1413a1a6b:	00 
+   1413a1a6c:	66 0f 58 c3          	addpd  %xmm3,%xmm0
+   1413a1a70:	66 0f 58 de          	addpd  %xmm6,%xmm3
+   1413a1a74:	0f 11 50 10          	movups %xmm2,0x10(%rax)
+   1413a1a78:	0f 11 48 20          	movups %xmm1,0x20(%rax)
+   1413a1a7c:	0f 11 18             	movups %xmm3,(%rax)
+   1413a1a7f:	48 8b 83 20 01 00 00 	mov    0x120(%rbx),%rax
+   1413a1a86:	0f 11 02             	movups %xmm0,(%rdx)
+   1413a1a89:	f2 0f 10 86 90 00 00 	movsd  0x90(%rsi),%xmm0
+   1413a1a90:	00 
+   1413a1a91:	f2 41 0f 58 c5       	addsd  %xmm13,%xmm0
+   1413a1a96:	f2 0f 11 86 90 00 00 	movsd  %xmm0,0x90(%rsi)
+   1413a1a9d:	00 
+   1413a1a9e:	39 48 04             	cmp    %ecx,0x4(%rax)
+   1413a1aa1:	0f 8f 01 08 00 00    	jg     1413a22a8 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2068>
+   1413a1aa7:	f2 0f 10 bc 24 90 00 	movsd  0x90(%rsp),%xmm7
+   1413a1aae:	00 00 
+   1413a1ab0:	66 45 0f 28 f7       	movapd %xmm15,%xmm14
+   1413a1ab5:	f2 44 0f 11 ac 24 e0 	movsd  %xmm13,0xe0(%rsp)
+   1413a1abc:	00 00 00 
+   1413a1abf:	f2 44 0f 11 ac 24 e8 	movsd  %xmm13,0xe8(%rsp)
+   1413a1ac6:	00 00 00 
+   1413a1ac9:	f2 0f 11 bc 24 d8 00 	movsd  %xmm7,0xd8(%rsp)
+   1413a1ad0:	00 00 
+   1413a1ad2:	f2 0f 11 bc 24 c8 00 	movsd  %xmm7,0xc8(%rsp)
+   1413a1ad9:	00 00 
+   1413a1adb:	f2 44 0f 11 bc 24 d0 	movsd  %xmm15,0xd0(%rsp)
+   1413a1ae2:	00 00 00 
+   1413a1ae5:	e9 ac f3 ff ff       	jmp    1413a0e96 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xc56>
+   1413a1aea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a1af0:	8b 84 24 b0 01 00 00 	mov    0x1b0(%rsp),%eax
+   1413a1af7:	39 45 04             	cmp    %eax,0x4(%rbp)
+   1413a1afa:	0f 8f f0 0b 00 00    	jg     1413a26f0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x24b0>
+   1413a1b00:	f2 0f 10 ac 24 28 03 	movsd  0x328(%rsp),%xmm5
+   1413a1b07:	00 00 
+   1413a1b09:	f2 0f 10 a4 24 30 03 	movsd  0x330(%rsp),%xmm4
+   1413a1b10:	00 00 
+   1413a1b12:	f3 0f 11 b4 24 b0 01 	movss  %xmm6,0x1b0(%rsp)
+   1413a1b19:	00 00 
+   1413a1b1b:	f2 44 0f 10 94 24 20 	movsd  0x320(%rsp),%xmm10
+   1413a1b22:	03 00 00 
+   1413a1b25:	f3 0f 11 b4 24 a0 01 	movss  %xmm6,0x1a0(%rsp)
+   1413a1b2c:	00 00 
+   1413a1b2e:	f2 0f 11 6c 24 60    	movsd  %xmm5,0x60(%rsp)
+   1413a1b34:	f2 0f 11 a4 24 80 01 	movsd  %xmm4,0x180(%rsp)
+   1413a1b3b:	00 00 
+   1413a1b3d:	45 84 ed             	test   %r13b,%r13b
+   1413a1b40:	0f 84 5e ed ff ff    	je     1413a08a4 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x664>
+   1413a1b46:	48 8b 84 24 80 00 00 	mov    0x80(%rsp),%rax
+   1413a1b4d:	00 
+   1413a1b4e:	8b 30                	mov    (%rax),%esi
+   1413a1b50:	f3 0f 10 58 10       	movss  0x10(%rax),%xmm3
+   1413a1b55:	f3 0f 10 68 18       	movss  0x18(%rax),%xmm5
+   1413a1b5a:	89 b4 24 20 01 00 00 	mov    %esi,0x120(%rsp)
+   1413a1b61:	8b 70 04             	mov    0x4(%rax),%esi
+   1413a1b64:	f3 0f 11 9c 24 b4 01 	movss  %xmm3,0x1b4(%rsp)
+   1413a1b6b:	00 00 
+   1413a1b6d:	f3 0f 10 58 14       	movss  0x14(%rax),%xmm3
+   1413a1b72:	89 b4 24 48 01 00 00 	mov    %esi,0x148(%rsp)
+   1413a1b79:	8b 70 08             	mov    0x8(%rax),%esi
+   1413a1b7c:	f3 0f 11 9c 24 b8 01 	movss  %xmm3,0x1b8(%rsp)
+   1413a1b83:	00 00 
+   1413a1b85:	f3 0f 10 58 1c       	movss  0x1c(%rax),%xmm3
+   1413a1b8a:	89 b4 24 50 01 00 00 	mov    %esi,0x150(%rsp)
+   1413a1b91:	8b 70 0c             	mov    0xc(%rax),%esi
+   1413a1b94:	f3 0f 11 ac 24 90 01 	movss  %xmm5,0x190(%rsp)
+   1413a1b9b:	00 00 
+   1413a1b9d:	89 b4 24 60 01 00 00 	mov    %esi,0x160(%rsp)
+   1413a1ba4:	f3 0f 11 9c 24 bc 01 	movss  %xmm3,0x1bc(%rsp)
+   1413a1bab:	00 00 
+   1413a1bad:	e9 42 ed ff ff       	jmp    1413a08f4 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x6b4>
+   1413a1bb2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a1bb8:	3b 84 24 a8 00 00 00 	cmp    0xa8(%rsp),%eax
+   1413a1bbf:	0f 8f fb 09 00 00    	jg     1413a25c0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2380>
+   1413a1bc5:	f2 0f 10 bc 24 e0 02 	movsd  0x2e0(%rsp),%xmm7
+   1413a1bcc:	00 00 
+   1413a1bce:	f3 0f 11 b4 24 10 01 	movss  %xmm6,0x110(%rsp)
+   1413a1bd5:	00 00 
+   1413a1bd7:	f3 0f 11 b4 24 00 01 	movss  %xmm6,0x100(%rsp)
+   1413a1bde:	00 00 
+   1413a1be0:	f2 0f 11 bc 24 a8 01 	movsd  %xmm7,0x1a8(%rsp)
+   1413a1be7:	00 00 
+   1413a1be9:	f2 0f 10 bc 24 e8 02 	movsd  0x2e8(%rsp),%xmm7
+   1413a1bf0:	00 00 
+   1413a1bf2:	f2 0f 11 bc 24 70 01 	movsd  %xmm7,0x170(%rsp)
+   1413a1bf9:	00 00 
+   1413a1bfb:	f2 0f 10 bc 24 f0 02 	movsd  0x2f0(%rsp),%xmm7
+   1413a1c02:	00 00 
+   1413a1c04:	f2 0f 11 bc 24 f0 00 	movsd  %xmm7,0xf0(%rsp)
+   1413a1c0b:	00 00 
+   1413a1c0d:	e9 3a eb ff ff       	jmp    1413a074c <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x50c>
+   1413a1c12:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a1c18:	f3 0f 11 b4 24 b0 01 	movss  %xmm6,0x1b0(%rsp)
+   1413a1c1f:	00 00 
+   1413a1c21:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a1c28:	f3 0f 11 b4 24 a0 01 	movss  %xmm6,0x1a0(%rsp)
+   1413a1c2f:	00 00 
+   1413a1c31:	0f 85 39 ec ff ff    	jne    1413a0870 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x630>
+   1413a1c37:	4c 8b 84 24 20 01 00 	mov    0x120(%rsp),%r8
+   1413a1c3e:	00 
+   1413a1c3f:	48 8d 8c 24 e0 03 00 	lea    0x3e0(%rsp),%rcx
+   1413a1c46:	00 
+   1413a1c47:	48 89 da             	mov    %rbx,%rdx
+   1413a1c4a:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a1c51:	00 
+   1413a1c52:	e8 d9 42 ff ff       	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a1c57:	f2 0f 10 ac 24 e8 03 	movsd  0x3e8(%rsp),%xmm5
+   1413a1c5e:	00 00 
+   1413a1c60:	44 0f b6 ab a9 03 00 	movzbl 0x3a9(%rbx),%r13d
+   1413a1c67:	00 
+   1413a1c68:	f2 0f 10 a4 24 f0 03 	movsd  0x3f0(%rsp),%xmm4
+   1413a1c6f:	00 00 
+   1413a1c71:	f2 44 0f 10 94 24 e0 	movsd  0x3e0(%rsp),%xmm10
+   1413a1c78:	03 00 00 
+   1413a1c7b:	f2 0f 11 6c 24 60    	movsd  %xmm5,0x60(%rsp)
+   1413a1c81:	f2 44 0f 11 94 24 20 	movsd  %xmm10,0x320(%rsp)
+   1413a1c88:	03 00 00 
+   1413a1c8b:	f2 0f 11 ac 24 28 03 	movsd  %xmm5,0x328(%rsp)
+   1413a1c92:	00 00 
+   1413a1c94:	f2 0f 11 a4 24 80 01 	movsd  %xmm4,0x180(%rsp)
+   1413a1c9b:	00 00 
+   1413a1c9d:	f2 0f 11 a4 24 30 03 	movsd  %xmm4,0x330(%rsp)
+   1413a1ca4:	00 00 
+   1413a1ca6:	e9 f0 eb ff ff       	jmp    1413a089b <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x65b>
+   1413a1cab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a1cb0:	f3 0f 11 b4 24 10 01 	movss  %xmm6,0x110(%rsp)
+   1413a1cb7:	00 00 
+   1413a1cb9:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a1cc0:	f3 0f 11 b4 24 00 01 	movss  %xmm6,0x100(%rsp)
+   1413a1cc7:	00 00 
+   1413a1cc9:	0f 85 47 ea ff ff    	jne    1413a0716 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x4d6>
+   1413a1ccf:	4c 8b 84 24 c0 00 00 	mov    0xc0(%rsp),%r8
+   1413a1cd6:	00 
+   1413a1cd7:	48 8d 8c 24 c0 03 00 	lea    0x3c0(%rsp),%rcx
+   1413a1cde:	00 
+   1413a1cdf:	48 89 da             	mov    %rbx,%rdx
+   1413a1ce2:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a1ce9:	00 
+   1413a1cea:	e8 41 42 ff ff       	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a1cef:	f2 0f 10 bc 24 c0 03 	movsd  0x3c0(%rsp),%xmm7
+   1413a1cf6:	00 00 
+   1413a1cf8:	48 8b ab 18 01 00 00 	mov    0x118(%rbx),%rbp
+   1413a1cff:	f2 0f 10 a4 24 c8 03 	movsd  0x3c8(%rsp),%xmm4
+   1413a1d06:	00 00 
+   1413a1d08:	f2 0f 10 9c 24 d0 03 	movsd  0x3d0(%rsp),%xmm3
+   1413a1d0f:	00 00 
+   1413a1d11:	f2 0f 11 bc 24 a8 01 	movsd  %xmm7,0x1a8(%rsp)
+   1413a1d18:	00 00 
+   1413a1d1a:	f2 0f 11 bc 24 e0 02 	movsd  %xmm7,0x2e0(%rsp)
+   1413a1d21:	00 00 
+   1413a1d23:	f2 0f 11 a4 24 70 01 	movsd  %xmm4,0x170(%rsp)
+   1413a1d2a:	00 00 
+   1413a1d2c:	f2 0f 11 a4 24 e8 02 	movsd  %xmm4,0x2e8(%rsp)
+   1413a1d33:	00 00 
+   1413a1d35:	f2 0f 11 9c 24 f0 00 	movsd  %xmm3,0xf0(%rsp)
+   1413a1d3c:	00 00 
+   1413a1d3e:	f2 0f 11 9c 24 f0 02 	movsd  %xmm3,0x2f0(%rsp)
+   1413a1d45:	00 00 
+   1413a1d47:	e9 00 ea ff ff       	jmp    1413a074c <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x50c>
+   1413a1d4c:	0f 1f 40 00          	nopl   0x0(%rax)
+   1413a1d50:	f3 0f 6f 10          	movdqu (%rax),%xmm2
+   1413a1d54:	44 0f 28 c0          	movaps %xmm0,%xmm8
+   1413a1d58:	e9 77 ed ff ff       	jmp    1413a0ad4 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x894>
+   1413a1d5d:	0f 1f 00             	nopl   (%rax)
+   1413a1d60:	8b 30                	mov    (%rax),%esi
+   1413a1d62:	44 8b 70 04          	mov    0x4(%rax),%r14d
+   1413a1d66:	89 b4 24 28 01 00 00 	mov    %esi,0x128(%rsp)
+   1413a1d6d:	8b 70 08             	mov    0x8(%rax),%esi
+   1413a1d70:	8b 40 0c             	mov    0xc(%rax),%eax
+   1413a1d73:	89 b4 24 40 01 00 00 	mov    %esi,0x140(%rsp)
+   1413a1d7a:	89 84 24 30 01 00 00 	mov    %eax,0x130(%rsp)
+   1413a1d81:	e9 4e ea ff ff       	jmp    1413a07d4 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x594>
+   1413a1d86:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1413a1d8d:	00 00 00 
+   1413a1d90:	48 8b 83 10 01 00 00 	mov    0x110(%rbx),%rax
+   1413a1d97:	48 83 78 10 00       	cmpq   $0x0,0x10(%rax)
+   1413a1d9c:	0f 84 de f1 ff ff    	je     1413a0f80 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xd40>
+   1413a1da2:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1413a1da6:	4c 8b 70 20          	mov    0x20(%rax),%r14
+   1413a1daa:	48 8b 35 df 15 4f 01 	mov    0x14f15df(%rip),%rsi        # 142893390 <__imp__ZeqRK7QStringS1_>
+   1413a1db1:	44 0f 28 de          	movaps %xmm6,%xmm11
+   1413a1db5:	0f 28 fe             	movaps %xmm6,%xmm7
+   1413a1db8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a1dbf:	00 
+   1413a1dc0:	48 83 c0 08          	add    $0x8,%rax
+   1413a1dc4:	49 39 c6             	cmp    %rax,%r14
+   1413a1dc7:	0f 84 73 fa ff ff    	je     1413a1840 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1600>
+   1413a1dcd:	0f b7 44 24 78       	movzwl 0x78(%rsp),%eax
+   1413a1dd2:	4c 8d a4 24 00 04 00 	lea    0x400(%rsp),%r12
+   1413a1dd9:	00 
+   1413a1dda:	49 8b 4e 20          	mov    0x20(%r14),%rcx
+   1413a1dde:	4c 89 e2             	mov    %r12,%rdx
+   1413a1de1:	66 89 84 24 00 04 00 	mov    %ax,0x400(%rsp)
+   1413a1de8:	00 
+   1413a1de9:	e8 22 13 ff ff       	call   141393110 <_ZNK7QVectorItE8containsERKt.isra.0>
+   1413a1dee:	84 c0                	test   %al,%al
+   1413a1df0:	0f 84 72 01 00 00    	je     1413a1f68 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1d28>
+   1413a1df6:	48 8b 07             	mov    (%rdi),%rax
+   1413a1df9:	49 8d 6e 18          	lea    0x18(%r14),%rbp
+   1413a1dfd:	4c 8b 78 10          	mov    0x10(%rax),%r15
+   1413a1e01:	48 63 50 04          	movslq 0x4(%rax),%rdx
+   1413a1e05:	49 01 c7             	add    %rax,%r15
+   1413a1e08:	48 8d 04 d5 00 00 00 	lea    0x0(,%rdx,8),%rax
+   1413a1e0f:	00 
+   1413a1e10:	48 29 d0             	sub    %rdx,%rax
+   1413a1e13:	48 c1 e0 05          	shl    $0x5,%rax
+   1413a1e17:	0f 84 4b 01 00 00    	je     1413a1f68 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1d28>
+   1413a1e1d:	45 31 ed             	xor    %r13d,%r13d
+   1413a1e20:	eb 3a                	jmp    1413a1e5c <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1c1c>
+   1413a1e22:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a1e28:	48 8b 17             	mov    (%rdi),%rdx
+   1413a1e2b:	49 81 c7 e0 00 00 00 	add    $0xe0,%r15
+   1413a1e32:	41 83 c5 01          	add    $0x1,%r13d
+   1413a1e36:	48 8b 42 10          	mov    0x10(%rdx),%rax
+   1413a1e3a:	48 63 4a 04          	movslq 0x4(%rdx),%rcx
+   1413a1e3e:	48 01 d0             	add    %rdx,%rax
+   1413a1e41:	48 8d 14 cd 00 00 00 	lea    0x0(,%rcx,8),%rdx
+   1413a1e48:	00 
+   1413a1e49:	48 29 ca             	sub    %rcx,%rdx
+   1413a1e4c:	48 c1 e2 05          	shl    $0x5,%rdx
+   1413a1e50:	48 01 d0             	add    %rdx,%rax
+   1413a1e53:	49 39 c7             	cmp    %rax,%r15
+   1413a1e56:	0f 84 0c 01 00 00    	je     1413a1f68 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1d28>
+   1413a1e5c:	49 8d 4f 68          	lea    0x68(%r15),%rcx
+   1413a1e60:	48 89 ea             	mov    %rbp,%rdx
+   1413a1e63:	ff d6                	call   *%rsi
+   1413a1e65:	84 c0                	test   %al,%al
+   1413a1e67:	74 bf                	je     1413a1e28 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1be8>
+   1413a1e69:	4d 63 ed             	movslq %r13d,%r13
+   1413a1e6c:	48 8b 2f             	mov    (%rdi),%rbp
+   1413a1e6f:	48 8d 8c 24 90 02 00 	lea    0x290(%rsp),%rcx
+   1413a1e76:	00 
+   1413a1e77:	0f 28 fe             	movaps %xmm6,%xmm7
+   1413a1e7a:	4a 8d 04 ed 00 00 00 	lea    0x0(,%r13,8),%rax
+   1413a1e81:	00 
+   1413a1e82:	4c 29 e8             	sub    %r13,%rax
+   1413a1e85:	48 03 6d 10          	add    0x10(%rbp),%rbp
+   1413a1e89:	48 c1 e0 05          	shl    $0x5,%rax
+   1413a1e8d:	48 01 c5             	add    %rax,%rbp
+   1413a1e90:	4c 8d 6d 14          	lea    0x14(%rbp),%r13
+   1413a1e94:	4c 89 ea             	mov    %r13,%rdx
+   1413a1e97:	ff 15 3b 1b 4f 01    	call   *0x14f1b3b(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1e9d:	48 8d 8c 24 80 02 00 	lea    0x280(%rsp),%rcx
+   1413a1ea4:	00 
+   1413a1ea5:	4c 89 ea             	mov    %r13,%rdx
+   1413a1ea8:	ff 15 2a 1b 4f 01    	call   *0x14f1b2a(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1eae:	48 8d 8c 24 a0 02 00 	lea    0x2a0(%rsp),%rcx
+   1413a1eb5:	00 
+   1413a1eb6:	4c 89 ea             	mov    %r13,%rdx
+   1413a1eb9:	ff 15 19 1b 4f 01    	call   *0x14f1b19(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1ebf:	80 bc 24 3f 02 00 00 	cmpb   $0x0,0x23f(%rsp)
+   1413a1ec6:	00 
+   1413a1ec7:	74 0d                	je     1413a1ed6 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1c96>
+   1413a1ec9:	f3 0f 10 7d 70       	movss  0x70(%rbp),%xmm7
+   1413a1ece:	f3 0f 5e 3d 9a d3 f2 	divss  0xf2d39a(%rip),%xmm7        # 1422cf270 <.rdata+0x450>
+   1413a1ed5:	00 
+   1413a1ed6:	f3 44 0f 10 5d 78    	movss  0x78(%rbp),%xmm11
+   1413a1edc:	4c 8d bb 08 01 00 00 	lea    0x108(%rbx),%r15
+   1413a1ee3:	ba 08 00 00 00       	mov    $0x8,%edx
+   1413a1ee8:	48 8d 0d d6 d2 f2 00 	lea    0xf2d2d6(%rip),%rcx        # 1422cf1c5 <.rdata+0x3a5>
+   1413a1eef:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a1ef6:	00 
+   1413a1ef7:	ff 15 8b 0c 4f 01    	call   *0x14f0c8b(%rip)        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   1413a1efd:	41 b9 01 00 00 00    	mov    $0x1,%r9d
+   1413a1f03:	45 31 c0             	xor    %r8d,%r8d
+   1413a1f06:	4c 89 e2             	mov    %r12,%rdx
+   1413a1f09:	4c 89 f9             	mov    %r15,%rcx
+   1413a1f0c:	48 89 84 24 00 04 00 	mov    %rax,0x400(%rsp)
+   1413a1f13:	00 
+   1413a1f14:	ff 15 ee 12 4f 01    	call   *0x14f12ee(%rip)        # 142893208 <__imp__ZNK7QString7indexOfERKS_iN2Qt15CaseSensitivityE>
+   1413a1f1a:	41 89 c5             	mov    %eax,%r13d
+   1413a1f1d:	4c 89 e1             	mov    %r12,%rcx
+   1413a1f20:	e8 eb ee 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a1f25:	41 83 fd ff          	cmp    $0xffffffff,%r13d
+   1413a1f29:	74 3d                	je     1413a1f68 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1d28>
+   1413a1f2b:	4c 8d 65 24          	lea    0x24(%rbp),%r12
+   1413a1f2f:	48 8d 8c 24 c0 02 00 	lea    0x2c0(%rsp),%rcx
+   1413a1f36:	00 
+   1413a1f37:	4c 89 e2             	mov    %r12,%rdx
+   1413a1f3a:	ff 15 98 1a 4f 01    	call   *0x14f1a98(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1f40:	48 8d 8c 24 b0 02 00 	lea    0x2b0(%rsp),%rcx
+   1413a1f47:	00 
+   1413a1f48:	4c 89 e2             	mov    %r12,%rdx
+   1413a1f4b:	ff 15 87 1a 4f 01    	call   *0x14f1a87(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1f51:	48 8d 8c 24 d0 02 00 	lea    0x2d0(%rsp),%rcx
+   1413a1f58:	00 
+   1413a1f59:	4c 89 e2             	mov    %r12,%rdx
+   1413a1f5c:	ff 15 76 1a 4f 01    	call   *0x14f1a76(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1f62:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a1f68:	4c 89 f1             	mov    %r14,%rcx
+   1413a1f6b:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a1f72:	00 
+   1413a1f73:	ff 15 47 10 4f 01    	call   *0x14f1047(%rip)        # 142892fc0 <__imp__ZNK12QMapNodeBase8nextNodeEv>
+   1413a1f79:	49 89 c6             	mov    %rax,%r14
+   1413a1f7c:	48 8b 83 10 01 00 00 	mov    0x110(%rbx),%rax
+   1413a1f83:	e9 38 fe ff ff       	jmp    1413a1dc0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1b80>
+   1413a1f88:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a1f8f:	00 
+   1413a1f90:	4c 8d a3 38 03 00 00 	lea    0x338(%rbx),%r12
+   1413a1f97:	48 8b 35 3a 1a 4f 01 	mov    0x14f1a3a(%rip),%rsi        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   1413a1f9e:	48 8d 8c 24 90 02 00 	lea    0x290(%rsp),%rcx
+   1413a1fa5:	00 
+   1413a1fa6:	4c 89 e2             	mov    %r12,%rdx
+   1413a1fa9:	ff d6                	call   *%rsi
+   1413a1fab:	48 8d 8c 24 80 02 00 	lea    0x280(%rsp),%rcx
+   1413a1fb2:	00 
+   1413a1fb3:	4c 89 e2             	mov    %r12,%rdx
+   1413a1fb6:	ff d6                	call   *%rsi
+   1413a1fb8:	48 8b 07             	mov    (%rdi),%rax
+   1413a1fbb:	44 8b 58 04          	mov    0x4(%rax),%r11d
+   1413a1fbf:	45 85 db             	test   %r11d,%r11d
+   1413a1fc2:	0f 85 c8 fd ff ff    	jne    1413a1d90 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1b50>
+   1413a1fc8:	48 c7 84 24 50 02 00 	movq   $0x0,0x250(%rsp)
+   1413a1fcf:	00 00 00 00 00 
+   1413a1fd4:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1413a1fd8:	48 c7 84 24 58 02 00 	movq   $0x0,0x258(%rsp)
+   1413a1fdf:	00 00 00 00 00 
+   1413a1fe4:	44 0f 28 de          	movaps %xmm6,%xmm11
+   1413a1fe8:	0f 28 fe             	movaps %xmm6,%xmm7
+   1413a1feb:	48 c7 84 24 60 02 00 	movq   $0x0,0x260(%rsp)
+   1413a1ff2:	00 00 00 00 00 
+   1413a1ff7:	48 c7 84 24 68 02 00 	movq   $0x0,0x268(%rsp)
+   1413a1ffe:	00 00 00 00 00 
+   1413a2003:	48 c7 84 24 70 02 00 	movq   $0x0,0x270(%rsp)
+   1413a200a:	00 00 00 00 00 
+   1413a200f:	48 c7 84 24 78 02 00 	movq   $0x0,0x278(%rsp)
+   1413a2016:	00 00 00 00 00 
+   1413a201b:	e9 be ef ff ff       	jmp    1413a0fde <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xd9e>
+   1413a2020:	4c 8b 84 24 e0 01 00 	mov    0x1e0(%rsp),%r8
+   1413a2027:	00 
+   1413a2028:	48 89 da             	mov    %rbx,%rdx
+   1413a202b:	4c 89 e1             	mov    %r12,%rcx
+   1413a202e:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a2035:	00 
+   1413a2036:	e8 f5 3e ff ff       	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a203b:	f2 44 0f 10 8c 24 00 	movsd  0x400(%rsp),%xmm9
+   1413a2042:	04 00 00 
+   1413a2045:	44 0f b6 ab a9 03 00 	movzbl 0x3a9(%rbx),%r13d
+   1413a204c:	00 
+   1413a204d:	f2 0f 10 84 24 08 04 	movsd  0x408(%rsp),%xmm0
+   1413a2054:	00 00 
+   1413a2056:	f2 0f 10 8c 24 10 04 	movsd  0x410(%rsp),%xmm1
+   1413a205d:	00 00 
+   1413a205f:	f2 44 0f 11 8c 24 00 	movsd  %xmm9,0x300(%rsp)
+   1413a2066:	03 00 00 
+   1413a2069:	f2 0f 11 84 24 08 03 	movsd  %xmm0,0x308(%rsp)
+   1413a2070:	00 00 
+   1413a2072:	f2 0f 11 8c 24 10 03 	movsd  %xmm1,0x310(%rsp)
+   1413a2079:	00 00 
+   1413a207b:	e9 02 e9 ff ff       	jmp    1413a0982 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x742>
+   1413a2080:	8b 8c 24 d4 01 00 00 	mov    0x1d4(%rsp),%ecx
+   1413a2087:	39 48 04             	cmp    %ecx,0x4(%rax)
+   1413a208a:	0f 8f 7f 08 00 00    	jg     1413a290f <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x26cf>
+   1413a2090:	f2 0f 10 8c 24 e0 03 	movsd  0x3e0(%rsp),%xmm1
+   1413a2097:	00 00 
+   1413a2099:	f2 0f 10 84 24 e8 03 	movsd  0x3e8(%rsp),%xmm0
+   1413a20a0:	00 00 
+   1413a20a2:	f3 0f 11 b4 24 38 02 	movss  %xmm6,0x238(%rsp)
+   1413a20a9:	00 00 
+   1413a20ab:	f2 0f 10 9c 24 f0 03 	movsd  0x3f0(%rsp),%xmm3
+   1413a20b2:	00 00 
+   1413a20b4:	f3 0f 11 b4 24 10 02 	movss  %xmm6,0x210(%rsp)
+   1413a20bb:	00 00 
+   1413a20bd:	e9 13 f4 ff ff       	jmp    1413a14d5 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1295>
+   1413a20c2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a20c8:	8b b4 24 b0 01 00 00 	mov    0x1b0(%rsp),%esi
+   1413a20cf:	39 70 04             	cmp    %esi,0x4(%rax)
+   1413a20d2:	0f 8f 91 07 00 00    	jg     1413a2869 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2629>
+   1413a20d8:	f2 0f 10 8c 24 c0 03 	movsd  0x3c0(%rsp),%xmm1
+   1413a20df:	00 00 
+   1413a20e1:	f2 0f 10 9c 24 c8 03 	movsd  0x3c8(%rsp),%xmm3
+   1413a20e8:	00 00 
+   1413a20ea:	f3 0f 11 b4 24 0c 02 	movss  %xmm6,0x20c(%rsp)
+   1413a20f1:	00 00 
+   1413a20f3:	f2 0f 10 a4 24 d0 03 	movsd  0x3d0(%rsp),%xmm4
+   1413a20fa:	00 00 
+   1413a20fc:	f3 0f 11 b4 24 08 02 	movss  %xmm6,0x208(%rsp)
+   1413a2103:	00 00 
+   1413a2105:	f2 0f 11 8c 24 28 02 	movsd  %xmm1,0x228(%rsp)
+   1413a210c:	00 00 
+   1413a210e:	f2 0f 11 9c 24 20 02 	movsd  %xmm3,0x220(%rsp)
+   1413a2115:	00 00 
+   1413a2117:	f2 0f 11 a4 24 18 02 	movsd  %xmm4,0x218(%rsp)
+   1413a211e:	00 00 
+   1413a2120:	45 84 f6             	test   %r14b,%r14b
+   1413a2123:	0f 84 86 f2 ff ff    	je     1413a13af <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x116f>
+   1413a2129:	48 8b 44 24 50       	mov    0x50(%rsp),%rax
+   1413a212e:	f3 0f 10 58 14       	movss  0x14(%rax),%xmm3
+   1413a2133:	8b 48 08             	mov    0x8(%rax),%ecx
+   1413a2136:	8b 30                	mov    (%rax),%esi
+   1413a2138:	f3 0f 10 60 1c       	movss  0x1c(%rax),%xmm4
+   1413a213d:	89 8c 24 ec 01 00 00 	mov    %ecx,0x1ec(%rsp)
+   1413a2144:	8b 48 0c             	mov    0xc(%rax),%ecx
+   1413a2147:	f3 0f 11 9c 24 f4 01 	movss  %xmm3,0x1f4(%rsp)
+   1413a214e:	00 00 
+   1413a2150:	f3 0f 10 58 18       	movss  0x18(%rax),%xmm3
+   1413a2155:	f3 44 0f 10 40 10    	movss  0x10(%rax),%xmm8
+   1413a215b:	89 b4 24 bc 01 00 00 	mov    %esi,0x1bc(%rsp)
+   1413a2162:	8b 70 04             	mov    0x4(%rax),%esi
+   1413a2165:	89 8c 24 f0 01 00 00 	mov    %ecx,0x1f0(%rsp)
+   1413a216c:	f3 0f 11 9c 24 f8 01 	movss  %xmm3,0x1f8(%rsp)
+   1413a2173:	00 00 
+   1413a2175:	f3 0f 11 a4 24 fc 01 	movss  %xmm4,0x1fc(%rsp)
+   1413a217c:	00 00 
+   1413a217e:	e9 6e f2 ff ff       	jmp    1413a13f1 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x11b1>
+   1413a2183:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a2188:	f3 0f 11 b4 24 00 01 	movss  %xmm6,0x100(%rsp)
+   1413a218f:	00 00 
+   1413a2191:	f3 0f 11 b4 24 f0 00 	movss  %xmm6,0xf0(%rsp)
+   1413a2198:	00 00 
+   1413a219a:	3b 84 24 a8 00 00 00 	cmp    0xa8(%rsp),%eax
+   1413a21a1:	0f 8e 99 f0 ff ff    	jle    1413a1240 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1000>
+   1413a21a7:	4c 8d b3 18 01 00 00 	lea    0x118(%rbx),%r14
+   1413a21ae:	4c 89 f1             	mov    %r14,%rcx
+   1413a21b1:	e8 ea 65 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a21b6:	48 63 b4 24 a8 00 00 	movslq 0xa8(%rsp),%rsi
+   1413a21bd:	00 
+   1413a21be:	48 8b 93 18 01 00 00 	mov    0x118(%rbx),%rdx
+   1413a21c5:	4c 89 f1             	mov    %r14,%rcx
+   1413a21c8:	48 c1 e6 03          	shl    $0x3,%rsi
+   1413a21cc:	48 8d 04 32          	lea    (%rdx,%rsi,1),%rax
+   1413a21d0:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a21d4:	f3 0f 10 78 04       	movss  0x4(%rax),%xmm7
+   1413a21d9:	f3 0f 11 bc 24 00 01 	movss  %xmm7,0x100(%rsp)
+   1413a21e0:	00 00 
+   1413a21e2:	e8 b9 65 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a21e7:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a21ee:	44 0f b6 b3 a9 03 00 	movzbl 0x3a9(%rbx),%r14d
+   1413a21f5:	00 
+   1413a21f6:	f2 44 0f 10 a4 24 40 	movsd  0x340(%rsp),%xmm12
+   1413a21fd:	03 00 00 
+   1413a2200:	f2 44 0f 10 8c 24 48 	movsd  0x348(%rsp),%xmm9
+   1413a2207:	03 00 00 
+   1413a220a:	48 01 c6             	add    %rax,%rsi
+   1413a220d:	48 03 70 10          	add    0x10(%rax),%rsi
+   1413a2211:	f3 0f 10 3e          	movss  (%rsi),%xmm7
+   1413a2215:	f3 0f 11 bc 24 f0 00 	movss  %xmm7,0xf0(%rsp)
+   1413a221c:	00 00 
+   1413a221e:	f2 0f 10 bc 24 50 03 	movsd  0x350(%rsp),%xmm7
+   1413a2225:	00 00 
+   1413a2227:	f2 0f 11 bc 24 b0 00 	movsd  %xmm7,0xb0(%rsp)
+   1413a222e:	00 00 
+   1413a2230:	45 84 f6             	test   %r14b,%r14b
+   1413a2233:	0f 84 18 f0 ff ff    	je     1413a1251 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1011>
+   1413a2239:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1413a2240:	48 8b 44 24 60       	mov    0x60(%rsp),%rax
+   1413a2245:	8b 30                	mov    (%rax),%esi
+   1413a2247:	f3 0f 10 78 14       	movss  0x14(%rax),%xmm7
+   1413a224c:	f3 44 0f 10 50 10    	movss  0x10(%rax),%xmm10
+   1413a2252:	89 b4 24 a8 01 00 00 	mov    %esi,0x1a8(%rsp)
+   1413a2259:	8b 70 04             	mov    0x4(%rax),%esi
+   1413a225c:	f3 0f 11 bc 24 90 01 	movss  %xmm7,0x190(%rsp)
+   1413a2263:	00 00 
+   1413a2265:	f3 0f 10 78 18       	movss  0x18(%rax),%xmm7
+   1413a226a:	89 b4 24 b4 01 00 00 	mov    %esi,0x1b4(%rsp)
+   1413a2271:	8b 70 08             	mov    0x8(%rax),%esi
+   1413a2274:	f3 0f 11 bc 24 00 02 	movss  %xmm7,0x200(%rsp)
+   1413a227b:	00 00 
+   1413a227d:	f3 0f 10 78 1c       	movss  0x1c(%rax),%xmm7
+   1413a2282:	89 b4 24 b8 01 00 00 	mov    %esi,0x1b8(%rsp)
+   1413a2289:	8b 70 0c             	mov    0xc(%rax),%esi
+   1413a228c:	f3 0f 11 bc 24 10 01 	movss  %xmm7,0x110(%rsp)
+   1413a2293:	00 00 
+   1413a2295:	89 b4 24 04 02 00 00 	mov    %esi,0x204(%rsp)
+   1413a229c:	e9 fb ef ff ff       	jmp    1413a129c <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x105c>
+   1413a22a1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1413a22a8:	4c 8d bb 20 01 00 00 	lea    0x120(%rbx),%r15
+   1413a22af:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a22b6:	00 
+   1413a22b7:	4c 89 f9             	mov    %r15,%rcx
+   1413a22ba:	e8 31 ec 4b 00       	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   1413a22bf:	48 8b 44 24 78       	mov    0x78(%rsp),%rax
+   1413a22c4:	48 8b 93 20 01 00 00 	mov    0x120(%rbx),%rdx
+   1413a22cb:	48 c1 e0 02          	shl    $0x2,%rax
+   1413a22cf:	48 89 84 24 e0 00 00 	mov    %rax,0xe0(%rsp)
+   1413a22d6:	00 
+   1413a22d7:	48 01 d0             	add    %rdx,%rax
+   1413a22da:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a22de:	8b 00                	mov    (%rax),%eax
+   1413a22e0:	85 c0                	test   %eax,%eax
+   1413a22e2:	0f 85 c1 06 00 00    	jne    1413a29a9 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2769>
+   1413a22e8:	f2 0f 10 b4 24 90 00 	movsd  0x90(%rsp),%xmm6
+   1413a22ef:	00 00 
+   1413a22f1:	66 45 0f 28 f7       	movapd %xmm15,%xmm14
+   1413a22f6:	f2 44 0f 11 ac 24 e0 	movsd  %xmm13,0xe0(%rsp)
+   1413a22fd:	00 00 00 
+   1413a2300:	f2 44 0f 11 ac 24 e8 	movsd  %xmm13,0xe8(%rsp)
+   1413a2307:	00 00 00 
+   1413a230a:	f2 0f 11 b4 24 d8 00 	movsd  %xmm6,0xd8(%rsp)
+   1413a2311:	00 00 
+   1413a2313:	f2 0f 11 b4 24 c8 00 	movsd  %xmm6,0xc8(%rsp)
+   1413a231a:	00 00 
+   1413a231c:	f2 44 0f 11 bc 24 d0 	movsd  %xmm15,0xd0(%rsp)
+   1413a2323:	00 00 00 
+   1413a2326:	e9 6b eb ff ff       	jmp    1413a0e96 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xc56>
+   1413a232b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1413a2330:	48 8b 8c 24 48 02 00 	mov    0x248(%rsp),%rcx
+   1413a2337:	00 
+   1413a2338:	8b 01                	mov    (%rcx),%eax
+   1413a233a:	85 c0                	test   %eax,%eax
+   1413a233c:	0f 84 aa 04 00 00    	je     1413a27ec <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x25ac>
+   1413a2342:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1413a2345:	74 12                	je     1413a2359 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2119>
+   1413a2347:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1413a234b:	48 8b 8c 24 48 02 00 	mov    0x248(%rsp),%rcx
+   1413a2352:	00 
+   1413a2353:	0f 84 93 04 00 00    	je     1413a27ec <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x25ac>
+   1413a2359:	0f 28 b4 24 20 05 00 	movaps 0x520(%rsp),%xmm6
+   1413a2360:	00 
+   1413a2361:	0f 28 bc 24 30 05 00 	movaps 0x530(%rsp),%xmm7
+   1413a2368:	00 
+   1413a2369:	44 0f 28 84 24 40 05 	movaps 0x540(%rsp),%xmm8
+   1413a2370:	00 00 
+   1413a2372:	44 0f 28 8c 24 50 05 	movaps 0x550(%rsp),%xmm9
+   1413a2379:	00 00 
+   1413a237b:	44 0f 28 94 24 60 05 	movaps 0x560(%rsp),%xmm10
+   1413a2382:	00 00 
+   1413a2384:	44 0f 28 9c 24 70 05 	movaps 0x570(%rsp),%xmm11
+   1413a238b:	00 00 
+   1413a238d:	44 0f 28 a4 24 80 05 	movaps 0x580(%rsp),%xmm12
+   1413a2394:	00 00 
+   1413a2396:	44 0f 28 ac 24 90 05 	movaps 0x590(%rsp),%xmm13
+   1413a239d:	00 00 
+   1413a239f:	44 0f 28 b4 24 a0 05 	movaps 0x5a0(%rsp),%xmm14
+   1413a23a6:	00 00 
+   1413a23a8:	44 0f 28 bc 24 b0 05 	movaps 0x5b0(%rsp),%xmm15
+   1413a23af:	00 00 
+   1413a23b1:	48 81 c4 c8 05 00 00 	add    $0x5c8,%rsp
+   1413a23b8:	5b                   	pop    %rbx
+   1413a23b9:	5e                   	pop    %rsi
+   1413a23ba:	5f                   	pop    %rdi
+   1413a23bb:	5d                   	pop    %rbp
+   1413a23bc:	41 5c                	pop    %r12
+   1413a23be:	41 5d                	pop    %r13
+   1413a23c0:	41 5e                	pop    %r14
+   1413a23c2:	41 5f                	pop    %r15
+   1413a23c4:	c3                   	ret
+   1413a23c5:	0f 1f 00             	nopl   (%rax)
+   1413a23c8:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a23cf:	00 
+   1413a23d0:	45 31 c0             	xor    %r8d,%r8d
+   1413a23d3:	4c 89 e9             	mov    %r13,%rcx
+   1413a23d6:	e8 45 7d 4b 00       	call   14185a120 <_ZN7QVectorI7AuPointE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1413a23db:	48 8b 84 24 48 02 00 	mov    0x248(%rsp),%rax
+   1413a23e2:	00 
+   1413a23e3:	e9 f1 f5 ff ff       	jmp    1413a19d9 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1799>
+   1413a23e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a23ef:	00 
+   1413a23f0:	48 8b 84 24 80 00 00 	mov    0x80(%rsp),%rax
+   1413a23f7:	00 
+   1413a23f8:	f3 0f 6f 10          	movdqu (%rax),%xmm2
+   1413a23fc:	0f 10 48 10          	movups 0x10(%rax),%xmm1
+   1413a2400:	e9 59 f2 ff ff       	jmp    1413a165e <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x141e>
+   1413a2405:	0f 1f 00             	nopl   (%rax)
+   1413a2408:	f3 0f 11 b4 24 38 02 	movss  %xmm6,0x238(%rsp)
+   1413a240f:	00 00 
+   1413a2411:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a2418:	f3 0f 11 b4 24 10 02 	movss  %xmm6,0x210(%rsp)
+   1413a241f:	00 00 
+   1413a2421:	0f 85 93 f0 ff ff    	jne    1413a14ba <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x127a>
+   1413a2427:	48 8d 8c 24 a0 03 00 	lea    0x3a0(%rsp),%rcx
+   1413a242e:	00 
+   1413a242f:	4c 8d 84 24 e0 03 00 	lea    0x3e0(%rsp),%r8
+   1413a2436:	00 
+   1413a2437:	48 89 da             	mov    %rbx,%rdx
+   1413a243a:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a2441:	00 
+   1413a2442:	e8 e9 3a ff ff       	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a2447:	f2 0f 10 8c 24 a0 03 	movsd  0x3a0(%rsp),%xmm1
+   1413a244e:	00 00 
+   1413a2450:	44 0f b6 b3 a9 03 00 	movzbl 0x3a9(%rbx),%r14d
+   1413a2457:	00 
+   1413a2458:	f2 0f 10 84 24 a8 03 	movsd  0x3a8(%rsp),%xmm0
+   1413a245f:	00 00 
+   1413a2461:	f2 0f 10 9c 24 b0 03 	movsd  0x3b0(%rsp),%xmm3
+   1413a2468:	00 00 
+   1413a246a:	f2 0f 11 8c 24 e0 03 	movsd  %xmm1,0x3e0(%rsp)
+   1413a2471:	00 00 
+   1413a2473:	f2 0f 11 84 24 e8 03 	movsd  %xmm0,0x3e8(%rsp)
+   1413a247a:	00 00 
+   1413a247c:	f2 0f 11 9c 24 f0 03 	movsd  %xmm3,0x3f0(%rsp)
+   1413a2483:	00 00 
+   1413a2485:	e9 4b f0 ff ff       	jmp    1413a14d5 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1295>
+   1413a248a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413a2490:	f3 0f 11 b4 24 0c 02 	movss  %xmm6,0x20c(%rsp)
+   1413a2497:	00 00 
+   1413a2499:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a24a0:	f3 0f 11 b4 24 08 02 	movss  %xmm6,0x208(%rsp)
+   1413a24a7:	00 00 
+   1413a24a9:	0f 85 c1 ee ff ff    	jne    1413a1370 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1130>
+   1413a24af:	48 8d 8c 24 80 03 00 	lea    0x380(%rsp),%rcx
+   1413a24b6:	00 
+   1413a24b7:	4c 8d 84 24 c0 03 00 	lea    0x3c0(%rsp),%r8
+   1413a24be:	00 
+   1413a24bf:	48 89 da             	mov    %rbx,%rdx
+   1413a24c2:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a24c9:	00 
+   1413a24ca:	e8 61 3a ff ff       	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a24cf:	f2 0f 10 9c 24 80 03 	movsd  0x380(%rsp),%xmm3
+   1413a24d6:	00 00 
+   1413a24d8:	44 0f b6 b3 a9 03 00 	movzbl 0x3a9(%rbx),%r14d
+   1413a24df:	00 
+   1413a24e0:	f2 0f 10 a4 24 88 03 	movsd  0x388(%rsp),%xmm4
+   1413a24e7:	00 00 
+   1413a24e9:	f2 0f 10 ac 24 90 03 	movsd  0x390(%rsp),%xmm5
+   1413a24f0:	00 00 
+   1413a24f2:	f2 0f 11 9c 24 28 02 	movsd  %xmm3,0x228(%rsp)
+   1413a24f9:	00 00 
+   1413a24fb:	f2 0f 11 9c 24 c0 03 	movsd  %xmm3,0x3c0(%rsp)
+   1413a2502:	00 00 
+   1413a2504:	f2 0f 11 a4 24 20 02 	movsd  %xmm4,0x220(%rsp)
+   1413a250b:	00 00 
+   1413a250d:	f2 0f 11 a4 24 c8 03 	movsd  %xmm4,0x3c8(%rsp)
+   1413a2514:	00 00 
+   1413a2516:	f2 0f 11 ac 24 18 02 	movsd  %xmm5,0x218(%rsp)
+   1413a251d:	00 00 
+   1413a251f:	f2 0f 11 ac 24 d0 03 	movsd  %xmm5,0x3d0(%rsp)
+   1413a2526:	00 00 
+   1413a2528:	e9 79 ee ff ff       	jmp    1413a13a6 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1166>
+   1413a252d:	0f 1f 00             	nopl   (%rax)
+   1413a2530:	f3 0f 11 b4 24 00 01 	movss  %xmm6,0x100(%rsp)
+   1413a2537:	00 00 
+   1413a2539:	80 bb 69 03 00 00 00 	cmpb   $0x0,0x369(%rbx)
+   1413a2540:	f3 0f 11 b4 24 f0 00 	movss  %xmm6,0xf0(%rsp)
+   1413a2547:	00 00 
+   1413a2549:	0f 85 f1 ec ff ff    	jne    1413a1240 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1000>
+   1413a254f:	48 8d 8c 24 60 03 00 	lea    0x360(%rsp),%rcx
+   1413a2556:	00 
+   1413a2557:	4c 8d 84 24 40 03 00 	lea    0x340(%rsp),%r8
+   1413a255e:	00 
+   1413a255f:	48 89 da             	mov    %rbx,%rdx
+   1413a2562:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a2569:	00 
+   1413a256a:	e8 c1 39 ff ff       	call   141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>
+   1413a256f:	f2 0f 10 bc 24 70 03 	movsd  0x370(%rsp),%xmm7
+   1413a2576:	00 00 
+   1413a2578:	f2 44 0f 10 a4 24 60 	movsd  0x360(%rsp),%xmm12
+   1413a257f:	03 00 00 
+   1413a2582:	f2 44 0f 10 8c 24 68 	movsd  0x368(%rsp),%xmm9
+   1413a2589:	03 00 00 
+   1413a258c:	f2 44 0f 11 a4 24 40 	movsd  %xmm12,0x340(%rsp)
+   1413a2593:	03 00 00 
+   1413a2596:	f2 44 0f 11 8c 24 48 	movsd  %xmm9,0x348(%rsp)
+   1413a259d:	03 00 00 
+   1413a25a0:	f2 0f 11 bc 24 b0 00 	movsd  %xmm7,0xb0(%rsp)
+   1413a25a7:	00 00 
+   1413a25a9:	f2 0f 11 bc 24 50 03 	movsd  %xmm7,0x350(%rsp)
+   1413a25b0:	00 00 
+   1413a25b2:	e9 89 ec ff ff       	jmp    1413a1240 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1000>
+   1413a25b7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1413a25be:	00 00 
+   1413a25c0:	4c 8d b3 18 01 00 00 	lea    0x118(%rbx),%r14
+   1413a25c7:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a25ce:	00 
+   1413a25cf:	4c 89 f1             	mov    %r14,%rcx
+   1413a25d2:	e8 c9 61 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a25d7:	48 63 b4 24 a8 00 00 	movslq 0xa8(%rsp),%rsi
+   1413a25de:	00 
+   1413a25df:	48 8b 93 18 01 00 00 	mov    0x118(%rbx),%rdx
+   1413a25e6:	4c 89 f1             	mov    %r14,%rcx
+   1413a25e9:	48 c1 e6 03          	shl    $0x3,%rsi
+   1413a25ed:	48 8d 04 32          	lea    (%rdx,%rsi,1),%rax
+   1413a25f1:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a25f5:	f3 0f 10 78 04       	movss  0x4(%rax),%xmm7
+   1413a25fa:	f3 0f 11 bc 24 10 01 	movss  %xmm7,0x110(%rsp)
+   1413a2601:	00 00 
+   1413a2603:	e8 98 61 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a2608:	48 8b ab 18 01 00 00 	mov    0x118(%rbx),%rbp
+   1413a260f:	48 01 ee             	add    %rbp,%rsi
+   1413a2612:	48 03 75 10          	add    0x10(%rbp),%rsi
+   1413a2616:	f3 0f 10 3e          	movss  (%rsi),%xmm7
+   1413a261a:	f3 0f 11 bc 24 00 01 	movss  %xmm7,0x100(%rsp)
+   1413a2621:	00 00 
+   1413a2623:	f2 0f 10 bc 24 e0 02 	movsd  0x2e0(%rsp),%xmm7
+   1413a262a:	00 00 
+   1413a262c:	f2 0f 11 bc 24 a8 01 	movsd  %xmm7,0x1a8(%rsp)
+   1413a2633:	00 00 
+   1413a2635:	f2 0f 10 bc 24 e8 02 	movsd  0x2e8(%rsp),%xmm7
+   1413a263c:	00 00 
+   1413a263e:	f2 0f 11 bc 24 70 01 	movsd  %xmm7,0x170(%rsp)
+   1413a2645:	00 00 
+   1413a2647:	f2 0f 10 bc 24 f0 02 	movsd  0x2f0(%rsp),%xmm7
+   1413a264e:	00 00 
+   1413a2650:	f2 0f 11 bc 24 f0 00 	movsd  %xmm7,0xf0(%rsp)
+   1413a2657:	00 00 
+   1413a2659:	e9 ee e0 ff ff       	jmp    1413a074c <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x50c>
+   1413a265e:	66 90                	xchg   %ax,%ax
+   1413a2660:	48 8d 83 18 01 00 00 	lea    0x118(%rbx),%rax
+   1413a2667:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a266e:	00 
+   1413a266f:	48 89 c1             	mov    %rax,%rcx
+   1413a2672:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+   1413a2679:	00 
+   1413a267a:	e8 21 61 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a267f:	48 63 b4 24 d4 01 00 	movslq 0x1d4(%rsp),%rsi
+   1413a2686:	00 
+   1413a2687:	48 8b 93 18 01 00 00 	mov    0x118(%rbx),%rdx
+   1413a268e:	48 8b 8c 24 80 00 00 	mov    0x80(%rsp),%rcx
+   1413a2695:	00 
+   1413a2696:	48 c1 e6 03          	shl    $0x3,%rsi
+   1413a269a:	48 8d 04 32          	lea    (%rdx,%rsi,1),%rax
+   1413a269e:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a26a2:	f3 0f 10 70 04       	movss  0x4(%rax),%xmm6
+   1413a26a7:	e8 f4 60 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a26ac:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a26b3:	44 0f b6 ab a9 03 00 	movzbl 0x3a9(%rbx),%r13d
+   1413a26ba:	00 
+   1413a26bb:	f2 44 0f 10 8c 24 00 	movsd  0x300(%rsp),%xmm9
+   1413a26c2:	03 00 00 
+   1413a26c5:	f2 0f 10 84 24 08 03 	movsd  0x308(%rsp),%xmm0
+   1413a26cc:	00 00 
+   1413a26ce:	f2 0f 10 8c 24 10 03 	movsd  0x310(%rsp),%xmm1
+   1413a26d5:	00 00 
+   1413a26d7:	48 01 c6             	add    %rax,%rsi
+   1413a26da:	48 03 70 10          	add    0x10(%rax),%rsi
+   1413a26de:	f3 44 0f 10 26       	movss  (%rsi),%xmm12
+   1413a26e3:	e9 9a e2 ff ff       	jmp    1413a0982 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x742>
+   1413a26e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a26ef:	00 
+   1413a26f0:	48 8d ab 18 01 00 00 	lea    0x118(%rbx),%rbp
+   1413a26f7:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a26fe:	00 
+   1413a26ff:	48 89 e9             	mov    %rbp,%rcx
+   1413a2702:	e8 99 60 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a2707:	48 63 b4 24 b0 01 00 	movslq 0x1b0(%rsp),%rsi
+   1413a270e:	00 
+   1413a270f:	48 8b 93 18 01 00 00 	mov    0x118(%rbx),%rdx
+   1413a2716:	48 89 e9             	mov    %rbp,%rcx
+   1413a2719:	48 c1 e6 03          	shl    $0x3,%rsi
+   1413a271d:	48 8d 04 32          	lea    (%rdx,%rsi,1),%rax
+   1413a2721:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a2725:	f3 0f 10 68 04       	movss  0x4(%rax),%xmm5
+   1413a272a:	f3 0f 11 ac 24 b0 01 	movss  %xmm5,0x1b0(%rsp)
+   1413a2731:	00 00 
+   1413a2733:	e8 68 60 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a2738:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a273f:	44 0f b6 ab a9 03 00 	movzbl 0x3a9(%rbx),%r13d
+   1413a2746:	00 
+   1413a2747:	48 01 c6             	add    %rax,%rsi
+   1413a274a:	48 03 70 10          	add    0x10(%rax),%rsi
+   1413a274e:	f3 0f 10 1e          	movss  (%rsi),%xmm3
+   1413a2752:	f3 0f 11 9c 24 a0 01 	movss  %xmm3,0x1a0(%rsp)
+   1413a2759:	00 00 
+   1413a275b:	e9 10 e1 ff ff       	jmp    1413a0870 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x630>
+   1413a2760:	c7 84 24 d4 01 00 00 	movl   $0x0,0x1d4(%rsp)
+   1413a2767:	00 00 00 00 
+   1413a276b:	c7 84 24 b0 01 00 00 	movl   $0x0,0x1b0(%rsp)
+   1413a2772:	00 00 00 00 
+   1413a2776:	c7 84 24 a8 00 00 00 	movl   $0x0,0xa8(%rsp)
+   1413a277d:	00 00 00 00 
+   1413a2781:	e9 14 f2 ff ff       	jmp    1413a199a <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x175a>
+   1413a2786:	f2 44 0f 10 35 c1 ca 	movsd  0xf2cac1(%rip),%xmm14        # 1422cf250 <.rdata+0x430>
+   1413a278d:	f2 00 
+   1413a278f:	66 44 0f 28 cf       	movapd %xmm7,%xmm9
+   1413a2794:	66 44 0f 28 c7       	movapd %xmm7,%xmm8
+   1413a2799:	66 41 0f 28 c6       	movapd %xmm14,%xmm0
+   1413a279e:	e9 98 dd ff ff       	jmp    1413a053b <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2fb>
+   1413a27a3:	f2 0f 10 05 a5 ca f2 	movsd  0xf2caa5(%rip),%xmm0        # 1422cf250 <.rdata+0x430>
+   1413a27aa:	00 
+   1413a27ab:	66 0f 28 d7          	movapd %xmm7,%xmm2
+   1413a27af:	66 0f 28 cf          	movapd %xmm7,%xmm1
+   1413a27b3:	66 44 0f 28 d8       	movapd %xmm0,%xmm11
+   1413a27b8:	e9 35 de ff ff       	jmp    1413a05f2 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x3b2>
+   1413a27bd:	48 89 fa             	mov    %rdi,%rdx
+   1413a27c0:	48 89 d9             	mov    %rbx,%rcx
+   1413a27c3:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a27ca:	00 
+   1413a27cb:	e8 c0 0c ff ff       	call   141393490 <_ZNK15Au3dsGLSLObject12TransparencyERK22Au3dsGLSLMaterialArray10MODEL_TYPE.constprop.0>
+   1413a27d0:	0f 28 c8             	movaps %xmm0,%xmm1
+   1413a27d3:	f3 0f 10 05 21 cb f2 	movss  0xf2cb21(%rip),%xmm0        # 1422cf2fc <.rdata+0x4dc>
+   1413a27da:	00 
+   1413a27db:	f3 0f 5e 0d 8d ca f2 	divss  0xf2ca8d(%rip),%xmm1        # 1422cf270 <.rdata+0x450>
+   1413a27e2:	00 
+   1413a27e3:	f3 0f 5c c1          	subss  %xmm1,%xmm0
+   1413a27e7:	e9 4c de ff ff       	jmp    1413a0638 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x3f8>
+   1413a27ec:	0f 28 b4 24 20 05 00 	movaps 0x520(%rsp),%xmm6
+   1413a27f3:	00 
+   1413a27f4:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1413a27fa:	0f 28 bc 24 30 05 00 	movaps 0x530(%rsp),%xmm7
+   1413a2801:	00 
+   1413a2802:	ba 18 00 00 00       	mov    $0x18,%edx
+   1413a2807:	44 0f 28 84 24 40 05 	movaps 0x540(%rsp),%xmm8
+   1413a280e:	00 00 
+   1413a2810:	44 0f 28 8c 24 50 05 	movaps 0x550(%rsp),%xmm9
+   1413a2817:	00 00 
+   1413a2819:	44 0f 28 94 24 60 05 	movaps 0x560(%rsp),%xmm10
+   1413a2820:	00 00 
+   1413a2822:	44 0f 28 9c 24 70 05 	movaps 0x570(%rsp),%xmm11
+   1413a2829:	00 00 
+   1413a282b:	44 0f 28 a4 24 80 05 	movaps 0x580(%rsp),%xmm12
+   1413a2832:	00 00 
+   1413a2834:	44 0f 28 ac 24 90 05 	movaps 0x590(%rsp),%xmm13
+   1413a283b:	00 00 
+   1413a283d:	44 0f 28 b4 24 a0 05 	movaps 0x5a0(%rsp),%xmm14
+   1413a2844:	00 00 
+   1413a2846:	44 0f 28 bc 24 b0 05 	movaps 0x5b0(%rsp),%xmm15
+   1413a284d:	00 00 
+   1413a284f:	48 81 c4 c8 05 00 00 	add    $0x5c8,%rsp
+   1413a2856:	5b                   	pop    %rbx
+   1413a2857:	5e                   	pop    %rsi
+   1413a2858:	5f                   	pop    %rdi
+   1413a2859:	5d                   	pop    %rbp
+   1413a285a:	41 5c                	pop    %r12
+   1413a285c:	41 5d                	pop    %r13
+   1413a285e:	41 5e                	pop    %r14
+   1413a2860:	41 5f                	pop    %r15
+   1413a2862:	48 ff 25 37 fd 4e 01 	rex.W jmp *0x14efd37(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1413a2869:	4c 8d b3 18 01 00 00 	lea    0x118(%rbx),%r14
+   1413a2870:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a2877:	00 
+   1413a2878:	4c 89 f1             	mov    %r14,%rcx
+   1413a287b:	e8 20 5f 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a2880:	48 63 b4 24 b0 01 00 	movslq 0x1b0(%rsp),%rsi
+   1413a2887:	00 
+   1413a2888:	48 8b 93 18 01 00 00 	mov    0x118(%rbx),%rdx
+   1413a288f:	4c 89 f1             	mov    %r14,%rcx
+   1413a2892:	48 c1 e6 03          	shl    $0x3,%rsi
+   1413a2896:	48 8d 04 32          	lea    (%rdx,%rsi,1),%rax
+   1413a289a:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a289e:	f3 0f 10 60 04       	movss  0x4(%rax),%xmm4
+   1413a28a3:	f3 0f 11 a4 24 0c 02 	movss  %xmm4,0x20c(%rsp)
+   1413a28aa:	00 00 
+   1413a28ac:	e8 ef 5e 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a28b1:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a28b8:	44 0f b6 b3 a9 03 00 	movzbl 0x3a9(%rbx),%r14d
+   1413a28bf:	00 
+   1413a28c0:	f2 0f 10 ac 24 c0 03 	movsd  0x3c0(%rsp),%xmm5
+   1413a28c7:	00 00 
+   1413a28c9:	f2 0f 10 a4 24 c8 03 	movsd  0x3c8(%rsp),%xmm4
+   1413a28d0:	00 00 
+   1413a28d2:	48 01 c6             	add    %rax,%rsi
+   1413a28d5:	48 03 70 10          	add    0x10(%rax),%rsi
+   1413a28d9:	f2 0f 11 ac 24 28 02 	movsd  %xmm5,0x228(%rsp)
+   1413a28e0:	00 00 
+   1413a28e2:	f3 0f 10 0e          	movss  (%rsi),%xmm1
+   1413a28e6:	f2 0f 11 a4 24 20 02 	movsd  %xmm4,0x220(%rsp)
+   1413a28ed:	00 00 
+   1413a28ef:	f3 0f 11 8c 24 08 02 	movss  %xmm1,0x208(%rsp)
+   1413a28f6:	00 00 
+   1413a28f8:	f2 0f 10 8c 24 d0 03 	movsd  0x3d0(%rsp),%xmm1
+   1413a28ff:	00 00 
+   1413a2901:	f2 0f 11 8c 24 18 02 	movsd  %xmm1,0x218(%rsp)
+   1413a2908:	00 00 
+   1413a290a:	e9 97 ea ff ff       	jmp    1413a13a6 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1166>
+   1413a290f:	4c 8d b3 18 01 00 00 	lea    0x118(%rbx),%r14
+   1413a2916:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a291d:	00 
+   1413a291e:	4c 89 f1             	mov    %r14,%rcx
+   1413a2921:	e8 7a 5e 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a2926:	48 63 84 24 d4 01 00 	movslq 0x1d4(%rsp),%rax
+   1413a292d:	00 
+   1413a292e:	48 8b 93 18 01 00 00 	mov    0x118(%rbx),%rdx
+   1413a2935:	4c 89 f1             	mov    %r14,%rcx
+   1413a2938:	48 c1 e0 03          	shl    $0x3,%rax
+   1413a293c:	48 89 84 24 10 02 00 	mov    %rax,0x210(%rsp)
+   1413a2943:	00 
+   1413a2944:	48 01 d0             	add    %rdx,%rax
+   1413a2947:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a294b:	f3 0f 10 58 04       	movss  0x4(%rax),%xmm3
+   1413a2950:	f3 0f 11 9c 24 38 02 	movss  %xmm3,0x238(%rsp)
+   1413a2957:	00 00 
+   1413a2959:	e8 42 5e 4b 00       	call   1418587a0 <_ZN7QVectorI21Au3dsGLSLMappingCoordE6detachEv>
+   1413a295e:	48 8b 83 18 01 00 00 	mov    0x118(%rbx),%rax
+   1413a2965:	48 8b 94 24 10 02 00 	mov    0x210(%rsp),%rdx
+   1413a296c:	00 
+   1413a296d:	44 0f b6 b3 a9 03 00 	movzbl 0x3a9(%rbx),%r14d
+   1413a2974:	00 
+   1413a2975:	f2 0f 10 8c 24 e0 03 	movsd  0x3e0(%rsp),%xmm1
+   1413a297c:	00 00 
+   1413a297e:	f2 0f 10 84 24 e8 03 	movsd  0x3e8(%rsp),%xmm0
+   1413a2985:	00 00 
+   1413a2987:	48 01 c2             	add    %rax,%rdx
+   1413a298a:	48 03 50 10          	add    0x10(%rax),%rdx
+   1413a298e:	f2 0f 10 9c 24 f0 03 	movsd  0x3f0(%rsp),%xmm3
+   1413a2995:	00 00 
+   1413a2997:	f3 0f 10 2a          	movss  (%rdx),%xmm5
+   1413a299b:	f3 0f 11 ac 24 10 02 	movss  %xmm5,0x210(%rsp)
+   1413a29a2:	00 00 
+   1413a29a4:	e9 2c eb ff ff       	jmp    1413a14d5 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1295>
+   1413a29a9:	8b 44 24 78          	mov    0x78(%rsp),%eax
+   1413a29ad:	4c 89 ac 24 b0 00 00 	mov    %r13,0xb0(%rsp)
+   1413a29b4:	00 
+   1413a29b5:	8d 48 01             	lea    0x1(%rax),%ecx
+   1413a29b8:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a29bf:	48 63 d1             	movslq %ecx,%rdx
+   1413a29c2:	89 8c 24 90 00 00 00 	mov    %ecx,0x90(%rsp)
+   1413a29c9:	48 c1 e2 02          	shl    $0x2,%rdx
+   1413a29cd:	48 89 94 24 c8 00 00 	mov    %rdx,0xc8(%rsp)
+   1413a29d4:	00 
+   1413a29d5:	48 8d 93 70 03 00 00 	lea    0x370(%rbx),%rdx
+   1413a29dc:	48 89 94 24 e8 00 00 	mov    %rdx,0xe8(%rsp)
+   1413a29e3:	00 
+   1413a29e4:	0f b7 d5             	movzwl %bp,%edx
+   1413a29e7:	89 94 24 00 01 00 00 	mov    %edx,0x100(%rsp)
+   1413a29ee:	39 48 04             	cmp    %ecx,0x4(%rax)
+   1413a29f1:	7f 36                	jg     1413a2a29 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x27e9>
+   1413a29f3:	e9 05 04 00 00       	jmp    1413a2dfd <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2bbd>
+   1413a29f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a29ff:	00 
+   1413a2a00:	4c 8b 93 28 01 00 00 	mov    0x128(%rbx),%r10
+   1413a2a07:	83 84 24 90 00 00 00 	addl   $0x1,0x90(%rsp)
+   1413a2a0e:	01 
+   1413a2a0f:	8b 84 24 90 00 00 00 	mov    0x90(%rsp),%eax
+   1413a2a16:	48 83 84 24 c8 00 00 	addq   $0x4,0xc8(%rsp)
+   1413a2a1d:	00 04 
+   1413a2a1f:	41 3b 42 04          	cmp    0x4(%r10),%eax
+   1413a2a23:	0f 8d d4 03 00 00    	jge    1413a2dfd <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2bbd>
+   1413a2a29:	4c 89 f9             	mov    %r15,%rcx
+   1413a2a2c:	4c 8b ac 24 b0 00 00 	mov    0xb0(%rsp),%r13
+   1413a2a33:	00 
+   1413a2a34:	e8 b7 e4 4b 00       	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   1413a2a39:	48 8b 93 20 01 00 00 	mov    0x120(%rbx),%rdx
+   1413a2a40:	48 8b 84 24 e0 00 00 	mov    0xe0(%rsp),%rax
+   1413a2a47:	00 
+   1413a2a48:	4c 89 f9             	mov    %r15,%rcx
+   1413a2a4b:	4c 8b ac 24 b0 00 00 	mov    0xb0(%rsp),%r13
+   1413a2a52:	00 
+   1413a2a53:	48 01 d0             	add    %rdx,%rax
+   1413a2a56:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a2a5a:	8b 28                	mov    (%rax),%ebp
+   1413a2a5c:	e8 8f e4 4b 00       	call   141860ef0 <_ZN7QVectorIjE6detachEv>
+   1413a2a61:	48 8b 93 20 01 00 00 	mov    0x120(%rbx),%rdx
+   1413a2a68:	48 8b 84 24 c8 00 00 	mov    0xc8(%rsp),%rax
+   1413a2a6f:	00 
+   1413a2a70:	48 01 d0             	add    %rdx,%rax
+   1413a2a73:	48 03 42 10          	add    0x10(%rdx),%rax
+   1413a2a77:	23 28                	and    (%rax),%ebp
+   1413a2a79:	74 85                	je     1413a2a00 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x27c0>
+   1413a2a7b:	48 8b 84 24 b0 00 00 	mov    0xb0(%rsp),%rax
+   1413a2a82:	00 
+   1413a2a83:	48 89 c1             	mov    %rax,%rcx
+   1413a2a86:	49 89 c5             	mov    %rax,%r13
+   1413a2a89:	e8 52 73 4b 00       	call   141859de0 <_ZN7QVectorI7AuPointE6detachEv>
+   1413a2a8e:	48 8b 84 24 48 02 00 	mov    0x248(%rsp),%rax
+   1413a2a95:	00 
+   1413a2a96:	48 8b ac 24 c8 00 00 	mov    0xc8(%rsp),%rbp
+   1413a2a9d:	00 
+   1413a2a9e:	48 8b 8c 24 b0 00 00 	mov    0xb0(%rsp),%rcx
+   1413a2aa5:	00 
+   1413a2aa6:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2aaa:	48 8d 54 6d 00       	lea    0x0(%rbp,%rbp,2),%rdx
+   1413a2aaf:	48 8d 04 50          	lea    (%rax,%rdx,2),%rax
+   1413a2ab3:	66 44 0f 10 08       	movupd (%rax),%xmm9
+   1413a2ab8:	f2 0f 10 78 10       	movsd  0x10(%rax),%xmm7
+   1413a2abd:	e8 1e 73 4b 00       	call   141859de0 <_ZN7QVectorI7AuPointE6detachEv>
+   1413a2ac2:	48 8b 84 24 48 02 00 	mov    0x248(%rsp),%rax
+   1413a2ac9:	00 
+   1413a2aca:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2ad1:	00 
+   1413a2ad2:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2ad6:	48 03 84 24 d8 00 00 	add    0xd8(%rsp),%rax
+   1413a2add:	00 
+   1413a2ade:	66 44 0f 10 00       	movupd (%rax),%xmm8
+   1413a2ae3:	f2 0f 10 70 10       	movsd  0x10(%rax),%xmm6
+   1413a2ae8:	e8 13 11 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2aed:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2af4:	48 8d 54 ad 00       	lea    0x0(%rbp,%rbp,4),%rdx
+   1413a2af9:	4c 8b 4c 24 60       	mov    0x60(%rsp),%r9
+   1413a2afe:	48 8d 54 95 00       	lea    0x0(%rbp,%rdx,4),%rdx
+   1413a2b03:	44 8b 84 24 00 01 00 	mov    0x100(%rsp),%r8d
+   1413a2b0a:	00 
+   1413a2b0b:	4c 8d 14 12          	lea    (%rdx,%rdx,1),%r10
+   1413a2b0f:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2b13:	0f b6 93 a8 03 00 00 	movzbl 0x3a8(%rbx),%edx
+   1413a2b1a:	4a 8d 0c 10          	lea    (%rax,%r10,1),%rcx
+   1413a2b1e:	48 8b 84 24 e8 00 00 	mov    0xe8(%rsp),%rax
+   1413a2b25:	00 
+   1413a2b26:	4c 89 94 24 d0 00 00 	mov    %r10,0xd0(%rsp)
+   1413a2b2d:	00 
+   1413a2b2e:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+   1413a2b33:	e8 68 4f 56 00       	call   141907aa0 <_ZNK13Au3dsGLSLFace10UsesVertexEbtRK15Au3dsGLSLVertexRKSt18unordered_multimapIS0_i20Au3dsGLSLVertex_HashSt8equal_toIS0_ESaISt4pairIS1_iEEE>
+   1413a2b38:	48 63 e8             	movslq %eax,%rbp
+   1413a2b3b:	83 fd ff             	cmp    $0xffffffff,%ebp
+   1413a2b3e:	0f 84 a8 00 00 00    	je     1413a2bec <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x29ac>
+   1413a2b44:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   1413a2b4b:	00 
+   1413a2b4c:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2b53:	00 
+   1413a2b54:	66 0f 10 28          	movupd (%rax),%xmm5
+   1413a2b58:	66 0f 28 c5          	movapd %xmm5,%xmm0
+   1413a2b5c:	0f 29 ac 24 f0 00 00 	movaps %xmm5,0xf0(%rsp)
+   1413a2b63:	00 
+   1413a2b64:	66 41 0f 58 c1       	addpd  %xmm9,%xmm0
+   1413a2b69:	0f 11 00             	movups %xmm0,(%rax)
+   1413a2b6c:	f2 0f 10 46 60       	movsd  0x60(%rsi),%xmm0
+   1413a2b71:	83 86 9c 00 00 00 01 	addl   $0x1,0x9c(%rsi)
+   1413a2b78:	f2 0f 58 c7          	addsd  %xmm7,%xmm0
+   1413a2b7c:	f2 0f 11 46 60       	movsd  %xmm0,0x60(%rsi)
+   1413a2b81:	e8 7a 10 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2b86:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2b8d:	48 8d 54 6d 00       	lea    0x0(%rbp,%rbp,2),%rdx
+   1413a2b92:	48 c1 e2 03          	shl    $0x3,%rdx
+   1413a2b96:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2b9a:	48 03 84 24 d0 00 00 	add    0xd0(%rsp),%rax
+   1413a2ba1:	00 
+   1413a2ba2:	48 8d 4c 10 50       	lea    0x50(%rax,%rdx,1),%rcx
+   1413a2ba7:	48 01 d0             	add    %rdx,%rax
+   1413a2baa:	66 0f 10 01          	movupd (%rcx),%xmm0
+   1413a2bae:	66 41 0f 58 c0       	addpd  %xmm8,%xmm0
+   1413a2bb3:	0f 11 01             	movups %xmm0,(%rcx)
+   1413a2bb6:	f2 0f 10 40 60       	movsd  0x60(%rax),%xmm0
+   1413a2bbb:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2bc2:	00 
+   1413a2bc3:	f2 0f 58 c6          	addsd  %xmm6,%xmm0
+   1413a2bc7:	f2 0f 11 40 60       	movsd  %xmm0,0x60(%rax)
+   1413a2bcc:	e8 2f 10 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2bd1:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2bd8:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2bdc:	48 03 84 24 d0 00 00 	add    0xd0(%rsp),%rax
+   1413a2be3:	00 
+   1413a2be4:	83 84 a8 9c 00 00 00 	addl   $0x1,0x9c(%rax,%rbp,4)
+   1413a2beb:	01 
+   1413a2bec:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2bf3:	00 
+   1413a2bf4:	e8 07 10 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2bf9:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2c00:	0f b6 93 a8 03 00 00 	movzbl 0x3a8(%rbx),%edx
+   1413a2c07:	45 0f b7 c4          	movzwl %r12w,%r8d
+   1413a2c0b:	4c 8b 94 24 d0 00 00 	mov    0xd0(%rsp),%r10
+   1413a2c12:	00 
+   1413a2c13:	4c 8b 4c 24 50       	mov    0x50(%rsp),%r9
+   1413a2c18:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2c1c:	4a 8d 0c 10          	lea    (%rax,%r10,1),%rcx
+   1413a2c20:	48 8b 84 24 e8 00 00 	mov    0xe8(%rsp),%rax
+   1413a2c27:	00 
+   1413a2c28:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+   1413a2c2d:	e8 6e 4e 56 00       	call   141907aa0 <_ZNK13Au3dsGLSLFace10UsesVertexEbtRK15Au3dsGLSLVertexRKSt18unordered_multimapIS0_i20Au3dsGLSLVertex_HashSt8equal_toIS0_ESaISt4pairIS1_iEEE>
+   1413a2c32:	48 63 e8             	movslq %eax,%rbp
+   1413a2c35:	83 fd ff             	cmp    $0xffffffff,%ebp
+   1413a2c38:	0f 84 aa 00 00 00    	je     1413a2ce8 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2aa8>
+   1413a2c3e:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   1413a2c45:	00 
+   1413a2c46:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2c4d:	00 
+   1413a2c4e:	66 0f 10 58 18       	movupd 0x18(%rax),%xmm3
+   1413a2c53:	66 0f 28 c3          	movapd %xmm3,%xmm0
+   1413a2c57:	0f 29 9c 24 f0 00 00 	movaps %xmm3,0xf0(%rsp)
+   1413a2c5e:	00 
+   1413a2c5f:	66 41 0f 58 c1       	addpd  %xmm9,%xmm0
+   1413a2c64:	0f 11 40 18          	movups %xmm0,0x18(%rax)
+   1413a2c68:	f2 0f 10 46 78       	movsd  0x78(%rsi),%xmm0
+   1413a2c6d:	83 86 a0 00 00 00 01 	addl   $0x1,0xa0(%rsi)
+   1413a2c74:	f2 0f 58 c7          	addsd  %xmm7,%xmm0
+   1413a2c78:	f2 0f 11 46 78       	movsd  %xmm0,0x78(%rsi)
+   1413a2c7d:	e8 7e 0f 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2c82:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2c89:	48 8d 54 6d 00       	lea    0x0(%rbp,%rbp,2),%rdx
+   1413a2c8e:	48 c1 e2 03          	shl    $0x3,%rdx
+   1413a2c92:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2c96:	48 03 84 24 d0 00 00 	add    0xd0(%rsp),%rax
+   1413a2c9d:	00 
+   1413a2c9e:	48 8d 4c 10 50       	lea    0x50(%rax,%rdx,1),%rcx
+   1413a2ca3:	48 01 d0             	add    %rdx,%rax
+   1413a2ca6:	66 0f 10 01          	movupd (%rcx),%xmm0
+   1413a2caa:	66 41 0f 58 c0       	addpd  %xmm8,%xmm0
+   1413a2caf:	0f 11 01             	movups %xmm0,(%rcx)
+   1413a2cb2:	f2 0f 10 40 60       	movsd  0x60(%rax),%xmm0
+   1413a2cb7:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2cbe:	00 
+   1413a2cbf:	f2 0f 58 c6          	addsd  %xmm6,%xmm0
+   1413a2cc3:	f2 0f 11 40 60       	movsd  %xmm0,0x60(%rax)
+   1413a2cc8:	e8 33 0f 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2ccd:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2cd4:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2cd8:	48 03 84 24 d0 00 00 	add    0xd0(%rsp),%rax
+   1413a2cdf:	00 
+   1413a2ce0:	83 84 a8 9c 00 00 00 	addl   $0x1,0x9c(%rax,%rbp,4)
+   1413a2ce7:	01 
+   1413a2ce8:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2cef:	00 
+   1413a2cf0:	e8 0b 0f 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2cf5:	4c 8b 93 28 01 00 00 	mov    0x128(%rbx),%r10
+   1413a2cfc:	48 8b 8c 24 d0 00 00 	mov    0xd0(%rsp),%rcx
+   1413a2d03:	00 
+   1413a2d04:	45 0f b7 c6          	movzwl %r14w,%r8d
+   1413a2d08:	0f b6 93 a8 03 00 00 	movzbl 0x3a8(%rbx),%edx
+   1413a2d0f:	4c 8b 8c 24 80 00 00 	mov    0x80(%rsp),%r9
+   1413a2d16:	00 
+   1413a2d17:	49 8b 42 10          	mov    0x10(%r10),%rax
+   1413a2d1b:	4c 89 94 24 f0 00 00 	mov    %r10,0xf0(%rsp)
+   1413a2d22:	00 
+   1413a2d23:	4c 01 d0             	add    %r10,%rax
+   1413a2d26:	48 01 c1             	add    %rax,%rcx
+   1413a2d29:	48 8b 84 24 e8 00 00 	mov    0xe8(%rsp),%rax
+   1413a2d30:	00 
+   1413a2d31:	48 89 44 24 20       	mov    %rax,0x20(%rsp)
+   1413a2d36:	e8 65 4d 56 00       	call   141907aa0 <_ZNK13Au3dsGLSLFace10UsesVertexEbtRK15Au3dsGLSLVertexRKSt18unordered_multimapIS0_i20Au3dsGLSLVertex_HashSt8equal_toIS0_ESaISt4pairIS1_iEEE>
+   1413a2d3b:	4c 8b 94 24 f0 00 00 	mov    0xf0(%rsp),%r10
+   1413a2d42:	00 
+   1413a2d43:	48 63 e8             	movslq %eax,%rbp
+   1413a2d46:	83 fd ff             	cmp    $0xffffffff,%ebp
+   1413a2d49:	0f 84 b8 fc ff ff    	je     1413a2a07 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x27c7>
+   1413a2d4f:	48 8b 84 24 d8 01 00 	mov    0x1d8(%rsp),%rax
+   1413a2d56:	00 
+   1413a2d57:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2d5e:	00 
+   1413a2d5f:	66 0f 10 28          	movupd (%rax),%xmm5
+   1413a2d63:	66 0f 28 c5          	movapd %xmm5,%xmm0
+   1413a2d67:	0f 29 ac 24 f0 00 00 	movaps %xmm5,0xf0(%rsp)
+   1413a2d6e:	00 
+   1413a2d6f:	66 41 0f 58 c1       	addpd  %xmm9,%xmm0
+   1413a2d74:	0f 11 00             	movups %xmm0,(%rax)
+   1413a2d77:	f2 0f 58 be 90 00 00 	addsd  0x90(%rsi),%xmm7
+   1413a2d7e:	00 
+   1413a2d7f:	83 86 a4 00 00 00 01 	addl   $0x1,0xa4(%rsi)
+   1413a2d86:	f2 0f 11 be 90 00 00 	movsd  %xmm7,0x90(%rsi)
+   1413a2d8d:	00 
+   1413a2d8e:	e8 6d 0e 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2d93:	48 8b 83 28 01 00 00 	mov    0x128(%rbx),%rax
+   1413a2d9a:	48 8d 54 6d 00       	lea    0x0(%rbp,%rbp,2),%rdx
+   1413a2d9f:	48 c1 e2 03          	shl    $0x3,%rdx
+   1413a2da3:	48 03 40 10          	add    0x10(%rax),%rax
+   1413a2da7:	48 03 84 24 d0 00 00 	add    0xd0(%rsp),%rax
+   1413a2dae:	00 
+   1413a2daf:	48 8d 4c 10 50       	lea    0x50(%rax,%rdx,1),%rcx
+   1413a2db4:	48 01 d0             	add    %rdx,%rax
+   1413a2db7:	66 0f 10 01          	movupd (%rcx),%xmm0
+   1413a2dbb:	66 41 0f 58 c0       	addpd  %xmm8,%xmm0
+   1413a2dc0:	0f 11 01             	movups %xmm0,(%rcx)
+   1413a2dc3:	f2 0f 58 70 60       	addsd  0x60(%rax),%xmm6
+   1413a2dc8:	48 8b 8c 24 c0 01 00 	mov    0x1c0(%rsp),%rcx
+   1413a2dcf:	00 
+   1413a2dd0:	f2 0f 11 70 60       	movsd  %xmm6,0x60(%rax)
+   1413a2dd5:	e8 26 0e 4b 00       	call   141853c00 <_ZN7QVectorI13Au3dsGLSLFaceE6detachEv>
+   1413a2dda:	4c 8b 93 28 01 00 00 	mov    0x128(%rbx),%r10
+   1413a2de1:	49 8b 42 10          	mov    0x10(%r10),%rax
+   1413a2de5:	4c 01 d0             	add    %r10,%rax
+   1413a2de8:	48 03 84 24 d0 00 00 	add    0xd0(%rsp),%rax
+   1413a2def:	00 
+   1413a2df0:	83 84 a8 9c 00 00 00 	addl   $0x1,0x9c(%rax,%rbp,4)
+   1413a2df7:	01 
+   1413a2df8:	e9 0a fc ff ff       	jmp    1413a2a07 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x27c7>
+   1413a2dfd:	f2 0f 10 76 58       	movsd  0x58(%rsi),%xmm6
+   1413a2e02:	8b 86 9c 00 00 00    	mov    0x9c(%rsi),%eax
+   1413a2e08:	f2 44 0f 10 7e 50    	movsd  0x50(%rsi),%xmm15
+   1413a2e0e:	f2 44 0f 10 6e 60    	movsd  0x60(%rsi),%xmm13
+   1413a2e14:	f2 0f 11 b4 24 90 00 	movsd  %xmm6,0x90(%rsp)
+   1413a2e1b:	00 00 
+   1413a2e1d:	f2 0f 10 76 68       	movsd  0x68(%rsi),%xmm6
+   1413a2e22:	f2 44 0f 10 b6 80 00 	movsd  0x80(%rsi),%xmm14
+   1413a2e29:	00 00 
+   1413a2e2b:	f2 0f 11 b4 24 d0 00 	movsd  %xmm6,0xd0(%rsp)
+   1413a2e32:	00 00 
+   1413a2e34:	f2 0f 10 76 70       	movsd  0x70(%rsi),%xmm6
+   1413a2e39:	f2 0f 11 b4 24 c8 00 	movsd  %xmm6,0xc8(%rsp)
+   1413a2e40:	00 00 
+   1413a2e42:	f2 0f 10 76 78       	movsd  0x78(%rsi),%xmm6
+   1413a2e47:	f2 0f 11 b4 24 e8 00 	movsd  %xmm6,0xe8(%rsp)
+   1413a2e4e:	00 00 
+   1413a2e50:	f2 0f 10 b6 88 00 00 	movsd  0x88(%rsi),%xmm6
+   1413a2e57:	00 
+   1413a2e58:	f2 0f 11 b4 24 d8 00 	movsd  %xmm6,0xd8(%rsp)
+   1413a2e5f:	00 00 
+   1413a2e61:	f2 0f 10 b6 90 00 00 	movsd  0x90(%rsi),%xmm6
+   1413a2e68:	00 
+   1413a2e69:	f2 0f 11 b4 24 e0 00 	movsd  %xmm6,0xe0(%rsp)
+   1413a2e70:	00 00 
+   1413a2e72:	83 f8 01             	cmp    $0x1,%eax
+   1413a2e75:	7e 28                	jle    1413a2e9f <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2c5f>
+   1413a2e77:	f2 0f 10 b4 24 90 00 	movsd  0x90(%rsp),%xmm6
+   1413a2e7e:	00 00 
+   1413a2e80:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a2e84:	f2 0f 2a c0          	cvtsi2sd %eax,%xmm0
+   1413a2e88:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   1413a2e8c:	f2 44 0f 5e f8       	divsd  %xmm0,%xmm15
+   1413a2e91:	f2 0f 11 b4 24 90 00 	movsd  %xmm6,0x90(%rsp)
+   1413a2e98:	00 00 
+   1413a2e9a:	f2 44 0f 5e e8       	divsd  %xmm0,%xmm13
+   1413a2e9f:	8b 86 a0 00 00 00    	mov    0xa0(%rsi),%eax
+   1413a2ea5:	83 f8 01             	cmp    $0x1,%eax
+   1413a2ea8:	7e 4a                	jle    1413a2ef4 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2cb4>
+   1413a2eaa:	f2 0f 10 b4 24 d0 00 	movsd  0xd0(%rsp),%xmm6
+   1413a2eb1:	00 00 
+   1413a2eb3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a2eb7:	f2 0f 2a c0          	cvtsi2sd %eax,%xmm0
+   1413a2ebb:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   1413a2ebf:	f2 0f 11 b4 24 d0 00 	movsd  %xmm6,0xd0(%rsp)
+   1413a2ec6:	00 00 
+   1413a2ec8:	f2 0f 10 b4 24 c8 00 	movsd  0xc8(%rsp),%xmm6
+   1413a2ecf:	00 00 
+   1413a2ed1:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   1413a2ed5:	f2 0f 11 b4 24 c8 00 	movsd  %xmm6,0xc8(%rsp)
+   1413a2edc:	00 00 
+   1413a2ede:	f2 0f 10 b4 24 e8 00 	movsd  0xe8(%rsp),%xmm6
+   1413a2ee5:	00 00 
+   1413a2ee7:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   1413a2eeb:	f2 0f 11 b4 24 e8 00 	movsd  %xmm6,0xe8(%rsp)
+   1413a2ef2:	00 00 
+   1413a2ef4:	8b 86 a4 00 00 00    	mov    0xa4(%rsi),%eax
+   1413a2efa:	83 f8 01             	cmp    $0x1,%eax
+   1413a2efd:	7e 39                	jle    1413a2f38 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2cf8>
+   1413a2eff:	f2 0f 10 b4 24 d8 00 	movsd  0xd8(%rsp),%xmm6
+   1413a2f06:	00 00 
+   1413a2f08:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1413a2f0c:	f2 0f 2a c0          	cvtsi2sd %eax,%xmm0
+   1413a2f10:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   1413a2f14:	f2 44 0f 5e f0       	divsd  %xmm0,%xmm14
+   1413a2f19:	f2 0f 11 b4 24 d8 00 	movsd  %xmm6,0xd8(%rsp)
+   1413a2f20:	00 00 
+   1413a2f22:	f2 0f 10 b4 24 e0 00 	movsd  0xe0(%rsp),%xmm6
+   1413a2f29:	00 00 
+   1413a2f2b:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   1413a2f2f:	f2 0f 11 b4 24 e0 00 	movsd  %xmm6,0xe0(%rsp)
+   1413a2f36:	00 00 
+   1413a2f38:	48 8b 84 24 a0 00 00 	mov    0xa0(%rsp),%rax
+   1413a2f3f:	00 
+   1413a2f40:	48 c7 40 4c 00 00 00 	movq   $0x0,0x4c(%rax)
+   1413a2f47:	00 
+   1413a2f48:	c7 86 a4 00 00 00 00 	movl   $0x0,0xa4(%rsi)
+   1413a2f4f:	00 00 00 
+   1413a2f52:	e9 3f df ff ff       	jmp    1413a0e96 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0xc56>
+   1413a2f57:	f2 0f 11 54 24 60    	movsd  %xmm2,0x60(%rsp)
+   1413a2f5d:	f2 0f 11 4c 24 50    	movsd  %xmm1,0x50(%rsp)
+   1413a2f63:	e8 68 86 3b 00       	call   14175b5d0 <sqrt>
+   1413a2f68:	f2 0f 10 54 24 60    	movsd  0x60(%rsp),%xmm2
+   1413a2f6e:	f2 0f 10 4c 24 50    	movsd  0x50(%rsp),%xmm1
+   1413a2f74:	e9 7d d6 ff ff       	jmp    1413a05f6 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x3b6>
+   1413a2f79:	e8 52 86 3b 00       	call   14175b5d0 <sqrt>
+   1413a2f7e:	e9 bc d5 ff ff       	jmp    1413a053f <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2ff>
+   1413a2f83:	e8 48 86 3b 00       	call   14175b5d0 <sqrt>
+   1413a2f88:	e9 5b d4 ff ff       	jmp    1413a03e8 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x1a8>
+   1413a2f8d:	4c 89 e1             	mov    %r12,%rcx
+   1413a2f90:	48 89 c3             	mov    %rax,%rbx
+   1413a2f93:	4c 8d ac 24 48 02 00 	lea    0x248(%rsp),%r13
+   1413a2f9a:	00 
+   1413a2f9b:	e8 70 de 4a 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1413a2fa0:	4c 89 e9             	mov    %r13,%rcx
+   1413a2fa3:	e8 88 77 4b 00       	call   14185a730 <_ZN7QVectorI7AuPointED2Ev>
+   1413a2fa8:	48 89 d9             	mov    %rbx,%rcx
+   1413a2fab:	e8 88 23 3b 00       	call   141755338 <_Unwind_Resume>
+   1413a2fb0:	48 89 c3             	mov    %rax,%rbx
+   1413a2fb3:	eb eb                	jmp    1413a2fa0 <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2d60>
+   1413a2fb5:	eb d6                	jmp    1413a2f8d <_ZN15Au3dsGLSLObject9LoadModelER20Au3dsGLSLTriBodyListRK22Au3dsGLSLMaterialArrayb10MODEL_TYPEj+0x2d4d>
+   1413a2fb7:	90                   	nop
+   1413a2fb8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1413a2fbf:	00

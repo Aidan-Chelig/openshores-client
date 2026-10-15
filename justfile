@@ -51,6 +51,11 @@ test-native-standing installation="reference/hazeron":
 test-native-avatar installation="reference/hazeron":
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_avatar_generation -- --ignored --nocapture
 
+# Source/control-point and shared wrist/ankle diagnostics; no corrective offsets.
+test-native-avatar-attachments installation="reference/hazeron":
+    nix develop .#server-test --command python tests/native_body_triangle_upload.py
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_avatar_attachments -- --ignored --nocapture
+
 # Inspect assets without extraction; installation files are never executed.
 assets installation="reference/hazeron": build
     nix develop .#server-test --command target/debug/openshores-client inspect-mount {{quote(installation)}}

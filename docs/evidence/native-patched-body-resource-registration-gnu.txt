@@ -1,0 +1,21 @@
+Static resource version corroboration, no target execution.
+Selected artifact: reference/openshores-full/libAuBodyPartsRes.dll
+SHA-256: 3f74065a683e033e9e9a75c49eb2499d2ffffae144a2642333e332d61d67e6de
+SHA-1 (Rust diagnostic identity guard): 88a3051bd4490102bde7ebd8ebf59a53fa8421e2
+
+reference/openshores-full/libAuBodyPartsRes.dll:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000317a51430 <_Z27qInitResources_AuBodyParts0v>:
+   317a51430:	48 83 ec 28          	sub    $0x28,%rsp
+   317a51434:	4c 8d 0d 25 64 00 00 	lea    0x6425(%rip),%r9        # 317a57860 <_ZL16qt_resource_data>
+   317a5143b:	4c 8d 05 5e 42 00 00 	lea    0x425e(%rip),%r8        # 317a556a0 <_ZL16qt_resource_name>
+   317a51442:	b9 03 00 00 00       	mov    $0x3,%ecx
+   317a51447:	48 8d 15 b2 2b 00 00 	lea    0x2bb2(%rip),%rdx        # 317a54000 <_ZL18qt_resource_struct>
+   317a5144e:	e8 c5 04 00 00       	call   317a51918 <_Z21qRegisterResourceDataiPKhS0_S0_>
+   317a51453:	b8 01 00 00 00       	mov    $0x1,%eax
+   317a51458:	48 83 c4 28          	add    $0x28,%rsp
+   317a5145c:	c3                   	ret
+   317a5145d:	0f 1f 00             	nopl   (%rax)

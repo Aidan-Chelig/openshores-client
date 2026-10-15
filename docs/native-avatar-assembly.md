@@ -455,3 +455,74 @@ tests pass (six ignored), 11 CLI tests pass (one mounted test ignored), and the
 client slice test passes. The explicit mounted CPU avatar test and eleven GPU
 captures pass; static neutral/head-pose anchors pass. Viewer library/test/binary
 Clippy passes with warnings denied, as do formatting and diff whitespace checks.
+
+## Attachment investigation: ruled-out causes, not a visual fix
+
+`tests/native_avatar_generation.rs` now checks every arm wrist and leg ankle in
+BOTH anatomies. The shared native joint projected through the adjacent proximal
+and distal bone matrices agrees within1e-10, and the distal mesh definition's
+float translation equals that initialized wrist/ankle point narrowed to f32.
+This checks actual field70/68 points and actual Bones out-reference indices;
+it does not infer offsets from geometry bounds. The checks pass without changing
+any native pose, weights, source vertices or attachment translation.
+
+For the base fixture, diagnostic shared-joint coordinates (Rust CPU observations,
+not native runtime captures) are approximately:
+
+| Joint | X | Y | Z |
+| --- | ---: | ---: | ---: |
+| Left wrist | -0.067475602 | 0.332920179 | -0.047483702 |
+| Right wrist | 0.067475602 | 0.332920179 | -0.047483702 |
+| Left ankle | -0.223940306 | -0.000000009 | -0.050134106 |
+| Right ankle | 0.223940306 | -0.000000009 | -0.050134106 |
+
+`just test-native-avatar-attachments` prints source control points, actual native
+group pivots (not first member positions), uniform/radial/height factors,
+drawn-only loaded/deformed ranges and vertex-to-triangle separation upper bounds.
+It uses only mounted Rust decoding/generation; no original executable/DLL runs.
+Its base-fixture vertex-to-triangle upper bounds are about0.00396746/0.00451679
+for arms and0.00367080 for each leg, smaller than some earlier vertex-to-vertex
+distances. This diagnostic is deliberately NOT a full triangle intersection or
+minimum separation test and cannot by itself prove an actual surface gap.
+
+A static cross-version check rules out a mismatched source-artifact hypothesis
+for this fixture: all18 decoded source resource byte sequences are identical
+between the user installation and `reference/openshores-full/libAuBodyPartsRes.dll`.
+The optional comparison never substitutes those reference assets into generation.
+Reproduce with `OPENSHORES_HAZERON_INSTALLATION=reference/hazeron
+OPENSHORES_PATCHED_BODY_RESOURCES=reference/openshores-full/libAuBodyPartsRes.dll
+cargo test --offline --test native_avatar_attachments -- --ignored --nocapture`
+(on one shell line, inside the usual Nix environment). The reference DLL is
+identity-guarded by SHA-1; its documented SHA-256 is
+3f74065a683e033e9e9a75c49eb2499d2ffffae144a2642333e332d61d67e6de.
+The retained `native-patched-body-resource-registration-gnu.txt` shows its
+qInitResources0 passing ECX=3. The general user-installation mount is unchanged;
+this optional static comparison uses the symbol-bearing version3 resource reader.
+
+The full exact-symbol GNU disassembly of the body triangle builder is now
+retained as `native-body-triangle-upload-gnu.txt`, alongside the existing REA
+record `native-body-load-body-model.json`
+(ev_0ad9fb10afe5f344430f9e7a2f8c50c4508527e505d2d3c8e1f4cd1150b664c0).
+`tests/native_body_triangle_upload.py` verifies the selected original PE digest,
+full retained disassembly, three object-matrix Project results passed to
+ApplyScaleFactor, the field369 baked bypass and stored normal-body influence
+upload. Thus the projected-before-deformed ordinary-part path is retained, not
+changed to merge baking as a visual workaround. No new Ghidra import was needed.
+The existing ApplyScaleFactor and model-definition records also retain the
+anatomical scalar/connection correction operations; no missing operation has yet
+been established from that review.
+
+These findings rule out a simple shared-joint disconnect and this fixture's asset
+version mismatch. They do NOT establish that the apparent gaps are native art
+quirks or complete visual parity. The remaining investigation is source seam
+contact and its native construction/deformation path; do not replace the fixture
+or add corrective offsets to conceal an unresolved mismatch. The avatar goal
+remains active and visual acceptance remains unmet.
+
+Verification for this investigation: both mounted anatomy fixtures pass the
+new shared-joint/definition checks; the base mounted diagnostic passes with and
+without the optional reference comparison; its synthetic triangle-distance
+cases pass. All721 default library tests pass (one ignored), the SHA-bound
+triangle-upload static verifier passes, and default library/test Clippy with
+warnings denied, formatting and diff whitespace checks pass. Rendering is
+unchanged, so no replacement GPU captures or corrected visual result is claimed.

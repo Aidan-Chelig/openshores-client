@@ -89,6 +89,34 @@ fn mounted_complete_native_avatar_inputs_cover_two_anatomies() {
         for index in 0..avatar.body.parts().len() {
             assert!(avatar.surfaces.iter().any(|s| s.part_index == index));
         }
+        // The actual native wrist/ankle pivots must be shared by adjacent
+        // posed bones; never fix a geometry gap with a made-up joint offset.
+        for (part_index, part) in avatar.body.parts().iter().enumerate() {
+            use openshores_client::world::native_body::NativeDpPartJoints;
+            let joint = match part.joints {
+                NativeDpPartJoints::Arm { field_70, .. } => field_70,
+                NativeDpPartJoints::Leg { field_68, .. } => field_68,
+                _ => continue,
+            };
+            let indices = part.limb_bones().unwrap();
+            let proximal = avatar.body.bones().slots[indices[1]].project(joint);
+            let distal = avatar.body.bones().slots[indices[2]].project(joint);
+            for axis in 0..3 {
+                assert!((proximal[axis] - distal[axis]).abs() < 1e-10);
+            }
+            let surfaces: Vec<_> = avatar
+                .surfaces
+                .iter()
+                .filter(|s| s.part_index == part_index)
+                .collect();
+            assert_eq!(surfaces.len(), 2);
+            for (axis, expected) in joint.into_iter().enumerate() {
+                assert_eq!(
+                    surfaces[1].native.deformation.base.fields_1c0[axis],
+                    expected as f32
+                );
+            }
+        }
         let posed = avatar.posed_surfaces(60.).unwrap();
         assert_eq!(posed.len(), avatar.surfaces.len());
         for (surface_index, (posed, source)) in posed.iter().zip(&avatar.surfaces).enumerate() {
