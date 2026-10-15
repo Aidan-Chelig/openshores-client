@@ -1,0 +1,114 @@
+Static GNU disassembly, not REA evidence or target execution.
+Target: reference/openshores-full/Qt5Gui.dll
+SHA256: 5d87baabd75693f81e43eb492e384611228073bedcda98a2b0438072180d9170
+Export: _ZrsR11QDataStreamR6QColor, ordinal 8244, RVA 0x21be70
+Image base: 0x335490000
+Import IAT RVA 0x636ac0: _ZN11QDataStreamrsERa (signed char&)
+Import IAT RVA 0x636ae8: _ZN11QDataStreamrsERs (short&)
+Command: objdump -d --start-address=0x3356abe70 --stop-address=0x3356abfbe reference/openshores-full/Qt5Gui.dll
+
+
+reference/openshores-full/Qt5Gui.dll:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000003356abe70 <.text+0x21ae70>:
+   3356abe70:	41 54                	push   %r12
+   3356abe72:	56                   	push   %rsi
+   3356abe73:	53                   	push   %rbx
+   3356abe74:	48 83 ec 30          	sub    $0x30,%rsp
+   3356abe78:	83 79 18 06          	cmpl   $0x6,0x18(%rcx)
+   3356abe7c:	49 89 cc             	mov    %rcx,%r12
+   3356abe7f:	48 89 d3             	mov    %rdx,%rbx
+   3356abe82:	0f 8f 98 00 00 00    	jg     0x3356abf20
+   3356abe88:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   3356abe8d:	ff 15 4d ac 41 00    	call   *0x41ac4d(%rip)        # 0x335ac6ae0
+   3356abe93:	8b 44 24 2c          	mov    0x2c(%rsp),%eax
+   3356abe97:	3d 00 00 00 49       	cmp    $0x49000000,%eax
+   3356abe9c:	0f 84 0e 01 00 00    	je     0x3356abfb0
+   3356abea2:	41 83 7c 24 18 01    	cmpl   $0x1,0x18(%r12)
+   3356abea8:	75 1c                	jne    0x3356abec6
+   3356abeaa:	89 c2                	mov    %eax,%edx
+   3356abeac:	89 c1                	mov    %eax,%ecx
+   3356abeae:	25 00 ff 00 ff       	and    $0xff00ff00,%eax
+   3356abeb3:	c1 e2 10             	shl    $0x10,%edx
+   3356abeb6:	c1 e9 10             	shr    $0x10,%ecx
+   3356abeb9:	81 e2 00 00 ff 00    	and    $0xff0000,%edx
+   3356abebf:	0f b6 c9             	movzbl %cl,%ecx
+   3356abec2:	09 ca                	or     %ecx,%edx
+   3356abec4:	09 d0                	or     %edx,%eax
+   3356abec6:	89 c2                	mov    %eax,%edx
+   3356abec8:	44 0f b6 c0          	movzbl %al,%r8d
+   3356abecc:	0f b6 f4             	movzbl %ah,%esi
+   3356abecf:	c1 ea 10             	shr    $0x10,%edx
+   3356abed2:	0f b6 ca             	movzbl %dl,%ecx
+   3356abed5:	c1 e2 08             	shl    $0x8,%edx
+   3356abed8:	01 ca                	add    %ecx,%edx
+   3356abeda:	89 c1                	mov    %eax,%ecx
+   3356abedc:	c1 e0 08             	shl    $0x8,%eax
+   3356abedf:	30 c9                	xor    %cl,%cl
+   3356abee1:	44 01 c0             	add    %r8d,%eax
+   3356abee4:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+   3356abeea:	01 f1                	add    %esi,%ecx
+   3356abeec:	44 89 03             	mov    %r8d,(%rbx)
+   3356abeef:	45 31 c9             	xor    %r9d,%r9d
+   3356abef2:	41 b8 ff ff ff ff    	mov    $0xffffffff,%r8d
+   3356abef8:	66 89 43 0a          	mov    %ax,0xa(%rbx)
+   3356abefc:	4c 89 e0             	mov    %r12,%rax
+   3356abeff:	66 44 89 43 04       	mov    %r8w,0x4(%rbx)
+   3356abf04:	66 89 53 06          	mov    %dx,0x6(%rbx)
+   3356abf08:	66 89 4b 08          	mov    %cx,0x8(%rbx)
+   3356abf0c:	66 44 89 4b 0c       	mov    %r9w,0xc(%rbx)
+   3356abf11:	48 83 c4 30          	add    $0x30,%rsp
+   3356abf15:	5b                   	pop    %rbx
+   3356abf16:	5e                   	pop    %rsi
+   3356abf17:	41 5c                	pop    %r12
+   3356abf19:	c3                   	ret
+   3356abf1a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   3356abf20:	48 8d 54 24 23       	lea    0x23(%rsp),%rdx
+   3356abf25:	ff 15 95 ab 41 00    	call   *0x41ab95(%rip)        # 0x335ac6ac0
+   3356abf2b:	48 8b 35 b6 ab 41 00 	mov    0x41abb6(%rip),%rsi        # 0x335ac6ae8
+   3356abf32:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   3356abf37:	4c 89 e1             	mov    %r12,%rcx
+   3356abf3a:	ff d6                	call   *%rsi
+   3356abf3c:	48 8d 54 24 26       	lea    0x26(%rsp),%rdx
+   3356abf41:	4c 89 e1             	mov    %r12,%rcx
+   3356abf44:	ff d6                	call   *%rsi
+   3356abf46:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   3356abf4b:	4c 89 e1             	mov    %r12,%rcx
+   3356abf4e:	ff d6                	call   *%rsi
+   3356abf50:	48 8d 54 24 2a       	lea    0x2a(%rsp),%rdx
+   3356abf55:	4c 89 e1             	mov    %r12,%rcx
+   3356abf58:	ff d6                	call   *%rsi
+   3356abf5a:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   3356abf5f:	4c 89 e1             	mov    %r12,%rcx
+   3356abf62:	ff d6                	call   *%rsi
+   3356abf64:	0f be 44 24 23       	movsbl 0x23(%rsp),%eax
+   3356abf69:	0f b7 54 24 28       	movzwl 0x28(%rsp),%edx
+   3356abf6e:	89 03                	mov    %eax,(%rbx)
+   3356abf70:	0f b7 44 24 2a       	movzwl 0x2a(%rsp),%eax
+   3356abf75:	48 c1 e0 10          	shl    $0x10,%rax
+   3356abf79:	48 09 d0             	or     %rdx,%rax
+   3356abf7c:	0f b7 54 24 26       	movzwl 0x26(%rsp),%edx
+   3356abf81:	48 c1 e0 10          	shl    $0x10,%rax
+   3356abf85:	48 09 d0             	or     %rdx,%rax
+   3356abf88:	0f b7 54 24 24       	movzwl 0x24(%rsp),%edx
+   3356abf8d:	48 c1 e0 10          	shl    $0x10,%rax
+   3356abf91:	48 09 d0             	or     %rdx,%rax
+   3356abf94:	48 89 43 04          	mov    %rax,0x4(%rbx)
+   3356abf98:	0f b7 44 24 2c       	movzwl 0x2c(%rsp),%eax
+   3356abf9d:	66 89 43 0c          	mov    %ax,0xc(%rbx)
+   3356abfa1:	4c 89 e0             	mov    %r12,%rax
+   3356abfa4:	48 83 c4 30          	add    $0x30,%rsp
+   3356abfa8:	5b                   	pop    %rbx
+   3356abfa9:	5e                   	pop    %rsi
+   3356abfaa:	41 5c                	pop    %r12
+   3356abfac:	c3                   	ret
+   3356abfad:	0f 1f 00             	nopl   (%rax)
+   3356abfb0:	45 31 c0             	xor    %r8d,%r8d
+   3356abfb3:	31 d2                	xor    %edx,%edx
+   3356abfb5:	31 c9                	xor    %ecx,%ecx
+   3356abfb7:	31 c0                	xor    %eax,%eax
+   3356abfb9:	e9 2e ff ff ff       	jmp    0x3356abeec
+

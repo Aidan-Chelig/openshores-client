@@ -6,6 +6,8 @@ fn chromosome_factory_boundaries_and_scalar_body_lengths_are_explicit() {
     for kind in 0..=255 {
         let length = match kind {
             0 | 1 => Some(0),
+            4 | 5 | 7 => Some(22),
+            6 => Some(12),
             2 | 3 | 21 | 23 | 24 => Some(1),
             16 | 22 | 25 => Some(2),
             15 | 26 => Some(4),
@@ -17,24 +19,79 @@ fn chromosome_factory_boundaries_and_scalar_body_lengths_are_explicit() {
             let mut input = QtReader::new(&bytes);
             match length {
                 Some(length) => {
-                    let result = NativeChromosome::read(kind, &mut input).unwrap().unwrap();
+                    let result = NativeChromosome::read_qt7(kind, &mut input)
+                        .unwrap()
+                        .unwrap();
                     assert_eq!(result.kind, kind);
                     assert_eq!(input.remaining(), 0);
                     for end in 0..length {
                         let mut short = QtReader::new(&bytes[..end]);
                         assert_eq!(
-                            NativeChromosome::read(kind, &mut short).unwrap_err().kind(),
+                            NativeChromosome::read_qt7(kind, &mut short)
+                                .unwrap_err()
+                                .kind(),
                             io::ErrorKind::UnexpectedEof
                         );
                         assert_eq!(short.remaining(), end);
                     }
                 }
                 None if kind < 28 => assert_eq!(
-                    NativeChromosome::read(kind, &mut input).unwrap_err().kind(),
+                    NativeChromosome::read_qt7(kind, &mut input)
+                        .unwrap_err()
+                        .kind(),
                     io::ErrorKind::Unsupported
                 ),
-                None => assert_eq!(NativeChromosome::read(kind, &mut input).unwrap(), None),
+                None => assert_eq!(NativeChromosome::read_qt7(kind, &mut input).unwrap(), None),
             }
+        }
+    }
+}
+
+#[test]
+fn qt7_color_has_fixed_shape_for_every_spec_and_survives_chromosome_composition() {
+    for spec in 0..=255_u8 {
+        let components = [0, 1, 0x7fff, 0x8000, 0xffff];
+        let expected = NativeColorQt7 {
+            spec: i32::from(spec as i8),
+            components,
+        };
+        let mut bytes = vec![spec];
+        for component in components {
+            bytes.extend(component.to_be_bytes());
+        }
+        for end in 0..bytes.len() {
+            let mut input = QtReader::new(&bytes[..end]);
+            assert!(NativeColorQt7::read(&mut input).is_err());
+            assert_eq!(input.remaining(), end);
+        }
+        for kind in [4, 5, 6, 7] {
+            let mut packet = bytes.clone();
+            if kind == 6 {
+                packet.push(0xfe);
+            } else {
+                packet.extend(&bytes);
+            }
+            packet.push(0xde);
+            let mut input = QtReader::new(&packet);
+            let body = NativeChromosome::read_qt7(kind, &mut input)
+                .unwrap()
+                .unwrap()
+                .body;
+            assert_eq!(
+                body,
+                if kind == 6 {
+                    NativeChromosomeBody::Scales {
+                        field_08: expected.clone(),
+                        field_18: 0xfe,
+                    }
+                } else {
+                    NativeChromosomeBody::Colors {
+                        field_08: expected.clone(),
+                        field_18: expected.clone(),
+                    }
+                }
+            );
+            assert_eq!(input.read_u8().unwrap(), 0xde);
         }
     }
 }
@@ -45,7 +102,7 @@ fn packed_chromosomes_preserve_all_byte_values_and_exact_suffix() {
         let bytes = [0xfe, 0xab, packed, 0x80, 0xde];
         let mut input = QtReader::new(&bytes);
         assert_eq!(
-            NativeChromosome::read(26, &mut input)
+            NativeChromosome::read_qt7(26, &mut input)
                 .unwrap()
                 .unwrap()
                 .body,
@@ -61,7 +118,7 @@ fn packed_chromosomes_preserve_all_byte_values_and_exact_suffix() {
         let bytes = [packed, 0x80, 1, 0xfe, 0xab, 0xde];
         let mut input = QtReader::new(&bytes);
         assert_eq!(
-            NativeChromosome::read(27, &mut input)
+            NativeChromosome::read_qt7(27, &mut input)
                 .unwrap()
                 .unwrap()
                 .body,
@@ -149,7 +206,7 @@ fn scalar_chromosomes_widen_without_sign_extension_or_boolean_clamping() {
             bytes.push(0xde);
             let mut input = QtReader::new(&bytes);
             assert_eq!(
-                NativeChromosome::read(kind, &mut input)
+                NativeChromosome::read_qt7(kind, &mut input)
                     .unwrap()
                     .unwrap()
                     .body,

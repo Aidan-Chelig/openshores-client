@@ -4,6 +4,8 @@ use std::io;
 
 mod chromosome;
 pub use chromosome::{NativeChromosome, NativeChromosomeBody};
+mod color;
+pub use color::NativeColorQt7;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeDhDna(pub [u8; 24]);

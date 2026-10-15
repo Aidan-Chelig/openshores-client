@@ -1,4 +1,5 @@
 //! Factory-bound scalar chromosome bodies. See docs/native-chromosomes.md.
+use super::NativeColorQt7;
 use crate::protocol::QtReader;
 use std::io;
 
@@ -12,6 +13,14 @@ pub struct NativeChromosome {
 /// retain raw bits; byte-to-u32 widening is explicit where observed.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum NativeChromosomeBody {
+    Colors {
+        field_08: NativeColorQt7,
+        field_18: NativeColorQt7,
+    },
+    Scales {
+        field_08: NativeColorQt7,
+        field_18: u8,
+    },
     Empty,
     Byte08 {
         field_08: u8,
@@ -56,19 +65,27 @@ impl NativeChromosome {
     /// consuming guessed bytes. Known nested bodies remain Unsupported until
     /// their complete gene/color readers are available. Atomic Rust errors do
     /// not emulate Qt failed-stream continuation or native partial writes.
-    pub fn read(kind: u8, input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
+    pub fn read_qt7(kind: u8, input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
         match kind {
-            4..=14 | 17..=20 => {
+            8..=14 | 17..=20 => {
                 return Err(io::Error::new(
                     io::ErrorKind::Unsupported,
-                    "native chromosome gene/color body not reconstructed",
+                    "native chromosome gene body not reconstructed",
                 ));
             }
-            0..=3 | 15 | 16 | 21..=27 => (),
+            0..=7 | 15 | 16 | 21..=27 => (),
             _ => return Ok(None),
         }
         let mut record = QtReader::new(input.remaining_bytes());
         let body = match kind {
+            4 | 5 | 7 => NativeChromosomeBody::Colors {
+                field_08: NativeColorQt7::read(&mut record)?,
+                field_18: NativeColorQt7::read(&mut record)?,
+            },
+            6 => NativeChromosomeBody::Scales {
+                field_08: NativeColorQt7::read(&mut record)?,
+                field_18: record.read_u8()?,
+            },
             0 | 1 => NativeChromosomeBody::Empty,
             2 | 3 | 23 => NativeChromosomeBody::WideByte08 {
                 field_08: u32::from(record.read_u8()?),

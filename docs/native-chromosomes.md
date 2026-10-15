@@ -92,10 +92,30 @@ values, all byte values for widening/packed fields, short high bits, every
 truncated scalar prefix and following-field alignment. This is a body reader,
 not yet a chromatid container or complete AuDNA implementation.
 
-AuGeneChain and its concrete gene readers, Qt QColor stream encoding, chromatid
+AuGeneChain and its concrete gene readers, chromatid
 count overload/loop width, and signed interpretation of stored short fields
 still need evidence. Reader pseudocode includes imported tail-call warnings;
 retain these in the complete records rather than treating the warnings as
 actual switch statements. Some recovered signatures misidentify the `this`
 register; field ordering here follows calls and destination offsets, not those
 misrecovered parameter labels. No complete AuDNA decoder is claimed yet.
+
+## QColor dependency resolved for scene version 7
+
+Independent static GNU evidence is retained in
+`evidence/native-qt-color-gnu.txt` for the supplied Qt5Gui.dll (SHA-256
+`5d87baabd75693f81e43eb492e384611228073bedcda98a2b0438072180d9170`).
+Export ordinal 8244/RVA 21be70 is `operator>>(QDataStream&, QColor&)`.
+At `0x3356abe78` it tests stream version against 6. Version 7 takes the
+branch at `0x3356abf20`: signed-char read, then five short reads via the
+same imported overload, followed by sign extension of the spec byte to
+32-bit storage and raw 16-bit component assignments. All specs consume the
+same 11 bytes; no RGB-only shortcut, variable spec payload or float is read.
+The <=6 branch differs and is not implemented by `NativeColorQt7`.
+
+The scene's explicit version 7 was independently established in
+native-entity-transforms.md. `NativeChromosome::read_qt7` now also handles
+Feathers/Fur/Skin (two colors) and Scales (color then byte), bringing support
+to 17 factory types. Tests cover all 256 spec bytes, high-bit components,
+every truncated prefix and color-chromosome suffix alignment. Storage is raw:
+this does not claim conversion to renderable RGBA or color-space validation.
