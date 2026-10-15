@@ -3,6 +3,7 @@ use super::{
     Mesh, ModelVariant, NativeBodyObjectGroups, NativeBodyObjectScale, NativeBodyVertexSelection,
 };
 use std::io;
+mod top;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NativeBodyDeformation {
@@ -11,6 +12,8 @@ pub struct NativeBodyDeformation {
     pub field_178: f64,
     pub field_180: f64,
     pub field_188: f64,
+    pub fields_228: [f32; 3],
+    pub fields_2c4: [f32; 3],
 }
 
 impl NativeBodyDeformation {
@@ -23,6 +26,9 @@ impl NativeBodyDeformation {
     ) -> io::Result<[f64; 3]> {
         if !selected.any_match {
             return Ok(self.base.apply_unweighted_vertex(point));
+        }
+        if selected.anatomical.iter().all(Option::is_none) && selected.top.is_some() {
+            return Ok(self.apply_top_vertex(point, selected));
         }
         // Native precedence is Tail, Head, Neck, Hand, Foot, Torso, then
         // top/bottom-only paths. Higher-priority unsupported HandWing must not
@@ -105,6 +111,12 @@ impl Mesh {
         let mut definition = *definition;
         if let Some(connection) = groups.control_point(0x1cc) {
             definition.base.fields_1f4 = connection;
+        }
+        if let Some(midpoint) = groups.control_point(0x200) {
+            definition.fields_228 = midpoint;
+        }
+        if let Some(midpoint) = groups.control_point(0x29c) {
+            definition.fields_2c4 = midpoint;
         }
         let top = groups.control_point(0x268).unwrap_or(top_scale);
         let bottom = groups.control_point(0x2d0).unwrap_or(bottom_scale);

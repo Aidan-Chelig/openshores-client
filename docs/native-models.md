@@ -385,7 +385,7 @@ cancellation and full mesh composition; `just test-native-body-deformation`
 also verifies digest-bound static branch/final-correction anchors against
 the existing evidence. No reimport, query or reference-client execution occurs.
 
-HandWing, top/bottom-only and other matched branches remain Unsupported.
+HandWing, bottom-only and other matched branches remain Unsupported.
 Model definition generation, complete part assembly, bone weights and live
 renderer publication remain required: these APIs do not yet render avatars.
 
@@ -417,3 +417,20 @@ some genuine grouped deformation. This demonstrates mounted-asset CPU pipeline
 coverage, not native runtime parity, complete avatar generation or rendering.
 Wing and top/bottom-only branches, live definition generation, assembly and
 renderer publication are still required.
+
+Top-only/non-anatomical deformation is now connected too, including Top taking
+priority over Bottom when both match. MidPt membership averages170+180 and
+uses the scaled midpoint; object2c4 is used unless all-zero, then228. Explicit
+midpoint defaults are required and serialized writes override them. Without
+MidPt, the native COMISD/JBE comparison selects170 when180 is below/equal OR
+unordered, or when Wing is present; otherwise it uses the average180+170.
+That latter branch still performs arithmetic when the average equals1, unlike
+the midpoint branch's unity shortcut.178 then transforms the vertex and the
+connection independently around Top, even when Wing is absent.
+
+Four new fixtures cover scale selection, midpoint fallback/override, exact-one
+cancellation and the unordered-comparison distinction that pseudocode alone
+obscures. Static checks pin original branch destinations and midpoint addition/
+half multiplication in the retained routine. This extends CPU deformation,
+not complete avatar generation or rendering. Bottom-only and HandWing paths
+remain Unsupported, and live model definitions/assembly/publication are pending.

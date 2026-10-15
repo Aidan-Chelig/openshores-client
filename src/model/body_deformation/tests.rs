@@ -11,6 +11,8 @@ fn definition() -> NativeBodyDeformation {
         field_178: 5.,
         field_180: 3.,
         field_188: 4.,
+        fields_228: [0.; 3],
+        fields_2c4: [0.; 3],
     }
 }
 fn selected(index: usize) -> NativeBodyVertexSelection {
@@ -299,5 +301,98 @@ fn non_wing_hand_uses_both_scales_and_precedes_foot_and_torso() {
             .unwrap_err()
             .kind(),
         io::ErrorKind::Unsupported
+    );
+}
+
+#[test]
+fn top_uses_native_scale_choice_and_independent_connection_correction() {
+    let definition = definition();
+    let mut selection = NativeBodyVertexSelection {
+        any_match: true,
+        top: Some([7., 8., 9.]),
+        ..Default::default()
+    };
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [22., 50., 110.]
+    );
+    selection.wing = true;
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [22., 50., 110.]
+    );
+    let mut definition = definition;
+    definition.field_170 = 1.;
+    selection.wing = false;
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [17., 50., 55.]
+    );
+    selection.wing = true;
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [16., 50., 44.]
+    );
+}
+
+#[test]
+fn midpoint_override_fallback_scales_before_top_radial_deformation() {
+    let mut definition = definition();
+    definition.fields_228 = [1., 2., 3.];
+    let selection = NativeBodyVertexSelection {
+        any_match: true,
+        top: Some([7., 8., 9.]),
+        midpoint: true,
+        ..Default::default()
+    };
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [40., 50., 100.]
+    );
+    definition.fields_2c4 = [2., 3., 4.];
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [32., 50., 92.]
+    );
+    definition.fields_2c4 = [-0.; 3];
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [40., 50., 100.]
+    );
+}
+
+#[test]
+fn top_average_equal_one_still_takes_native_cancellation_path() {
+    let mut definition = definition();
+    definition.base.field_140 = 1.;
+    definition.base.fields_1f4 = [0.; 3];
+    definition.base.fields_1c0 = [0.; 3];
+    definition.field_170 = 0.;
+    definition.field_180 = 2.;
+    definition.field_178 = 1.;
+    let selection = NativeBodyVertexSelection {
+        any_match: true,
+        top: Some([1e30; 3]),
+        ..Default::default()
+    };
+    assert_eq!(
+        definition.apply_vertex([1.; 3], &selection).unwrap(),
+        [0.; 3]
+    );
+}
+
+#[test]
+fn unordered_top_comparison_takes_native_jbe_arm_not_average() {
+    let mut definition = definition();
+    definition.field_180 = f64::NAN;
+    let selection = NativeBodyVertexSelection {
+        any_match: true,
+        top: Some([7., 8., 9.]),
+        ..Default::default()
+    };
+    // COMISD/JBE takes the torso-only scale arm for unordered operands.
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [22., 50., 110.]
     );
 }

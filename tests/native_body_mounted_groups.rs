@@ -69,6 +69,8 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
                 field_178: 1.3,
                 field_180: 1.4,
                 field_188: 1.5,
+                fields_228: [0.; 3],
+                fields_2c4: [0.; 3],
             };
             match mesh.body_deformed_positions(ModelVariant::N, 1., &deformation, [0.; 3], [0.; 3])
             {

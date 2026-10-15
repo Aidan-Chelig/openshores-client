@@ -43,4 +43,13 @@ for anchor in ["mulsd  %xmm12,%xmm2", "mulsd  %xmm12,%xmm3", "mulsd  %xmm12,%xmm
                "movsd  0x188(%rsi),%xmm12", "jmp    141396e8f"]:
     assert anchor in hand, anchor
 assert "call " not in hand
+top = assembly[assembly.index("1413973ae:"):assembly.index("141397492:")]
+for anchor in ["movsd  0x180(%rsi),%xmm4", "movsd  0x170(%rsi),%xmm12",
+               "jne    14139777b", "comisd %xmm12,%xmm4", "jbe    1413973e5",
+               "je     1413977e7", "jmp    1413965b7"]:
+    assert anchor in top, anchor
+mid = assembly[assembly.index("14139777b:"):assembly.index("1413977e7:")]
+assert "addsd  %xmm4,%xmm12" in mid and "1422cf280" in mid
+assert "je     141397435" in mid
+assert "call " not in top and "call " not in mid
 print("Verified retained anatomical branch precedence, neck/torso scale stages and final independent offset-minus-connection-plus-vertex. Static/Rust checks only; no native execution or rendered-avatar claim.")
