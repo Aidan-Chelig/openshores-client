@@ -11,7 +11,9 @@ fn invalid(message: &str) -> io::Error {
 
 mod body_scale;
 mod coordinates;
+mod crease_normals;
 pub use body_scale::NativeBodyObjectScale;
+pub use crease_normals::crease_corner_normals;
 mod body_bone_names;
 mod body_loaded_face;
 mod body_mapping;

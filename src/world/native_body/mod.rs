@@ -1,6 +1,8 @@
 //! Reconstructed body-model state, distinct from wire storage and UI previews.
 //! Allocation is an initialization phase, not successful complete model creation.
 mod avatar;
+mod avatar_pose;
+pub use avatar_pose::{NativeDpAvatarCorner, NativeDpPosedAvatarSurface};
 mod dp;
 mod textures;
 pub use avatar::{NativeDpAvatarGeometry, NativeDpAvatarSource, NativeDpAvatarSurface};

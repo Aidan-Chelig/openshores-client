@@ -350,3 +350,35 @@ The client CLI tests, four opt-in mounted standing tests, both mounted avatar
 fixtures, static neutral-pose evidence check, formatting and warning-denying
 library/test Clippy checks pass. These are CPU/regression checks, not GPU visual
 acceptance of the assembled avatar.
+
+## Reusable smoothed, skinned render corners
+
+`model::crease_corner_normals` now owns the existing modern preview smoothing
+algorithm without a Bevy dependency. The part viewer delegates to it, retaining
+strict angle thresholds, exact-position seam adjacency, area weighting,
+disconnected-fan separation and hard boundary/non-manifold edges. Degenerate
+faces retain the explicit diagnostic +Z normal policy; this is not evidence of
+native normal-generation parity. Invalid indices, nonfinite positions and
+invalid angles return errors from the reusable API.
+
+`NativeDpAvatarGeometry::posed_surfaces` computes those corner normals on each
+complete MODEL-space surface before material partitioning, then uses the native
+four-influence shader loop on each position and normal exactly once. Output
+retains face-major ordering, source vertex references, UVs, skin controls and all
+material memberships. Position output remains homogeneous `[x,y,z,w]`, including
+non-unit W; no weights, original surfaces or native payloads are rewritten.
+No attachment offsets, extra projection or parent hierarchy are introduced.
+
+A synthetic fixture checks rotated smooth/hard normals, translation exclusion,
+non-unit W preservation and unchanged source payloads across a material boundary.
+Both mounted anatomies verify every render corner against the shared smoothing
+and native skinning stages, including unit normals and exact UV/control routing.
+The remaining renderer adapter must preserve the homogeneous result's meaning
+when framing/uploading it. This milestone does not yet add the body viewer,
+establish native camera axes or satisfy multi-angle GPU/visual acceptance.
+
+Verification after this extraction: 721 default, 738 viewer and 751 client
+library tests pass (one, three and five ignored respectively); the existing
+client binary tests and both mounted avatar fixtures pass. Formatting,
+diff whitespace checks and warning-denying default/viewer library/test Clippy
+checks pass. No full-body GPU launch or capture is claimed.

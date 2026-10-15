@@ -1,7 +1,7 @@
 //! Offline CPU generation from mounted resources, not a renderer smoke test.
 use openshores_client::{
     asset_mount::AssetMount,
-    model::ModelVariant,
+    model::{ModelVariant, crease_corner_normals},
     world::{native_body::NativeDpAvatarGeometry, native_dna::NativeDhDna},
 };
 
@@ -89,5 +89,36 @@ fn mounted_complete_native_avatar_inputs_cover_two_anatomies() {
         for index in 0..avatar.body.parts().len() {
             assert!(avatar.surfaces.iter().any(|s| s.part_index == index));
         }
+        let posed = avatar.posed_surfaces(60.).unwrap();
+        assert_eq!(posed.len(), avatar.surfaces.len());
+        for (surface_index, (posed, source)) in posed.iter().zip(&avatar.surfaces).enumerate() {
+            let g = &source.surface.geometry;
+            assert_eq!(posed.surface_index, surface_index);
+            assert_eq!(posed.part_index, source.part_index);
+            assert_eq!(
+                posed.material_memberships,
+                source.surface.material_memberships
+            );
+            assert_eq!(posed.corners.len(), g.faces.len() * 3);
+            let positions: Vec<_> = g.positions.iter().map(|p| p.map(|v| v as f32)).collect();
+            let triangles: Vec<_> = g.faces.iter().map(|f| f.vertices.map(u32::from)).collect();
+            let normals = crease_corner_normals(&positions, &triangles, 60.).unwrap();
+            for (i, corner) in posed.corners.iter().enumerate() {
+                let index = usize::from(g.faces[i / 3].vertices[i % 3]);
+                assert_eq!(corner.source_vertex, index);
+                let expected = avatar
+                    .body
+                    .bones()
+                    .skin_shader_vertex(positions[index], normals[i], &g.weights[index])
+                    .unwrap();
+                assert_eq!(corner.position, expected.position);
+                assert_eq!(corner.normal, expected.normal);
+                assert_eq!(corner.uv, g.uvs.as_ref().unwrap()[index]);
+                assert_eq!(corner.top_face, source.surface.top_face[index]);
+                let length = corner.normal.into_iter().map(|v| v * v).sum::<f32>().sqrt();
+                assert!((length - 1.).abs() < 1e-5);
+            }
+        }
+        assert!(avatar.posed_surfaces(f64::NAN).is_err());
     }
 }
