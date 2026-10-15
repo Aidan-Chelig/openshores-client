@@ -1,0 +1,1876 @@
+Independent GNU static corroboration, not REA Evidence IDs.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+C1/C2 constructor aliases share addresses; GNU selects C1. Exact COFF symbol selection,
+trailing whitespace normalized. No native target execution.
+
+$ objdump -d --disassemble=_ZN10AuAnimaliaC1Ev reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411ee400 <_ZN10AuAnimaliaC1Ev>:
+   1411ee400:	41 55                	push   %r13
+   1411ee402:	41 54                	push   %r12
+   1411ee404:	53                   	push   %rbx
+   1411ee405:	48 83 ec 30          	sub    $0x30,%rsp
+   1411ee409:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   1411ee40e:	48 8b 1d 2b 4a 6a 01 	mov    0x16a4a2b(%rip),%rbx        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   1411ee415:	48 8b 05 b4 a0 1b 01 	mov    0x11ba0b4(%rip),%rax        # 1423a84d0 <.refptr._ZTV5AuDNA>
+   1411ee41c:	48 83 c0 10          	add    $0x10,%rax
+   1411ee420:	66 48 0f 6e cb       	movq   %rbx,%xmm1
+   1411ee425:	66 48 0f 6e f0       	movq   %rax,%xmm6
+   1411ee42a:	66 0f 6c f1          	punpcklqdq %xmm1,%xmm6
+   1411ee42e:	48 89 19             	mov    %rbx,(%rcx)
+   1411ee431:	49 89 cc             	mov    %rcx,%r12
+   1411ee434:	48 8d 49 10          	lea    0x10(%rcx),%rcx
+   1411ee438:	e8 33 fc 04 00       	call   14123e070 <_ZN9AuDNABaseC1Ev>
+   1411ee43d:	48 8b 05 64 41 6a 01 	mov    0x16a4164(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1411ee444:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1411ee448:	41 0f 11 74 24 10    	movups %xmm6,0x10(%r12)
+   1411ee44e:	49 89 5c 24 20       	mov    %rbx,0x20(%r12)
+   1411ee453:	49 89 84 24 a0 00 00 	mov    %rax,0xa0(%r12)
+   1411ee45a:	00
+   1411ee45b:	31 c0                	xor    %eax,%eax
+   1411ee45d:	49 c7 44 24 38 00 00 	movq   $0x0,0x38(%r12)
+   1411ee464:	00 00
+   1411ee466:	49 c7 44 24 58 00 00 	movq   $0x0,0x58(%r12)
+   1411ee46d:	00 00
+   1411ee46f:	41 c7 84 24 a8 00 00 	movl   $0x0,0xa8(%r12)
+   1411ee476:	00 00 00 00 00
+   1411ee47b:	49 c7 84 24 c0 00 00 	movq   $0x0,0xc0(%r12)
+   1411ee482:	00 00 00 00 00
+   1411ee487:	41 c7 84 24 c8 00 00 	movl   $0x0,0xc8(%r12)
+   1411ee48e:	00 00 00 00 00
+   1411ee493:	49 c7 84 24 e0 00 00 	movq   $0x0,0xe0(%r12)
+   1411ee49a:	00 00 00 00 00
+   1411ee49f:	41 c7 84 24 e8 00 00 	movl   $0x0,0xe8(%r12)
+   1411ee4a6:	00 00 00 00 00
+   1411ee4ab:	49 c7 84 24 00 01 00 	movq   $0x0,0x100(%r12)
+   1411ee4b2:	00 00 00 00 00
+   1411ee4b7:	41 c7 84 24 08 01 00 	movl   $0x0,0x108(%r12)
+   1411ee4be:	00 00 00 00 00
+   1411ee4c3:	49 c7 84 24 20 01 00 	movq   $0x0,0x120(%r12)
+   1411ee4ca:	00 00 00 00 00
+   1411ee4cf:	41 c7 84 24 28 01 00 	movl   $0x0,0x128(%r12)
+   1411ee4d6:	00 00 00 00 00
+   1411ee4db:	49 c7 84 24 40 01 00 	movq   $0x0,0x140(%r12)
+   1411ee4e2:	00 00 00 00 00
+   1411ee4e7:	41 c7 84 24 48 01 00 	movl   $0x0,0x148(%r12)
+   1411ee4ee:	00 00 00 00 00
+   1411ee4f3:	49 c7 84 24 60 01 00 	movq   $0x0,0x160(%r12)
+   1411ee4fa:	00 00 00 00 00
+   1411ee4ff:	41 c7 84 24 68 01 00 	movl   $0x0,0x168(%r12)
+   1411ee506:	00 00 00 00 00
+   1411ee50b:	49 c7 84 24 80 01 00 	movq   $0x0,0x180(%r12)
+   1411ee512:	00 00 00 00 00
+   1411ee517:	41 c7 84 24 88 01 00 	movl   $0x0,0x188(%r12)
+   1411ee51e:	00 00 00 00 00
+   1411ee523:	49 c7 84 24 a0 01 00 	movq   $0x0,0x1a0(%r12)
+   1411ee52a:	00 00 00 00 00
+   1411ee52f:	41 c7 84 24 a8 01 00 	movl   $0x0,0x1a8(%r12)
+   1411ee536:	00 00 00 00 00
+   1411ee53b:	41 0f 11 44 24 48    	movups %xmm0,0x48(%r12)
+   1411ee541:	41 0f 11 84 24 b0 00 	movups %xmm0,0xb0(%r12)
+   1411ee548:	00 00
+   1411ee54a:	41 0f 11 84 24 d0 00 	movups %xmm0,0xd0(%r12)
+   1411ee551:	00 00
+   1411ee553:	41 0f 11 84 24 f0 00 	movups %xmm0,0xf0(%r12)
+   1411ee55a:	00 00
+   1411ee55c:	41 0f 11 84 24 10 01 	movups %xmm0,0x110(%r12)
+   1411ee563:	00 00
+   1411ee565:	41 0f 11 84 24 30 01 	movups %xmm0,0x130(%r12)
+   1411ee56c:	00 00
+   1411ee56e:	41 0f 11 84 24 50 01 	movups %xmm0,0x150(%r12)
+   1411ee575:	00 00
+   1411ee577:	41 0f 11 84 24 70 01 	movups %xmm0,0x170(%r12)
+   1411ee57e:	00 00
+   1411ee580:	41 0f 11 84 24 90 01 	movups %xmm0,0x190(%r12)
+   1411ee587:	00 00
+   1411ee589:	41 0f 11 84 24 b0 01 	movups %xmm0,0x1b0(%r12)
+   1411ee590:	00 00
+   1411ee592:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1411ee597:	66 41 89 44 24 30    	mov    %ax,0x30(%r12)
+   1411ee59d:	48 b8 00 00 00 00 04 	movabs $0x400000000,%rax
+   1411ee5a4:	00 00 00
+   1411ee5a7:	49 c7 84 24 c0 01 00 	movq   $0x0,0x1c0(%r12)
+   1411ee5ae:	00 00 00 00 00
+   1411ee5b3:	41 c7 84 24 c8 01 00 	movl   $0x0,0x1c8(%r12)
+   1411ee5ba:	00 00 00 00 00
+   1411ee5bf:	49 c7 84 24 e0 01 00 	movq   $0x0,0x1e0(%r12)
+   1411ee5c6:	00 00 00 00 00
+   1411ee5cb:	41 c7 84 24 e8 01 00 	movl   $0x0,0x1e8(%r12)
+   1411ee5d2:	00 00 00 00 00
+   1411ee5d7:	49 c7 84 24 00 02 00 	movq   $0x0,0x200(%r12)
+   1411ee5de:	00 00 00 00 00
+   1411ee5e3:	41 c7 84 24 08 02 00 	movl   $0x0,0x208(%r12)
+   1411ee5ea:	00 00 00 00 00
+   1411ee5ef:	49 c7 84 24 20 02 00 	movq   $0x0,0x220(%r12)
+   1411ee5f6:	00 00 00 00 00
+   1411ee5fb:	41 c6 44 24 40 00    	movb   $0x0,0x40(%r12)
+   1411ee601:	41 c7 44 24 08 00 00 	movl   $0x0,0x8(%r12)
+   1411ee608:	00 00
+   1411ee60a:	41 c7 44 24 60 04 00 	movl   $0x4,0x60(%r12)
+   1411ee611:	00 00
+   1411ee613:	49 c7 44 24 28 00 00 	movq   $0x0,0x28(%r12)
+   1411ee61a:	00 00
+   1411ee61c:	49 c7 44 24 64 00 00 	movq   $0x0,0x64(%r12)
+   1411ee623:	00 00
+   1411ee625:	49 c7 44 24 6c 00 00 	movq   $0x0,0x6c(%r12)
+   1411ee62c:	00 00
+   1411ee62e:	49 c7 44 24 74 00 00 	movq   $0x0,0x74(%r12)
+   1411ee635:	00 00
+   1411ee637:	49 c7 44 24 7c 00 00 	movq   $0x0,0x7c(%r12)
+   1411ee63e:	00 00
+   1411ee640:	49 c7 84 24 84 00 00 	movq   $0x0,0x84(%r12)
+   1411ee647:	00 00 00 00 00
+   1411ee64c:	49 c7 84 24 8c 00 00 	movq   $0x0,0x8c(%r12)
+   1411ee653:	00 00 00 00 00
+   1411ee658:	49 89 84 24 94 00 00 	mov    %rax,0x94(%r12)
+   1411ee65f:	00
+   1411ee660:	41 0f 11 84 24 d0 01 	movups %xmm0,0x1d0(%r12)
+   1411ee667:	00 00
+   1411ee669:	41 0f 11 84 24 f0 01 	movups %xmm0,0x1f0(%r12)
+   1411ee670:	00 00
+   1411ee672:	41 0f 11 84 24 10 02 	movups %xmm0,0x210(%r12)
+   1411ee679:	00 00
+   1411ee67b:	48 83 c4 30          	add    $0x30,%rsp
+   1411ee67f:	5b                   	pop    %rbx
+   1411ee680:	41 5c                	pop    %r12
+   1411ee682:	41 5d                	pop    %r13
+   1411ee684:	c3                   	ret
+   1411ee685:	49 89 c5             	mov    %rax,%r13
+   1411ee688:	4c 89 e1             	mov    %r12,%rcx
+   1411ee68b:	e8 d0 1e 65 00       	call   141840560 <_ZN5QListIP12AuAnimalPartED2Ev>
+   1411ee690:	4c 89 e9             	mov    %r13,%rcx
+   1411ee693:	e8 a0 6c 56 00       	call   141755338 <_Unwind_Resume>
+   1411ee698:	90                   	nop
+   1411ee699:	90                   	nop
+   1411ee69a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+$ objdump -d --disassemble=_ZN6DpBodyC1Ev reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412dc540 <_ZN6DpBodyC1Ev>:
+   1412dc540:	41 55                	push   %r13
+   1412dc542:	41 54                	push   %r12
+   1412dc544:	57                   	push   %rdi
+   1412dc545:	53                   	push   %rbx
+   1412dc546:	48 83 ec 28          	sub    $0x28,%rsp
+   1412dc54a:	48 8b 1d 57 60 5b 01 	mov    0x15b6057(%rip),%rbx        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1412dc551:	48 89 19             	mov    %rbx,(%rcx)
+   1412dc554:	49 89 cc             	mov    %rcx,%r12
+   1412dc557:	48 8d 49 10          	lea    0x10(%rcx),%rcx
+   1412dc55b:	e8 60 0a fd ff       	call   1412acfc0 <_ZN5DhDNAC1Ev>
+   1412dc560:	f2 0f 10 05 98 34 fe 	movsd  0xfe3498(%rip),%xmm0        # 1422bfa00 <CSWTCH.2328+0x260>
+   1412dc567:	00
+   1412dc568:	49 8d 54 24 70       	lea    0x70(%r12),%rdx
+   1412dc56d:	4d 8d 84 24 58 3f 00 	lea    0x3f58(%r12),%r8
+   1412dc574:	00
+   1412dc575:	31 c0                	xor    %eax,%eax
+   1412dc577:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1412dc57e:	00 00
+   1412dc580:	48 8d 7a 10          	lea    0x10(%rdx),%rdi
+   1412dc584:	89 d1                	mov    %edx,%ecx
+   1412dc586:	48 c7 42 08 00 00 00 	movq   $0x0,0x8(%rdx)
+   1412dc58d:	00
+   1412dc58e:	48 81 c2 08 01 00 00 	add    $0x108,%rdx
+   1412dc595:	48 c7 82 68 ff ff ff 	movq   $0x0,-0x98(%rdx)
+   1412dc59c:	00 00 00 00
+   1412dc5a0:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
+   1412dc5a4:	29 f9                	sub    %edi,%ecx
+   1412dc5a6:	83 c1 78             	add    $0x78,%ecx
+   1412dc5a9:	c1 e9 03             	shr    $0x3,%ecx
+   1412dc5ac:	f3 48 ab             	rep stos %rax,(%rdi)
+   1412dc5af:	c6 42 f8 00          	movb   $0x0,-0x8(%rdx)
+   1412dc5b3:	f2 0f 11 82 f8 fe ff 	movsd  %xmm0,-0x108(%rdx)
+   1412dc5ba:	ff
+   1412dc5bb:	f2 0f 11 82 20 ff ff 	movsd  %xmm0,-0xe0(%rdx)
+   1412dc5c2:	ff
+   1412dc5c3:	f2 0f 11 82 48 ff ff 	movsd  %xmm0,-0xb8(%rdx)
+   1412dc5ca:	ff
+   1412dc5cb:	f2 0f 11 82 70 ff ff 	movsd  %xmm0,-0x90(%rdx)
+   1412dc5d2:	ff
+   1412dc5d3:	4c 39 c2             	cmp    %r8,%rdx
+   1412dc5d6:	75 a8                	jne    1412dc580 <_ZN6DpBodyC1Ev+0x40>
+   1412dc5d8:	b8 ff ff ff ff       	mov    $0xffffffff,%eax
+   1412dc5dd:	ba ff ff ff ff       	mov    $0xffffffff,%edx
+   1412dc5e2:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412dc5e6:	31 ff                	xor    %edi,%edi
+   1412dc5e8:	41 b8 ff ff ff ff    	mov    $0xffffffff,%r8d
+   1412dc5ee:	45 31 db             	xor    %r11d,%r11d
+   1412dc5f1:	b9 ff ff ff ff       	mov    $0xffffffff,%ecx
+   1412dc5f6:	49 89 9c 24 48 40 00 	mov    %rbx,0x4048(%r12)
+   1412dc5fd:	00
+   1412dc5fe:	49 c7 84 24 bc 40 00 	movq   $0x0,0x40bc(%r12)
+   1412dc605:	00 00 00 00 00
+   1412dc60a:	31 db                	xor    %ebx,%ebx
+   1412dc60c:	49 c7 84 24 cc 40 00 	movq   $0x0,0x40cc(%r12)
+   1412dc613:	00 00 00 00 00
+   1412dc618:	66 41 89 84 24 c0 40 	mov    %ax,0x40c0(%r12)
+   1412dc61f:	00 00
+   1412dc621:	66 41 89 94 24 d0 40 	mov    %dx,0x40d0(%r12)
+   1412dc628:	00 00
+   1412dc62a:	49 c7 84 24 e4 40 00 	movq   $0x0,0x40e4(%r12)
+   1412dc631:	00 00 00 00 00
+   1412dc636:	49 c7 84 24 f4 40 00 	movq   $0x0,0x40f4(%r12)
+   1412dc63d:	00 00 00 00 00
+   1412dc642:	66 41 89 8c 24 e8 40 	mov    %cx,0x40e8(%r12)
+   1412dc649:	00 00
+   1412dc64b:	4c 89 e1             	mov    %r12,%rcx
+   1412dc64e:	49 c7 84 24 10 40 00 	movq   $0x0,0x4010(%r12)
+   1412dc655:	00 00 00 00 00
+   1412dc65a:	49 c7 84 24 60 40 00 	movq   $0x0,0x4060(%r12)
+   1412dc661:	00 00 00 00 00
+   1412dc666:	49 c7 84 24 c4 40 00 	movq   $0x0,0x40c4(%r12)
+   1412dc66d:	00 00 00 00 00
+   1412dc672:	49 c7 84 24 d4 40 00 	movq   $0x0,0x40d4(%r12)
+   1412dc679:	00 00 00 00 00
+   1412dc67e:	49 c7 84 24 ec 40 00 	movq   $0x0,0x40ec(%r12)
+   1412dc685:	00 00 00 00 00
+   1412dc68a:	49 c7 84 24 fc 40 00 	movq   $0x0,0x40fc(%r12)
+   1412dc691:	00 00 00 00 00
+   1412dc696:	66 45 89 84 24 f8 40 	mov    %r8w,0x40f8(%r12)
+   1412dc69d:	00 00
+   1412dc69f:	41 0f 11 8c 24 18 40 	movups %xmm1,0x4018(%r12)
+   1412dc6a6:	00 00
+   1412dc6a8:	41 0f 11 8c 24 28 40 	movups %xmm1,0x4028(%r12)
+   1412dc6af:	00 00
+   1412dc6b1:	41 0f 11 8c 24 38 40 	movups %xmm1,0x4038(%r12)
+   1412dc6b8:	00 00
+   1412dc6ba:	41 0f 11 8c 24 50 40 	movups %xmm1,0x4050(%r12)
+   1412dc6c1:	00 00
+   1412dc6c3:	e8 e8 64 fe ff       	call   1412c2bb0 <_ZN6DpBody16InitBoneMatricesEv>
+   1412dc6c8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1412dc6cc:	45 31 c9             	xor    %r9d,%r9d
+   1412dc6cf:	45 31 d2             	xor    %r10d,%r10d
+   1412dc6d2:	48 8b 05 df 33 fe 00 	mov    0xfe33df(%rip),%rax        # 1422bfab8 <CSWTCH.2328+0x318>
+   1412dc6d9:	41 c6 44 24 6c 00    	movb   $0x0,0x6c(%r12)
+   1412dc6df:	48 ba 00 00 00 00 01 	movabs $0x100000000,%rdx
+   1412dc6e6:	00 00 00
+   1412dc6e9:	41 0f 11 84 24 58 3f 	movups %xmm0,0x3f58(%r12)
+   1412dc6f0:	00 00
+   1412dc6f2:	41 0f 11 84 24 68 3f 	movups %xmm0,0x3f68(%r12)
+   1412dc6f9:	00 00
+   1412dc6fb:	41 0f 11 84 24 78 3f 	movups %xmm0,0x3f78(%r12)
+   1412dc702:	00 00
+   1412dc704:	41 0f 11 84 24 8c 3f 	movups %xmm0,0x3f8c(%r12)
+   1412dc70b:	00 00
+   1412dc70d:	41 0f 11 84 24 9c 3f 	movups %xmm0,0x3f9c(%r12)
+   1412dc714:	00 00
+   1412dc716:	41 0f 11 84 24 ac 3f 	movups %xmm0,0x3fac(%r12)
+   1412dc71d:	00 00
+   1412dc71f:	41 0f 11 84 24 bc 3f 	movups %xmm0,0x3fbc(%r12)
+   1412dc726:	00 00
+   1412dc728:	41 0f 11 84 24 cc 3f 	movups %xmm0,0x3fcc(%r12)
+   1412dc72f:	00 00
+   1412dc731:	41 0f 11 84 24 dc 3f 	movups %xmm0,0x3fdc(%r12)
+   1412dc738:	00 00
+   1412dc73a:	41 0f 11 84 24 ec 3f 	movups %xmm0,0x3fec(%r12)
+   1412dc741:	00 00
+   1412dc743:	41 0f 11 84 24 fc 3f 	movups %xmm0,0x3ffc(%r12)
+   1412dc74a:	00 00
+   1412dc74c:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1412dc750:	41 c7 44 24 08 00 00 	movl   $0x0,0x8(%r12)
+   1412dc757:	00 00
+   1412dc759:	41 c7 84 24 88 3f 00 	movl   $0x0,0x3f88(%r12)
+   1412dc760:	00 00 00 00 00
+   1412dc765:	49 c7 84 24 68 40 00 	movq   $0x0,0x4068(%r12)
+   1412dc76c:	00 00 00 00 00
+   1412dc771:	49 c7 44 24 30 00 00 	movq   $0x0,0x30(%r12)
+   1412dc778:	00 00
+   1412dc77a:	66 45 89 4c 24 38    	mov    %r9w,0x38(%r12)
+   1412dc780:	41 c6 44 24 3a 00    	movb   $0x0,0x3a(%r12)
+   1412dc786:	49 c7 44 24 3c 00 00 	movq   $0x0,0x3c(%r12)
+   1412dc78d:	00 00
+   1412dc78f:	49 c7 44 24 44 00 00 	movq   $0x0,0x44(%r12)
+   1412dc796:	00 00
+   1412dc798:	49 c7 44 24 4c 00 00 	movq   $0x0,0x4c(%r12)
+   1412dc79f:	00 00
+   1412dc7a1:	49 c7 44 24 54 00 00 	movq   $0x0,0x54(%r12)
+   1412dc7a8:	00 00
+   1412dc7aa:	49 c7 44 24 5c 00 00 	movq   $0x0,0x5c(%r12)
+   1412dc7b1:	00 00
+   1412dc7b3:	41 c6 44 24 64 00    	movb   $0x0,0x64(%r12)
+   1412dc7b9:	41 c7 44 24 68 00 00 	movl   $0x0,0x68(%r12)
+   1412dc7c0:	00 00
+   1412dc7c2:	41 c7 84 24 cc 40 00 	movl   $0x1,0x40cc(%r12)
+   1412dc7c9:	00 01 00 00 00
+   1412dc7ce:	49 89 84 24 d0 40 00 	mov    %rax,0x40d0(%r12)
+   1412dc7d5:	00
+   1412dc7d6:	66 45 89 94 24 d8 40 	mov    %r10w,0x40d8(%r12)
+   1412dc7dd:	00 00
+   1412dc7df:	41 c7 84 24 f4 40 00 	movl   $0x1,0x40f4(%r12)
+   1412dc7e6:	00 01 00 00 00
+   1412dc7eb:	49 89 84 24 f8 40 00 	mov    %rax,0x40f8(%r12)
+   1412dc7f2:	00
+   1412dc7f3:	66 45 89 9c 24 00 41 	mov    %r11w,0x4100(%r12)
+   1412dc7fa:	00 00
+   1412dc7fc:	41 c7 84 24 dc 40 00 	movl   $0x0,0x40dc(%r12)
+   1412dc803:	00 00 00 00 00
+   1412dc808:	49 89 94 24 e0 40 00 	mov    %rdx,0x40e0(%r12)
+   1412dc80f:	00
+   1412dc810:	49 89 84 24 e8 40 00 	mov    %rax,0x40e8(%r12)
+   1412dc817:	00
+   1412dc818:	66 41 89 9c 24 f0 40 	mov    %bx,0x40f0(%r12)
+   1412dc81f:	00 00
+   1412dc821:	49 c7 84 24 04 41 00 	movq   $0x0,0x4104(%r12)
+   1412dc828:	00 00 00 00 00
+   1412dc82d:	49 c7 84 24 0c 41 00 	movq   $0x0,0x410c(%r12)
+   1412dc834:	00 00 00 00 00
+   1412dc839:	49 c7 84 24 14 41 00 	movq   $0x0,0x4114(%r12)
+   1412dc840:	00 00 00 00 00
+   1412dc845:	49 c7 84 24 b0 40 00 	movq   $0x0,0x40b0(%r12)
+   1412dc84c:	00 00 00 00 00
+   1412dc851:	49 89 94 24 b8 40 00 	mov    %rdx,0x40b8(%r12)
+   1412dc858:	00
+   1412dc859:	49 89 84 24 c0 40 00 	mov    %rax,0x40c0(%r12)
+   1412dc860:	00
+   1412dc861:	66 41 89 bc 24 c8 40 	mov    %di,0x40c8(%r12)
+   1412dc868:	00 00
+   1412dc86a:	41 0f 11 8c 24 20 41 	movups %xmm1,0x4120(%r12)
+   1412dc871:	00 00
+   1412dc873:	41 0f 11 8c 24 30 41 	movups %xmm1,0x4130(%r12)
+   1412dc87a:	00 00
+   1412dc87c:	41 0f 11 84 24 80 40 	movups %xmm0,0x4080(%r12)
+   1412dc883:	00 00
+   1412dc885:	41 0f 11 84 24 90 40 	movups %xmm0,0x4090(%r12)
+   1412dc88c:	00 00
+   1412dc88e:	41 0f 11 84 24 a0 40 	movups %xmm0,0x40a0(%r12)
+   1412dc895:	00 00
+   1412dc897:	48 83 c4 28          	add    $0x28,%rsp
+   1412dc89b:	5b                   	pop    %rbx
+   1412dc89c:	5f                   	pop    %rdi
+   1412dc89d:	41 5c                	pop    %r12
+   1412dc89f:	41 5d                	pop    %r13
+   1412dc8a1:	c3                   	ret
+   1412dc8a2:	49 89 c5             	mov    %rax,%r13
+   1412dc8a5:	4c 89 e1             	mov    %r12,%rcx
+   1412dc8a8:	e8 b3 29 58 00       	call   14185f260 <_ZN7QVectorIP10DpBodyPartED2Ev>
+   1412dc8ad:	4c 89 e9             	mov    %r13,%rcx
+   1412dc8b0:	e8 83 8a 47 00       	call   141755338 <_Unwind_Resume>
+   1412dc8b5:	90                   	nop
+   1412dc8b6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1412dc8bd:	00 00 00
+
+$ objdump -d --disassemble=_ZN10DaCreatureC1Ev reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140973ab0 <_ZN10DaCreatureC1Ev>:
+   140973ab0:	41 57                	push   %r15
+   140973ab2:	41 56                	push   %r14
+   140973ab4:	41 55                	push   %r13
+   140973ab6:	41 54                	push   %r12
+   140973ab8:	57                   	push   %rdi
+   140973ab9:	56                   	push   %rsi
+   140973aba:	53                   	push   %rbx
+   140973abb:	48 83 ec 40          	sub    $0x40,%rsp
+   140973abf:	0f 29 74 24 30       	movaps %xmm6,0x30(%rsp)
+   140973ac4:	49 89 cc             	mov    %rcx,%r12
+   140973ac7:	e8 44 ea 58 00       	call   140f02510 <_ZN6DaUnitC1Ev>
+   140973acc:	4d 8d b4 24 98 04 00 	lea    0x498(%r12),%r14
+   140973ad3:	00
+   140973ad4:	48 8d 05 95 6a a5 01 	lea    0x1a56a95(%rip),%rax        # 1423ca570 <_ZTV10DaCreature+0x10>
+   140973adb:	31 d2                	xor    %edx,%edx
+   140973add:	49 89 04 24          	mov    %rax,(%r12)
+   140973ae1:	4c 8b 2d 60 ed f1 01 	mov    0x1f1ed60(%rip),%r13        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   140973ae8:	4c 89 f1             	mov    %r14,%rcx
+   140973aeb:	41 ff d5             	call   *%r13
+   140973aee:	49 8d bc 24 b8 04 00 	lea    0x4b8(%r12),%rdi
+   140973af5:	00
+   140973af6:	44 89 e0             	mov    %r12d,%eax
+   140973af9:	f2 0f 10 05 ef 62 85 	movsd  0x18562ef(%rip),%xmm0        # 1421c9df0 <CSWTCH.2080+0x2e0>
+   140973b00:	01
+   140973b01:	66 0f 6f 35 e7 60 85 	movdqa 0x18560e7(%rip),%xmm6        # 1421c9bf0 <CSWTCH.2080+0xe0>
+   140973b08:	01
+   140973b09:	48 83 e7 f8          	and    $0xfffffffffffffff8,%rdi
+   140973b0d:	4d 8d bc 24 58 06 00 	lea    0x658(%r12),%r15
+   140973b14:	00
+   140973b15:	31 d2                	xor    %edx,%edx
+   140973b17:	49 c7 84 24 b0 04 00 	movq   $0x0,0x4b0(%r12)
+   140973b1e:	00 00 00 00 00
+   140973b23:	49 c7 84 24 18 05 00 	movq   $0x0,0x518(%r12)
+   140973b2a:	00 00 00 00 00
+   140973b2f:	29 f8                	sub    %edi,%eax
+   140973b31:	8d 88 20 05 00 00    	lea    0x520(%rax),%ecx
+   140973b37:	31 c0                	xor    %eax,%eax
+   140973b39:	c1 e9 03             	shr    $0x3,%ecx
+   140973b3c:	f3 48 ab             	rep stos %rax,(%rdi)
+   140973b3f:	48 8b 05 ba 60 85 01 	mov    0x18560ba(%rip),%rax        # 1421c9c00 <CSWTCH.2080+0xf0>
+   140973b46:	4c 89 f9             	mov    %r15,%rcx
+   140973b49:	f2 41 0f 11 84 24 a8 	movsd  %xmm0,0x4a8(%r12)
+   140973b50:	04 00 00
+   140973b53:	f2 41 0f 11 84 24 d0 	movsd  %xmm0,0x4d0(%r12)
+   140973b5a:	04 00 00
+   140973b5d:	f2 41 0f 11 84 24 f8 	movsd  %xmm0,0x4f8(%r12)
+   140973b64:	04 00 00
+   140973b67:	f2 41 0f 11 84 24 20 	movsd  %xmm0,0x520(%r12)
+   140973b6e:	05 00 00
+   140973b71:	0f 28 05 98 60 85 01 	movaps 0x1856098(%rip),%xmm0        # 1421c9c10 <CSWTCH.2080+0x100>
+   140973b78:	41 c6 84 24 a8 05 00 	movb   $0x0,0x5a8(%r12)
+   140973b7f:	00 00
+   140973b81:	49 89 84 24 20 06 00 	mov    %rax,0x620(%r12)
+   140973b88:	00
+   140973b89:	41 c7 84 24 28 06 00 	movl   $0x0,0x628(%r12)
+   140973b90:	00 00 00 00 00
+   140973b95:	49 c7 84 24 50 06 00 	movq   $0xffffffffffffffff,0x650(%r12)
+   140973b9c:	00 ff ff ff ff
+   140973ba1:	41 0f 11 b4 24 c8 05 	movups %xmm6,0x5c8(%r12)
+   140973ba8:	00 00
+   140973baa:	41 0f 11 b4 24 d8 05 	movups %xmm6,0x5d8(%r12)
+   140973bb1:	00 00
+   140973bb3:	41 0f 11 b4 24 e8 05 	movups %xmm6,0x5e8(%r12)
+   140973bba:	00 00
+   140973bbc:	41 0f 11 b4 24 f8 05 	movups %xmm6,0x5f8(%r12)
+   140973bc3:	00 00
+   140973bc5:	41 0f 11 b4 24 10 06 	movups %xmm6,0x610(%r12)
+   140973bcc:	00 00
+   140973bce:	41 0f 11 b4 24 30 06 	movups %xmm6,0x630(%r12)
+   140973bd5:	00 00
+   140973bd7:	41 0f 11 84 24 40 06 	movups %xmm0,0x640(%r12)
+   140973bde:	00 00
+   140973be0:	41 ff d5             	call   *%r13
+   140973be3:	49 8d bc 24 78 06 00 	lea    0x678(%r12),%rdi
+   140973bea:	00
+   140973beb:	31 d2                	xor    %edx,%edx
+   140973bed:	41 0f 11 b4 24 68 06 	movups %xmm6,0x668(%r12)
+   140973bf4:	00 00
+   140973bf6:	48 89 f9             	mov    %rdi,%rcx
+   140973bf9:	41 ff d5             	call   *%r13
+   140973bfc:	49 8d 9c 24 88 06 00 	lea    0x688(%r12),%rbx
+   140973c03:	00
+   140973c04:	31 d2                	xor    %edx,%edx
+   140973c06:	48 89 d9             	mov    %rbx,%rcx
+   140973c09:	41 ff d5             	call   *%r13
+   140973c0c:	49 c7 84 24 a0 04 00 	movq   $0x0,0x4a0(%r12)
+   140973c13:	00 00 00 00 00
+   140973c18:	b9 48 41 00 00       	mov    $0x4148,%ecx
+   140973c1d:	e8 76 03 de 00       	call   141753f98 <_Znwy>
+   140973c22:	48 89 c1             	mov    %rax,%rcx
+   140973c25:	49 89 c5             	mov    %rax,%r13
+   140973c28:	e8 13 89 96 00       	call   1412dc540 <_ZN6DpBodyC1Ev>
+   140973c2d:	48 8b 05 f4 5e 85 01 	mov    0x1855ef4(%rip),%rax        # 1421c9b28 <CSWTCH.2080+0x18>
+   140973c34:	45 31 c0             	xor    %r8d,%r8d
+   140973c37:	45 31 c9             	xor    %r9d,%r9d
+   140973c3a:	31 d2                	xor    %edx,%edx
+   140973c3c:	b9 03 80 ff ff       	mov    $0xffff8003,%ecx
+   140973c41:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   140973c45:	4d 89 ac 24 b0 05 00 	mov    %r13,0x5b0(%r12)
+   140973c4c:	00
+   140973c4d:	66 41 89 8c 24 90 04 	mov    %cx,0x490(%r12)
+   140973c54:	00 00
+   140973c56:	48 8d 4c 24 28       	lea    0x28(%rsp),%rcx
+   140973c5b:	49 c7 84 24 80 06 00 	movq   $0x0,0x680(%r12)
+   140973c62:	00 00 00 00 00
+   140973c67:	49 89 84 24 b8 05 00 	mov    %rax,0x5b8(%r12)
+   140973c6e:	00
+   140973c6f:	66 45 89 84 24 60 06 	mov    %r8w,0x660(%r12)
+   140973c76:	00 00
+   140973c78:	49 c7 84 24 b0 06 00 	movq   $0x0,0x6b0(%r12)
+   140973c7f:	00 00 00 00 00
+   140973c84:	66 45 89 8c 24 94 04 	mov    %r9w,0x494(%r12)
+   140973c8b:	00 00
+   140973c8d:	41 c7 84 24 08 06 00 	movl   $0x0,0x608(%r12)
+   140973c94:	00 00 00 00 00
+   140973c99:	41 0f 11 84 24 90 06 	movups %xmm0,0x690(%r12)
+   140973ca0:	00 00
+   140973ca2:	e8 49 5e c4 00       	call   1415b9af0 <_ZN8AuVisageC1ENS_6VISAGEE>
+   140973ca7:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+   140973cac:	31 d2                	xor    %edx,%edx
+   140973cae:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   140973cb3:	41 c7 84 24 28 06 00 	movl   $0x8c,0x628(%r12)
+   140973cba:	00 8c 00 00 00
+   140973cbf:	41 c6 84 24 96 04 00 	movb   $0x0,0x496(%r12)
+   140973cc6:	00 00
+   140973cc8:	49 89 84 24 20 06 00 	mov    %rax,0x620(%r12)
+   140973ccf:	00
+   140973cd0:	31 c0                	xor    %eax,%eax
+   140973cd2:	66 41 89 84 24 c0 05 	mov    %ax,0x5c0(%r12)
+   140973cd9:	00 00
+   140973cdb:	66 41 89 94 24 92 04 	mov    %dx,0x492(%r12)
+   140973ce2:	00 00
+   140973ce4:	49 c7 84 24 a0 06 00 	movq   $0x0,0x6a0(%r12)
+   140973ceb:	00 00 00 00 00
+   140973cf0:	49 c7 84 24 b8 06 00 	movq   $0x0,0x6b8(%r12)
+   140973cf7:	00 00 00 00 00
+   140973cfc:	41 c7 84 24 a8 06 00 	movl   $0x0,0x6a8(%r12)
+   140973d03:	00 00 00 00 00
+   140973d08:	41 c7 84 24 c0 06 00 	movl   $0x0,0x6c0(%r12)
+   140973d0f:	00 00 00 00 00
+   140973d14:	48 83 c4 40          	add    $0x40,%rsp
+   140973d18:	5b                   	pop    %rbx
+   140973d19:	5e                   	pop    %rsi
+   140973d1a:	5f                   	pop    %rdi
+   140973d1b:	41 5c                	pop    %r12
+   140973d1d:	41 5d                	pop    %r13
+   140973d1f:	41 5e                	pop    %r14
+   140973d21:	41 5f                	pop    %r15
+   140973d23:	c3                   	ret
+   140973d24:	49 89 c5             	mov    %rax,%r13
+   140973d27:	4c 89 e1             	mov    %r12,%rcx
+   140973d2a:	e8 91 52 58 00       	call   140ef8fc0 <_ZN6DaUnitD1Ev>
+   140973d2f:	4c 89 e9             	mov    %r13,%rcx
+   140973d32:	e8 01 16 de 00       	call   141755338 <_Unwind_Resume>
+   140973d37:	48 89 c6             	mov    %rax,%rsi
+   140973d3a:	4c 89 e9             	mov    %r13,%rcx
+   140973d3d:	e8 66 02 de 00       	call   141753fa8 <_ZdlPv>
+   140973d42:	49 89 f5             	mov    %rsi,%r13
+   140973d45:	48 89 d9             	mov    %rbx,%rcx
+   140973d48:	48 8b 1d 01 eb f1 01 	mov    0x1f1eb01(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140973d4f:	ff d3                	call   *%rbx
+   140973d51:	48 89 f9             	mov    %rdi,%rcx
+   140973d54:	ff d3                	call   *%rbx
+   140973d56:	4c 89 f9             	mov    %r15,%rcx
+   140973d59:	ff d3                	call   *%rbx
+   140973d5b:	4c 89 f1             	mov    %r14,%rcx
+   140973d5e:	ff d3                	call   *%rbx
+   140973d60:	eb c5                	jmp    140973d27 <_ZN10DaCreatureC1Ev+0x277>
+   140973d62:	49 89 c5             	mov    %rax,%r13
+   140973d65:	eb de                	jmp    140973d45 <_ZN10DaCreatureC1Ev+0x295>
+   140973d67:	48 8b 1d e2 ea f1 01 	mov    0x1f1eae2(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140973d6e:	49 89 c5             	mov    %rax,%r13
+   140973d71:	eb de                	jmp    140973d51 <_ZN10DaCreatureC1Ev+0x2a1>
+   140973d73:	48 8b 1d d6 ea f1 01 	mov    0x1f1ead6(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140973d7a:	49 89 c5             	mov    %rax,%r13
+   140973d7d:	eb d7                	jmp    140973d56 <_ZN10DaCreatureC1Ev+0x2a6>
+   140973d7f:	48 8b 1d ca ea f1 01 	mov    0x1f1eaca(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140973d86:	49 89 c5             	mov    %rax,%r13
+   140973d89:	eb d0                	jmp    140973d5b <_ZN10DaCreatureC1Ev+0x2ab>
+   140973d8b:	90                   	nop
+   140973d8c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+$ objdump -d --disassemble=_ZN8DaPersonC1Ev reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140a3f930 <_ZN8DaPersonC1Ev>:
+   140a3f930:	41 57                	push   %r15
+   140a3f932:	41 56                	push   %r14
+   140a3f934:	41 55                	push   %r13
+   140a3f936:	41 54                	push   %r12
+   140a3f938:	55                   	push   %rbp
+   140a3f939:	57                   	push   %rdi
+   140a3f93a:	56                   	push   %rsi
+   140a3f93b:	53                   	push   %rbx
+   140a3f93c:	48 83 ec 68          	sub    $0x68,%rsp
+   140a3f940:	0f 29 74 24 50       	movaps %xmm6,0x50(%rsp)
+   140a3f945:	49 89 cc             	mov    %rcx,%r12
+   140a3f948:	e8 93 10 0e 00       	call   140b209e0 <_ZN10DaSentientC1Ev>
+   140a3f94d:	48 8d 05 5c cc a4 01 	lea    0x1a4cc5c(%rip),%rax        # 14248c5b0 <_ZTV8DaPerson+0x10>
+   140a3f954:	49 89 04 24          	mov    %rax,(%r12)
+   140a3f958:	49 8d 84 24 40 08 00 	lea    0x840(%r12),%rax
+   140a3f95f:	00
+   140a3f960:	48 89 c1             	mov    %rax,%rcx
+   140a3f963:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+   140a3f968:	e8 93 ba ee ff       	call   14092b400 <_ZN13AuPlayerStatsC1Ev>
+   140a3f96d:	49 8d 84 24 c0 0e 00 	lea    0xec0(%r12),%rax
+   140a3f974:	00
+   140a3f975:	48 8b 1d cc 2e e5 01 	mov    0x1e52ecc(%rip),%rbx        # 142892848 <__imp__ZN14QReadWriteLockC1ENS_13RecursionModeE>
+   140a3f97c:	31 d2                	xor    %edx,%edx
+   140a3f97e:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+   140a3f983:	48 89 c1             	mov    %rax,%rcx
+   140a3f986:	ff d3                	call   *%rbx
+   140a3f988:	49 c7 84 24 c8 0e 00 	movq   $0x0,0xec8(%r12)
+   140a3f98f:	00 00 00 00 00
+   140a3f994:	49 8d 84 24 d0 0e 00 	lea    0xed0(%r12),%rax
+   140a3f99b:	00
+   140a3f99c:	48 89 c1             	mov    %rax,%rcx
+   140a3f99f:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+   140a3f9a4:	e8 97 6a a8 00       	call   1414c6440 <_ZN6AuGearC1Ev>
+   140a3f9a9:	66 0f 6f 35 ef 52 7a 	movdqa 0x17a52ef(%rip),%xmm6        # 1421e4ca0 <CSWTCH.5327+0x80>
+   140a3f9b0:	01
+   140a3f9b1:	48 8b 35 88 34 e5 01 	mov    0x1e53488(%rip),%rsi        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   140a3f9b8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   140a3f9bc:	49 8d 84 24 38 0f 00 	lea    0xf38(%r12),%rax
+   140a3f9c3:	00
+   140a3f9c4:	48 8b 3d dd 2b e5 01 	mov    0x1e52bdd(%rip),%rdi        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   140a3f9cb:	48 89 c1             	mov    %rax,%rcx
+   140a3f9ce:	49 c7 84 24 e8 0e 00 	movq   $0x0,0xee8(%r12)
+   140a3f9d5:	00 00 00 00 00
+   140a3f9da:	49 c7 84 24 f0 0e 00 	movq   $0x0,0xef0(%r12)
+   140a3f9e1:	00 00 00 00 00
+   140a3f9e6:	49 89 bc 24 f8 0e 00 	mov    %rdi,0xef8(%r12)
+   140a3f9ed:	00
+   140a3f9ee:	49 89 b4 24 20 0f 00 	mov    %rsi,0xf20(%r12)
+   140a3f9f5:	00
+   140a3f9f6:	49 c7 84 24 28 0f 00 	movq   $0x0,0xf28(%r12)
+   140a3f9fd:	00 00 00 00 00
+   140a3fa02:	41 c7 84 24 30 0f 00 	movl   $0x0,0xf30(%r12)
+   140a3fa09:	00 00 00 00 00
+   140a3fa0e:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   140a3fa13:	41 0f 11 84 24 d8 0e 	movups %xmm0,0xed8(%r12)
+   140a3fa1a:	00 00
+   140a3fa1c:	41 0f 11 b4 24 00 0f 	movups %xmm6,0xf00(%r12)
+   140a3fa23:	00 00
+   140a3fa25:	41 0f 11 b4 24 10 0f 	movups %xmm6,0xf10(%r12)
+   140a3fa2c:	00 00
+   140a3fa2e:	ff 15 14 40 e5 01    	call   *0x1e54014(%rip)        # 142893a48 <__imp__ZN6QImageC1Ev>
+   140a3fa34:	45 31 d2             	xor    %r10d,%r10d
+   140a3fa37:	49 89 b4 24 a0 0f 00 	mov    %rsi,0xfa0(%r12)
+   140a3fa3e:	00
+   140a3fa3f:	49 8d 8c 24 c8 0f 00 	lea    0xfc8(%r12),%rcx
+   140a3fa46:	00
+   140a3fa47:	66 45 89 94 24 a8 0f 	mov    %r10w,0xfa8(%r12)
+   140a3fa4e:	00 00
+   140a3fa50:	41 0f 11 b4 24 70 0f 	movups %xmm6,0xf70(%r12)
+   140a3fa57:	00 00
+   140a3fa59:	41 0f 11 b4 24 90 0f 	movups %xmm6,0xf90(%r12)
+   140a3fa60:	00 00
+   140a3fa62:	41 0f 11 b4 24 b8 0f 	movups %xmm6,0xfb8(%r12)
+   140a3fa69:	00 00
+   140a3fa6b:	e8 70 16 7a 00       	call   1411e10e0 <_ZN11AuHitNotifyC1Ev>
+   140a3fa70:	48 8b 05 71 33 e5 01 	mov    0x1e53371(%rip),%rax        # 142892de8 <__imp__ZN9QHashData11shared_nullE>
+   140a3fa77:	49 c7 84 24 30 10 00 	movq   $0x1f,0x1030(%r12)
+   140a3fa7e:	00 1f 00 00 00
+   140a3fa83:	49 8d 94 24 28 13 00 	lea    0x1328(%r12),%rdx
+   140a3fa8a:	00
+   140a3fa8b:	41 c6 84 24 38 10 00 	movb   $0x0,0x1038(%r12)
+   140a3fa92:	00 00
+   140a3fa94:	49 89 84 24 18 10 00 	mov    %rax,0x1018(%r12)
+   140a3fa9b:	00
+   140a3fa9c:	48 b8 00 00 00 00 1f 	movabs $0x1f00000000,%rax
+   140a3faa3:	00 00 00
+   140a3faa6:	49 89 84 24 3c 10 00 	mov    %rax,0x103c(%r12)
+   140a3faad:	00
+   140a3faae:	49 89 84 24 4c 10 00 	mov    %rax,0x104c(%r12)
+   140a3fab5:	00
+   140a3fab6:	49 89 84 24 5c 10 00 	mov    %rax,0x105c(%r12)
+   140a3fabd:	00
+   140a3fabe:	49 89 84 24 6c 10 00 	mov    %rax,0x106c(%r12)
+   140a3fac5:	00
+   140a3fac6:	49 89 84 24 7c 10 00 	mov    %rax,0x107c(%r12)
+   140a3facd:	00
+   140a3face:	49 89 84 24 8c 10 00 	mov    %rax,0x108c(%r12)
+   140a3fad5:	00
+   140a3fad6:	49 89 84 24 9c 10 00 	mov    %rax,0x109c(%r12)
+   140a3fadd:	00
+   140a3fade:	49 89 84 24 ac 10 00 	mov    %rax,0x10ac(%r12)
+   140a3fae5:	00
+   140a3fae6:	49 89 84 24 bc 10 00 	mov    %rax,0x10bc(%r12)
+   140a3faed:	00
+   140a3faee:	49 8d 84 24 e8 11 00 	lea    0x11e8(%r12),%rax
+   140a3faf5:	00
+   140a3faf6:	41 c7 84 24 44 10 00 	movl   $0x0,0x1044(%r12)
+   140a3fafd:	00 00 00 00 00
+   140a3fb02:	41 c6 84 24 48 10 00 	movb   $0x0,0x1048(%r12)
+   140a3fb09:	00 00
+   140a3fb0b:	41 c7 84 24 54 10 00 	movl   $0x0,0x1054(%r12)
+   140a3fb12:	00 00 00 00 00
+   140a3fb17:	41 c6 84 24 58 10 00 	movb   $0x0,0x1058(%r12)
+   140a3fb1e:	00 00
+   140a3fb20:	41 c7 84 24 64 10 00 	movl   $0x0,0x1064(%r12)
+   140a3fb27:	00 00 00 00 00
+   140a3fb2c:	41 c6 84 24 68 10 00 	movb   $0x0,0x1068(%r12)
+   140a3fb33:	00 00
+   140a3fb35:	41 c7 84 24 74 10 00 	movl   $0x0,0x1074(%r12)
+   140a3fb3c:	00 00 00 00 00
+   140a3fb41:	41 c6 84 24 78 10 00 	movb   $0x0,0x1078(%r12)
+   140a3fb48:	00 00
+   140a3fb4a:	41 c7 84 24 84 10 00 	movl   $0x0,0x1084(%r12)
+   140a3fb51:	00 00 00 00 00
+   140a3fb56:	41 c6 84 24 88 10 00 	movb   $0x0,0x1088(%r12)
+   140a3fb5d:	00 00
+   140a3fb5f:	41 c7 84 24 94 10 00 	movl   $0x0,0x1094(%r12)
+   140a3fb66:	00 00 00 00 00
+   140a3fb6b:	41 c6 84 24 98 10 00 	movb   $0x0,0x1098(%r12)
+   140a3fb72:	00 00
+   140a3fb74:	41 c7 84 24 a4 10 00 	movl   $0x0,0x10a4(%r12)
+   140a3fb7b:	00 00 00 00 00
+   140a3fb80:	41 c6 84 24 a8 10 00 	movb   $0x0,0x10a8(%r12)
+   140a3fb87:	00 00
+   140a3fb89:	41 c7 84 24 b4 10 00 	movl   $0x0,0x10b4(%r12)
+   140a3fb90:	00 00 00 00 00
+   140a3fb95:	41 c6 84 24 b8 10 00 	movb   $0x0,0x10b8(%r12)
+   140a3fb9c:	00 00
+   140a3fb9e:	41 c7 84 24 c4 10 00 	movl   $0x0,0x10c4(%r12)
+   140a3fba5:	00 00 00 00 00
+   140a3fbaa:	41 0f 11 b4 24 08 10 	movups %xmm6,0x1008(%r12)
+   140a3fbb1:	00 00
+   140a3fbb3:	41 0f 11 b4 24 20 10 	movups %xmm6,0x1020(%r12)
+   140a3fbba:	00 00
+   140a3fbbc:	41 c6 84 24 c8 10 00 	movb   $0x0,0x10c8(%r12)
+   140a3fbc3:	00 00
+   140a3fbc5:	41 c7 84 24 cc 10 00 	movl   $0x0,0x10cc(%r12)
+   140a3fbcc:	00 00 00 00 00
+   140a3fbd1:	41 c7 84 24 ec 10 00 	movl   $0x0,0x10ec(%r12)
+   140a3fbd8:	00 00 00 00 00
+   140a3fbdd:	49 89 bc 24 f0 10 00 	mov    %rdi,0x10f0(%r12)
+   140a3fbe4:	00
+   140a3fbe5:	41 c7 84 24 f8 10 00 	movl   $0x0,0x10f8(%r12)
+   140a3fbec:	00 00 00 00 00
+   140a3fbf1:	49 89 bc 24 00 11 00 	mov    %rdi,0x1100(%r12)
+   140a3fbf8:	00
+   140a3fbf9:	49 c7 84 24 08 11 00 	movq   $0x0,0x1108(%r12)
+   140a3fc00:	00 00 00 00 00
+   140a3fc05:	41 c7 84 24 10 11 00 	movl   $0x0,0x1110(%r12)
+   140a3fc0c:	00 00 00 00 00
+   140a3fc11:	49 89 bc 24 18 11 00 	mov    %rdi,0x1118(%r12)
+   140a3fc18:	00
+   140a3fc19:	49 c7 84 24 38 11 00 	movq   $0x0,0x1138(%r12)
+   140a3fc20:	00 00 00 00 00
+   140a3fc25:	41 0f 11 b4 24 d8 10 	movups %xmm6,0x10d8(%r12)
+   140a3fc2c:	00 00
+   140a3fc2e:	41 0f 11 b4 24 20 11 	movups %xmm6,0x1120(%r12)
+   140a3fc35:	00 00
+   140a3fc37:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   140a3fc3e:	00 00
+   140a3fc40:	0f 11 30             	movups %xmm6,(%rax)
+   140a3fc43:	48 83 c0 10          	add    $0x10,%rax
+   140a3fc47:	48 39 d0             	cmp    %rdx,%rax
+   140a3fc4a:	75 f4                	jne    140a3fc40 <_ZN8DaPersonC1Ev+0x310>
+   140a3fc4c:	49 8d 84 24 88 13 00 	lea    0x1388(%r12),%rax
+   140a3fc53:	00
+   140a3fc54:	31 d2                	xor    %edx,%edx
+   140a3fc56:	41 0f 11 b4 24 28 13 	movups %xmm6,0x1328(%r12)
+   140a3fc5d:	00 00
+   140a3fc5f:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   140a3fc64:	48 89 c1             	mov    %rax,%rcx
+   140a3fc67:	41 0f 11 b4 24 38 13 	movups %xmm6,0x1338(%r12)
+   140a3fc6e:	00 00
+   140a3fc70:	41 0f 11 b4 24 48 13 	movups %xmm6,0x1348(%r12)
+   140a3fc77:	00 00
+   140a3fc79:	41 0f 11 b4 24 58 13 	movups %xmm6,0x1358(%r12)
+   140a3fc80:	00 00
+   140a3fc82:	41 0f 11 b4 24 68 13 	movups %xmm6,0x1368(%r12)
+   140a3fc89:	00 00
+   140a3fc8b:	41 0f 11 b4 24 78 13 	movups %xmm6,0x1378(%r12)
+   140a3fc92:	00 00
+   140a3fc94:	ff d3                	call   *%rbx
+   140a3fc96:	4d 8d ac 24 90 13 00 	lea    0x1390(%r12),%r13
+   140a3fc9d:	00
+   140a3fc9e:	4c 89 e9             	mov    %r13,%rcx
+   140a3fca1:	e8 9a 67 a8 00       	call   1414c6440 <_ZN6AuGearC1Ev>
+   140a3fca6:	4d 8d b4 24 b0 13 00 	lea    0x13b0(%r12),%r14
+   140a3fcad:	00
+   140a3fcae:	31 d2                	xor    %edx,%edx
+   140a3fcb0:	41 0f 11 b4 24 98 13 	movups %xmm6,0x1398(%r12)
+   140a3fcb7:	00 00
+   140a3fcb9:	4c 89 f1             	mov    %r14,%rcx
+   140a3fcbc:	ff d3                	call   *%rbx
+   140a3fcbe:	4d 8d bc 24 d0 13 00 	lea    0x13d0(%r12),%r15
+   140a3fcc5:	00
+   140a3fcc6:	49 89 b4 24 b8 13 00 	mov    %rsi,0x13b8(%r12)
+   140a3fccd:	00
+   140a3fcce:	31 d2                	xor    %edx,%edx
+   140a3fcd0:	41 0f 11 b4 24 c0 13 	movups %xmm6,0x13c0(%r12)
+   140a3fcd7:	00 00
+   140a3fcd9:	4c 89 f9             	mov    %r15,%rcx
+   140a3fcdc:	ff d3                	call   *%rbx
+   140a3fcde:	49 8d bc 24 e0 13 00 	lea    0x13e0(%r12),%rdi
+   140a3fce5:	00
+   140a3fce6:	49 89 b4 24 d8 13 00 	mov    %rsi,0x13d8(%r12)
+   140a3fced:	00
+   140a3fcee:	31 d2                	xor    %edx,%edx
+   140a3fcf0:	48 89 f9             	mov    %rdi,%rcx
+   140a3fcf3:	ff d3                	call   *%rbx
+   140a3fcf5:	49 8d ac 24 00 14 00 	lea    0x1400(%r12),%rbp
+   140a3fcfc:	00
+   140a3fcfd:	31 d2                	xor    %edx,%edx
+   140a3fcff:	49 c7 84 24 f8 13 00 	movq   $0x0,0x13f8(%r12)
+   140a3fd06:	00 00 00 00 00
+   140a3fd0b:	48 89 e9             	mov    %rbp,%rcx
+   140a3fd0e:	ff d3                	call   *%rbx
+   140a3fd10:	49 c7 84 24 40 14 00 	movq   $0x0,0x1440(%r12)
+   140a3fd17:	00 00 00 00 00
+   140a3fd1c:	49 8d 8c 24 50 14 00 	lea    0x1450(%r12),%rcx
+   140a3fd23:	00
+   140a3fd24:	31 d2                	xor    %edx,%edx
+   140a3fd26:	41 0f 11 b4 24 10 14 	movups %xmm6,0x1410(%r12)
+   140a3fd2d:	00 00
+   140a3fd2f:	ff d3                	call   *%rbx
+   140a3fd31:	49 8d 84 24 88 14 00 	lea    0x1488(%r12),%rax
+   140a3fd38:	00
+   140a3fd39:	31 d2                	xor    %edx,%edx
+   140a3fd3b:	45 31 c0             	xor    %r8d,%r8d
+   140a3fd3e:	45 31 c9             	xor    %r9d,%r9d
+   140a3fd41:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   140a3fd45:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   140a3fd49:	49 89 84 24 58 14 00 	mov    %rax,0x1458(%r12)
+   140a3fd50:	00
+   140a3fd51:	31 c0                	xor    %eax,%eax
+   140a3fd53:	66 41 89 84 24 58 15 	mov    %ax,0x1558(%r12)
+   140a3fd5a:	00 00
+   140a3fd5c:	b9 0f 0f 00 00       	mov    $0xf0f,%ecx
+   140a3fd61:	41 0f 11 b4 24 90 14 	movups %xmm6,0x1490(%r12)
+   140a3fd68:	00 00
+   140a3fd6a:	49 c7 84 24 60 14 00 	movq   $0x1,0x1460(%r12)
+   140a3fd71:	00 01 00 00 00
+   140a3fd76:	49 c7 84 24 68 14 00 	movq   $0x0,0x1468(%r12)
+   140a3fd7d:	00 00 00 00 00
+   140a3fd82:	49 c7 84 24 70 14 00 	movq   $0x0,0x1470(%r12)
+   140a3fd89:	00 00 00 00 00
+   140a3fd8e:	41 c7 84 24 78 14 00 	movl   $0x3f800000,0x1478(%r12)
+   140a3fd95:	00 00 00 80 3f
+   140a3fd9a:	49 c7 84 24 80 14 00 	movq   $0x0,0x1480(%r12)
+   140a3fda1:	00 00 00 00 00
+   140a3fda6:	49 c7 84 24 88 14 00 	movq   $0x0,0x1488(%r12)
+   140a3fdad:	00 00 00 00 00
+   140a3fdb2:	49 c7 84 24 48 15 00 	movq   $0x0,0x1548(%r12)
+   140a3fdb9:	00 00 00 00 00
+   140a3fdbe:	49 89 b4 24 50 15 00 	mov    %rsi,0x1550(%r12)
+   140a3fdc5:	00
+   140a3fdc6:	41 c6 84 24 e8 13 00 	movb   $0x1,0x13e8(%r12)
+   140a3fdcd:	00 01
+   140a3fdcf:	41 c7 84 24 80 0f 00 	movl   $0x0,0xf80(%r12)
+   140a3fdd6:	00 00 00 00 00
+   140a3fddb:	49 c7 84 24 ac 14 00 	movq   $0x0,0x14ac(%r12)
+   140a3fde2:	00 00 00 00 00
+   140a3fde7:	49 c7 84 24 c8 14 00 	movq   $0x0,0x14c8(%r12)
+   140a3fdee:	00 00 00 00 00
+   140a3fdf3:	41 c7 84 24 b4 14 00 	movl   $0x0,0x14b4(%r12)
+   140a3fdfa:	00 00 00 00 00
+   140a3fdff:	41 c7 84 24 d0 14 00 	movl   $0x0,0x14d0(%r12)
+   140a3fe06:	00 00 00 00 00
+   140a3fe0b:	41 c7 84 24 e8 10 00 	movl   $0x0,0x10e8(%r12)
+   140a3fe12:	00 00 00 00 00
+   140a3fe17:	41 c7 84 24 34 11 00 	movl   $0x0,0x1134(%r12)
+   140a3fe1e:	00 00 00 00 00
+   140a3fe23:	41 c6 84 24 84 0f 00 	movb   $0x0,0xf84(%r12)
+   140a3fe2a:	00 00
+   140a3fe2c:	41 c7 84 24 b0 0f 00 	movl   $0x0,0xfb0(%r12)
+   140a3fe33:	00 00 00 00 00
+   140a3fe38:	66 41 89 94 24 38 08 	mov    %dx,0x838(%r12)
+   140a3fe3f:	00 00
+   140a3fe41:	41 c6 84 24 3a 08 00 	movb   $0x0,0x83a(%r12)
+   140a3fe48:	00 00
+   140a3fe4a:	41 c7 84 24 88 0f 00 	movl   $0x0,0xf88(%r12)
+   140a3fe51:	00 00 00 00 00
+   140a3fe56:	41 0f 11 84 24 d8 14 	movups %xmm0,0x14d8(%r12)
+   140a3fe5d:	00 00
+   140a3fe5f:	41 0f 11 84 24 e8 14 	movups %xmm0,0x14e8(%r12)
+   140a3fe66:	00 00
+   140a3fe68:	41 0f 11 84 24 f8 14 	movups %xmm0,0x14f8(%r12)
+   140a3fe6f:	00 00
+   140a3fe71:	41 0f 11 84 24 08 15 	movups %xmm0,0x1508(%r12)
+   140a3fe78:	00 00
+   140a3fe7a:	41 0f 11 84 24 18 15 	movups %xmm0,0x1518(%r12)
+   140a3fe81:	00 00
+   140a3fe83:	41 0f 11 84 24 28 15 	movups %xmm0,0x1528(%r12)
+   140a3fe8a:	00 00
+   140a3fe8c:	41 0f 11 84 24 38 15 	movups %xmm0,0x1538(%r12)
+   140a3fe93:	00 00
+   140a3fe95:	41 0f 11 84 24 60 0f 	movups %xmm0,0xf60(%r12)
+   140a3fe9c:	00 00
+   140a3fe9e:	49 c7 84 24 30 10 00 	movq   $0x1f,0x1030(%r12)
+   140a3fea5:	00 1f 00 00 00
+   140a3feaa:	48 8b 05 0f 50 7a 01 	mov    0x17a500f(%rip),%rax        # 1421e4ec0 <CSWTCH.5327+0x2a0>
+   140a3feb1:	41 c6 84 24 38 10 00 	movb   $0x0,0x1038(%r12)
+   140a3feb8:	00 00
+   140a3feba:	49 89 84 24 ec 13 00 	mov    %rax,0x13ec(%r12)
+   140a3fec1:	00
+   140a3fec2:	41 c7 84 24 3c 10 00 	movl   $0x0,0x103c(%r12)
+   140a3fec9:	00 00 00 00 00
+   140a3fece:	49 c7 84 24 40 10 00 	movq   $0x1f,0x1040(%r12)
+   140a3fed5:	00 1f 00 00 00
+   140a3feda:	41 c6 84 24 48 10 00 	movb   $0x0,0x1048(%r12)
+   140a3fee1:	00 00
+   140a3fee3:	41 c7 84 24 4c 10 00 	movl   $0x0,0x104c(%r12)
+   140a3feea:	00 00 00 00 00
+   140a3feef:	49 c7 84 24 50 10 00 	movq   $0x1f,0x1050(%r12)
+   140a3fef6:	00 1f 00 00 00
+   140a3fefb:	41 c6 84 24 58 10 00 	movb   $0x0,0x1058(%r12)
+   140a3ff02:	00 00
+   140a3ff04:	41 c7 84 24 5c 10 00 	movl   $0x0,0x105c(%r12)
+   140a3ff0b:	00 00 00 00 00
+   140a3ff10:	49 c7 84 24 60 10 00 	movq   $0x1f,0x1060(%r12)
+   140a3ff17:	00 1f 00 00 00
+   140a3ff1c:	41 c6 84 24 68 10 00 	movb   $0x0,0x1068(%r12)
+   140a3ff23:	00 00
+   140a3ff25:	41 c7 84 24 6c 10 00 	movl   $0x0,0x106c(%r12)
+   140a3ff2c:	00 00 00 00 00
+   140a3ff31:	49 c7 84 24 70 10 00 	movq   $0x1f,0x1070(%r12)
+   140a3ff38:	00 1f 00 00 00
+   140a3ff3d:	41 c6 84 24 78 10 00 	movb   $0x0,0x1078(%r12)
+   140a3ff44:	00 00
+   140a3ff46:	41 c7 84 24 7c 10 00 	movl   $0x0,0x107c(%r12)
+   140a3ff4d:	00 00 00 00 00
+   140a3ff52:	49 c7 84 24 80 10 00 	movq   $0x1f,0x1080(%r12)
+   140a3ff59:	00 1f 00 00 00
+   140a3ff5e:	41 c6 84 24 88 10 00 	movb   $0x0,0x1088(%r12)
+   140a3ff65:	00 00
+   140a3ff67:	41 c7 84 24 8c 10 00 	movl   $0x0,0x108c(%r12)
+   140a3ff6e:	00 00 00 00 00
+   140a3ff73:	49 c7 84 24 90 10 00 	movq   $0x1f,0x1090(%r12)
+   140a3ff7a:	00 1f 00 00 00
+   140a3ff7f:	41 c6 84 24 98 10 00 	movb   $0x0,0x1098(%r12)
+   140a3ff86:	00 00
+   140a3ff88:	41 c7 84 24 9c 10 00 	movl   $0x0,0x109c(%r12)
+   140a3ff8f:	00 00 00 00 00
+   140a3ff94:	49 c7 84 24 a0 10 00 	movq   $0x1f,0x10a0(%r12)
+   140a3ff9b:	00 1f 00 00 00
+   140a3ffa0:	41 c6 84 24 a8 10 00 	movb   $0x0,0x10a8(%r12)
+   140a3ffa7:	00 00
+   140a3ffa9:	41 c7 84 24 ac 10 00 	movl   $0x0,0x10ac(%r12)
+   140a3ffb0:	00 00 00 00 00
+   140a3ffb5:	49 c7 84 24 b0 10 00 	movq   $0x1f,0x10b0(%r12)
+   140a3ffbc:	00 1f 00 00 00
+   140a3ffc1:	41 c6 84 24 b8 10 00 	movb   $0x0,0x10b8(%r12)
+   140a3ffc8:	00 00
+   140a3ffca:	41 c7 84 24 bc 10 00 	movl   $0x0,0x10bc(%r12)
+   140a3ffd1:	00 00 00 00 00
+   140a3ffd6:	49 c7 84 24 c0 10 00 	movq   $0x1f,0x10c0(%r12)
+   140a3ffdd:	00 1f 00 00 00
+   140a3ffe2:	41 c6 84 24 c8 10 00 	movb   $0x0,0x10c8(%r12)
+   140a3ffe9:	00 00
+   140a3ffeb:	49 c7 84 24 b8 14 00 	movq   $0x0,0x14b8(%r12)
+   140a3fff2:	00 00 00 00 00
+   140a3fff7:	41 c6 84 24 3b 08 00 	movb   $0xf,0x83b(%r12)
+   140a3fffe:	00 0f
+   140a40000:	66 41 89 8c 24 3c 08 	mov    %cx,0x83c(%r12)
+   140a40007:	00 00
+   140a40009:	48 8b 05 b8 4e 7a 01 	mov    0x17a4eb8(%rip),%rax        # 1421e4ec8 <CSWTCH.5327+0x2a8>
+   140a40010:	0f 28 74 24 50       	movaps 0x50(%rsp),%xmm6
+   140a40015:	49 c7 84 24 cc 10 00 	movq   $0x0,0x10cc(%r12)
+   140a4001c:	00 00 00 00 00
+   140a40021:	49 c7 84 24 08 14 00 	movq   $0x0,0x1408(%r12)
+   140a40028:	00 00 00 00 00
+   140a4002d:	41 c7 84 24 20 14 00 	movl   $0x0,0x1420(%r12)
+   140a40034:	00 00 00 00 00
+   140a40039:	41 c7 84 24 38 14 00 	movl   $0x0,0x1438(%r12)
+   140a40040:	00 00 00 00 00
+   140a40045:	49 c7 84 24 48 14 00 	movq   $0x0,0x1448(%r12)
+   140a4004c:	00 00 00 00 00
+   140a40051:	41 c7 84 24 c4 14 00 	movl   $0x0,0x14c4(%r12)
+   140a40058:	00 00 00 00 00
+   140a4005d:	66 45 89 84 24 40 11 	mov    %r8w,0x1140(%r12)
+   140a40064:	00 00
+   140a40066:	41 c7 84 24 30 11 00 	movl   $0x0,0x1130(%r12)
+   140a4006d:	00 00 00 00 00
+   140a40072:	41 c7 84 24 a8 13 00 	movl   $0x0,0x13a8(%r12)
+   140a40079:	00 00 00 00 00
+   140a4007e:	66 45 89 8c 24 58 0f 	mov    %r9w,0xf58(%r12)
+   140a40085:	00 00
+   140a40087:	49 89 84 24 a0 14 00 	mov    %rax,0x14a0(%r12)
+   140a4008e:	00
+   140a4008f:	41 c7 84 24 a8 14 00 	movl   $0x0,0x14a8(%r12)
+   140a40096:	00 00 00 00 00
+   140a4009b:	41 0f 11 8c 24 60 15 	movups %xmm1,0x1560(%r12)
+   140a400a2:	00 00
+   140a400a4:	41 0f 11 84 24 28 14 	movups %xmm0,0x1428(%r12)
+   140a400ab:	00 00
+   140a400ad:	48 83 c4 68          	add    $0x68,%rsp
+   140a400b1:	5b                   	pop    %rbx
+   140a400b2:	5e                   	pop    %rsi
+   140a400b3:	5f                   	pop    %rdi
+   140a400b4:	5d                   	pop    %rbp
+   140a400b5:	41 5c                	pop    %r12
+   140a400b7:	41 5d                	pop    %r13
+   140a400b9:	41 5e                	pop    %r14
+   140a400bb:	41 5f                	pop    %r15
+   140a400bd:	c3                   	ret
+   140a400be:	49 89 c5             	mov    %rax,%r13
+   140a400c1:	4c 89 e1             	mov    %r12,%rcx
+   140a400c4:	e8 97 0b 0e 00       	call   140b20c60 <_ZN10DaSentientD1Ev>
+   140a400c9:	4c 89 e9             	mov    %r13,%rcx
+   140a400cc:	e8 67 52 d1 00       	call   141755338 <_Unwind_Resume>
+   140a400d1:	49 8d 8c 24 40 14 00 	lea    0x1440(%r12),%rcx
+   140a400d8:	00
+   140a400d9:	48 89 c6             	mov    %rax,%rsi
+   140a400dc:	ff 15 66 29 e5 01    	call   *0x1e52966(%rip)        # 142892a48 <__imp__ZN6QMutexD1Ev>
+   140a400e2:	48 8b 1d 67 27 e5 01 	mov    0x1e52767(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a400e9:	48 89 e9             	mov    %rbp,%rcx
+   140a400ec:	ff d3                	call   *%rbx
+   140a400ee:	48 89 f9             	mov    %rdi,%rcx
+   140a400f1:	ff d3                	call   *%rbx
+   140a400f3:	49 8d bc 24 d8 13 00 	lea    0x13d8(%r12),%rdi
+   140a400fa:	00
+   140a400fb:	48 89 f9             	mov    %rdi,%rcx
+   140a400fe:	e8 9d 38 d2 00       	call   1417639a0 <_ZN10AuMemories5ClearEv>
+   140a40103:	48 89 f9             	mov    %rdi,%rcx
+   140a40106:	e8 95 5a e0 00       	call   141845ba0 <_ZN5QListIP8AuMemoryED2Ev>
+   140a4010b:	4c 89 f9             	mov    %r15,%rcx
+   140a4010e:	ff d3                	call   *%rbx
+   140a40110:	49 8d 8c 24 b8 13 00 	lea    0x13b8(%r12),%rcx
+   140a40117:	00
+   140a40118:	e8 23 4f e0 00       	call   141845040 <_ZN5QListIP5AuJobED2Ev>
+   140a4011d:	4c 89 f1             	mov    %r14,%rcx
+   140a40120:	ff d3                	call   *%rbx
+   140a40122:	4c 89 e9             	mov    %r13,%rcx
+   140a40125:	e8 26 63 a8 00       	call   1414c6450 <_ZN6AuGearD1Ev>
+   140a4012a:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   140a4012f:	ff d3                	call   *%rbx
+   140a40131:	49 8d 8c 24 18 11 00 	lea    0x1118(%r12),%rcx
+   140a40138:	00
+   140a40139:	e8 d2 0c e1 00       	call   141850e10 <_ZN7QStringD1Ev>
+   140a4013e:	49 8d 8c 24 00 11 00 	lea    0x1100(%r12),%rcx
+   140a40145:	00
+   140a40146:	e8 c5 0c e1 00       	call   141850e10 <_ZN7QStringD1Ev>
+   140a4014b:	49 8d 8c 24 f0 10 00 	lea    0x10f0(%r12),%rcx
+   140a40152:	00
+   140a40153:	e8 b8 0c e1 00       	call   141850e10 <_ZN7QStringD1Ev>
+   140a40158:	49 8d 8c 24 18 10 00 	lea    0x1018(%r12),%rcx
+   140a4015f:	00
+   140a40160:	e8 ab ad db 00       	call   1417faf10 <_ZN5QHashI4AuId7QStringED2Ev>
+   140a40165:	49 8d 8c 24 a0 0f 00 	lea    0xfa0(%r12),%rcx
+   140a4016c:	00
+   140a4016d:	e8 fe f5 dd 00       	call   14181f770 <_ZN5QListI15AuItemContentIdED1Ev>
+   140a40172:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   140a40177:	ff 15 d3 38 e5 01    	call   *0x1e538d3(%rip)        # 142893a50 <__imp__ZN6QImageD1Ev>
+   140a4017d:	49 8d 8c 24 20 0f 00 	lea    0xf20(%r12),%rcx
+   140a40184:	00
+   140a40185:	e8 76 e9 dd 00       	call   14181eb00 <_ZN5QListI15AuEventLogEntryED2Ev>
+   140a4018a:	49 8d 8c 24 f8 0e 00 	lea    0xef8(%r12),%rcx
+   140a40191:	00
+   140a40192:	e8 79 0c e1 00       	call   141850e10 <_ZN7QStringD1Ev>
+   140a40197:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   140a4019c:	e8 af 62 a8 00       	call   1414c6450 <_ZN6AuGearD1Ev>
+   140a401a1:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   140a401a6:	49 89 f5             	mov    %rsi,%r13
+   140a401a9:	ff d3                	call   *%rbx
+   140a401ab:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+   140a401b0:	e8 5b 99 ef ff       	call   140939b10 <_ZN13AuPlayerStatsD1Ev>
+   140a401b5:	e9 07 ff ff ff       	jmp    140a400c1 <_ZN8DaPersonC1Ev+0x791>
+   140a401ba:	48 8b 1d 8f 26 e5 01 	mov    0x1e5268f(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a401c1:	48 89 c6             	mov    %rax,%rsi
+   140a401c4:	e9 25 ff ff ff       	jmp    140a400ee <_ZN8DaPersonC1Ev+0x7be>
+   140a401c9:	48 8b 1d 80 26 e5 01 	mov    0x1e52680(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a401d0:	48 89 c6             	mov    %rax,%rsi
+   140a401d3:	e9 1b ff ff ff       	jmp    140a400f3 <_ZN8DaPersonC1Ev+0x7c3>
+   140a401d8:	48 8b 1d 71 26 e5 01 	mov    0x1e52671(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a401df:	48 89 c6             	mov    %rax,%rsi
+   140a401e2:	e9 29 ff ff ff       	jmp    140a40110 <_ZN8DaPersonC1Ev+0x7e0>
+   140a401e7:	48 8b 1d 62 26 e5 01 	mov    0x1e52662(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a401ee:	48 89 c6             	mov    %rax,%rsi
+   140a401f1:	e9 2c ff ff ff       	jmp    140a40122 <_ZN8DaPersonC1Ev+0x7f2>
+   140a401f6:	48 8b 1d 53 26 e5 01 	mov    0x1e52653(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a401fd:	48 89 c6             	mov    %rax,%rsi
+   140a40200:	e9 25 ff ff ff       	jmp    140a4012a <_ZN8DaPersonC1Ev+0x7fa>
+   140a40205:	48 8b 1d 44 26 e5 01 	mov    0x1e52644(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a4020c:	48 89 c6             	mov    %rax,%rsi
+   140a4020f:	e9 1d ff ff ff       	jmp    140a40131 <_ZN8DaPersonC1Ev+0x801>
+   140a40214:	48 8b 1d 35 26 e5 01 	mov    0x1e52635(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a4021b:	48 89 c6             	mov    %rax,%rsi
+   140a4021e:	e9 42 ff ff ff       	jmp    140a40165 <_ZN8DaPersonC1Ev+0x835>
+   140a40223:	48 8b 1d 26 26 e5 01 	mov    0x1e52626(%rip),%rbx        # 142892850 <__imp__ZN14QReadWriteLockD1Ev>
+   140a4022a:	48 89 c6             	mov    %rax,%rsi
+   140a4022d:	e9 6f ff ff ff       	jmp    140a401a1 <_ZN8DaPersonC1Ev+0x871>
+   140a40232:	49 89 c5             	mov    %rax,%r13
+   140a40235:	e9 71 ff ff ff       	jmp    140a401ab <_ZN8DaPersonC1Ev+0x87b>
+   140a4023a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+$ objdump -d --disassemble=_ZN10DaCreature8RxUpdateER11QDataStreamb reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014099b050 <_ZN10DaCreature8RxUpdateER11QDataStreamb>:
+   14099b050:	41 57                	push   %r15
+   14099b052:	41 56                	push   %r14
+   14099b054:	41 55                	push   %r13
+   14099b056:	41 54                	push   %r12
+   14099b058:	55                   	push   %rbp
+   14099b059:	57                   	push   %rdi
+   14099b05a:	56                   	push   %rsi
+   14099b05b:	53                   	push   %rbx
+   14099b05c:	48 81 ec a8 00 00 00 	sub    $0xa8,%rsp
+   14099b063:	0f 29 b4 24 90 00 00 	movaps %xmm6,0x90(%rsp)
+   14099b06a:	00
+   14099b06b:	48 8b 05 5e d4 a0 01 	mov    0x1a0d45e(%rip),%rax        # 1423a84d0 <.refptr._ZTV5AuDNA>
+   14099b072:	48 8b 2d c7 7d ef 01 	mov    0x1ef7dc7(%rip),%rbp        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   14099b079:	48 83 c0 10          	add    $0x10,%rax
+   14099b07d:	66 48 0f 6e d5       	movq   %rbp,%xmm2
+   14099b082:	66 48 0f 6e f0       	movq   %rax,%xmm6
+   14099b087:	66 0f 6c f2          	punpcklqdq %xmm2,%xmm6
+   14099b08b:	49 89 d4             	mov    %rdx,%r12
+   14099b08e:	45 0f b6 c0          	movzbl %r8b,%r8d
+   14099b092:	48 89 cb             	mov    %rcx,%rbx
+   14099b095:	e8 86 cc 55 00       	call   140ef7d20 <_ZN6DaUnit8RxUpdateER11QDataStreamb>
+   14099b09a:	48 8b 3d 67 76 ef 01 	mov    0x1ef7667(%rip),%rdi        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14099b0a1:	48 8d 54 24 4e       	lea    0x4e(%rsp),%rdx
+   14099b0a6:	4c 89 e1             	mov    %r12,%rcx
+   14099b0a9:	ff d7                	call   *%rdi
+   14099b0ab:	f6 44 24 4f 01       	testb  $0x1,0x4f(%rsp)
+   14099b0b0:	0f 84 4a 03 00 00    	je     14099b400 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x3b0>
+   14099b0b6:	48 83 bb a0 04 00 00 	cmpq   $0x0,0x4a0(%rbx)
+   14099b0bd:	00
+   14099b0be:	0f 84 8c 06 00 00    	je     14099b750 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x700>
+   14099b0c4:	4c 8b ab b0 05 00 00 	mov    0x5b0(%rbx),%r13
+   14099b0cb:	4d 85 ed             	test   %r13,%r13
+   14099b0ce:	74 1b                	je     14099b0eb <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x9b>
+   14099b0d0:	4c 89 e9             	mov    %r13,%rcx
+   14099b0d3:	e8 68 67 94 00       	call   1412e1840 <_ZN6DpBodyD1Ev>
+   14099b0d8:	4c 89 e9             	mov    %r13,%rcx
+   14099b0db:	e8 c8 8e db 00       	call   141753fa8 <_ZdlPv>
+   14099b0e0:	48 c7 83 b0 05 00 00 	movq   $0x0,0x5b0(%rbx)
+   14099b0e7:	00 00 00 00
+   14099b0eb:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b0f0:	48 8b 35 e9 75 ef 01 	mov    0x1ef75e9(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14099b0f7:	a8 01                	test   $0x1,%al
+   14099b0f9:	0f 85 4e 03 00 00    	jne    14099b44d <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x3fd>
+   14099b0ff:	a8 02                	test   $0x2,%al
+   14099b101:	0f 85 d2 03 00 00    	jne    14099b4d9 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x489>
+   14099b107:	a8 04                	test   $0x4,%al
+   14099b109:	0f 85 f7 03 00 00    	jne    14099b506 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x4b6>
+   14099b10f:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b116:	00
+   14099b117:	74 10                	je     14099b129 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xd9>
+   14099b119:	48 89 d9             	mov    %rbx,%rcx
+   14099b11c:	e8 af 87 fe ff       	call   1409838d0 <_ZNK10DaCreature13IsConsolePoseEv>
+   14099b121:	84 c0                	test   %al,%al
+   14099b123:	0f 85 b7 04 00 00    	jne    14099b5e0 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x590>
+   14099b129:	c7 44 24 38 3d 00 00 	movl   $0x3d,0x38(%rsp)
+   14099b130:	00
+   14099b131:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b136:	a8 08                	test   $0x8,%al
+   14099b138:	0f 84 16 01 00 00    	je     14099b254 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x204>
+   14099b13e:	4c 8d 74 24 60       	lea    0x60(%rsp),%r14
+   14099b143:	4c 8d 6c 24 58       	lea    0x58(%rsp),%r13
+   14099b148:	48 c7 44 24 60 00 00 	movq   $0x0,0x60(%rsp)
+   14099b14f:	00 00
+   14099b151:	48 c7 44 24 68 00 00 	movq   $0x0,0x68(%rsp)
+   14099b158:	00 00
+   14099b15a:	4d 89 f7             	mov    %r14,%r15
+   14099b15d:	48 8d ac 24 88 00 00 	lea    0x88(%rsp),%rbp
+   14099b164:	00
+   14099b165:	48 c7 44 24 70 00 00 	movq   $0x0,0x70(%rsp)
+   14099b16c:	00 00
+   14099b16e:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   14099b175:	00 00
+   14099b177:	48 c7 84 24 80 00 00 	movq   $0x0,0x80(%rsp)
+   14099b17e:	00 00 00 00 00
+   14099b183:	f6 c4 01             	test   $0x1,%ah
+   14099b186:	0f 84 cc 01 00 00    	je     14099b358 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x308>
+   14099b18c:	0f 1f 40 00          	nopl   0x0(%rax)
+   14099b190:	4c 89 ea             	mov    %r13,%rdx
+   14099b193:	4c 89 e1             	mov    %r12,%rcx
+   14099b196:	49 83 c7 04          	add    $0x4,%r15
+   14099b19a:	ff d6                	call   *%rsi
+   14099b19c:	0f b6 44 24 58       	movzbl 0x58(%rsp),%eax
+   14099b1a1:	41 89 47 fc          	mov    %eax,-0x4(%r15)
+   14099b1a5:	49 39 ef             	cmp    %rbp,%r15
+   14099b1a8:	75 e6                	jne    14099b190 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x140>
+   14099b1aa:	4c 89 ea             	mov    %r13,%rdx
+   14099b1ad:	4c 89 e1             	mov    %r12,%rcx
+   14099b1b0:	ff d7                	call   *%rdi
+   14099b1b2:	48 83 bb a0 04 00 00 	cmpq   $0x0,0x4a0(%rbx)
+   14099b1b9:	00
+   14099b1ba:	0f b7 7c 24 58       	movzwl 0x58(%rsp),%edi
+   14099b1bf:	0f 84 8a 00 00 00    	je     14099b24f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1ff>
+   14099b1c5:	44 0f b7 c7          	movzwl %di,%r8d
+   14099b1c9:	4c 89 f2             	mov    %r14,%rdx
+   14099b1cc:	48 89 d9             	mov    %rbx,%rcx
+   14099b1cf:	45 89 c1             	mov    %r8d,%r9d
+   14099b1d2:	e8 59 4f fe ff       	call   140980130 <_ZN10DaCreature14SetStationPoseERK6AuPosett>
+   14099b1d7:	84 c0                	test   %al,%al
+   14099b1d9:	75 74                	jne    14099b24f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1ff>
+   14099b1db:	48 89 d9             	mov    %rbx,%rcx
+   14099b1de:	4c 8d ab 98 04 00 00 	lea    0x498(%rbx),%r13
+   14099b1e5:	e8 66 9d f5 00       	call   1418f4f50 <_ZNK10DaCreature16MovementSpeedModEv>
+   14099b1ea:	4c 89 e9             	mov    %r13,%rcx
+   14099b1ed:	0f 28 f0             	movaps %xmm0,%xmm6
+   14099b1f0:	ff 15 3a 76 ef 01    	call   *0x1ef763a(%rip)        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14099b1f6:	45 31 c9             	xor    %r9d,%r9d
+   14099b1f9:	48 8d 53 14          	lea    0x14(%rbx),%rdx
+   14099b1fd:	4d 89 f0             	mov    %r14,%r8
+   14099b200:	48 83 bb 90 06 00 00 	cmpq   $0x0,0x690(%rbx)
+   14099b207:	00
+   14099b208:	48 8b 8b a0 04 00 00 	mov    0x4a0(%rbx),%rcx
+   14099b20f:	f3 0f 11 74 24 20    	movss  %xmm6,0x20(%rsp)
+   14099b215:	41 0f 95 c1          	setne  %r9b
+   14099b219:	e8 b2 ef 84 00       	call   1411ea1d0 <_ZN10AuAnimalia4PoseERK4AuIdPK6AuPosebf>
+   14099b21e:	84 c0                	test   %al,%al
+   14099b220:	75 09                	jne    14099b22b <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1db>
+   14099b222:	66 3b bb c0 05 00 00 	cmp    0x5c0(%rbx),%di
+   14099b229:	74 1b                	je     14099b246 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1f6>
+   14099b22b:	66 89 bb c0 05 00 00 	mov    %di,0x5c0(%rbx)
+   14099b232:	48 8d 8b 30 06 00 00 	lea    0x630(%rbx),%rcx
+   14099b239:	ff 15 e1 75 ef 01    	call   *0x1ef75e1(%rip)        # 142892820 <__imp__ZN13QElapsedTimer7restartEv>
+   14099b23f:	66 89 bb 92 04 00 00 	mov    %di,0x492(%rbx)
+   14099b246:	4c 89 e9             	mov    %r13,%rcx
+   14099b249:	ff 15 f1 75 ef 01    	call   *0x1ef75f1(%rip)        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14099b24f:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b254:	a8 10                	test   $0x10,%al
+   14099b256:	0f 85 24 04 00 00    	jne    14099b680 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x630>
+   14099b25c:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b263:	00
+   14099b264:	74 1a                	je     14099b280 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x230>
+   14099b266:	48 89 d9             	mov    %rbx,%rcx
+   14099b269:	e8 62 86 fe ff       	call   1409838d0 <_ZNK10DaCreature13IsConsolePoseEv>
+   14099b26e:	84 c0                	test   %al,%al
+   14099b270:	0f 84 8a 04 00 00    	je     14099b700 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x6b0>
+   14099b276:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14099b27d:	00 00 00
+   14099b280:	48 8d 93 96 04 00 00 	lea    0x496(%rbx),%rdx
+   14099b287:	4c 89 e1             	mov    %r12,%rcx
+   14099b28a:	ff d6                	call   *%rsi
+   14099b28c:	f6 44 24 4e 20       	testb  $0x20,0x4e(%rsp)
+   14099b291:	0f 85 d1 03 00 00    	jne    14099b668 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x618>
+   14099b297:	c6 83 94 04 00 00 00 	movb   $0x0,0x494(%rbx)
+   14099b29e:	48 8b 8b 98 06 00 00 	mov    0x698(%rbx),%rcx
+   14099b2a5:	48 85 c9             	test   %rcx,%rcx
+   14099b2a8:	74 06                	je     14099b2b0 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x260>
+   14099b2aa:	48 8b 01             	mov    (%rcx),%rax
+   14099b2ad:	ff 50 08             	call   *0x8(%rax)
+   14099b2b0:	48 c7 83 98 06 00 00 	movq   $0x0,0x698(%rbx)
+   14099b2b7:	00 00 00 00
+   14099b2bb:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b2c0:	a8 80                	test   $0x80,%al
+   14099b2c2:	0f 85 78 03 00 00    	jne    14099b640 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x5f0>
+   14099b2c8:	89 c2                	mov    %eax,%edx
+   14099b2ca:	66 81 e2 00 01       	and    $0x100,%dx
+   14099b2cf:	a8 40                	test   $0x40,%al
+   14099b2d1:	0f 84 69 02 00 00    	je     14099b540 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x4f0>
+   14099b2d7:	66 85 d2             	test   %dx,%dx
+   14099b2da:	0f 84 40 03 00 00    	je     14099b620 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x5d0>
+   14099b2e0:	48 8b bb a0 04 00 00 	mov    0x4a0(%rbx),%rdi
+   14099b2e7:	ff 15 8b 7a ef 01    	call   *0x1ef7a8b(%rip)        # 142892d78 <__imp__ZN9QDateTime22currentMSecsSinceEpochEv>
+   14099b2ed:	48 2d 00 5c 26 05    	sub    $0x5265c00,%rax
+   14099b2f3:	48 89 47 38          	mov    %rax,0x38(%rdi)
+   14099b2f7:	f6 44 24 4f 02       	testb  $0x2,0x4f(%rsp)
+   14099b2fc:	0f 84 66 02 00 00    	je     14099b568 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x518>
+   14099b302:	4c 8d 6c 24 60       	lea    0x60(%rsp),%r13
+   14099b307:	4c 89 e1             	mov    %r12,%rcx
+   14099b30a:	4c 89 ea             	mov    %r13,%rdx
+   14099b30d:	ff d6                	call   *%rsi
+   14099b30f:	0f b6 44 24 60       	movzbl 0x60(%rsp),%eax
+   14099b314:	4c 89 ea             	mov    %r13,%rdx
+   14099b317:	4c 89 e1             	mov    %r12,%rcx
+   14099b31a:	89 83 b8 05 00 00    	mov    %eax,0x5b8(%rbx)
+   14099b320:	ff d6                	call   *%rsi
+   14099b322:	0f b6 44 24 60       	movzbl 0x60(%rsp),%eax
+   14099b327:	48 89 d9             	mov    %rbx,%rcx
+   14099b32a:	89 83 bc 05 00 00    	mov    %eax,0x5bc(%rbx)
+   14099b330:	e8 5b 33 19 00       	call   140b2e690 <_ZNK6DaAtom6ParentEv>
+   14099b335:	48 89 c1             	mov    %rax,%rcx
+   14099b338:	48 85 c0             	test   %rax,%rax
+   14099b33b:	0f 85 3b 02 00 00    	jne    14099b57c <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x52c>
+   14099b341:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b348:	c6 83 95 04 00 00 00 	movb   $0x0,0x495(%rbx)
+   14099b34f:	e9 6b 02 00 00       	jmp    14099b5bf <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x56f>
+   14099b354:	0f 1f 40 00          	nopl   0x0(%rax)
+   14099b358:	4c 89 ea             	mov    %r13,%rdx
+   14099b35b:	4c 89 e1             	mov    %r12,%rcx
+   14099b35e:	49 83 c7 04          	add    $0x4,%r15
+   14099b362:	ff d6                	call   *%rsi
+   14099b364:	0f b6 44 24 58       	movzbl 0x58(%rsp),%eax
+   14099b369:	41 89 47 fc          	mov    %eax,-0x4(%r15)
+   14099b36d:	49 39 ef             	cmp    %rbp,%r15
+   14099b370:	75 e6                	jne    14099b358 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x308>
+   14099b372:	4c 89 ea             	mov    %r13,%rdx
+   14099b375:	4c 89 e1             	mov    %r12,%rcx
+   14099b378:	ff d7                	call   *%rdi
+   14099b37a:	48 83 bb b0 05 00 00 	cmpq   $0x0,0x5b0(%rbx)
+   14099b381:	00
+   14099b382:	0f b7 7c 24 58       	movzwl 0x58(%rsp),%edi
+   14099b387:	0f 84 c2 fe ff ff    	je     14099b24f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1ff>
+   14099b38d:	44 0f b7 c7          	movzwl %di,%r8d
+   14099b391:	48 8d 54 24 6c       	lea    0x6c(%rsp),%rdx
+   14099b396:	48 89 d9             	mov    %rbx,%rcx
+   14099b399:	45 89 c1             	mov    %r8d,%r9d
+   14099b39c:	e8 8f 4d fe ff       	call   140980130 <_ZN10DaCreature14SetStationPoseERK6AuPosett>
+   14099b3a1:	84 c0                	test   %al,%al
+   14099b3a3:	0f 85 a6 fe ff ff    	jne    14099b24f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1ff>
+   14099b3a9:	48 89 d9             	mov    %rbx,%rcx
+   14099b3ac:	4c 8d ab 98 04 00 00 	lea    0x498(%rbx),%r13
+   14099b3b3:	e8 98 9b f5 00       	call   1418f4f50 <_ZNK10DaCreature16MovementSpeedModEv>
+   14099b3b8:	4c 89 e9             	mov    %r13,%rcx
+   14099b3bb:	f3 0f 11 44 24 3c    	movss  %xmm0,0x3c(%rsp)
+   14099b3c1:	ff 15 69 74 ef 01    	call   *0x1ef7469(%rip)        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14099b3c7:	48 83 bb 90 06 00 00 	cmpq   $0x0,0x690(%rbx)
+   14099b3ce:	00
+   14099b3cf:	48 8b 8b b0 05 00 00 	mov    0x5b0(%rbx),%rcx
+   14099b3d6:	4c 89 f2             	mov    %r14,%rdx
+   14099b3d9:	41 0f 95 c0          	setne  %r8b
+   14099b3dd:	f3 0f 10 5c 24 3c    	movss  0x3c(%rsp),%xmm3
+   14099b3e3:	45 0f b6 c0          	movzbl %r8b,%r8d
+   14099b3e7:	e8 d4 6a 95 00       	call   1412f1ec0 <_ZN6DpBody4PoseEPK6AuPosebf>
+   14099b3ec:	84 c0                	test   %al,%al
+   14099b3ee:	0f 84 2e fe ff ff    	je     14099b222 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1d2>
+   14099b3f4:	e9 32 fe ff ff       	jmp    14099b22b <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x1db>
+   14099b3f9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b400:	48 83 bb b0 05 00 00 	cmpq   $0x0,0x5b0(%rbx)
+   14099b407:	00
+   14099b408:	0f 84 1a 03 00 00    	je     14099b728 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x6d8>
+   14099b40e:	4c 8b ab a0 04 00 00 	mov    0x4a0(%rbx),%r13
+   14099b415:	4d 85 ed             	test   %r13,%r13
+   14099b418:	0f 84 cd fc ff ff    	je     14099b0eb <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x9b>
+   14099b41e:	4c 89 e9             	mov    %r13,%rcx
+   14099b421:	e8 7a e5 84 00       	call   1411e99a0 <_ZN10AuAnimaliaD1Ev>
+   14099b426:	4c 89 e9             	mov    %r13,%rcx
+   14099b429:	e8 7a 8b db 00       	call   141753fa8 <_ZdlPv>
+   14099b42e:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b433:	48 c7 83 a0 04 00 00 	movq   $0x0,0x4a0(%rbx)
+   14099b43a:	00 00 00 00
+   14099b43e:	48 8b 35 9b 72 ef 01 	mov    0x1ef729b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14099b445:	a8 01                	test   $0x1,%al
+   14099b447:	0f 84 b2 fc ff ff    	je     14099b0ff <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xaf>
+   14099b44d:	4c 8d 6c 24 58       	lea    0x58(%rsp),%r13
+   14099b452:	4c 89 e1             	mov    %r12,%rcx
+   14099b455:	4c 89 ea             	mov    %r13,%rdx
+   14099b458:	ff d6                	call   *%rsi
+   14099b45a:	0f b6 44 24 58       	movzbl 0x58(%rsp),%eax
+   14099b45f:	41 89 c5             	mov    %eax,%r13d
+   14099b462:	41 83 e5 01          	and    $0x1,%r13d
+   14099b466:	f6 44 24 4f 01       	testb  $0x1,0x4f(%rsp)
+   14099b46b:	0f 85 1f 03 00 00    	jne    14099b790 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x740>
+   14099b471:	48 8b 93 b0 05 00 00 	mov    0x5b0(%rbx),%rdx
+   14099b478:	c1 f8 02             	sar    $0x2,%eax
+   14099b47b:	45 0f b6 ed          	movzbl %r13b,%r13d
+   14099b47f:	b9 01 00 00 00       	mov    $0x1,%ecx
+   14099b484:	44 29 e9             	sub    %r13d,%ecx
+   14099b487:	4c 8d 74 24 60       	lea    0x60(%rsp),%r14
+   14099b48c:	88 42 3a             	mov    %al,0x3a(%rdx)
+   14099b48f:	80 62 3a 01          	andb   $0x1,0x3a(%rdx)
+   14099b493:	88 4a 64             	mov    %cl,0x64(%rdx)
+   14099b496:	4c 89 f1             	mov    %r14,%rcx
+   14099b499:	e8 22 1b 91 00       	call   1412acfc0 <_ZN5DhDNAC1Ev>
+   14099b49e:	4c 89 e2             	mov    %r12,%rdx
+   14099b4a1:	4c 89 f1             	mov    %r14,%rcx
+   14099b4a4:	e8 27 0c 91 00       	call   1412ac0d0 <_ZN5DhDNAlsER11QDataStream>
+   14099b4a9:	4c 89 f2             	mov    %r14,%rdx
+   14099b4ac:	48 89 d9             	mov    %rbx,%rcx
+   14099b4af:	e8 ac 0b fe ff       	call   14097c060 <_ZN10DaCreature6SetDNAERK9AuDNABase>
+   14099b4b4:	48 8b 05 25 d0 a0 01 	mov    0x1a0d025(%rip),%rax        # 1423a84e0 <.refptr._ZTV5DhDNA>
+   14099b4bb:	4c 89 f1             	mov    %r14,%rcx
+   14099b4be:	48 83 c0 10          	add    $0x10,%rax
+   14099b4c2:	48 89 44 24 60       	mov    %rax,0x60(%rsp)
+   14099b4c7:	e8 b4 2b 8a 00       	call   14123e080 <_ZN9AuDNABaseD1Ev>
+   14099b4cc:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b4d1:	a8 02                	test   $0x2,%al
+   14099b4d3:	0f 84 2e fc ff ff    	je     14099b107 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xb7>
+   14099b4d9:	48 8d 54 24 60       	lea    0x60(%rsp),%rdx
+   14099b4de:	4c 89 e1             	mov    %r12,%rcx
+   14099b4e1:	ff 15 11 72 ef 01    	call   *0x1ef7211(%rip)        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14099b4e7:	48 8b 03             	mov    (%rbx),%rax
+   14099b4ea:	f3 0f 10 4c 24 60    	movss  0x60(%rsp),%xmm1
+   14099b4f0:	48 89 d9             	mov    %rbx,%rcx
+   14099b4f3:	ff 90 e0 01 00 00    	call   *0x1e0(%rax)
+   14099b4f9:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b4fe:	a8 04                	test   $0x4,%al
+   14099b500:	0f 84 09 fc ff ff    	je     14099b10f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xbf>
+   14099b506:	48 8d 54 24 60       	lea    0x60(%rsp),%rdx
+   14099b50b:	4c 89 e1             	mov    %r12,%rcx
+   14099b50e:	ff d7                	call   *%rdi
+   14099b510:	f6 44 24 4f 01       	testb  $0x1,0x4f(%rsp)
+   14099b515:	0f 85 5d 02 00 00    	jne    14099b778 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x728>
+   14099b51b:	0f b7 44 24 60       	movzwl 0x60(%rsp),%eax
+   14099b520:	ba e2 ff ff ff       	mov    $0xffffffe2,%edx
+   14099b525:	48 8b 8b b0 05 00 00 	mov    0x5b0(%rbx),%rcx
+   14099b52c:	66 39 d0             	cmp    %dx,%ax
+   14099b52f:	0f 4c c2             	cmovl  %edx,%eax
+   14099b532:	66 89 41 38          	mov    %ax,0x38(%rcx)
+   14099b536:	e9 d4 fb ff ff       	jmp    14099b10f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xbf>
+   14099b53b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14099b540:	66 85 d2             	test   %dx,%dx
+   14099b543:	0f 85 b7 00 00 00    	jne    14099b600 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x5b0>
+   14099b549:	48 8b bb b0 05 00 00 	mov    0x5b0(%rbx),%rdi
+   14099b550:	ff 15 22 78 ef 01    	call   *0x1ef7822(%rip)        # 142892d78 <__imp__ZN9QDateTime22currentMSecsSinceEpochEv>
+   14099b556:	48 89 87 10 40 00 00 	mov    %rax,0x4010(%rdi)
+   14099b55d:	f6 44 24 4f 02       	testb  $0x2,0x4f(%rsp)
+   14099b562:	0f 85 9a fd ff ff    	jne    14099b302 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x2b2>
+   14099b568:	48 89 d9             	mov    %rbx,%rcx
+   14099b56b:	e8 20 31 19 00       	call   140b2e690 <_ZNK6DaAtom6ParentEv>
+   14099b570:	48 89 c1             	mov    %rax,%rcx
+   14099b573:	48 85 c0             	test   %rax,%rax
+   14099b576:	0f 84 cc fd ff ff    	je     14099b348 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x2f8>
+   14099b57c:	45 31 c9             	xor    %r9d,%r9d
+   14099b57f:	4c 8d 05 8a 9d a1 01 	lea    0x1a19d8a(%rip),%r8        # 1423b5310 <_ZTI9DaVehicle>
+   14099b586:	48 8d 15 d3 8f a1 01 	lea    0x1a18fd3(%rip),%rdx        # 1423b4560 <_ZTI6DaAtom>
+   14099b58d:	e8 a6 89 db 00       	call   141753f38 <__dynamic_cast>
+   14099b592:	49 89 c4             	mov    %rax,%r12
+   14099b595:	48 85 c0             	test   %rax,%rax
+   14099b598:	0f 84 aa fd ff ff    	je     14099b348 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x2f8>
+   14099b59e:	4c 8d 6c 24 60       	lea    0x60(%rsp),%r13
+   14099b5a3:	48 89 da             	mov    %rbx,%rdx
+   14099b5a6:	4c 89 e9             	mov    %r13,%rcx
+   14099b5a9:	e8 f2 44 fa 00       	call   14193faa0 <_ZNK6DaAtom8LocationEv>
+   14099b5ae:	4c 89 ea             	mov    %r13,%rdx
+   14099b5b1:	4c 89 e1             	mov    %r12,%rcx
+   14099b5b4:	e8 27 1c 60 00       	call   140f9d1e0 <_ZNK9DaVehicle6SeatAtERK7AuPoint>
+   14099b5b9:	88 83 95 04 00 00    	mov    %al,0x495(%rbx)
+   14099b5bf:	0f 28 b4 24 90 00 00 	movaps 0x90(%rsp),%xmm6
+   14099b5c6:	00
+   14099b5c7:	48 81 c4 a8 00 00 00 	add    $0xa8,%rsp
+   14099b5ce:	5b                   	pop    %rbx
+   14099b5cf:	5e                   	pop    %rsi
+   14099b5d0:	5f                   	pop    %rdi
+   14099b5d1:	5d                   	pop    %rbp
+   14099b5d2:	41 5c                	pop    %r12
+   14099b5d4:	41 5d                	pop    %r13
+   14099b5d6:	41 5e                	pop    %r14
+   14099b5d8:	41 5f                	pop    %r15
+   14099b5da:	c3                   	ret
+   14099b5db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14099b5e0:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b5e7:	48 8b 01             	mov    (%rcx),%rax
+   14099b5ea:	ff 90 f0 00 00 00    	call   *0xf0(%rax)
+   14099b5f0:	89 44 24 38          	mov    %eax,0x38(%rsp)
+   14099b5f4:	e9 38 fb ff ff       	jmp    14099b131 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xe1>
+   14099b5f9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b600:	48 8b bb a0 04 00 00 	mov    0x4a0(%rbx),%rdi
+   14099b607:	ff 15 6b 77 ef 01    	call   *0x1ef776b(%rip)        # 142892d78 <__imp__ZN9QDateTime22currentMSecsSinceEpochEv>
+   14099b60d:	48 89 47 38          	mov    %rax,0x38(%rdi)
+   14099b611:	e9 47 ff ff ff       	jmp    14099b55d <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x50d>
+   14099b616:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14099b61d:	00 00 00
+   14099b620:	48 8b bb b0 05 00 00 	mov    0x5b0(%rbx),%rdi
+   14099b627:	ff 15 4b 77 ef 01    	call   *0x1ef774b(%rip)        # 142892d78 <__imp__ZN9QDateTime22currentMSecsSinceEpochEv>
+   14099b62d:	48 2d 00 5c 26 05    	sub    $0x5265c00,%rax
+   14099b633:	48 89 87 10 40 00 00 	mov    %rax,0x4010(%rdi)
+   14099b63a:	e9 1e ff ff ff       	jmp    14099b55d <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x50d>
+   14099b63f:	90                   	nop
+   14099b640:	4c 89 e1             	mov    %r12,%rcx
+   14099b643:	48 8d 54 24 60       	lea    0x60(%rsp),%rdx
+   14099b648:	ff d6                	call   *%rsi
+   14099b64a:	0f b6 4c 24 60       	movzbl 0x60(%rsp),%ecx
+   14099b64f:	84 c9                	test   %cl,%cl
+   14099b651:	0f 85 a9 01 00 00    	jne    14099b800 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x7b0>
+   14099b657:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b65c:	e9 67 fc ff ff       	jmp    14099b2c8 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x278>
+   14099b661:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b668:	48 8d 93 94 04 00 00 	lea    0x494(%rbx),%rdx
+   14099b66f:	4c 89 e1             	mov    %r12,%rcx
+   14099b672:	ff d6                	call   *%rsi
+   14099b674:	e9 25 fc ff ff       	jmp    14099b29e <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x24e>
+   14099b679:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b680:	48 8d 54 24 4d       	lea    0x4d(%rsp),%rdx
+   14099b685:	4c 89 e1             	mov    %r12,%rcx
+   14099b688:	ff d6                	call   *%rsi
+   14099b68a:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b691:	00
+   14099b692:	74 2c                	je     14099b6c0 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x670>
+   14099b694:	48 89 d9             	mov    %rbx,%rcx
+   14099b697:	e8 34 82 fe ff       	call   1409838d0 <_ZNK10DaCreature13IsConsolePoseEv>
+   14099b69c:	89 c7                	mov    %eax,%edi
+   14099b69e:	84 c0                	test   %al,%al
+   14099b6a0:	74 1e                	je     14099b6c0 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x670>
+   14099b6a2:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b6a9:	48 8b 01             	mov    (%rcx),%rax
+   14099b6ac:	ff 90 f0 00 00 00    	call   *0xf0(%rax)
+   14099b6b2:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   14099b6b7:	39 c2                	cmp    %eax,%edx
+   14099b6b9:	0f 84 91 02 00 00    	je     14099b950 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x900>
+   14099b6bf:	90                   	nop
+   14099b6c0:	48 8b 03             	mov    (%rbx),%rax
+   14099b6c3:	48 89 d9             	mov    %rbx,%rcx
+   14099b6c6:	ff 90 68 04 00 00    	call   *0x468(%rax)
+   14099b6cc:	48 89 c7             	mov    %rax,%rdi
+   14099b6cf:	48 85 c0             	test   %rax,%rax
+   14099b6d2:	0f 84 a8 fb ff ff    	je     14099b280 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x230>
+   14099b6d8:	80 7c 24 4d 23       	cmpb   $0x23,0x4d(%rsp)
+   14099b6dd:	0f 87 4d 01 00 00    	ja     14099b830 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x7e0>
+   14099b6e3:	0f b6 44 24 4d       	movzbl 0x4d(%rsp),%eax
+   14099b6e8:	48 8d 15 7d e0 82 01 	lea    0x182e07d(%rip),%rdx        # 1421c976c <.rdata+0x3bac>
+   14099b6ef:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+   14099b6f3:	48 01 d0             	add    %rdx,%rax
+   14099b6f6:	ff e0                	jmp    *%rax
+   14099b6f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14099b6ff:	00
+   14099b700:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b707:	48 85 c9             	test   %rcx,%rcx
+   14099b70a:	74 06                	je     14099b712 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x6c2>
+   14099b70c:	48 8b 01             	mov    (%rcx),%rax
+   14099b70f:	ff 50 08             	call   *0x8(%rax)
+   14099b712:	48 c7 83 80 06 00 00 	movq   $0x0,0x680(%rbx)
+   14099b719:	00 00 00 00
+   14099b71d:	e9 5e fb ff ff       	jmp    14099b280 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x230>
+   14099b722:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14099b728:	b9 48 41 00 00       	mov    $0x4148,%ecx
+   14099b72d:	e8 66 88 db 00       	call   141753f98 <_Znwy>
+   14099b732:	48 89 c1             	mov    %rax,%rcx
+   14099b735:	49 89 c5             	mov    %rax,%r13
+   14099b738:	e8 03 0e 94 00       	call   1412dc540 <_ZN6DpBodyC1Ev>
+   14099b73d:	4c 89 ab b0 05 00 00 	mov    %r13,0x5b0(%rbx)
+   14099b744:	e9 c5 fc ff ff       	jmp    14099b40e <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x3be>
+   14099b749:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b750:	b9 28 02 00 00       	mov    $0x228,%ecx
+   14099b755:	e8 3e 88 db 00       	call   141753f98 <_Znwy>
+   14099b75a:	48 89 c1             	mov    %rax,%rcx
+   14099b75d:	49 89 c5             	mov    %rax,%r13
+   14099b760:	e8 9b 2c 85 00       	call   1411ee400 <_ZN10AuAnimaliaC1Ev>
+   14099b765:	4c 89 ab a0 04 00 00 	mov    %r13,0x4a0(%rbx)
+   14099b76c:	e9 53 f9 ff ff       	jmp    14099b0c4 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x74>
+   14099b771:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b778:	0f bf 54 24 60       	movswl 0x60(%rsp),%edx
+   14099b77d:	48 8b 8b a0 04 00 00 	mov    0x4a0(%rbx),%rcx
+   14099b784:	e8 b7 05 85 00       	call   1411ebd40 <_ZN10AuAnimalia12SetHitPointsEs>
+   14099b789:	e9 81 f9 ff ff       	jmp    14099b10f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xbf>
+   14099b78e:	66 90                	xchg   %ax,%ax
+   14099b790:	4c 8d 74 24 60       	lea    0x60(%rsp),%r14
+   14099b795:	4c 89 f1             	mov    %r14,%rcx
+   14099b798:	e8 d3 28 8a 00       	call   14123e070 <_ZN9AuDNABaseC1Ev>
+   14099b79d:	4c 89 e2             	mov    %r12,%rdx
+   14099b7a0:	4c 89 f1             	mov    %r14,%rcx
+   14099b7a3:	48 89 6c 24 70       	mov    %rbp,0x70(%rsp)
+   14099b7a8:	0f 29 74 24 60       	movaps %xmm6,0x60(%rsp)
+   14099b7ad:	e8 2e b0 88 00       	call   1412267e0 <_ZN5AuDNAlsER11QDataStream>
+   14099b7b2:	4c 89 f2             	mov    %r14,%rdx
+   14099b7b5:	48 89 d9             	mov    %rbx,%rcx
+   14099b7b8:	e8 a3 08 fe ff       	call   14097c060 <_ZN10DaCreature6SetDNAERK9AuDNABase>
+   14099b7bd:	45 89 e8             	mov    %r13d,%r8d
+   14099b7c0:	48 8b 8b a0 04 00 00 	mov    0x4a0(%rbx),%rcx
+   14099b7c7:	4c 89 f2             	mov    %r14,%rdx
+   14099b7ca:	41 83 e0 01          	and    $0x1,%r8d
+   14099b7ce:	e8 7d 1e 85 00       	call   1411ed650 <_ZN10AuAnimalia6SetDNAERK5AuDNAN9AuDNABase9CHROMATIDE>
+   14099b7d3:	0f b6 54 24 58       	movzbl 0x58(%rsp),%edx
+   14099b7d8:	48 8b 8b a0 04 00 00 	mov    0x4a0(%rbx),%rcx
+   14099b7df:	c1 fa 02             	sar    $0x2,%edx
+   14099b7e2:	83 e2 01             	and    $0x1,%edx
+   14099b7e5:	e8 66 05 85 00       	call   1411ebd50 <_ZN10AuAnimalia13SetLeftHandedEb>
+   14099b7ea:	4c 89 f1             	mov    %r14,%rcx
+   14099b7ed:	e8 ae 88 e5 00       	call   1417f40a0 <_ZN5AuDNAD1Ev>
+   14099b7f2:	e9 d5 fc ff ff       	jmp    14099b4cc <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x47c>
+   14099b7f7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   14099b7fe:	00 00
+   14099b800:	e8 db 4d b5 00       	call   1414f05e0 <_ZN6AuItem6CreateEh>
+   14099b805:	48 89 83 98 06 00 00 	mov    %rax,0x698(%rbx)
+   14099b80c:	48 89 c1             	mov    %rax,%rcx
+   14099b80f:	48 85 c0             	test   %rax,%rax
+   14099b812:	0f 84 3f fe ff ff    	je     14099b657 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x607>
+   14099b818:	48 8b 00             	mov    (%rax),%rax
+   14099b81b:	4c 89 e2             	mov    %r12,%rdx
+   14099b81e:	ff 50 28             	call   *0x28(%rax)
+   14099b821:	e9 31 fe ff ff       	jmp    14099b657 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x607>
+   14099b826:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14099b82d:	00 00 00
+   14099b830:	48 8b 05 b1 e3 82 01 	mov    0x182e3b1(%rip),%rax        # 1421c9be8 <CSWTCH.2080+0xd8>
+   14099b837:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   14099b83b:	4c 8d 6c 24 58       	lea    0x58(%rsp),%r13
+   14099b840:	48 8d 54 24 60       	lea    0x60(%rsp),%rdx
+   14099b845:	4c 89 e9             	mov    %r13,%rcx
+   14099b848:	0f 11 44 24 68       	movups %xmm0,0x68(%rsp)
+   14099b84d:	48 89 44 24 60       	mov    %rax,0x60(%rsp)
+   14099b852:	48 8d 05 de a3 82 01 	lea    0x182a3de(%rip),%rax        # 1421c5c37 <.rdata+0x77>
+   14099b859:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+   14099b85e:	ff 15 94 77 ef 01    	call   *0x1ef7794(%rip)        # 142892ff8 <__imp__ZNK14QMessageLogger5debugEv>
+   14099b864:	48 8d 15 c5 de 82 01 	lea    0x182dec5(%rip),%rdx        # 1421c9730 <.rdata+0x3b70>
+   14099b86b:	4c 89 e9             	mov    %r13,%rcx
+   14099b86e:	e8 1d f9 ea 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14099b873:	48 89 c1             	mov    %rax,%rcx
+   14099b876:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b87d:	00
+   14099b87e:	48 8d 15 82 de 82 01 	lea    0x182de82(%rip),%rdx        # 1421c9707 <.rdata+0x3b47>
+   14099b885:	48 8d 05 86 de 82 01 	lea    0x182de86(%rip),%rax        # 1421c9712 <.rdata+0x3b52>
+   14099b88c:	48 0f 44 d0          	cmove  %rax,%rdx
+   14099b890:	e8 fb f8 ea 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14099b895:	48 89 c1             	mov    %rax,%rcx
+   14099b898:	48 8d 15 b2 de 82 01 	lea    0x182deb2(%rip),%rdx        # 1421c9751 <.rdata+0x3b91>
+   14099b89f:	e8 ec f8 ea 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14099b8a4:	48 89 d9             	mov    %rbx,%rcx
+   14099b8a7:	49 89 c6             	mov    %rax,%r14
+   14099b8aa:	e8 21 80 fe ff       	call   1409838d0 <_ZNK10DaCreature13IsConsolePoseEv>
+   14099b8af:	84 c0                	test   %al,%al
+   14099b8b1:	48 8d 15 69 de 82 01 	lea    0x182de69(%rip),%rdx        # 1421c9721 <.rdata+0x3b61>
+   14099b8b8:	48 8d 05 67 de 82 01 	lea    0x182de67(%rip),%rax        # 1421c9726 <.rdata+0x3b66>
+   14099b8bf:	49 8b 0e             	mov    (%r14),%rcx
+   14099b8c2:	48 0f 44 d0          	cmove  %rax,%rdx
+   14099b8c6:	ff 15 a4 6e ef 01    	call   *0x1ef6ea4(%rip)        # 142892770 <__imp__ZN11QTextStreamlsEPKc>
+   14099b8cc:	49 8b 0e             	mov    (%r14),%rcx
+   14099b8cf:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14099b8d3:	0f 85 15 04 00 00    	jne    14099bcee <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xc9e>
+   14099b8d9:	48 8d 15 7b de 82 01 	lea    0x182de7b(%rip),%rdx        # 1421c975b <.rdata+0x3b9b>
+   14099b8e0:	4c 89 f1             	mov    %r14,%rcx
+   14099b8e3:	e8 a8 f8 ea 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14099b8e8:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b8ef:	49 89 c6             	mov    %rax,%r14
+   14099b8f2:	48 8b 01             	mov    (%rcx),%rax
+   14099b8f5:	ff 90 f0 00 00 00    	call   *0xf0(%rax)
+   14099b8fb:	49 8b 0e             	mov    (%r14),%rcx
+   14099b8fe:	48 8b 2d 93 6e ef 01 	mov    0x1ef6e93(%rip),%rbp        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   14099b905:	89 c2                	mov    %eax,%edx
+   14099b907:	ff d5                	call   *%rbp
+   14099b909:	49 8b 0e             	mov    (%r14),%rcx
+   14099b90c:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14099b910:	0f 85 c8 03 00 00    	jne    14099bcde <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xc8e>
+   14099b916:	48 8d 15 46 de 82 01 	lea    0x182de46(%rip),%rdx        # 1421c9763 <.rdata+0x3ba3>
+   14099b91d:	4c 89 f1             	mov    %r14,%rcx
+   14099b920:	e8 6b f8 ea 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   14099b925:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   14099b92a:	48 8b 08             	mov    (%rax),%rcx
+   14099b92d:	48 89 c7             	mov    %rax,%rdi
+   14099b930:	ff d5                	call   *%rbp
+   14099b932:	48 8b 0f             	mov    (%rdi),%rcx
+   14099b935:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   14099b939:	0f 85 8f 03 00 00    	jne    14099bcce <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xc7e>
+   14099b93f:	4c 89 e9             	mov    %r13,%rcx
+   14099b942:	ff 15 e0 70 ef 01    	call   *0x1ef70e0(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   14099b948:	e9 33 f9 ff ff       	jmp    14099b280 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x230>
+   14099b94d:	0f 1f 00             	nopl   (%rax)
+   14099b950:	48 8b 03             	mov    (%rbx),%rax
+   14099b953:	48 89 d9             	mov    %rbx,%rcx
+   14099b956:	ff 90 68 04 00 00    	call   *0x468(%rax)
+   14099b95c:	49 89 c0             	mov    %rax,%r8
+   14099b95f:	48 85 c0             	test   %rax,%rax
+   14099b962:	0f 84 5f 03 00 00    	je     14099bcc7 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xc77>
+   14099b968:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b96f:	4c 89 e2             	mov    %r12,%rdx
+   14099b972:	48 8b 01             	mov    (%rcx),%rax
+   14099b975:	ff 90 c0 00 00 00    	call   *0xc0(%rax)
+   14099b97b:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b982:	48 8b 01             	mov    (%rcx),%rax
+   14099b985:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+   14099b98b:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b992:	66 89 83 92 04 00 00 	mov    %ax,0x492(%rbx)
+   14099b999:	48 8b 01             	mov    (%rcx),%rax
+   14099b99c:	ff 90 f0 00 00 00    	call   *0xf0(%rax)
+   14099b9a2:	39 44 24 38          	cmp    %eax,0x38(%rsp)
+   14099b9a6:	0f 84 a8 00 00 00    	je     14099ba54 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa04>
+   14099b9ac:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b9b3:	48 8b 01             	mov    (%rcx),%rax
+   14099b9b6:	ff 50 20             	call   *0x20(%rax)
+   14099b9b9:	89 c5                	mov    %eax,%ebp
+   14099b9bb:	83 f8 0b             	cmp    $0xb,%eax
+   14099b9be:	0f 84 90 00 00 00    	je     14099ba54 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa04>
+   14099b9c4:	48 89 d9             	mov    %rbx,%rcx
+   14099b9c7:	4c 8d 7c 24 50       	lea    0x50(%rsp),%r15
+   14099b9cc:	4c 8d 74 24 60       	lea    0x60(%rsp),%r14
+   14099b9d1:	e8 0a b4 fd ff       	call   140976de0 <_ZN10DaCreature25LoadClientConsoleSettingsEv>
+   14099b9d6:	48 8b 05 cb 6b ef 01 	mov    0x1ef6bcb(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   14099b9dd:	4c 89 fa             	mov    %r15,%rdx
+   14099b9e0:	4c 89 f1             	mov    %r14,%rcx
+   14099b9e3:	41 b8 02 00 00 00    	mov    $0x2,%r8d
+   14099b9e9:	48 89 44 24 50       	mov    %rax,0x50(%rsp)
+   14099b9ee:	ff 15 8c 6c ef 01    	call   *0x1ef6c8c(%rip)        # 142892680 <__imp__ZN11QDataStreamC1EP10QByteArray6QFlagsIN9QIODevice12OpenModeFlagEE>
+   14099b9f4:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b9fb:	c7 44 24 78 07 00 00 	movl   $0x7,0x78(%rsp)
+   14099ba02:	00
+   14099ba03:	4c 89 f2             	mov    %r14,%rdx
+   14099ba06:	48 8b 01             	mov    (%rcx),%rax
+   14099ba09:	ff 90 00 01 00 00    	call   *0x100(%rax)
+   14099ba0f:	48 8b 54 24 50       	mov    0x50(%rsp),%rdx
+   14099ba14:	48 89 54 24 58       	mov    %rdx,0x58(%rsp)
+   14099ba19:	8b 02                	mov    (%rdx),%eax
+   14099ba1b:	83 c0 01             	add    $0x1,%eax
+   14099ba1e:	83 f8 01             	cmp    $0x1,%eax
+   14099ba21:	0f 87 d7 02 00 00    	ja     14099bcfe <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcae>
+   14099ba27:	4c 8d 6c 24 58       	lea    0x58(%rsp),%r13
+   14099ba2c:	40 0f b6 d5          	movzbl %bpl,%edx
+   14099ba30:	48 89 d9             	mov    %rbx,%rcx
+   14099ba33:	4d 89 e8             	mov    %r13,%r8
+   14099ba36:	e8 45 fc eb ff       	call   14085b680 <_ZN6DaAtom22RestoreConsoleSettingsEh10QByteArray>
+   14099ba3b:	4c 89 e9             	mov    %r13,%rcx
+   14099ba3e:	e8 ad a6 dc 00       	call   1417660f0 <_ZN10QByteArrayD1Ev>
+   14099ba43:	4c 89 f1             	mov    %r14,%rcx
+   14099ba46:	ff 15 4c 6c ef 01    	call   *0x1ef6c4c(%rip)        # 142892698 <__imp__ZN11QDataStreamD1Ev>
+   14099ba4c:	4c 89 f9             	mov    %r15,%rcx
+   14099ba4f:	e8 9c a6 dc 00       	call   1417660f0 <_ZN10QByteArrayD1Ev>
+   14099ba54:	40 84 ff             	test   %dil,%dil
+   14099ba57:	0f 84 63 fc ff ff    	je     14099b6c0 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x670>
+   14099ba5d:	e9 1e f8 ff ff       	jmp    14099b280 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x230>
+   14099ba62:	b9 28 00 00 00       	mov    $0x28,%ecx
+   14099ba67:	e8 2c 85 db 00       	call   141753f98 <_Znwy>
+   14099ba6c:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   14099ba71:	44 0f b7 83 92 04 00 	movzwl 0x492(%rbx),%r8d
+   14099ba78:	00
+   14099ba79:	48 89 c1             	mov    %rax,%rcx
+   14099ba7c:	49 89 c5             	mov    %rax,%r13
+   14099ba7f:	e8 8c ce 6e 00       	call   141088910 <_ZN13DpConsoleGameC1EN9AuStation4TYPEEt>
+   14099ba84:	0f 1f 40 00          	nopl   0x0(%rax)
+   14099ba88:	49 8b 45 00          	mov    0x0(%r13),%rax
+   14099ba8c:	4c 89 e9             	mov    %r13,%rcx
+   14099ba8f:	49 89 f8             	mov    %rdi,%r8
+   14099ba92:	4c 89 e2             	mov    %r12,%rdx
+   14099ba95:	ff 90 c0 00 00 00    	call   *0xc0(%rax)
+   14099ba9b:	49 8b 45 00          	mov    0x0(%r13),%rax
+   14099ba9f:	4c 89 e9             	mov    %r13,%rcx
+   14099baa2:	ff 50 08             	call   *0x8(%rax)
+   14099baa5:	e9 d6 f7 ff ff       	jmp    14099b280 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x230>
+   14099baaa:	b9 90 01 00 00       	mov    $0x190,%ecx
+   14099baaf:	e8 e4 84 db 00       	call   141753f98 <_Znwy>
+   14099bab4:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099babb:	48 89 c1             	mov    %rax,%rcx
+   14099babe:	49 89 c5             	mov    %rax,%r13
+   14099bac1:	e8 ca 8b 71 00       	call   1410b4690 <_ZN15DpScTransporterC1Et>
+   14099bac6:	eb c0                	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bac8:	b9 38 01 00 00       	mov    $0x138,%ecx
+   14099bacd:	e8 c6 84 db 00       	call   141753f98 <_Znwy>
+   14099bad2:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bad9:	48 89 c1             	mov    %rax,%rcx
+   14099badc:	49 89 c5             	mov    %rax,%r13
+   14099badf:	e8 dc 3f 71 00       	call   1410afac0 <_ZN11DpScSurgeryC1Et>
+   14099bae4:	eb a2                	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bae6:	b9 40 01 00 00       	mov    $0x140,%ecx
+   14099baeb:	e8 a8 84 db 00       	call   141753f98 <_Znwy>
+   14099baf0:	48 89 c1             	mov    %rax,%rcx
+   14099baf3:	49 89 c5             	mov    %rax,%r13
+   14099baf6:	e8 15 f4 70 00       	call   1410aaf10 <_ZN10DpScShieldC1Ev>
+   14099bafb:	eb 8b                	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bafd:	b9 e8 00 00 00       	mov    $0xe8,%ecx
+   14099bb02:	e8 91 84 db 00       	call   141753f98 <_Znwy>
+   14099bb07:	48 89 c1             	mov    %rax,%rcx
+   14099bb0a:	49 89 c5             	mov    %rax,%r13
+   14099bb0d:	e8 2e e9 6e 00       	call   14108a440 <_ZN14DpConsolePowerC1Ev>
+   14099bb12:	e9 71 ff ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bb17:	b9 b0 01 00 00       	mov    $0x1b0,%ecx
+   14099bb1c:	e8 77 84 db 00       	call   141753f98 <_Znwy>
+   14099bb21:	48 89 c1             	mov    %rax,%rcx
+   14099bb24:	49 89 c5             	mov    %rax,%r13
+   14099bb27:	e8 b4 5b 70 00       	call   1410a16e0 <_ZN9DpScPowerC1Ev>
+   14099bb2c:	e9 57 ff ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bb31:	b9 08 01 00 00       	mov    $0x108,%ecx
+   14099bb36:	e8 5d 84 db 00       	call   141753f98 <_Znwy>
+   14099bb3b:	48 89 c1             	mov    %rax,%rcx
+   14099bb3e:	49 89 c5             	mov    %rax,%r13
+   14099bb41:	e8 9a 29 6f 00       	call   14108e4e0 <_ZN11DpScCommandC1Ev>
+   14099bb46:	e9 3d ff ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bb4b:	b9 60 01 00 00       	mov    $0x160,%ecx
+   14099bb50:	e8 43 84 db 00       	call   141753f98 <_Znwy>
+   14099bb55:	48 89 c1             	mov    %rax,%rcx
+   14099bb58:	49 89 c5             	mov    %rax,%r13
+   14099bb5b:	e8 b0 a7 70 00       	call   1410a6310 <_ZN10DpScSensorC1Ev>
+   14099bb60:	e9 23 ff ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bb65:	b9 b8 00 00 00       	mov    $0xb8,%ecx
+   14099bb6a:	e8 29 84 db 00       	call   141753f98 <_Znwy>
+   14099bb6f:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bb76:	48 89 c1             	mov    %rax,%rcx
+   14099bb79:	49 89 c5             	mov    %rax,%r13
+   14099bb7c:	e8 1f 1b 6f 00       	call   14108d6a0 <_ZN15DpConsoleWeaponC1Et>
+   14099bb81:	e9 02 ff ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bb86:	b9 90 01 00 00       	mov    $0x190,%ecx
+   14099bb8b:	e8 08 84 db 00       	call   141753f98 <_Znwy>
+   14099bb90:	48 89 c1             	mov    %rax,%rcx
+   14099bb93:	49 89 c5             	mov    %rax,%r13
+   14099bb96:	e8 15 0f 70 00       	call   14109cab0 <_ZN7DpScNavC1Ev>
+   14099bb9b:	e9 e8 fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bba0:	b9 80 01 00 00       	mov    $0x180,%ecx
+   14099bba5:	e8 ee 83 db 00       	call   141753f98 <_Znwy>
+   14099bbaa:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bbb1:	48 89 c1             	mov    %rax,%rcx
+   14099bbb4:	49 89 c5             	mov    %rax,%r13
+   14099bbb7:	e8 14 d7 71 00       	call   1410b92d0 <_ZN10DpScWeaponC1Et>
+   14099bbbc:	e9 c7 fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bbc1:	b9 70 00 00 00       	mov    $0x70,%ecx
+   14099bbc6:	e8 cd 83 db 00       	call   141753f98 <_Znwy>
+   14099bbcb:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bbd2:	48 89 c1             	mov    %rax,%rcx
+   14099bbd5:	49 89 c5             	mov    %rax,%r13
+   14099bbd8:	e8 93 06 6f 00       	call   14108c270 <_ZN16DpConsoleSurgeryC1Et>
+   14099bbdd:	e9 a6 fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bbe2:	b9 78 00 00 00       	mov    $0x78,%ecx
+   14099bbe7:	e8 ac 83 db 00       	call   141753f98 <_Znwy>
+   14099bbec:	48 89 c1             	mov    %rax,%rcx
+   14099bbef:	49 89 c5             	mov    %rax,%r13
+   14099bbf2:	e8 79 fc 6e 00       	call   14108b870 <_ZN15DpConsoleShieldC1Ev>
+   14099bbf7:	e9 8c fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bbfc:	b9 28 01 00 00       	mov    $0x128,%ecx
+   14099bc01:	e8 92 83 db 00       	call   141753f98 <_Znwy>
+   14099bc06:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bc0d:	48 89 c1             	mov    %rax,%rcx
+   14099bc10:	49 89 c5             	mov    %rax,%r13
+   14099bc13:	e8 88 c7 6e 00       	call   1410883a0 <_ZN17DpConsoleEngineerC1Et>
+   14099bc18:	e9 6b fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bc1d:	b9 98 01 00 00       	mov    $0x198,%ecx
+   14099bc22:	e8 71 83 db 00       	call   141753f98 <_Znwy>
+   14099bc27:	48 89 c1             	mov    %rax,%rcx
+   14099bc2a:	49 89 c5             	mov    %rax,%r13
+   14099bc2d:	e8 4e c2 6f 00       	call   141097e80 <_ZN8DpScHelmC1Ev>
+   14099bc32:	e9 51 fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bc37:	b9 c8 00 00 00       	mov    $0xc8,%ecx
+   14099bc3c:	e8 57 83 db 00       	call   141753f98 <_Znwy>
+   14099bc41:	48 89 c1             	mov    %rax,%rcx
+   14099bc44:	49 89 c5             	mov    %rax,%r13
+   14099bc47:	e8 d4 dd 6e 00       	call   141089a20 <_ZN12DpConsoleNavC1Ev>
+   14099bc4c:	e9 37 fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bc51:	b9 c8 00 00 00       	mov    $0xc8,%ecx
+   14099bc56:	e8 3d 83 db 00       	call   141753f98 <_Znwy>
+   14099bc5b:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bc62:	48 89 c1             	mov    %rax,%rcx
+   14099bc65:	49 89 c5             	mov    %rax,%r13
+   14099bc68:	e8 13 10 6f 00       	call   14108cc80 <_ZN20DpConsoleTransporterC1Et>
+   14099bc6d:	e9 16 fe ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bc72:	b9 d0 00 00 00       	mov    $0xd0,%ecx
+   14099bc77:	e8 1c 83 db 00       	call   141753f98 <_Znwy>
+   14099bc7c:	48 89 c1             	mov    %rax,%rcx
+   14099bc7f:	49 89 c5             	mov    %rax,%r13
+   14099bc82:	e8 79 d3 6e 00       	call   141089000 <_ZN13DpConsoleHelmC1Ev>
+   14099bc87:	e9 fc fd ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bc8c:	b9 f0 01 00 00       	mov    $0x1f0,%ecx
+   14099bc91:	e8 02 83 db 00       	call   141753f98 <_Znwy>
+   14099bc96:	0f b7 93 92 04 00 00 	movzwl 0x492(%rbx),%edx
+   14099bc9d:	48 89 c1             	mov    %rax,%rcx
+   14099bca0:	49 89 c5             	mov    %rax,%r13
+   14099bca3:	e8 98 75 6f 00       	call   141093240 <_ZN12DpScEngineerC1Et>
+   14099bca8:	e9 db fd ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bcad:	b9 98 00 00 00       	mov    $0x98,%ecx
+   14099bcb2:	e8 e1 82 db 00       	call   141753f98 <_Znwy>
+   14099bcb7:	48 89 c1             	mov    %rax,%rcx
+   14099bcba:	49 89 c5             	mov    %rax,%r13
+   14099bcbd:	e8 9e f1 6e 00       	call   14108ae60 <_ZN15DpConsoleSensorC1Ev>
+   14099bcc2:	e9 c1 fd ff ff       	jmp    14099ba88 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xa38>
+   14099bcc7:	31 ff                	xor    %edi,%edi
+   14099bcc9:	e9 ad fc ff ff       	jmp    14099b97b <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x92b>
+   14099bcce:	ba 20 00 00 00       	mov    $0x20,%edx
+   14099bcd3:	ff 15 a7 6a ef 01    	call   *0x1ef6aa7(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14099bcd9:	e9 61 fc ff ff       	jmp    14099b93f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x8ef>
+   14099bcde:	ba 20 00 00 00       	mov    $0x20,%edx
+   14099bce3:	ff 15 97 6a ef 01    	call   *0x1ef6a97(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14099bce9:	e9 28 fc ff ff       	jmp    14099b916 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x8c6>
+   14099bcee:	ba 20 00 00 00       	mov    $0x20,%edx
+   14099bcf3:	ff 15 87 6a ef 01    	call   *0x1ef6a87(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14099bcf9:	e9 db fb ff ff       	jmp    14099b8d9 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x889>
+   14099bcfe:	f0 83 02 01          	lock addl $0x1,(%rdx)
+   14099bd02:	e9 20 fd ff ff       	jmp    14099ba27 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0x9d7>
+   14099bd07:	49 89 c4             	mov    %rax,%r12
+   14099bd0a:	4c 89 e9             	mov    %r13,%rcx
+   14099bd0d:	e8 96 82 db 00       	call   141753fa8 <_ZdlPv>
+   14099bd12:	4c 89 e1             	mov    %r12,%rcx
+   14099bd15:	e8 1e 96 db 00       	call   141755338 <_Unwind_Resume>
+   14099bd1a:	eb eb                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd1c:	eb e9                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd1e:	eb e7                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd20:	49 89 c4             	mov    %rax,%r12
+   14099bd23:	4c 89 e9             	mov    %r13,%rcx
+   14099bd26:	ff 15 fc 6c ef 01    	call   *0x1ef6cfc(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   14099bd2c:	4c 89 e1             	mov    %r12,%rcx
+   14099bd2f:	e8 04 96 db 00       	call   141755338 <_Unwind_Resume>
+   14099bd34:	4c 89 e9             	mov    %r13,%rcx
+   14099bd37:	49 89 c4             	mov    %rax,%r12
+   14099bd3a:	e8 b1 a3 dc 00       	call   1417660f0 <_ZN10QByteArrayD1Ev>
+   14099bd3f:	4c 89 f1             	mov    %r14,%rcx
+   14099bd42:	ff 15 50 69 ef 01    	call   *0x1ef6950(%rip)        # 142892698 <__imp__ZN11QDataStreamD1Ev>
+   14099bd48:	4c 89 f9             	mov    %r15,%rcx
+   14099bd4b:	e8 a0 a3 dc 00       	call   1417660f0 <_ZN10QByteArrayD1Ev>
+   14099bd50:	4c 89 e1             	mov    %r12,%rcx
+   14099bd53:	e8 e0 95 db 00       	call   141755338 <_Unwind_Resume>
+   14099bd58:	49 89 c4             	mov    %rax,%r12
+   14099bd5b:	eb e2                	jmp    14099bd3f <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcef>
+   14099bd5d:	49 89 c4             	mov    %rax,%r12
+   14099bd60:	eb e6                	jmp    14099bd48 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcf8>
+   14099bd62:	eb a3                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd64:	eb a1                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd66:	eb 9f                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd68:	eb 9d                	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bd6a:	49 89 c4             	mov    %rax,%r12
+   14099bd6d:	48 8b 05 6c c7 a0 01 	mov    0x1a0c76c(%rip),%rax        # 1423a84e0 <.refptr._ZTV5DhDNA>
+   14099bd74:	4c 89 f1             	mov    %r14,%rcx
+   14099bd77:	48 83 c0 10          	add    $0x10,%rax
+   14099bd7b:	48 89 44 24 60       	mov    %rax,0x60(%rsp)
+   14099bd80:	e8 fb 22 8a 00       	call   14123e080 <_ZN9AuDNABaseD1Ev>
+   14099bd85:	4c 89 e1             	mov    %r12,%rcx
+   14099bd88:	e8 ab 95 db 00       	call   141755338 <_Unwind_Resume>
+   14099bd8d:	49 89 c4             	mov    %rax,%r12
+   14099bd90:	4c 89 f1             	mov    %r14,%rcx
+   14099bd93:	e8 08 83 e5 00       	call   1417f40a0 <_ZN5AuDNAD1Ev>
+   14099bd98:	4c 89 e1             	mov    %r12,%rcx
+   14099bd9b:	e8 98 95 db 00       	call   141755338 <_Unwind_Resume>
+   14099bda0:	e9 62 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bda5:	e9 5d ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdaa:	e9 58 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdaf:	e9 53 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdb4:	e9 4e ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdb9:	e9 49 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdbe:	e9 44 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdc3:	e9 3f ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdc8:	e9 3a ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdcd:	e9 35 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdd2:	e9 30 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bdd7:	e9 2b ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bddc:	e9 26 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bde1:	e9 21 ff ff ff       	jmp    14099bd07 <_ZN10DaCreature8RxUpdateER11QDataStreamb+0xcb7>
+   14099bde6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14099bded:	00 00 00

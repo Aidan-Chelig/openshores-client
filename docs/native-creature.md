@@ -56,9 +56,9 @@ concrete console construction still need reconstruction.
 
 ## Remaining implementation dependencies
 
-Unit and both DNA wire readers are implemented; remaining work includes
-pose loop/side effects, console virtual bodies,
-constructor defaults, precise scalar overloads and stream floating widths.
+Unit and both DNA wire readers are implemented. The ordered receive stage
+below now composes them; remaining work includes concrete pose/model effects,
+console context/application, inherited construction and native object dispatch.
 The existing source-server Person codec does not resolve these native layers.
 Next finish pose/console application and nested readers in concrete state in small
 module folders; do not silently accept unresolved suffix bytes.
@@ -80,5 +80,86 @@ body Pose, movement-speed effects and timer updates are separate unresolved
 application stages, not implied by reading the packet successfully.
 
 See native-consoles.md for 20 constructor-confirmed primary-vptr bindings to 11 shared
-station readers, their complete evidence IDs, resolved matching-console
-control flow, remaining sensor-blip dependencies and seven implemented station bodies.
+station readers, their complete evidence IDs and resolved matching-console
+control flow. All station wire families are now implemented; Sensor/Weapon/
+Transporter local augmentation remains separate in native-station-sensors.md.
+
+## Ordered Unit/Creature receive implementation
+
+`NativeCreatureReceiveState::receive_qt7` calls the real `NativeUnitState`
+reader before receiving the Creature short. It composes the real AuDNA/DhDNA,
+pose and AuItem codecs in the native order above. It requires an explicit
+`NativeCreatureReceiveContext` for every application effect; there is no
+production default or silent no-op context. This is an ordered receive stage,
+**not** complete Creature/Person object dispatch or presentation.
+
+The context must implement model selection/lifecycle, pre-DNA DpBody
+configuration, SetDNA effects, +1e0, hit points, old console type sampling,
+station/body pose application, console reception/settings/local augmentation,
+wall clock, body timestamp and parent SeatAt, or return Unsupported. Typed DNA
+and pose values are supplied after their real wire readers; the context cannot
+substitute an opaque skip. Console reception remains context-dependent because
+matching/temporary/null-context branches consume different bodies. The pose
+hook receives current receive state, including the previous growth byte, since
+new494 is not read until after console handling.
+
+The state deliberately models receive observations, not a guessed complete
+DaCreature constructor. Default leaves Unit/body/scalars unobserved. Selection
+ensures the requested model on every update; a changed kind replaces the
+receive-visible body subset. Both default body constructors establish HP0 and
+timestamp0. DpBody bytes3a/64 start0; reception of packed DNA configuration
+changes them to bit2/inverse bit0 **before** reading DhDNA. Native model/bone
+construction and dependent defaults still belong to a concrete context.
+
+HP reception is signed-short with only the lower -30 clamp in both modes.
+Float-overload +1e0 narrows to f32 for every wire profile, retaining raw
+non-finite/signed-zero values. Item698 is always cleared after496/494; type0
+consumes no body, verified subtypes use NativeItemValue, and unimplemented
+factory/body types return Unsupported at that discriminator without guessed
+consumption. No old item is retained on such an error. Body timestamp sampling
+occurs after the item and before optional 5b8/5bc; flag40 subtracts 86400000 with
+the observed two's-complement machine arithmetic. Optional5b8/5bc widen bytes
+unsigned and otherwise retain their old values. SeatAt is last, not wire data.
+
+Earlier stage mutations survive later Rust errors. Fresh nested DNA/item/pose
+decoding keeps its documented atomic policy. Context failures abort immediately;
+the receiver does not consume a guessed remainder or invoke later effects.
+These policies do not claim Qt failed-stream continuation/destructor parity.
+
+Fixtures compose actual Unit identity, Fire condition and vector, both DNA
+bodies, a concrete Game console body and a real plain item. They cover all
+65536 flags, all profiles/configuration bytes, repeated sparse updates/body
+switches, every truncated prefix, failure at every required context effect,
+unsupported item/console cases, all signed-short HP values, non-finite floats,
+timestamp wrapping and exact suffix alignment. Their context is explicitly a
+**trace fixture**: it proves order and codec composition, not skeletal/pose,
+settings/environment effects or runtime avatar integration. The final goal
+still needs a real context and full fresh/existing Person packet tests.
+
+## Constructor and application evidence
+
+Complete MCP records with Evidence IDs are indexed in
+`evidence/native-creature-application-index.json`. New constructors and the
+occupant helper reused the live analyzed session in0.085/0.085/0.088/0.104/0.079s,
+with no reimport. Existing pose/SetDNA/movement records were retained from
+saved results, not re-queried. Independent `native-creature-receive-gnu.txt`
+retains complete constructor/update disassembly and corroborates overloads,
+pre-DNA byte writes and the ordered tail. GNU selects C1 aliases at the same
+addresses as the C2 constructors queried through REA.
+
+| Constructor | Address | Established receive-visible facts |
+| --- | --- | --- |
+| AuAnimalia default | 0x1411ee400 | HP30=0, time38=0, pose words6c..90=0, bool40=0; float94=0 |
+| DpBody default | 0x1412dc540 | HP38=0, time4010=0, config3a/64=0, pose words3c..60=0, bool6c=0 |
+| DaCreature default | 0x140973ab0 | Unit first; initial DpBody and no Animalia; console680/item698 null; 5b8/5bc=4; 494/495/496=0; 492/5c0=0 |
+| DaPerson default | 0x140a3f930 | Sentient first; full record retained for later inherited-state construction |
+
+Do not extrapolate complete model/Person initialization from this subset.
+SetDNA includes dynamic type dispatch, inherited HP/configuration, pose resets
+and timers; its catch/control flow needs independent corroboration before a
+concrete implementation. DpBody::Pose and Animalia::Pose records establish word
+comparisons, different bool-change behavior and Animalia's final-pose fallback,
+but their AnimatePose effects remain unimplemented. MovementSpeedMod's Ghidra
+return type is incorrectly void; no value is inferred from that pseudocode.
+OccPosForPose uses a 133-byte lookup table at 1422de160 for values 3..135 and
+defaults to 3 outside that range; the table has not yet been retained/implemented.

@@ -1,4 +1,5 @@
-//! Verified Creature wire components, not a complete Creature receiver yet.
+//! Ordered Creature receive stages and verified wire components.
+//! Concrete context/application and native object dispatch remain required.
 use crate::protocol::QtReader;
 use std::io;
 mod console;
@@ -16,6 +17,11 @@ pub use sensor_stations::{
     NativeStationBlipSelection, NativeStationBlipWireReceive, NativeStationSensor,
     NativeStationSensorFlags, NativeStationTransporter, NativeStationTransporterFlags,
     NativeStationWeapon, NativeStationWeaponFlags,
+};
+mod receiving;
+pub use receiving::{
+    NativeCreatureBodyKind, NativeCreatureBodyReceiveState, NativeCreatureReceive,
+    NativeCreatureReceiveContext, NativeCreatureReceiveState,
 };
 
 #[derive(Clone, Debug, PartialEq, Eq)]

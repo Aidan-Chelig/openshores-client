@@ -53,3 +53,11 @@ Next: reconstruct its Sentient/Creature layers
 and conditional subreaders; establish constructor/default and body state;
 extend concrete native object dispatch without assuming Item defaults. No
 native execution or live-server testing is involved in this investigation.
+
+The default constructor is now retained as
+`evidence/native-person-default-constructor.json`, Evidence ID
+`ev_372afccd2f5bf68461eece6a46942f116f301dfb259ce0e34ef654f65a79f3b1`.
+It calls DaSentient first; this record is not yet a complete Rust constructor.
+The ordered Unit/Creature stage exists with required application context hooks;
+no concrete Person construction/dispatch or presentation is implied by those
+component fixtures. See native-creature.md for the exact remaining boundary.

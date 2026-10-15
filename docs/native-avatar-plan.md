@@ -138,3 +138,18 @@ These APIs explicitly stop at the wire/local-augmentation boundary documented
 in native-station-sensors.md. Capsule/environment augmentation, native station
 construction/application, complete Creature/Person dispatch and presentation
 remain outstanding; no source-server success is substituted for native proof.
+
+Ordered Creature milestone: NativeCreatureReceiveState now composes real Unit,
+DNA, pose and supported AuItem readers with required explicit application hooks
+in native order. Model selection occurs every update; growth reset, item
+replacement, body clock and unsigned tail semantics have offline coverage.
+All 65536 flags, repeated body/sparse updates, every truncated prefix and all
+signed-short HP values pass fixtures. Trace contexts verify call order only,
+not runtime effects. Default body/Creature/Person constructor records and saved
+pose/SetDNA/movement helpers are retained with an index; five new warm queries
+returned in 0.079..0.104s without reanalysis. Concrete body/console application,
+inherited native construction, Person suffix/dispatch and presentation remain
+open. This milestone must not be counted as end-to-end avatar completion.
+`just check` passes formatting, 355 headless and 376 client library tests,
+9 CLI tests per profile, 1 graphical-entry CLI test and strict client-feature
+all-target Clippy.
