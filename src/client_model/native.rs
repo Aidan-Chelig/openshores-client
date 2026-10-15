@@ -7,6 +7,7 @@ use crate::world::{
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeAvatarPresentation {
+    model_space_geometry: Option<std::sync::Arc<[crate::model::NativeBodyMeshGeometry]>>,
     pub handle: u32,
     pub wire_id: u32,
     pub timestamp_ms: i64,
@@ -20,6 +21,45 @@ pub struct NativeAvatarPresentation {
     pub inventory_count: Option<usize>,
 }
 impl NativeAvatarPresentation {
+    /// Explicit unposed model-space geometry, not inferred from packet identity.
+    /// The producer must have performed required body assembly. This preview
+    /// does not assert native world axes, placement, materials or bone posing.
+    pub fn with_model_space_geometry(
+        mut self,
+        geometry: Vec<crate::model::NativeBodyMeshGeometry>,
+    ) -> io::Result<Self> {
+        for part in &geometry {
+            if part.positions.len() != part.weights.len()
+                || part.faces.iter().any(|face| {
+                    face.vertices
+                        .iter()
+                        .any(|index| usize::from(*index) >= part.positions.len())
+                })
+                || part
+                    .positions
+                    .iter()
+                    .flatten()
+                    .any(|value| !(*value as f32).is_finite())
+                || part.uvs.as_ref().is_some_and(|uvs| {
+                    uvs.len() != part.positions.len()
+                        || uvs.iter().flatten().any(|v| !v.is_finite())
+                })
+            {
+                return Err(io::Error::new(
+                    io::ErrorKind::InvalidData,
+                    "invalid native body preview geometry",
+                ));
+            }
+        }
+        self.model_space_geometry = Some(geometry.into());
+        Ok(self)
+    }
+
+    pub fn model_space_geometry(
+        &self,
+    ) -> Option<&std::sync::Arc<[crate::model::NativeBodyMeshGeometry]>> {
+        self.model_space_geometry.as_ref()
+    }
     /// Publish only after successful native dispatch, never an errored partial
     /// receive. Cross-check stable handle, wire identity and attached ownership.
     /// Position remains explicitly local; no globe/environment frame is guessed.
@@ -43,6 +83,7 @@ impl NativeAvatarPresentation {
             .try_into()
             .expect("three coordinates");
         Ok(Self {
+            model_space_geometry: None,
             handle: outcome.handle,
             wire_id: outcome.wire_id,
             timestamp_ms: person.base.received_time,
@@ -130,9 +171,16 @@ impl ClientModel {
         self.hail_environments.clear();
         self.opaque_chat.clear();
         self.story_open = false;
-        self.status =
+        self.status = if self
+            .native_avatar
+            .as_ref()
+            .is_some_and(|avatar| avatar.model_space_geometry().is_some())
+        {
+            "Read-only native body geometry preview; unposed model space, not world placement"
+        } else {
             "Read-only native avatar preview; diagnostic marker, not a reconstructed body mesh"
-                .into();
+        }
+        .into();
     }
 }
 
@@ -142,6 +190,7 @@ mod tests {
     #[test]
     fn native_unit_text_display_is_bounded_and_keeps_unknown_null_and_empty_distinct() {
         let mut avatar = NativeAvatarPresentation {
+            model_space_geometry: None,
             handle: 90,
             wire_id: 7,
             timestamp_ms: 0,
@@ -165,5 +214,49 @@ mod tests {
         assert_eq!(summary.matches('🌊').count(), 256);
         assert!(summary.ends_with("(display truncated)"));
         assert_eq!(avatar.unit_text, Some(Some(raw)));
+        let mut part = crate::model::NativeBodyMeshGeometry {
+            positions: vec![[0.; 3]],
+            weights: vec![crate::model::NativeBodyVertexWeights::default()],
+            faces: vec![],
+            uvs: None,
+        };
+        assert!(
+            avatar
+                .clone()
+                .with_model_space_geometry(vec![part.clone()])
+                .is_ok()
+        );
+        part.weights.clear();
+        assert!(
+            avatar
+                .clone()
+                .with_model_space_geometry(vec![part.clone()])
+                .is_err()
+        );
+        part.weights
+            .push(crate::model::NativeBodyVertexWeights::default());
+        part.positions[0][0] = f64::MAX;
+        assert!(
+            avatar
+                .clone()
+                .with_model_space_geometry(vec![part.clone()])
+                .is_err()
+        );
+        part.positions[0][0] = 0.;
+        part.uvs = Some(vec![]);
+        assert!(
+            avatar
+                .clone()
+                .with_model_space_geometry(vec![part.clone()])
+                .is_err()
+        );
+        part.uvs = None;
+        part.faces.push(crate::model::Face {
+            vertices: [0, 0, 1],
+            flags: 0,
+            extension: None,
+            nt_extension: None,
+        });
+        assert!(avatar.with_model_space_geometry(vec![part]).is_err());
     }
 }
