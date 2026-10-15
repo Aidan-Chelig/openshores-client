@@ -21,6 +21,16 @@ empty-model handling and disconnect, through the existing dispatched-Person
 fixture. These are headless entity/mesh tests, not a screenshot or GPU parity
 test. The invalid geometry boundary is also tested. No network is involved.
 
+`just test-native-body-preview reference/hazeron` runs the opt-in mounted test.
+It constructs a Person through the existing offline packet-dispatch harness,
+independently initializes explicit fixture DNA using mounted hand calculations,
+and attaches 17 resources / 3,410 CPU vertices as individual unmerged parts.
+It compares every published position float bit pattern, triangle index and UV
+against generated geometry, without depending on ECS iteration order, and
+checks that disconnect removes every mesh entity. It opens no GPU window.
+This verifies the mounted-assets-to-preview boundary, not DNA reception,
+production context behavior, native merge success or visual/GPU parity.
+
 Still required for automatic in-game avatars: native model cache/merge
 application, an owning production receive context, attachment of actual assembled
 body geometry after successful receive, bone posing/skinning, and verified world

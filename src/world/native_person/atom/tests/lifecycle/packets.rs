@@ -9,6 +9,8 @@ use crate::world::{
     native_signals::{NativeSignalConnection, NativeSignalConnector},
 };
 mod failures;
+#[cfg(feature = "client")]
+mod mounted_preview;
 mod runtime;
 use runtime::Hooks;
 

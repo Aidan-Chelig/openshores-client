@@ -88,6 +88,96 @@ pub(super) fn scene(
 }
 
 #[cfg(test)]
+pub(crate) fn assert_native_geometry_preview(
+    avatar: crate::client_model::NativeAvatarPresentation,
+) {
+    let geometry = avatar.model_space_geometry().expect("supplied geometry");
+    let mut expected: Vec<_> = geometry
+        .iter()
+        .filter(|part| !part.faces.is_empty())
+        .map(|part| {
+            (
+                part.positions
+                    .iter()
+                    .map(|p| p.map(|v| (v as f32).to_bits()))
+                    .collect::<Vec<_>>(),
+                part.faces
+                    .iter()
+                    .flat_map(|face| face.vertices.map(u32::from))
+                    .collect::<Vec<_>>(),
+                part.uvs.as_ref().map(|uvs| {
+                    uvs.iter()
+                        .map(|uv| uv.map(f32::to_bits))
+                        .collect::<Vec<_>>()
+                }),
+            )
+        })
+        .collect();
+    assert!(!expected.is_empty());
+    let mut model = ClientModel::default();
+    model.apply(Event::NativeAvatar(Box::new(avatar))).unwrap();
+    let mut app = App::new();
+    app.init_resource::<Assets<Mesh>>()
+        .init_resource::<Assets<StandardMaterial>>()
+        .insert_resource(Presentation { model, ..default() })
+        .add_systems(Update, scene);
+    app.update();
+    let handles: Vec<_> = app
+        .world_mut()
+        .query::<&Mesh3d>()
+        .iter(app.world())
+        .map(|mesh| mesh.0.clone())
+        .collect();
+    assert_eq!(handles.len(), expected.len());
+    let assets = app.world().resource::<Assets<Mesh>>();
+    let mut actual: Vec<_> = handles
+        .iter()
+        .map(|handle| {
+            let mesh = assets.get(handle).unwrap();
+            let Some(bevy::mesh::VertexAttributeValues::Float32x3(positions)) =
+                mesh.attribute(Mesh::ATTRIBUTE_POSITION)
+            else {
+                panic!("position format");
+            };
+            let uvs = match mesh.attribute(Mesh::ATTRIBUTE_UV_0) {
+                Some(bevy::mesh::VertexAttributeValues::Float32x2(uvs)) => Some(
+                    uvs.iter()
+                        .map(|uv| uv.map(f32::to_bits))
+                        .collect::<Vec<_>>(),
+                ),
+                None => None,
+                _ => panic!("UV format"),
+            };
+            (
+                positions
+                    .iter()
+                    .map(|p| p.map(f32::to_bits))
+                    .collect::<Vec<_>>(),
+                mesh.indices()
+                    .unwrap()
+                    .iter()
+                    .map(|i| u32::try_from(i).unwrap())
+                    .collect::<Vec<_>>(),
+                uvs,
+            )
+        })
+        .collect();
+    actual.sort_unstable();
+    expected.sort_unstable();
+    assert_eq!(actual, expected);
+    app.world_mut()
+        .resource_mut::<Presentation>()
+        .model
+        .apply(Event::Disconnected)
+        .unwrap();
+    app.update();
+    assert_eq!(
+        app.world_mut().query::<&Mesh3d>().iter(app.world()).count(),
+        0
+    );
+}
+
+#[cfg(test)]
 pub(crate) fn assert_native_preview(avatar: crate::client_model::NativeAvatarPresentation) {
     let id = avatar.wire_id;
     let summary = avatar.summary();

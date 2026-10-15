@@ -16,6 +16,8 @@ mod controls;
 mod models;
 mod native_scene;
 #[cfg(test)]
+pub(crate) use native_scene::assert_native_geometry_preview;
+#[cfg(test)]
 pub(crate) use native_scene::assert_native_preview;
 mod panels;
 mod placement;

@@ -239,6 +239,9 @@ test-native-dp-wing-bow:
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::wing_bow
 
 # Mounted hands, feet, part calculations and standing heights; entirely offline.
+test-native-body-preview installation:
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --features client --lib mounted_body_parts_reach -- --ignored --nocapture
+
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_tail_pose -- --ignored --nocapture
