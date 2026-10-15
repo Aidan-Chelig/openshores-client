@@ -220,3 +220,56 @@ Library/test Clippy with warnings denied, formatting and whitespace checks pass.
 Client-feature regression checks pass:741 library,10 CLI and1 slice test, with
 six opt-in tests ignored. The expanded standing task's commands validate in
 `just --dry-run test-native-standing`.
+
+## Composed standing-arm phase
+
+`splay_arm_shoulder` reconstructs the native Z-pivot with a negated angle on
+the left. `lift_arm_shoulder` reconstructs the Y-pivot with a negated angle on
+the right. Both modify all three concrete Bones outputs and obtain the pivot
+from the current attachment, not rest coordinates. Unlike splay, LiftShoulder
+has no zero-angle early return: it resolves the bones, performs the matrix
+arithmetic and clears the represented matrix cache byte even for +/-0.
+
+Native SplayShoulder's first output and LiftShoulder's last output use inlined
+matrix products, while their other outputs call AuMatrix4x4::operator*. Rust
+retains those specialized products, the constant-one Z term in the splay
+consumer, SIMD addition ordering, nonaffine fourth rows and executed zero
+products. Expanded pivots retain native arithmetic rather than flattening the
+operations into guessed translations or a generic humanoid rig.
+
+`relax_arm` now composes shoulder, wrist, elbow, stored splay, then stored lift.
+An explicit optional owner field30 supplies the native override: elbow becomes
+field30 minus the calculated shoulder and wrist becomes literal0xbd0efa35.
+`stand_arms` selects the owner WalksOnHands lift literal, spreads arms first,
+then visits selected ordinary arms forward. The override is consumed only for
+the first selected arm; wing-bearing and unselected parts do not consume it.
+These APIs are one animation phase, not an implicit matrix reset or a complete
+AnimatePose/standing-avatar constructor.
+
+Full static source records are `native-arm-lift-gnu.txt` and
+`native-arm-splay-gnu.txt`, checked by the expanded digest-bound
+`tests/native_arm_standing.py`. Retained Relax/StandArms records establish
+composition order. The reverse-engineering skill guided this focused static
+reconstruction; no new Ghidra import, reference execution or network test was
+needed.
+
+Four CPU tests cover axis/sign/pivot behavior for both sides and all pair
+indices, untouched bones, zero-lift versus zero-splay semantics, explicit Relax
+composition/override, nonaffine products and nonfinite zero products. The new
+opt-in mounted test checks the full arm phase across40 combinations of side
+selector, first-arm override, wing presence and WalksOnHands class, using real
+hand measurements. It compares component composition, counts selected arms,
+checks finite matrices/fixed attachments and verifies non-arm bones are unchanged.
+All three mounted standing tests pass. These are CPU bone/measurement checks;
+they are not assembled-geometry or visual standing-pose proof.
+
+Verification:715 library tests pass (one opt-in ignored); client-feature checks
+pass745 library,10 CLI and1 slice tests (six opt-in ignored). Library/test Clippy
+with warnings denied, formatting, whitespace and task-command dry-run checks pass.
+
+Remaining full-goal gates: verify complete neutral pose words and compose
+height/reset/legs/tail/torso/heads/arms/wings in native order; generate all body
+parts independently of the viewer; preserve one-time object projection and
+skin normals/positions; integrate the textured full-body command; and inspect
+multi-angle GPU captures for two supported fixture anatomies. Full-body preview
+and the complete avatar goal remain unfinished.

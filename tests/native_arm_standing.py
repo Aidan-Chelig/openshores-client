@@ -26,6 +26,10 @@ for symbol, evidence, anchors in [
      ["<_ZNK5DhDNA12WalksOnHandsEv>", "<_ZN6DpBody10SpreadArmsEffi>", "<_ZN12DpArmAndHand5RelaxEfb>", "xor    %ebp,%ebp"]),
     ("_ZN12DpArmAndHand5RelaxEfb", "native-arm-relax-gnu.txt",
      ["<_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_>", "0x30(%rax)", "0x4c(%r12)", "0x48(%r12)"]),
+    ("_ZN12DpArmAndHand12LiftShoulderEf", "native-arm-lift-gnu.txt",
+     ["call   *0xa0(%rax)", "call   *0xa8(%rax)", "call   *0x30(%rax)", "<sincos>", "mulpd", "<_ZNK11AuMatrix4x4mlERKS_>"]),
+    ("_ZN12DpArmAndHand13SplayShoulderEf.part.0", "native-arm-splay-gnu.txt",
+     ["call   *0xa0(%rax)", "call   *0xa8(%rax)", "call   *0x30(%rax)", "<sincos>", "0xac(%rsp),%edx", "<_ZNK11AuMatrix4x4mlERKS_>"]),
 ]:
     assembly = subprocess.check_output(["objdump", "-d", "--disassemble=" + symbol, str(context["target"])], text=True)
     assert assembly.strip() == (context["Path"]("docs/evidence") / evidence).read_text().strip()
@@ -36,4 +40,4 @@ for vptr, returned in [(0x142425850, bytes.fromhex("b801000000c3")),
                        (0x142434A00, bytes.fromhex("31c0c3"))]:
     implementation = struct.unpack("<Q", read(vptr + 0xA8, 8))[0]
     assert read(implementation, len(returned)) == returned
-print("Verified standing-arm constants, concrete side selection and complete static records. Relax/StandArms are retained, not yet composed in Rust.")
+print("Verified standing-arm constants, concrete side selection and complete static records, including shoulder lift/splay and Relax/StandArms composition anchors.")

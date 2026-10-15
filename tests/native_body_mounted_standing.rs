@@ -1,4 +1,4 @@
-//! Real mounted measurements plus composed leg bones; not a full-body preview.
+//! Real mounted measurements and composed limb bones; not a full-body preview.
 use openshores_client::{
     asset_mount::AssetMount,
     world::{
@@ -76,6 +76,108 @@ fn mounted_standing_legs_compose_measured_angles_for_two_anatomies() {
             }
         }
         assert_eq!(&body.bones().slots[..41], &before.slots[..41]);
+    }
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; composed arm phase, no GPU"]
+fn mounted_standing_arms_match_order_side_wings_and_first_selected_override() {
+    let mount =
+        AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
+    let mut hands = NativeDpHandCache::new(&mount);
+    for walks_on_hands in [false, true] {
+        for wings in [false, true] {
+            for side in [-1, 0, 1, 2, 3] {
+                for override_field in [None, Some(0.3)] {
+                    let mut dna = NativeDhDna([0; 24]);
+                    dna.0[1] = 3;
+                    dna.0[11] = if walks_on_hands { 0 } else { 0x60 };
+                    dna.0[2] = if wings { 2 } else { 0 };
+                    let mut body = NativeDpInitialization::begin(&dna);
+                    body.finish_part_calculations(0, &mut hands).unwrap();
+                    let before = body.bones().clone();
+                    let mut expected = body.clone();
+                    let lift = if walks_on_hands {
+                        f32::from_bits(0x3c8efa35)
+                    } else {
+                        f32::from_bits(0x3e567750)
+                    };
+                    expected
+                        .spread_arms(f32::from_bits(0x3eb2b8c2), lift, side)
+                        .unwrap();
+                    let mut expected_bones = before.clone();
+                    let mut pending_override = override_field;
+                    let mut selected_count = 0;
+                    for part in expected.parts().iter().skip(1) {
+                        let left = part.allocation.kind == NativeDpPartKind::LeftArmAndHand;
+                        let right = part.allocation.kind == NativeDpPartKind::RightArmAndHand;
+                        let ordinary = (left || right)
+                            && (part.allocation.dna.0[1] & 3 == 0
+                                || part.allocation.dna.0[2] & 6 == 0);
+                        let selected = side == 2 || (side == 0 && left) || (side == 1 && right);
+                        if ordinary && selected {
+                            let angles = part
+                                .arm_stand_angles(
+                                    &dna,
+                                    expected.dimensions(),
+                                    &expected_bones,
+                                    0,
+                                    100.,
+                                    &mut hands,
+                                )
+                                .unwrap();
+                            part.relax_arm(&mut expected_bones, angles, pending_override.take())
+                                .unwrap();
+                            selected_count += 1;
+                        }
+                    }
+                    body.stand_arms(100., side, override_field, 0, &mut hands)
+                        .unwrap();
+                    assert_eq!(body.bones(), &expected_bones);
+                    assert_eq!(body.parts(), expected.parts());
+                    assert_eq!(
+                        selected_count,
+                        match side {
+                            0 | 1 =>
+                                if wings {
+                                    2
+                                } else {
+                                    3
+                                },
+                            2 =>
+                                if wings {
+                                    4
+                                } else {
+                                    6
+                                },
+                            _ => 0,
+                        }
+                    );
+                    assert_eq!(&body.bones().slots[..23], &before.slots[..23]);
+                    assert_eq!(&body.bones().slots[41..], &before.slots[41..]);
+                    for part in body.parts().iter().filter(|p| {
+                        matches!(
+                            p.allocation.kind,
+                            NativeDpPartKind::LeftArmAndHand | NativeDpPartKind::RightArmAndHand
+                        )
+                    }) {
+                        let indices = part.limb_bones().unwrap();
+                        for index in indices {
+                            assert!(
+                                body.bones().slots[index]
+                                    .matrix_00
+                                    .iter()
+                                    .all(|v| v.is_finite())
+                            );
+                        }
+                        let pivot = part.current_connect_loc(body.bones()).unwrap();
+                        for (a, b) in pivot.into_iter().zip(part.connect_30) {
+                            assert!((a - b).abs() < 1e-10);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
