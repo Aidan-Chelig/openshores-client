@@ -85,7 +85,9 @@ Each file below is prefixed native-console-reader- and ends .json in evidence/.
   or silently replaced by a no-op in a claimed complete native integration.
 
 Rust implements Engineer, Helm, Game, Shield, Surgery, Nav and Power bodies, plus
-Creature's pose wire block. These are not a complete console dispatcher or
+the Sensor/Weapon/Transporter wire stages in native-station-sensors.md and
+Creature's pose wire block. Local capsule/environment sensor augmentation is
+still outstanding. These are not a complete console dispatcher or
 Creature receiver. Game tests cover all flags; Shield tests cover all explicit
 float profiles, narrowing/non-finite values and exact suffix boundaries. Both
 reject truncated prefixes atomically as a Rust safety policy.

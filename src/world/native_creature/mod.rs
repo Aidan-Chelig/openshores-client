@@ -11,6 +11,12 @@ mod navigation;
 pub use navigation::{NativeStationNav, NativeWaypoint, NativeWaypointRoute};
 mod power;
 pub use power::{NativePowerGroup01, NativePowerGroup02, NativeStationPower};
+mod sensor_stations;
+pub use sensor_stations::{
+    NativeStationBlipSelection, NativeStationBlipWireReceive, NativeStationSensor,
+    NativeStationSensorFlags, NativeStationTransporter, NativeStationTransporterFlags,
+    NativeStationWeapon, NativeStationWeaponFlags,
+};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeCreaturePose {

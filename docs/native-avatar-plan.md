@@ -125,3 +125,16 @@ of complete console application or Person presentation. Next compose the
 remaining Sensor/Weapon/Transporter readers, preserving the boundary between
 wire state and capsule/environment augmentation; then finish ordered Creature,
 Person construction/dispatch and the actual presentation bridge.
+
+Sensor-station wire milestone: Sensor, Weapon and Transporter now compose the
+real full/minimal blip bodies with ordered scalar/packed fields. Transporter
+omitted-vector retention and selected-blip destruction timing are preserved;
+null full factories continue, while minimal-list unknown stops propagate in
+must-use results. Complete GNU function records corroborate existing saved
+REA evidence, without any new Ghidra import. `just check` passes formatting,
+346 headless and 367 client library tests, 9 CLI tests per profile,
+1 graphical-entry CLI test and strict client-feature all-target Clippy.
+These APIs explicitly stop at the wire/local-augmentation boundary documented
+in native-station-sensors.md. Capsule/environment augmentation, native station
+construction/application, complete Creature/Person dispatch and presentation
+remain outstanding; no source-server success is substituted for native proof.
