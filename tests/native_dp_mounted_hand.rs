@@ -177,6 +177,18 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
             for axis in 0..3 {
                 assert!((moved[axis] - attachment[axis]).abs() < 1e-12);
             }
+            part.tilt_head_to(&mut bones, body.dimensions(), 0.25, -0.125)
+                .unwrap();
+            assert!(
+                bones
+                    .slots
+                    .iter()
+                    .all(|bone| bone.matrix_00.iter().all(|v| v.is_finite()))
+            );
+            let moved = part.current_connect_loc(&bones).unwrap();
+            for axis in 0..3 {
+                assert!((moved[axis] - attachment[axis]).abs() < 1e-12);
+            }
         }
         if let NativeDpPartJoints::Arm {
             field_70, field_88, ..

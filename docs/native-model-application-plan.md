@@ -431,9 +431,29 @@ unsupported paths, and exact dense nonaffine scalar bit patterns independently
 evaluated from the instruction stages. Mounted sixteen-part initialization now
 composes bending, rotation and leaning on each head and checks preserved current
 attachments. This remains Rust/offline evidence, not native runtime parity.
-TiltHeadTo's reset/reattachment, orientation extraction and final head matrix,
 PositionHeads' pose logic, full body animation, production Person ownership and
 actual rendered native avatar state still remain required work.
+
+Concrete `TiltHeadTo` now composes the verified head operations in
+`dp/head_pose`: capture attachment, reset the inclusive selected head/neck range,
+restore attachment using the actual virtual MoveBy, extract the body-up pitch
+correction for segmented bodies, RotateNeck, divide the remaining pitch plus
+f32 pi/2 across the neck, BendNeck, and assemble the final head matrix using
+the original pitch and roll around the projected local head point. Missing Rust
+head-joint state is rejected before mutation; other part kinds are Unsupported.
+The body-level PositionHeads dispatcher is not implemented by this operation.
+
+Retained complete REA records are `docs/evidence/native-dp-head-tilt.json` and
+`native-dp-head-move-by.json`, with full GNU disassembly retained in
+`native-dp-head-pose-gnu.txt`. MoveBy's zero guard and expanded non-affine
+translation were corroborated against GNU disassembly. Orientation preserves
+unordered native comparison branches rather than copying the decompiler's
+plain inequalities. `just test-native-dp-head-pose` verifies SHA-bound virtual
+dispatch and threshold/angle constants, then runs fixtures for both head slots,
+every count combination, attachment preservation, neighboring-state retention,
+non-affine translation and unordered orientation. Mounted part tests also apply
+the complete operation. These are static and Rust/offline checks, not observed
+original-client execution, NaN-payload parity or cross-platform libm bit parity.
 
 Bone transforms now implement the native in-place RotateX/RotateY/RotateZ and
 Translate operations on `NativeDpBoneTransform`. These mix the existing columns

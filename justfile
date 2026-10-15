@@ -126,6 +126,10 @@ test-native-dp-neck:
     nix develop .#server-test --command python tests/native_dp_neck.py
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::neck
 
+test-native-dp-head-pose:
+    nix develop .#server-test --command python tests/native_dp_head_pose.py
+    nix develop .#server-test --command cargo test --offline --lib native_body::dp::head_pose
+
 # Mounted hands, feet, part calculations and standing heights; entirely offline.
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture
