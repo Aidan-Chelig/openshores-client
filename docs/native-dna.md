@@ -61,7 +61,9 @@ values warn and return null. Factory initializers are retained in full evidence,
 but reader layouts and vtable bindings remain to be reconstructed. In
 particular, a raw QByteArray is not the complete AuDNA representation.
 
-The warm session is now querying each distinct symbol-bound chromosome reader
-once, including the shared WithGenes layer. A rejected guessed factory symbol
+The 26 distinct reader records are now retained and reviewed; see
+native-chromosomes.md for ordered fields and independently checked virtual
+dispatch bindings. Remaining shared dependencies include GeneChain and QColor.
+A rejected guessed factory symbol
 is retained only under target/avatar-analysis-session/chromosome-factory.json;
 the successful factory evidence uses the exact COFF CTYPE symbol.

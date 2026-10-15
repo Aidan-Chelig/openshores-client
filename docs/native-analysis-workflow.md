@@ -46,6 +46,8 @@ default reconstruction workflow. Transport tests: `python -m unittest discover
 The first batch in `target/avatar-analysis-session` returned these elapsed
 times from one live server: DhDNA_ 665.655s (initial import/analysis), Bounty
 0.348s, ImplantDNA 0.078s, ImplantSpecies 0.079s. All four MCP responses reported
-isError=false and were retained completely. The server remains open for more
-queries. This verifies reuse for new functions, not merely replay of a saved
+isError=false and were retained completely. That process subsequently became
+unavailable after interruption; its evidence remains reusable, not its database.
+The next unresolved-reader session uses target/avatar-analysis-session-2.
+This verifies reuse for new functions, not merely replay of a saved
 answer. Returned pseudocode still requires review before implementation.
