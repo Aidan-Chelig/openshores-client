@@ -748,3 +748,45 @@ than original-client runtime or libm/NaN-payload bit parity.
 Strike, writhe/receptive poses, complete PositionTail/Animate, production body
 and timer ownership, real Person context/session integration and publication of
 actual native avatar geometry remain required under the original objective.
+
+### Complete tail-position stage
+
+`position_tail` now implements the complete native PositionTail dispatcher at
+1412e0c70. It consumes owner pose words48/58, the original owner's leg DNA12,
+caller clearance/speed and the explicit owner byte3a needed by Fold. Every
+non-default native branch invokes the concrete previously reconstructed bone
+operations. The leg/no-leg paths preserve their distinct fixed or caller speed;
+the general-pose42/43/45 clearance override applies only to the native Wag,
+Lash29/30 and Strike branches. Defaults, including full-width unknown poses,
+remain native no-ops. Rust pre-init calls report InvalidData before mutation.
+
+Required Strike and all four Writhe/receptive methods are now implemented in
+`dp/tail_special`. Strike preserves synthetic pose41, pi phase, speed1,
+((wave*70+60)*degree)/jointCount and its general-pose-dependent fallback sign.
+Writhe49/50/51/52 and receptive136 gate on capability BEFORE starting/sampling
+the timer, preserve phase0 and speed1, and feed the actual Slither operation.
+Unlike segmented rhythmic Bend stages, these native Slither callers do not
+skip a zero segment selector; the concrete root-only transform remains active.
+
+Eight focused queries reused the existing analyzed session in0.085–0.138s
+each; no reimport was needed. Complete required REA records are retained under
+`docs/evidence/native-dp-tail-{strike,writhe-*,receptive-up}.json` and
+`native-dp-position-tail.json`, with full GNU corroboration in
+`native-dp-position-tail-gnu.txt`. `tests/fixtures/native_dp_tail_dispatch.tsv`
+records all157 native jump-table destinations plus explicit unsigned defaults.
+`just test-native-dp-position-tail` verifies every fixture row against SHA-bound
+PE table1422be1f4, the special-motion constants and actual rhythm/call anchors,
+then runs strike/error fixtures. Mounted coverage is explicitly separate:
+`native_dp_mounted_position_tail` compares entire bone state and ordered timer
+events against the table-selected concrete operation across every fixture row,
+leg/no-leg and no-tail bodies, three tail forms, direction values, general-pose
+overrides/full-width non-overrides and negative/zero/NaN clearances. The mounted
+tail-pose suite also independently composes each Writhe/receptive amplitude,
+including zero-segment and incapable-before-timer paths. Both are included in
+`just test-native-dp-mounted`.
+
+These checks prove the reconstructed Rust stage and static native bindings,
+not original-client execution, libm/NaN-payload bit parity or a rendered avatar.
+Torso/limb stages, full Animate ordering, production body/timer/model ownership,
+actual Person context/session application and native avatar mesh publication
+remain required under the original end-to-end objective.

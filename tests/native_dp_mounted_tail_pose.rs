@@ -166,3 +166,62 @@ fn mounted_body_rhythmic_tail_motions_and_relaxation_compose_real_bones() {
         }
     }
 }
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION pointing to a user-provided copy"]
+fn mounted_writhe_and_receptive_use_distinct_pose_words_and_pre_timer_capability_gates() {
+    let mount = AssetMount::open(
+        std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation path"),
+    )
+    .unwrap();
+    let mut cache = NativeDpHandCache::new(&mount);
+    for selector in [0, 2] {
+        for form in [0, 3, 6] {
+            let mut dna = NativeDhDna([0; 24]);
+            dna.0[1] = 1;
+            dna.0[14] = selector << 6 | 0x30;
+            dna.0[16] = form;
+            let mut initialized = NativeDpInitialization::begin(&dna);
+            initialized.finish_part_calculations(0, &mut cache).unwrap();
+            for word in [49, 50, 51, 52, 136] {
+                let mut body = initialized.clone();
+                let mut expected = body.bones().clone();
+                let mut timer = Timer::default();
+                let tail = body
+                    .parts()
+                    .iter()
+                    .find(|p| p.allocation.kind == NativeDpPartKind::Tail)
+                    .unwrap();
+                let vertical = word == 50 || word == 51;
+                let capable = if vertical {
+                    tail.tail_can_bend_vertically().unwrap()
+                } else {
+                    tail.tail_can_bend_laterally().unwrap()
+                };
+                if capable {
+                    let wave = native_dh_pose_rhythm(&dna, word, 0., 1., &mut timer).unwrap();
+                    let angle = (wave * 1.5 + 15.) * f32::from_bits(0x3c8efa35);
+                    tail.slither_tail(
+                        &mut expected,
+                        body.dimensions(),
+                        if vertical { angle } else { 0. },
+                        if vertical { 0. } else { angle },
+                    )
+                    .unwrap();
+                }
+                let events = timer.events.clone();
+                timer.events.clear();
+                match word {
+                    49 => body.writhe_tail_facing_down(&mut timer),
+                    50 => body.writhe_tail_facing_left(&mut timer),
+                    51 => body.writhe_tail_facing_right(&mut timer),
+                    52 => body.writhe_tail_facing_up(&mut timer),
+                    _ => body.receptive_tail_facing_up(&mut timer),
+                }
+                .unwrap();
+                assert_eq!(*body.bones(), expected);
+                assert_eq!(timer.events, events);
+            }
+        }
+    }
+}

@@ -1,0 +1,118 @@
+{
+  "evidence_id": "ev_793ffb15eca1c34519eec5813353f7c17064894c99aeb22caf136dc91ae2656e",
+  "subject": {
+    "name": "OpenShores.exe",
+    "digest": {
+      "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+    },
+    "format": "pe",
+    "architecture": "x86_64",
+    "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.2"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+      "no_return_repair": "returning-imports-decoded-return-v2",
+      "process_launch": "inspected-jvm-launch-support-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "_ZN6DpBody12PositionTailEff"
+  },
+  "raw_result": {
+    "value": "\n/* DpBody::PositionTail(float, float) */\n\nvoid __thiscall DpBody::PositionTail(DpBody *this,float param_1,float param_2)\n\n{\n  switch(*(undefined4 *)(this + 0x58)) {\n  case 3:\n  case 5:\n  case 6:\n  case 7:\n  case 8:\n  case 9:\n  case 10:\n  case 0xb:\n  case 0xc:\n  case 0xd:\n  case 0xe:\n  case 0xf:\n  case 0x10:\n  case 0x20:\n  case 0x24:\n  case 0x36:\n  case 0x39:\n  case 0x3a:\n  case 0x3b:\n  case 0x3c:\n  case 0x3d:\n  case 0x3e:\n  case 0x3f:\n  case 0x40:\n  case 0x41:\n  case 0x42:\n  case 0x43:\n  case 0x44:\n  case 0x45:\n  case 0x46:\n  case 0x47:\n  case 0x48:\n  case 0x49:\n  case 0x4a:\n  case 0x54:\n  case 0x55:\n  case 0x56:\n  case 0x57:\n  case 0x58:\n  case 0x59:\n  case 0x5a:\n  case 0x5b:\n  case 0x5c:\n  case 0x5d:\n  case 0x5e:\n  case 0x5f:\n  case 0x60:\n  case 0x61:\n  case 0x62:\n  case 99:\n  case 100:\n  case 0x65:\n  case 0x66:\n  case 0x67:\n  case 0x68:\n  case 0x69:\n  case 0x6a:\n  case 0x6b:\n  case 0x6d:\n  case 0x6e:\n  case 0x6f:\n  case 0x70:\n  case 0x71:\n  case 0x72:\n  case 0x73:\n  case 0x74:\n  case 0x75:\n  case 0x76:\n  case 0x77:\n  case 0x78:\n  case 0x79:\n  case 0x7a:\n  case 0x7b:\n  case 0x7c:\n  case 0x7d:\n  case 0x7e:\n  case 0x7f:\n  case 0x80:\n  case 0x81:\n  case 0x82:\n  case 0x83:\n  case 0x84:\n  case 0x85:\n  case 0x86:\n  case 0x87:\n  case 0x8a:\n  case 0x8b:\n  case 0x8c:\n  case 0x8d:\n  case 0x8e:\n  case 0x8f:\n  case 0x90:\n  case 0x91:\n  case 0x92:\n  case 0x93:\n  case 0x94:\n  case 0x95:\n  case 0x96:\n  case 0x97:\n  case 0x98:\n  case 0x99:\n  case 0x9a:\n  case 0x9b:\n  case 0x9c:\n  case 0x9d:\n  case 0x9e:\n  case 0x9f:\n    if (((byte)this[0x24] & 0xc) != 0) {\n      RelaxTail(this,param_1);\n      return;\n    }\n    break;\n  case 4:\n  case 0x88:\n    ReceptiveTailFacingUp(this);\n    return;\n  case 0x11:\n  case 0x16:\n  case 0x1c:\n  case 0x21:\n  case 0x26:\n  case 0x4b:\n    if (((byte)this[0x24] & 0xc) == 0) {\nLAB_1412e0cc5:\n      SlitherTail(this,(AuPose *)(this + 0x58),param_2);\n      return;\n    }\nLAB_1412e0cb6:\n    WaveTail(this,param_1,param_2);\n    return;\n  case 0x12:\n  case 0x15:\n  case 0x4c:\n  case 0x4f:\n  case 0x50:\n  case 0x53:\n    DeadTailFacingDown(this);\n    return;\n  case 0x13:\n  case 0x14:\n  case 0x4d:\n  case 0x4e:\n  case 0x51:\n  case 0x52:\n    DeadTailFacingLeft(this);\n    return;\n  case 0x17:\n  case 0x2f:\n    if ((*(int *)(this + 0x48) - 0x2aU < 2) || (*(int *)(this + 0x48) == 0x2d)) {\n      param_1 = -1.0;\n    }\n    WagTail(this,param_1);\n    return;\n  case 0x18:\n  case 0x19:\n  case 0x1b:\n  case 0x35:\n    if (((byte)this[0x24] & 0xc) != 0) goto LAB_1412e0cb6;\n    break;\n  case 0x1a:\n  case 0x23:\n  case 0x28:\n  case 0x89:\n    FoldTail(this);\n    return;\n  case 0x1d:\n  case 0x1e:\n    param_2 = 1.0;\n    if ((*(int *)(this + 0x48) - 0x2aU < 2) || (*(int *)(this + 0x48) == 0x2d)) {\n      param_1 = -1.0;\n    }\n    goto LAB_1412e0d50;\n  default:\n    return;\n  case 0x25:\n    if (((byte)this[0x24] & 0xc) == 0) goto LAB_1412e0cc5;\nLAB_1412e0d50:\n    LashTail(this,param_1,param_2);\n    return;\n  case 0x29:\n    if ((1 < *(int *)(this + 0x48) - 0x2aU) && (*(int *)(this + 0x48) != 0x2d)) {\n      StrikeTail(this,param_1);\n      return;\n    }\n    StrikeTail(this,-1.0);\n    return;\n  case 0x2a:\n  case 0x2b:\n  case 0x2d:\n    SwimTail(this);\n    return;\n  case 0x31:\n    WritheTailFacingDown(this);\n    return;\n  case 0x32:\n    WritheTailFacingLeft(this);\n    return;\n  case 0x33:\n    WritheTailFacingRight(this);\n    return;\n  case 0x34:\n  case 0x6c:\n    WritheTailFacingUp(this);\n    return;\n  }\n  SlitherTail(this,(AuPose *)(this + 0x58),1.0);\n  return;\n}\n\n",
+    "limitations": [
+      "Ghidra Listing reports a terminal call at 0x1412e0c96 to 0x1412dfa40 DpBody::RelaxTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0ca0 to 0x1412df0c0 DpBody::DeadTailFacingDown (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0ca8 to 0x1412df1e0 DpBody::DeadTailFacingLeft (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0cb6 to 0x1412dfd60 DpBody::WaveTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0cc9 to 0x1412dee60 DpBody::SlitherTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0ce2 to 0x1412dee60 DpBody::SlitherTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0cf0 to 0x1412deb50 DpBody::FoldTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d00 to 0x1412dfbf0 DpBody::SwimTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d08 to 0x1412df7a0 DpBody::ReceptiveTailFacingUp (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d10 to 0x1412df8f0 DpBody::WritheTailFacingUp (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d28 to 0x1412e0ac0 DpBody::WagTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d50 to 0x1412dff00 DpBody::LashTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d55 to 0x1412df4c0 DpBody::WritheTailFacingDown (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d5a to 0x1412df330 DpBody::WritheTailFacingLeft (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d5f to 0x1412df610 DpBody::WritheTailFacingRight (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d74 to 0x1412dec40 DpBody::StrikeTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+      "Ghidra Listing reports a terminal call at 0x1412e0d88 to 0x1412dec40 DpBody::StrikeTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation."
+    ]
+  },
+  "normalized_result": "\n/* DpBody::PositionTail(float, float) */\n\nvoid __thiscall DpBody::PositionTail(DpBody *this,float param_1,float param_2)\n\n{\n  switch(*(undefined4 *)(this + 0x58)) {\n  case 3:\n  case 5:\n  case 6:\n  case 7:\n  case 8:\n  case 9:\n  case 10:\n  case 0xb:\n  case 0xc:\n  case 0xd:\n  case 0xe:\n  case 0xf:\n  case 0x10:\n  case 0x20:\n  case 0x24:\n  case 0x36:\n  case 0x39:\n  case 0x3a:\n  case 0x3b:\n  case 0x3c:\n  case 0x3d:\n  case 0x3e:\n  case 0x3f:\n  case 0x40:\n  case 0x41:\n  case 0x42:\n  case 0x43:\n  case 0x44:\n  case 0x45:\n  case 0x46:\n  case 0x47:\n  case 0x48:\n  case 0x49:\n  case 0x4a:\n  case 0x54:\n  case 0x55:\n  case 0x56:\n  case 0x57:\n  case 0x58:\n  case 0x59:\n  case 0x5a:\n  case 0x5b:\n  case 0x5c:\n  case 0x5d:\n  case 0x5e:\n  case 0x5f:\n  case 0x60:\n  case 0x61:\n  case 0x62:\n  case 99:\n  case 100:\n  case 0x65:\n  case 0x66:\n  case 0x67:\n  case 0x68:\n  case 0x69:\n  case 0x6a:\n  case 0x6b:\n  case 0x6d:\n  case 0x6e:\n  case 0x6f:\n  case 0x70:\n  case 0x71:\n  case 0x72:\n  case 0x73:\n  case 0x74:\n  case 0x75:\n  case 0x76:\n  case 0x77:\n  case 0x78:\n  case 0x79:\n  case 0x7a:\n  case 0x7b:\n  case 0x7c:\n  case 0x7d:\n  case 0x7e:\n  case 0x7f:\n  case 0x80:\n  case 0x81:\n  case 0x82:\n  case 0x83:\n  case 0x84:\n  case 0x85:\n  case 0x86:\n  case 0x87:\n  case 0x8a:\n  case 0x8b:\n  case 0x8c:\n  case 0x8d:\n  case 0x8e:\n  case 0x8f:\n  case 0x90:\n  case 0x91:\n  case 0x92:\n  case 0x93:\n  case 0x94:\n  case 0x95:\n  case 0x96:\n  case 0x97:\n  case 0x98:\n  case 0x99:\n  case 0x9a:\n  case 0x9b:\n  case 0x9c:\n  case 0x9d:\n  case 0x9e:\n  case 0x9f:\n    if (((byte)this[0x24] & 0xc) != 0) {\n      RelaxTail(this,param_1);\n      return;\n    }\n    break;\n  case 4:\n  case 0x88:\n    ReceptiveTailFacingUp(this);\n    return;\n  case 0x11:\n  case 0x16:\n  case 0x1c:\n  case 0x21:\n  case 0x26:\n  case 0x4b:\n    if (((byte)this[0x24] & 0xc) == 0) {\nLAB_1412e0cc5:\n      SlitherTail(this,(AuPose *)(this + 0x58),param_2);\n      return;\n    }\nLAB_1412e0cb6:\n    WaveTail(this,param_1,param_2);\n    return;\n  case 0x12:\n  case 0x15:\n  case 0x4c:\n  case 0x4f:\n  case 0x50:\n  case 0x53:\n    DeadTailFacingDown(this);\n    return;\n  case 0x13:\n  case 0x14:\n  case 0x4d:\n  case 0x4e:\n  case 0x51:\n  case 0x52:\n    DeadTailFacingLeft(this);\n    return;\n  case 0x17:\n  case 0x2f:\n    if ((*(int *)(this + 0x48) - 0x2aU < 2) || (*(int *)(this + 0x48) == 0x2d)) {\n      param_1 = -1.0;\n    }\n    WagTail(this,param_1);\n    return;\n  case 0x18:\n  case 0x19:\n  case 0x1b:\n  case 0x35:\n    if (((byte)this[0x24] & 0xc) != 0) goto LAB_1412e0cb6;\n    break;\n  case 0x1a:\n  case 0x23:\n  case 0x28:\n  case 0x89:\n    FoldTail(this);\n    return;\n  case 0x1d:\n  case 0x1e:\n    param_2 = 1.0;\n    if ((*(int *)(this + 0x48) - 0x2aU < 2) || (*(int *)(this + 0x48) == 0x2d)) {\n      param_1 = -1.0;\n    }\n    goto LAB_1412e0d50;\n  default:\n    return;\n  case 0x25:\n    if (((byte)this[0x24] & 0xc) == 0) goto LAB_1412e0cc5;\nLAB_1412e0d50:\n    LashTail(this,param_1,param_2);\n    return;\n  case 0x29:\n    if ((1 < *(int *)(this + 0x48) - 0x2aU) && (*(int *)(this + 0x48) != 0x2d)) {\n      StrikeTail(this,param_1);\n      return;\n    }\n    StrikeTail(this,-1.0);\n    return;\n  case 0x2a:\n  case 0x2b:\n  case 0x2d:\n    SwimTail(this);\n    return;\n  case 0x31:\n    WritheTailFacingDown(this);\n    return;\n  case 0x32:\n    WritheTailFacingLeft(this);\n    return;\n  case 0x33:\n    WritheTailFacingRight(this);\n    return;\n  case 0x34:\n  case 0x6c:\n    WritheTailFacingUp(this);\n    return;\n  }\n  SlitherTail(this,(AuPose *)(this + 0x58),1.0);\n  return;\n}\n\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "Ghidra Listing reports a terminal call at 0x1412e0c96 to 0x1412dfa40 DpBody::RelaxTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0ca0 to 0x1412df0c0 DpBody::DeadTailFacingDown (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0ca8 to 0x1412df1e0 DpBody::DeadTailFacingLeft (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0cb6 to 0x1412dfd60 DpBody::WaveTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0cc9 to 0x1412dee60 DpBody::SlitherTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0ce2 to 0x1412dee60 DpBody::SlitherTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0cf0 to 0x1412deb50 DpBody::FoldTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d00 to 0x1412dfbf0 DpBody::SwimTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d08 to 0x1412df7a0 DpBody::ReceptiveTailFacingUp (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d10 to 0x1412df8f0 DpBody::WritheTailFacingUp (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d28 to 0x1412e0ac0 DpBody::WagTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d50 to 0x1412dff00 DpBody::LashTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d55 to 0x1412df4c0 DpBody::WritheTailFacingDown (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d5a to 0x1412df330 DpBody::WritheTailFacingLeft (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d5f to 0x1412df610 DpBody::WritheTailFacingRight (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d74 to 0x1412dec40 DpBody::StrikeTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "Ghidra Listing reports a terminal call at 0x1412e0d88 to 0x1412dec40 DpBody::StrikeTail (external=false, thunk=false, hasNoReturn=false); fallthrough is excluded by Ghidra's flow model. The reason for the terminal flow is not established by this observation.",
+    "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+  ],
+  "locations": [],
+  "evidence_links": []
+}
