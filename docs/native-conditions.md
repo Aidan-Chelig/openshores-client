@@ -39,5 +39,22 @@ have distinct additional zero/string initializers; full semantic defaults
 remain unestablished. Fire has only the base-sized allocation (`0x10` bytes).
 These observed constructors do not establish the virtual receive body layouts.
 
-Next resolve the base reader and concrete virtual receive bindings, then compose
+## Shared reader
+
+Complete reviewed base-reader evidence: `evidence/native-condition-base.json`,
+`ev_9db76c8fc28cdf8914d87bee588913e6d5167d46e7add7a805b07f2024c036f2`.
+The reader delegates solely to `AuTime::operator<<` for field `0x08`.
+It does not itself read a type byte or an additional condition flags byte.
+Do not assume this time uses the compressed effect-time algorithm without
+checking AuTime's reader.
+
+Independent COFF symbol inventory places base and Fire receive symbols at the
+same entry `0x1408b63b0`. Other receive entries are distinct: ImplantDNA
+`0x1408b63c0`, Poison `0x1408b65e0`, Disease `0x1408b6630`, Paralysis
+`0x1408b6680`, Acid `0x1408b66d0`, Bandage `0x1408b6720`, Antitoxin
+`0x1408b6760`, ImplantSpecies `0x1408b6b50`, Thought `0x1408b6b80`, Pregnant
+`0x1408b6c60`, Bounty `0x1408b6db0`. Symbol aliasing alone is not the full
+virtual-table binding proof or a reconstruction of their nested bodies.
+
+Next resolve time and concrete virtual receive bindings, then compose
 the concrete counted layer into Unit reception.
