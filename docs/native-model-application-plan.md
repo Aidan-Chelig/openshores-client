@@ -379,10 +379,32 @@ neighbors/flags, zero/NaN paths and cancellation-sensitive multiplication.
 The mounted sixteen-part initialization test additionally reads every concrete
 attachment and rotates each actual initialized head around its attachment.
 This is a real skeletal mutation, not full TiltHeadTo or PositionHeads: BendNeck,
-LeanNeck, head matrix assembly and body pose dispatch still require composition.
+head matrix assembly and body pose dispatch still require composition.
 The newly retained `dp-head-bend-part0.json` is evidence for that next work, not
 a claim it is implemented. Production Person context and presentation remain
 required gates below.
+
+`NativeDpPartState::lean_neck` now implements the LeanNeck companion operation.
+It uses the same current-attachment pivot and inclusive bone range, but calls
+native RotateY rather than RotateX (or an inferred Z-axis lean). The shared Rust
+path is justified by a static comparison of both complete nonzero routines:
+all396 normalized instructions match after identifying their single differing
+axis call. Zero-angle wrappers also match. The verifier preserves target symbol
+names, local branch offsets, actual RIP-target comments and instruction operands;
+it removes differing absolute branch addresses/RIP displacements, not arbitrary
+constants or control flow. This is structural static evidence, not original-game
+runtime verification.
+
+`just test-native-dp-neck` now runs `tests/native_dp_neck.py` before fixtures.
+Complete records are `docs/evidence/native-dp-head-lean{,-part0}.json`, with
+wrapper/clone instructions in `native-dp-neck-lean-gnu.txt`. The wrapper's
+decompiled apparent self-call is resolved by the actual jump to the nonzero
+clone; no recursive Rust implementation was introduced. The existing retained
+analysis was reused without another executable import or decompilation query.
+Tests exercise both operations across head/count ranges, verify Y-axis signs and
+pivot translation, zero/NaN behavior and unsupported non-head parts. The mounted
+sixteen-part body test composes rotation and leaning on each initialized head.
+BendNeck and the remaining full head/body animation gates still apply.
 
 Bone transforms now implement the native in-place RotateX/RotateY/RotateZ and
 Translate operations on `NativeDpBoneTransform`. These mix the existing columns

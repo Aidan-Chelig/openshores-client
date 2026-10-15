@@ -170,6 +170,7 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
         if matches!(part.joints, NativeDpPartJoints::Head { .. }) {
             let mut bones = body.bones().clone();
             part.rotate_neck(&mut bones, 0.25).unwrap();
+            part.lean_neck(&mut bones, -0.375).unwrap();
             let moved = part.current_connect_loc(&bones).unwrap();
             for axis in 0..3 {
                 assert!((moved[axis] - attachment[axis]).abs() < 1e-12);

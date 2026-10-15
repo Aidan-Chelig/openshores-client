@@ -1,4 +1,4 @@
-//! Concrete DpHeadAndNeck::RotateNeck, not complete TiltHeadTo/PositionHeads.
+//! Concrete RotateNeck/LeanNeck, not complete TiltHeadTo/PositionHeads.
 use super::{NativeDpBoneTransform, NativeDpBoneTransforms, NativeDpPartKind, NativeDpPartState};
 use std::io;
 
@@ -6,10 +6,25 @@ impl NativeDpPartState {
     /// RotateX about the current attachment, premultiplied into all bones in
     /// this head's inclusive native range. Caller supplies the actual owner.
     pub fn rotate_neck(&self, owner: &mut NativeDpBoneTransforms, angle: f32) -> io::Result<()> {
+        self.transform_neck(owner, angle, false)
+    }
+
+    /// Native LeanNeck uses RotateY about the current attachment, NOT RotateZ.
+    /// Static comparison proves the remaining instruction sequence is shared.
+    pub fn lean_neck(&self, owner: &mut NativeDpBoneTransforms, angle: f32) -> io::Result<()> {
+        self.transform_neck(owner, angle, true)
+    }
+
+    fn transform_neck(
+        &self,
+        owner: &mut NativeDpBoneTransforms,
+        angle: f32,
+        lean: bool,
+    ) -> io::Result<()> {
         if self.allocation.kind != NativeDpPartKind::HeadAndNeck {
             return Err(io::Error::new(
                 io::ErrorKind::Unsupported,
-                "native RotateNeck requires HeadAndNeck",
+                "native neck transform requires HeadAndNeck",
             ));
         }
         // Actual wrapper skips both +0/-0, but not NaN. In particular it does
@@ -20,7 +35,11 @@ impl NativeDpPartState {
         let pivot = self.current_connect_loc(owner)?;
         let mut transform = NativeDpBoneTransform::identity();
         transform.translate(pivot);
-        transform.rotate_x(f64::from(angle));
+        if lean {
+            transform.rotate_y(f64::from(angle));
+        } else {
+            transform.rotate_x(f64::from(angle));
+        }
         transform.translate(pivot.map(|v| -v));
         let start = 7 + usize::from(self.allocation.index == 1) * 5;
         let raw = &self.allocation.dna.0;

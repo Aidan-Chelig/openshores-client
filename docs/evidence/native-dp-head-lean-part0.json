@@ -1,0 +1,83 @@
+{
+  "evidence_id": "ev_fc72d612c66138200252bf890e79fac65278d519277463f40a3f6e4bf529f6be",
+  "subject": {
+    "name": "OpenShores.exe",
+    "digest": {
+      "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+    },
+    "format": "pe",
+    "architecture": "x86_64",
+    "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.2"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+      "no_return_repair": "returning-imports-decoded-return-v2",
+      "process_launch": "inspected-jvm-launch-support-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "_ZN13DpHeadAndNeck8LeanNeckEf.part.0"
+  },
+  "raw_result": {
+    "value": "\n/* DpHeadAndNeck::LeanNeck(float) [clone .part.0] */\n\nvoid __thiscall DpHeadAndNeck::LeanNeck(DpHeadAndNeck *this,float param_1)\n\n{\n  ulonglong uVar1;\n  double dVar2;\n  double dVar3;\n  double dVar4;\n  double dVar5;\n  double dVar6;\n  double dVar7;\n  double dVar8;\n  double dVar9;\n  double dVar10;\n  double dVar11;\n  double dVar12;\n  double dVar13;\n  double dVar14;\n  DpHeadAndNeck DVar15;\n  DpHeadAndNeck DVar16;\n  longlong lVar17;\n  longlong lVar18;\n  int iVar19;\n  ulonglong uVar20;\n  double *pdVar21;\n  double dVar22;\n  double dVar23;\n  double local_308;\n  double dStack_300;\n  double local_2f8;\n  double local_2e8;\n  double local_2e0 [4];\n  double local_2c0;\n  double local_2b8;\n  double local_2b0;\n  double local_2a8;\n  double local_2a0;\n  double local_298;\n  double local_290;\n  double local_288;\n  double dStack_280;\n  double local_278;\n  double dStack_270;\n  undefined1 local_1e8;\n  \n  DVar15 = this[0x1d];\n  DVar16 = this[0x26];\n  uVar1 = (ulonglong)(*(int *)(this + 0x48) == 1) * 5 + 7;\n  (**(code **)(*(longlong *)this + 0x30))(&local_308,this);\n  local_1e8 = 0;\n  pdVar21 = local_2e0;\n  for (lVar18 = 0xb; lVar18 != 0; lVar18 = lVar18 + -1) {\n    *pdVar21 = 0.0;\n    pdVar21 = pdVar21 + 1;\n  }\n  local_2e8 = 1.0;\n  local_2c0 = 1.0;\n  dVar23 = local_2f8 * 0.0;\n  local_298 = 1.0;\n  local_288 = dStack_300 * 0.0 + local_308 + dVar23 + 0.0;\n  dStack_280 = local_308 * 0.0 + dStack_300 + dVar23 + 0.0;\n  dVar22 = dStack_300 * 0.0 + local_308 * 0.0;\n  local_278 = local_2f8 + dVar22 + 0.0;\n  dStack_270 = dVar23 + dVar22 + 1.0;\n  AuMatrix4x4::RotateY((AuMatrix4x4 *)&local_2e8,(double)param_1);\n  local_308 = -local_308;\n  local_2f8 = -local_2f8;\n  dStack_300 = -dStack_300;\n  lVar18 = uVar1 * 0x108 + 0x70;\n  local_288 = local_2e8 * local_308 + local_2e0[3] * dStack_300 + local_2a8 * local_2f8 + local_288;\n  dStack_280 = local_2e0[0] * local_308 + local_2c0 * dStack_300 + local_2a0 * local_2f8 +\n               dStack_280;\n  local_278 = local_2e0[1] * local_308 + local_2b8 * dStack_300 + local_298 * local_2f8 + local_278;\n  dStack_270 = dStack_300 * local_2b0 + local_308 * local_2e0[2] + local_2f8 * local_290 +\n               dStack_270;\n  uVar20 = uVar1;\n  do {\n    lVar17 = *(longlong *)(this + 8);\n    pdVar21 = (double *)(lVar17 + lVar18);\n    lVar18 = lVar18 + 0x108;\n    dVar22 = pdVar21[2];\n    dVar23 = pdVar21[5];\n    dVar2 = pdVar21[6];\n    dVar3 = pdVar21[9];\n    dVar4 = pdVar21[10];\n    dVar5 = pdVar21[0xd];\n    dVar6 = pdVar21[0xe];\n    dVar7 = pdVar21[4];\n    dVar8 = pdVar21[8];\n    dVar9 = pdVar21[0xc];\n    dVar10 = *pdVar21;\n    dVar11 = pdVar21[1];\n    dVar12 = *pdVar21;\n    dVar13 = *pdVar21;\n    dVar14 = pdVar21[1];\n    *pdVar21 = *pdVar21 * local_2e8 + pdVar21[1] * local_2e0[3] + local_2a8 * dVar22 +\n               pdVar21[3] * local_288;\n    pdVar21[1] = local_2a0 * dVar22 + local_2c0 * pdVar21[1] + local_2e0[0] * dVar10 +\n                 dStack_280 * pdVar21[3];\n    pdVar21[2] = local_298 * dVar22 + local_2b8 * dVar11 + local_2e0[1] * dVar12 +\n                 local_278 * pdVar21[3];\n    pdVar21[3] = pdVar21[3] * dStack_270 +\n                 dVar22 * local_290 + local_2b0 * dVar14 + local_2e0[2] * dVar13;\n    pdVar21[4] = local_2e8 * dVar7 + local_2e0[3] * dVar23 + local_2a8 * dVar2 +\n                 pdVar21[7] * local_288;\n    pdVar21[5] = local_2a0 * dVar2 + local_2c0 * dVar23 + local_2e0[0] * dVar7 +\n                 dStack_280 * pdVar21[7];\n    pdVar21[6] = local_298 * dVar2 + local_2b8 * dVar23 + local_2e0[1] * dVar7 +\n                 local_278 * pdVar21[7];\n    pdVar21[7] = pdVar21[7] * dStack_270 +\n                 dVar2 * local_290 + dVar23 * local_2b0 + dVar7 * local_2e0[2];\n    pdVar21[8] = local_2a8 * dVar4 + local_2e0[3] * dVar3 + local_2e8 * dVar8 +\n                 pdVar21[0xb] * local_288;\n    pdVar21[9] = local_2a0 * dVar4 + local_2c0 * dVar3 + local_2e0[0] * dVar8 +\n                 dStack_280 * pdVar21[0xb];\n    pdVar21[10] = local_298 * dVar4 + local_2b8 * dVar3 + local_2e0[1] * dVar8 +\n                  local_278 * pdVar21[0xb];\n    pdVar21[0xb] = pdVar21[0xb] * dStack_270 +\n                   dVar4 * local_290 + dVar3 * local_2b0 + dVar8 * local_2e0[2];\n    pdVar21[0xc] = local_2a8 * dVar6 + local_2e0[3] * dVar5 + local_2e8 * dVar9 +\n                   pdVar21[0xf] * local_288;\n    pdVar21[0xd] = local_2a0 * dVar6 + local_2c0 * dVar5 + local_2e0[0] * dVar9 +\n                   dStack_280 * pdVar21[0xf];\n    pdVar21[0xe] = local_298 * dVar6 + local_2b8 * dVar5 + local_2e0[1] * dVar9 +\n                   local_278 * pdVar21[0xf];\n    pdVar21[0xf] = pdVar21[0xf] * dStack_270 +\n                   dVar9 * local_2e0[2] + dVar5 * local_2b0 + dVar6 * local_290;\n    iVar19 = (int)uVar20;\n    *(undefined1 *)(lVar17 + 0x170 + uVar20 * 0x108) = 0;\n    uVar20 = (ulonglong)(iVar19 + 1);\n  } while (((byte)DVar16 & 3) + ((byte)DVar15 >> 1 & 1) + (int)uVar1 != iVar19);\n  return;\n}\n\n",
+    "limitations": []
+  },
+  "normalized_result": "\n/* DpHeadAndNeck::LeanNeck(float) [clone .part.0] */\n\nvoid __thiscall DpHeadAndNeck::LeanNeck(DpHeadAndNeck *this,float param_1)\n\n{\n  ulonglong uVar1;\n  double dVar2;\n  double dVar3;\n  double dVar4;\n  double dVar5;\n  double dVar6;\n  double dVar7;\n  double dVar8;\n  double dVar9;\n  double dVar10;\n  double dVar11;\n  double dVar12;\n  double dVar13;\n  double dVar14;\n  DpHeadAndNeck DVar15;\n  DpHeadAndNeck DVar16;\n  longlong lVar17;\n  longlong lVar18;\n  int iVar19;\n  ulonglong uVar20;\n  double *pdVar21;\n  double dVar22;\n  double dVar23;\n  double local_308;\n  double dStack_300;\n  double local_2f8;\n  double local_2e8;\n  double local_2e0 [4];\n  double local_2c0;\n  double local_2b8;\n  double local_2b0;\n  double local_2a8;\n  double local_2a0;\n  double local_298;\n  double local_290;\n  double local_288;\n  double dStack_280;\n  double local_278;\n  double dStack_270;\n  undefined1 local_1e8;\n  \n  DVar15 = this[0x1d];\n  DVar16 = this[0x26];\n  uVar1 = (ulonglong)(*(int *)(this + 0x48) == 1) * 5 + 7;\n  (**(code **)(*(longlong *)this + 0x30))(&local_308,this);\n  local_1e8 = 0;\n  pdVar21 = local_2e0;\n  for (lVar18 = 0xb; lVar18 != 0; lVar18 = lVar18 + -1) {\n    *pdVar21 = 0.0;\n    pdVar21 = pdVar21 + 1;\n  }\n  local_2e8 = 1.0;\n  local_2c0 = 1.0;\n  dVar23 = local_2f8 * 0.0;\n  local_298 = 1.0;\n  local_288 = dStack_300 * 0.0 + local_308 + dVar23 + 0.0;\n  dStack_280 = local_308 * 0.0 + dStack_300 + dVar23 + 0.0;\n  dVar22 = dStack_300 * 0.0 + local_308 * 0.0;\n  local_278 = local_2f8 + dVar22 + 0.0;\n  dStack_270 = dVar23 + dVar22 + 1.0;\n  AuMatrix4x4::RotateY((AuMatrix4x4 *)&local_2e8,(double)param_1);\n  local_308 = -local_308;\n  local_2f8 = -local_2f8;\n  dStack_300 = -dStack_300;\n  lVar18 = uVar1 * 0x108 + 0x70;\n  local_288 = local_2e8 * local_308 + local_2e0[3] * dStack_300 + local_2a8 * local_2f8 + local_288;\n  dStack_280 = local_2e0[0] * local_308 + local_2c0 * dStack_300 + local_2a0 * local_2f8 +\n               dStack_280;\n  local_278 = local_2e0[1] * local_308 + local_2b8 * dStack_300 + local_298 * local_2f8 + local_278;\n  dStack_270 = dStack_300 * local_2b0 + local_308 * local_2e0[2] + local_2f8 * local_290 +\n               dStack_270;\n  uVar20 = uVar1;\n  do {\n    lVar17 = *(longlong *)(this + 8);\n    pdVar21 = (double *)(lVar17 + lVar18);\n    lVar18 = lVar18 + 0x108;\n    dVar22 = pdVar21[2];\n    dVar23 = pdVar21[5];\n    dVar2 = pdVar21[6];\n    dVar3 = pdVar21[9];\n    dVar4 = pdVar21[10];\n    dVar5 = pdVar21[0xd];\n    dVar6 = pdVar21[0xe];\n    dVar7 = pdVar21[4];\n    dVar8 = pdVar21[8];\n    dVar9 = pdVar21[0xc];\n    dVar10 = *pdVar21;\n    dVar11 = pdVar21[1];\n    dVar12 = *pdVar21;\n    dVar13 = *pdVar21;\n    dVar14 = pdVar21[1];\n    *pdVar21 = *pdVar21 * local_2e8 + pdVar21[1] * local_2e0[3] + local_2a8 * dVar22 +\n               pdVar21[3] * local_288;\n    pdVar21[1] = local_2a0 * dVar22 + local_2c0 * pdVar21[1] + local_2e0[0] * dVar10 +\n                 dStack_280 * pdVar21[3];\n    pdVar21[2] = local_298 * dVar22 + local_2b8 * dVar11 + local_2e0[1] * dVar12 +\n                 local_278 * pdVar21[3];\n    pdVar21[3] = pdVar21[3] * dStack_270 +\n                 dVar22 * local_290 + local_2b0 * dVar14 + local_2e0[2] * dVar13;\n    pdVar21[4] = local_2e8 * dVar7 + local_2e0[3] * dVar23 + local_2a8 * dVar2 +\n                 pdVar21[7] * local_288;\n    pdVar21[5] = local_2a0 * dVar2 + local_2c0 * dVar23 + local_2e0[0] * dVar7 +\n                 dStack_280 * pdVar21[7];\n    pdVar21[6] = local_298 * dVar2 + local_2b8 * dVar23 + local_2e0[1] * dVar7 +\n                 local_278 * pdVar21[7];\n    pdVar21[7] = pdVar21[7] * dStack_270 +\n                 dVar2 * local_290 + dVar23 * local_2b0 + dVar7 * local_2e0[2];\n    pdVar21[8] = local_2a8 * dVar4 + local_2e0[3] * dVar3 + local_2e8 * dVar8 +\n                 pdVar21[0xb] * local_288;\n    pdVar21[9] = local_2a0 * dVar4 + local_2c0 * dVar3 + local_2e0[0] * dVar8 +\n                 dStack_280 * pdVar21[0xb];\n    pdVar21[10] = local_298 * dVar4 + local_2b8 * dVar3 + local_2e0[1] * dVar8 +\n                  local_278 * pdVar21[0xb];\n    pdVar21[0xb] = pdVar21[0xb] * dStack_270 +\n                   dVar4 * local_290 + dVar3 * local_2b0 + dVar8 * local_2e0[2];\n    pdVar21[0xc] = local_2a8 * dVar6 + local_2e0[3] * dVar5 + local_2e8 * dVar9 +\n                   pdVar21[0xf] * local_288;\n    pdVar21[0xd] = local_2a0 * dVar6 + local_2c0 * dVar5 + local_2e0[0] * dVar9 +\n                   dStack_280 * pdVar21[0xf];\n    pdVar21[0xe] = local_298 * dVar6 + local_2b8 * dVar5 + local_2e0[1] * dVar9 +\n                   local_278 * pdVar21[0xf];\n    pdVar21[0xf] = pdVar21[0xf] * dStack_270 +\n                   dVar9 * local_2e0[2] + dVar5 * local_2b0 + dVar6 * local_290;\n    iVar19 = (int)uVar20;\n    *(undefined1 *)(lVar17 + 0x170 + uVar20 * 0x108) = 0;\n    uVar20 = (ulonglong)(iVar19 + 1);\n  } while (((byte)DVar16 & 3) + ((byte)DVar15 >> 1 & 1) + (int)uVar1 != iVar19);\n  return;\n}\n\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

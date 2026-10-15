@@ -123,6 +123,7 @@ test-native-dp-connections:
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::connection
 
 test-native-dp-neck:
+    nix develop .#server-test --command python tests/native_dp_neck.py
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::neck
 
 # Mounted hands, feet, part calculations and standing heights; entirely offline.

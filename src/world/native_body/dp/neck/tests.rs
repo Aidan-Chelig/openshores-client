@@ -21,6 +21,11 @@ fn head(index: u32, count: u8, second: u8) -> NativeDpPartState {
 
 #[test]
 fn neck_rotates_around_current_attachment_and_only_writes_inclusive_head_range() {
+    check_transform_range(false);
+    check_transform_range(true);
+}
+
+fn check_transform_range(lean: bool) {
     for index in [0, 1, 2, u32::MAX] {
         for count in 0..4 {
             for second in 0..2 {
@@ -34,7 +39,11 @@ fn neck_rotates_around_current_attachment_and_only_writes_inclusive_head_range()
                 }
                 let before = bones.clone();
                 let pivot = head.current_connect_loc(&bones).unwrap();
-                head.rotate_neck(&mut bones, 0.375).unwrap();
+                if lean {
+                    head.lean_neck(&mut bones, 0.375).unwrap();
+                } else {
+                    head.rotate_neck(&mut bones, 0.375).unwrap();
+                }
                 let after = head.current_connect_loc(&bones).unwrap();
                 for i in 0..3 {
                     assert!((after[i] - pivot[i]).abs() < 1e-12);
@@ -50,6 +59,39 @@ fn neck_rotates_around_current_attachment_and_only_writes_inclusive_head_range()
             }
         }
     }
+}
+
+#[test]
+fn lean_uses_y_axis_and_preserves_the_native_wrapper_cases() {
+    let mut head = head(0, 0, 0);
+    head.connect_30 = [2., 3., 4.];
+    let mut bones = NativeDpBoneTransforms::initialized();
+    for bone in &mut bones.slots {
+        bone.field_100 = 251;
+    }
+    let before = bones.clone();
+    for angle in [0., -0.] {
+        head.lean_neck(&mut bones, angle).unwrap();
+        assert_eq!(bones, before);
+    }
+    head.lean_neck(&mut bones, 0.375).unwrap();
+    let (s, c) = f64::from(0.375_f32).sin_cos();
+    let m = bones.slots[7].matrix_00;
+    assert!((m[0] - c).abs() < 1e-12);
+    assert!((m[2] + s).abs() < 1e-12);
+    assert!((m[8] - s).abs() < 1e-12);
+    assert!((m[10] - c).abs() < 1e-12);
+    assert_eq!(m[5], 1.);
+    assert!((m[12] - (2. - 2. * c - 4. * s)).abs() < 1e-12);
+    assert!((m[14] - (4. + 2. * s - 4. * c)).abs() < 1e-12);
+    assert!(m[13].abs() < 1e-12);
+    head.lean_neck(&mut bones, f32::NAN).unwrap();
+    assert!(bones.slots[7].matrix_00.iter().any(|x| x.is_nan()));
+    head.allocation.kind = NativeDpPartKind::Tail;
+    assert_eq!(
+        head.lean_neck(&mut bones, 0.375).unwrap_err().kind(),
+        io::ErrorKind::Unsupported
+    );
 }
 
 #[test]
