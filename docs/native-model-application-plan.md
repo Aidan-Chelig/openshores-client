@@ -224,8 +224,35 @@ first-object anchors, excluded helpers and exact offset bits. The mounted test
 now also computes and repeats HandLength for all64 numbered resources and PA,
 checking finite nonnegative results and stable cached bits. This tests actual
 user assets in Rust, not native runtime or rendering parity. Body initialization
-still needs to consume this provider in the four nonempty part OneTimeCalcs
-methods, followed by real poses/animation and production dispatch integration.
+now consumes this provider in the arm part OneTimeCalcs phase, with the other
+three nonempty part calculations reconstructed as described below. Real
+poses/animation and production dispatch integration remain required.
+
+### Dp part calculation state
+
+`NativeDpInitialization` composes the existing allocation and dimension readers
+with Torso's no-op and the Tail, HeadAndNeck, ArmAndHand and LegAndFoot
+OneTimeCalcs. Connection and joint coordinates retain their native offsets in
+the public state names. The implementation preserves mixed float/double stages,
+the unsigned arm-index subtraction, signed leg-index division and negative zero.
+The retained `dp-{torso,tail,head,arm,leg}-onetime.json` records in
+`target/native-model-analysis-4` are the static reconstruction evidence; these
+are not original-game runtime observations.
+
+Arms call the concrete mounted HandLength cache with the owner body's original
+DNA, even when allocation cleared wing bits in an individual arm's copy. Missing
+resources propagate an error after the native pre-call connection/elbow/wrist
+writes; no synthetic hand point is published. The Rust progress cursor retries
+the failing part on resumption and does not recalculate completed parts. That
+cursor is orchestration state, not a claimed field from the native executable.
+
+Offline tests cover no-arm bodies, arm partial writes and retry, bilateral
+coordinates, duplicate heads and signed zero. The opt-in mounted test initializes
+a sixteen-part body through this public API, verifies the actual mounted hand
+offsets and repeated completion. These tests do not establish native render
+parity. This is deliberately an initialization phase, not a complete DpBody:
+bone-matrix reset, remaining constructor state, pose/animation, full mesh
+generation and production Person context still need implementation.
 
 All previously queued queries completed successfully after the single672.161s
 import; complete results remain in that directory. Their successful retention

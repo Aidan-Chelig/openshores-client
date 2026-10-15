@@ -14,6 +14,8 @@ mod hand_geometry;
 pub use hand_geometry::NativeDpHandGeometry;
 mod hand_cache;
 pub use hand_cache::NativeDpHandCache;
+mod initialization;
+pub use initialization::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum NativeDpPartKind {

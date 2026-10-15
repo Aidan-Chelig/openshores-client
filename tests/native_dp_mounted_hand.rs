@@ -2,7 +2,9 @@
 use openshores_client::{
     asset_mount::AssetMount,
     world::{
-        native_body::{NativeDpHandCache, NativeDpHandResource},
+        native_body::{
+            NativeDpHandCache, NativeDpHandResource, NativeDpInitialization, NativeDpPartJoints,
+        },
         native_dna::NativeDhDna,
     },
 };
@@ -63,4 +65,44 @@ fn native_hand_selection_reads_and_decodes_user_mounted_resources() {
     eprintln!(
         "Mounted native hands: {decoded} decoded, {missing} absent, {vertices} raw vertices; PA hand decoded. No native HandLength/render parity claim."
     );
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION pointing to a user-provided copy"]
+fn native_part_initialization_consumes_mounted_body_hand_geometry() {
+    let path = std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation path");
+    let mount = AssetMount::open(path).unwrap();
+    let mut cache = NativeDpHandCache::new(&mount);
+    let mut dna = NativeDhDna([0; 24]);
+    dna.0[1] = 3;
+    dna.0[2] = 2;
+    dna.0[5] = 2;
+    dna.0[12] = 12;
+    dna.0[14] = 0x30;
+    dna.0[20] = 0x60;
+    let hand = cache.hand_length(&dna, 0, false).unwrap();
+    let mut body = NativeDpInitialization::begin(&dna);
+    assert_eq!(body.parts().len(), 16);
+    assert!(!body.parts_calculated());
+    body.finish_part_calculations(0, &mut cache).unwrap();
+    assert!(body.parts_calculated());
+    for part in body.parts() {
+        assert!(part.connect_30.iter().all(|n| n.is_finite()));
+        if let NativeDpPartJoints::Arm {
+            field_70, field_88, ..
+        } = part.joints
+        {
+            assert_eq!(
+                field_88,
+                [
+                    field_70[0],
+                    f64::from(hand) * 0.5 + field_70[1],
+                    field_70[2]
+                ]
+            );
+        }
+    }
+    let completed = body.parts().to_vec();
+    body.finish_part_calculations(0, &mut cache).unwrap();
+    assert_eq!(body.parts(), completed);
 }

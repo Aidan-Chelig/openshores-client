@@ -6,3 +6,4 @@ pub use dp::{
     NativeDpHandResource, NativeDpModelDna, NativeDpPartKind, native_allocate_dp_parts,
     native_dh_arm_vertices, native_dh_waist_vertex, native_dp_size_factor,
 };
+pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
