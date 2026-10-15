@@ -8,6 +8,12 @@ use std::{
 
 pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
     match args.first().map(String::as_str) {
+        Some("view-native-body") => {
+            #[cfg(feature = "viewer")]
+            super::native_preview::run(&args[1..])?;
+            #[cfg(not(feature = "viewer"))]
+            return Err("view-native-body requires --features viewer".into());
+        }
         Some("dump-model-roles") if args.len() == 2 => {
             let mut data = Vec::new();
             fs::File::open(&args[1])?

@@ -4,6 +4,10 @@ set shell := ["bash", "-euo", "pipefail", "-c"]
 default:
     @just --list
 
+# Offline merged fixture head/torso inspector; no server or original executable.
+preview-avatar part="head" installation="reference/hazeron" angle="60":
+    nix develop .#server-test --command cargo run --offline --features viewer --bin openshores-client -- view-native-body {{quote(installation)}} {{quote(part)}} --smooth-angle {{quote(angle)}}
+
 # Inspect assets without extraction; installation files are never executed.
 assets installation="reference/hazeron": build
     nix develop .#server-test --command target/debug/openshores-client inspect-mount {{quote(installation)}}

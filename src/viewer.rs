@@ -9,9 +9,11 @@ use bevy::{
     render::render_resource::PrimitiveTopology,
 };
 use std::io;
+mod auto_smooth;
 
 #[derive(Resource)]
 struct DisplayGeometry {
+    crease_degrees: Option<f64>,
     meshes: Vec<DisplayMesh>,
     smooth: bool,
     terrain_probe: Option<TerrainProbe>,
@@ -105,6 +107,7 @@ fn geometry(model: &Model) -> io::Result<DisplayGeometry> {
         })
         .collect();
     Ok(DisplayGeometry {
+        crease_degrees: None,
         terrain_probe: None,
         meshes,
         smooth: false,
@@ -114,6 +117,24 @@ fn geometry(model: &Model) -> io::Result<DisplayGeometry> {
 /// Launches only this Rust inspector; it does not execute the original client.
 pub fn run(model: &Model, smoke_frames: Option<u32>, unlit: bool) -> io::Result<()> {
     launch(geometry(model)?, smoke_frames, unlit)
+}
+
+/// Diagnostic normals only; source topology and native normal records are unchanged.
+pub fn run_auto_smooth(
+    model: &Model,
+    smoke_frames: Option<u32>,
+    unlit: bool,
+    angle_degrees: f64,
+) -> io::Result<()> {
+    if !angle_degrees.is_finite() || !(0.0..=180.0).contains(&angle_degrees) {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidInput,
+            "smoothing angle must be finite and in 0..=180 degrees",
+        ));
+    }
+    let mut display = geometry(model)?;
+    display.crease_degrees = Some(angle_degrees);
+    launch(display, smoke_frames, unlit)
 }
 
 fn terrain_geometry(mesh: &crate::terrain_mesh::TerrainMesh) -> DisplayGeometry {
@@ -135,6 +156,7 @@ fn terrain_geometry(mesh: &crate::terrain_mesh::TerrainMesh) -> DisplayGeometry 
             scale: 2.0 / span,
             base_radius: mesh.statistics().base_radius,
         }),
+        crease_degrees: None,
         smooth: true,
         meshes: vec![DisplayMesh {
             colors: Some(elevation_colors(mesh.positions())),
@@ -258,7 +280,9 @@ fn setup(
         if triangles.is_empty() {
             continue;
         }
-        let mut mesh = if geometry.smooth {
+        let mut mesh = if let Some(angle) = geometry.crease_degrees {
+            auto_smooth::mesh(positions, triangles, angle)
+        } else if geometry.smooth {
             smooth_mesh(positions, triangles)
         } else {
             flat_mesh(positions, triangles)
@@ -590,6 +614,7 @@ mod tests {
         let mut app = App::new();
         app.insert_resource(DisplayGeometry {
             terrain_probe: None,
+            crease_degrees: None,
             smooth: false,
             meshes: vec![DisplayMesh {
                 colors: None,
@@ -806,6 +831,7 @@ mod tests {
         let mut app = App::new();
         app.insert_resource(DisplayGeometry {
             terrain_probe: None,
+            crease_degrees: None,
             smooth: false,
             meshes: vec![DisplayMesh {
                 colors: None,

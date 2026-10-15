@@ -1,5 +1,7 @@
 # Native avatar geometry presentation boundary
 
+Next milestone: [textured native avatar previews](avatar-textures-goal.md).
+
 `NativeAvatarPresentation::from_dispatched` still publishes only verified
 received state and leaves model-space geometry absent. It does not infer DNA,
 body models, assembly success, bone pose or global placement from identity.
@@ -52,3 +54,27 @@ Still required for automatic in-game avatars: native model cache/merge
 application, an owning production receive context, attachment of actual assembled
 body geometry after successful receive, bone posing/skinning, and verified world
 placement. This rendering boundary alone does not complete avatar integration.
+# Interactive mounted previews
+
+Run `just preview-avatar` for the merged head or `just preview-avatar torso`
+for the merged torso. An optional second argument selects the user installation
+(default `reference/hazeron`), and a third selects the smoothing angle in degrees
+(default 60). For example, `just preview-avatar head reference/hazeron 30`.
+Use 0 for flat shading. The CLI also accepts `--smooth-angle 0..180`.
+These open the offline Rust geometry inspector;
+no server connection or reference executable is involved, and the installation
+is read-only. Drag to orbit, wheel to zoom, L toggles lighting, W toggles wire
+display, R resets the camera, and Escape closes the window.
+
+These use the same explicit fixture DNA and head/torso geometry stages as the
+mounted preview tests. They are separate, untextured, unposed model-space parts,
+not a complete avatar, received player appearance, or native instance/skinning
+parity. The inspector centers and scales geometry for viewing only.
+
+Auto smoothing generates area-weighted corner normals across shared edges whose
+face angle is strictly below the threshold. Exact coincident positions identify
+seam edges without changing the source vertices. Sharp, boundary, non-manifold,
+and degenerate edges remain split; disconnected fans touching only at a vertex
+are not smoothed together. These are diagnostic render normals, not an
+interpretation or replacement of native smoothing groups/normal records. Terrain
+and the connected client keep their existing normal generation.
