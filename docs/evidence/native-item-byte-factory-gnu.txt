@@ -1,0 +1,579 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414f05e0 <_ZN6AuItem6CreateEh>:
+   1414f05e0:	41 55                	push   %r13
+   1414f05e2:	41 54                	push   %r12
+   1414f05e4:	53                   	push   %rbx
+   1414f05e5:	48 83 ec 70          	sub    $0x70,%rsp
+   1414f05e9:	0f 29 74 24 50       	movaps %xmm6,0x50(%rsp)
+   1414f05ee:	0f 29 7c 24 60       	movaps %xmm7,0x60(%rsp)
+   1414f05f3:	41 89 cc             	mov    %ecx,%r12d
+   1414f05f6:	80 f9 18             	cmp    $0x18,%cl
+   1414f05f9:	77 15                	ja     1414f0610 <_ZN6AuItem6CreateEh+0x30>
+   1414f05fb:	48 8d 15 36 0d df 00 	lea    0xdf0d36(%rip),%rdx        # 1422e1338 <.rdata+0x2478>
+   1414f0602:	0f b6 c1             	movzbl %cl,%eax
+   1414f0605:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+   1414f0609:	48 01 d0             	add    %rdx,%rax
+   1414f060c:	ff e0                	jmp    *%rax
+   1414f060e:	66 90                	xchg   %ax,%ax
+   1414f0610:	48 8b 05 09 13 df 00 	mov    0xdf1309(%rip),%rax        # 1422e1920 <CSWTCH.2048+0xa0>
+   1414f0617:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f061b:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   1414f0620:	48 8d 54 24 30       	lea    0x30(%rsp),%rdx
+   1414f0625:	4c 89 e9             	mov    %r13,%rcx
+   1414f0628:	0f 11 44 24 38       	movups %xmm0,0x38(%rsp)
+   1414f062d:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+   1414f0632:	48 8d 05 f1 04 df 00 	lea    0xdf04f1(%rip),%rax        # 1422e0b2a <.rdata+0x1c6a>
+   1414f0639:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   1414f063e:	ff 15 c4 29 3a 01    	call   *0x13a29c4(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   1414f0644:	48 8d 15 65 0c df 00 	lea    0xdf0c65(%rip),%rdx        # 1422e12b0 <.rdata+0x23f0>
+   1414f064b:	4c 89 e9             	mov    %r13,%rcx
+   1414f064e:	e8 3d ab 35 00       	call   14184b190 <_ZN6QDebuglsEPKc>
+   1414f0653:	48 8b 08             	mov    (%rax),%rcx
+   1414f0656:	48 89 c3             	mov    %rax,%rbx
+   1414f0659:	41 0f b6 d4          	movzbl %r12b,%edx
+   1414f065d:	ff 15 35 21 3a 01    	call   *0x13a2135(%rip)        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   1414f0663:	48 8b 0b             	mov    (%rbx),%rcx
+   1414f0666:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414f066a:	0f 85 d0 09 00 00    	jne    1414f1040 <_ZN6AuItem6CreateEh+0xa60>
+   1414f0670:	4c 89 e9             	mov    %r13,%rcx
+   1414f0673:	45 31 e4             	xor    %r12d,%r12d
+   1414f0676:	ff 15 ac 23 3a 01    	call   *0x13a23ac(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1414f067c:	90                   	nop
+   1414f067d:	0f 28 74 24 50       	movaps 0x50(%rsp),%xmm6
+   1414f0682:	0f 28 7c 24 60       	movaps 0x60(%rsp),%xmm7
+   1414f0687:	4c 89 e0             	mov    %r12,%rax
+   1414f068a:	48 83 c4 70          	add    $0x70,%rsp
+   1414f068e:	5b                   	pop    %rbx
+   1414f068f:	41 5c                	pop    %r12
+   1414f0691:	41 5d                	pop    %r13
+   1414f0693:	c3                   	ret
+   1414f0694:	0f 1f 40 00          	nopl   0x0(%rax)
+   1414f0698:	48 8b 1d 09 1f 3a 01 	mov    0x13a1f09(%rip),%rbx        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f069f:	b9 78 00 00 00       	mov    $0x78,%ecx
+   1414f06a4:	e8 ef 38 26 00       	call   141753f98 <_Znwy>
+   1414f06a9:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f06ad:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   1414f06b1:	49 89 c4             	mov    %rax,%r12
+   1414f06b4:	66 48 0f 6e f3       	movq   %rbx,%xmm6
+   1414f06b9:	c6 40 28 00          	movb   $0x0,0x28(%rax)
+   1414f06bd:	31 c0                	xor    %eax,%eax
+   1414f06bf:	66 0f 6c f6          	punpcklqdq %xmm6,%xmm6
+   1414f06c3:	66 41 89 44 24 08    	mov    %ax,0x8(%r12)
+   1414f06c9:	48 8b 05 b8 12 df 00 	mov    0xdf12b8(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f06d0:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f06d6:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f06db:	48 8d 05 8e d5 f5 00 	lea    0xf5d58e(%rip),%rax        # 14244dc70 <_ZTV20AuItemOwnershipTitle+0x10>
+   1414f06e2:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f06e8:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f06ef:	00 00
+   1414f06f1:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f06f8:	00 00
+   1414f06fa:	49 89 04 24          	mov    %rax,(%r12)
+   1414f06fe:	49 c7 44 24 48 00 00 	movq   $0x0,0x48(%r12)
+   1414f0705:	00 00
+   1414f0707:	49 89 5c 24 50       	mov    %rbx,0x50(%r12)
+   1414f070c:	49 c7 44 24 58 00 00 	movq   $0x0,0x58(%r12)
+   1414f0713:	00 00
+   1414f0715:	41 c7 44 24 60 00 00 	movl   $0x0,0x60(%r12)
+   1414f071c:	00 00
+   1414f071e:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0724:	41 0f 11 74 24 68    	movups %xmm6,0x68(%r12)
+   1414f072a:	e9 4e ff ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f072f:	90                   	nop
+   1414f0730:	b9 90 00 00 00       	mov    $0x90,%ecx
+   1414f0735:	e8 5e 38 26 00       	call   141753f98 <_Znwy>
+   1414f073a:	45 31 d2             	xor    %r10d,%r10d
+   1414f073d:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0741:	49 89 c4             	mov    %rax,%r12
+   1414f0744:	48 8b 05 5d 1e 3a 01 	mov    0x13a1e5d(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f074b:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0751:	49 8d 4c 24 50       	lea    0x50(%r12),%rcx
+   1414f0756:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f075b:	48 8b 05 26 12 df 00 	mov    0xdf1226(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0762:	66 45 89 54 24 08    	mov    %r10w,0x8(%r12)
+   1414f0768:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f076d:	48 8d 05 3c f0 f0 00 	lea    0xf0f03c(%rip),%rax        # 1423ff7b0 <_ZTV14AuItemBdDesign+0x10>
+   1414f0774:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f077a:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0780:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0787:	00 00
+   1414f0789:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0790:	00 00
+   1414f0792:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0799:	00 00
+   1414f079b:	49 89 04 24          	mov    %rax,(%r12)
+   1414f079f:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f07a5:	e8 66 c2 ec ff       	call   1413bca10 <_ZN23AuBdDesignExchangeEntryC1Ev>
+   1414f07aa:	e9 ce fe ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f07af:	90                   	nop
+   1414f07b0:	b9 88 00 00 00       	mov    $0x88,%ecx
+   1414f07b5:	e8 de 37 26 00       	call   141753f98 <_Znwy>
+   1414f07ba:	48 89 c1             	mov    %rax,%rcx
+   1414f07bd:	49 89 c4             	mov    %rax,%r12
+   1414f07c0:	e8 1b fd ff ff       	call   1414f04e0 <_ZN18AuItemStorageMediaC1Ev>
+   1414f07c5:	e9 b3 fe ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f07ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1414f07d0:	b9 b8 00 00 00       	mov    $0xb8,%ecx
+   1414f07d5:	48 8d 1d 54 8c f4 00 	lea    0xf48c54(%rip),%rbx        # 142439430 <_ZTV18AuItemTEUContainer+0x10>
+   1414f07dc:	e8 b7 37 26 00       	call   141753f98 <_Znwy>
+   1414f07e1:	31 d2                	xor    %edx,%edx
+   1414f07e3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f07e7:	49 89 c4             	mov    %rax,%r12
+   1414f07ea:	48 8b 05 b7 1d 3a 01 	mov    0x13a1db7(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f07f1:	66 41 89 54 24 08    	mov    %dx,0x8(%r12)
+   1414f07f7:	48 8b 15 8a 11 df 00 	mov    0xdf118a(%rip),%rdx        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f07fe:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0803:	49 89 54 24 0c       	mov    %rdx,0xc(%r12)
+   1414f0808:	49 8d 94 24 88 00 00 	lea    0x88(%r12),%rdx
+   1414f080f:	00
+   1414f0810:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0816:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f081c:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0822:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0829:	00 00
+   1414f082b:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0832:	00 00
+   1414f0834:	49 89 1c 24          	mov    %rbx,(%r12)
+   1414f0838:	49 c7 44 24 48 00 00 	movq   $0x0,0x48(%r12)
+   1414f083f:	00 00
+   1414f0841:	49 89 44 24 50       	mov    %rax,0x50(%r12)
+   1414f0846:	49 89 54 24 58       	mov    %rdx,0x58(%r12)
+   1414f084b:	49 c7 44 24 60 01 00 	movq   $0x1,0x60(%r12)
+   1414f0852:	00 00
+   1414f0854:	49 c7 44 24 68 00 00 	movq   $0x0,0x68(%r12)
+   1414f085b:	00 00
+   1414f085d:	49 c7 44 24 70 00 00 	movq   $0x0,0x70(%r12)
+   1414f0864:	00 00
+   1414f0866:	41 c7 44 24 78 00 00 	movl   $0x3f800000,0x78(%r12)
+   1414f086d:	80 3f
+   1414f086f:	49 c7 84 24 80 00 00 	movq   $0x0,0x80(%r12)
+   1414f0876:	00 00 00 00 00
+   1414f087b:	49 c7 84 24 88 00 00 	movq   $0x0,0x88(%r12)
+   1414f0882:	00 00 00 00 00
+   1414f0887:	41 c7 84 24 90 00 00 	movl   $0x0,0x90(%r12)
+   1414f088e:	00 00 00 00 00
+   1414f0893:	49 89 84 24 98 00 00 	mov    %rax,0x98(%r12)
+   1414f089a:	00
+   1414f089b:	49 c7 84 24 a0 00 00 	movq   $0x0,0xa0(%r12)
+   1414f08a2:	00 00 00 00 00
+   1414f08a7:	49 c7 84 24 b0 00 00 	movq   $0x0,0xb0(%r12)
+   1414f08ae:	00 00 00 00 00
+   1414f08b3:	41 c7 84 24 a8 00 00 	movl   $0x0,0xa8(%r12)
+   1414f08ba:	00 00 00 00 00
+   1414f08bf:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f08c5:	e9 b3 fd ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f08ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1414f08d0:	b9 70 00 00 00       	mov    $0x70,%ecx
+   1414f08d5:	48 8d 1d 84 e5 f1 00 	lea    0xf1e584(%rip),%rbx        # 14240ee60 <_ZTV15AuItemGalaxyLoc+0x10>
+   1414f08dc:	e8 b7 36 26 00       	call   141753f98 <_Znwy>
+   1414f08e1:	31 d2                	xor    %edx,%edx
+   1414f08e3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f08e7:	49 89 c4             	mov    %rax,%r12
+   1414f08ea:	48 8b 05 b7 1c 3a 01 	mov    0x13a1cb7(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f08f1:	66 41 89 54 24 08    	mov    %dx,0x8(%r12)
+   1414f08f7:	48 8b 15 8a 10 df 00 	mov    0xdf108a(%rip),%rdx        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f08fe:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0904:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0908:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f090d:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0913:	49 89 54 24 0c       	mov    %rdx,0xc(%r12)
+   1414f0918:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f091e:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0924:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f092b:	00 00
+   1414f092d:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0934:	00 00
+   1414f0936:	49 89 1c 24          	mov    %rbx,(%r12)
+   1414f093a:	49 c7 44 24 48 00 00 	movq   $0x0,0x48(%r12)
+   1414f0941:	00 00
+   1414f0943:	49 c7 44 24 60 00 00 	movq   $0x0,0x60(%r12)
+   1414f094a:	00 00
+   1414f094c:	49 89 44 24 68       	mov    %rax,0x68(%r12)
+   1414f0951:	41 0f 11 44 24 50    	movups %xmm0,0x50(%r12)
+   1414f0957:	e9 21 fd ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f095c:	0f 1f 40 00          	nopl   0x0(%rax)
+   1414f0960:	b9 88 00 00 00       	mov    $0x88,%ecx
+   1414f0965:	e8 2e 36 26 00       	call   141753f98 <_Znwy>
+   1414f096a:	48 89 c1             	mov    %rax,%rcx
+   1414f096d:	49 89 c4             	mov    %rax,%r12
+   1414f0970:	e8 ab ec fe ff       	call   1414df620 <_ZN12AuItemWeaponC1Ev>
+   1414f0975:	48 8d 05 14 df f2 00 	lea    0xf2df14(%rip),%rax        # 14241e890 <_ZTV16AuItemWeaponAmmo+0x10>
+   1414f097c:	41 c7 84 24 80 00 00 	movl   $0x0,0x80(%r12)
+   1414f0983:	00 00 00 00 00
+   1414f0988:	49 89 04 24          	mov    %rax,(%r12)
+   1414f098c:	e9 ec fc ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0991:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1414f0998:	b9 80 00 00 00       	mov    $0x80,%ecx
+   1414f099d:	e8 f6 35 26 00       	call   141753f98 <_Znwy>
+   1414f09a2:	48 89 c1             	mov    %rax,%rcx
+   1414f09a5:	49 89 c4             	mov    %rax,%r12
+   1414f09a8:	e8 73 ec fe ff       	call   1414df620 <_ZN12AuItemWeaponC1Ev>
+   1414f09ad:	e9 cb fc ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f09b2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1414f09b8:	b9 50 00 00 00       	mov    $0x50,%ecx
+   1414f09bd:	e8 d6 35 26 00       	call   141753f98 <_Znwy>
+   1414f09c2:	45 31 db             	xor    %r11d,%r11d
+   1414f09c5:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f09c9:	49 89 c4             	mov    %rax,%r12
+   1414f09cc:	48 8b 05 d5 1b 3a 01 	mov    0x13a1bd5(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f09d3:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f09d9:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f09de:	48 8b 05 a3 0f df 00 	mov    0xdf0fa3(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f09e5:	66 45 89 5c 24 08    	mov    %r11w,0x8(%r12)
+   1414f09eb:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f09f0:	48 8d 05 29 3d ed 00 	lea    0xed3d29(%rip),%rax        # 1423c4720 <_ZTV10AuItemAmmo+0x10>
+   1414f09f7:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f09fd:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0a03:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0a0a:	00 00
+   1414f0a0c:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0a13:	00 00
+   1414f0a15:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0a1c:	00 00
+   1414f0a1e:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0a22:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0a28:	e9 50 fc ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0a2d:	0f 1f 00             	nopl   (%rax)
+   1414f0a30:	b9 50 00 00 00       	mov    $0x50,%ecx
+   1414f0a35:	45 31 ed             	xor    %r13d,%r13d
+   1414f0a38:	e8 5b 35 26 00       	call   141753f98 <_Znwy>
+   1414f0a3d:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0a41:	49 89 c4             	mov    %rax,%r12
+   1414f0a44:	48 8b 05 5d 1b 3a 01 	mov    0x13a1b5d(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0a4b:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0a51:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0a56:	48 8b 05 2b 0f df 00 	mov    0xdf0f2b(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0a5d:	66 45 89 6c 24 08    	mov    %r13w,0x8(%r12)
+   1414f0a63:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0a68:	48 8d 05 71 14 ee 00 	lea    0xee1471(%rip),%rax        # 1423d1ee0 <_ZTV11AuItemState+0x10>
+   1414f0a6f:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0a75:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0a7b:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0a82:	00 00
+   1414f0a84:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0a8b:	00 00
+   1414f0a8d:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0a94:	00 00
+   1414f0a96:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0a9a:	41 c6 44 24 4c 00    	movb   $0x0,0x4c(%r12)
+   1414f0aa0:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0aa6:	e9 d2 fb ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0aab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414f0ab0:	b9 80 00 00 00       	mov    $0x80,%ecx
+   1414f0ab5:	e8 de 34 26 00       	call   141753f98 <_Znwy>
+   1414f0aba:	48 8b 1d e7 1a 3a 01 	mov    0x13a1ae7(%rip),%rbx        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0ac1:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0ac5:	49 89 c4             	mov    %rax,%r12
+   1414f0ac8:	c6 40 28 00          	movb   $0x0,0x28(%rax)
+   1414f0acc:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   1414f0ad0:	31 c0                	xor    %eax,%eax
+   1414f0ad2:	49 8d 4c 24 50       	lea    0x50(%r12),%rcx
+   1414f0ad7:	66 41 89 44 24 08    	mov    %ax,0x8(%r12)
+   1414f0add:	48 8b 05 a4 0e df 00 	mov    0xdf0ea4(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0ae4:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0aea:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0aef:	48 8d 05 8a ce ef 00 	lea    0xefce8a(%rip),%rax        # 1423ed980 <_ZTV13AuItemMission+0x10>
+   1414f0af6:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0afc:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0b03:	00 00
+   1414f0b05:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0b0c:	00 00
+   1414f0b0e:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0b15:	00 00
+   1414f0b17:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0b1b:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0b21:	e8 0a 3d 11 00       	call   141604830 <_ZN9AuMissionC1Ev>
+   1414f0b26:	49 89 5c 24 78       	mov    %rbx,0x78(%r12)
+   1414f0b2b:	e9 4d fb ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0b30:	b9 90 00 00 00       	mov    $0x90,%ecx
+   1414f0b35:	e8 5e 34 26 00       	call   141753f98 <_Znwy>
+   1414f0b3a:	66 0f 6f 0d ae 0e df 	movdqa 0xdf0eae(%rip),%xmm1        # 1422e19f0 <CSWTCH.2048+0x170>
+   1414f0b41:	00
+   1414f0b42:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0b46:	45 31 c0             	xor    %r8d,%r8d
+   1414f0b49:	49 89 c4             	mov    %rax,%r12
+   1414f0b4c:	48 8b 05 55 1a 3a 01 	mov    0x13a1a55(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0b53:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0b59:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0b5e:	48 8b 05 23 0e df 00 	mov    0xdf0e23(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0b65:	66 45 89 44 24 08    	mov    %r8w,0x8(%r12)
+   1414f0b6b:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0b70:	48 8d 05 79 0f fa 00 	lea    0xfa0f79(%rip),%rax        # 142491af0 <_ZTV9AuItemDNA+0x10>
+   1414f0b77:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0b7d:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0b83:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0b8a:	00 00
+   1414f0b8c:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0b93:	00 00
+   1414f0b95:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0b9c:	00 00
+   1414f0b9e:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0ba2:	41 c6 44 24 60 00    	movb   $0x0,0x60(%r12)
+   1414f0ba8:	41 c7 44 24 74 01 00 	movl   $0x1,0x74(%r12)
+   1414f0baf:	00 00
+   1414f0bb1:	41 c6 44 24 78 00    	movb   $0x0,0x78(%r12)
+   1414f0bb7:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0bbd:	41 0f 11 44 24 50    	movups %xmm0,0x50(%r12)
+   1414f0bc3:	41 0f 11 4c 24 64    	movups %xmm1,0x64(%r12)
+   1414f0bc9:	41 0f 11 84 24 80 00 	movups %xmm0,0x80(%r12)
+   1414f0bd0:	00 00
+   1414f0bd2:	e9 a6 fa ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0bd7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1414f0bde:	00 00
+   1414f0be0:	b9 50 00 00 00       	mov    $0x50,%ecx
+   1414f0be5:	31 db                	xor    %ebx,%ebx
+   1414f0be7:	e8 ac 33 26 00       	call   141753f98 <_Znwy>
+   1414f0bec:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0bf0:	49 89 c4             	mov    %rax,%r12
+   1414f0bf3:	48 8d 05 b6 bb f8 00 	lea    0xf8bbb6(%rip),%rax        # 14247c7b0 <_ZTV6AuItem+0x10>
+   1414f0bfa:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0bfe:	48 8b 05 a3 19 3a 01 	mov    0x13a19a3(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0c05:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0c0b:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0c10:	48 8b 05 71 0d df 00 	mov    0xdf0d71(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0c17:	66 41 89 5c 24 08    	mov    %bx,0x8(%r12)
+   1414f0c1d:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0c22:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0c28:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0c2e:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0c35:	00 00
+   1414f0c37:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0c3e:	00 00
+   1414f0c40:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0c47:	00 00
+   1414f0c49:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0c4f:	e9 29 fa ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0c54:	0f 1f 40 00          	nopl   0x0(%rax)
+   1414f0c58:	b9 68 00 00 00       	mov    $0x68,%ecx
+   1414f0c5d:	48 8d 1d cc cf ef 00 	lea    0xefcfcc(%rip),%rbx        # 1423edc30 <_ZTV13AuItemPicture+0x10>
+   1414f0c64:	e8 2f 33 26 00       	call   141753f98 <_Znwy>
+   1414f0c69:	48 8b 15 18 0d df 00 	mov    0xdf0d18(%rip),%rdx        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0c70:	45 31 c0             	xor    %r8d,%r8d
+   1414f0c73:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0c77:	49 89 c4             	mov    %rax,%r12
+   1414f0c7a:	48 8b 05 27 19 3a 01 	mov    0x13a1927(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0c81:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0c87:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0c8c:	66 45 89 44 24 08    	mov    %r8w,0x8(%r12)
+   1414f0c92:	49 89 54 24 0c       	mov    %rdx,0xc(%r12)
+   1414f0c97:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0c9d:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0ca3:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0caa:	00 00
+   1414f0cac:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0cb3:	00 00
+   1414f0cb5:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0cbc:	00 00
+   1414f0cbe:	49 89 1c 24          	mov    %rbx,(%r12)
+   1414f0cc2:	49 89 44 24 50       	mov    %rax,0x50(%r12)
+   1414f0cc7:	41 c6 44 24 4c 00    	movb   $0x0,0x4c(%r12)
+   1414f0ccd:	41 c6 44 24 58 00    	movb   $0x0,0x58(%r12)
+   1414f0cd3:	41 c7 44 24 5c 00 00 	movl   $0x0,0x5c(%r12)
+   1414f0cda:	00 00
+   1414f0cdc:	49 c7 44 24 60 00 00 	movq   $0x0,0x60(%r12)
+   1414f0ce3:	00 00
+   1414f0ce5:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0ceb:	e9 8d f9 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0cf0:	b9 78 00 00 00       	mov    $0x78,%ecx
+   1414f0cf5:	e8 9e 32 26 00       	call   141753f98 <_Znwy>
+   1414f0cfa:	45 31 db             	xor    %r11d,%r11d
+   1414f0cfd:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0d01:	49 89 c4             	mov    %rax,%r12
+   1414f0d04:	48 8b 05 9d 18 3a 01 	mov    0x13a189d(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0d0b:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0d11:	49 8d 4c 24 4c       	lea    0x4c(%r12),%rcx
+   1414f0d16:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0d1b:	48 8b 05 66 0c df 00 	mov    0xdf0c66(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0d22:	66 45 89 5c 24 08    	mov    %r11w,0x8(%r12)
+   1414f0d28:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0d2d:	48 8d 05 2c ed f0 00 	lea    0xf0ed2c(%rip),%rax        # 1423ffa60 <_ZTV14AuItemFloraDNA+0x10>
+   1414f0d34:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0d3a:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0d40:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0d47:	00 00
+   1414f0d49:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0d50:	00 00
+   1414f0d52:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0d59:	00 00
+   1414f0d5b:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0d5f:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0d65:	e8 a6 63 13 00       	call   141627110 <_ZN10AuFloraDNAC1Ev>
+   1414f0d6a:	45 31 c9             	xor    %r9d,%r9d
+   1414f0d6d:	45 31 d2             	xor    %r10d,%r10d
+   1414f0d70:	41 c6 44 24 5a 00    	movb   $0x0,0x5a(%r12)
+   1414f0d76:	66 45 89 4c 24 58    	mov    %r9w,0x58(%r12)
+   1414f0d7c:	41 c7 44 24 5c 00 00 	movl   $0x0,0x5c(%r12)
+   1414f0d83:	00 00
+   1414f0d85:	41 c6 44 24 60 00    	movb   $0x0,0x60(%r12)
+   1414f0d8b:	66 45 89 54 24 62    	mov    %r10w,0x62(%r12)
+   1414f0d91:	49 c7 44 24 64 00 00 	movq   $0x0,0x64(%r12)
+   1414f0d98:	00 00
+   1414f0d9a:	41 c7 44 24 6c 00 00 	movl   $0x0,0x6c(%r12)
+   1414f0da1:	00 00
+   1414f0da3:	49 c7 44 24 70 00 00 	movq   $0x0,0x70(%r12)
+   1414f0daa:	00 00
+   1414f0dac:	e9 cc f8 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0db1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1414f0db8:	48 8b 1d e9 17 3a 01 	mov    0x13a17e9(%rip),%rbx        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0dbf:	b9 80 00 00 00       	mov    $0x80,%ecx
+   1414f0dc4:	f3 0f 7e 35 74 20 3a 	movq   0x13a2074(%rip),%xmm6        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   1414f0dcb:	01
+   1414f0dcc:	66 48 0f 6e d3       	movq   %rbx,%xmm2
+   1414f0dd1:	66 48 0f 6e fb       	movq   %rbx,%xmm7
+   1414f0dd6:	66 0f 6c f2          	punpcklqdq %xmm2,%xmm6
+   1414f0dda:	66 0f 6c ff          	punpcklqdq %xmm7,%xmm7
+   1414f0dde:	e8 b5 31 26 00       	call   141753f98 <_Znwy>
+   1414f0de3:	31 c9                	xor    %ecx,%ecx
+   1414f0de5:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0de9:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   1414f0ded:	49 89 c4             	mov    %rax,%r12
+   1414f0df0:	c6 40 28 00          	movb   $0x0,0x28(%rax)
+   1414f0df4:	66 89 48 08          	mov    %cx,0x8(%rax)
+   1414f0df8:	48 8b 05 89 0b df 00 	mov    0xdf0b89(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0dff:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0e05:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0e0a:	48 8d 05 cf d7 f2 00 	lea    0xf2d7cf(%rip),%rax        # 14241e5e0 <_ZTV16AuItemOfficerLog+0x10>
+   1414f0e11:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0e17:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0e1e:	00 00
+   1414f0e20:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0e27:	00 00
+   1414f0e29:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0e30:	00 00
+   1414f0e32:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0e36:	49 89 5c 24 70       	mov    %rbx,0x70(%r12)
+   1414f0e3b:	41 c6 44 24 78 00    	movb   $0x0,0x78(%r12)
+   1414f0e41:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0e47:	41 0f 11 74 24 50    	movups %xmm6,0x50(%r12)
+   1414f0e4d:	41 0f 11 7c 24 60    	movups %xmm7,0x60(%r12)
+   1414f0e53:	e9 25 f8 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0e58:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1414f0e5f:	00
+   1414f0e60:	b9 88 00 00 00       	mov    $0x88,%ecx
+   1414f0e65:	e8 2e 31 26 00       	call   141753f98 <_Znwy>
+   1414f0e6a:	48 89 c1             	mov    %rax,%rcx
+   1414f0e6d:	49 89 c4             	mov    %rax,%r12
+   1414f0e70:	e8 ab e7 fe ff       	call   1414df620 <_ZN12AuItemWeaponC1Ev>
+   1414f0e75:	48 8d 05 b4 a7 f3 00 	lea    0xf3a7b4(%rip),%rax        # 14242b630 <_ZTV17AuItemWeaponState+0x10>
+   1414f0e7c:	41 c6 84 24 80 00 00 	movb   $0x0,0x80(%r12)
+   1414f0e83:	00 00
+   1414f0e85:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0e89:	e9 ef f7 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0e8e:	66 90                	xchg   %ax,%ax
+   1414f0e90:	b9 80 00 00 00       	mov    $0x80,%ecx
+   1414f0e95:	e8 fe 30 26 00       	call   141753f98 <_Znwy>
+   1414f0e9a:	45 31 c9             	xor    %r9d,%r9d
+   1414f0e9d:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0ea1:	49 89 c4             	mov    %rax,%r12
+   1414f0ea4:	48 8b 05 fd 16 3a 01 	mov    0x13a16fd(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0eab:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0eb1:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0eb6:	48 8b 05 cb 0a df 00 	mov    0xdf0acb(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0ebd:	66 45 89 4c 24 08    	mov    %r9w,0x8(%r12)
+   1414f0ec3:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0ec8:	48 8d 05 e1 dc f1 00 	lea    0xf1dce1(%rip),%rax        # 14240ebb0 <_ZTV15AuItemContainer+0x10>
+   1414f0ecf:	49 89 04 24          	mov    %rax,(%r12)
+   1414f0ed3:	49 8d 44 24 58       	lea    0x58(%r12),%rax
+   1414f0ed8:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0ede:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0ee4:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0eeb:	00 00
+   1414f0eed:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0ef4:	00 00
+   1414f0ef6:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0efd:	00 00
+   1414f0eff:	41 c7 44 24 58 00 00 	movl   $0x0,0x58(%r12)
+   1414f0f06:	00 00
+   1414f0f08:	49 c7 44 24 60 00 00 	movq   $0x0,0x60(%r12)
+   1414f0f0f:	00 00
+   1414f0f11:	49 89 44 24 68       	mov    %rax,0x68(%r12)
+   1414f0f16:	49 89 44 24 70       	mov    %rax,0x70(%r12)
+   1414f0f1b:	49 c7 44 24 78 00 00 	movq   $0x0,0x78(%r12)
+   1414f0f22:	00 00
+   1414f0f24:	41 c6 44 24 4c 00    	movb   $0x0,0x4c(%r12)
+   1414f0f2a:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0f30:	e9 48 f7 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0f35:	0f 1f 00             	nopl   (%rax)
+   1414f0f38:	b9 58 00 00 00       	mov    $0x58,%ecx
+   1414f0f3d:	31 db                	xor    %ebx,%ebx
+   1414f0f3f:	e8 54 30 26 00       	call   141753f98 <_Znwy>
+   1414f0f44:	48 8b 15 3d 0a df 00 	mov    0xdf0a3d(%rip),%rdx        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0f4b:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0f4f:	49 89 c4             	mov    %rax,%r12
+   1414f0f52:	48 8b 05 4f 16 3a 01 	mov    0x13a164f(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0f59:	66 41 89 5c 24 08    	mov    %bx,0x8(%r12)
+   1414f0f5f:	48 8d 1d 6a 7f f4 00 	lea    0xf47f6a(%rip),%rbx        # 142438ed0 <_ZTV18AuItemStateMessage+0x10>
+   1414f0f66:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0f6b:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0f71:	49 89 54 24 0c       	mov    %rdx,0xc(%r12)
+   1414f0f76:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f0f7c:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0f82:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f0f89:	00 00
+   1414f0f8b:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0f92:	00 00
+   1414f0f94:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f0f9b:	00 00
+   1414f0f9d:	41 c6 44 24 4c 00    	movb   $0x0,0x4c(%r12)
+   1414f0fa3:	49 89 1c 24          	mov    %rbx,(%r12)
+   1414f0fa7:	49 89 44 24 50       	mov    %rax,0x50(%r12)
+   1414f0fac:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0fb2:	e9 c6 f6 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f0fb7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1414f0fbe:	00 00
+   1414f0fc0:	b9 90 00 00 00       	mov    $0x90,%ecx
+   1414f0fc5:	e8 ce 2f 26 00       	call   141753f98 <_Znwy>
+   1414f0fca:	31 c9                	xor    %ecx,%ecx
+   1414f0fcc:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0fd0:	49 89 c4             	mov    %rax,%r12
+   1414f0fd3:	48 8b 05 ce 15 3a 01 	mov    0x13a15ce(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f0fda:	66 41 89 4c 24 08    	mov    %cx,0x8(%r12)
+   1414f0fe0:	49 8d 4c 24 50       	lea    0x50(%r12),%rcx
+   1414f0fe5:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f0fea:	48 8b 05 97 09 df 00 	mov    0xdf0997(%rip),%rax        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f0ff1:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0ff7:	49 89 44 24 0c       	mov    %rax,0xc(%r12)
+   1414f0ffc:	48 8d 05 0d ed f0 00 	lea    0xf0ed0d(%rip),%rax        # 1423ffd10 <_ZTV14AuItemScDesign+0x10>
+   1414f1003:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f1009:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f100f:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f1016:	00 00
+   1414f1018:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f101f:	00 00
+   1414f1021:	41 c7 44 24 48 00 00 	movl   $0x0,0x48(%r12)
+   1414f1028:	00 00
+   1414f102a:	49 89 04 24          	mov    %rax,(%r12)
+   1414f102e:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f1034:	e8 17 33 f2 ff       	call   141414350 <_ZN23AuScDesignExchangeEntryC1Ev>
+   1414f1039:	e9 3f f6 ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f103e:	66 90                	xchg   %ax,%ax
+   1414f1040:	ba 20 00 00 00       	mov    $0x20,%edx
+   1414f1045:	ff 15 35 17 3a 01    	call   *0x13a1735(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1414f104b:	e9 20 f6 ff ff       	jmp    1414f0670 <_ZN6AuItem6CreateEh+0x90>
+   1414f1050:	4c 89 e1             	mov    %r12,%rcx
+   1414f1053:	49 89 c5             	mov    %rax,%r13
+   1414f1056:	e8 35 ce fd ff       	call   1414cde90 <_ZN6AuItemD1Ev>
+   1414f105b:	4c 89 e1             	mov    %r12,%rcx
+   1414f105e:	e8 45 2f 26 00       	call   141753fa8 <_ZdlPv>
+   1414f1063:	4c 89 e9             	mov    %r13,%rcx
+   1414f1066:	e8 cd 42 26 00       	call   141755338 <_Unwind_Resume>
+   1414f106b:	49 89 c5             	mov    %rax,%r13
+   1414f106e:	4c 89 e1             	mov    %r12,%rcx
+   1414f1071:	e8 32 2f 26 00       	call   141753fa8 <_ZdlPv>
+   1414f1076:	4c 89 e9             	mov    %r13,%rcx
+   1414f1079:	e8 ba 42 26 00       	call   141755338 <_Unwind_Resume>
+   1414f107e:	eb d0                	jmp    1414f1050 <_ZN6AuItem6CreateEh+0xa70>
+   1414f1080:	eb ce                	jmp    1414f1050 <_ZN6AuItem6CreateEh+0xa70>
+   1414f1082:	49 89 c4             	mov    %rax,%r12
+   1414f1085:	4c 89 e9             	mov    %r13,%rcx
+   1414f1088:	ff 15 9a 19 3a 01    	call   *0x13a199a(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1414f108e:	4c 89 e1             	mov    %r12,%rcx
+   1414f1091:	e8 a2 42 26 00       	call   141755338 <_Unwind_Resume>
+   1414f1096:	eb b8                	jmp    1414f1050 <_ZN6AuItem6CreateEh+0xa70>
+   1414f1098:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1414f109f:	00

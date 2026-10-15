@@ -274,9 +274,9 @@ fn unsupported_readers_stop_in_order_and_keep_completed_prior_state() {
     assert!(state.domain_1018.unwrap().0.is_empty());
     assert_eq!(state.state_1130, Some(0x8000));
     assert_eq!(input.remaining_bytes(), &bytes[6..]);
-    // Inventory stops after state-bit changes, before its body or late tails.
+    // Unsupported inventory body stops after state bits/count, before late tails.
     let mut state = NativePersonSuffixState::with_prior_fields(0, 0x8000);
-    let bytes = [0x88, 0x40, 0xc5, 0xaa, 0xbb];
+    let bytes = [0x88, 0x40, 0xc5, 0, 0, 0, 1, 4, 0xaa, 0xbb];
     let mut input = QtReader::new(&bytes);
     assert_eq!(
         state
@@ -288,7 +288,7 @@ fn unsupported_readers_stop_in_order_and_keep_completed_prior_state() {
     assert_eq!(state.field_838, Some(5));
     assert_eq!(state.state_1130, Some(0x200000));
     assert_eq!(state.field_83d, None);
-    assert_eq!(input.remaining_bytes(), [0xaa, 0xbb]);
+    assert_eq!(input.remaining_bytes(), [4, 0xaa, 0xbb]);
     // Nonempty Gear really receives its item, then fails at weight, not before.
     let bytes = [0xc0, 1, 1, 0xab, 1, 0, 0, 3, 1, 0xaa];
     let mut state = NativePersonSuffixState::with_prior_fields(0, 0x8000);

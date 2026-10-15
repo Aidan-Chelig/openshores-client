@@ -38,6 +38,7 @@ pub struct NativePersonSuffixState {
     pub weight_13a8: Option<f32>,
     pub domain_1018: Option<NativeDomain>,
     pub jobs_13b8: Option<NativeJobList>,
+    pub inventory_1458: Option<NativeItemHash>,
     pub field_10d0: Option<i32>,
     pub field_f58: Option<i16>,
     pub field_1408: Option<f64>,
@@ -56,6 +57,7 @@ pub struct NativePersonReceive {
     pub timer_restarted: bool,
     pub gear: Option<NativeGearReceive>,
     pub jobs: Option<NativeJobListReceive>,
+    pub inventory: Option<NativeItemHashReceive>,
     pub consumed_bytes: usize,
 }
 

@@ -40,7 +40,7 @@ distinct from GlobeLLF/HitNotify's float destinations.
 
 B40 sets state1130 bit200000 without clearing it on omission. B80 replaces
 bit8000, clearing it when B80/the extension is absent. All unrelated bits are
-retained. C80's unresolved ItemHash comes **after** these state writes, before
+retained. C80's actual ItemHash comes **after** these state writes, before
 the trailing A01 byte10e8 and C40's final83d/83b low/high nibbles.
 
 ## Explicit boundaries
@@ -52,7 +52,10 @@ prior660 fails after consuming A04's short, without applying it. Missing
 state1130 fails at its read-modify-write stage after preceding completed reads.
 The full inherited construction path is still required; this API is not it.
 
-Unsupported JobList datetime profiles and ItemHash fail at their native read positions.
+Unsupported JobList datetime profiles and inventory item bodies/fixup fail at
+their native read stages. Inventory now composes seven real item families,
+duplicate-key retention, the native obsolete filter and null-factory continuation;
+see native-person-inventory.md.
 JobList now supports all27 native body types and empty lists; verified
 null factories report a stop without skipping their unreceived bodies, after
 which the Person suffix continues as native code does. See native-person-jobs.md.

@@ -48,14 +48,18 @@ fn raw_packed_bytes_preserve_native_masks_and_inventory_failure_position() {
         assert_eq!(state.field_f84, Some(packed >> 7));
         assert_eq!(state.field_f88, Some(u32::from((packed >> 3) & 3)));
         let mut state = NativePersonSuffixState::with_prior_fields(0, 0x8000);
-        let bytes = [8, packed, 0xab, 0xee];
+        let bytes = if packed & 0x80 != 0 {
+            vec![8, packed, 0, 0, 0, 1, 4, 0xab, 0xee]
+        } else {
+            vec![8, packed, 0xab, 0xee]
+        };
         let mut input = QtReader::new(&bytes);
         let result = state.receive_suffix(&mut input, FloatEncoding::TypeWidths, Instant::now);
         assert_eq!(state.field_838, Some(packed & 0x3f));
         assert_eq!(state.state_1130, Some(0));
         if packed & 0x80 != 0 {
             assert_eq!(result.unwrap_err().kind(), io::ErrorKind::Unsupported);
-            assert_eq!(input.remaining_bytes(), [0xab, 0xee]);
+            assert_eq!(input.remaining_bytes(), [4, 0xab, 0xee]);
         } else {
             let _ = result.unwrap();
             assert_eq!(state.field_83d, (packed & 0x40 != 0).then_some(0xb));

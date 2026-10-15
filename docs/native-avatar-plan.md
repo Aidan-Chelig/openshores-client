@@ -259,3 +259,11 @@ diagnostics. Offline fixtures verify remaining bodies, every truncated prefix,
 large counts, discard ordering and later Person fields. Non-UTC/invalid job time
 semantics and the remaining inventory/weight/runtime/dispatch/presentation gates
 are still unfinished; this component milestone does not complete the goal.
+
+Person inventory milestone: AuItemHash reception now composes the seven supported
+item families, exact obsolete-commodity predicate, duplicate-key retention and
+verified null-factory continuation, in its real Person suffix position. Fixtures
+cover late identity/nibble tails, partial updates, all factory bytes/predicate
+inputs and full-width count safety. Static evidence/verifier resolves the filter
+and factory without another analysis import. Remaining item types/fixup/weight,
+runtime context/construction/dispatch and actual avatar presentation remain open.

@@ -77,6 +77,12 @@ see native-person-gear.md. Commodity2 replacement, remaining item types and
 Person's required weight recomputation remain explicitly unsupported/unfinished.
 Null slots are diagnosed and skipped without truncating the counted loop.
 
+Person's inventory stage now composes seven real item families, native obsolete
+filtering, duplicate commodity retention and verified null-factory continuation.
+Other valid item types and commodity2 replacement fail explicitly. The inventory
+report and subsequent late identity/nibble fields are tested in actual Person
+suffix composition. See native-person-inventory.md for evidence and boundaries.
+
 NativeJobList now composes all27 native job types, including Assassin0,
 InterdictSystem20 and Story24, with valid
 Qt7 UTC timestamps. All27 factory/reader/obsolete bindings are verified; other

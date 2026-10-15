@@ -8,7 +8,9 @@ mod receiving;
 pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffixState};
 mod body;
 pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
+mod inventory;
 mod jobs;
+pub use inventory::{NativeItemHash, NativeItemHashReceive, native_commodity_is_obsolete};
 pub use jobs::{
     NativeJob, NativeJobBody, NativeJobBountyHunter, NativeJobCargo, NativeJobFood, NativeJobList,
     NativeJobListReceive, NativeJobPassengerDelivery, NativeJobPassengerPickup,

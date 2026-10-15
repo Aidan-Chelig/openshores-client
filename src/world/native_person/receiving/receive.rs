@@ -118,11 +118,15 @@ impl NativePersonSuffixState {
         }
         state = (state & !0x8000) | (u32::from(flags_b & 0x80 != 0) << 15);
         self.state_1130 = Some(state);
-        if flags_c & 0x80 != 0 {
-            return Err(unsupported(
-                "native Person AuItemHash reception is not implemented",
-            ));
-        }
+        let inventory = if flags_c & 0x80 != 0 {
+            Some(
+                self.inventory_1458
+                    .get_or_insert_with(Default::default)
+                    .receive_qt7(input)?,
+            )
+        } else {
+            None
+        };
         if flags_a & 1 != 0 {
             self.field_10e8 = Some(u32::from(input.read_u8()?));
         }
@@ -138,6 +142,7 @@ impl NativePersonSuffixState {
             timer_restarted,
             gear,
             jobs,
+            inventory,
             consumed_bytes: length - input.remaining(),
         })
     }

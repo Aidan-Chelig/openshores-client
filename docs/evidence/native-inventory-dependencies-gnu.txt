@@ -1,0 +1,140 @@
+Independent static GNU evidence. Target SHA-256 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80. No target execution.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014162fec0 <_ZN11DbCommodity10IsObsoleteE11COMMODITYID>:
+   14162fec0:	8d 81 85 fd ff ff    	lea    -0x27b(%rcx),%eax
+   14162fec6:	83 f8 02             	cmp    $0x2,%eax
+   14162fec9:	0f 96 c0             	setbe  %al
+   14162fecc:	81 f9 ed 00 00 00    	cmp    $0xed,%ecx
+   14162fed2:	0f 94 c2             	sete   %dl
+   14162fed5:	08 d0                	or     %dl,%al
+   14162fed7:	75 1d                	jne    14162fef6 <_ZN11DbCommodity10IsObsoleteE11COMMODITYID+0x36>
+   14162fed9:	83 f9 67             	cmp    $0x67,%ecx
+   14162fedc:	7f 22                	jg     14162ff00 <_ZN11DbCommodity10IsObsoleteE11COMMODITYID+0x40>
+   14162fede:	83 f9 35             	cmp    $0x35,%ecx
+   14162fee1:	7e 13                	jle    14162fef6 <_ZN11DbCommodity10IsObsoleteE11COMMODITYID+0x36>
+   14162fee3:	48 b8 01 00 03 00 00 	movabs $0x2000000030001,%rax
+   14162feea:	00 02 00
+   14162feed:	83 e9 36             	sub    $0x36,%ecx
+   14162fef0:	48 d3 e8             	shr    %cl,%rax
+   14162fef3:	83 e0 01             	and    $0x1,%eax
+   14162fef6:	c3                   	ret
+   14162fef7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   14162fefe:	00 00
+   14162ff00:	81 f9 19 01 00 00    	cmp    $0x119,%ecx
+   14162ff06:	7f 10                	jg     14162ff18 <_ZN11DbCommodity10IsObsoleteE11COMMODITYID+0x58>
+   14162ff08:	81 f9 17 01 00 00    	cmp    $0x117,%ecx
+   14162ff0e:	0f 9f c0             	setg   %al
+   14162ff11:	c3                   	ret
+   14162ff12:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14162ff18:	81 f9 7e 02 00 00    	cmp    $0x27e,%ecx
+   14162ff1e:	0f 94 c0             	sete   %al
+   14162ff21:	c3                   	ret
+   14162ff22:	0f 1f 00             	nopl   (%rax)
+   14162ff25:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14162ff2c:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422e1338 d8f220ff a8f820ff d8f220ff d8f220ff  .. ... ... ... .
+ 1422e1348 f8f720ff 78f720ff f8f620ff 80f620ff  .. .x. ... ... .
+ 1422e1358 60f620ff 28f620ff 98f520ff d8f220ff  `. .(. ... ... .
+ 1422e1368 28fb20ff 80fa20ff b8f920ff d8f220ff  (. ... ... ... .
+ 1422e1378 20f920ff 00fc20ff 58fb20ff 88fc20ff   . ... .X. ... .
+ 1422e1388 98f420ff d8f220ff 78f420ff f8f320ff  .. ... .x. ... .
+ 1422e1398 60f320ff                             `. .
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414cd800 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0>:
+   1414cd800:	41 57                	push   %r15
+   1414cd802:	41 56                	push   %r14
+   1414cd804:	41 55                	push   %r13
+   1414cd806:	41 54                	push   %r12
+   1414cd808:	55                   	push   %rbp
+   1414cd809:	57                   	push   %rdi
+   1414cd80a:	56                   	push   %rsi
+   1414cd80b:	53                   	push   %rbx
+   1414cd80c:	48 83 ec 68          	sub    $0x68,%rsp
+   1414cd810:	48 89 ce             	mov    %rcx,%rsi
+   1414cd813:	4c 89 c3             	mov    %r8,%rbx
+   1414cd816:	b9 20 00 00 00       	mov    $0x20,%ecx
+   1414cd81b:	e8 78 67 28 00       	call   141753f98 <_Znwy>
+   1414cd820:	8b 3b                	mov    (%rbx),%edi
+   1414cd822:	4c 8b 4e 18          	mov    0x18(%rsi),%r9
+   1414cd826:	48 8d 4c 24 50       	lea    0x50(%rsp),%rcx
+   1414cd82b:	49 89 c4             	mov    %rax,%r12
+   1414cd82e:	4c 8b 46 08          	mov    0x8(%rsi),%r8
+   1414cd832:	48 8d 56 20          	lea    0x20(%rsi),%rdx
+   1414cd836:	4c 8b 6e 28          	mov    0x28(%rsi),%r13
+   1414cd83a:	48 c7 00 00 00 00 00 	movq   $0x0,(%rax)
+   1414cd841:	89 78 08             	mov    %edi,0x8(%rax)
+   1414cd844:	48 8b 43 08          	mov    0x8(%rbx),%rax
+   1414cd848:	48 c7 44 24 20 01 00 	movq   $0x1,0x20(%rsp)
+   1414cd84f:	00 00
+   1414cd851:	49 89 44 24 10       	mov    %rax,0x10(%r12)
+   1414cd856:	e8 25 68 28 00       	call   141754080 <_ZNKSt8__detail20_Prime_rehash_policy14_M_need_rehashEyyy>
+   1414cd85b:	80 7c 24 50 00       	cmpb   $0x0,0x50(%rsp)
+   1414cd860:	48 8b 6c 24 58       	mov    0x58(%rsp),%rbp
+   1414cd865:	0f 85 95 00 00 00    	jne    1414cd900 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0x100>
+   1414cd86b:	48 8b 5e 08          	mov    0x8(%rsi),%rbx
+   1414cd86f:	4c 8b 2e             	mov    (%rsi),%r13
+   1414cd872:	48 89 f8             	mov    %rdi,%rax
+   1414cd875:	31 d2                	xor    %edx,%edx
+   1414cd877:	49 89 7c 24 18       	mov    %rdi,0x18(%r12)
+   1414cd87c:	48 f7 f3             	div    %rbx
+   1414cd87f:	4d 8d 5c d5 00       	lea    0x0(%r13,%rdx,8),%r11
+   1414cd884:	49 89 d2             	mov    %rdx,%r10
+   1414cd887:	4d 8b 0b             	mov    (%r11),%r9
+   1414cd88a:	4d 85 c9             	test   %r9,%r9
+   1414cd88d:	0f 84 0d 02 00 00    	je     1414cdaa0 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0x2a0>
+   1414cd893:	49 8b 29             	mov    (%r9),%rbp
+   1414cd896:	48 8b 4d 18          	mov    0x18(%rbp),%rcx
+   1414cd89a:	48 89 e8             	mov    %rbp,%rax
+   1414cd89d:	eb 28                	jmp    1414cd8c7 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0xc7>
+   1414cd89f:	90                   	nop
+   1414cd8a0:	4c 8b 00             	mov    (%rax),%r8
+   1414cd8a3:	4d 85 c0             	test   %r8,%r8
+   1414cd8a6:	0f 84 d4 01 00 00    	je     1414cda80 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0x280>
+   1414cd8ac:	49 8b 48 18          	mov    0x18(%r8),%rcx
+   1414cd8b0:	49 89 c1             	mov    %rax,%r9
+   1414cd8b3:	31 d2                	xor    %edx,%edx
+   1414cd8b5:	48 89 c8             	mov    %rcx,%rax
+   1414cd8b8:	48 f7 f3             	div    %rbx
+   1414cd8bb:	49 39 d2             	cmp    %rdx,%r10
+   1414cd8be:	0f 85 bc 01 00 00    	jne    1414cda80 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0x280>
+   1414cd8c4:	4c 89 c0             	mov    %r8,%rax
+   1414cd8c7:	48 39 cf             	cmp    %rcx,%rdi
+   1414cd8ca:	75 d4                	jne    1414cd8a0 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0xa0>
+   1414cd8cc:	8b 50 08             	mov    0x8(%rax),%edx
+   1414cd8cf:	41 39 54 24 08       	cmp    %edx,0x8(%r12)
+   1414cd8d4:	75 ca                	jne    1414cd8a0 <_ZNSt10_HashtableI11COMMODITYIDSt4pairIKS0_P6AuItemESaIS5_ENSt8__detail10_Select1stESt8equal_toIS0_E16COMMODITYID_HashNS7_18_Mod_range_hashingENS7_20_Default_ranged_hashENS7_20_Prime_rehash_policyENS7_17_Hashtable_traitsILb1ELb0ELb0EEEE10_M_emplaceIJS1_IS0_S4_EEEENS7_14_Node_iteratorIS5_Lb0ELb1EEENS7_20_Node_const_iteratorIS5_Lb0ELb1EEESt17integral_constantIbLb0EEDpOT_.constprop.0+0xa0>
+   1414cd8d6:	49 89 04 24          	mov    %rax,(%r12)
+   1414cd8da:	4d 89 21             	mov    %r12,(%r9)
+   1414cd8dd:	48 83 46 18 01       	addq   $0x1,0x18(%rsi)
+   1414cd8e2:	4c 89 e0             	mov    %r12,%rax
+   1414cd8e5:	48 83 c4 68          	add    $0x68,%rsp
+   1414cd8e9:	5b                   	pop    %rbx
+   1414cd8ea:	5e                   	pop    %rsi
+   1414cd8eb:	5f                   	pop    %rdi
+   1414cd8ec:	5d                   	pop    %rbp
+   1414cd8ed:	41 5c                	pop    %r12
+   1414cd8ef:	41 5d                	pop    %r13
+   1414cd8f1:	41 5e                	pop    %r14
+   1414cd8f3:	41 5f                	pop    %r15
+   1414cd8f5:	c3                   	ret
+   1414cd8f6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1414cd8fd:	00 00 00
+
+
+The emplace window above is bounded, not a whole-function record. The matching-key path inserts a new node and increments count before the first return.
