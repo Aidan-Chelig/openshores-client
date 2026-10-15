@@ -88,7 +88,10 @@ def run(launcher, target, directory):
                     raise ValueError("output must be a plain .json filename")
                 output = directory / filename
                 if output.exists():
-                    raise FileExistsError(output)
+                    print(f"Skipped existing output {output}; no query sent for "
+                          f"{command['procedure']}. Reuse retained evidence or choose "
+                          "a new output for a different procedure.", flush=True)
+                    continue
                 started = time.monotonic()
                 result = rpc.request("tools/call", {
                     "name": "procedure_pseudo_code",

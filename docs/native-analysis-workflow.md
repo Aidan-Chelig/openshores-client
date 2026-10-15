@@ -86,6 +86,18 @@ decompiled apparent integer/void returns still require instruction-level type
 verification. These are static results, not observations of the game running.
 Keep this warm session open for the remaining model/animation dependencies.
 
+Update2026-10-15: session8086 later terminated after the driver's duplicate-output
+guard raised FileExistsError for an already retained `dp-position-legs.json`.
+The `finally` cleanup closed its target; this is a confirmed terminal process,
+not a timeout. All complete records remain in `native-model-analysis-4`. Do not
+poll that old handle or pretend its database is still live. The driver now skips
+existing output paths without querying, overwriting or closing the session.
+`python tests/test_native_session.py` simulates a duplicate between two valid
+queries and verifies one open, two queries and one eventual explicit close.
+Always inventory retained filenames before queuing a batch. Prefer existing
+records/GNU evidence for remaining assembly work; if genuinely missing bodies
+require another import, open only one new session and reuse it.
+
 The first batch in `target/avatar-analysis-session` returned these elapsed
 times from one live server: DhDNA_ 665.655s (initial import/analysis), Bounty
 0.348s, ImplantDNA 0.078s, ImplantSpecies 0.079s. All four MCP responses reported
