@@ -141,6 +141,16 @@ All 28 chromosome bodies now decode in Rust, with explicit native destination
 offsets and raw byte/short/unsigned-widened values for gene-bearing fields.
 The complete AuDNA reader composes both chromatids and gene chains; dynamic
 DNA dispatch is also implemented. See native-dna.md for atomic error policy,
-aggregate storage budget and offline coverage. The pending REA query batch
-will independently corroborate these GNU observations without restarting the
-analysis process for each reader.
+aggregate storage budget and offline coverage. The REA batch now independently
+corroborates the GNU observations. Complete reviewed records in evidence/:
+
+- native-genechain-reader.json: ev_4d7465f6977c9de8513bbb08072e6f39beb284b472cc2664adbcf36be0c9db63.
+- native-gene-factory.json: ev_24b1900622e47dbdc9ed36565a93569e7e807b9c51450fc71739772023837601.
+- native-gene-scales-spines.json: ev_1f24229b0301bc477aa6e8e56e188dd3fb01be2990aa9a82e858bae92fe1f75c.
+- native-gene-hair.json: ev_eae4e0d046595edc688848e2a28c620d0899f888abf87ae8e4afc4c86fb02f15.
+- native-gene-feathers.json: ev_e1c9ccc5c0ba60cb93fe93d25441d6c41a5024b4a5e0c8f8c634af0e81332ed1.
+
+Imported tail-jump warnings and misrecovered `this` signatures remain in the
+complete responses; independently checked GNU overloads resolve the wire
+widths. Initial query took 640.443 seconds; subsequent queries in this batch
+took 0.004–0.019 seconds, without another import.

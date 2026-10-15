@@ -1,0 +1,268 @@
+Independent bounded GNU disassembly; not REA evidence or target execution.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+Command: objdump -d -C --start-address=0x14136d3c0 --stop-address=0x14136d4ca reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014136d3c0 <AuSkillSet::operator<<(QDataStream&)>:
+   14136d3c0:	41 57                	push   %r15
+   14136d3c2:	41 56                	push   %r14
+   14136d3c4:	41 55                	push   %r13
+   14136d3c6:	41 54                	push   %r12
+   14136d3c8:	55                   	push   %rbp
+   14136d3c9:	57                   	push   %rdi
+   14136d3ca:	56                   	push   %rsi
+   14136d3cb:	53                   	push   %rbx
+   14136d3cc:	48 81 ec 88 00 00 00 	sub    $0x88,%rsp
+   14136d3d3:	0f 29 74 24 70       	movaps %xmm6,0x70(%rsp)
+   14136d3d8:	48 89 cb             	mov    %rcx,%rbx
+   14136d3db:	48 89 d6             	mov    %rdx,%rsi
+   14136d3de:	48 8d 54 24 5b       	lea    0x5b(%rsp),%rdx
+   14136d3e3:	48 89 f1             	mov    %rsi,%rcx
+   14136d3e6:	ff 15 f4 52 52 01    	call   *0x15252f4(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14136d3ec:	48 8b 4b 08          	mov    0x8(%rbx),%rcx
+   14136d3f0:	4c 8b 25 f1 59 52 01 	mov    0x15259f1(%rip),%r12        # 142892de8 <__imp__ZN9QHashData11shared_nullE>
+   14136d3f7:	48 8d 43 08          	lea    0x8(%rbx),%rax
+   14136d3fb:	48 89 44 24 30       	mov    %rax,0x30(%rsp)
+   14136d400:	4c 89 63 08          	mov    %r12,0x8(%rbx)
+   14136d404:	8b 41 10             	mov    0x10(%rcx),%eax
+   14136d407:	48 8d 51 10          	lea    0x10(%rcx),%rdx
+   14136d40b:	85 c0                	test   %eax,%eax
+   14136d40d:	0f 84 7d 02 00 00    	je     14136d690 <AuSkillSet::operator<<(QDataStream&)+0x2d0>
+   14136d413:	83 f8 ff             	cmp    $0xffffffff,%eax
+   14136d416:	74 0a                	je     14136d422 <AuSkillSet::operator<<(QDataStream&)+0x62>
+   14136d418:	f0 83 2a 01          	lock subl $0x1,(%rdx)
+   14136d41c:	0f 84 6e 02 00 00    	je     14136d690 <AuSkillSet::operator<<(QDataStream&)+0x2d0>
+   14136d422:	41 8b 44 24 10       	mov    0x10(%r12),%eax
+   14136d427:	85 c0                	test   %eax,%eax
+   14136d429:	0f 84 7b 02 00 00    	je     14136d6aa <AuSkillSet::operator<<(QDataStream&)+0x2ea>
+   14136d42f:	83 f8 ff             	cmp    $0xffffffff,%eax
+   14136d432:	74 0d                	je     14136d441 <AuSkillSet::operator<<(QDataStream&)+0x81>
+   14136d434:	f0 41 83 6c 24 10 01 	lock subl $0x1,0x10(%r12)
+   14136d43b:	0f 84 69 02 00 00    	je     14136d6aa <AuSkillSet::operator<<(QDataStream&)+0x2ea>
+   14136d441:	48 8d 54 24 5c       	lea    0x5c(%rsp),%rdx
+   14136d446:	48 8b 2d bb 52 52 01 	mov    0x15252bb(%rip),%rbp        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14136d44d:	48 89 f1             	mov    %rsi,%rcx
+   14136d450:	ff d5                	call   *%rbp
+   14136d452:	0f b7 44 24 5c       	movzwl 0x5c(%rsp),%eax
+   14136d457:	8d 50 ff             	lea    -0x1(%rax),%edx
+   14136d45a:	66 89 54 24 5c       	mov    %dx,0x5c(%rsp)
+   14136d45f:	66 85 c0             	test   %ax,%ax
+   14136d462:	0f 84 eb 00 00 00    	je     14136d553 <AuSkillSet::operator<<(QDataStream&)+0x193>
+   14136d468:	4c 8d 3d 31 19 49 00 	lea    0x491931(%rip),%r15        # 1417feda0 <QHash<AuSkill::SKILL, AuSkill>::deleteNode2(QHashData::Node*)>
+   14136d46f:	48 8d 05 3a 19 49 00 	lea    0x49193a(%rip),%rax        # 1417fedb0 <QHash<AuSkill::SKILL, AuSkill>::duplicateNode(QHashData::Node*, void*)>
+   14136d476:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   14136d47b:	4c 8d 74 24 5e       	lea    0x5e(%rsp),%r14
+   14136d480:	4c 8d 6c 24 68       	lea    0x68(%rsp),%r13
+   14136d485:	4c 89 7c 24 38       	mov    %r15,0x38(%rsp)
+   14136d48a:	48 8d 3d ff 2d 11 01 	lea    0x1112dff(%rip),%rdi        # 142480290 <vtable for AuSkill+0x10>
+   14136d491:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14136d498:	4c 89 f2             	mov    %r14,%rdx
+   14136d49b:	48 89 f1             	mov    %rsi,%rcx
+   14136d49e:	48 89 7c 24 60       	mov    %rdi,0x60(%rsp)
+   14136d4a3:	c7 44 24 6c 00 00 00 	movl   $0x0,0x6c(%rsp)
+   14136d4aa:	00 
+   14136d4ab:	ff d5                	call   *%rbp
+   14136d4ad:	0f b7 44 24 5e       	movzwl 0x5e(%rsp),%eax
+   14136d4b2:	48 89 f1             	mov    %rsi,%rcx
+   14136d4b5:	4c 89 ea             	mov    %r13,%rdx
+   14136d4b8:	89 44 24 6c          	mov    %eax,0x6c(%rsp)
+   14136d4bc:	ff 15 3e 52 52 01    	call   *0x152523e(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14136d4c2:	48 8b 4b 08          	mov    0x8(%rbx),%rcx
+   14136d4c6:	44                   	rex.R
+   14136d4c7:	8b                   	.byte 0x8b
+   14136d4c8:	7c 24                	jl     14136d4ee <AuSkillSet::operator<<(QDataStream&)+0x12e>
+
+Command: objdump -d -C --start-address=0x140b22720 --stop-address=0x140b229e5 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140b22720 <DaSentient::RxUpdate(QDataStream&, bool)>:
+   140b22720:	41 57                	push   %r15
+   140b22722:	41 56                	push   %r14
+   140b22724:	41 55                	push   %r13
+   140b22726:	41 54                	push   %r12
+   140b22728:	57                   	push   %rdi
+   140b22729:	56                   	push   %rsi
+   140b2272a:	53                   	push   %rbx
+   140b2272b:	48 81 ec 90 00 00 00 	sub    $0x90,%rsp
+   140b22732:	0f 29 74 24 70       	movaps %xmm6,0x70(%rsp)
+   140b22737:	0f 29 bc 24 80 00 00 	movaps %xmm7,0x80(%rsp)
+   140b2273e:	00 
+   140b2273f:	49 89 d4             	mov    %rdx,%r12
+   140b22742:	45 0f b6 c0          	movzbl %r8b,%r8d
+   140b22746:	48 89 cb             	mov    %rcx,%rbx
+   140b22749:	e8 02 89 e7 ff       	call   14099b050 <DaCreature::RxUpdate(QDataStream&, bool)>
+   140b2274e:	48 8b 35 8b ff d6 01 	mov    0x1d6ff8b(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   140b22755:	48 8d 54 24 27       	lea    0x27(%rsp),%rdx
+   140b2275a:	4c 89 e1             	mov    %r12,%rcx
+   140b2275d:	ff d6                	call   *%rsi
+   140b2275f:	0f b6 44 24 27       	movzbl 0x27(%rsp),%eax
+   140b22764:	a8 01                	test   $0x1,%al
+   140b22766:	0f 85 64 02 00 00    	jne    140b229d0 <DaSentient::RxUpdate(QDataStream&, bool)+0x2b0>
+   140b2276c:	c7 83 08 07 00 00 00 	movl   $0x0,0x708(%rbx)
+   140b22773:	00 00 00 
+   140b22776:	4c 8d ab e8 06 00 00 	lea    0x6e8(%rbx),%r13
+   140b2277d:	a8 02                	test   $0x2,%al
+   140b2277f:	0f 84 2b 02 00 00    	je     140b229b0 <DaSentient::RxUpdate(QDataStream&, bool)+0x290>
+   140b22785:	48 8b 93 e8 06 00 00 	mov    0x6e8(%rbx),%rdx
+   140b2278c:	4c 8d 74 24 30       	lea    0x30(%rsp),%r14
+   140b22791:	8b 42 0c             	mov    0xc(%rdx),%eax
+   140b22794:	2b 42 08             	sub    0x8(%rdx),%eax
+   140b22797:	83 f8 01             	cmp    $0x1,%eax
+   140b2279a:	0f 84 4c 01 00 00    	je     140b228ec <DaSentient::RxUpdate(QDataStream&, bool)+0x1cc>
+   140b227a0:	4c 89 e9             	mov    %r13,%rcx
+   140b227a3:	4c 8d b3 f0 01 00 00 	lea    0x1f0(%rbx),%r14
+   140b227aa:	e8 a1 cb d0 00       	call   14182f350 <QList<AuAIOrder>::clear()>
+   140b227af:	48 8d 0d 11 2c 6c 01 	lea    0x16c2c11(%rip),%rcx        # 1421e53c7 <.rdata+0x47>
+   140b227b6:	31 d2                	xor    %edx,%edx
+   140b227b8:	ff 15 ca 03 d7 01    	call   *0x1d703ca(%rip)        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   140b227be:	4c 89 f1             	mov    %r14,%rcx
+   140b227c1:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+   140b227c6:	ff 15 5c 00 d7 01    	call   *0x1d7005c(%rip)        # 142892828 <__imp__ZN14QReadWriteLock11lockForReadEv>
+   140b227cc:	f2 0f 10 83 30 02 00 	movsd  0x230(%rbx),%xmm0
+   140b227d3:	00 
+   140b227d4:	f2 0f 58 83 50 02 00 	addsd  0x250(%rbx),%xmm0
+   140b227db:	00 
+   140b227dc:	ba 01 00 00 00       	mov    $0x1,%edx
+   140b227e1:	f2 0f 58 83 70 02 00 	addsd  0x270(%rbx),%xmm0
+   140b227e8:	00 
+   140b227e9:	f2 0f 58 83 90 02 00 	addsd  0x290(%rbx),%xmm0
+   140b227f0:	00 
+   140b227f1:	66 0f 2e 05 2f 2f 6d 	ucomisd 0x16d2f2f(%rip),%xmm0        # 1421f5728 <CSWTCH.6572+0x50>
+   140b227f8:	01 
+   140b227f9:	66 0f 10 bb 78 02 00 	movupd 0x278(%rbx),%xmm7
+   140b22800:	00 
+   140b22801:	f2 0f 10 b3 88 02 00 	movsd  0x288(%rbx),%xmm6
+   140b22808:	00 
+   140b22809:	66 0f 28 c8          	movapd %xmm0,%xmm1
+   140b2280d:	0f 9a c0             	setp   %al
+   140b22810:	66 0f 14 c9          	unpcklpd %xmm1,%xmm1
+   140b22814:	0f 45 c2             	cmovne %edx,%eax
+   140b22817:	84 c0                	test   %al,%al
+   140b22819:	74 1a                	je     140b22835 <DaSentient::RxUpdate(QDataStream&, bool)+0x115>
+   140b2281b:	66 0f 2e 05 65 33 6d 	ucomisd 0x16d3365(%rip),%xmm0        # 1421f5b88 <CSWTCH.6572+0x4b0>
+   140b22822:	01 
+   140b22823:	0f 9a c0             	setp   %al
+   140b22826:	0f 45 c2             	cmovne %edx,%eax
+   140b22829:	84 c0                	test   %al,%al
+   140b2282b:	74 08                	je     140b22835 <DaSentient::RxUpdate(QDataStream&, bool)+0x115>
+   140b2282d:	66 0f 5e f9          	divpd  %xmm1,%xmm7
+   140b22831:	f2 0f 5e f0          	divsd  %xmm0,%xmm6
+   140b22835:	4c 89 f1             	mov    %r14,%rcx
+   140b22838:	ff 15 02 00 d7 01    	call   *0x1d70002(%rip)        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   140b2283e:	4c 8d 7c 24 28       	lea    0x28(%rsp),%r15
+   140b22843:	4c 8d 74 24 30       	lea    0x30(%rsp),%r14
+   140b22848:	48 8b 05 59 fd d6 01 	mov    0x1d6fd59(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   140b2284f:	48 c7 44 24 58 00 00 	movq   $0x0,0x58(%rsp)
+   140b22856:	00 00 
+   140b22858:	48 8d 7c 24 50       	lea    0x50(%rsp),%rdi
+   140b2285d:	4c 89 fa             	mov    %r15,%rdx
+   140b22860:	0f 29 7c 24 30       	movaps %xmm7,0x30(%rsp)
+   140b22865:	48 89 44 24 50       	mov    %rax,0x50(%rsp)
+   140b2286a:	31 c0                	xor    %eax,%eax
+   140b2286c:	48 89 f9             	mov    %rdi,%rcx
+   140b2286f:	66 89 44 24 48       	mov    %ax,0x48(%rsp)
+   140b22874:	c7 44 24 4c 00 00 00 	movl   $0x0,0x4c(%rsp)
+   140b2287b:	00 
+   140b2287c:	f2 0f 11 74 24 40    	movsd  %xmm6,0x40(%rsp)
+   140b22882:	ff 15 c8 03 d7 01    	call   *0x1d703c8(%rip)        # 142892c50 <__imp__ZN7QStringaSERKS_>
+   140b22888:	ff 15 ea 04 d7 01    	call   *0x1d704ea(%rip)        # 142892d78 <__imp__ZN9QDateTime22currentMSecsSinceEpochEv>
+   140b2288e:	4c 89 f2             	mov    %r14,%rdx
+   140b22891:	4c 89 e9             	mov    %r13,%rcx
+   140b22894:	c7 44 24 60 00 00 00 	movl   $0x0,0x60(%rsp)
+   140b2289b:	00 
+   140b2289c:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+   140b228a1:	e8 5a cc d0 00       	call   14182f500 <QList<AuAIOrder>::append(AuAIOrder const&)>
+   140b228a6:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+   140b228ab:	8b 01                	mov    (%rcx),%eax
+   140b228ad:	85 c0                	test   %eax,%eax
+   140b228af:	0f 84 3b 01 00 00    	je     140b229f0 <DaSentient::RxUpdate(QDataStream&, bool)+0x2d0>
+   140b228b5:	83 f8 ff             	cmp    $0xffffffff,%eax
+   140b228b8:	74 0f                	je     140b228c9 <DaSentient::RxUpdate(QDataStream&, bool)+0x1a9>
+   140b228ba:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   140b228be:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+   140b228c3:	0f 84 27 01 00 00    	je     140b229f0 <DaSentient::RxUpdate(QDataStream&, bool)+0x2d0>
+   140b228c9:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+   140b228ce:	8b 01                	mov    (%rcx),%eax
+   140b228d0:	85 c0                	test   %eax,%eax
+   140b228d2:	0f 84 38 01 00 00    	je     140b22a10 <DaSentient::RxUpdate(QDataStream&, bool)+0x2f0>
+   140b228d8:	83 f8 ff             	cmp    $0xffffffff,%eax
+   140b228db:	74 0f                	je     140b228ec <DaSentient::RxUpdate(QDataStream&, bool)+0x1cc>
+   140b228dd:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   140b228e1:	48 8b 4c 24 28       	mov    0x28(%rsp),%rcx
+   140b228e6:	0f 84 24 01 00 00    	je     140b22a10 <DaSentient::RxUpdate(QDataStream&, bool)+0x2f0>
+   140b228ec:	4c 89 f2             	mov    %r14,%rdx
+   140b228ef:	4c 89 e1             	mov    %r12,%rcx
+   140b228f2:	ff d6                	call   *%rsi
+   140b228f4:	48 8b 83 e8 06 00 00 	mov    0x6e8(%rbx),%rax
+   140b228fb:	0f b6 7c 24 30       	movzbl 0x30(%rsp),%edi
+   140b22900:	8b 10                	mov    (%rax),%edx
+   140b22902:	83 fa 01             	cmp    $0x1,%edx
+   140b22905:	0f 87 95 00 00 00    	ja     140b229a0 <DaSentient::RxUpdate(QDataStream&, bool)+0x280>
+   140b2290b:	48 8b 83 e8 06 00 00 	mov    0x6e8(%rbx),%rax
+   140b22912:	48 63 50 08          	movslq 0x8(%rax),%rdx
+   140b22916:	48 8b 54 d0 10       	mov    0x10(%rax,%rdx,8),%rdx
+   140b2291b:	89 7a 30             	mov    %edi,0x30(%rdx)
+   140b2291e:	8b 10                	mov    (%rax),%edx
+   140b22920:	83 fa 01             	cmp    $0x1,%edx
+   140b22923:	77 5b                	ja     140b22980 <DaSentient::RxUpdate(QDataStream&, bool)+0x260>
+   140b22925:	48 63 50 08          	movslq 0x8(%rax),%rdx
+   140b22929:	48 8b 4c d0 10       	mov    0x10(%rax,%rdx,8),%rcx
+   140b2292e:	4c 89 e2             	mov    %r12,%rdx
+   140b22931:	48 83 c1 1c          	add    $0x1c,%rcx
+   140b22935:	e8 86 2a b1 00       	call   1416353c0 <AuId::operator<<(QDataStream&)>
+   140b2293a:	80 7c 24 30 29       	cmpb   $0x29,0x30(%rsp)
+   140b2293f:	0f 84 eb 00 00 00    	je     140b22a30 <DaSentient::RxUpdate(QDataStream&, bool)+0x310>
+   140b22945:	4c 89 f2             	mov    %r14,%rdx
+   140b22948:	4c 89 e1             	mov    %r12,%rcx
+   140b2294b:	ff d6                	call   *%rsi
+   140b2294d:	0f b6 44 24 30       	movzbl 0x30(%rsp),%eax
+   140b22952:	89 83 f0 06 00 00    	mov    %eax,0x6f0(%rbx)
+   140b22958:	f6 44 24 27 04       	testb  $0x4,0x27(%rsp)
+   140b2295d:	75 60                	jne    140b229bf <DaSentient::RxUpdate(QDataStream&, bool)+0x29f>
+   140b2295f:	0f 28 74 24 70       	movaps 0x70(%rsp),%xmm6
+   140b22964:	0f 28 bc 24 80 00 00 	movaps 0x80(%rsp),%xmm7
+   140b2296b:	00 
+   140b2296c:	48 81 c4 90 00 00 00 	add    $0x90,%rsp
+   140b22973:	5b                   	pop    %rbx
+   140b22974:	5e                   	pop    %rsi
+   140b22975:	5f                   	pop    %rdi
+   140b22976:	41 5c                	pop    %r12
+   140b22978:	41 5d                	pop    %r13
+   140b2297a:	41 5e                	pop    %r14
+   140b2297c:	41 5f                	pop    %r15
+   140b2297e:	c3                   	ret
+   140b2297f:	90                   	nop
+   140b22980:	48 8b 83 e8 06 00 00 	mov    0x6e8(%rbx),%rax
+   140b22987:	4c 89 e9             	mov    %r13,%rcx
+   140b2298a:	8b 50 04             	mov    0x4(%rax),%edx
+   140b2298d:	e8 5e c3 d0 00       	call   14182ecf0 <QList<AuAIOrder>::detach_helper(int)>
+   140b22992:	48 8b 83 e8 06 00 00 	mov    0x6e8(%rbx),%rax
+   140b22999:	eb 8a                	jmp    140b22925 <DaSentient::RxUpdate(QDataStream&, bool)+0x205>
+   140b2299b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   140b229a0:	8b 50 04             	mov    0x4(%rax),%edx
+   140b229a3:	4c 89 e9             	mov    %r13,%rcx
+   140b229a6:	e8 45 c3 d0 00       	call   14182ecf0 <QList<AuAIOrder>::detach_helper(int)>
+   140b229ab:	e9 5b ff ff ff       	jmp    140b2290b <DaSentient::RxUpdate(QDataStream&, bool)+0x1eb>
+   140b229b0:	4c 89 e9             	mov    %r13,%rcx
+   140b229b3:	e8 98 c9 d0 00       	call   14182f350 <QList<AuAIOrder>::clear()>
+   140b229b8:	f6 44 24 27 04       	testb  $0x4,0x27(%rsp)
+   140b229bd:	74 a0                	je     140b2295f <DaSentient::RxUpdate(QDataStream&, bool)+0x23f>
+   140b229bf:	48 8d 8b c8 07 00 00 	lea    0x7c8(%rbx),%rcx
+   140b229c6:	4c 89 e2             	mov    %r12,%rdx
+   140b229c9:	e8 f2 a9 84 00       	call   14136d3c0 <AuSkillSet::operator<<(QDataStream&)>
+   140b229ce:	eb 8f                	jmp    140b2295f <DaSentient::RxUpdate(QDataStream&, bool)+0x23f>
+   140b229d0:	48 8d 93 08 07 00 00 	lea    0x708(%rbx),%rdx
+   140b229d7:	4c 89 e1             	mov    %r12,%rcx
+   140b229da:	ff 15 18 fd d6 01    	call   *0x1d6fd18(%rip)        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   140b229e0:	0f b6 44 24 27       	movzbl 0x27(%rsp),%eax
+

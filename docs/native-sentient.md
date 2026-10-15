@@ -35,3 +35,33 @@ simple always-replace packet list or skip unknown nested bodies.
 
 Next: inspect Creature reception, then corroborate widths and nested readers
 before extending concrete native Person dispatch.
+
+## Verified suffix implementation
+
+Complete SkillSet evidence `evidence/native-skillset-reader.json`,
+`ev_6fa5996c89222ed010e89f8407bfea3766401348a6f50ff0f62e3f65d2cd681b`,
+receives an unused byte, clears the hash, reads short count, then short skill
+ID and signed i32 value per entry. IDs widen unsigned; duplicate IDs replace
+the value. Independent `evidence/native-sentient-widths-gnu.txt` corroborates
+the byte/short/i32 overloads and the low-word count decrement/zero test; high
+count bits are not a signed-positive check. The same GNU record pins Sentient's
+flags/order-kind/6f0 reads to byte overloads and 708 to the float overload.
+
+`world::native_sentient::NativeSentientState::receive_suffix` now implements
+these ordered stages with the real SkillSet decoder. It is explicitly the
+suffix after Creature, not a complete inherited receive path. Unobserved fields
+remain Option rather than guessed constructor defaults. New-order construction
+uses the initializer visible in the full Sentient record: matrix translation
+normalized by the sum unless zero/one, word18 and ID1c zero, empty string20,
+sampled wall-clock time28 and kind30 zero. A required seed callback supplies
+the real translation, four denominator terms and clock only when initialization
+is needed; missing context must error rather than invent a position/time.
+Single-entry reuse retains existing position, timestamp and omitted string.
+
+Earlier mutations persist on later Rust errors. Skill clear occurs after the
+leading byte but before count; completed skill entries persist on a later
+truncated entry. This models ordering, not Qt failed-stream continuation.
+Tests cover all 256 flags, all three float profiles, zero/one/two prior orders,
+conditional strings, high-bit IDs, duplicate skills, high-bit counts, exact
+normalization branches/non-finite arithmetic, truncated stages and omitted
+skill retention. Creature and concrete Person dispatch/presentation remain open.

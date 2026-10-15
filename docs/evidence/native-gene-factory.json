@@ -1,0 +1,91 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"evidence_id\":\"ev_24b1900622e47dbdc9ed36565a93569e7e807b9c51450fc71739772023837601\",\"subject\":{\"name\":\"OpenShores.exe\",\"digest\":{\"sha256\":\"285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80\"},\"format\":\"pe\",\"architecture\":\"x86_64\",\"local_path\":\"/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe\"},\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.2\"},\"analysis_profile\":{\"provider\":{\"id\":\"ghidra\",\"name\":\"Ghidra\",\"version\":\"12.1.2\"},\"parameters\":{\"target_kind\":\"executable\",\"target_format\":\"pe\",\"executable_role\":\"application\",\"managed\":false,\"native_aot_metadata\":{\"contract_revision\":\"rtr-9.1-x64-pe-read-only-v3\",\"source_bytes\":134217728,\"work_units\":67108864,\"working_memory_bytes\":67108864,\"report_bytes\":4194304},\"architecture\":\"x86_64\",\"available_architectures\":[\"x86_64\"],\"import_mode\":\"ephemeral-source-immutable\",\"annotation_policy\":\"atomic-function-entry-metadata-v1\",\"load_image_observations\":\"source-mappings-entry-context-v2\",\"function_body_evidence\":\"complete-inclusive-ranges-v1\",\"function_references\":\"complete-body-and-entry-reference-manager-v2\",\"string_inventory_evidence\":\"defined-data-coverage-v1\",\"location_resolution\":\"explicit-address-exact-entry-symbol-first-v3\",\"instruction_flow_evidence\":\"decoded-return-pcode-v1\",\"function_boundary_observations\":\"ghidra-terminal-call-limitations-v1\",\"no_return_repair\":\"returning-imports-decoded-return-v2\",\"process_launch\":\"inspected-jvm-launch-support-v1\",\"jump_table_evidence\":\"typed-case-default-blocks-v1\",\"decompiler_jump_loads\":true,\"loader\":\"auto-from-header\",\"language_id\":\"auto-from-header\",\"compiler_spec_id\":\"auto-default\",\"analyzer_preset\":\"ghidra-default\"},\"digest\":\"8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2\"},\"predicate_type\":\"rea.analysis\",\"operation\":\"procedure_pseudo_code\",\"parameters\":{\"procedure\":\"0x141210820\"},\"raw_result\":{\"value\":\"\\n/* AuGene::CreateGene(AuGene::GTYPE) */\\n\\nundefined8 * AuGene::CreateGene(int param_1)\\n\\n{\\n  undefined8 *puVar1;\\n  QDebug *this;\\n  code *pcVar2;\\n  QDebug local_60 [8];\\n  undefined8 local_58;\\n  undefined1 local_50 [16];\\n  char *local_40;\\n  \\n  pcVar2 = ~QDebug_exref;\\n  switch(param_1) {\\n  case 0:\\n    puVar1 = operator_new(0x20);\\n    *puVar1 = &PTR__AuGeneFeathers_1423fe710;\\n    *(undefined4 *)(puVar1 + 1) = 0;\\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\\n    *(undefined2 *)(puVar1 + 3) = 100;\\n    *(undefined1 *)((longlong)puVar1 + 0x1a) = 0;\\n    return puVar1;\\n  case 1:\\n    puVar1 = operator_new(0x28);\\n    *puVar1 = &PTR__AuGeneHair_1423c3530;\\n    *(undefined4 *)(puVar1 + 1) = 1;\\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffffffffffffffff;\\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\\n    *(undefined2 *)(puVar1 + 3) = 100;\\n    puVar1[4] = 0;\\n    return puVar1;\\n  case 2:\\n    puVar1 = operator_new(0x20);\\n    *puVar1 = &PTR__AuGeneScales_1423dd080;\\n    break;\\n  case 3:\\n    puVar1 = operator_new(0x20);\\n    *puVar1 = &PTR__AuGeneSpines_1423dd110;\\n    break;\\n  case 4:\\n    local_40 = \\\"default\\\";\\n    local_58 = 2;\\n    local_50 = (undefined1  [16])0x0;\\n    QMessageLogger::warning();\\n    QDebug::operator<<(local_60,\\\"error: AuGene::CreateGene cannot create gene Count.\\\");\\n    pcVar2 = ~QDebug_exref;\\n    QDebug::~QDebug(local_60);\\n  default:\\n    local_58 = 2;\\n    local_40 = \\\"default\\\";\\n    local_50 = (undefined1  [16])0x0;\\n    QMessageLogger::warning();\\n    this = (QDebug *)QDebug::operator<<(local_60,\\\"error: AuGene::CreateGene unknown gene\\\");\\n    QTextStream::operator<<(*(QTextStream **)this,param_1);\\n    if ((*(QTextStream **)this)[0x20] != (QTextStream)0x0) {\\n      QTextStream::operator<<(*(QTextStream **)this,' ');\\n    }\\n    QDebug::operator<<(this,\\\"Did you add a new gene and forget to update CreateGene?\\\");\\n    (*pcVar2)(local_60);\\n    return (undefined8 *)0x0;\\n  }\\n  *(undefined4 *)(puVar1 + 1) = 0;\\n  *(undefined2 *)(puVar1 + 3) = 100;\\n  *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\\n  *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\\n  return puVar1;\\n}\\n\\n\",\"limitations\":[]},\"normalized_result\":\"\\n/* AuGene::CreateGene(AuGene::GTYPE) */\\n\\nundefined8 * AuGene::CreateGene(int param_1)\\n\\n{\\n  undefined8 *puVar1;\\n  QDebug *this;\\n  code *pcVar2;\\n  QDebug local_60 [8];\\n  undefined8 local_58;\\n  undefined1 local_50 [16];\\n  char *local_40;\\n  \\n  pcVar2 = ~QDebug_exref;\\n  switch(param_1) {\\n  case 0:\\n    puVar1 = operator_new(0x20);\\n    *puVar1 = &PTR__AuGeneFeathers_1423fe710;\\n    *(undefined4 *)(puVar1 + 1) = 0;\\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\\n    *(undefined2 *)(puVar1 + 3) = 100;\\n    *(undefined1 *)((longlong)puVar1 + 0x1a) = 0;\\n    return puVar1;\\n  case 1:\\n    puVar1 = operator_new(0x28);\\n    *puVar1 = &PTR__AuGeneHair_1423c3530;\\n    *(undefined4 *)(puVar1 + 1) = 1;\\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffffffffffffffff;\\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\\n    *(undefined2 *)(puVar1 + 3) = 100;\\n    puVar1[4] = 0;\\n    return puVar1;\\n  case 2:\\n    puVar1 = operator_new(0x20);\\n    *puVar1 = &PTR__AuGeneScales_1423dd080;\\n    break;\\n  case 3:\\n    puVar1 = operator_new(0x20);\\n    *puVar1 = &PTR__AuGeneSpines_1423dd110;\\n    break;\\n  case 4:\\n    local_40 = \\\"default\\\";\\n    local_58 = 2;\\n    local_50 = (undefined1  [16])0x0;\\n    QMessageLogger::warning();\\n    QDebug::operator<<(local_60,\\\"error: AuGene::CreateGene cannot create gene Count.\\\");\\n    pcVar2 = ~QDebug_exref;\\n    QDebug::~QDebug(local_60);\\n  default:\\n    local_58 = 2;\\n    local_40 = \\\"default\\\";\\n    local_50 = (undefined1  [16])0x0;\\n    QMessageLogger::warning();\\n    this = (QDebug *)QDebug::operator<<(local_60,\\\"error: AuGene::CreateGene unknown gene\\\");\\n    QTextStream::operator<<(*(QTextStream **)this,param_1);\\n    if ((*(QTextStream **)this)[0x20] != (QTextStream)0x0) {\\n      QTextStream::operator<<(*(QTextStream **)this,' ');\\n    }\\n    QDebug::operator<<(this,\\\"Did you add a new gene and forget to update CreateGene?\\\");\\n    (*pcVar2)(local_60);\\n    return (undefined8 *)0x0;\\n  }\\n  *(undefined4 *)(puVar1 + 1) = 0;\\n  *(undefined2 *)(puVar1 + 3) = 100;\\n  *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\\n  *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\\n  return puVar1;\\n}\\n\\n\",\"confidence\":\"observed\",\"authority\":\"shipped-artifact\",\"environment\":null,\"limitations\":[\"The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.\",\"The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.\",\"Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.\",\"Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.\",\"Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.\",\"External functions and functions without an analyzable body return null; other decompiler failures remain explicit.\",\"This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported.\"],\"locations\":[],\"evidence_links\":[]}"
+    }
+  ],
+  "structuredContent": {
+    "evidence_id": "ev_24b1900622e47dbdc9ed36565a93569e7e807b9c51450fc71739772023837601",
+    "subject": {
+      "name": "OpenShores.exe",
+      "digest": {
+        "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+      },
+      "format": "pe",
+      "architecture": "x86_64",
+      "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+    },
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "analysis_profile": {
+      "provider": {
+        "id": "ghidra",
+        "name": "Ghidra",
+        "version": "12.1.2"
+      },
+      "parameters": {
+        "target_kind": "executable",
+        "target_format": "pe",
+        "executable_role": "application",
+        "managed": false,
+        "native_aot_metadata": {
+          "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+          "source_bytes": 134217728,
+          "work_units": 67108864,
+          "working_memory_bytes": 67108864,
+          "report_bytes": 4194304
+        },
+        "architecture": "x86_64",
+        "available_architectures": [
+          "x86_64"
+        ],
+        "import_mode": "ephemeral-source-immutable",
+        "annotation_policy": "atomic-function-entry-metadata-v1",
+        "load_image_observations": "source-mappings-entry-context-v2",
+        "function_body_evidence": "complete-inclusive-ranges-v1",
+        "function_references": "complete-body-and-entry-reference-manager-v2",
+        "string_inventory_evidence": "defined-data-coverage-v1",
+        "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+        "instruction_flow_evidence": "decoded-return-pcode-v1",
+        "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+        "no_return_repair": "returning-imports-decoded-return-v2",
+        "process_launch": "inspected-jvm-launch-support-v1",
+        "jump_table_evidence": "typed-case-default-blocks-v1",
+        "decompiler_jump_loads": true,
+        "loader": "auto-from-header",
+        "language_id": "auto-from-header",
+        "compiler_spec_id": "auto-default",
+        "analyzer_preset": "ghidra-default"
+      },
+      "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+    },
+    "predicate_type": "rea.analysis",
+    "operation": "procedure_pseudo_code",
+    "parameters": {
+      "procedure": "0x141210820"
+    },
+    "raw_result": {
+      "value": "\n/* AuGene::CreateGene(AuGene::GTYPE) */\n\nundefined8 * AuGene::CreateGene(int param_1)\n\n{\n  undefined8 *puVar1;\n  QDebug *this;\n  code *pcVar2;\n  QDebug local_60 [8];\n  undefined8 local_58;\n  undefined1 local_50 [16];\n  char *local_40;\n  \n  pcVar2 = ~QDebug_exref;\n  switch(param_1) {\n  case 0:\n    puVar1 = operator_new(0x20);\n    *puVar1 = &PTR__AuGeneFeathers_1423fe710;\n    *(undefined4 *)(puVar1 + 1) = 0;\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\n    *(undefined2 *)(puVar1 + 3) = 100;\n    *(undefined1 *)((longlong)puVar1 + 0x1a) = 0;\n    return puVar1;\n  case 1:\n    puVar1 = operator_new(0x28);\n    *puVar1 = &PTR__AuGeneHair_1423c3530;\n    *(undefined4 *)(puVar1 + 1) = 1;\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffffffffffffffff;\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\n    *(undefined2 *)(puVar1 + 3) = 100;\n    puVar1[4] = 0;\n    return puVar1;\n  case 2:\n    puVar1 = operator_new(0x20);\n    *puVar1 = &PTR__AuGeneScales_1423dd080;\n    break;\n  case 3:\n    puVar1 = operator_new(0x20);\n    *puVar1 = &PTR__AuGeneSpines_1423dd110;\n    break;\n  case 4:\n    local_40 = \"default\";\n    local_58 = 2;\n    local_50 = (undefined1  [16])0x0;\n    QMessageLogger::warning();\n    QDebug::operator<<(local_60,\"error: AuGene::CreateGene cannot create gene Count.\");\n    pcVar2 = ~QDebug_exref;\n    QDebug::~QDebug(local_60);\n  default:\n    local_58 = 2;\n    local_40 = \"default\";\n    local_50 = (undefined1  [16])0x0;\n    QMessageLogger::warning();\n    this = (QDebug *)QDebug::operator<<(local_60,\"error: AuGene::CreateGene unknown gene\");\n    QTextStream::operator<<(*(QTextStream **)this,param_1);\n    if ((*(QTextStream **)this)[0x20] != (QTextStream)0x0) {\n      QTextStream::operator<<(*(QTextStream **)this,' ');\n    }\n    QDebug::operator<<(this,\"Did you add a new gene and forget to update CreateGene?\");\n    (*pcVar2)(local_60);\n    return (undefined8 *)0x0;\n  }\n  *(undefined4 *)(puVar1 + 1) = 0;\n  *(undefined2 *)(puVar1 + 3) = 100;\n  *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\n  *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\n  return puVar1;\n}\n\n",
+      "limitations": []
+    },
+    "normalized_result": "\n/* AuGene::CreateGene(AuGene::GTYPE) */\n\nundefined8 * AuGene::CreateGene(int param_1)\n\n{\n  undefined8 *puVar1;\n  QDebug *this;\n  code *pcVar2;\n  QDebug local_60 [8];\n  undefined8 local_58;\n  undefined1 local_50 [16];\n  char *local_40;\n  \n  pcVar2 = ~QDebug_exref;\n  switch(param_1) {\n  case 0:\n    puVar1 = operator_new(0x20);\n    *puVar1 = &PTR__AuGeneFeathers_1423fe710;\n    *(undefined4 *)(puVar1 + 1) = 0;\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\n    *(undefined2 *)(puVar1 + 3) = 100;\n    *(undefined1 *)((longlong)puVar1 + 0x1a) = 0;\n    return puVar1;\n  case 1:\n    puVar1 = operator_new(0x28);\n    *puVar1 = &PTR__AuGeneHair_1423c3530;\n    *(undefined4 *)(puVar1 + 1) = 1;\n    *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffffffffffffffff;\n    *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\n    *(undefined2 *)(puVar1 + 3) = 100;\n    puVar1[4] = 0;\n    return puVar1;\n  case 2:\n    puVar1 = operator_new(0x20);\n    *puVar1 = &PTR__AuGeneScales_1423dd080;\n    break;\n  case 3:\n    puVar1 = operator_new(0x20);\n    *puVar1 = &PTR__AuGeneSpines_1423dd110;\n    break;\n  case 4:\n    local_40 = \"default\";\n    local_58 = 2;\n    local_50 = (undefined1  [16])0x0;\n    QMessageLogger::warning();\n    QDebug::operator<<(local_60,\"error: AuGene::CreateGene cannot create gene Count.\");\n    pcVar2 = ~QDebug_exref;\n    QDebug::~QDebug(local_60);\n  default:\n    local_58 = 2;\n    local_40 = \"default\";\n    local_50 = (undefined1  [16])0x0;\n    QMessageLogger::warning();\n    this = (QDebug *)QDebug::operator<<(local_60,\"error: AuGene::CreateGene unknown gene\");\n    QTextStream::operator<<(*(QTextStream **)this,param_1);\n    if ((*(QTextStream **)this)[0x20] != (QTextStream)0x0) {\n      QTextStream::operator<<(*(QTextStream **)this,' ');\n    }\n    QDebug::operator<<(this,\"Did you add a new gene and forget to update CreateGene?\");\n    (*pcVar2)(local_60);\n    return (undefined8 *)0x0;\n  }\n  *(undefined4 *)(puVar1 + 1) = 0;\n  *(undefined2 *)(puVar1 + 3) = 100;\n  *(undefined8 *)((longlong)puVar1 + 0xc) = 0xffff;\n  *(undefined2 *)((longlong)puVar1 + 0x14) = 0;\n  return puVar1;\n}\n\n",
+    "confidence": "observed",
+    "authority": "shipped-artifact",
+    "environment": null,
+    "limitations": [
+      "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+      "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+      "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+      "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+      "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+      "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+      "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+    ],
+    "locations": [],
+    "evidence_links": []
+  }
+}

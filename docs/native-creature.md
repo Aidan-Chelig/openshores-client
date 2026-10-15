@@ -55,8 +55,12 @@ must be checked against assembly before reproducing its fallback conditions.
 
 ## Remaining implementation dependencies
 
-Unit reception, DNA readers, pose loop/side effects, console virtual bodies,
+Unit and both DNA wire readers are implemented; remaining work includes
+pose loop/side effects, console virtual bodies,
 constructor defaults, precise scalar overloads and stream floating widths.
 The existing source-server Person codec does not resolve these native layers.
 Next inspect Unit, then reconstruct nested readers and concrete state in small
 module folders; do not silently accept unresolved suffix bytes.
+
+Animalia SetHitPoints is now independently reviewed in native-avatar-helpers.md:
+it clamps the signed short at -30 and stores it, like the DpBody lower bound.

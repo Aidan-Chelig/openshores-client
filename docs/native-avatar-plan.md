@@ -64,3 +64,11 @@ and three distinct gene readers queued. Headless verification now passes
 verify Creature/Sentient/Person or client presentation. Pregnant composition
 subsequently passed all-flag/truncation fixtures and a real mixed-condition
 Unit update carrying dynamic AuDNA, a trailing condition and the final vector.
+
+Sentient suffix milestone: actual skill-map decoding, ordered scalar resets,
+single-order reuse versus initialization and conditional string reception now
+exist in native_sentient. Real matrix/clock context is required for initialization;
+the suffix API does not skip or claim to implement Creature. Full `just check`
+passes formatting, 310 headless library tests, 331 client-feature library tests,
+9 CLI tests in each profile, 1 graphical-entry CLI test and strict client-feature
+all-target Clippy. No public server or native executable was used for testing.
