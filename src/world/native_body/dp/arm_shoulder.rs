@@ -34,7 +34,7 @@ impl NativeDpPartState {
     }
 }
 
-fn shoulder_pivot([x, y, z]: [f64; 3], angle: f32) -> NativeDpBoneTransform {
+pub(super) fn shoulder_pivot([x, y, z]: [f64; 3], angle: f32) -> NativeDpBoneTransform {
     let (s, c) = f64::from(angle).sin_cos();
     let (xz, yz, zz) = (x * 0., y * 0., z * 0.);
     let (cz, sz) = (c * 0., s * 0.);

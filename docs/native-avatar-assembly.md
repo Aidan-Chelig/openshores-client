@@ -118,4 +118,49 @@ field4c is the pair index for both sides, as initialization already proves.
 Field48 is initialized to zero and later receives SpreadLegs' splay angle.
 SpreadLegs groups by exact unposed ConnectLoc and counts all matching legs
 before applying its selector; replacing that with guessed side-based offsets
-would change native anatomy. These wrappers are retained but not yet implemented.
+would change native anatomy. These wrappers are implemented in the following milestone.
+
+## Composed standing-leg phase
+
+`NativeDpPartState` now exposes native hip, knee, ankle and splay operations and
+their ordered `stand_leg` composition. Hip/splay update all three concrete Bones
+outputs, knee updates outputs2/3, and ankle updates output3. Knee projects field50
+through output2; ankle projects field68 through output3. Hip and splay obtain the
+current attachment through output1. The native expanded X-pivot arithmetic agrees
+with the already reconstructed shoulder/wrist helpers, which are reused without
+replacing their operand order with a generic affine shortcut. Splay has its own
+expanded Z-pivot and concrete IsLeft sign selection.
+
+The Leg joint state now retains native splay field48, initialized to zero and
+preserved by OneTimeCalcs. `NativeDpInitialization::spread_legs` counts exact
+unposed connection groups before filtering by pair index, then assigns cumulative
+angles in reverse part order. It retains the anatomy-dependent requested-angle
+versus PI/(count+1) branch and does not clear unselected fields. Nonfinite map
+keys/inputs are rejected as a Rust preview safety boundary. Map ordering is native
+Z/Y/X, not an epsilon-based weld. `stand_legs` composes that phase with measured
+angles and per-part rotations. Its native reverse-loop sentinel excludes indices0
+and1, whereas SpreadLegs excludes only index0; ordinary initialized bodies have
+torso/head before all legs, but the distinction is retained explicitly.
+
+New full evidence: `native-leg-{hip,knee,ankle,splay}-gnu.txt`. The static checker
+also pins both concrete IsLeft vtable slots and the 0x3eb2b8c2 spread-angle literal.
+Seven CPU tests cover both sides/all three pair indices, translated pivots,
+unaffected bones, rotation order, no-ankle behavior, zero/invalid-index handling,
+group counts before selection, retained skipped state, triangle spacing, exact
+attachment grouping and suffix termination. The opt-in mounted test composes
+actual foot measurements, angle solutions and all selected bone writes for two
+anatomies; it checks finite matrices, fixed hip attachments and unchanged non-leg
+bones. These tests do not establish final ground placement or assembled geometry.
+
+Verification: full library 703 passed, one opt-in ignored; library/test Clippy
+passes with warnings denied; static checker and mounted standing test pass.
+The client-feature library/binaries also pass (733 library,10 CLI and1 slice
+test, with six opt-in tests ignored); formatting and diff whitespace checks pass.
+`just test-native-standing` runs targeted CPU/static/mounted checks offline.
+No original client or public server was executed or contacted; no new analysis
+import was needed. The skill guided focused retained-evidence reconstruction.
+
+Remaining: standing arms and complete pose-word selection/composition, reusable
+all-part geometry generation, one-time projection/skinning integration, textured
+full-body viewer and two-fixture multi-view GPU/visual verification. The complete
+avatar goal remains active; this milestone adds no `preview-avatar body` command.

@@ -34,7 +34,7 @@ impl NativeDpPartState {
     }
 }
 
-fn wrist_project(bone: &NativeDpBoneTransform, [x, y, z]: [f64; 3]) -> [f64; 3] {
+pub(super) fn wrist_project(bone: &NativeDpBoneTransform, [x, y, z]: [f64; 3]) -> [f64; 3] {
     let m = &bone.matrix_00;
     let (mut point, w) = if x == 0. && y == 0. && z == 0. {
         ([m[12], m[13], m[14]], ((m[3] + m[7]) + m[11]) + m[15])
@@ -71,7 +71,7 @@ fn wrist_project(bone: &NativeDpBoneTransform, [x, y, z]: [f64; 3]) -> [f64; 3] 
     point
 }
 
-fn wrist_pivot([x, y, z]: [f64; 3], angle: f32) -> NativeDpBoneTransform {
+pub(super) fn wrist_pivot([x, y, z]: [f64; 3], angle: f32) -> NativeDpBoneTransform {
     let (s, c) = f64::from(angle).sin_cos();
     let (xz, yz, zz) = (x * 0., y * 0., z * 0.);
     let (cz, sz) = (c * 0., s * 0.);

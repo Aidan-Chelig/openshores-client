@@ -27,6 +27,10 @@ impl NativeDpPartState {
         self.connect_30 = [x, y, 0.];
         let knee = f64::from(d[7]) + y;
         self.joints = NativeDpPartJoints::Leg {
+            splay_48: match self.joints {
+                NativeDpPartJoints::Leg { splay_48, .. } => splay_48,
+                _ => 0.,
+            },
             field_50: [x, knee, 0.],
             field_68: [x, f64::from(d[0]) + knee, 0.],
         };

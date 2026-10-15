@@ -16,6 +16,7 @@ pub enum NativeDpPartJoints {
         field_88: [f64; 3],
     },
     Leg {
+        splay_48: f32,
         field_50: [f64; 3],
         field_68: [f64; 3],
     },
@@ -39,6 +40,7 @@ impl NativeDpPartState {
                 field_88: [0.; 3],
             },
             LeftLegAndFoot | RightLegAndFoot => NativeDpPartJoints::Leg {
+                splay_48: 0.,
                 field_50: [0.; 3],
                 field_68: [0.; 3],
             },
