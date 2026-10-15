@@ -151,3 +151,24 @@ Pregnant remains explicitly Unsupported in Rust until DNA is reconstructed;
 do not quietly support only its null-DNA flag combinations. DhDNA is also
 needed by Creature and ImplantDNA, so its receive layout is the next shared
 dependency to inspect.
+
+## Remaining condition reader records
+
+Complete MCP responses in docs/evidence, reviewed in the reused session:
+
+- `native-condition-bounty.json`, `ev_d8f0e644095fa50c5071ac0cd16d2fa16b3fdba2075d20f0c09eff7b415cfc25`:
+  AuTime, AuId `0x10`, QString `0x18`, QString `0x20`, double overload `0x28`.
+  GNU assembly `0x1408b6db0..0x1408b6e01` corroborates the order and final
+  tail jump to imported `QDataStream >> double`. Stream profile still matters.
+- `native-condition-implant-dna.json`, `ev_9ec5b3763d7c2f5ad5399fa2453efb0695abe25eac3c314c55ea6e08db6ef359`:
+  AuTime then virtual receive `+0x20` on existing DNA pointer `0x10`.
+  Factory constructs DhDNA; its vtable receive binding is corroborated in
+  native-dna.md. No dynamic DNA type byte is read by this condition itself.
+- `native-condition-implant-species.json`, `ev_80543e991dc355f2615b23038782852386f1a172fc94e78229a8ca073958a464`:
+  AuTime then AuSpecies at `0x10`. Preserve its terminal-flow limitation;
+  the nested reader record establishes QByteArray reception (native-dna.md).
+- `native-id-reader.json`, `ev_9de5022d84dfe0c754c1035a2c9da64e5a4d5c9cea15f58360a1b0c8a9352b91`:
+  signed 32-bit Qt scalar copied into AuId. Preserve all raw ID bits, including
+  the high bit; this is not a variable-length integer or a textual ID.
+
+These observations establish additional layouts, not yet Rust implementations.
