@@ -14,6 +14,7 @@ mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
 mod body_bone_names;
 mod body_loaded_face;
+mod body_mapping;
 mod body_merge_face_metadata;
 mod body_merge_geometry;
 mod body_merge_head_normals;
@@ -132,6 +133,7 @@ pub struct GroupVertex {
 pub enum GeometryChunk {
     Vertices,
     Matrix,
+    MappingCoordinates,
 }
 
 #[derive(Default, Debug)]

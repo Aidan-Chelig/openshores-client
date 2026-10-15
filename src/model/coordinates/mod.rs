@@ -74,7 +74,12 @@ impl Mesh {
         } else {
             &self.geometry_order
         };
-        if order.len() > 2
+        if order.len() > 3
+            || order
+                .iter()
+                .filter(|chunk| **chunk == GeometryChunk::MappingCoordinates)
+                .count()
+                > 1
             || order
                 .iter()
                 .filter(|chunk| **chunk == GeometryChunk::Vertices)
@@ -94,6 +99,7 @@ impl Mesh {
         let mut inverse = None;
         for chunk in order {
             match chunk {
+                GeometryChunk::MappingCoordinates => {}
                 GeometryChunk::Vertices => {
                     points = self.vertices.clone();
                     if points.iter().flatten().any(|value| !value.is_finite()) {

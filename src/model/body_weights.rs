@@ -5,8 +5,8 @@ use super::{
 use std::io;
 
 impl super::Mesh {
-    /// Weight every stored vertex in source order, using native zero-initialized
-    /// payloads. Positions are matched before triangle-builder projection.
+    /// Weight every stored vertex after ordered native mapping-coordinate writes.
+    /// Positions are matched before triangle-builder projection.
     pub fn native_body_vertex_weights(
         &self,
         variant: super::ModelVariant,
@@ -15,8 +15,8 @@ impl super::Mesh {
         let groups = NativeBodyObjectGroups::from_mesh(self)?;
         self.native_weight_lookup_positions(variant)?
             .into_iter()
-            .map(|point| {
-                let mut weights = NativeBodyVertexWeights::default();
+            .zip(self.initial_native_vertex_payloads(variant)?)
+            .map(|(point, mut weights)| {
                 weights.average_at_native_vertex(point, &groups, bones)?;
                 Ok(weights)
             })

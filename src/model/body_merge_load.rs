@@ -2,7 +2,7 @@
 use super::{
     Mesh, ModelVariant, NativeBodyDeformation, NativeBodyFaceMetadata, NativeBodyLoadedFace,
     NativeBodyMergeBake, NativeBodyMergeGeometry, NativeBodyModelGeometry, NativeBodyObjectGroups,
-    NativeBodyStoredVertex, NativeBodyVertexWeights,
+    NativeBodyStoredVertex,
 };
 use std::io;
 
@@ -22,8 +22,8 @@ impl Mesh {
         let vertices = self
             .native_weight_lookup_positions(variant)?
             .into_iter()
-            .map(|position| {
-                let mut payload = NativeBodyVertexWeights::default();
+            .zip(self.initial_native_vertex_payloads(variant)?)
+            .map(|(position, mut payload)| {
                 payload.average_at_native_vertex(position, &groups, bones)?;
                 Ok(NativeBodyStoredVertex { position, payload })
             })
@@ -76,6 +76,7 @@ mod tests {
             vertices: vec![[10., 20., 30.]; 3],
             matrix: Some([1., 0., 0., 0., 1., 0., 0., 0., 1., 10., 20., 30.]),
             geometry_order: vec![GeometryChunk::Vertices, GeometryChunk::Matrix],
+            uvs: Some(vec![[0.25, 0.75]; 3]),
             faces: vec![Face {
                 vertices: [0, 1, 2],
                 flags: 7,
@@ -92,6 +93,8 @@ mod tests {
             }],
             ..Default::default()
         };
+        let mut mesh = mesh;
+        mesh.geometry_order.push(GeometryChunk::MappingCoordinates);
         let definition = NativeBodyModelGeometry {
             fields_00: [1.; 6],
             fields_40: [1., 2., 3.],
@@ -108,7 +111,18 @@ mod tests {
         assert_eq!(result.object.vertices[0].position, [0.; 3]);
         assert_eq!(
             result.object.vertices[0].payload.words_00_through_24,
-            [0; 10]
+            [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0.25_f32.to_bits(),
+                0.75_f32.to_bits()
+            ]
         );
         assert_eq!(result.deformation.base.fields_1f4, [5., 6., 7.]);
         assert_eq!(result.deformation.base.fields_1c0, [1., 2., 3.]);

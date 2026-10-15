@@ -188,8 +188,9 @@ head fallback assets through this constructor and the composed geometry stages.
 The fixture explicitly requires a single object per resource, distinct ASCII
 material keys, and supplied fixture owner fields/DNA; it does not pretend these
 restrictions implement general instance loading. It seeds represented geometry,
-not a fake full CopyInstance. Verified fixture output: 804 stored vertices,
-1,228 faces, 770 connection corner updates, zero incomplete-connection reports.
+not a fake full CopyInstance. Verified fixture output after the mapping-payload
+correction below: 902 stored vertices, 1,228 faces, 626 connection corner updates,
+zero incomplete-connection reports.
 All final indices are in bounds and all stored positions finite. The test is
 offline/read-only and is included in the native mounted suite.
 
@@ -251,3 +252,28 @@ write the vertex buffer at130. Therefore the torso's later copy from vertex20/24
 must not automatically be replaced by a read from the raw UV array. Mesh-load
 finalization remains to be checked for any subsequent assignments to those
 vertex fields before claiming complete loaded-object/payload parity.
+
+## Mapping-payload correction
+
+That finalization check is now resolved for this path. The existing retained
+LoadMeshChunk record (`native-body-load-mesh.json`,1413a5590) calls
+SetMappingCoords immediately after each successful mapping chunk unless the
+model type is3 (X). The newly retained callee
+`native-body-set-mapping-coords.json` (1413a5270,0.090s) copies UV pairs into
+vertex20/24 only when the current vertex count equals the mapping count.
+No end-of-mesh retry occurs. Thus mappings arriving before vertices do not
+populate subsequently loaded vertex payloads; X bypasses these assignments.
+
+The decoder now retains MappingCoordinates in geometry chunk order. Initial
+native payload construction applies those writes BEFORE AverageWeights, in
+both the mesh weighting API and merge-input construction. Missing UV chunk
+order is an error rather than a guessed assignment. Regression tests cover
+the order, X bypass, exact-count gate and merge-input payload values.
+
+This fixes the earlier zero20/24 assumption in mounted head merging: the
+fixture now produces902 vertices and626 corner updates (previously804/770),
+with1,228 faces and no incomplete connections. Native uniqueness and hash
+matching legitimately change when these fields are populated. The17-resource
+body fixture still produces3,410 finite weight payloads. SetMappingCoords also
+writes flag3a8 and builds an auxiliary multimap; those effects are not represented
+by this payload-only reconstruction and remain outside complete loader parity.

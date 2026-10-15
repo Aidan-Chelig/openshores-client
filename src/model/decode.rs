@@ -244,6 +244,9 @@ impl Decoder<'_> {
                     if self.model.meshes[index].uvs.replace(uvs).is_some() {
                         return Err(invalid("duplicate UV list"));
                     }
+                    self.model.meshes[index]
+                        .geometry_order
+                        .push(GeometryChunk::MappingCoordinates);
                 }
                 (Mesh(index), 0x4160) => {
                     let matrix = field.floats()?;
