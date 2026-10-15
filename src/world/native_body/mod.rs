@@ -3,6 +3,7 @@
 mod dp;
 mod textures;
 pub use dp::NativeDpArmSkinGeometry;
+pub use dp::NativeDpArmStandAngles;
 pub use dp::NativeDpLegSkinGeometry;
 pub use dp::NativeDpLegStandAngles;
 pub use dp::NativeDpTailSkinGeometry;

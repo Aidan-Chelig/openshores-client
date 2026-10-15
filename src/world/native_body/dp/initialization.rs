@@ -11,6 +11,8 @@ pub enum NativeDpPartJoints {
         field_50: [f64; 3],
     },
     Arm {
+        lift_48: f32,
+        splay_4c: f32,
         field_58: [f64; 3],
         field_70: [f64; 3],
         field_88: [f64; 3],
@@ -35,6 +37,8 @@ impl NativeDpPartState {
         let joints = match allocation.kind {
             HeadAndNeck => NativeDpPartJoints::Head { field_50: [0.; 3] },
             LeftArmAndHand | RightArmAndHand => NativeDpPartJoints::Arm {
+                lift_48: 0.,
+                splay_4c: 0.,
                 field_58: [0.; 3],
                 field_70: [0.; 3],
                 field_88: [0.; 3],

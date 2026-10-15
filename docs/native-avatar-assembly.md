@@ -164,3 +164,59 @@ Remaining: standing arms and complete pose-word selection/composition, reusable
 all-part geometry generation, one-time projection/skinning integration, textured
 full-body viewer and two-fixture multi-view GPU/visual verification. The complete
 avatar goal remains active; this milestone adds no `preview-avatar body` command.
+
+## Standing-arm calculations and spacing
+
+`NativeDpPartState::arm_stand_angles` reconstructs
+`DpArmAndHand::CalcStandAngles` (VA1412d2000). It resolves concrete Bones first,
+measures owner HandLength(false), and adds the first reference bone's projected
+origin Z to the requested height with native f64-to-f32 narrowing. This is NOT
+the stored ConnectLoc's Y coordinate. The solver uses owner dimensions4088 and
+40b4, includes hand length in the lower segment only without wrist bend, and
+retains the 95%-reach and double-precision -1e-5 comparison. Raw shoulder/elbow
+angles feed wrist compensation BEFORE the output sign/angle conversions.
+
+The alternate exoskeletal/invalid-triangle branch can replace nonfinite initial
+acos values with finite angles. Rust therefore validates final angles rather
+than rejecting those temporary values. It does not clamp trigonometric domains
+or substitute a fabricated pose. Nonfinite input/final values return Unsupported
+as a preview safety boundary, not as a claim of native input validation.
+
+`NativeDpInitialization::spread_arms` now stores native arm fields48 (lift) and4c
+(splay), initialized to zero and preserved by OneTimeCalcs. It scans forward,
+skips wing-bearing arms, groups exact unposed attachments in Z/Y/X order, and
+increments both angles before side filtering. Selector0 is left,1 right,2 both;
+unselected members still consume spacing increments and retain prior fields.
+This differs from leg spreading, whose pair-index selector skips increments.
+There is no group-count division in the arm routine. These routines compute
+angles/state only; they do not yet compose the full standing-arm bone phase.
+
+Complete static records: `native-arm-calc-stand-angles-gnu.txt`,
+`native-dp-spread-arms-gnu.txt`, `native-dp-stand-arms-gnu.txt` and
+`native-arm-relax-gnu.txt`. `tests/native_arm_standing.py` verifies them against
+the digest-checked supplied PE, twelve constants and both concrete IsLeft
+vtable returns. No fresh analysis import or reference execution was needed.
+The reverse-engineering skill kept reconstruction focused on these dependencies.
+
+Four CPU solver tests cover both wrist modes, origin-Z contribution, reach
+capping, alternate branches and invalid domains. Four spacing tests cover
+coincident anatomy, side selection versus pair selection, accumulation before
+filtering, wings, retained state, exact grouping and nonfinite keys. The opt-in
+mounted standing suite now also verifies both wrist modes with actual hand
+measurements for all six arms, projected-origin offsets (including non-unit W),
+and preservation of spacing through joint recalculation, without modifying
+owner bones. This is a
+measurement/angle check, not a visual verification of standing arms.
+
+Next arm dependencies are SplayShoulder and LiftShoulder, then Relax's actual
+shoulder/wrist/elbow/splay/lift order and StandArms' first-selected-arm override.
+StandArms reads WalksOnHands to select its lift literal; its boolean override is
+consumed only by the first selected ordinary arm, not every arm. Both wrappers
+are retained for composition; they are not yet implemented or rendered.
+
+Verification for this milestone: 711 library tests pass, one opt-in ignored;
+both opt-in mounted standing tests and the arm static-evidence checker pass.
+Library/test Clippy with warnings denied, formatting and whitespace checks pass.
+Client-feature regression checks pass:741 library,10 CLI and1 slice test, with
+six opt-in tests ignored. The expanded standing task's commands validate in
+`just --dry-run test-native-standing`.

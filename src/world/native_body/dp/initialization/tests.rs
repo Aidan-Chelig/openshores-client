@@ -45,6 +45,7 @@ fn arm_resource_failure_preserves_pre_call_writes_and_retry_finishes_hand() {
         field_58,
         field_70,
         field_88,
+        ..
     } = arm.joints
     else {
         panic!()
@@ -58,6 +59,7 @@ fn arm_resource_failure_preserves_pre_call_writes_and_retry_finishes_hand() {
         field_58: elbow,
         field_70: wrist,
         field_88: hand,
+        ..
     } = arm.joints
     else {
         panic!()

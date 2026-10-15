@@ -9,6 +9,8 @@ fn part(kind: NativeDpPartKind, index: u32, point: [f64; 3]) -> NativeDpPartStat
         },
         connect_30: [199.; 3],
         joints: NativeDpPartJoints::Arm {
+            lift_48: 0.,
+            splay_4c: 0.,
             field_58: [99.; 3],
             field_70: point,
             field_88: [299.; 3],

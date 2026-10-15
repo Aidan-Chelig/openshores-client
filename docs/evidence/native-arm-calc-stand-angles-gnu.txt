@@ -1,0 +1,229 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412d2000 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_>:
+   1412d2000:	41 54                	push   %r12
+   1412d2002:	55                   	push   %rbp
+   1412d2003:	57                   	push   %rdi
+   1412d2004:	56                   	push   %rsi
+   1412d2005:	53                   	push   %rbx
+   1412d2006:	48 81 ec c0 00 00 00 	sub    $0xc0,%rsp
+   1412d200d:	0f 29 74 24 30       	movaps %xmm6,0x30(%rsp)
+   1412d2012:	0f 29 7c 24 40       	movaps %xmm7,0x40(%rsp)
+   1412d2017:	44 0f 29 44 24 50    	movaps %xmm8,0x50(%rsp)
+   1412d201d:	44 0f 29 4c 24 60    	movaps %xmm9,0x60(%rsp)
+   1412d2023:	44 0f 29 54 24 70    	movaps %xmm10,0x70(%rsp)
+   1412d2029:	44 0f 29 9c 24 80 00 	movaps %xmm11,0x80(%rsp)
+   1412d2030:	00 00 
+   1412d2032:	44 0f 29 a4 24 90 00 	movaps %xmm12,0x90(%rsp)
+   1412d2039:	00 00 
+   1412d203b:	44 0f 29 ac 24 a0 00 	movaps %xmm13,0xa0(%rsp)
+   1412d2042:	00 00 
+   1412d2044:	44 0f 29 b4 24 b0 00 	movaps %xmm14,0xb0(%rsp)
+   1412d204b:	00 00 
+   1412d204d:	48 8b 01             	mov    (%rcx),%rax
+   1412d2050:	48 8b bc 24 10 01 00 	mov    0x110(%rsp),%rdi
+   1412d2057:	00 
+   1412d2058:	48 89 cd             	mov    %rcx,%rbp
+   1412d205b:	0f 28 f1             	movaps %xmm1,%xmm6
+   1412d205e:	4c 89 c3             	mov    %r8,%rbx
+   1412d2061:	4c 89 ce             	mov    %r9,%rsi
+   1412d2064:	4c 8d 44 24 28       	lea    0x28(%rsp),%r8
+   1412d2069:	4c 8d 4c 24 2c       	lea    0x2c(%rsp),%r9
+   1412d206e:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1412d2073:	4c 8d 65 10          	lea    0x10(%rbp),%r12
+   1412d2077:	ff 90 a0 00 00 00    	call   *0xa0(%rax)
+   1412d207d:	48 8b 4d 08          	mov    0x8(%rbp),%rcx
+   1412d2081:	31 d2                	xor    %edx,%edx
+   1412d2083:	f3 44 0f 10 89 88 40 	movss  0x4088(%rcx),%xmm9
+   1412d208a:	00 00 
+   1412d208c:	f3 0f 10 b9 b4 40 00 	movss  0x40b4(%rcx),%xmm7
+   1412d2093:	00 
+   1412d2094:	e8 67 74 ff ff       	call   1412c9500 <_ZNK6DpBody10HandLengthEb>
+   1412d2099:	c7 06 00 00 00 00    	movl   $0x0,(%rsi)
+   1412d209f:	4c 89 e1             	mov    %r12,%rcx
+   1412d20a2:	c7 03 00 00 00 00    	movl   $0x0,(%rbx)
+   1412d20a8:	44 0f 28 c0          	movaps %xmm0,%xmm8
+   1412d20ac:	45 0f 28 d1          	movaps %xmm9,%xmm10
+   1412d20b0:	c7 07 00 00 00 00    	movl   $0x0,(%rdi)
+   1412d20b6:	e8 05 b2 fd ff       	call   1412ad2c0 <_ZNK5DhDNA12HasWristBendEv>
+   1412d20bb:	84 c0                	test   %al,%al
+   1412d20bd:	75 09                	jne    1412d20c8 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0xc8>
+   1412d20bf:	45 0f 28 d0          	movaps %xmm8,%xmm10
+   1412d20c3:	f3 45 0f 58 d1       	addss  %xmm9,%xmm10
+   1412d20c8:	8b 54 24 24          	mov    0x24(%rsp),%edx
+   1412d20cc:	48 89 d0             	mov    %rdx,%rax
+   1412d20cf:	48 c1 e0 05          	shl    $0x5,%rax
+   1412d20d3:	48 01 d0             	add    %rdx,%rax
+   1412d20d6:	48 8b 55 08          	mov    0x8(%rbp),%rdx
+   1412d20da:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1412d20de:	ba 01 00 00 00       	mov    $0x1,%edx
+   1412d20e3:	f2 0f 10 88 88 00 00 	movsd  0x88(%rax),%xmm1
+   1412d20ea:	00 
+   1412d20eb:	f2 0f 58 88 a8 00 00 	addsd  0xa8(%rax),%xmm1
+   1412d20f2:	00 
+   1412d20f3:	f2 0f 58 88 c8 00 00 	addsd  0xc8(%rax),%xmm1
+   1412d20fa:	00 
+   1412d20fb:	f2 0f 58 88 e8 00 00 	addsd  0xe8(%rax),%xmm1
+   1412d2102:	00 
+   1412d2103:	66 0f 2e 0d e5 d8 fe 	ucomisd 0xfed8e5(%rip),%xmm1        # 1422bf9f0 <CSWTCH.2328+0x250>
+   1412d210a:	00 
+   1412d210b:	f2 0f 10 80 e0 00 00 	movsd  0xe0(%rax),%xmm0
+   1412d2112:	00 
+   1412d2113:	0f 9a c0             	setp   %al
+   1412d2116:	0f 45 c2             	cmovne %edx,%eax
+   1412d2119:	84 c0                	test   %al,%al
+   1412d211b:	74 16                	je     1412d2133 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x133>
+   1412d211d:	66 0f 2e 0d db d8 fe 	ucomisd 0xfed8db(%rip),%xmm1        # 1422bfa00 <CSWTCH.2328+0x260>
+   1412d2124:	00 
+   1412d2125:	0f 9a c0             	setp   %al
+   1412d2128:	0f 45 c2             	cmovne %edx,%eax
+   1412d212b:	84 c0                	test   %al,%al
+   1412d212d:	74 04                	je     1412d2133 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x133>
+   1412d212f:	f2 0f 5e c1          	divsd  %xmm1,%xmm0
+   1412d2133:	45 0f 28 da          	movaps %xmm10,%xmm11
+   1412d2137:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412d213b:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1412d213f:	31 ed                	xor    %ebp,%ebp
+   1412d2141:	f3 44 0f 58 df       	addss  %xmm7,%xmm11
+   1412d2146:	f3 0f 5a ce          	cvtss2sd %xmm6,%xmm1
+   1412d214a:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   1412d214e:	f3 44 0f 59 1d b1 da 	mulss  0xfedab1(%rip),%xmm11        # 1422bfc08 <CSWTCH.2328+0x468>
+   1412d2155:	fe 00 
+   1412d2157:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1412d215b:	f2 0f 5a c9          	cvtsd2ss %xmm1,%xmm1
+   1412d215f:	f3 0f 5a d1          	cvtss2sd %xmm1,%xmm2
+   1412d2163:	f3 41 0f 5a c3       	cvtss2sd %xmm11,%xmm0
+   1412d2168:	f2 0f 5c c2          	subsd  %xmm2,%xmm0
+   1412d216c:	66 0f 2f 05 3c db fe 	comisd 0xfedb3c(%rip),%xmm0        # 1422bfcb0 <CSWTCH.2328+0x510>
+   1412d2173:	00 
+   1412d2174:	72 09                	jb     1412d217f <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x17f>
+   1412d2176:	44 0f 28 d9          	movaps %xmm1,%xmm11
+   1412d217a:	bd 01 00 00 00       	mov    $0x1,%ebp
+   1412d217f:	45 0f 28 ea          	movaps %xmm10,%xmm13
+   1412d2183:	44 0f 28 f7          	movaps %xmm7,%xmm14
+   1412d2187:	41 0f 28 f3          	movaps %xmm11,%xmm6
+   1412d218b:	f3 44 0f 10 25 48 dc 	movss  0xfedc48(%rip),%xmm12        # 1422bfddc <CSWTCH.2328+0x63c>
+   1412d2192:	fe 00 
+   1412d2194:	f3 45 0f 59 ea       	mulss  %xmm10,%xmm13
+   1412d2199:	f3 44 0f 59 f7       	mulss  %xmm7,%xmm14
+   1412d219e:	f3 44 0f 59 e7       	mulss  %xmm7,%xmm12
+   1412d21a3:	f3 41 0f 59 f3       	mulss  %xmm11,%xmm6
+   1412d21a8:	41 0f 28 c5          	movaps %xmm13,%xmm0
+   1412d21ac:	f3 41 0f 5c c6       	subss  %xmm14,%xmm0
+   1412d21b1:	41 0f 28 cc          	movaps %xmm12,%xmm1
+   1412d21b5:	f3 41 0f 59 cb       	mulss  %xmm11,%xmm1
+   1412d21ba:	f3 0f 5c c6          	subss  %xmm6,%xmm0
+   1412d21be:	f3 0f 5e c1          	divss  %xmm1,%xmm0
+   1412d21c2:	e8 b9 82 48 00       	call   14175a480 <acosf>
+   1412d21c7:	f3 41 0f 5c f6       	subss  %xmm14,%xmm6
+   1412d21cc:	f3 45 0f 59 e2       	mulss  %xmm10,%xmm12
+   1412d21d1:	f3 0f 11 03          	movss  %xmm0,(%rbx)
+   1412d21d5:	0f 28 c6             	movaps %xmm6,%xmm0
+   1412d21d8:	f3 41 0f 5c c5       	subss  %xmm13,%xmm0
+   1412d21dd:	f3 41 0f 5e c4       	divss  %xmm12,%xmm0
+   1412d21e2:	e8 99 82 48 00       	call   14175a480 <acosf>
+   1412d21e7:	f3 0f 11 06          	movss  %xmm0,(%rsi)
+   1412d21eb:	40 84 ed             	test   %bpl,%bpl
+   1412d21ee:	0f 85 7c 00 00 00    	jne    1412d2270 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x270>
+   1412d21f4:	f3 0f 10 05 c0 da fe 	movss  0xfedac0(%rip),%xmm0        # 1422bfcbc <CSWTCH.2328+0x51c>
+   1412d21fb:	00 
+   1412d21fc:	f3 0f 11 07          	movss  %xmm0,(%rdi)
+   1412d2200:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   1412d2205:	0f 28 7c 24 40       	movaps 0x40(%rsp),%xmm7
+   1412d220a:	f3 0f 10 05 3e d8 fe 	movss  0xfed83e(%rip),%xmm0        # 1422bfa50 <CSWTCH.2328+0x2b0>
+   1412d2211:	00 
+   1412d2212:	f3 0f 5c 03          	subss  (%rbx),%xmm0
+   1412d2216:	44 0f 28 44 24 50    	movaps 0x50(%rsp),%xmm8
+   1412d221c:	44 0f 28 4c 24 60    	movaps 0x60(%rsp),%xmm9
+   1412d2222:	44 0f 28 9c 24 80 00 	movaps 0x80(%rsp),%xmm11
+   1412d2229:	00 00 
+   1412d222b:	44 0f 28 54 24 70    	movaps 0x70(%rsp),%xmm10
+   1412d2231:	44 0f 28 a4 24 90 00 	movaps 0x90(%rsp),%xmm12
+   1412d2238:	00 00 
+   1412d223a:	f3 0f 11 03          	movss  %xmm0,(%rbx)
+   1412d223e:	f3 0f 10 05 e6 d8 fe 	movss  0xfed8e6(%rip),%xmm0        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412d2245:	00 
+   1412d2246:	44 0f 28 ac 24 a0 00 	movaps 0xa0(%rsp),%xmm13
+   1412d224d:	00 00 
+   1412d224f:	f3 0f 5c 06          	subss  (%rsi),%xmm0
+   1412d2253:	44 0f 28 b4 24 b0 00 	movaps 0xb0(%rsp),%xmm14
+   1412d225a:	00 00 
+   1412d225c:	f3 0f 11 06          	movss  %xmm0,(%rsi)
+   1412d2260:	48 81 c4 c0 00 00 00 	add    $0xc0,%rsp
+   1412d2267:	5b                   	pop    %rbx
+   1412d2268:	5e                   	pop    %rsi
+   1412d2269:	5f                   	pop    %rdi
+   1412d226a:	5d                   	pop    %rbp
+   1412d226b:	41 5c                	pop    %r12
+   1412d226d:	c3                   	ret
+   1412d226e:	66 90                	xchg   %ax,%ax
+   1412d2270:	4c 89 e1             	mov    %r12,%rcx
+   1412d2273:	e8 58 b0 fd ff       	call   1412ad2d0 <_ZNK5DhDNA13IsExoskeletalEv>
+   1412d2278:	84 c0                	test   %al,%al
+   1412d227a:	74 74                	je     1412d22f0 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x2f0>
+   1412d227c:	44 0f 2f 15 5c d7 fe 	comiss 0xfed75c(%rip),%xmm10        # 1422bf9e0 <CSWTCH.2328+0x240>
+   1412d2283:	00 
+   1412d2284:	76 3d                	jbe    1412d22c3 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x2c3>
+   1412d2286:	f3 0f 10 05 32 da fe 	movss  0xfeda32(%rip),%xmm0        # 1422bfcc0 <CSWTCH.2328+0x520>
+   1412d228d:	00 
+   1412d228e:	f3 0f 59 c7          	mulss  %xmm7,%xmm0
+   1412d2292:	f3 41 0f 58 c3       	addss  %xmm11,%xmm0
+   1412d2297:	41 0f 2f c2          	comiss %xmm10,%xmm0
+   1412d229b:	0f 87 9f 00 00 00    	ja     1412d2340 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x340>
+   1412d22a1:	f3 41 0f 5e c2       	divss  %xmm10,%xmm0
+   1412d22a6:	e8 d5 81 48 00       	call   14175a480 <acosf>
+   1412d22ab:	f3 0f 58 05 6d d7 fe 	addss  0xfed76d(%rip),%xmm0        # 1422bfa20 <CSWTCH.2328+0x280>
+   1412d22b2:	00 
+   1412d22b3:	f3 0f 10 0d fd d9 fe 	movss  0xfed9fd(%rip),%xmm1        # 1422bfcb8 <CSWTCH.2328+0x518>
+   1412d22ba:	00 
+   1412d22bb:	f3 0f 11 06          	movss  %xmm0,(%rsi)
+   1412d22bf:	f3 0f 11 0b          	movss  %xmm1,(%rbx)
+   1412d22c3:	4c 89 e1             	mov    %r12,%rcx
+   1412d22c6:	e8 f5 af fd ff       	call   1412ad2c0 <_ZNK5DhDNA12HasWristBendEv>
+   1412d22cb:	84 c0                	test   %al,%al
+   1412d22cd:	0f 84 21 ff ff ff    	je     1412d21f4 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x1f4>
+   1412d22d3:	f3 0f 10 06          	movss  (%rsi),%xmm0
+   1412d22d7:	f3 0f 58 03          	addss  (%rbx),%xmm0
+   1412d22db:	f3 0f 5c 05 65 d7 fe 	subss  0xfed765(%rip),%xmm0        # 1422bfa48 <CSWTCH.2328+0x2a8>
+   1412d22e2:	00 
+   1412d22e3:	e9 14 ff ff ff       	jmp    1412d21fc <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x1fc>
+   1412d22e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1412d22ef:	00 
+   1412d22f0:	4c 89 e1             	mov    %r12,%rcx
+   1412d22f3:	e8 c8 af fd ff       	call   1412ad2c0 <_ZNK5DhDNA12HasWristBendEv>
+   1412d22f8:	84 c0                	test   %al,%al
+   1412d22fa:	75 05                	jne    1412d2301 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x301>
+   1412d22fc:	f3 45 0f 58 c8       	addss  %xmm8,%xmm9
+   1412d2301:	0f 28 c7             	movaps %xmm7,%xmm0
+   1412d2304:	f3 41 0f 58 c1       	addss  %xmm9,%xmm0
+   1412d2309:	44 0f 2f d8          	comiss %xmm0,%xmm11
+   1412d230d:	0f 83 69 ff ff ff    	jae    1412d227c <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x27c>
+   1412d2313:	41 0f 28 c3          	movaps %xmm11,%xmm0
+   1412d2317:	f3 41 0f 58 c1       	addss  %xmm9,%xmm0
+   1412d231c:	0f 2f f8             	comiss %xmm0,%xmm7
+   1412d231f:	0f 83 57 ff ff ff    	jae    1412d227c <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x27c>
+   1412d2325:	41 0f 28 c3          	movaps %xmm11,%xmm0
+   1412d2329:	f3 0f 58 c7          	addss  %xmm7,%xmm0
+   1412d232d:	44 0f 2f c8          	comiss %xmm0,%xmm9
+   1412d2331:	72 90                	jb     1412d22c3 <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x2c3>
+   1412d2333:	e9 44 ff ff ff       	jmp    1412d227c <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x27c>
+   1412d2338:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1412d233f:	00 
+   1412d2340:	f3 45 0f 5c d3       	subss  %xmm11,%xmm10
+   1412d2345:	41 0f 28 c2          	movaps %xmm10,%xmm0
+   1412d2349:	f3 0f 5e c7          	divss  %xmm7,%xmm0
+   1412d234d:	e8 fe 80 48 00       	call   14175a450 <asinf>
+   1412d2352:	f3 0f 10 15 ee d6 fe 	movss  0xfed6ee(%rip),%xmm2        # 1422bfa48 <CSWTCH.2328+0x2a8>
+   1412d2359:	00 
+   1412d235a:	0f 28 c8             	movaps %xmm0,%xmm1
+   1412d235d:	0f 28 c2             	movaps %xmm2,%xmm0
+   1412d2360:	f3 0f 5c c1          	subss  %xmm1,%xmm0
+   1412d2364:	f3 0f 58 ca          	addss  %xmm2,%xmm1
+   1412d2368:	e9 4e ff ff ff       	jmp    1412d22bb <_ZNK12DpArmAndHand15CalcStandAnglesEfRfS0_S0_+0x2bb>
+   1412d236d:	90                   	nop
+   1412d236e:	66 90                	xchg   %ax,%ax
+

@@ -16,6 +16,8 @@ fn part(left: bool, index: u32, selector: u8) -> NativeDpPartState {
         },
         connect_30: [4., 5., 6.],
         joints: NativeDpPartJoints::Arm {
+            lift_48: 0.,
+            splay_4c: 0.,
             field_58: [0.; 3],
             field_70: [0.; 3],
             field_88: [0.; 3],

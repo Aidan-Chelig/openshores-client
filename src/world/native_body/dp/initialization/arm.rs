@@ -65,6 +65,7 @@ impl NativeDpPartState {
             field_58,
             field_70,
             field_88,
+            ..
         } = &mut self.joints
         else {
             unreachable!()

@@ -8,6 +8,8 @@ fn part(kind: NativeDpPartKind, index: u32, arms: u8, wing: u8) -> NativeDpPartS
         allocation: NativeDpAllocatedPart { kind, index, dna },
         connect_30: [0.25, -0.5, 0.75],
         joints: NativeDpPartJoints::Arm {
+            lift_48: 0.,
+            splay_4c: 0.,
             field_58: [-0.125, 0.375, -0.625],
             field_70: [99.; 3],
             field_88: [199.; 3],
