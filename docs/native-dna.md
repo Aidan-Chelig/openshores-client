@@ -41,3 +41,27 @@ without inserting an extra dynamic-DNA discriminator. Tests cover all 256
 DhDNA byte values, every truncated DhDNA/implant prefix, wrong lengths, null,
 raw non-text species bytes, storage bounds and following-field alignment.
 Dynamic AuDNA/chromatid and Pregnant decoding remain outstanding.
+
+## Chromatid receive boundary
+
+Reviewed `native-chromatid-reader.json`,
+`ev_9de4b6a262f0a898ad3a9cc533ecbdb79d2c2b0667e9eb0ba489219fb4f34a93`:
+clear existing chromatid, read short count, then per entry read type byte,
+CreateChromosome, receive through virtual `+0x20` forwarding AuDNA's leading
+byte, and append. Null factory results warn and continue without guessed
+body skipping. Exact count overload/loop width still requires corroboration.
+
+Reviewed factory `native-chromosome-factory.json`,
+`ev_3e1690f65965b3d640869ce299508c3f780c8485ef4da8fed1e9420833087d6b`:
+types 0..27 map in order to Annelida, Arthropoda, Chordata, Mollusca,
+Feathers, Fur, Scales, Skin, Head, Torso, Arm, Leg, Fin, Tentacle, Wing,
+Antenna, Horn, Ear, Eye, Nose, Mouth, Lungs, Gills, Blood, EatsAnimals,
+EatsPlants, Reproduction, Mammary. Type 28 explicitly returns null; other
+values warn and return null. Factory initializers are retained in full evidence,
+but reader layouts and vtable bindings remain to be reconstructed. In
+particular, a raw QByteArray is not the complete AuDNA representation.
+
+The warm session is now querying each distinct symbol-bound chromosome reader
+once, including the shared WithGenes layer. A rejected guessed factory symbol
+is retained only under target/avatar-analysis-session/chromosome-factory.json;
+the successful factory evidence uses the exact COFF CTYPE symbol.
