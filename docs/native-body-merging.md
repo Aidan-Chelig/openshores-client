@@ -215,3 +215,39 @@ The next torso source-vertex stage uses strict Euclidean connection tolerance,
 zero-tolerance AddIfUnique for ordinary vertices, conditional mapping-coordinate
 appends from vertex20/24, and additional BottomSkin-related remap logic. Those
 paths are not implemented merely by adding this preparation stage.
+
+## Torso source vertices
+
+`append_torso_vertices` now reconstructs the normal/non-crest torso vertex
+loop (retained torso315..614 and1228..1280). Inputs explicitly include the
+call-local last-bottom reference returned from baking and the actual source
+mapping-coordinate count. Like head it consults only the first TopConnect map
+before deforming source xyz, but the rest is distinct:
+
+- Ordinary vertices call AddIfUnique with zero tolerance, thus always append.
+  Only membership in the current last-bottom map adds connection table entries.
+- Connection vertices snap to the first strict Euclidean-distance match, then
+  scan destination kind9 groups for actual candidate membership. Visited kind9
+  groups update the call-local last-bottom reference. A failed group scan does
+  not resume searching later destination positions.
+- Primary and secondary remaps preserve native first insertion, including the
+  candidate-to-itself primary entry and zero secondary sentinel on unmatched
+  cases. These are not head's candidate-to-new-index mappings.
+- When the source mapping array covers the source ordinal, the appended mapping
+  coordinate is copied from vertex fields20/24. Actual coordinate-array values
+  are not read for this write. The returned ordered vector lets the owner append
+  those coordinates without guessing missing entries.
+
+Four regression tests cover coincident ordinary appends, conditional coordinate
+counts, strict tolerance boundaries, BottomConnect membership, call-local state
+and first-distance-match termination. This remains a vertex stage: crest
+instance behavior, torso faces/normals/materials, model state and publication
+must still be implemented before a complete torso/avatar can be claimed.
+
+The same retained session additionally returned LoadMappingCoordsChunk in
+0.112s (`evidence/native-body-load-mapping-coords.json`,14139d5b0). Its complete
+body appends serialized float pairs to object118's mapping array; it does not
+write the vertex buffer at130. Therefore the torso's later copy from vertex20/24
+must not automatically be replaced by a read from the raw UV array. Mesh-load
+finalization remains to be checked for any subsequent assignments to those
+vertex fields before claiming complete loaded-object/payload parity.
