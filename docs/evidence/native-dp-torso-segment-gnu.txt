@@ -1,0 +1,189 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412b6080 <_ZNK6DpBody12TorsoSegmentEj.part.0>:
+   1412b6080:	push   %r12
+   1412b6082:	push   %rdi
+   1412b6083:	push   %rsi
+   1412b6084:	push   %rbx
+   1412b6085:	sub    $0x108,%rsp
+   1412b608c:	lea    0x10(%rcx),%r12
+   1412b6090:	mov    %rcx,%rsi
+   1412b6093:	mov    %edx,%ebx
+   1412b6095:	mov    %r12,%rcx
+   1412b6098:	call   1412ad6f0 <_ZNK5DhDNA11WaistVertexEv>
+   1412b609d:	mov    %r12,%rcx
+   1412b60a0:	mov    %eax,%edi
+   1412b60a2:	call   1412ad1b0 <_ZNK5DhDNA11ArmVerticesEv>
+   1412b60a7:	movzbl 0x24(%rsi),%r8d
+   1412b60ac:	mov    %eax,%edx
+   1412b60ae:	xor    %eax,%eax
+   1412b60b0:	test   $0xc,%r8b
+   1412b60b4:	je     1412b60d0 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x50>
+   1412b60b6:	movzbl 0x2c(%rsi),%ecx
+   1412b60ba:	mov    $0x1,%eax
+   1412b60bf:	shr    $0x5,%cl
+   1412b60c2:	movzbl %cl,%ecx
+   1412b60c5:	add    $0x1,%ecx
+   1412b60c8:	sub    %edx,%ecx
+   1412b60ca:	jne    1412b6280 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x200>
+   1412b60d0:	testb  $0x3,0x19(%rsi)
+   1412b60d4:	je     1412b60e7 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x67>
+   1412b60d6:	testb  $0x6,0x1a(%rsi)
+   1412b60da:	je     1412b60e7 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x67>
+   1412b60dc:	test   %edx,%edx
+   1412b60de:	je     1412b6220 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x1a0>
+   1412b60e4:	sub    $0x1,%edx
+   1412b60e7:	cmp    %ebx,%edx
+   1412b60e9:	jbe    1412b6220 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x1a0>
+   1412b60ef:	cmp    $0x1,%ebx
+   1412b60f2:	mov    $0x1,%ecx
+   1412b60f7:	sbb    $0xffffffff,%ecx
+   1412b60fa:	add    $0x1,%ebx
+   1412b60fd:	cmp    %edx,%ebx
+   1412b60ff:	jae    1412b6208 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x188>
+   1412b6105:	movzbl 0x2c(%rsi),%edx
+   1412b6109:	mov    $0x3,%eax
+   1412b610e:	shr    $0x5,%dl
+   1412b6111:	movzbl %dl,%edx
+   1412b6114:	cmp    %edx,%ebx
+   1412b6116:	je     1412b62f0 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x270>
+   1412b611c:	movdqa 0x10097dc(%rip),%xmm0        # 1422bf900 <CSWTCH.2328+0x160>
+   1412b6124:	mov    0x10098a5(%rip),%rdx        # 1422bf9d0 <CSWTCH.2328+0x230>
+   1412b612b:	movaps %xmm0,0x20(%rsp)
+   1412b6130:	movdqa 0x10097d8(%rip),%xmm0        # 1422bf910 <CSWTCH.2328+0x170>
+   1412b6138:	mov    %rdx,0xf0(%rsp)
+   1412b6140:	mov    %ecx,%edx
+   1412b6142:	movaps %xmm0,0x30(%rsp)
+   1412b6147:	movdqa 0x10097d1(%rip),%xmm0        # 1422bf920 <CSWTCH.2328+0x180>
+   1412b614f:	lea    (%rdx,%rdx,8),%rdx
+   1412b6153:	add    %rdx,%rax
+   1412b6156:	movaps %xmm0,0x40(%rsp)
+   1412b615b:	movdqa 0x10097cd(%rip),%xmm0        # 1422bf930 <CSWTCH.2328+0x190>
+   1412b6163:	movaps %xmm0,0x50(%rsp)
+   1412b6168:	movdqa 0x10097d0(%rip),%xmm0        # 1422bf940 <CSWTCH.2328+0x1a0>
+   1412b6170:	movaps %xmm0,0x60(%rsp)
+   1412b6175:	movdqa 0x10097d3(%rip),%xmm0        # 1422bf950 <CSWTCH.2328+0x1b0>
+   1412b617d:	movaps %xmm0,0x70(%rsp)
+   1412b6182:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf960 <CSWTCH.2328+0x1c0>
+   1412b618a:	movaps %xmm0,0x80(%rsp)
+   1412b6192:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf970 <CSWTCH.2328+0x1d0>
+   1412b619a:	movaps %xmm0,0x90(%rsp)
+   1412b61a2:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf980 <CSWTCH.2328+0x1e0>
+   1412b61aa:	movaps %xmm0,0xa0(%rsp)
+   1412b61b2:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf990 <CSWTCH.2328+0x1f0>
+   1412b61ba:	movaps %xmm0,0xb0(%rsp)
+   1412b61c2:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf9a0 <CSWTCH.2328+0x200>
+   1412b61ca:	movaps %xmm0,0xc0(%rsp)
+   1412b61d2:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf9b0 <CSWTCH.2328+0x210>
+   1412b61da:	movaps %xmm0,0xd0(%rsp)
+   1412b61e2:	movdqa 0x10097d6(%rip),%xmm0        # 1422bf9c0 <CSWTCH.2328+0x220>
+   1412b61ea:	movaps %xmm0,0xe0(%rsp)
+   1412b61f2:	mov    0x20(%rsp,%rax,4),%eax
+   1412b61f6:	add    $0x108,%rsp
+   1412b61fd:	pop    %rbx
+   1412b61fe:	pop    %rsi
+   1412b61ff:	pop    %rdi
+   1412b6200:	pop    %r12
+   1412b6202:	ret
+   1412b6203:	nopl   0x0(%rax,%rax,1)
+   1412b6208:	cmp    %ebx,%edi
+   1412b620a:	jbe    1412b6238 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x1b8>
+   1412b620c:	mov    $0x4,%eax
+   1412b6211:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>
+   1412b6216:	cs nopw 0x0(%rax,%rax,1)
+   1412b6220:	cmp    %ebx,%edi
+   1412b6222:	jbe    1412b62a0 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x220>
+   1412b6224:	mov    %ebx,%ecx
+   1412b6226:	neg    %ecx
+   1412b6228:	sbb    %ecx,%ecx
+   1412b622a:	and    $0x3,%ecx
+   1412b622d:	jmp    1412b60fa <_ZNK6DpBody12TorsoSegmentEj.part.0+0x7a>
+   1412b6232:	nopw   0x0(%rax,%rax,1)
+   1412b6238:	movzbl 0x2c(%rsi),%edx
+   1412b623c:	shr    $0x5,%dl
+   1412b623f:	movzbl %dl,%edx
+   1412b6242:	test   %eax,%eax
+   1412b6244:	je     1412b6310 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x290>
+   1412b624a:	cmp    %edx,%ebx
+   1412b624c:	je     1412b6330 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x2b0>
+   1412b6252:	cmp    %ebx,%edi
+   1412b6254:	je     1412b6350 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x2d0>
+   1412b625a:	cmp    $0x3,%eax
+   1412b625d:	jne    1412b620c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x18c>
+   1412b625f:	sub    %edi,%edx
+   1412b6261:	shr    $1,%edx
+   1412b6263:	lea    (%rdx,%rdi,1),%eax
+   1412b6266:	cmp    %eax,%ebx
+   1412b6268:	sete   %al
+   1412b626b:	movzbl %al,%eax
+   1412b626e:	lea    0x4(%rax,%rax,1),%eax
+   1412b6272:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>
+   1412b6277:	nopw   0x0(%rax,%rax,1)
+   1412b6280:	shr    $0x2,%r8b
+   1412b6284:	mov    %ecx,%eax
+   1412b6286:	and    $0x3,%r8d
+   1412b628a:	cmp    %ecx,%r8d
+   1412b628d:	cmovbe %r8,%rax
+   1412b6291:	jmp    1412b60d0 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x50>
+   1412b6296:	cs nopw 0x0(%rax,%rax,1)
+   1412b62a0:	test   %eax,%eax
+   1412b62a2:	je     1412b6224 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x1a4>
+   1412b62a4:	mov    $0x4,%ecx
+   1412b62a9:	test   %ebx,%ebx
+   1412b62ab:	je     1412b60fa <_ZNK6DpBody12TorsoSegmentEj.part.0+0x7a>
+   1412b62b1:	mov    $0x5,%ecx
+   1412b62b6:	cmp    %ebx,%edi
+   1412b62b8:	je     1412b60fa <_ZNK6DpBody12TorsoSegmentEj.part.0+0x7a>
+   1412b62be:	mov    $0x3,%ecx
+   1412b62c3:	cmp    $0x3,%eax
+   1412b62c6:	jne    1412b60fa <_ZNK6DpBody12TorsoSegmentEj.part.0+0x7a>
+   1412b62cc:	movzbl 0x2c(%rsi),%ecx
+   1412b62d0:	shr    $0x5,%cl
+   1412b62d3:	movzbl %cl,%ecx
+   1412b62d6:	sub    %edi,%ecx
+   1412b62d8:	shr    $1,%ecx
+   1412b62da:	add    %edi,%ecx
+   1412b62dc:	cmp    %ecx,%ebx
+   1412b62de:	sete   %cl
+   1412b62e1:	movzbl %cl,%ecx
+   1412b62e4:	lea    0x3(%rcx,%rcx,1),%ecx
+   1412b62e8:	jmp    1412b60fa <_ZNK6DpBody12TorsoSegmentEj.part.0+0x7a>
+   1412b62ed:	nopl   (%rax)
+   1412b62f0:	movzbl 0x26(%rsi),%eax
+   1412b62f4:	and    $0xffffffc0,%eax
+   1412b62f7:	cmp    $0x1,%al
+   1412b62f9:	sbb    %eax,%eax
+   1412b62fb:	and    $0x7,%eax
+   1412b62fe:	add    $0x1,%eax
+   1412b6301:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>
+   1412b6306:	cs nopw 0x0(%rax,%rax,1)
+   1412b6310:	cmp    %edx,%ebx
+   1412b6312:	jne    1412b620c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x18c>
+   1412b6318:	testb  $0xc0,0x26(%rsi)
+   1412b631c:	mov    $0x7,%edx
+   1412b6321:	cmovne %rdx,%rax
+   1412b6325:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>
+   1412b632a:	nopw   0x0(%rax,%rax,1)
+   1412b6330:	movzbl 0x26(%rsi),%edx
+   1412b6334:	and    $0xffffffc0,%edx
+   1412b6337:	cmp    $0x1,%eax
+   1412b633a:	ja     1412b6360 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x2e0>
+   1412b633c:	cmp    %ebx,%edi
+   1412b633e:	je     1412b6360 <_ZNK6DpBody12TorsoSegmentEj.part.0+0x2e0>
+   1412b6340:	neg    %dl
+   1412b6342:	sbb    %eax,%eax
+   1412b6344:	and    $0x7,%eax
+   1412b6347:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>
+   1412b634c:	nopl   0x0(%rax)
+   1412b6350:	mov    $0x6,%eax
+   1412b6355:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>
+   1412b635a:	nopw   0x0(%rax,%rax,1)
+   1412b6360:	cmp    $0x1,%dl
+   1412b6363:	sbb    %eax,%eax
+   1412b6365:	and    $0xfffffffd,%eax
+   1412b6368:	add    $0x5,%eax
+   1412b636b:	jmp    1412b611c <_ZNK6DpBody12TorsoSegmentEj.part.0+0x9c>

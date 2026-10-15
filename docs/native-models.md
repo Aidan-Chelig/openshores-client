@@ -610,3 +610,42 @@ explicit test inputs, not reconstructed production defaults or runtime parity.
 This request builder does not execute full CreateSkin cache/material/device
 effects. Torso and head/neck generation, production object defaults/weights,
 full assembly and avatar rendering are still required.
+
+## Torso segment selection and skin geometry plan
+
+`native_dp_torso_segment` now ports the bounded wrapper and part.0 selector.
+It uses actual WaistVertex/ArmVertices, adjusted wing arms, available leg
+positions and tail endpoints to index the native6x9 table. Original PE bytes
+confirm consecutive u32 values1..54; out-of-range segment indices return0.
+Fixtures cover literal simple-body selections, wrapper bounds and packed
+arm/leg/wing/tail combinations without replacing selection with limb counts.
+
+`torso_skin_plan` and the completed-owner wrapper preserve native two-stage
+generation: a combined-model key first, then ordered fallback segment/crest
+pieces if combined-model creation fails. Segment codes choose the exact native
+resource stems, including literal ModelMissing names. PA suppresses crests;
+otherwise crest selectors enter both the combined key and optional per-segment
+resources. Fallback bone triples preserve previous/current/next indices, and
+translation decrements by the owner's stored40a8 per accepted segment. The
+combined definition retains native geometry scalars, including40a8 as its
+first double (not guessed1.0); float length/width stages and merge tolerance
+(width*0.05)*uniform remain explicit. Zero part segments produce no plan.
+
+Retained complete records are `native-dp-torso-create-skin.json`
+(`ev_bd95f62b443a571fce7c7f6b5a209ab557397d1a065fbebe584c2c6c7b946bd5`),
+`native-dp-torso-segment.json`
+(`ev_e8d3236422368ba6e4d43e57c78845c441506305879017a53d38a1b41f53815e`)
+and `native-dp-torso-segment-part0.json`
+(`ev_2810175bdb9ccaf85137c4ba62b767b9004a1f16aa681ff8ccf530dad0636441`).
+Full selector GNU is `native-dp-torso-segment-gnu.txt`. The skin record was
+reused; both missing selectors used the warm session in0.144s/0.163s, no import.
+`just test-native-dp-torso-skin` verifies original table/constant bytes, input/
+definition/combined/crest/fallback anchors and Rust ordering/PA/error fixtures.
+
+The mounted initialized-body fixture now exercises11 Arm/Hand/Leg/Foot/Tail/
+Torso fallback resources and2,463 CPU vertices. It deliberately tests the
+fallback pieces, not a successful combined-cache path. Object defaults remain
+explicit fixtures. The plan does NOT implement cache lookup, failed-load
+semantics, MergeTorsoWithInstance, CreatePatchedModel, bounds/materials or
+publication. Head/neck requests, production defaults and weights, full model
+assembly and avatar rendering remain unfinished under the original goal.

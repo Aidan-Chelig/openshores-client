@@ -155,6 +155,7 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
     dna.0[1] = 1;
     dna.0[12] = 4;
     dna.0[14] = 0x50;
+    dna.0[20] = 0x40;
     let mut body = NativeDpInitialization::begin(&dna);
     body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))
         .unwrap();
@@ -178,6 +179,13 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
                 .tail_skin_geometry_request(index, [1.; 4])
                 .unwrap()
                 .into_iter()
+                .map(|r| (r.resource, r.geometry))
+                .collect(),
+            NativeDpPartKind::Torso => body
+                .torso_skin_geometry_plan(index, 0, [1.; 4])
+                .unwrap()
+                .into_iter()
+                .flat_map(|p| p.fallback)
                 .map(|r| (r.resource, r.geometry))
                 .collect(),
             _ => continue,
@@ -217,7 +225,7 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
             }
         }
     }
-    assert_eq!(resources, 9);
+    assert_eq!(resources, 11);
     assert!(points > 0);
     eprintln!(
         "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."

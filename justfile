@@ -93,6 +93,10 @@ test-native-dp-tail-skin:
     nix develop .#server-test --command python tests/native_dp_tail_skin.py
     nix develop .#server-test --command cargo test --offline --lib world::native_body::dp::tail_skin
 
+test-native-dp-torso-skin:
+    nix develop .#server-test --command python tests/native_dp_torso_skin.py
+    nix develop .#server-test --command cargo test --offline --lib world::native_body::dp::torso_
+
 # Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
 test-native-jobs:
     nix develop .#server-test --command python tests/native_jobs.py
