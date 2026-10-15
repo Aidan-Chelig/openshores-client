@@ -821,6 +821,44 @@ original-client execution or cross-platform libm bit parity. The full torso
 pose dispatcher and its body-wide RotateWaist connection remain next, then
 remaining animation and the production Person/model/presentation gates above.
 
+### Complete PositionTorso dispatch and body-wide application
+
+`NativeDpInitialization::position_torso` now composes the real mounted
+geometric prelude, full-width torso pose5c/general pose48 dispatch, actual
+DhDNA::Rhythm and body-wide RotateWaist. The returned float is the angle
+actually applied; zero waist, zero angle and native default branches return
+zero. Geometric measurement precedes even default pose selection, and rhythm
+precedes the final waist guard. A required resource/timer error propagates;
+nontrivial rotation retains RotateWaist's completed-part-calculations safety
+requirement. No successful fallback or invented timer is supplied.
+
+The dispatcher retains native float literals, zero/NaN branch behavior,
+caller speed only for17/22/28/37/38 and unit speed on other rhythmic paths,
+both high-pose masks, and general pose41's independent mask/special cases.
+Its byte-bound fixture `tests/fixtures/native_dp_position_torso.tsv` covers
+all160 in-range values. `python tests/native_dp_position_torso.py` verifies
+every entry in BOTH actual80-entry jump tables, all high/general masks,
+float constants, float return register, rhythm arithmetic and concrete waist
+call against the supplied SHA256. This reuses the complete retained record
+and GNU disassembly; no new analysis import was needed.
+
+Rust fixtures compare every selected role across positive/negative/signed-zero/
+NaN bases, every general pose0..54 plus wide defaults, and three speed values,
+including exact timer events and failure propagation. The opt-in mounted
+`native_dp_mounted_position_torso` test initializes actual16-part bodies for
+wrist-bending, non-bending and non-hand-walking DNA, uses full4068=-7 and
+real hand resources, and compares all160 poses at three heights/five general
+poses to separately selected offsets composed with real RotateWaist across
+every bone. It also checks timer failure leaves bones unchanged and zero-waist
+rhythm sampling occurs before the rotation guard. `just test-native-dp-mounted`
+includes it; `just test-native-dp-position-torso` runs static/unit checks.
+
+These are static, host Rust and mounted offline composition checks, not
+original-client execution or independently observed animation/render parity.
+Remaining limb stages/full Animate, native production timer/model/Person
+ownership, mesh generation/publication and final minimal-client presentation
+are still unfinished under the unchanged end-to-end objective.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or

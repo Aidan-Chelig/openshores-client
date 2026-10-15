@@ -170,12 +170,17 @@ test-native-dp-torso-base:
     nix develop .#server-test --command python tests/native_dp_torso_base.py
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::torso_base
 
+test-native-dp-position-torso:
+    nix develop .#server-test --command python tests/native_dp_position_torso.py
+    nix develop .#server-test --command cargo test --offline --lib native_body::dp::position_torso
+
 # Mounted hands, feet, part calculations and standing heights; entirely offline.
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_tail_pose -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_position_tail -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_waist -- --ignored --nocapture
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_position_torso -- --ignored --nocapture
 
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build

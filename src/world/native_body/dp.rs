@@ -22,6 +22,7 @@ mod body_waist;
 mod foot;
 mod height;
 mod position_tail;
+mod position_torso;
 mod standing;
 mod tail_bend;
 mod tail_fold;
