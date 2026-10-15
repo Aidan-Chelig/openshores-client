@@ -15,8 +15,8 @@ pub trait NativePersonReceiveContext: NativeCreatureReceiveContext {
     fn monotonic_now(&mut self) -> Instant;
 }
 
-/// Observation state, not reconstructed QObject/native constructor defaults.
-/// Caller must supply actual prior Person660/state1130 before masked updates.
+/// Default is observation-only, not a reconstructed QObject/native constructor.
+/// Seed the explicit constructor subset or supply real retained masked priors.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct NativePersonBodyState {
     /// Includes the real Unit receive state/stage.

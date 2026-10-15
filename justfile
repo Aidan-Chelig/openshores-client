@@ -69,6 +69,10 @@ test-native-inventory:
 test-native-person-construction:
     nix develop .#server-test --command python tests/native_person_construction.py
 
+# Complete offline Person packets through native dispatch; explicit fixture context.
+test-native-person-dispatch:
+    nix develop .#server-test --command cargo test --offline --lib world::native_person::atom::tests::lifecycle::packets
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

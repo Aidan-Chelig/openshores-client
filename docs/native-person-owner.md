@@ -42,6 +42,7 @@ arrival, refusal of an indexed replacement, and retained missing-parent queue/
 registration using wire ID7 rather than handle90. Registration observations in
 that fixture are explicit synthetic context, not recovered Person ticking policy.
 
-Native ReadPacket adapter/model context and the minimal client's presentation
-bridge remain unfinished. These storage/lifecycle tests are not end-to-end
+The Native ReadPacket Person adapter now exists; see native-person-dispatch.md.
+Its concrete client model context and the minimal client's presentation bridge
+remain unfinished. These storage/lifecycle tests are not end-to-end
 packet-to-avatar or live-native-session proof; no public server is involved.

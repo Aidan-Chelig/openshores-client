@@ -1,6 +1,7 @@
 //! Stable-owner atom branch of native ReadPacket. No source-profile fallback.
 pub mod base;
 pub mod item;
+pub mod person;
 use super::{
     native_atom::NativeAtomKind, native_prefix::NativeIdentityPrefix,
     native_subatoms::NativeRecoveryLookup,

@@ -310,3 +310,13 @@ registration behavior, partial-error synchronization and explicit float
 profiles. See native-person-owner.md. These adapters still require runtime
 model/environment context; native packet dispatch and actual avatar presentation
 remain open, rather than being substituted by source-profile GUI success.
+
+Person packet-dispatch milestone: NativePersonDispatch now connects the existing
+native receive_atom identity/base/owner path to the actual inherited Person
+readers and stable-handle storage. Full unframed fixtures in all float profiles
+verify fresh signals/owner stages, retained timestamp updates, temporary runtime/
+storage disposal before body reuse, nested diagnostics and every truncated
+prefix. Required runtime hooks have no successful no-op defaults; tests use an
+explicit fixture model/environment context, not the graphical runtime. See
+native-person-dispatch.md. Concrete runtime model effects and the presentation
+bridge remain unfinished; this adapter does not complete the overall goal.

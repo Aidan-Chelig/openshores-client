@@ -1,4 +1,4 @@
-//! Verified Person dependencies, not a complete inherited Person receiver.
+//! Native Person receive storage and dependencies; runtime integration is incomplete.
 //! Unobserved fields are not guessed constructor defaults.
 use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::{collections::BTreeMap, io};
