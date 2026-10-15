@@ -129,3 +129,25 @@ timestamps and nonzero raw bytes, and applies only the observed zero-to-one
 normalization. Tests cover every scalar byte, every truncated scalar/string
 prefix, null/empty/Unicode strings, extreme timestamps and all 256 type bytes.
 This is not yet a counted list, Unit composition or complete Person dispatch.
+
+## Pregnant body dependencies
+
+Reviewed full record `evidence/native-condition-pregnant.json`,
+`ev_070b2e91a2be3bf0c174e0b63b7f2f52b881f5128d7d921dd03e71765a5b55e1`.
+Independent GNU assembly review covers `0x1408b6c60..0x1408b6d46`, including
+the exception cleanup tail. After AuTime, receive one raw flags byte and assign
+`0x20 = flags & 3`. Destroy existing DNA pointer `0x10` before replacement.
+Bit `0x40` has precedence: invoke `AuDNABase::ReadDynamic` (`0x14123e180`).
+Otherwise `0x20` supplies null DNA; with neither bit set, construct DhDNA and
+receive it using `DhDNA::operator<<` (`0x1412ac0d0`). Thus ordinary flags zero
+still consume DNA, and both bits set select dynamic DNA, not null.
+
+Then receive raw byte `0x18`, QString `0x28`, and finally AuId `0x1c` only
+when flags `0x80` is set. Its omission retains an existing ID (factory initial
+ID was zero); this optional trailing ID must not be moved before the string.
+There is no zero-to-one normalization of `0x18` in this reader.
+
+Pregnant remains explicitly Unsupported in Rust until DNA is reconstructed;
+do not quietly support only its null-DNA flag combinations. DhDNA is also
+needed by Creature and ImplantDNA, so its receive layout is the next shared
+dependency to inspect.
