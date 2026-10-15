@@ -20,6 +20,8 @@ mod body_selection;
 pub use body_selection::NativeBodyVertexSelection;
 mod body_deformation;
 pub use body_deformation::NativeBodyDeformation;
+mod body_definition;
+pub use body_definition::NativeBodyModelGeometry;
 mod decode;
 mod fingerprint;
 mod roles;

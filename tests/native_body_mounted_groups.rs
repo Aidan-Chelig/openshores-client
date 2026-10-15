@@ -2,8 +2,8 @@
 use openshores_client::{
     asset_mount::AssetMount,
     model::{
-        ModelVariant, NativeBodyDeformation, NativeBodyObjectGroups, NativeBodyObjectScale,
-        NativeBodyVertexGroup,
+        ModelVariant, NativeBodyDeformation, NativeBodyModelGeometry, NativeBodyObjectGroups,
+        NativeBodyObjectScale, NativeBodyVertexGroup,
     },
     world::{native_body::NativeDpHandResource, native_dna::NativeDhDna},
 };
@@ -63,7 +63,7 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
             // Explicit non-unit fixture values, NOT recovered Person model
             // definitions. This checks real asset composition without claiming
             // native execution, complete model construction or visual parity.
-            let deformation = NativeBodyDeformation {
+            let mut deformation = NativeBodyDeformation {
                 base: definition,
                 field_170: 1.2,
                 field_178: 1.3,
@@ -74,6 +74,12 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
                 fields_228: [0.; 3],
                 fields_2c4: [0.; 3],
             };
+            NativeBodyModelGeometry {
+                fields_00: [1., 0.75, 0., 0., 0., 0.],
+                fields_40: [0.; 3],
+                fields_58: [1.3, 1.2, 1.5, 1.4, 1.6],
+            }
+            .apply_to_deformation(&mut deformation);
             match mesh.body_deformed_positions(ModelVariant::N, 1., &deformation, [0.; 3], [0.; 3])
             {
                 Ok(points) => {

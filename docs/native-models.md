@@ -471,3 +471,42 @@ CPU deformation branches are now represented; unsupported key ordering or
 malformed inputs still fail explicitly. This is not original-client execution
 or a claim of native floating-point payload parity. Live model definitions,
 complete skin assembly, bone weights and rendering remain unfinished.
+
+## Model definition to object geometry
+
+`NativeBodyModelGeometry` represents only the established geometry portion of
+Au3dsGLSLModelDefinition, not an invented replacement for the complete Qt type.
+It preserves the constructor's first six doubles at00..28, AuPoint at40..50,
+and five following doubles at58..78. `apply_to_deformation` follows the actual
+cache forwarding and generator writes:
+
+| Definition | Deformation object |
+| --- | --- |
+| 08 | 140 (uniform scale) |
+| 40/48/50 | 1c0/1c4/1c8 (f64 narrowed to f32) |
+| 58 | 178 |
+| 60 | 170 |
+| 68 | 188 |
+| 70 | 180 |
+| 78 | 190 |
+
+Existing connection/midpoint/wing control points remain unchanged. Translation
+preserves native float narrowing, including signed zero and overflow; unused
+definition scalars are not interpreted as display scale. Other generator
+writes (object148/group48, bone weights, colors and device objects) remain
+outside this geometry projection and are not reported as implemented.
+
+Complete evidence is retained in `native-body-definition-constructor.json`
+(`ev_32db6032543e537730818b45049fa7e949c76e124752809a9e1221103abe8b1e`),
+`native-body-cache-generation.json`
+(`ev_980dd5bc2a83b8aa63ce6dbf99ce4dc7bfc9da7a34e4d275eb90eb0ae9364f21`),
+and `native-body-instance-generation.json`
+(`ev_1c0dbd30bfa2b18a76c92dcad5cf14e063d5a2853011077841967eeee448341d`).
+The instance record was reused; the two missing procedures used the already
+analyzed warm session in0.112s and0.292s, with no new import. `just
+test-native-body-definition` binds all records to the original PE digest,
+checks constructor layout and actual wrapper loads/stores with GNU, and tests
+mapping, metadata preservation, float narrowing and mesh composition. The
+mounted hand fixture now applies this projection before deformation using
+explicit fixture parameters, not live Person definitions. Production part
+CreateSkin definitions, full assembly/bones and avatar rendering remain pending.
