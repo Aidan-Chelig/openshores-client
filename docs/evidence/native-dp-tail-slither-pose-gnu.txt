@@ -1,0 +1,315 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412cfa30 <_ZN6DpTail7SlitherERK6AuPosef>:
+   1412cfa30:	41 54                	push   %r12
+   1412cfa32:	48 83 ec 20          	sub    $0x20,%rsp
+   1412cfa36:	49 89 cc             	mov    %rcx,%r12
+   1412cfa39:	0f 28 da             	movaps %xmm2,%xmm3
+   1412cfa3c:	f6 41 26 c0          	testb  $0xc0,0x26(%rcx)
+   1412cfa40:	75 0e                	jne    1412cfa50 <_ZN6DpTail7SlitherERK6AuPosef+0x20>
+   1412cfa42:	48 83 c4 20          	add    $0x20,%rsp
+   1412cfa46:	41 5c                	pop    %r12
+   1412cfa48:	c3                   	ret
+   1412cfa49:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1412cfa50:	8b 02                	mov    (%rdx),%eax
+   1412cfa52:	83 f8 4b             	cmp    $0x4b,%eax
+   1412cfa55:	77 40                	ja     1412cfa97 <_ZN6DpTail7SlitherERK6AuPosef+0x67>
+   1412cfa57:	83 f8 19             	cmp    $0x19,%eax
+   1412cfa5a:	0f 86 a0 00 00 00    	jbe    1412cfb00 <_ZN6DpTail7SlitherERK6AuPosef+0xd0>
+   1412cfa60:	8d 48 e6             	lea    -0x1a(%rax),%ecx
+   1412cfa63:	41 b8 01 00 00 00    	mov    $0x1,%r8d
+   1412cfa69:	49 d3 e0             	shl    %cl,%r8
+   1412cfa6c:	4c 89 c1             	mov    %r8,%rcx
+   1412cfa6f:	49 b8 85 00 00 00 00 	movabs $0x2000000000085,%r8
+   1412cfa76:	00 02 00 
+   1412cfa79:	4c 85 c1             	test   %r8,%rcx
+   1412cfa7c:	0f 85 8d 00 00 00    	jne    1412cfb0f <_ZN6DpTail7SlitherERK6AuPosef+0xdf>
+   1412cfa82:	f6 c5 18             	test   $0x18,%ch
+   1412cfa85:	0f 85 35 01 00 00    	jne    1412cfbc0 <_ZN6DpTail7SlitherERK6AuPosef+0x190>
+   1412cfa8b:	f7 c1 00 00 03 00    	test   $0x30000,%ecx
+   1412cfa91:	0f 85 41 01 00 00    	jne    1412cfbd8 <_ZN6DpTail7SlitherERK6AuPosef+0x1a8>
+   1412cfa97:	4c 89 e1             	mov    %r12,%rcx
+   1412cfa9a:	e8 61 df ff ff       	call   1412cda00 <_ZNK6DpTail16CanBendLaterallyEv>
+   1412cfa9f:	84 c0                	test   %al,%al
+   1412cfaa1:	74 9f                	je     1412cfa42 <_ZN6DpTail7SlitherERK6AuPosef+0x12>
+   1412cfaa3:	f3 0f 10 15 d9 01 ff 	movss  0xff01d9(%rip),%xmm2        # 1422bfc84 <CSWTCH.2328+0x4e4>
+   1412cfaaa:	00 
+   1412cfaab:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+   1412cfab0:	8b 40 48             	mov    0x48(%rax),%eax
+   1412cfab3:	8d 50 e8             	lea    -0x18(%rax),%edx
+   1412cfab6:	83 fa 01             	cmp    $0x1,%edx
+   1412cfab9:	0f 86 99 00 00 00    	jbe    1412cfb58 <_ZN6DpTail7SlitherERK6AuPosef+0x128>
+   1412cfabf:	83 f8 1b             	cmp    $0x1b,%eax
+   1412cfac2:	0f 84 90 00 00 00    	je     1412cfb58 <_ZN6DpTail7SlitherERK6AuPosef+0x128>
+   1412cfac8:	83 f8 35             	cmp    $0x35,%eax
+   1412cfacb:	77 10                	ja     1412cfadd <_ZN6DpTail7SlitherERK6AuPosef+0xad>
+   1412cfacd:	48 ba 00 00 00 00 00 	movabs $0x202c0000000000,%rdx
+   1412cfad4:	2c 20 00 
+   1412cfad7:	48 0f a3 c2          	bt     %rax,%rdx
+   1412cfadb:	72 7b                	jb     1412cfb58 <_ZN6DpTail7SlitherERK6AuPosef+0x128>
+   1412cfadd:	4c 89 e1             	mov    %r12,%rcx
+   1412cfae0:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412cfae4:	e8 17 df ff ff       	call   1412cda00 <_ZNK6DpTail16CanBendLaterallyEv>
+   1412cfae9:	84 c0                	test   %al,%al
+   1412cfaeb:	0f 84 51 ff ff ff    	je     1412cfa42 <_ZN6DpTail7SlitherERK6AuPosef+0x12>
+   1412cfaf1:	4c 89 e1             	mov    %r12,%rcx
+   1412cfaf4:	48 83 c4 20          	add    $0x20,%rsp
+   1412cfaf8:	41 5c                	pop    %r12
+   1412cfafa:	e9 f1 ef ff ff       	jmp    1412ceaf0 <_ZN6DpTail7SlitherEff>
+   1412cfaff:	90                   	nop
+   1412cfb00:	83 f8 16             	cmp    $0x16,%eax
+   1412cfb03:	74 0a                	je     1412cfb0f <_ZN6DpTail7SlitherERK6AuPosef+0xdf>
+   1412cfb05:	76 41                	jbe    1412cfb48 <_ZN6DpTail7SlitherERK6AuPosef+0x118>
+   1412cfb07:	83 e8 18             	sub    $0x18,%eax
+   1412cfb0a:	83 f8 01             	cmp    $0x1,%eax
+   1412cfb0d:	77 88                	ja     1412cfa97 <_ZN6DpTail7SlitherERK6AuPosef+0x67>
+   1412cfb0f:	f3 0f 10 15 15 00 ff 	movss  0xff0015(%rip),%xmm2        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412cfb16:	00 
+   1412cfb17:	49 8d 4c 24 10       	lea    0x10(%r12),%rcx
+   1412cfb1c:	e8 3f 03 fe ff       	call   1412afe60 <_ZNK5DhDNA6RhythmERK6AuPoseff>
+   1412cfb21:	f3 0f 59 05 4f 01 ff 	mulss  0xff014f(%rip),%xmm0        # 1422bfc78 <CSWTCH.2328+0x4d8>
+   1412cfb28:	00 
+   1412cfb29:	0f 2e 05 b0 fe fe 00 	ucomiss 0xfefeb0(%rip),%xmm0        # 1422bf9e0 <CSWTCH.2328+0x240>
+   1412cfb30:	0f 28 d0             	movaps %xmm0,%xmm2
+   1412cfb33:	0f 8a 72 ff ff ff    	jp     1412cfaab <_ZN6DpTail7SlitherERK6AuPosef+0x7b>
+   1412cfb39:	0f 85 6c ff ff ff    	jne    1412cfaab <_ZN6DpTail7SlitherERK6AuPosef+0x7b>
+   1412cfb3f:	e9 fe fe ff ff       	jmp    1412cfa42 <_ZN6DpTail7SlitherERK6AuPosef+0x12>
+   1412cfb44:	0f 1f 40 00          	nopl   0x0(%rax)
+   1412cfb48:	83 f8 11             	cmp    $0x11,%eax
+   1412cfb4b:	74 c2                	je     1412cfb0f <_ZN6DpTail7SlitherERK6AuPosef+0xdf>
+   1412cfb4d:	e9 45 ff ff ff       	jmp    1412cfa97 <_ZN6DpTail7SlitherERK6AuPosef+0x67>
+   1412cfb52:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412cfb58:	41 0f b6 54 24 26    	movzbl 0x26(%r12),%edx
+   1412cfb5e:	83 e2 30             	and    $0x30,%edx
+   1412cfb61:	74 2d                	je     1412cfb90 <_ZN6DpTail7SlitherERK6AuPosef+0x160>
+   1412cfb63:	41 0f b6 44 24 28    	movzbl 0x28(%r12),%eax
+   1412cfb69:	83 e0 07             	and    $0x7,%eax
+   1412cfb6c:	3c 06                	cmp    $0x6,%al
+   1412cfb6e:	74 18                	je     1412cfb88 <_ZN6DpTail7SlitherERK6AuPosef+0x158>
+   1412cfb70:	3c 07                	cmp    $0x7,%al
+   1412cfb72:	75 2c                	jne    1412cfba0 <_ZN6DpTail7SlitherERK6AuPosef+0x170>
+   1412cfb74:	80 fa 30             	cmp    $0x30,%dl
+   1412cfb77:	74 17                	je     1412cfb90 <_ZN6DpTail7SlitherERK6AuPosef+0x160>
+   1412cfb79:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412cfb7d:	e9 6f ff ff ff       	jmp    1412cfaf1 <_ZN6DpTail7SlitherERK6AuPosef+0xc1>
+   1412cfb82:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412cfb88:	80 fa 10             	cmp    $0x10,%dl
+   1412cfb8b:	75 ec                	jne    1412cfb79 <_ZN6DpTail7SlitherERK6AuPosef+0x149>
+   1412cfb8d:	0f 1f 00             	nopl   (%rax)
+   1412cfb90:	0f 28 ca             	movaps %xmm2,%xmm1
+   1412cfb93:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1412cfb97:	e9 55 ff ff ff       	jmp    1412cfaf1 <_ZN6DpTail7SlitherERK6AuPosef+0xc1>
+   1412cfb9c:	0f 1f 40 00          	nopl   0x0(%rax)
+   1412cfba0:	83 c0 07             	add    $0x7,%eax
+   1412cfba3:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412cfba7:	83 e0 07             	and    $0x7,%eax
+   1412cfbaa:	3c 03                	cmp    $0x3,%al
+   1412cfbac:	0f 86 3f ff ff ff    	jbe    1412cfaf1 <_ZN6DpTail7SlitherERK6AuPosef+0xc1>
+   1412cfbb2:	80 fa 20             	cmp    $0x20,%dl
+   1412cfbb5:	0f 85 36 ff ff ff    	jne    1412cfaf1 <_ZN6DpTail7SlitherERK6AuPosef+0xc1>
+   1412cfbbb:	eb d3                	jmp    1412cfb90 <_ZN6DpTail7SlitherERK6AuPosef+0x160>
+   1412cfbbd:	0f 1f 00             	nopl   (%rax)
+   1412cfbc0:	b9 24 00 00 00       	mov    $0x24,%ecx
+   1412cfbc5:	39 c8                	cmp    %ecx,%eax
+   1412cfbc7:	0f 84 ca fe ff ff    	je     1412cfa97 <_ZN6DpTail7SlitherERK6AuPosef+0x67>
+   1412cfbcd:	e9 3d ff ff ff       	jmp    1412cfb0f <_ZN6DpTail7SlitherERK6AuPosef+0xdf>
+   1412cfbd2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412cfbd8:	b9 2d 00 00 00       	mov    $0x2d,%ecx
+   1412cfbdd:	eb e6                	jmp    1412cfbc5 <_ZN6DpTail7SlitherERK6AuPosef+0x195>
+   1412cfbdf:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412dee60 <_ZN6DpBody11SlitherTailERK6AuPosef>:
+   1412dee60:	41 55                	push   %r13
+   1412dee62:	41 54                	push   %r12
+   1412dee64:	57                   	push   %rdi
+   1412dee65:	56                   	push   %rsi
+   1412dee66:	53                   	push   %rbx
+   1412dee67:	48 83 ec 30          	sub    $0x30,%rsp
+   1412dee6b:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   1412dee70:	48 8b 01             	mov    (%rcx),%rax
+   1412dee73:	49 89 d4             	mov    %rdx,%r12
+   1412dee76:	8b 10                	mov    (%rax),%edx
+   1412dee78:	48 89 ce             	mov    %rcx,%rsi
+   1412dee7b:	0f 28 f2             	movaps %xmm2,%xmm6
+   1412dee7e:	83 fa 01             	cmp    $0x1,%edx
+   1412dee81:	76 38                	jbe    1412deebb <_ZN6DpBody11SlitherTailERK6AuPosef+0x5b>
+   1412dee83:	8b 50 08             	mov    0x8(%rax),%edx
+   1412dee86:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412dee8c:	75 22                	jne    1412deeb0 <_ZN6DpBody11SlitherTailERK6AuPosef+0x50>
+   1412dee8e:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412dee93:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412dee99:	45 31 c0             	xor    %r8d,%r8d
+   1412dee9c:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412deea1:	ff 15 09 37 5b 01    	call   *0x15b3709(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412deea7:	48 89 06             	mov    %rax,(%rsi)
+   1412deeaa:	48 89 c2             	mov    %rax,%rdx
+   1412deead:	eb 0f                	jmp    1412deebe <_ZN6DpBody11SlitherTailERK6AuPosef+0x5e>
+   1412deeaf:	90                   	nop
+   1412deeb0:	45 31 c0             	xor    %r8d,%r8d
+   1412deeb3:	e8 c8 02 58 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412deeb8:	48 8b 06             	mov    (%rsi),%rax
+   1412deebb:	48 89 c2             	mov    %rax,%rdx
+   1412deebe:	48 8b 5a 10          	mov    0x10(%rdx),%rbx
+   1412deec2:	48 8b 3d e7 36 5b 01 	mov    0x15b36e7(%rip),%rdi        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412deec9:	48 01 d3             	add    %rdx,%rbx
+   1412deecc:	48 83 c3 08          	add    $0x8,%rbx
+   1412deed0:	eb 4d                	jmp    1412def1f <_ZN6DpBody11SlitherTailERK6AuPosef+0xbf>
+   1412deed2:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412deed8:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412deede:	45 31 c0             	xor    %r8d,%r8d
+   1412deee1:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412deee6:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412deeeb:	ff d7                	call   *%rdi
+   1412deeed:	48 89 06             	mov    %rax,(%rsi)
+   1412deef0:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   1412deef4:	48 01 c2             	add    %rax,%rdx
+   1412deef7:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1412deefb:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1412deeff:	48 39 c3             	cmp    %rax,%rbx
+   1412def02:	0f 84 9c 00 00 00    	je     1412defa4 <_ZN6DpBody11SlitherTailERK6AuPosef+0x144>
+   1412def08:	48 8b 0b             	mov    (%rbx),%rcx
+   1412def0b:	48 8b 01             	mov    (%rcx),%rax
+   1412def0e:	ff 50 50             	call   *0x50(%rax)
+   1412def11:	84 c0                	test   %al,%al
+   1412def13:	75 33                	jne    1412def48 <_ZN6DpBody11SlitherTailERK6AuPosef+0xe8>
+   1412def15:	48 8b 06             	mov    (%rsi),%rax
+   1412def18:	48 83 c3 08          	add    $0x8,%rbx
+   1412def1c:	48 89 c2             	mov    %rax,%rdx
+   1412def1f:	8b 12                	mov    (%rdx),%edx
+   1412def21:	83 fa 01             	cmp    $0x1,%edx
+   1412def24:	76 ca                	jbe    1412deef0 <_ZN6DpBody11SlitherTailERK6AuPosef+0x90>
+   1412def26:	8b 50 08             	mov    0x8(%rax),%edx
+   1412def29:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412def2f:	74 a7                	je     1412deed8 <_ZN6DpBody11SlitherTailERK6AuPosef+0x78>
+   1412def31:	45 31 c0             	xor    %r8d,%r8d
+   1412def34:	48 89 f1             	mov    %rsi,%rcx
+   1412def37:	e8 44 02 58 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412def3c:	48 8b 06             	mov    (%rsi),%rax
+   1412def3f:	eb af                	jmp    1412deef0 <_ZN6DpBody11SlitherTailERK6AuPosef+0x90>
+   1412def41:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1412def48:	4c 8b 2b             	mov    (%rbx),%r13
+   1412def4b:	41 f6 45 26 c0       	testb  $0xc0,0x26(%r13)
+   1412def50:	74 52                	je     1412defa4 <_ZN6DpBody11SlitherTailERK6AuPosef+0x144>
+   1412def52:	41 8b 04 24          	mov    (%r12),%eax
+   1412def56:	83 f8 4b             	cmp    $0x4b,%eax
+   1412def59:	0f 87 88 00 00 00    	ja     1412defe7 <_ZN6DpBody11SlitherTailERK6AuPosef+0x187>
+   1412def5f:	83 f8 19             	cmp    $0x19,%eax
+   1412def62:	77 54                	ja     1412defb8 <_ZN6DpBody11SlitherTailERK6AuPosef+0x158>
+   1412def64:	83 f8 16             	cmp    $0x16,%eax
+   1412def67:	74 0e                	je     1412def77 <_ZN6DpBody11SlitherTailERK6AuPosef+0x117>
+   1412def69:	0f 86 e1 00 00 00    	jbe    1412df050 <_ZN6DpBody11SlitherTailERK6AuPosef+0x1f0>
+   1412def6f:	83 e8 18             	sub    $0x18,%eax
+   1412def72:	83 f8 01             	cmp    $0x1,%eax
+   1412def75:	77 70                	ja     1412defe7 <_ZN6DpBody11SlitherTailERK6AuPosef+0x187>
+   1412def77:	f3 0f 10 15 ad 0b fe 	movss  0xfe0bad(%rip),%xmm2        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412def7e:	00 
+   1412def7f:	49 8d 4d 10          	lea    0x10(%r13),%rcx
+   1412def83:	0f 28 de             	movaps %xmm6,%xmm3
+   1412def86:	4c 89 e2             	mov    %r12,%rdx
+   1412def89:	e8 d2 0e fd ff       	call   1412afe60 <_ZNK5DhDNA6RhythmERK6AuPoseff>
+   1412def8e:	f3 0f 59 05 e2 0c fe 	mulss  0xfe0ce2(%rip),%xmm0        # 1422bfc78 <CSWTCH.2328+0x4d8>
+   1412def95:	00 
+   1412def96:	0f 2e 05 43 0a fe 00 	ucomiss 0xfe0a43(%rip),%xmm0        # 1422bf9e0 <CSWTCH.2328+0x240>
+   1412def9d:	0f 28 d0             	movaps %xmm0,%xmm2
+   1412defa0:	7a 59                	jp     1412deffb <_ZN6DpBody11SlitherTailERK6AuPosef+0x19b>
+   1412defa2:	75 57                	jne    1412deffb <_ZN6DpBody11SlitherTailERK6AuPosef+0x19b>
+   1412defa4:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1412defa9:	48 83 c4 30          	add    $0x30,%rsp
+   1412defad:	5b                   	pop    %rbx
+   1412defae:	5e                   	pop    %rsi
+   1412defaf:	5f                   	pop    %rdi
+   1412defb0:	41 5c                	pop    %r12
+   1412defb2:	41 5d                	pop    %r13
+   1412defb4:	c3                   	ret
+   1412defb5:	0f 1f 00             	nopl   (%rax)
+   1412defb8:	8d 48 e6             	lea    -0x1a(%rax),%ecx
+   1412defbb:	ba 01 00 00 00       	mov    $0x1,%edx
+   1412defc0:	48 d3 e2             	shl    %cl,%rdx
+   1412defc3:	48 b9 85 00 00 00 00 	movabs $0x2000000000085,%rcx
+   1412defca:	00 02 00 
+   1412defcd:	48 85 ca             	test   %rcx,%rdx
+   1412defd0:	75 a5                	jne    1412def77 <_ZN6DpBody11SlitherTailERK6AuPosef+0x117>
+   1412defd2:	f6 c6 18             	test   $0x18,%dh
+   1412defd5:	0f 85 dc 00 00 00    	jne    1412df0b7 <_ZN6DpBody11SlitherTailERK6AuPosef+0x257>
+   1412defdb:	f7 c2 00 00 03 00    	test   $0x30000,%edx
+   1412defe1:	0f 85 b5 00 00 00    	jne    1412df09c <_ZN6DpBody11SlitherTailERK6AuPosef+0x23c>
+   1412defe7:	4c 89 e9             	mov    %r13,%rcx
+   1412defea:	e8 11 ea fe ff       	call   1412cda00 <_ZNK6DpTail16CanBendLaterallyEv>
+   1412defef:	84 c0                	test   %al,%al
+   1412deff1:	74 b1                	je     1412defa4 <_ZN6DpBody11SlitherTailERK6AuPosef+0x144>
+   1412deff3:	f3 0f 10 15 89 0c fe 	movss  0xfe0c89(%rip),%xmm2        # 1422bfc84 <CSWTCH.2328+0x4e4>
+   1412deffa:	00 
+   1412deffb:	49 8b 45 08          	mov    0x8(%r13),%rax
+   1412defff:	8b 40 48             	mov    0x48(%rax),%eax
+   1412df002:	8d 50 e8             	lea    -0x18(%rax),%edx
+   1412df005:	83 fa 01             	cmp    $0x1,%edx
+   1412df008:	76 51                	jbe    1412df05b <_ZN6DpBody11SlitherTailERK6AuPosef+0x1fb>
+   1412df00a:	83 f8 1b             	cmp    $0x1b,%eax
+   1412df00d:	74 4c                	je     1412df05b <_ZN6DpBody11SlitherTailERK6AuPosef+0x1fb>
+   1412df00f:	83 f8 35             	cmp    $0x35,%eax
+   1412df012:	77 10                	ja     1412df024 <_ZN6DpBody11SlitherTailERK6AuPosef+0x1c4>
+   1412df014:	48 ba 00 00 00 00 00 	movabs $0x202c0000000000,%rdx
+   1412df01b:	2c 20 00 
+   1412df01e:	48 0f a3 c2          	bt     %rax,%rdx
+   1412df022:	72 37                	jb     1412df05b <_ZN6DpBody11SlitherTailERK6AuPosef+0x1fb>
+   1412df024:	4c 89 e9             	mov    %r13,%rcx
+   1412df027:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412df02b:	e8 d0 e9 fe ff       	call   1412cda00 <_ZNK6DpTail16CanBendLaterallyEv>
+   1412df030:	84 c0                	test   %al,%al
+   1412df032:	0f 84 6c ff ff ff    	je     1412defa4 <_ZN6DpBody11SlitherTailERK6AuPosef+0x144>
+   1412df038:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1412df03d:	4c 89 e9             	mov    %r13,%rcx
+   1412df040:	48 83 c4 30          	add    $0x30,%rsp
+   1412df044:	5b                   	pop    %rbx
+   1412df045:	5e                   	pop    %rsi
+   1412df046:	5f                   	pop    %rdi
+   1412df047:	41 5c                	pop    %r12
+   1412df049:	41 5d                	pop    %r13
+   1412df04b:	e9 a0 fa fe ff       	jmp    1412ceaf0 <_ZN6DpTail7SlitherEff>
+   1412df050:	83 f8 11             	cmp    $0x11,%eax
+   1412df053:	0f 84 1e ff ff ff    	je     1412def77 <_ZN6DpBody11SlitherTailERK6AuPosef+0x117>
+   1412df059:	eb 8c                	jmp    1412defe7 <_ZN6DpBody11SlitherTailERK6AuPosef+0x187>
+   1412df05b:	41 0f b6 55 26       	movzbl 0x26(%r13),%edx
+   1412df060:	83 e2 30             	and    $0x30,%edx
+   1412df063:	74 2e                	je     1412df093 <_ZN6DpBody11SlitherTailERK6AuPosef+0x233>
+   1412df065:	41 0f b6 45 28       	movzbl 0x28(%r13),%eax
+   1412df06a:	83 e0 07             	and    $0x7,%eax
+   1412df06d:	3c 06                	cmp    $0x6,%al
+   1412df06f:	74 3f                	je     1412df0b0 <_ZN6DpBody11SlitherTailERK6AuPosef+0x250>
+   1412df071:	3c 07                	cmp    $0x7,%al
+   1412df073:	75 0b                	jne    1412df080 <_ZN6DpBody11SlitherTailERK6AuPosef+0x220>
+   1412df075:	80 fa 30             	cmp    $0x30,%dl
+   1412df078:	74 19                	je     1412df093 <_ZN6DpBody11SlitherTailERK6AuPosef+0x233>
+   1412df07a:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412df07e:	eb b8                	jmp    1412df038 <_ZN6DpBody11SlitherTailERK6AuPosef+0x1d8>
+   1412df080:	83 c0 07             	add    $0x7,%eax
+   1412df083:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1412df087:	83 e0 07             	and    $0x7,%eax
+   1412df08a:	3c 03                	cmp    $0x3,%al
+   1412df08c:	76 aa                	jbe    1412df038 <_ZN6DpBody11SlitherTailERK6AuPosef+0x1d8>
+   1412df08e:	80 fa 20             	cmp    $0x20,%dl
+   1412df091:	75 a5                	jne    1412df038 <_ZN6DpBody11SlitherTailERK6AuPosef+0x1d8>
+   1412df093:	0f 28 ca             	movaps %xmm2,%xmm1
+   1412df096:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1412df09a:	eb 9c                	jmp    1412df038 <_ZN6DpBody11SlitherTailERK6AuPosef+0x1d8>
+   1412df09c:	ba 2d 00 00 00       	mov    $0x2d,%edx
+   1412df0a1:	39 d0                	cmp    %edx,%eax
+   1412df0a3:	0f 84 3e ff ff ff    	je     1412defe7 <_ZN6DpBody11SlitherTailERK6AuPosef+0x187>
+   1412df0a9:	e9 c9 fe ff ff       	jmp    1412def77 <_ZN6DpBody11SlitherTailERK6AuPosef+0x117>
+   1412df0ae:	66 90                	xchg   %ax,%ax
+   1412df0b0:	80 fa 10             	cmp    $0x10,%dl
+   1412df0b3:	75 c5                	jne    1412df07a <_ZN6DpBody11SlitherTailERK6AuPosef+0x21a>
+   1412df0b5:	eb dc                	jmp    1412df093 <_ZN6DpBody11SlitherTailERK6AuPosef+0x233>
+   1412df0b7:	ba 24 00 00 00       	mov    $0x24,%edx
+   1412df0bc:	eb e3                	jmp    1412df0a1 <_ZN6DpBody11SlitherTailERK6AuPosef+0x241>
+   1412df0be:	66 90                	xchg   %ax,%ax

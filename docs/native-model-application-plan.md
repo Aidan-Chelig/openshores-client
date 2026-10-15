@@ -650,3 +650,38 @@ both death-stage calls before Rust tests. Original-client runtime parity and
 libm/NaN-payload bit parity remain unproven. Full tail pose dispatch, other body
 animation, production Person state/context and actual rendered native avatar
 presentation remain required parts of the original objective.
+
+### Pose-driven tail Slither
+
+The concrete pose overload now composes native rhythm and actual Slither
+matrices in `dp/tail_slither_pose`. It preserves the early no-segment return,
+full-width passed-pose selection, fixed35-degree fallback with its first lateral
+capability gate, rhythmic pi-phase/30-degree amplitude, exact-zero no-op and
+the later owner-general-pose axis selection. The owner word48 is distinct from
+the supplied tail pose; special general poses select the first angle when
+vertical capability is unavailable, exactly as the native branch does. Rhythm
+uses the part's copied DNA and supplied speed, not fabricated wall-clock time.
+NaN is not treated as an exact-zero wave. `slither_tail_pose` on the calculated
+body selects the first real tail and invokes this stage; it accepts the explicit
+passed pose rather than silently assuming one pose field for all callers.
+
+Complete static records are `native-dp-tail-slither-pose.json` and
+`native-dp-body-slither-tail.json` under `docs/evidence`, with companion GNU
+corroboration in `native-dp-tail-slither-pose-gnu.txt`. The existing concrete
+record was reused; the one missing body query reused the warm session in0.096s.
+`just test-native-dp-tail-slither-pose` checks both native selection masks,
+phase/amplitude constants, and rhythm/concrete-call anchors before fixtures.
+Rust tests cover all byte tail poses plus full-width defaults, all32 shape/form
+combinations, every special general pose and full-width non-special values,
+comparing complete bones and ordered timer events. Separate tests cover no
+segments, exact-zero wave and timer failure without bone writes. The new
+opt-in `native_dp_mounted_tail_pose` fixture initializes mounted user resources,
+then compares body-stage output with the explicit rhythm/angle composition;
+`just test-native-dp-mounted` runs it alongside the existing mounted tests.
+
+This is static and Rust/offline evidence, not observed original-client runtime
+or cross-platform libm/NaN-payload bit parity. Fold, other tail-pose routines,
+complete PositionTail/Animate, real production timer ownership, Person receive
+context/session ownership and publication of actual native avatar geometry
+still remain required work. This stage does not substitute diagnostic markers
+or pose metadata for that final presentation.
