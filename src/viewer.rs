@@ -10,6 +10,8 @@ use bevy::{
 };
 use std::io;
 mod auto_smooth;
+mod native_skin;
+pub use native_skin::{NativeSkinPreviewOptions, run_textured_body};
 
 #[derive(Resource)]
 struct DisplayGeometry {
@@ -218,6 +220,15 @@ pub fn run_terrain(
 }
 
 fn launch(geometry: DisplayGeometry, smoke_frames: Option<u32>, unlit: bool) -> io::Result<()> {
+    launch_with_skin(geometry, smoke_frames, unlit, None)
+}
+
+fn launch_with_skin(
+    geometry: DisplayGeometry,
+    smoke_frames: Option<u32>,
+    unlit: bool,
+    skin: Option<native_skin::SkinPreview>,
+) -> io::Result<()> {
     if smoke_frames.is_some_and(|frames| !(1..=3600).contains(&frames)) {
         return Err(io::Error::new(
             io::ErrorKind::InvalidInput,
@@ -238,9 +249,13 @@ fn launch(geometry: DisplayGeometry, smoke_frames: Option<u32>, unlit: bool) -> 
             }),
             ..default()
         }))
+        .add_plugins(native_skin::SkinPlugin)
         .add_systems(Startup, setup)
         .add_systems(Update, (controls, lighting_mode, camera, wireframe).chain())
         .add_systems(PostUpdate, (probe, probe_marker).chain().after(bevy::transform::TransformSystems::Propagate));
+    if let Some(skin) = skin {
+        app.insert_resource(skin);
+    }
     if let Some(frames) = smoke_frames {
         app.insert_resource(SmokeFrames(frames))
             .add_systems(Update, smoke_exit);
@@ -257,6 +272,7 @@ fn setup(
     orbit: Res<Orbit>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    skin: Option<Res<native_skin::SkinPreview>>,
 ) {
     let material = materials.add(StandardMaterial {
         base_color: if geometry.smooth {
@@ -277,7 +293,7 @@ fn setup(
         colors,
     } in &geometry.meshes
     {
-        if triangles.is_empty() {
+        if skin.is_some() || triangles.is_empty() {
             continue;
         }
         let mut mesh = if let Some(angle) = geometry.crease_degrees {

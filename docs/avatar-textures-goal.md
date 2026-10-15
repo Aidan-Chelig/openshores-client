@@ -1,5 +1,8 @@
 # Next goal: textured native avatar previews
 
+Implemented for the existing merged previews. See the requirement-by-requirement
+[completion audit and limitations](native-avatar-textures.md#completion-audit-2026-10-15).
+
 Render the existing merged head and torso previews with the appropriate textures
 from a user-provided Hazeron installation, preserving verified UV and material
 assignments through loading, deformation, merging, and GPU upload. Keep the

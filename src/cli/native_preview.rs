@@ -14,11 +14,67 @@ use std::{io, path::Path};
 pub(super) fn run(args: &[String]) -> Result<(), Box<dyn std::error::Error>> {
     if args.len() < 2 || !matches!(args[1].as_str(), "head" | "torso") {
         return Err(
-            "usage: view-native-body INSTALLATION head|torso [--smooth-angle DEGREES] [--unlit] [--smoke-frames N]".into(),
+            "usage: view-native-body INSTALLATION head|torso [--smooth-angle DEGREES] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames N]".into(),
         );
     }
     let (angle, options) = smoothing_options(&args[2..])?;
-    let (frames, unlit) = super::terrain::viewer_options(&options)?;
+    let mut untextured = false;
+    let mut screenshot = None;
+    let mut flags = Vec::new();
+    let mut options = options.iter();
+    while let Some(option) = options.next() {
+        match option.as_str() {
+            "--untextured" if !untextured => untextured = true,
+            "--screenshot" if screenshot.is_none() => {
+                screenshot = Some(std::path::PathBuf::from(
+                    options
+                        .next()
+                        .ok_or("--screenshot requires a new PNG path")?,
+                ))
+            }
+            "--untextured" | "--screenshot" => return Err("duplicate preview option".into()),
+            _ => flags.push(option.clone()),
+        }
+    }
+    let (frames, unlit) = super::terrain::viewer_options(&flags)?;
+    if !untextured {
+        let mount = AssetMount::open(&args[0])?;
+        if let Some(path) = &screenshot {
+            let parent = path
+                .parent()
+                .filter(|p| !p.as_os_str().is_empty())
+                .unwrap_or(Path::new("."));
+            if parent.canonicalize()?.starts_with(mount.root()) {
+                return Err("screenshot must be outside the Hazeron installation".into());
+            }
+        }
+        let (native, seed) = build_native(Path::new(&args[0]), args[1] == "head")?;
+        let surface = native.textured_baked_preview_geometry(&seed, ModelVariant::N)?;
+        let dna = fixture_dna();
+        let atlas = openshores_client::world::native_body::NativeDpSkinAtlas::from_dna(&dna);
+        println!(
+            "Offline merged {}: {} vertices, {} faces, {}. Fixture DNA; unposed; smoothing {angle} degrees.",
+            args[1],
+            surface.geometry.positions.len(),
+            surface.geometry.faces.len(),
+            atlas.skin_path()
+        );
+        openshores_client::viewer::run_textured_body(
+            &surface,
+            &atlas.read_skin(&mount)?,
+            native_dp_skin_offsets(&dna),
+            openshores_client::viewer::NativeSkinPreviewOptions {
+                smoke_frames: frames,
+                unlit,
+                angle_degrees: angle,
+                screenshot,
+            },
+        )?;
+        return Ok(());
+    }
+    if screenshot.is_some() {
+        return Err("--screenshot currently requires textured mode".into());
+    }
     let model = build(Path::new(&args[0]), args[1] == "head")?;
     println!(
         "Offline merged {}: {} vertices, {} faces. Fixture DNA; untextured and unposed. Drag to orbit, wheel to zoom, L lighting, W wire, R reset, Esc quit.",
@@ -61,13 +117,18 @@ fn invalid(message: &str) -> io::Error {
     io::Error::new(io::ErrorKind::Unsupported, message)
 }
 
-fn build_native(installation: &Path, head: bool) -> io::Result<(NativeBodyMergeGeometry, Mesh)> {
-    let mount = AssetMount::open(installation)?;
+fn fixture_dna() -> NativeDhDna {
     let mut dna = NativeDhDna([0; 24]);
     dna.0[1] = 1;
     dna.0[12] = 4;
     dna.0[14] = 0x51;
     dna.0[20] = 0x60;
+    dna
+}
+
+fn build_native(installation: &Path, head: bool) -> io::Result<(NativeBodyMergeGeometry, Mesh)> {
+    let mount = AssetMount::open(installation)?;
+    let dna = fixture_dna();
     let mut body = NativeDpInitialization::begin(&dna);
     body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))?;
     let mut pieces = Vec::new();

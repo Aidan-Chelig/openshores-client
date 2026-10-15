@@ -58,7 +58,14 @@ impl NativeDpSkinAtlas {
     /// Reuse mount validation/bounds rather than opening paths independently.
     /// Returned bytes remain encoded; this is not successful texture decoding.
     pub fn read_skin(self, mount: &AssetMount) -> io::Result<Vec<u8>> {
-        mount.read(&format!("loose/{}", self.skin_path()))
+        mount
+            .read(&format!("loose/{}", self.skin_path()))
+            .map_err(|error| {
+                io::Error::new(
+                    error.kind(),
+                    format!("skin atlas {}: {error}", self.skin_path()),
+                )
+            })
     }
 }
 

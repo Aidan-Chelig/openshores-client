@@ -1,6 +1,6 @@
 # Native avatar geometry presentation boundary
 
-Next milestone: [textured native avatar previews](avatar-textures-goal.md).
+Texture milestone and evidence: [native avatar textures](native-avatar-textures.md).
 
 `NativeAvatarPresentation::from_dispatched` still publishes only verified
 received state and leaves model-space geometry absent. It does not infer DNA,
@@ -67,9 +67,28 @@ is read-only. Drag to orbit, wheel to zoom, L toggles lighting, W toggles wire
 display, R resets the camera, and Escape closes the window.
 
 These use the same explicit fixture DNA and head/torso geometry stages as the
-mounted preview tests. They are separate, untextured, unposed model-space parts,
+mounted preview tests. They are separate, textured, unposed model-space parts,
 not a complete avatar, received player appearance, or native instance/skinning
 parity. The inspector centers and scales geometry for viewing only.
+
+Texturing defaults to the fixture's native `tex/Exo.png` atlas, read from the
+installation, with verified UVs and native top/bottom region blending. The
+fixture has no clothes; it does not represent a received player's appearance.
+Lighting and sRGB output are modern diagnostic choices, not faithful shading.
+Allow several seconds for cold GPU/PBR shader compilation on first launch.
+
+Use `just preview-avatar-untextured` (or `just preview-avatar-untextured torso`)
+for the previous comparison mode. The CLI accepts `--untextured` too.
+`just test-native-textures` runs offline CPU/mounted tests;
+`just test-avatar-previews` opens both GPU windows, captures after warm-up, and
+checks for shader errors and blank output. Captures stay in a new ignored
+`target/avatar-textures-*` directory. They contain user-owned game assets and
+must not be redistributed. Visual inspection is still needed to assess placement.
+
+For an individual capture, run
+`cargo run --offline --features viewer -- view-native-body reference/hazeron head --smoke-frames 1000 --screenshot target/NEW-head.png`.
+The path must be new and outside the installation; captures require at least900
+smoke frames. Drag, zoom, lighting and wire display remain available.
 
 Auto smoothing generates area-weighted corner normals across shared edges whose
 face angle is strictly below the threshold. Exact coincident positions identify

@@ -1,14 +1,17 @@
 # Native avatar textures: implementation ledger
 
 Goal and completion gates: [avatar-textures-goal.md](avatar-textures-goal.md).
-Textured rendering is **not complete**. Existing previews remain untextured.
+The interactive merged head and torso now use a mounted atlas, verified UVs and
+native top/bottom region composition. See the GPU milestone below for scope and
+verification. This does not complete automatic in-game avatars.
 
-## Inventory and established resource selection
+## Initial inventory and established resource selection
 
-The read-only `AssetMount` already supports both Qt model resources and loose
+The read-only `AssetMount` supports both Qt model resources and loose
 installation assets. Its cache retains byte-exact resources and diagnostic OBJ
 conversions; it is not a texture decoder. No dedicated CPU image decoder exists
-in this crate. Bevy's PNG decoding is currently enabled by `client`, not `viewer`.
+in this crate at the start of this work. Bevy's PNG decoding was initially enabled
+by `client`, not `viewer`; the GPU milestone enables it for `viewer` as well.
 The model decoder retains raw material texture names and face membership, but
 that does not establish the body shader's skin texture bindings.
 
@@ -139,3 +142,98 @@ publish per-corner UV/top-face/material partitions while computing smoothing
 before render splits, and implement the two-sample skin blend in a preview
 material. Keep owner4068=0 fixture clothing disabled, expose an untextured
 comparison mode, then run GPU and visual placement checks for both parts.
+
+## GPU texture milestone
+
+`viewer/native_skin.rs` reuses Bevy's existing PNG decoder. Before decoding it
+requires a complete PNG envelope, bounds encoded size to32MiB and dimensions
+to4096x4096, and rejects animated PNGs. Decoded RGBA rows are reversed to match
+the verified native upload. Missing mount resources and unsupported/corrupt
+images return errors naming the atlas; there is no substitute texture.
+
+The new, independently written embedded WGSL contains only Rust-client shader
+code, not copied game assets/shaders. It implements two atlas samples plus
+interpolated top/bottom blending, with alpha cutoff0.15. The explicit fixture
+has owner4068=0, so clothes are disabled as in the retained native RenderSkin
+branch. The fixture DNA remains byte1=1,12=4,14=0x51,20=0x60, all others0;
+DNA16 selects Exo and both skin palette selectors select tile0. Skin-image
+bytes are read at launch from the installation, never embedded or cached there.
+
+Modern preview choices: sRGB atlas decoding, Bevy PBR (or the L-toggle unlit
+mode), linear min/mag filtering, repeat wrapping, double-sided surfaces, no
+native specular/glow emulation, and no shadow casting from these debug parts.
+Linear filtering and RGBA row orientation are native-evidence-backed; repeat
+wrapping and modern lighting/color-space policy are explicit preview choices.
+Native image upload can use sRGB under its linear-lighting setting; no claim is
+made that every original mode did. Full clothing, armor, shader lighting and
+received appearance remain outside this normal fixture preview milestone.
+
+Render-only mesh splits retain each triangle corner's UV, skin control and
+normal, then partition by the retained material-membership sets. All partitions
+use the body-selected atlas, as the normal body shader does. Source positions,
+indices, weights and material metadata are unchanged. Normals are calculated on
+the complete surface before splitting, so UV/material seams do not become hard
+edges. Unit tests verify both smooth and hard thresholds, distinct UVs at exact
+coincident positions, per-partition corner/control data, and actual ECS image,
+material-uniform and lighting attachment. The untextured adapter is retained.
+
+### Reproduction and visual check
+
+- `just preview-avatar` / `just preview-avatar torso`: textured head/torso.
+- `just preview-avatar-untextured [head|torso]`: untextured comparison.
+- Both recipes retain installation and angle arguments, defaulting to
+  `reference/hazeron` and60 degrees. 0 means flat normals.
+- `just test-native-textures`: static anchors, CPU tests, all four mounted atlas
+  decodes, and both mounted merged surfaces.
+- `just test-avatar-previews`: real GPU windows, captures and nonblank checks.
+
+Clean GPU captures were inspected on the AMD Radeon AI PRO R9700 / RADV Vulkan
+adapter: `target/native-head-textured-final.png` and
+`target/native-torso-textured-final.png`. The head shows the selected gold Exo
+skin pattern, mapped eye details and pale jaw geometry. The torso displays the
+same selected skin region over its merged segments, including the pale lower
+surface. These are existing unposed model-space parts: the thin/overlapping
+torso shape and unposed head attachments are not texture fixes or full assembly
+claims. No arbitrary image projection or geometry repair was introduced.
+
+Initial60-frame captures were blank because cold PBR/driver pipeline compilation
+had not finished, even for a temporary StandardMaterial diagnostic cube. That
+diagnostic cube and logs were removed. Evidence capture now waits600 frames and
+requires900+ smoke frames; the repeatable GPU test checks the saved pixels for
+substantial non-background coverage and color variation, not just a clean exit.
+Cold compile time is not a reason to redo native static analysis. Captures are
+local ignored files containing user-provided assets, not redistributable fixtures.
+
+### Completion audit (2026-10-15)
+
+- Source/selection evidence and CPU pipeline: retained native records above;
+  `native_body/textures`, `body_surface_preview` and render-split tests cover
+  palette selection, merge remapping, material sets, skin controls and seams.
+- Image/missing-resource behavior: malformed/truncated/oversized/animated inputs
+  are rejected; the missing-atlas test confirms an error rather than fallback.
+  All four mounted atlases decode successfully through the existing mount.
+- GPU publication and smoothing: ECS asset/uniform tests plus actual renderer
+  captures; smooth normals remain continuous across UV/material splits, and
+  89-degree/91-degree tests distinguish hard/smooth sides of a90-degree edge.
+- `just test-native-textures` passed:704 library tests, the mounted four-atlas
+  decoder test, both mounted head/torso surface fixtures, and static PE anchors.
+- Full client-feature regression:717 library tests,10 CLI tests and1 slice-bin
+  test passed;6 opt-in fixtures were left ignored in that default suite.
+- `cargo clippy --offline --features client --lib --bins --tests -- -D warnings`,
+  formatting and diff checks passed.
+- `just test-avatar-previews` passed twice, including the final no-clobber
+  capture writer. Final inspected images are in
+  `target/avatar-textures-_oka5mvt/{head,torso}.png`:166,816 head foreground
+  pixels/26,933 colors and32,929 torso foreground pixels/11,521 colors.
+  Both windows were reopened offline; no shader errors were reported.
+- Sorted installation filename/size/mtime/ctime metadata hashes matched before
+  and after verification:
+  `ac9a2a3cacad40edc5a0ccb151fab37e684b0e124889add5caed477e78bd562b`.
+  Only read-only asset APIs are used. Screenshots are exclusive-create files
+  outside the installation; existing files and broken symlinks are not overwritten.
+- Milestones are committed separately: atlas selection (`c5b1e90`), CPU surface
+  inputs (`b2537cc`), and the final GPU preview implementation.
+
+The requested existing-head/torso texture milestone is satisfied. This audit
+does not claim full native shading, arbitrary armor/clothing support, animation,
+received player appearance, or finished in-game avatars.

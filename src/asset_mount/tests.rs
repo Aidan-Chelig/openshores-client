@@ -44,6 +44,20 @@ fn explicit_resource_paths_reject_ambiguity_and_never_match_by_basename() {
 }
 
 struct Fixture(PathBuf);
+
+#[test]
+fn missing_skin_atlas_is_an_error_not_a_fallback_texture() {
+    use crate::world::native_body::NativeDpSkinAtlas;
+    let fixture = Fixture::new();
+    let mount = AssetMount {
+        root: fixture.0.canonicalize().unwrap(),
+        entries: BTreeMap::new(),
+        backing: Vec::new(),
+    };
+    let error = NativeDpSkinAtlas::Exo.read_skin(&mount).unwrap_err();
+    assert_eq!(error.kind(), io::ErrorKind::NotFound);
+    assert!(error.to_string().contains("tex/Exo.png"));
+}
 impl Fixture {
     fn new() -> Self {
         let path = std::env::temp_dir().join(format!(

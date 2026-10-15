@@ -12,7 +12,7 @@ required-features = ["client"]
 
 [features]
 default = []
-viewer = ["dep:bevy"]
+viewer = ["dep:bevy", "bevy/png"]
 client = ["viewer", "dep:rfd", "bevy/bevy_ui", "bevy/bevy_ui_render", "bevy/bevy_text", "bevy/default_font", "bevy/png"]
 
 [dependencies]
