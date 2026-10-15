@@ -171,3 +171,28 @@ destination. It is not the full MergeHeadWithInstance: model-instance fields,
 material-object arrays, CopyInstance lifecycle/cache ownership and full mounted
 construction are not supplied by this type. It must not fabricate successful
 native instance publication or complete the Person/avatar goal by itself.
+
+## Mounted mesh construction and head integration
+
+`Mesh::body_merge_geometry` now initializes represented merge input directly
+from decoded meshes: ordered native-buffer positions, native weights using
+the actual request bone triplet, loaded face fields, constructor-established
+deformation defaults, definition writes and group control-point assignments.
+Field369 begins false. Material/smoothing metadata is supplied explicitly by
+the caller, not guessed from arbitrary raw name encodings. A translated-matrix
+test checks that the input remains in stored native coordinates, before final
+triangle-builder projection; this object type is not a complete render model.
+
+`just test-native-head-merge reference/hazeron` exercises five actual mounted
+head fallback assets through this constructor and the composed geometry stages.
+The fixture explicitly requires a single object per resource, distinct ASCII
+material keys, and supplied fixture owner fields/DNA; it does not pretend these
+restrictions implement general instance loading. It seeds represented geometry,
+not a fake full CopyInstance. Verified fixture output: 804 stored vertices,
+1,228 faces, 770 connection corner updates, zero incomplete-connection reports.
+All final indices are in bounds and all stored positions finite. The test is
+offline/read-only and is included in the native mounted suite.
+
+These checks do not establish full instance transforms/ownership, material
+object publication, torso assembly or GPU/world-placement parity. Those remain
+required before automatic in-game avatars are complete.

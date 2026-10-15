@@ -17,6 +17,7 @@ mod body_loaded_face;
 mod body_merge_face_metadata;
 mod body_merge_geometry;
 mod body_merge_head_normals;
+mod body_merge_load;
 pub use body_merge_geometry::{NativeBodyMergeGeometry, NativeHeadGeometryReport};
 mod body_vertex_point_map;
 pub use body_merge_face_metadata::NativeBodyFaceMetadata;
