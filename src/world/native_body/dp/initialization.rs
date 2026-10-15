@@ -90,14 +90,15 @@ impl NativeDpPartState {
     }
 }
 
-/// DpBody::Init's allocation, body dimensions and part calculation phases.
-/// This deliberately does not claim full constructor/pose/render completion:
-/// bone-matrix reset and the remaining body runtime state must be composed too.
+/// DpBody::Init's allocation, bone reset, dimensions and part calculations.
+/// This deliberately does not claim full constructor/pose/render completion;
+/// the remaining body runtime state must be composed too.
 #[derive(Clone, Debug)]
 pub struct NativeDpInitialization {
     dna: NativeDhDna,
     dimensions: NativeDpDimensions,
     parts: Vec<NativeDpPartState>,
+    bones: NativeDpBoneTransforms,
     next_part: usize,
 }
 
@@ -110,11 +111,15 @@ impl NativeDpInitialization {
                 .into_iter()
                 .map(NativeDpPartState::allocated)
                 .collect(),
+            bones: NativeDpBoneTransforms::initialized(),
             next_part: 0,
         }
     }
     pub fn dimensions(&self) -> &NativeDpDimensions {
         &self.dimensions
+    }
+    pub fn bones(&self) -> &NativeDpBoneTransforms {
+        &self.bones
     }
     pub fn parts(&self) -> &[NativeDpPartState] {
         &self.parts

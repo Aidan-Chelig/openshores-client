@@ -251,8 +251,36 @@ coordinates, duplicate heads and signed zero. The opt-in mounted test initialize
 a sixteen-part body through this public API, verifies the actual mounted hand
 offsets and repeated completion. These tests do not establish native render
 parity. This is deliberately an initialization phase, not a complete DpBody:
-bone-matrix reset, remaining constructor state, pose/animation, full mesh
+remaining constructor state, pose/animation, full mesh
 generation and production Person context still need implementation.
+
+### Dp bone transform initialization and animation reset
+
+`NativeDpInitialization` now owns all61 primary transform slots, matching
+`DpBody::Init`'s full identity reset at body offset0x70 with stride0x108.
+`NativeDpBoneTransforms::reset_for_animation` separately implements
+`InitBoneMatrices`: DNA selects spine, neck, tail, arm and leg ranges, plus the
+fixed slots, while inactive slots retain their previous contents. The primary
+matrix's sixteen doubles and the byte at slot+0x100 are the represented writes.
+The reset never initializes native bytes0x80..0x100, so this Rust phase does not
+invent a second identity matrix there or claim to model those untouched fields.
+
+Complete static REA Evidence is retained in
+`docs/evidence/native-dp-bone-reset.json`, including target SHA-256,
+provider/profile and limitations (Evidence
+`ev_416f549167537f850d27a95edbde05f7071c0b975c573dc06a04fb0b97ff0395`).
+Tests cover all4096 combinations of the six count selectors against native
+body-offset ranges, including inactive-slot preservation and exact positive-zero
+identity bits. This implements reset state, not skeletal animation or rendering.
+
+The same still-live analyzed session supplied the next pose dependencies without
+reimport: successful queries took0.084–0.150s each. Retained files now also include
+`dp-position-{torso,heads,tail,wings,arms,legs}.json` and
+`dp-cg-height-const.json`. These are evidence for the next implementation, not
+claims those operations are ported. The initial non-const CGHeight symbol was
+rejected; its error remains in `dp-cg-height.json`, and symbol inventory selected
+the actual const method. The torso decompiler's integer return requires checking
+the native float return register before translating it.
 
 All previously queued queries completed successfully after the single672.161s
 import; complete results remain in that directory. Their successful retention
