@@ -14,6 +14,8 @@ mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
 mod body_bone_names;
 mod body_merge;
+mod body_merge_bake;
+pub use body_merge_bake::NativeBodyMergeBake;
 mod body_mesh;
 pub use body_merge::{NativeBodyStoredVertex, native_body_add_if_unique};
 mod body_weights;

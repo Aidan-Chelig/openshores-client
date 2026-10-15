@@ -223,6 +223,25 @@ impl NativeBodyVertexGroup {
     pub fn entries(&self) -> impl Iterator<Item = ([f32; 3], f64)> + '_ {
         self.weights.values().copied()
     }
+
+    /// Rebuild QMap keys in original numeric key order. Collisions keep the
+    /// first stored key and the last assigned value, as QMap::insert does.
+    pub(super) fn remap_positions(
+        &self,
+        mut transform: impl FnMut([f32; 3]) -> io::Result<[f32; 3]>,
+    ) -> io::Result<Self> {
+        let mut result = self.clone();
+        result.weights.clear();
+        for (point, weight) in self.entries() {
+            let point = transform(point)?;
+            result
+                .weights
+                .entry(Position::new(point)?)
+                .or_insert((point, 0.))
+                .1 = weight;
+        }
+        Ok(result)
+    }
 }
 
 #[cfg(test)]

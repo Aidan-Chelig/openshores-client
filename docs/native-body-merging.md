@@ -30,3 +30,25 @@ signed zero and NaN field comparisons. It does not implement the larger merge.
 Next required reconstruction is ordered connection-group remapping, original
 face/material/group updates and CopyInstance state. The retained complete
 records can be paged locally; do not request the same functions again.
+
+## One-time destination preparation
+
+`NativeBodyMergeBake::bake_once` now implements the shared first-object
+preparation observed at head lines128..271 and torso lines159 onward of those
+retained pseudocode records. If field369 is clear, apply the actual object
+deformation to stored f32 vertex coordinates (not triangle-builder-projected
+coordinates), narrow the result back to f32, rebuild only kind9 BottomConnect
+position maps through the same operation, then set field369. Other vertex
+payload words and group metadata remain unchanged. Calling again is a no-op.
+
+The caller supplies actual object deformation and Top/Bottom scale points;
+this type does not invent constructor/model state or stand in for a complete
+native object. Map rebuilding follows numeric original-key iteration order,
+retains first stored keys on collision and assigns the last weight. Earlier
+writes survive a later Unsupported nonfinite-coordinate error and field369
+stays clear. This explicit finite boundary does not claim native nonfinite
+runtime behavior. Tests cover idempotence, payload preservation, only-bottom
+map mutation, ordered collision handling and partial-error state.
+
+CopyInstance, source-object preparation, welding/remapping and instance
+publication remain unimplemented. Do not call this stage a complete merge.

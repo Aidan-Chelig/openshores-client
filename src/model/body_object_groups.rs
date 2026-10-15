@@ -62,6 +62,9 @@ impl NativeBodyObjectGroups {
     pub fn retained_groups(&self) -> &[NativeBodyVertexGroup] {
         &self.retained
     }
+    pub(super) fn replace_retained_group(&mut self, index: usize, group: NativeBodyVertexGroup) {
+        self.retained[index] = group;
+    }
     pub fn sets_field_3a9(&self) -> bool {
         self.sets_3a9
     }
