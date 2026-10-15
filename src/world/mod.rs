@@ -16,6 +16,7 @@ pub mod native_atom;
 pub mod native_capture;
 pub mod native_condition;
 pub mod native_controller;
+pub mod native_creature;
 pub mod native_dispatch;
 pub mod native_dna;
 pub mod native_effect;

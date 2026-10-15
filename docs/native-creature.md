@@ -24,7 +24,7 @@ It is not directly the common atom base followed by Creature fields.
 - `0x008`: receive pose scalars in a fixed loop followed by a short. Pose
   application depends on body, station-pose handling, movement speed and state
   `0x690`; successful pose change or differing short can restart a timer and
-  replace `0x5c0`/`0x492`. Exact loop shape and widths need assembly review.
+  replace `0x5c0`/`0x492`. Loop shape/width are now corroborated below.
 - `0x010`: receive console type; an existing matching console pose may consume
   its virtual body. Otherwise, if the creature's virtual context is available,
   construct a temporary console, receive it and destroy it. Therefore console
@@ -51,7 +51,8 @@ Temporary console factory cases observed: 1 Engineer, 2 Weapon, 3 Helm,
 `0x14` ScShield, `0x15` ScTransporter; `0x21`–`0x23` ConsoleGame.
 `0x11` explicitly skips construction. Other values enter diagnostics, not an
 opaque-body skip. Decompiler control-flow around the matching-console result
-must be checked against assembly before reproducing its fallback conditions.
+is now checked against assembly in native-consoles.md; context lookup and
+concrete console construction still need reconstruction.
 
 ## Remaining implementation dependencies
 
@@ -59,8 +60,25 @@ Unit and both DNA wire readers are implemented; remaining work includes
 pose loop/side effects, console virtual bodies,
 constructor defaults, precise scalar overloads and stream floating widths.
 The existing source-server Person codec does not resolve these native layers.
-Next inspect Unit, then reconstruct nested readers and concrete state in small
+Next finish pose/console application and nested readers in concrete state in small
 module folders; do not silently accept unresolved suffix bytes.
 
 Animalia SetHitPoints is now independently reviewed in native-avatar-helpers.md:
 it clamps the signed short at -30 and stores it, like the DpBody lower bound.
+
+## Pose wire block and console dependency map
+
+Independent GNU record evidence/native-creature-pose-console-gnu.txt pins the
+pose loop at 14099b190/14099b358: destination starts at stack60, advances four
+bytes until stack88, while each input uses the byte overload. Thus ten bytes
+widen unsigned into ten native words, followed by one raw short. It is not a
+40-byte wire pose. Both Animalia and DpBody use this same 12-byte wire shape.
+DpBody passes the station helper a pointer at pose+12 (three words in), whereas
+Animalia passes pose+0; downstream application must preserve this distinction.
+`NativeCreaturePose` implements only this atomic wire read. SetStationPose,
+body Pose, movement-speed effects and timer updates are separate unresolved
+application stages, not implied by reading the packet successfully.
+
+See native-consoles.md for 20 candidate primary-vptr bindings to 11 shared
+station readers, their complete evidence IDs, resolved matching-console
+control flow, remaining nested readers and the two implemented station bodies.

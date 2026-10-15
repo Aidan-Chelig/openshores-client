@@ -72,3 +72,13 @@ the suffix API does not skip or claim to implement Creature. Full `just check`
 passes formatting, 310 headless library tests, 331 client-feature library tests,
 9 CLI tests in each profile, 1 graphical-entry CLI test and strict client-feature
 all-target Clippy. No public server or native executable was used for testing.
+
+Creature dependency milestone: exact ten-byte-plus-short pose wire decoding,
+Game and Shield station bodies are implemented. All 11 distinct station reader
+records are retained/reviewed; 20 symbol-relative virtual bindings are mapped
+but constructor corroboration remains pending. Matching-console fallback was
+resolved in GNU assembly. Constructor and pose/sensor/route helper batches are
+saved in the existing warm session for review, not reimport. Headless checks
+pass 313 library tests, 9 CLI tests and strict all-target Clippy. A full Creature
+receiver, its state/application effects and inherited Person dispatch remain
+unfinished; these helper successes do not establish avatar presentation.

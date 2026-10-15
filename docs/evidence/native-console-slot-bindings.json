@@ -1,0 +1,128 @@
+{
+  "kind": "independent GNU symbol-relative .rdata observations, not REA evidence or runtime",
+  "target": "reference/openshores-full/OpenShores.exe",
+  "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80",
+  "assumption": "primary vptr is symbol address +16; constructor corroboration pending",
+  "bindings": [
+    {
+      "name": "DpConsoleGame",
+      "vptr": "0x1423f9500",
+      "slot": "0x1423f95c0",
+      "reader": "0x1410cfbe0"
+    },
+    {
+      "name": "DpConsolePower",
+      "vptr": "0x142407e10",
+      "slot": "0x142407ed0",
+      "reader": "0x141100210"
+    },
+    {
+      "name": "DpConsoleSurgery",
+      "vptr": "0x142425700",
+      "slot": "0x1424257c0",
+      "reader": "0x14111f660"
+    },
+    {
+      "name": "DpScTransporter",
+      "vptr": "0x142418970",
+      "slot": "0x142418a30",
+      "reader": "0x141133c70"
+    },
+    {
+      "name": "DpScNav",
+      "vptr": "0x142481770",
+      "slot": "0x142481830",
+      "reader": "0x1410f4520"
+    },
+    {
+      "name": "DpConsoleEngineer",
+      "vptr": "0x142434850",
+      "slot": "0x142434910",
+      "reader": "0x1410cb0c0"
+    },
+    {
+      "name": "DpScSurgery",
+      "vptr": "0x1423d7fe0",
+      "slot": "0x1423d80a0",
+      "reader": "0x14111f660"
+    },
+    {
+      "name": "DpScHelm",
+      "vptr": "0x14248f390",
+      "slot": "0x14248f450",
+      "reader": "0x1410d9ba0"
+    },
+    {
+      "name": "DpConsoleHelm",
+      "vptr": "0x1423f9650",
+      "slot": "0x1423f9710",
+      "reader": "0x1410d9ba0"
+    },
+    {
+      "name": "DpScShield",
+      "vptr": "0x1423cd810",
+      "slot": "0x1423cd8d0",
+      "reader": "0x141117c30"
+    },
+    {
+      "name": "DpScWeapon",
+      "vptr": "0x1423cd940",
+      "slot": "0x1423cda00",
+      "reader": "0x1411412e0"
+    },
+    {
+      "name": "DpConsoleShield",
+      "vptr": "0x1424186d0",
+      "slot": "0x142418790",
+      "reader": "0x141117c30"
+    },
+    {
+      "name": "DpScSensor",
+      "vptr": "0x1423cd6e0",
+      "slot": "0x1423cd7a0",
+      "reader": "0x141108bc0"
+    },
+    {
+      "name": "DpConsoleWeapon",
+      "vptr": "0x142418820",
+      "slot": "0x1424188e0",
+      "reader": "0x1411412e0"
+    },
+    {
+      "name": "DpScCommand",
+      "vptr": "0x1423d7eb0",
+      "slot": "0x1423d7f70",
+      "reader": "0x1410bdc60"
+    },
+    {
+      "name": "DpScEngineer",
+      "vptr": "0x1423e84a0",
+      "slot": "0x1423e8560",
+      "reader": "0x1410cb0c0"
+    },
+    {
+      "name": "DpScPower",
+      "vptr": "0x142499010",
+      "slot": "0x1424990d0",
+      "reader": "0x141100210"
+    },
+    {
+      "name": "DpConsoleNav",
+      "vptr": "0x1423e8290",
+      "slot": "0x1423e8350",
+      "reader": "0x1410f4520"
+    },
+    {
+      "name": "DpConsoleTransporter",
+      "vptr": "0x142452f50",
+      "slot": "0x142453010",
+      "reader": "0x141133c70"
+    },
+    {
+      "name": "DpConsoleSensor",
+      "vptr": "0x142418580",
+      "slot": "0x142418640",
+      "reader": "0x141108bc0"
+    }
+  ]
+}

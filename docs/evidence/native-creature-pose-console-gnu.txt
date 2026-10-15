@@ -1,0 +1,455 @@
+Independent bounded GNU disassembly, not REA evidence or execution.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+Command: objdump -d -C --start-address=0x14099b050 --stop-address=0x14099b400 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014099b050 <DaCreature::RxUpdate(QDataStream&, bool)>:
+   14099b050:	41 57                	push   %r15
+   14099b052:	41 56                	push   %r14
+   14099b054:	41 55                	push   %r13
+   14099b056:	41 54                	push   %r12
+   14099b058:	55                   	push   %rbp
+   14099b059:	57                   	push   %rdi
+   14099b05a:	56                   	push   %rsi
+   14099b05b:	53                   	push   %rbx
+   14099b05c:	48 81 ec a8 00 00 00 	sub    $0xa8,%rsp
+   14099b063:	0f 29 b4 24 90 00 00 	movaps %xmm6,0x90(%rsp)
+   14099b06a:	00 
+   14099b06b:	48 8b 05 5e d4 a0 01 	mov    0x1a0d45e(%rip),%rax        # 1423a84d0 <.refptr._ZTV5AuDNA>
+   14099b072:	48 8b 2d c7 7d ef 01 	mov    0x1ef7dc7(%rip),%rbp        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   14099b079:	48 83 c0 10          	add    $0x10,%rax
+   14099b07d:	66 48 0f 6e d5       	movq   %rbp,%xmm2
+   14099b082:	66 48 0f 6e f0       	movq   %rax,%xmm6
+   14099b087:	66 0f 6c f2          	punpcklqdq %xmm2,%xmm6
+   14099b08b:	49 89 d4             	mov    %rdx,%r12
+   14099b08e:	45 0f b6 c0          	movzbl %r8b,%r8d
+   14099b092:	48 89 cb             	mov    %rcx,%rbx
+   14099b095:	e8 86 cc 55 00       	call   140ef7d20 <DaUnit::RxUpdate(QDataStream&, bool)>
+   14099b09a:	48 8b 3d 67 76 ef 01 	mov    0x1ef7667(%rip),%rdi        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   14099b0a1:	48 8d 54 24 4e       	lea    0x4e(%rsp),%rdx
+   14099b0a6:	4c 89 e1             	mov    %r12,%rcx
+   14099b0a9:	ff d7                	call   *%rdi
+   14099b0ab:	f6 44 24 4f 01       	testb  $0x1,0x4f(%rsp)
+   14099b0b0:	0f 84 4a 03 00 00    	je     14099b400 <DaCreature::RxUpdate(QDataStream&, bool)+0x3b0>
+   14099b0b6:	48 83 bb a0 04 00 00 	cmpq   $0x0,0x4a0(%rbx)
+   14099b0bd:	00 
+   14099b0be:	0f 84 8c 06 00 00    	je     14099b750 <DaCreature::RxUpdate(QDataStream&, bool)+0x700>
+   14099b0c4:	4c 8b ab b0 05 00 00 	mov    0x5b0(%rbx),%r13
+   14099b0cb:	4d 85 ed             	test   %r13,%r13
+   14099b0ce:	74 1b                	je     14099b0eb <DaCreature::RxUpdate(QDataStream&, bool)+0x9b>
+   14099b0d0:	4c 89 e9             	mov    %r13,%rcx
+   14099b0d3:	e8 68 67 94 00       	call   1412e1840 <DpBody::~DpBody()>
+   14099b0d8:	4c 89 e9             	mov    %r13,%rcx
+   14099b0db:	e8 c8 8e db 00       	call   141753fa8 <operator delete(void*)>
+   14099b0e0:	48 c7 83 b0 05 00 00 	movq   $0x0,0x5b0(%rbx)
+   14099b0e7:	00 00 00 00 
+   14099b0eb:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b0f0:	48 8b 35 e9 75 ef 01 	mov    0x1ef75e9(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14099b0f7:	a8 01                	test   $0x1,%al
+   14099b0f9:	0f 85 4e 03 00 00    	jne    14099b44d <DaCreature::RxUpdate(QDataStream&, bool)+0x3fd>
+   14099b0ff:	a8 02                	test   $0x2,%al
+   14099b101:	0f 85 d2 03 00 00    	jne    14099b4d9 <DaCreature::RxUpdate(QDataStream&, bool)+0x489>
+   14099b107:	a8 04                	test   $0x4,%al
+   14099b109:	0f 85 f7 03 00 00    	jne    14099b506 <DaCreature::RxUpdate(QDataStream&, bool)+0x4b6>
+   14099b10f:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b116:	00 
+   14099b117:	74 10                	je     14099b129 <DaCreature::RxUpdate(QDataStream&, bool)+0xd9>
+   14099b119:	48 89 d9             	mov    %rbx,%rcx
+   14099b11c:	e8 af 87 fe ff       	call   1409838d0 <DaCreature::IsConsolePose() const>
+   14099b121:	84 c0                	test   %al,%al
+   14099b123:	0f 85 b7 04 00 00    	jne    14099b5e0 <DaCreature::RxUpdate(QDataStream&, bool)+0x590>
+   14099b129:	c7 44 24 38 3d 00 00 	movl   $0x3d,0x38(%rsp)
+   14099b130:	00 
+   14099b131:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b136:	a8 08                	test   $0x8,%al
+   14099b138:	0f 84 16 01 00 00    	je     14099b254 <DaCreature::RxUpdate(QDataStream&, bool)+0x204>
+   14099b13e:	4c 8d 74 24 60       	lea    0x60(%rsp),%r14
+   14099b143:	4c 8d 6c 24 58       	lea    0x58(%rsp),%r13
+   14099b148:	48 c7 44 24 60 00 00 	movq   $0x0,0x60(%rsp)
+   14099b14f:	00 00 
+   14099b151:	48 c7 44 24 68 00 00 	movq   $0x0,0x68(%rsp)
+   14099b158:	00 00 
+   14099b15a:	4d 89 f7             	mov    %r14,%r15
+   14099b15d:	48 8d ac 24 88 00 00 	lea    0x88(%rsp),%rbp
+   14099b164:	00 
+   14099b165:	48 c7 44 24 70 00 00 	movq   $0x0,0x70(%rsp)
+   14099b16c:	00 00 
+   14099b16e:	48 c7 44 24 78 00 00 	movq   $0x0,0x78(%rsp)
+   14099b175:	00 00 
+   14099b177:	48 c7 84 24 80 00 00 	movq   $0x0,0x80(%rsp)
+   14099b17e:	00 00 00 00 00 
+   14099b183:	f6 c4 01             	test   $0x1,%ah
+   14099b186:	0f 84 cc 01 00 00    	je     14099b358 <DaCreature::RxUpdate(QDataStream&, bool)+0x308>
+   14099b18c:	0f 1f 40 00          	nopl   0x0(%rax)
+   14099b190:	4c 89 ea             	mov    %r13,%rdx
+   14099b193:	4c 89 e1             	mov    %r12,%rcx
+   14099b196:	49 83 c7 04          	add    $0x4,%r15
+   14099b19a:	ff d6                	call   *%rsi
+   14099b19c:	0f b6 44 24 58       	movzbl 0x58(%rsp),%eax
+   14099b1a1:	41 89 47 fc          	mov    %eax,-0x4(%r15)
+   14099b1a5:	49 39 ef             	cmp    %rbp,%r15
+   14099b1a8:	75 e6                	jne    14099b190 <DaCreature::RxUpdate(QDataStream&, bool)+0x140>
+   14099b1aa:	4c 89 ea             	mov    %r13,%rdx
+   14099b1ad:	4c 89 e1             	mov    %r12,%rcx
+   14099b1b0:	ff d7                	call   *%rdi
+   14099b1b2:	48 83 bb a0 04 00 00 	cmpq   $0x0,0x4a0(%rbx)
+   14099b1b9:	00 
+   14099b1ba:	0f b7 7c 24 58       	movzwl 0x58(%rsp),%edi
+   14099b1bf:	0f 84 8a 00 00 00    	je     14099b24f <DaCreature::RxUpdate(QDataStream&, bool)+0x1ff>
+   14099b1c5:	44 0f b7 c7          	movzwl %di,%r8d
+   14099b1c9:	4c 89 f2             	mov    %r14,%rdx
+   14099b1cc:	48 89 d9             	mov    %rbx,%rcx
+   14099b1cf:	45 89 c1             	mov    %r8d,%r9d
+   14099b1d2:	e8 59 4f fe ff       	call   140980130 <DaCreature::SetStationPose(AuPose const&, unsigned short, unsigned short)>
+   14099b1d7:	84 c0                	test   %al,%al
+   14099b1d9:	75 74                	jne    14099b24f <DaCreature::RxUpdate(QDataStream&, bool)+0x1ff>
+   14099b1db:	48 89 d9             	mov    %rbx,%rcx
+   14099b1de:	4c 8d ab 98 04 00 00 	lea    0x498(%rbx),%r13
+   14099b1e5:	e8 66 9d f5 00       	call   1418f4f50 <DaCreature::MovementSpeedMod() const>
+   14099b1ea:	4c 89 e9             	mov    %r13,%rcx
+   14099b1ed:	0f 28 f0             	movaps %xmm0,%xmm6
+   14099b1f0:	ff 15 3a 76 ef 01    	call   *0x1ef763a(%rip)        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14099b1f6:	45 31 c9             	xor    %r9d,%r9d
+   14099b1f9:	48 8d 53 14          	lea    0x14(%rbx),%rdx
+   14099b1fd:	4d 89 f0             	mov    %r14,%r8
+   14099b200:	48 83 bb 90 06 00 00 	cmpq   $0x0,0x690(%rbx)
+   14099b207:	00 
+   14099b208:	48 8b 8b a0 04 00 00 	mov    0x4a0(%rbx),%rcx
+   14099b20f:	f3 0f 11 74 24 20    	movss  %xmm6,0x20(%rsp)
+   14099b215:	41 0f 95 c1          	setne  %r9b
+   14099b219:	e8 b2 ef 84 00       	call   1411ea1d0 <AuAnimalia::Pose(AuId const&, AuPose const*, bool, float)>
+   14099b21e:	84 c0                	test   %al,%al
+   14099b220:	75 09                	jne    14099b22b <DaCreature::RxUpdate(QDataStream&, bool)+0x1db>
+   14099b222:	66 3b bb c0 05 00 00 	cmp    0x5c0(%rbx),%di
+   14099b229:	74 1b                	je     14099b246 <DaCreature::RxUpdate(QDataStream&, bool)+0x1f6>
+   14099b22b:	66 89 bb c0 05 00 00 	mov    %di,0x5c0(%rbx)
+   14099b232:	48 8d 8b 30 06 00 00 	lea    0x630(%rbx),%rcx
+   14099b239:	ff 15 e1 75 ef 01    	call   *0x1ef75e1(%rip)        # 142892820 <__imp__ZN13QElapsedTimer7restartEv>
+   14099b23f:	66 89 bb 92 04 00 00 	mov    %di,0x492(%rbx)
+   14099b246:	4c 89 e9             	mov    %r13,%rcx
+   14099b249:	ff 15 f1 75 ef 01    	call   *0x1ef75f1(%rip)        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14099b24f:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b254:	a8 10                	test   $0x10,%al
+   14099b256:	0f 85 24 04 00 00    	jne    14099b680 <DaCreature::RxUpdate(QDataStream&, bool)+0x630>
+   14099b25c:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b263:	00 
+   14099b264:	74 1a                	je     14099b280 <DaCreature::RxUpdate(QDataStream&, bool)+0x230>
+   14099b266:	48 89 d9             	mov    %rbx,%rcx
+   14099b269:	e8 62 86 fe ff       	call   1409838d0 <DaCreature::IsConsolePose() const>
+   14099b26e:	84 c0                	test   %al,%al
+   14099b270:	0f 84 8a 04 00 00    	je     14099b700 <DaCreature::RxUpdate(QDataStream&, bool)+0x6b0>
+   14099b276:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14099b27d:	00 00 00 
+   14099b280:	48 8d 93 96 04 00 00 	lea    0x496(%rbx),%rdx
+   14099b287:	4c 89 e1             	mov    %r12,%rcx
+   14099b28a:	ff d6                	call   *%rsi
+   14099b28c:	f6 44 24 4e 20       	testb  $0x20,0x4e(%rsp)
+   14099b291:	0f 85 d1 03 00 00    	jne    14099b668 <DaCreature::RxUpdate(QDataStream&, bool)+0x618>
+   14099b297:	c6 83 94 04 00 00 00 	movb   $0x0,0x494(%rbx)
+   14099b29e:	48 8b 8b 98 06 00 00 	mov    0x698(%rbx),%rcx
+   14099b2a5:	48 85 c9             	test   %rcx,%rcx
+   14099b2a8:	74 06                	je     14099b2b0 <DaCreature::RxUpdate(QDataStream&, bool)+0x260>
+   14099b2aa:	48 8b 01             	mov    (%rcx),%rax
+   14099b2ad:	ff 50 08             	call   *0x8(%rax)
+   14099b2b0:	48 c7 83 98 06 00 00 	movq   $0x0,0x698(%rbx)
+   14099b2b7:	00 00 00 00 
+   14099b2bb:	0f b7 44 24 4e       	movzwl 0x4e(%rsp),%eax
+   14099b2c0:	a8 80                	test   $0x80,%al
+   14099b2c2:	0f 85 78 03 00 00    	jne    14099b640 <DaCreature::RxUpdate(QDataStream&, bool)+0x5f0>
+   14099b2c8:	89 c2                	mov    %eax,%edx
+   14099b2ca:	66 81 e2 00 01       	and    $0x100,%dx
+   14099b2cf:	a8 40                	test   $0x40,%al
+   14099b2d1:	0f 84 69 02 00 00    	je     14099b540 <DaCreature::RxUpdate(QDataStream&, bool)+0x4f0>
+   14099b2d7:	66 85 d2             	test   %dx,%dx
+   14099b2da:	0f 84 40 03 00 00    	je     14099b620 <DaCreature::RxUpdate(QDataStream&, bool)+0x5d0>
+   14099b2e0:	48 8b bb a0 04 00 00 	mov    0x4a0(%rbx),%rdi
+   14099b2e7:	ff 15 8b 7a ef 01    	call   *0x1ef7a8b(%rip)        # 142892d78 <__imp__ZN9QDateTime22currentMSecsSinceEpochEv>
+   14099b2ed:	48 2d 00 5c 26 05    	sub    $0x5265c00,%rax
+   14099b2f3:	48 89 47 38          	mov    %rax,0x38(%rdi)
+   14099b2f7:	f6 44 24 4f 02       	testb  $0x2,0x4f(%rsp)
+   14099b2fc:	0f 84 66 02 00 00    	je     14099b568 <DaCreature::RxUpdate(QDataStream&, bool)+0x518>
+   14099b302:	4c 8d 6c 24 60       	lea    0x60(%rsp),%r13
+   14099b307:	4c 89 e1             	mov    %r12,%rcx
+   14099b30a:	4c 89 ea             	mov    %r13,%rdx
+   14099b30d:	ff d6                	call   *%rsi
+   14099b30f:	0f b6 44 24 60       	movzbl 0x60(%rsp),%eax
+   14099b314:	4c 89 ea             	mov    %r13,%rdx
+   14099b317:	4c 89 e1             	mov    %r12,%rcx
+   14099b31a:	89 83 b8 05 00 00    	mov    %eax,0x5b8(%rbx)
+   14099b320:	ff d6                	call   *%rsi
+   14099b322:	0f b6 44 24 60       	movzbl 0x60(%rsp),%eax
+   14099b327:	48 89 d9             	mov    %rbx,%rcx
+   14099b32a:	89 83 bc 05 00 00    	mov    %eax,0x5bc(%rbx)
+   14099b330:	e8 5b 33 19 00       	call   140b2e690 <DaAtom::Parent() const>
+   14099b335:	48 89 c1             	mov    %rax,%rcx
+   14099b338:	48 85 c0             	test   %rax,%rax
+   14099b33b:	0f 85 3b 02 00 00    	jne    14099b57c <DaCreature::RxUpdate(QDataStream&, bool)+0x52c>
+   14099b341:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14099b348:	c6 83 95 04 00 00 00 	movb   $0x0,0x495(%rbx)
+   14099b34f:	e9 6b 02 00 00       	jmp    14099b5bf <DaCreature::RxUpdate(QDataStream&, bool)+0x56f>
+   14099b354:	0f 1f 40 00          	nopl   0x0(%rax)
+   14099b358:	4c 89 ea             	mov    %r13,%rdx
+   14099b35b:	4c 89 e1             	mov    %r12,%rcx
+   14099b35e:	49 83 c7 04          	add    $0x4,%r15
+   14099b362:	ff d6                	call   *%rsi
+   14099b364:	0f b6 44 24 58       	movzbl 0x58(%rsp),%eax
+   14099b369:	41 89 47 fc          	mov    %eax,-0x4(%r15)
+   14099b36d:	49 39 ef             	cmp    %rbp,%r15
+   14099b370:	75 e6                	jne    14099b358 <DaCreature::RxUpdate(QDataStream&, bool)+0x308>
+   14099b372:	4c 89 ea             	mov    %r13,%rdx
+   14099b375:	4c 89 e1             	mov    %r12,%rcx
+   14099b378:	ff d7                	call   *%rdi
+   14099b37a:	48 83 bb b0 05 00 00 	cmpq   $0x0,0x5b0(%rbx)
+   14099b381:	00 
+   14099b382:	0f b7 7c 24 58       	movzwl 0x58(%rsp),%edi
+   14099b387:	0f 84 c2 fe ff ff    	je     14099b24f <DaCreature::RxUpdate(QDataStream&, bool)+0x1ff>
+   14099b38d:	44 0f b7 c7          	movzwl %di,%r8d
+   14099b391:	48 8d 54 24 6c       	lea    0x6c(%rsp),%rdx
+   14099b396:	48 89 d9             	mov    %rbx,%rcx
+   14099b399:	45 89 c1             	mov    %r8d,%r9d
+   14099b39c:	e8 8f 4d fe ff       	call   140980130 <DaCreature::SetStationPose(AuPose const&, unsigned short, unsigned short)>
+   14099b3a1:	84 c0                	test   %al,%al
+   14099b3a3:	0f 85 a6 fe ff ff    	jne    14099b24f <DaCreature::RxUpdate(QDataStream&, bool)+0x1ff>
+   14099b3a9:	48 89 d9             	mov    %rbx,%rcx
+   14099b3ac:	4c 8d ab 98 04 00 00 	lea    0x498(%rbx),%r13
+   14099b3b3:	e8 98 9b f5 00       	call   1418f4f50 <DaCreature::MovementSpeedMod() const>
+   14099b3b8:	4c 89 e9             	mov    %r13,%rcx
+   14099b3bb:	f3 0f 11 44 24 3c    	movss  %xmm0,0x3c(%rsp)
+   14099b3c1:	ff 15 69 74 ef 01    	call   *0x1ef7469(%rip)        # 142892830 <__imp__ZN14QReadWriteLock12lockForWriteEv>
+   14099b3c7:	48 83 bb 90 06 00 00 	cmpq   $0x0,0x690(%rbx)
+   14099b3ce:	00 
+   14099b3cf:	48 8b 8b b0 05 00 00 	mov    0x5b0(%rbx),%rcx
+   14099b3d6:	4c 89 f2             	mov    %r14,%rdx
+   14099b3d9:	41 0f 95 c0          	setne  %r8b
+   14099b3dd:	f3 0f 10 5c 24 3c    	movss  0x3c(%rsp),%xmm3
+   14099b3e3:	45 0f b6 c0          	movzbl %r8b,%r8d
+   14099b3e7:	e8 d4 6a 95 00       	call   1412f1ec0 <DpBody::Pose(AuPose const*, bool, float)>
+   14099b3ec:	84 c0                	test   %al,%al
+   14099b3ee:	0f 84 2e fe ff ff    	je     14099b222 <DaCreature::RxUpdate(QDataStream&, bool)+0x1d2>
+   14099b3f4:	e9 32 fe ff ff       	jmp    14099b22b <DaCreature::RxUpdate(QDataStream&, bool)+0x1db>
+   14099b3f9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+
+Command: objdump -d -C --start-address=0x14099b680 --stop-address=0x14099b700 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014099b680 <DaCreature::RxUpdate(QDataStream&, bool)+0x630>:
+   14099b680:	48 8d 54 24 4d       	lea    0x4d(%rsp),%rdx
+   14099b685:	4c 89 e1             	mov    %r12,%rcx
+   14099b688:	ff d6                	call   *%rsi
+   14099b68a:	48 83 bb 80 06 00 00 	cmpq   $0x0,0x680(%rbx)
+   14099b691:	00 
+   14099b692:	74 2c                	je     14099b6c0 <DaCreature::RxUpdate(QDataStream&, bool)+0x670>
+   14099b694:	48 89 d9             	mov    %rbx,%rcx
+   14099b697:	e8 34 82 fe ff       	call   1409838d0 <DaCreature::IsConsolePose() const>
+   14099b69c:	89 c7                	mov    %eax,%edi
+   14099b69e:	84 c0                	test   %al,%al
+   14099b6a0:	74 1e                	je     14099b6c0 <DaCreature::RxUpdate(QDataStream&, bool)+0x670>
+   14099b6a2:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b6a9:	48 8b 01             	mov    (%rcx),%rax
+   14099b6ac:	ff 90 f0 00 00 00    	call   *0xf0(%rax)
+   14099b6b2:	0f b6 54 24 4d       	movzbl 0x4d(%rsp),%edx
+   14099b6b7:	39 c2                	cmp    %eax,%edx
+   14099b6b9:	0f 84 91 02 00 00    	je     14099b950 <DaCreature::RxUpdate(QDataStream&, bool)+0x900>
+   14099b6bf:	90                   	nop
+   14099b6c0:	48 8b 03             	mov    (%rbx),%rax
+   14099b6c3:	48 89 d9             	mov    %rbx,%rcx
+   14099b6c6:	ff 90 68 04 00 00    	call   *0x468(%rax)
+   14099b6cc:	48 89 c7             	mov    %rax,%rdi
+   14099b6cf:	48 85 c0             	test   %rax,%rax
+   14099b6d2:	0f 84 a8 fb ff ff    	je     14099b280 <DaCreature::RxUpdate(QDataStream&, bool)+0x230>
+   14099b6d8:	80 7c 24 4d 23       	cmpb   $0x23,0x4d(%rsp)
+   14099b6dd:	0f 87 4d 01 00 00    	ja     14099b830 <DaCreature::RxUpdate(QDataStream&, bool)+0x7e0>
+   14099b6e3:	0f b6 44 24 4d       	movzbl 0x4d(%rsp),%eax
+   14099b6e8:	48 8d 15 7d e0 82 01 	lea    0x182e07d(%rip),%rdx        # 1421c976c <.rdata+0x3bac>
+   14099b6ef:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+   14099b6f3:	48 01 d0             	add    %rdx,%rax
+   14099b6f6:	ff e0                	jmp    *%rax
+   14099b6f8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14099b6ff:	00 
+
+Command: objdump -d -C --start-address=0x14099b950 --stop-address=0x14099ba62 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014099b950 <DaCreature::RxUpdate(QDataStream&, bool)+0x900>:
+   14099b950:	48 8b 03             	mov    (%rbx),%rax
+   14099b953:	48 89 d9             	mov    %rbx,%rcx
+   14099b956:	ff 90 68 04 00 00    	call   *0x468(%rax)
+   14099b95c:	49 89 c0             	mov    %rax,%r8
+   14099b95f:	48 85 c0             	test   %rax,%rax
+   14099b962:	0f 84 5f 03 00 00    	je     14099bcc7 <DaCreature::RxUpdate(QDataStream&, bool)+0xc77>
+   14099b968:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b96f:	4c 89 e2             	mov    %r12,%rdx
+   14099b972:	48 8b 01             	mov    (%rcx),%rax
+   14099b975:	ff 90 c0 00 00 00    	call   *0xc0(%rax)
+   14099b97b:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b982:	48 8b 01             	mov    (%rcx),%rax
+   14099b985:	ff 90 e0 00 00 00    	call   *0xe0(%rax)
+   14099b98b:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b992:	66 89 83 92 04 00 00 	mov    %ax,0x492(%rbx)
+   14099b999:	48 8b 01             	mov    (%rcx),%rax
+   14099b99c:	ff 90 f0 00 00 00    	call   *0xf0(%rax)
+   14099b9a2:	39 44 24 38          	cmp    %eax,0x38(%rsp)
+   14099b9a6:	0f 84 a8 00 00 00    	je     14099ba54 <DaCreature::RxUpdate(QDataStream&, bool)+0xa04>
+   14099b9ac:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b9b3:	48 8b 01             	mov    (%rcx),%rax
+   14099b9b6:	ff 50 20             	call   *0x20(%rax)
+   14099b9b9:	89 c5                	mov    %eax,%ebp
+   14099b9bb:	83 f8 0b             	cmp    $0xb,%eax
+   14099b9be:	0f 84 90 00 00 00    	je     14099ba54 <DaCreature::RxUpdate(QDataStream&, bool)+0xa04>
+   14099b9c4:	48 89 d9             	mov    %rbx,%rcx
+   14099b9c7:	4c 8d 7c 24 50       	lea    0x50(%rsp),%r15
+   14099b9cc:	4c 8d 74 24 60       	lea    0x60(%rsp),%r14
+   14099b9d1:	e8 0a b4 fd ff       	call   140976de0 <DaCreature::LoadClientConsoleSettings()>
+   14099b9d6:	48 8b 05 cb 6b ef 01 	mov    0x1ef6bcb(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   14099b9dd:	4c 89 fa             	mov    %r15,%rdx
+   14099b9e0:	4c 89 f1             	mov    %r14,%rcx
+   14099b9e3:	41 b8 02 00 00 00    	mov    $0x2,%r8d
+   14099b9e9:	48 89 44 24 50       	mov    %rax,0x50(%rsp)
+   14099b9ee:	ff 15 8c 6c ef 01    	call   *0x1ef6c8c(%rip)        # 142892680 <__imp__ZN11QDataStreamC1EP10QByteArray6QFlagsIN9QIODevice12OpenModeFlagEE>
+   14099b9f4:	48 8b 8b 80 06 00 00 	mov    0x680(%rbx),%rcx
+   14099b9fb:	c7 44 24 78 07 00 00 	movl   $0x7,0x78(%rsp)
+   14099ba02:	00 
+   14099ba03:	4c 89 f2             	mov    %r14,%rdx
+   14099ba06:	48 8b 01             	mov    (%rcx),%rax
+   14099ba09:	ff 90 00 01 00 00    	call   *0x100(%rax)
+   14099ba0f:	48 8b 54 24 50       	mov    0x50(%rsp),%rdx
+   14099ba14:	48 89 54 24 58       	mov    %rdx,0x58(%rsp)
+   14099ba19:	8b 02                	mov    (%rdx),%eax
+   14099ba1b:	83 c0 01             	add    $0x1,%eax
+   14099ba1e:	83 f8 01             	cmp    $0x1,%eax
+   14099ba21:	0f 87 d7 02 00 00    	ja     14099bcfe <DaCreature::RxUpdate(QDataStream&, bool)+0xcae>
+   14099ba27:	4c 8d 6c 24 58       	lea    0x58(%rsp),%r13
+   14099ba2c:	40 0f b6 d5          	movzbl %bpl,%edx
+   14099ba30:	48 89 d9             	mov    %rbx,%rcx
+   14099ba33:	4d 89 e8             	mov    %r13,%r8
+   14099ba36:	e8 45 fc eb ff       	call   14085b680 <DaAtom::RestoreConsoleSettings(unsigned char, QByteArray)>
+   14099ba3b:	4c 89 e9             	mov    %r13,%rcx
+   14099ba3e:	e8 ad a6 dc 00       	call   1417660f0 <QByteArray::~QByteArray()>
+   14099ba43:	4c 89 f1             	mov    %r14,%rcx
+   14099ba46:	ff 15 4c 6c ef 01    	call   *0x1ef6c4c(%rip)        # 142892698 <__imp__ZN11QDataStreamD1Ev>
+   14099ba4c:	4c 89 f9             	mov    %r15,%rcx
+   14099ba4f:	e8 9c a6 dc 00       	call   1417660f0 <QByteArray::~QByteArray()>
+   14099ba54:	40 84 ff             	test   %dil,%dil
+   14099ba57:	0f 84 63 fc ff ff    	je     14099b6c0 <DaCreature::RxUpdate(QDataStream&, bool)+0x670>
+   14099ba5d:	e9 1e f8 ff ff       	jmp    14099b280 <DaCreature::RxUpdate(QDataStream&, bool)+0x230>
+
+Command: objdump -d -C --start-address=0x14099bcc7 --stop-address=0x14099bce0 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014099bcc7 <DaCreature::RxUpdate(QDataStream&, bool)+0xc77>:
+   14099bcc7:	31 ff                	xor    %edi,%edi
+   14099bcc9:	e9 ad fc ff ff       	jmp    14099b97b <DaCreature::RxUpdate(QDataStream&, bool)+0x92b>
+   14099bcce:	ba 20 00 00 00       	mov    $0x20,%edx
+   14099bcd3:	ff 15 a7 6a ef 01    	call   *0x1ef6aa7(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   14099bcd9:	e9 61 fc ff ff       	jmp    14099b93f <DaCreature::RxUpdate(QDataStream&, bool)+0x8ef>
+   14099bcde:	ba                   	.byte 0xba
+   14099bcdf:	20                   	.byte 0x20
+
+Command: objdump -d -C --start-address=0x141117c30 --stop-address=0x141117c81 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141117c30 <DpStationShield::Rx(QDataStream&, DaCapsule&)>:
+   141117c30:	41 54                	push   %r12
+   141117c32:	55                   	push   %rbp
+   141117c33:	57                   	push   %rdi
+   141117c34:	56                   	push   %rsi
+   141117c35:	53                   	push   %rbx
+   141117c36:	48 83 ec 20          	sub    $0x20,%rsp
+   141117c3a:	48 89 ce             	mov    %rcx,%rsi
+   141117c3d:	49 89 d4             	mov    %rdx,%r12
+   141117c40:	e8 1b 60 fa ff       	call   1410bdc60 <DpStation::Rx(QDataStream&, DaCapsule&)>
+   141117c45:	48 8b 3d ac aa 77 01 	mov    0x177aaac(%rip),%rdi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   141117c4c:	48 8d 5e 14          	lea    0x14(%rsi),%rbx
+   141117c50:	48 8d 6e 2c          	lea    0x2c(%rsi),%rbp
+   141117c54:	0f 1f 40 00          	nopl   0x0(%rax)
+   141117c58:	48 89 da             	mov    %rbx,%rdx
+   141117c5b:	48 83 c3 04          	add    $0x4,%rbx
+   141117c5f:	4c 89 e1             	mov    %r12,%rcx
+   141117c62:	ff d7                	call   *%rdi
+   141117c64:	48 39 eb             	cmp    %rbp,%rbx
+   141117c67:	75 ef                	jne    141117c58 <DpStationShield::Rx(QDataStream&, DaCapsule&)+0x28>
+   141117c69:	48 8d 56 30          	lea    0x30(%rsi),%rdx
+   141117c6d:	4c 89 e1             	mov    %r12,%rcx
+   141117c70:	48 83 c4 20          	add    $0x20,%rsp
+   141117c74:	5b                   	pop    %rbx
+   141117c75:	5e                   	pop    %rsi
+   141117c76:	5f                   	pop    %rdi
+   141117c77:	5d                   	pop    %rbp
+   141117c78:	41 5c                	pop    %r12
+   141117c7a:	48 ff 25 6f aa 77 01 	rex.W jmp *0x177aa6f(%rip)        # 1428926f0 <__imp__ZN11QDataStreamrsERd>
+
+Command: objdump -d -C --start-address=0x1410cfbe0 --stop-address=0x1410cfc60 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001410cfbe0 <DpStationGame::Rx(QDataStream&, DaCapsule&)>:
+   1410cfbe0:	41 54                	push   %r12
+   1410cfbe2:	56                   	push   %rsi
+   1410cfbe3:	53                   	push   %rbx
+   1410cfbe4:	48 83 ec 30          	sub    $0x30,%rsp
+   1410cfbe8:	49 89 d4             	mov    %rdx,%r12
+   1410cfbeb:	48 89 cb             	mov    %rcx,%rbx
+   1410cfbee:	e8 6d e0 fe ff       	call   1410bdc60 <DpStation::Rx(QDataStream&, DaCapsule&)>
+   1410cfbf3:	48 8b 35 e6 2a 7c 01 	mov    0x17c2ae6(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1410cfbfa:	48 8d 54 24 2f       	lea    0x2f(%rsp),%rdx
+   1410cfbff:	4c 89 e1             	mov    %r12,%rcx
+   1410cfc02:	ff d6                	call   *%rsi
+   1410cfc04:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cfc09:	a8 01                	test   $0x1,%al
+   1410cfc0b:	75 1b                	jne    1410cfc28 <DpStationGame::Rx(QDataStream&, DaCapsule&)+0x48>
+   1410cfc0d:	c6 43 14 22          	movb   $0x22,0x14(%rbx)
+   1410cfc11:	a8 02                	test   $0x2,%al
+   1410cfc13:	75 25                	jne    1410cfc3a <DpStationGame::Rx(QDataStream&, DaCapsule&)+0x5a>
+   1410cfc15:	31 c0                	xor    %eax,%eax
+   1410cfc17:	66 89 43 16          	mov    %ax,0x16(%rbx)
+   1410cfc1b:	48 83 c4 30          	add    $0x30,%rsp
+   1410cfc1f:	5b                   	pop    %rbx
+   1410cfc20:	5e                   	pop    %rsi
+   1410cfc21:	41 5c                	pop    %r12
+   1410cfc23:	c3                   	ret
+   1410cfc24:	0f 1f 40 00          	nopl   0x0(%rax)
+   1410cfc28:	48 8d 53 14          	lea    0x14(%rbx),%rdx
+   1410cfc2c:	4c 89 e1             	mov    %r12,%rcx
+   1410cfc2f:	ff d6                	call   *%rsi
+   1410cfc31:	0f b6 44 24 2f       	movzbl 0x2f(%rsp),%eax
+   1410cfc36:	a8 02                	test   $0x2,%al
+   1410cfc38:	74 db                	je     1410cfc15 <DpStationGame::Rx(QDataStream&, DaCapsule&)+0x35>
+   1410cfc3a:	48 8d 53 16          	lea    0x16(%rbx),%rdx
+   1410cfc3e:	4c 89 e1             	mov    %r12,%rcx
+   1410cfc41:	ff 15 c1 2a 7c 01    	call   *0x17c2ac1(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1410cfc47:	90                   	nop
+   1410cfc48:	48 83 c4 30          	add    $0x30,%rsp
+   1410cfc4c:	5b                   	pop    %rbx
+   1410cfc4d:	5e                   	pop    %rsi
+   1410cfc4e:	41 5c                	pop    %r12
+   1410cfc50:	c3                   	ret
+   1410cfc51:	90                   	nop
+   1410cfc52:	0f 1f 00             	nopl   (%rax)
+   1410cfc55:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1410cfc5c:	00 00 00 00 
+

@@ -1,0 +1,57 @@
+//! Verified Creature wire components, not a complete Creature receiver yet.
+use crate::protocol::QtReader;
+use std::io;
+mod console;
+pub use console::{NativeStationGame, NativeStationShield};
+
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct NativeCreaturePose {
+    pub fields: [u32; 10],
+    pub station: u16,
+}
+
+impl NativeCreaturePose {
+    /// Both body branches read ten byte overloads widened unsigned, then one
+    /// short. This does not apply SetStationPose/body Pose or restart timers.
+    /// Failure is atomic as Rust safety, not Qt malformed-stream parity.
+    pub fn read(input: &mut QtReader<'_>) -> io::Result<Self> {
+        let mut record = QtReader::new(input.remaining_bytes());
+        let mut fields = [0; 10];
+        for field in &mut fields {
+            *field = u32::from(record.read_u8()?);
+        }
+        let station = record.read_u16()?;
+        input.skip(input.remaining() - record.remaining())?;
+        Ok(Self { fields, station })
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pose_is_ten_widened_bytes_then_short_and_not_native_memory_size() {
+        for byte in 0..=255_u8 {
+            for station in [0_u16, 0x7fff, 0x8000, 0xffff] {
+                let mut bytes: Vec<_> = (0..10).map(|offset| byte.wrapping_add(offset)).collect();
+                let expected: Vec<_> = bytes.iter().map(|value| u32::from(*value)).collect();
+                bytes.extend(station.to_be_bytes());
+                bytes.push(0xde);
+                let mut input = QtReader::new(&bytes);
+                let pose = NativeCreaturePose::read(&mut input).unwrap();
+                assert_eq!(pose.fields.as_slice(), expected);
+                assert_eq!(pose.station, station);
+                assert_eq!(input.read_u8().unwrap(), 0xde);
+                for end in 0..12 {
+                    let mut short = QtReader::new(&bytes[..end]);
+                    assert_eq!(
+                        NativeCreaturePose::read(&mut short).unwrap_err().kind(),
+                        io::ErrorKind::UnexpectedEof
+                    );
+                    assert_eq!(short.remaining(), end);
+                }
+            }
+        }
+    }
+}
