@@ -1,8 +1,74 @@
-//! Concrete DpTail::CurrentConnectLoc; other part methods remain unsupported.
-use super::{NativeDpBoneTransforms, NativeDpPartKind, NativeDpPartState};
+//! Concrete part CurrentConnectLoc and limb Bones out-parameter mappings.
+use super::{NativeDpBoneTransforms, NativeDpPartKind, NativeDpPartState, native_dh_waist_vertex};
 use std::io;
 
 impl NativeDpPartState {
+    /// Actual Bones(ref1,ref2,ref3) outputs, in native reference-argument order.
+    /// Arms default to pair0 for any index other than1/2. Invalid legs leave
+    /// native outputs unwritten, represented explicitly as Unsupported here.
+    pub fn limb_bones(&self) -> io::Result<[usize; 3]> {
+        use NativeDpPartKind::*;
+        let index = self.allocation.index;
+        let (base, pair) = match self.allocation.kind {
+            LeftArmAndHand => (
+                23,
+                match index {
+                    1 => 1,
+                    2 => 2,
+                    _ => 0,
+                },
+            ),
+            RightArmAndHand => (
+                26,
+                match index {
+                    1 => 1,
+                    2 => 2,
+                    _ => 0,
+                },
+            ),
+            LeftLegAndFoot | RightLegAndFoot if index > 2 => {
+                return Err(io::Error::new(
+                    io::ErrorKind::Unsupported,
+                    "native leg Bones leaves outputs unwritten for this index",
+                ));
+            }
+            LeftLegAndFoot => (41, index as usize),
+            RightLegAndFoot => (44, index as usize),
+            _ => {
+                return Err(io::Error::new(
+                    io::ErrorKind::Unsupported,
+                    "native limb Bones requested for a non-limb part",
+                ));
+            }
+        };
+        let first = base + pair * 6;
+        Ok([first + 2, first + 1, first])
+    }
+
+    /// Actual part attachment projected through this part's owner bone state.
+    /// Torso projects origin, ignoring its stored ConnectLoc; other parts use
+    /// the stored connection. This is not world/environment positioning.
+    pub fn current_connect_loc(&self, owner: &NativeDpBoneTransforms) -> io::Result<[f64; 3]> {
+        use NativeDpPartKind::*;
+        let slot = match self.allocation.kind {
+            Torso => native_dh_waist_vertex(&self.allocation.dna).saturating_sub(1) as usize,
+            Tail => 17,
+            HeadAndNeck => {
+                7 + usize::from(
+                    (self.allocation.dna.0[14] & 3) + ((self.allocation.dna.0[5] >> 1) & 1),
+                ) + usize::from(self.allocation.index == 1) * 5
+            }
+            LeftArmAndHand | RightArmAndHand | LeftLegAndFoot | RightLegAndFoot => {
+                self.limb_bones()?[0]
+            }
+        };
+        Ok(owner.slots[slot].project(if self.allocation.kind == Torso {
+            [0.; 3]
+        } else {
+            self.connect_30
+        }))
+    }
+
     /// Caller must pass this part's actual owner bones, not world/atom matrices.
     /// Native Tail always uses body+0x11f8 = slot17, even for a multi-bone tail.
     pub fn tail_current_connect_loc(&self, owner: &NativeDpBoneTransforms) -> io::Result<[f64; 3]> {
@@ -12,7 +78,7 @@ impl NativeDpPartState {
                 "current attachment projection implemented for native Tail only",
             ));
         }
-        Ok(owner.slots[17].project(self.connect_30))
+        self.current_connect_loc(owner)
     }
 }
 
@@ -53,3 +119,6 @@ mod tests {
         );
     }
 }
+
+#[cfg(test)]
+mod reader_tests;

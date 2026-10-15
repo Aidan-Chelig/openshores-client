@@ -391,9 +391,30 @@ Projection is read-only and does not invalidate slot+0x100.
 `NativeDpPartState::tail_current_connect_loc` composes the stored ConnectLoc
 with actual owner slot17 (body offset0x11f8), including multi-bone tail DNA.
 Other part kinds return Unsupported rather than borrowing this tail mapping.
-This establishes one concrete animated attachment reader, not complete tail
-bending or other parts' CurrentConnectLoc mappings. The caller must supply the
-actual owner bones; production ownership/context assembly remains required.
+This tail-specific entry point does not implement tail bending. Other concrete
+part readers are described below. The caller must supply the actual owner
+bones; production ownership/context assembly remains required.
+
+The generic `NativeDpPartState::current_connect_loc` now extends that concrete
+reader to all seven allocated part kinds. Torso projects origin through slot
+`max(WaistVertex-1,0)` from its own DNA, deliberately ignoring stored ConnectLoc.
+HeadAndNeck uses the native count/index selection in slots7..16. Limbs call the
+actual `Bones(ref1,ref2,ref3)` mapping and project stored ConnectLoc through the
+first out-reference, not an inferred upper-limb/root slot. Left/right pair0..2
+triplets are explicit. Arm indices other than1/2 retain native pair0 fallback;
+leg indices outside0..2 return Unsupported because native leaves the outputs
+unwritten. The tail-specific convenience method still rejects other part kinds.
+
+`just test-native-dp-connections` verifies all seven factory vptr+0x30 bindings,
+four concrete vptr+0xa0 Bones bindings and first-out-reference selection against
+the SHA-bound executable before running offline reader fixtures. Complete static
+records are `docs/evidence/native-dp-{torso,head,arm,leg}-current-connect.json`
+and `native-dp-{left,right}-{arm,leg}-bones.json`, with GNU corroboration in
+`native-dp-connections-gnu.txt`. Reused-session queries took0.079–0.126s each.
+Tests cover bilateral triplets, invalid indices, unique owner-slot translations,
+all packed head/count combinations, torso waist-zero boundaries and ignored
+connection data. These are body-local readers; full pose generation and world
+placement/context composition remain required before production presentation.
 
 Complete static records are `docs/evidence/native-aumatrix-project.json` and
 `native-dp-tail-current-connect.json`; GNU corroboration is in

@@ -1,0 +1,83 @@
+{
+  "evidence_id": "ev_97ad93ed75856f87216df24ebb8bb7c31408b1b2ce2d790a7f37ebe4215cd597",
+  "subject": {
+    "name": "OpenShores.exe",
+    "digest": {
+      "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+    },
+    "format": "pe",
+    "architecture": "x86_64",
+    "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.2"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+      "no_return_repair": "returning-imports-decoded-return-v2",
+      "process_launch": "inspected-jvm-launch-support-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "_ZNK7DpTorso17CurrentConnectLocEv"
+  },
+  "raw_result": {
+    "value": "\n/* DpTorso::CurrentConnectLoc() const */\n\nvoid DpTorso::CurrentConnectLoc(void)\n\n{\n  double *pdVar1;\n  double dVar2;\n  double dVar3;\n  double dVar4;\n  longlong lVar5;\n  int iVar6;\n  longlong lVar7;\n  double *in_RCX;\n  longlong in_RDX;\n  double dVar8;\n  \n  iVar6 = DhDNA::WaistVertex((DhDNA *)(in_RDX + 0x10));\n  lVar5 = *(longlong *)(in_RDX + 8);\n  lVar7 = (ulonglong)(iVar6 + -1 + (uint)(iVar6 == 0)) * 0x108;\n  pdVar1 = (double *)(lVar5 + 0xd0 + lVar7);\n  dVar4 = pdVar1[1];\n  dVar2 = *(double *)(lVar5 + 0xd8 + lVar7);\n  dVar3 = *(double *)(lVar5 + 0xd0 + lVar7);\n  lVar7 = lVar7 + lVar5;\n  *in_RCX = *pdVar1;\n  in_RCX[1] = dVar4;\n  dVar8 = *(double *)(lVar7 + 0x88) + *(double *)(lVar7 + 0xa8) + *(double *)(lVar7 + 200) +\n          *(double *)(lVar7 + 0xe8);\n  dVar4 = *(double *)(lVar7 + 0xe0);\n  in_RCX[2] = dVar4;\n  if ((dVar8 != 0.0) && (dVar8 != 1.0)) {\n    *in_RCX = dVar3 / dVar8;\n    in_RCX[1] = dVar2 / dVar8;\n    in_RCX[2] = dVar4 / dVar8;\n  }\n  return;\n}\n\n",
+    "limitations": []
+  },
+  "normalized_result": "\n/* DpTorso::CurrentConnectLoc() const */\n\nvoid DpTorso::CurrentConnectLoc(void)\n\n{\n  double *pdVar1;\n  double dVar2;\n  double dVar3;\n  double dVar4;\n  longlong lVar5;\n  int iVar6;\n  longlong lVar7;\n  double *in_RCX;\n  longlong in_RDX;\n  double dVar8;\n  \n  iVar6 = DhDNA::WaistVertex((DhDNA *)(in_RDX + 0x10));\n  lVar5 = *(longlong *)(in_RDX + 8);\n  lVar7 = (ulonglong)(iVar6 + -1 + (uint)(iVar6 == 0)) * 0x108;\n  pdVar1 = (double *)(lVar5 + 0xd0 + lVar7);\n  dVar4 = pdVar1[1];\n  dVar2 = *(double *)(lVar5 + 0xd8 + lVar7);\n  dVar3 = *(double *)(lVar5 + 0xd0 + lVar7);\n  lVar7 = lVar7 + lVar5;\n  *in_RCX = *pdVar1;\n  in_RCX[1] = dVar4;\n  dVar8 = *(double *)(lVar7 + 0x88) + *(double *)(lVar7 + 0xa8) + *(double *)(lVar7 + 200) +\n          *(double *)(lVar7 + 0xe8);\n  dVar4 = *(double *)(lVar7 + 0xe0);\n  in_RCX[2] = dVar4;\n  if ((dVar8 != 0.0) && (dVar8 != 1.0)) {\n    *in_RCX = dVar3 / dVar8;\n    in_RCX[1] = dVar2 / dVar8;\n    in_RCX[2] = dVar4 / dVar8;\n  }\n  return;\n}\n\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+  ],
+  "locations": [],
+  "evidence_links": []
+}
