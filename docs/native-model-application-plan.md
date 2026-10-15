@@ -324,8 +324,36 @@ and error propagation. `just test-native-dp-mounted reference/hazeron` now also
 decodes128 foot requests (64 numbered resources, repeated PA requests covering
 both ankle variants), checks cached length/height bits and exercises standing
 heights for all four classes. These are real user assets executed by Rust, not
-native executable observations or proof of render parity. Pose-specific CGHeight
-and full skeletal animation remain unimplemented dependencies.
+native executable observations or proof of render parity. Full skeletal
+animation remains an unimplemented dependency.
+
+### Pose-specific body height
+
+`NativeDpFootCache::pose_height` now consumes `NativeDpBodyPoseState`'s actual
+fourth word (body offset0x48). It implements CGHeight's fixed-height, width-only,
+neck-dimension, standing and scaled-standing branches. Only legged standing
+branches call the mounted standing-height provider, with the original include
+flag. Fixed/dimension-only/default branches neither require geometry nor
+invent a standing result. Full-width unknown pose values follow the observed
+native default rather than being truncated to a byte or categorized by name.
+The neck lookup preserves its native comparisons and f32 operation order.
+
+The138-entry fixture `tests/fixtures/native_dp_height_kinds.tsv` is decoded
+directly from the SHA-bound native signed switch offsets and the two immediate
+dispatch masks by `tests/native_dp_height.py`. `just test-native-dp-height`
+checks that fixture, scalar constants and SSE comparisons, then runs the Rust
+branch fixtures. Complete REA Evidence and address-bounded GNU corroboration are
+retained in `docs/evidence/native-dp-pose-height{.json,-gnu.txt}`. The bounded
+range avoids objdump's symbol selection including adjacent unrelated functions.
+No analyzed executable session was restarted or repeated for this work.
+
+Tests cover every byte pose, full-width default values, leg/class combinations,
+include-flag propagation, geometry error propagation, neck selector boundaries
+and MAXSS signed-zero/NaN selection. The mounted installation test additionally
+exercises every byte pose with actual numbered/PA foot measurements and verifies
+repeat results. This composes the pose-height dependency with existing body pose
+state and real mounted geometry, but does not implement the remaining bone
+position/rotation routines, body mesh generation or production Person context.
 
 ### Remaining integration gates
 

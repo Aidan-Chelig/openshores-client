@@ -113,6 +113,27 @@ fn native_foot_measurements_and_standing_height_use_mounted_resources() {
                                 .unwrap()
                                 .is_finite()
                         );
+                        let mut pose =
+                            openshores_client::world::native_creature::NativeDpBodyPoseState {
+                                fields_3c: [80; 10],
+                                ..Default::default()
+                            };
+                        // Actual body field48 is the fourth word; other words
+                        // deliberately differ so a mistaken selector is caught.
+                        for code in 0..=255 {
+                            pose.fields_3c[3] = code;
+                            let value = cache
+                                .pose_height(&dna, &dimensions, field, &pose, include)
+                                .unwrap();
+                            assert!(value.is_finite(), "pose {code}, {}", request.resource());
+                            assert_eq!(
+                                cache
+                                    .pose_height(&dna, &dimensions, field, &pose, include)
+                                    .unwrap()
+                                    .to_bits(),
+                                value.to_bits()
+                            );
+                        }
                     }
                 }
             }

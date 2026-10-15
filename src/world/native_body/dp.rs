@@ -15,6 +15,7 @@ pub use hand_resource::NativeDpHandResource;
 mod hand_geometry;
 pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};
 mod foot;
+mod height;
 mod standing;
 pub use foot::{NativeDpFootCache, NativeDpFootResource, native_dh_has_ankle_bend};
 mod hand_cache;
