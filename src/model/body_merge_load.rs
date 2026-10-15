@@ -58,6 +58,7 @@ impl Mesh {
                 field_369: false,
             },
             faces,
+            mapping_coordinates: self.uvs.clone().unwrap_or_default(),
             metadata,
             deformation,
             scale_points,

@@ -9,6 +9,7 @@ use std::io;
 pub struct NativeBodyMergeGeometry {
     pub object: NativeBodyMergeBake,
     pub faces: Vec<NativeBodyLoadedFace>,
+    pub mapping_coordinates: Vec<[f32; 2]>,
     pub metadata: NativeBodyFaceMetadata,
     pub deformation: NativeBodyDeformation,
     pub scale_points: [[f32; 3]; 2],

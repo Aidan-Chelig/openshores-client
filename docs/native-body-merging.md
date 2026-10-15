@@ -322,3 +322,28 @@ This completes another geometry stage, not full model ownership/publication.
 Next integration must retain mapping-coordinate arrays, compose normal torso
 bake/vertices/faces/corners/group transfer/smoothing, and verify mounted torso
 parts. Crest handling and instance/cache lifecycle remain distinct requirements.
+
+## Composed normal torso geometry
+
+`NativeBodyMergeGeometry` now retains the native mapping-coordinate vector.
+Mesh construction preserves the actual decoded vector, independently of the
+conditional vertex20/24 assignments. `append_torso_geometry_stages` composes
+normal destination baking, call-local bottom state, torso vertex/remap updates,
+conditional mapping-coordinate appends, faces, connection corners, post-face
+group transfer and final smoothing. Unlike head it neither inherits the source
+connection point nor performs head's face-material membership loop. Crest/model
+instance branches are explicitly outside this normal geometry operation.
+
+Composition tests cover actual mapping-array retention versus stored-payload
+copy values, material-map preservation, repeated destination baking state,
+corner updates and final Standard smoothing/group transfer.
+`just test-native-torso-merge reference/hazeron` adds read-only mounted evidence:
+three normal torso resources produce639 vertices,996 faces,639 mapping pairs,
+332 corner updates and five same-kind group updates, with zero incomplete
+connection reports. It verifies finite stored positions and in-bounds faces
+through sequential merges, using explicit fixture DNA/owner fields and distinct
+ASCII material names. The test is also included in the native mounted suite.
+
+Still required: crest path, model/instance transform and material ownership,
+cache lifecycle, bone posing/skinning and actual receive-driven publication.
+Passing this geometry test is not proof of complete in-game avatars.

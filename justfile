@@ -245,6 +245,9 @@ test-native-body-preview installation:
 test-native-head-merge installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_head_merge -- --ignored --nocapture
 
+test-native-torso-merge installation:
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_torso_merge -- --ignored --nocapture
+
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_tail_pose -- --ignored --nocapture
@@ -254,6 +257,7 @@ test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_arm_elbow -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_groups -- --ignored --nocapture
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_head_merge -- --ignored --nocapture
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_torso_merge -- --ignored --nocapture
 
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build

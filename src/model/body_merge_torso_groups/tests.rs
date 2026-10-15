@@ -26,6 +26,7 @@ fn object(groups: &[(&str, f32, f32)]) -> NativeBodyMergeGeometry {
         );
     }
     NativeBodyMergeGeometry {
+        mapping_coordinates: vec![],
         object: NativeBodyMergeBake {
             vertices: vec![],
             groups: state,
