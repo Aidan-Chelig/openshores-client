@@ -1,7 +1,7 @@
 use crate::world::native_body::NativeDpBoneTransform;
 
 // Expanded in-place RotateX then RotateZ coefficients, including fourth row.
-pub(super) struct Bend {
+pub(crate) struct Bend {
     a: f64,
     b: f64,
     d: f64,
@@ -16,7 +16,7 @@ pub(super) struct Bend {
     ground: bool,
 }
 impl Bend {
-    pub(super) fn new(pitch: f32, yaw: f32) -> Self {
+    pub(crate) fn new(pitch: f32, yaw: f32) -> Self {
         let (s, c) = f64::from(pitch).sin_cos();
         let cz = c * 0.;
         let sz = s * 0.;
@@ -54,6 +54,33 @@ impl Bend {
             l: 0.,
             ground: true,
         }
+    }
+    pub(crate) fn about_slither(&self, [x, y, z]: [f64; 3]) -> [f64; 4] {
+        let xz = x * 0.;
+        let yz = y * 0.;
+        let zz = z * 0.;
+        [
+            ((((((yz + x) + zz) + 0.) + self.a * -x) + self.b * -y) + self.d * -z),
+            ((((((-y * self.f + self.e * -x) + self.g * -z) + xz) + y) + zz) + 0.),
+            ((((self.j * -z + self.i * -y) + self.h * -x) + z) + (yz + xz)) + 0.,
+            (((((zz + (yz + xz)) + 1.) + -x * self.k) + -y * self.l) + self.d * -z),
+        ]
+    }
+    pub(crate) fn apply_slither(&self, bone: &mut NativeDpBoneTransform, t: [f64; 4]) {
+        let m = bone.matrix_00;
+        for col in 0..4 {
+            let k = col * 4;
+            let [x, y, z, w] = [m[k], m[k + 1], m[k + 2], m[k + 3]];
+            bone.matrix_00[k] = ((x * self.a + y * self.b) + z * self.d) + w * t[0];
+            bone.matrix_00[k + 1] = ((self.g * z + y * self.f) + self.e * x) + t[1] * w;
+            bone.matrix_00[k + 2] = if col == 0 {
+                ((self.i * y + self.h * x) + self.j * z) + t[2] * w
+            } else {
+                ((z * self.j + self.i * y) + self.h * x) + t[2] * w
+            };
+            bone.matrix_00[k + 3] = ((x * self.k + y * self.l) + self.d * z) + w * t[3];
+        }
+        bone.field_100 = 0;
     }
     pub(super) fn about(&self, [x, y, z]: [f64; 3]) -> [f64; 4] {
         let xz = x * 0.;

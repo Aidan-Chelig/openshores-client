@@ -1,7 +1,7 @@
 //! DpTail::Bend: descending joints, inclusive suffixes, then ground correction.
 use super::{NativeDpBoneTransforms, NativeDpDimensions, NativeDpPartKind, NativeDpPartState};
 use std::io;
-mod transform;
+pub(super) mod transform;
 use transform::Bend;
 
 impl NativeDpPartState {

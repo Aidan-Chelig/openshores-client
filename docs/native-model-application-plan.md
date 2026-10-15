@@ -618,3 +618,35 @@ tests are not execution evidence from the original client, and no NaN-payload
 or cross-platform libm bit parity is claimed. Body-level tail pose routines,
 the remaining body animation, production Person ownership and actual avatar
 render publication remain required work.
+
+### Tail slither and death-tail stages
+
+`slither_tail` now applies the concrete Slither(float,float) joint mutations.
+It uses the same native segment selection/owner spacing as Bend, but reverses
+both f32 angles at the middle joint and halves the current angles at root17,
+where native flow bypasses the middle comparison. Its projected pivots,
+expanded translation accumulation and per-column premultiplication are kept
+separate where their operation ordering differs from Bend. Zero angles still
+write the selected slots and clear their flags. Wrong part kinds fail before
+mutation. `tail_can_bend_laterally` and `tail_can_bend_vertically` implement
+the exact DNA14 shape/DNA16 form masks; fixtures cover all65,536 raw byte pairs.
+
+The calculated-body `dead_tail_facing_down` and `dead_tail_facing_left` stages
+select the first concrete tail, apply the native respective lateral/vertical
+capability gate, and invoke Slither on the correct axis. No-tail or incapable
+tail is an observed native no-op, not a missing-operation fallback. Pre-init
+Rust calls report InvalidData. Mounted fixtures compare both an incapable
+no-op and a capable complete bone mutation with direct Slither composition.
+
+Complete REA records for both capabilities, angle Slither and both body death
+stages are retained under `docs/evidence/native-dp-tail-*.json`; full GNU
+corroboration is `native-dp-tail-slither-gnu.txt`. Five newly required related
+queries reused the existing analyzed session, each completing in0.08–0.13s
+without reimport. The additional pose-Slither and concrete Fold records are
+retained in the working analysis directory for subsequent implementation;
+neither operation is claimed implemented here. `just test-native-dp-tail-slither`
+verifies seven IsTail slots, capability masks, loop/float-stage anchors and
+both death-stage calls before Rust tests. Original-client runtime parity and
+libm/NaN-payload bit parity remain unproven. Full tail pose dispatch, other body
+animation, production Person state/context and actual rendered native avatar
+presentation remain required parts of the original objective.

@@ -223,6 +223,26 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
     let completed = body.parts().to_vec();
     body.finish_part_calculations(0, &mut cache).unwrap();
     assert_eq!(body.parts(), completed);
+    // This mounted body's shape30/form0 tail cannot bend laterally, but can
+    // bend vertically. Verify native no-op and concrete Slither branches.
+    let before_dead = body.bones().clone();
+    body.dead_tail_facing_down().unwrap();
+    assert_eq!(*body.bones(), before_dead);
+    let mut expected_dead = before_dead;
+    let tail = body
+        .parts()
+        .iter()
+        .find(|p| p.allocation.kind == NativeDpPartKind::Tail)
+        .unwrap();
+    tail.slither_tail(
+        &mut expected_dead,
+        body.dimensions(),
+        f32::from_bits(0x3e860a92),
+        0.,
+    )
+    .unwrap();
+    body.dead_tail_facing_left().unwrap();
+    assert_eq!(*body.bones(), expected_dead);
     verify_head_positioning(&mut body, &mut cache);
 }
 
