@@ -2,6 +2,9 @@
 use crate::protocol::QtReader;
 use std::io;
 
+mod chromosome;
+pub use chromosome::{NativeChromosome, NativeChromosomeBody};
+
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeDhDna(pub [u8; 24]);
 

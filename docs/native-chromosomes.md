@@ -84,6 +84,14 @@ and sets the pointer null. Other flag bits do not receive additional fields.
 
 ## Outstanding dependencies and limits
 
+Rust now implements the 13 scalar/no-body factory types: 0..3, 15, 16 and
+21..27, retaining the type separately even where wire-body shapes are shared.
+All other known types return Unsupported without consumption; null factory
+types return None without consumption. Tests cover all 256 factory type
+values, all byte values for widening/packed fields, short high bits, every
+truncated scalar prefix and following-field alignment. This is a body reader,
+not yet a chromatid container or complete AuDNA implementation.
+
 AuGeneChain and its concrete gene readers, Qt QColor stream encoding, chromatid
 count overload/loop width, and signed interpretation of stored short fields
 still need evidence. Reader pseudocode includes imported tail-call warnings;

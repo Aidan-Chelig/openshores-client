@@ -2,6 +2,165 @@ use super::*;
 use crate::protocol::QtWriter;
 
 #[test]
+fn chromosome_factory_boundaries_and_scalar_body_lengths_are_explicit() {
+    for kind in 0..=255 {
+        let length = match kind {
+            0 | 1 => Some(0),
+            2 | 3 | 21 | 23 | 24 => Some(1),
+            16 | 22 | 25 => Some(2),
+            15 | 26 => Some(4),
+            27 => Some(5),
+            _ => None,
+        };
+        for byte in [0, 0x7f, 0x80, 0xff] {
+            let bytes = vec![byte; length.unwrap_or(0)];
+            let mut input = QtReader::new(&bytes);
+            match length {
+                Some(length) => {
+                    let result = NativeChromosome::read(kind, &mut input).unwrap().unwrap();
+                    assert_eq!(result.kind, kind);
+                    assert_eq!(input.remaining(), 0);
+                    for end in 0..length {
+                        let mut short = QtReader::new(&bytes[..end]);
+                        assert_eq!(
+                            NativeChromosome::read(kind, &mut short).unwrap_err().kind(),
+                            io::ErrorKind::UnexpectedEof
+                        );
+                        assert_eq!(short.remaining(), end);
+                    }
+                }
+                None if kind < 28 => assert_eq!(
+                    NativeChromosome::read(kind, &mut input).unwrap_err().kind(),
+                    io::ErrorKind::Unsupported
+                ),
+                None => assert_eq!(NativeChromosome::read(kind, &mut input).unwrap(), None),
+            }
+        }
+    }
+}
+
+#[test]
+fn packed_chromosomes_preserve_all_byte_values_and_exact_suffix() {
+    for packed in 0..=255 {
+        let bytes = [0xfe, 0xab, packed, 0x80, 0xde];
+        let mut input = QtReader::new(&bytes);
+        assert_eq!(
+            NativeChromosome::read(26, &mut input)
+                .unwrap()
+                .unwrap()
+                .body,
+            NativeChromosomeBody::Reproduction {
+                field_08: 254,
+                field_0c: 0xab,
+                field_0d: packed >> 4,
+                field_0e: packed & 15,
+                field_10: 128
+            }
+        );
+        assert_eq!(input.read_u8().unwrap(), 0xde);
+        let bytes = [packed, 0x80, 1, 0xfe, 0xab, 0xde];
+        let mut input = QtReader::new(&bytes);
+        assert_eq!(
+            NativeChromosome::read(27, &mut input)
+                .unwrap()
+                .unwrap()
+                .body,
+            NativeChromosomeBody::Mammary {
+                field_08: packed & 1,
+                field_10: (packed >> 1) & 1,
+                field_12: 0x8001,
+                field_0c: 254,
+                field_14: 0xab
+            }
+        );
+        assert_eq!(input.read_u8().unwrap(), 0xde);
+    }
+}
+
+#[test]
+fn scalar_chromosomes_widen_without_sign_extension_or_boolean_clamping() {
+    for byte in 0..=255_u8 {
+        for (kind, body, bytes) in [
+            (
+                2,
+                NativeChromosomeBody::WideByte08 {
+                    field_08: u32::from(byte),
+                },
+                vec![byte],
+            ),
+            (
+                3,
+                NativeChromosomeBody::WideByte08 {
+                    field_08: u32::from(byte),
+                },
+                vec![byte],
+            ),
+            (
+                23,
+                NativeChromosomeBody::WideByte08 {
+                    field_08: u32::from(byte),
+                },
+                vec![byte],
+            ),
+            (
+                21,
+                NativeChromosomeBody::Byte08 { field_08: byte },
+                vec![byte],
+            ),
+            (
+                24,
+                NativeChromosomeBody::Byte08 { field_08: byte },
+                vec![byte],
+            ),
+            (
+                25,
+                NativeChromosomeBody::WideShort08 {
+                    field_08: u32::from(u16::from_be_bytes([byte, 0xab])),
+                },
+                vec![byte, 0xab],
+            ),
+            (
+                15,
+                NativeChromosomeBody::Antenna {
+                    field_08: u16::from_be_bytes([byte, 0xab]),
+                    field_0c: u32::from(byte),
+                    field_10: 0xfe,
+                },
+                vec![byte, 0xab, byte, 0xfe],
+            ),
+            (
+                16,
+                NativeChromosomeBody::Horn {
+                    field_08: u32::from(byte),
+                    field_0c: 0xfe,
+                },
+                vec![byte, 0xfe],
+            ),
+            (
+                22,
+                NativeChromosomeBody::Gills {
+                    field_08: u32::from(byte),
+                    field_0c: 254,
+                },
+                vec![byte, 0xfe],
+            ),
+        ] {
+            let mut bytes = bytes;
+            bytes.push(0xde);
+            let mut input = QtReader::new(&bytes);
+            assert_eq!(
+                NativeChromosome::read(kind, &mut input)
+                    .unwrap()
+                    .unwrap()
+                    .body,
+                body
+            );
+            assert_eq!(input.read_u8().unwrap(), 0xde);
+        }
+    }
+}
+
+#[test]
 fn dhdna_normalizes_only_two_bytes_and_leaves_following_fields() {
     for byte in 0..=255 {
         let mut writer = QtWriter::default();
