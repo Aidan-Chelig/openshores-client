@@ -292,3 +292,12 @@ and digest-bound independent GNU checks are documented in
 native-person-construction.md. This removes caller-injected priors for fresh
 suffix reception, but does not yet construct the inherited runtime object or
 close the dispatch/presentation gates.
+
+Inherited construction/storage follow-up: Unit/Creature/Sentient now expose
+proven receive-visible constructor subsets; Person composes them with its suffix
+and shared base storage in NativePersonAtom. Initial DpBody selection, empty
+conditions/orders/skills and nonzero6f0/5b8/5bc defaults are checked against
+retained evidence and original PE bytes. A constructed-object fixture composes
+base effects/controllers and all four receive stages without injected Person
+priors. Its model effects are explicitly trace-only; concrete runtime context,
+owner dispatch and the actual presentation bridge remain required.

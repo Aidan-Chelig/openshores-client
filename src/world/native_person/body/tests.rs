@@ -8,6 +8,7 @@ use crate::world::{
 #[derive(Default)]
 struct Context {
     events: Vec<&'static str>,
+    selected: Vec<(NativeCreatureBodyKind, bool)>,
     fail: Option<&'static str>,
 }
 impl Context {
@@ -24,7 +25,8 @@ fn unsupported() -> io::Error {
     io::Error::from(io::ErrorKind::Unsupported)
 }
 impl NativeCreatureReceiveContext for Context {
-    fn select_body(&mut self, _: NativeCreatureBodyKind, _: bool) -> io::Result<()> {
+    fn select_body(&mut self, kind: NativeCreatureBodyKind, created: bool) -> io::Result<()> {
+        self.selected.push((kind, created));
         self.event("select")
     }
     fn configure_dp_body(&mut self, _: [u8; 2]) -> io::Result<()> {
@@ -96,6 +98,73 @@ fn state() -> NativePersonBodyState {
         ..Default::default()
     }
 }
+
+#[test]
+fn constructed_person_storage_composes_base_and_inherited_body_without_injected_priors() {
+    for profile in [
+        FloatEncoding::TypeWidths,
+        FloatEncoding::SinglePrecision,
+        FloatEncoding::DoublePrecision,
+    ] {
+        let mut atom = NativePersonAtom::from_default_person_constructor_subset();
+        assert_eq!(atom.base.field_1c, 5);
+        assert!(!atom.base.owner_attached);
+        assert_eq!(atom.body.creature.field_5b8, Some(4));
+        assert_eq!(atom.body.creature.field_5bc, Some(4));
+        assert_eq!(atom.body.creature.unit.fields.field_3b0, Some(None));
+        assert_eq!(atom.body.creature.unit.fields.field_3a8, Some(0));
+        assert_eq!(atom.body.creature.unit.fields.field_39c, Some(0));
+        assert!(
+            atom.body
+                .creature
+                .unit
+                .conditions
+                .as_ref()
+                .unwrap()
+                .0
+                .is_empty()
+        );
+        assert_eq!(atom.body.sentient.field_6f0, Some(1));
+        assert!(atom.body.sentient.skills.as_ref().unwrap().0.is_empty());
+        let mut bytes = vec![0x76];
+        bytes.extend((-11_i64).to_be_bytes());
+        bytes.extend((-22_i64).to_be_bytes());
+        bytes.extend([1, 0, 0, 7, 2, 2, 2]);
+        let base_length = bytes.len();
+        // Unit0, Creature0, always-received496, Sentient0, Person0.
+        bytes.extend([0, 0, 0, 0x80, 0, 0, 0xee]);
+        let mut input = QtReader::new(&bytes);
+        let report = atom
+            .receive_base(
+                &mut input,
+                profile,
+                |_, _| panic!("omitted position"),
+                || (0x10000, 0),
+            )
+            .unwrap();
+        assert_eq!(report.consumed_bytes, base_length);
+        assert_eq!(atom.base.field_1c, 0);
+        assert_eq!(atom.received.created_ms, Some(-11));
+        assert_eq!(atom.received.modified_ms, Some(-22));
+        assert_eq!(atom.received.effects.effects()[0].time_70, 0x10007);
+        assert_eq!(atom.received.controllers.entries().len(), 2);
+        let mut context = Context::default();
+        let report = atom
+            .receive_body(&mut input, profile, &mut context)
+            .unwrap();
+        assert_eq!(report.consumed_bytes, 6);
+        assert_eq!(input.read_u8().unwrap(), 0xee);
+        assert_eq!(context.selected, [(NativeCreatureBodyKind::DpBody, false)]);
+        assert_eq!(atom.body.creature.body.as_ref().unwrap().hit_points, 0);
+        assert_eq!(atom.body.creature.field_496, Some(0x80));
+        assert_eq!(atom.body.creature.field_5bc, Some(4));
+        assert_eq!(atom.body.person.state_1130, Some(0));
+        assert_eq!(atom.body.person.field_83d, Some(15));
+        assert_eq!(atom.body.person.identity.field_1114, None);
+        assert_eq!(atom.body.creature.scalar_1e0, None);
+        assert_eq!(atom.body.sentient.field_6f0, Some(1));
+    }
+}
 fn fixture(profile: FloatEncoding) -> (Vec<u8>, usize, usize) {
     // Unit real scalar suffix, Creature HP and unsigned tail.
     let mut bytes = vec![1, 0xff, 0xff, 0xff, 0xff];
@@ -139,7 +208,7 @@ fn actual_four_stages_share_cursor_and_retained_state() {
         let length = bytes.len();
         bytes.push(0xee);
         let mut input = QtReader::new(&bytes);
-        let mut state = state();
+        let mut state = NativePersonBodyState::from_default_constructor_subset();
         let mut context = Context::default();
         let report = state
             .receive_qt7(&mut input, profile, &mut context)

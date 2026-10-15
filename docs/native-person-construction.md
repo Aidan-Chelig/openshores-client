@@ -40,3 +40,32 @@ Tests exercise first masked updates without caller-injected priors, omitted
 fields, known-null versus unknown, nonzero nibble defaults, sparse repeated
 updates, sticky state bits and timer-change behavior. These prove the suffix
 subset only; native packet-to-avatar integration remains unfinished.
+
+## Inherited receive storage
+
+`NativePersonBodyState::from_default_constructor_subset()` composes constructor
+subsets for all four inherited stages. Unit's scalar3a8 and byte39c start zero,
+QString3b0 is known null and its condition list is empty. Its inherited vector330
+is deliberately not guessed by the Unit subset; reception replaces it normally.
+Creature starts with the selected DpBody receive state, zero494/495/496 and
+4/4 at5b8/5bc (the native qword constant is read from PE bytes by the verifier).
+The real DpBody model still needs construction by the runtime context; body
+observation state alone does not do that. The virtual scalar setter's state
+remains unknown, rather than guessing from unrelated scalar constructor writes.
+Sentient starts with float708=0, empty orders, field6f0=1 and an empty SkillSet;
+the actual SkillSet constructor stores the shared-null QHash.
+
+Retained Unit and Sentient records in the evidence directory are
+`native-unit-default-constructor.json` (Evidence
+`ev_d03d263d06a43541f48ad0b45c4519ba59fc33c2608354a1d0548119012ecfb7`)
+and `native-sentient-default-constructor.json` (Evidence
+`ev_ff6faf7efabfd7b18000b9ad48d163ff0ecbb9e2a3c80a4478bf9e8c492c8cfe`).
+The static verifier checks their call chain and the distinct nonzero defaults.
+
+`NativePersonAtom` now holds actual shared base receive fields and this inherited
+body state. Its base receiver composes the existing effects/controller codecs;
+its body receiver requires the real Person context and shares one cursor across
+all four stages. The fixture exercises both on one constructed object and
+verifies the base/body boundary, initial DpBody retention and omitted defaults.
+This is concrete receive storage with trace-only model effects in the fixture,
+not complete owner dispatch or presentation. Those integration gates remain open.

@@ -35,6 +35,16 @@ pub struct NativePersonBodyReceive {
 }
 
 impl NativePersonBodyState {
+    /// Proven receive-visible constructor chain. Does not construct the base
+    /// atom, skeletal/model objects, owner membership or signal connections.
+    pub fn from_default_constructor_subset() -> Self {
+        Self {
+            creature: NativeCreatureReceiveState::from_default_constructor_subset(),
+            sentient: NativeSentientState::from_default_constructor_subset(),
+            person: NativePersonSuffixState::from_default_constructor_subset(),
+        }
+    }
+
     /// Enclosing base/atom reception must already have succeeded. All four
     /// stages share one cursor and actual retained state in native order.
     /// Earlier state/effects survive later errors; later stages never run

@@ -53,6 +53,17 @@ pub struct NativeSentientState {
 }
 
 impl NativeSentientState {
+    /// Receive-visible DaSentient constructor subset; no inherited allocation.
+    /// The actual SkillSet constructor stores an empty shared-null QHash.
+    pub fn from_default_constructor_subset() -> Self {
+        Self {
+            field_708: Some(0.),
+            orders: Some(Vec::new()),
+            field_6f0: Some(1),
+            skills: Some(NativeSkillSet::default()),
+        }
+    }
+
     /// Caller must finish Creature first. Seed is required from the real atom
     /// matrix/clock only when an order needs initialization, never on reuse.
     /// Earlier mutations survive later Rust errors; no Qt failed-stream parity

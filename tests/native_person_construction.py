@@ -2,9 +2,24 @@
 import hashlib
 from pathlib import Path
 import subprocess
+import struct
 
 target = Path("reference/openshores-full/OpenShores.exe")
-assert hashlib.sha256(target.read_bytes()).hexdigest() == "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+data = target.read_bytes()
+assert hashlib.sha256(data).hexdigest() == "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+
+
+def read(address, length):
+    pe = struct.unpack_from("<I", data, 60)[0]
+    optional = pe + 24
+    base = struct.unpack_from("<Q", data, optional + 24)[0]
+    headers = optional + struct.unpack_from("<H", data, pe + 20)[0]
+    for index in range(struct.unpack_from("<H", data, pe + 6)[0]):
+        rva, size, offset = struct.unpack_from("<III", data, headers + 40 * index + 12)
+        if base + rva <= address and address + length <= base + rva + size:
+            start = offset + address - base - rva
+            return data[start:start + length]
+    raise AssertionError(f"Unbacked constructor constant {address:#x}")
 
 
 def constructor(symbol):
@@ -52,4 +67,28 @@ assert "__imp__ZN9QListData11shared_nullE>" in gear
 assert "mov    %rax,(%rcx)" in gear
 for field in (0x1468, 0x1470, 0x1480, 0x1488):
     assert f"movq   $0x0,{field:#x}(%r12)" in person
-print("Person constructor subset: inherited masked prior, scalar/null/empty collection and nibble defaults verified statically; no runtime construction claim.")
+unit = constructor("_ZN6DaUnitC1Ev")
+assert "14184a920 <_ZN6DaAtomC2Ev>" in unit
+assert "__imp__ZN10QArrayData11shared_nullE>" in unit
+assert "mov    %rax,0x3b0(%r12)" in unit
+assert "movl   $0x0,0x3a8(%r12)" in unit
+assert "xor    %eax,%eax" in unit and "mov    %ax,0x39c(%r12)" in unit
+assert "__imp__ZN9QListData11shared_nullE>" in unit
+assert "mov    %rax,0x408(%r12)" in unit
+assert "1412dc540 <_ZN6DpBodyC1Ev>" in creature
+assert "mov    %r13,0x5b0(%r12)" in creature
+assert "1421c9b28" in creature and "mov    %rax,0x5b8(%r12)" in creature
+assert read(0x1421C9B28, 8) == struct.pack("<II", 4, 4)
+assert "xor    %r9d,%r9d" in creature and "mov    %r9w,0x494(%r12)" in creature
+assert "movb   $0x0,0x496(%r12)" in creature
+sentient = constructor("_ZN10DaSentientC1Ev")
+assert "140973ab0 <_ZN10DaCreatureC1Ev>" in sentient
+assert "movl   $0x1,0x6f0(%r12)" in sentient
+assert "movq   $0x0,0x708(%r12)" in sentient
+assert "__imp__ZN9QListData11shared_nullE>" in sentient
+assert "mov    %rdi,0x6e8(%r12)" in sentient
+assert "14136d030 <_ZN10AuSkillSetC1Ev>" in sentient
+skills = constructor("_ZN10AuSkillSetC1Ev")
+assert "__imp__ZN9QHashData11shared_nullE>" in skills
+assert "movups %xmm0,(%rcx)" in skills
+print("Person inherited constructor subsets: base call chain, initial DpBody, masked priors, scalar/null/empty collection and nibble defaults verified statically; no runtime construction claim.")

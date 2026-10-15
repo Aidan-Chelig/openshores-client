@@ -12,6 +12,21 @@ pub struct NativeUnitState {
 }
 
 impl NativeUnitState {
+    /// Established receive-visible DaUnit constructor subset, not base/owner
+    /// allocation. Vector330 belongs to the inherited base and remains unknown
+    /// here until Unit reception replaces it. Default stays observation-only.
+    pub fn from_default_constructor_subset() -> Self {
+        Self {
+            fields: NativeUnitFields {
+                field_3b0: Some(None),
+                field_3a8: Some(0),
+                field_39c: Some(0),
+                vector_330: None,
+            },
+            conditions: Some(NativeConditionList::default()),
+        }
+    }
+
     pub fn receive(
         &mut self,
         input: &mut QtReader<'_>,

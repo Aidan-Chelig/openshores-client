@@ -62,6 +62,26 @@ pub struct NativeCreatureReceiveState {
     pub field_5bc: Option<u32>,
 }
 
+impl NativeCreatureReceiveState {
+    /// Receive-visible DaCreature constructor subset. A real runtime context
+    /// must separately construct the DpBody model; this is its observation state.
+    /// Virtual scalar setter state is not inferred from unrelated scalar writes.
+    pub fn from_default_constructor_subset() -> Self {
+        Self {
+            unit: NativeUnitState::from_default_constructor_subset(),
+            body: Some(NativeCreatureBodyReceiveState::selected(
+                NativeCreatureBodyKind::DpBody,
+            )),
+            field_496: Some(0),
+            field_494: Some(0),
+            field_495: Some(0),
+            field_5b8: Some(4),
+            field_5bc: Some(4),
+            ..Default::default()
+        }
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct NativeCreatureReceive {
     pub unit: NativeUnitReceive,
