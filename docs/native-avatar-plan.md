@@ -90,3 +90,15 @@ their packed state and ordered scalar fields, with all flag/packed-byte pairs
 tested. Headless verification passes 315 library tests, 9 CLI tests and strict
 all-target Clippy. Pose application and remaining console nested formats are
 still being reconstructed; this does not yet close Creature reception.
+
+Collection-station milestone: Surgery now composes the real conditions with
+its verified Qt7 QPoint list; Nav composes three float vectors and the real
+double-overload waypoint route; Power performs sparse ordered in-place updates.
+All seven currently implemented station families are documented in
+native-station-collections.md/native-consoles.md. `just check` passes formatting,
+322 headless and 343 client-feature library tests, 9 CLI tests per profile,
+1 graphical-entry CLI test and strict client-feature all-target Clippy.
+The remaining Sensor/Weapon/Transporter formats require full and minimal blip
+reception: factory/list behavior and 43 vptr bindings are retained, and all 41
+distinct reader results are saved in the warm session for review. Native
+Creature/Person construction, complete dispatch and presentation remain open.

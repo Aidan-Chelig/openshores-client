@@ -81,4 +81,4 @@ application stages, not implied by reading the packet successfully.
 
 See native-consoles.md for 20 constructor-confirmed primary-vptr bindings to 11 shared
 station readers, their complete evidence IDs, resolved matching-console
-control flow, remaining nested readers and the four implemented station bodies.
+control flow, remaining sensor-blip dependencies and seven implemented station bodies.

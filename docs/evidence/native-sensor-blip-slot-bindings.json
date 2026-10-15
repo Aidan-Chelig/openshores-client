@@ -1,0 +1,307 @@
+{
+  "kind": "Independent GNU .rdata pointer reads at factory-written vptr +158 and +190; not REA evidence or runtime",
+  "target_sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80",
+  "bindings": [
+    {
+      "kind": 1,
+      "class": "AuBlipAircraft",
+      "vptr": "0x1423fafd0",
+      "full": "0x141191050",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 2,
+      "class": "AuBlipAnimal",
+      "vptr": "0x1423d9910",
+      "full": "0x141190890",
+      "min": "0x1411906a0"
+    },
+    {
+      "kind": 3,
+      "class": "AuBlipAvatar",
+      "vptr": "0x1423d9b10",
+      "full": "0x141190a70",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 4,
+      "class": "AuBlipBoat",
+      "vptr": "0x1423c1530",
+      "full": "0x141191290",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 5,
+      "class": "AuBlipCitizen",
+      "vptr": "0x1423e9900",
+      "full": "0x141190750",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 6,
+      "class": "AuBlipCrew",
+      "vptr": "0x1423c1730",
+      "full": "0x141190930",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 7,
+      "class": "AuBlipGasGiant",
+      "vptr": "0x1423fb7d0",
+      "full": "0x141190130",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 8,
+      "class": "AuBlipGroundVehicle",
+      "vptr": "0x142440700",
+      "full": "0x1411911d0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 9,
+      "class": "AuBlipTitan",
+      "vptr": "0x1423cf790",
+      "full": "0x1411901d0",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 10,
+      "class": "AuBlipMoon",
+      "vptr": "0x1423c1930",
+      "full": "0x14118fef0",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 11,
+      "class": "AuBlipOfficer",
+      "vptr": "0x1423e9d00",
+      "full": "0x141190b10",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 12,
+      "class": "AuBlipPassenger",
+      "vptr": "0x142409320",
+      "full": "0x1411909d0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 13,
+      "class": "AuBlipPlanet",
+      "vptr": "0x1423da510",
+      "full": "0x141190270",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 14,
+      "class": "AuBlipRing",
+      "vptr": "0x1423c1b40",
+      "full": "0x14118fcb0",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 15,
+      "class": "AuBlipRingSection",
+      "vptr": "0x1424263d0",
+      "full": "0x14118fd40",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 16,
+      "class": "AuBlipSpacecraftHiding",
+      "vptr": "0x14245a860",
+      "full": "0x141192020",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 17,
+      "class": "AuBlipStation",
+      "vptr": "0x1423e9f00",
+      "full": "0x141191ff0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 18,
+      "class": "AuBlipStationShielded",
+      "vptr": "0x1424537d0",
+      "full": "0x141191f60",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 19,
+      "class": "AuBlipSpaceship",
+      "vptr": "0x142409730",
+      "full": "0x141192000",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 20,
+      "class": "AuBlipSpaceshipShielded",
+      "vptr": "0x142463460",
+      "full": "0x141191f90",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 21,
+      "class": "AuBlipStarCompanion",
+      "vptr": "0x142440900",
+      "full": "0x141190de0",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 22,
+      "class": "AuBlipStar",
+      "vptr": "0x1423c1d50",
+      "full": "0x141191350",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 23,
+      "class": "AuBlipStarship",
+      "vptr": "0x1423fb9e0",
+      "full": "0x141192010",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 24,
+      "class": "AuBlipStarshipShielded",
+      "vptr": "0x14245aa60",
+      "full": "0x141191fc0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 25,
+      "class": "AuBlipTransporterSpacecraft",
+      "vptr": "0x14246e4f0",
+      "full": "0x141190c60",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 26,
+      "class": "AuBlipTransporterStation",
+      "vptr": "0x1424669f0",
+      "full": "0x141190bb0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 27,
+      "class": "AuBlipTroop",
+      "vptr": "0x1423cf9a0",
+      "full": "0x1411907f0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 28,
+      "class": "AuBlipBlackHole",
+      "vptr": "0x142409120",
+      "full": "0x141190d10",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 29,
+      "class": "AuBlipMissile",
+      "vptr": "0x1423e9b00",
+      "full": "0x1411914e0",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 30,
+      "class": "AuBlipBeacon",
+      "vptr": "0x1423da110",
+      "full": "0x14118f5f0",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 31,
+      "class": "AuBlipAnomaly",
+      "vptr": "0x1423e9700",
+      "full": "0x14118f580",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 32,
+      "class": "AuBlipBdBase",
+      "vptr": "0x1423d9d10",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 33,
+      "class": "AuBlipBdBaseHQ",
+      "vptr": "0x1423fb3d0",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 34,
+      "class": "AuBlipBdCapitolCity",
+      "vptr": "0x142440500",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 35,
+      "class": "AuBlipBdCapitolEmpire",
+      "vptr": "0x1424531d0",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 36,
+      "class": "AuBlipBdCapitolSector",
+      "vptr": "0x1424535d0",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 37,
+      "class": "AuBlipBdCity",
+      "vptr": "0x1423d9f10",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 38,
+      "class": "AuBlipTransporterBd",
+      "vptr": "0x142440b00",
+      "full": "0x141191110",
+      "min": "0x14118f670"
+    },
+    {
+      "kind": 39,
+      "class": "AuBlipBdCapitolGalaxy",
+      "vptr": "0x1424533d0",
+      "full": "0x141191d10",
+      "min": "0x14118ff80"
+    },
+    {
+      "kind": 40,
+      "class": "AuBlipNeutronStar",
+      "vptr": "0x1424261d0",
+      "full": "0x141190eb0",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 41,
+      "class": "AuBlipNeutronStarCompanion",
+      "vptr": "0x14246c8c0",
+      "full": "0x141190f80",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 42,
+      "class": "AuBlipAsteroid",
+      "vptr": "0x1423fb1d0",
+      "full": "0x14118fe60",
+      "min": "0x14118ca70"
+    },
+    {
+      "kind": 43,
+      "class": "AuBlipPlanetoid",
+      "vptr": "0x142409520",
+      "full": "0x1411900a0",
+      "min": "0x14118ca70"
+    }
+  ]
+}

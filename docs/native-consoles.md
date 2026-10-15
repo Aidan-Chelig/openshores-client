@@ -70,19 +70,21 @@ Each file below is prefixed native-console-reader- and ends .json in evidence/.
   still narrow under a DoublePrecision wire profile.
 - Engineer and Helm use packed status bytes plus scalar fields; their packed
   expressions and imported overloads are now GNU-corroborated below.
-- Power uses sparse loops (8 entries) and an ignored byte branch; preserve
-  wire ordering and omitted fields rather than treating it as one fixed blob.
+- Power's sparse eight-entry loops and ignored byte branch are implemented;
+  see native-station-collections.md for exact ordering and retained fields.
 - Surgery receives a real ConditionList, short38, Qt QList<QPoint>, short14,
-  byte16, short18, QString20, short28. QPoint/container framing is unresolved.
+  byte16, short18, QString20, short28. QPoint/container framing is now resolved
+  and this whole station body is implemented in native-station-collections.md.
 - Nav receives packed flags, bytes, three float vectors, IDs and a nested
-  DeWaypointRoute. The route record is available in the warm session for review.
+  DeWaypointRoute. Both are now implemented with reviewed route evidence and
+  assembly corroboration in native-station-collections.md.
 - Sensor/Weapon/Transporter create a typed AuSensorBlip and invoke +158,
   receive scalar/vector fields and a real AuSensorBlipList::RxMin. Their
   records also include capsule/environment-dependent local sensor augmentation
   after wire reads. Those effects must not be confused with extra packet fields
   or silently replaced by a no-op in a claimed complete native integration.
 
-Rust currently implements standalone Engineer, Helm, Game and Shield bodies, plus
+Rust implements Engineer, Helm, Game, Shield, Surgery, Nav and Power bodies, plus
 Creature's pose wire block. These are not a complete console dispatcher or
 Creature receiver. Game tests cover all flags; Shield tests cover all explicit
 float profiles, narrowing/non-finite values and exact suffix boundaries. Both

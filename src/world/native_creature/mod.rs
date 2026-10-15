@@ -5,6 +5,12 @@ mod console;
 pub use console::{NativeStationGame, NativeStationShield};
 mod station_controls;
 pub use station_controls::{NativeStationEngineer, NativeStationHelm};
+mod surgery;
+pub use surgery::NativeStationSurgery;
+mod navigation;
+pub use navigation::{NativeStationNav, NativeWaypoint, NativeWaypointRoute};
+mod power;
+pub use power::{NativePowerGroup01, NativePowerGroup02, NativeStationPower};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeCreaturePose {
