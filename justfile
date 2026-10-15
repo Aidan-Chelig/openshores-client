@@ -57,6 +57,10 @@ interop: build
 test-native-models: build
     nix develop .#server-test --command python tests/reference_native_models.py
 
+test-native-body-scale:
+    nix develop .#server-test --command python tests/native_body_scale.py
+    nix develop .#server-test --command cargo test --offline --lib model::body_scale
+
 # Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
 test-native-jobs:
     nix develop .#server-test --command python tests/native_jobs.py

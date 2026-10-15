@@ -9,7 +9,9 @@ fn invalid(message: &str) -> io::Error {
     io::Error::new(io::ErrorKind::InvalidData, message)
 }
 
+mod body_scale;
 mod coordinates;
+pub use body_scale::NativeBodyObjectScale;
 mod decode;
 mod fingerprint;
 mod roles;

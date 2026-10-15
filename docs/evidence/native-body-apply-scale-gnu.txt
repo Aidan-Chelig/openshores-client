@@ -1,0 +1,1406 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141395f30 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint>:
+   141395f30:	41 57                	push   %r15
+   141395f32:	41 56                	push   %r14
+   141395f34:	41 55                	push   %r13
+   141395f36:	41 54                	push   %r12
+   141395f38:	55                   	push   %rbp
+   141395f39:	57                   	push   %rdi
+   141395f3a:	56                   	push   %rsi
+   141395f3b:	53                   	push   %rbx
+   141395f3c:	48 81 ec f8 01 00 00 	sub    $0x1f8,%rsp
+   141395f43:	0f 29 b4 24 50 01 00 	movaps %xmm6,0x150(%rsp)
+   141395f4a:	00 
+   141395f4b:	0f 29 bc 24 60 01 00 	movaps %xmm7,0x160(%rsp)
+   141395f52:	00 
+   141395f53:	44 0f 29 84 24 70 01 	movaps %xmm8,0x170(%rsp)
+   141395f5a:	00 00 
+   141395f5c:	44 0f 29 8c 24 80 01 	movaps %xmm9,0x180(%rsp)
+   141395f63:	00 00 
+   141395f65:	44 0f 29 94 24 90 01 	movaps %xmm10,0x190(%rsp)
+   141395f6c:	00 00 
+   141395f6e:	44 0f 29 9c 24 a0 01 	movaps %xmm11,0x1a0(%rsp)
+   141395f75:	00 00 
+   141395f77:	44 0f 29 a4 24 b0 01 	movaps %xmm12,0x1b0(%rsp)
+   141395f7e:	00 00 
+   141395f80:	44 0f 29 ac 24 c0 01 	movaps %xmm13,0x1c0(%rsp)
+   141395f87:	00 00 
+   141395f89:	44 0f 29 b4 24 d0 01 	movaps %xmm14,0x1d0(%rsp)
+   141395f90:	00 00 
+   141395f92:	44 0f 29 bc 24 e0 01 	movaps %xmm15,0x1e0(%rsp)
+   141395f99:	00 00 
+   141395f9b:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141395f9f:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   141395fa3:	66 45 0f ef c9       	pxor   %xmm9,%xmm9
+   141395fa8:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   141395fac:	66 45 0f ef f6       	pxor   %xmm14,%xmm14
+   141395fb1:	66 45 0f ef ff       	pxor   %xmm15,%xmm15
+   141395fb6:	f3 0f 10 8a c4 02 00 	movss  0x2c4(%rdx),%xmm1
+   141395fbd:	00 
+   141395fbe:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   141395fc2:	f3 0f 10 92 c8 02 00 	movss  0x2c8(%rdx),%xmm2
+   141395fc9:	00 
+   141395fca:	f3 0f 10 9a cc 02 00 	movss  0x2cc(%rdx),%xmm3
+   141395fd1:	00 
+   141395fd2:	0f 2e c8             	ucomiss %xmm0,%xmm1
+   141395fd5:	f3 0f 5a a2 f4 01 00 	cvtss2sd 0x1f4(%rdx),%xmm4
+   141395fdc:	00 
+   141395fdd:	48 89 d6             	mov    %rdx,%rsi
+   141395fe0:	4c 89 c7             	mov    %r8,%rdi
+   141395fe3:	48 89 8c 24 40 02 00 	mov    %rcx,0x240(%rsp)
+   141395fea:	00 
+   141395feb:	f2 0f 11 64 24 30    	movsd  %xmm4,0x30(%rsp)
+   141395ff1:	f3 0f 5a ba c8 01 00 	cvtss2sd 0x1c8(%rdx),%xmm7
+   141395ff8:	00 
+   141395ff9:	f3 44 0f 5a 8a c4 01 	cvtss2sd 0x1c4(%rdx),%xmm9
+   141396000:	00 00 
+   141396002:	f3 0f 5a b2 c0 01 00 	cvtss2sd 0x1c0(%rdx),%xmm6
+   141396009:	00 
+   14139600a:	f3 44 0f 5a b2 fc 01 	cvtss2sd 0x1fc(%rdx),%xmm14
+   141396011:	00 00 
+   141396013:	f3 44 0f 5a ba f8 01 	cvtss2sd 0x1f8(%rdx),%xmm15
+   14139601a:	00 00 
+   14139601c:	7a 52                	jp     141396070 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x140>
+   14139601e:	75 50                	jne    141396070 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x140>
+   141396020:	0f 2e d0             	ucomiss %xmm0,%xmm2
+   141396023:	7a 4b                	jp     141396070 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x140>
+   141396025:	75 49                	jne    141396070 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x140>
+   141396027:	0f 2e d8             	ucomiss %xmm0,%xmm3
+   14139602a:	7a 44                	jp     141396070 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x140>
+   14139602c:	75 42                	jne    141396070 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x140>
+   14139602e:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396032:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   141396036:	f3 0f 5a 92 30 02 00 	cvtss2sd 0x230(%rdx),%xmm2
+   14139603d:	00 
+   14139603e:	f3 0f 5a a2 2c 02 00 	cvtss2sd 0x22c(%rdx),%xmm4
+   141396045:	00 
+   141396046:	f2 0f 11 94 24 98 00 	movsd  %xmm2,0x98(%rsp)
+   14139604d:	00 00 
+   14139604f:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396053:	f3 0f 5a 92 28 02 00 	cvtss2sd 0x228(%rdx),%xmm2
+   14139605a:	00 
+   14139605b:	f2 0f 11 a4 24 a0 00 	movsd  %xmm4,0xa0(%rsp)
+   141396062:	00 00 
+   141396064:	f2 0f 11 94 24 a8 00 	movsd  %xmm2,0xa8(%rsp)
+   14139606b:	00 00 
+   14139606d:	eb 30                	jmp    14139609f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x16f>
+   14139606f:	90                   	nop
+   141396070:	f3 0f 5a db          	cvtss2sd %xmm3,%xmm3
+   141396074:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   141396078:	f2 0f 11 9c 24 98 00 	movsd  %xmm3,0x98(%rsp)
+   14139607f:	00 00 
+   141396081:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396085:	f3 0f 5a e2          	cvtss2sd %xmm2,%xmm4
+   141396089:	f3 0f 5a d9          	cvtss2sd %xmm1,%xmm3
+   14139608d:	f2 0f 11 a4 24 a0 00 	movsd  %xmm4,0xa0(%rsp)
+   141396094:	00 00 
+   141396096:	f2 0f 11 9c 24 a8 00 	movsd  %xmm3,0xa8(%rsp)
+   14139609d:	00 00 
+   14139609f:	f3 44 0f 10 86 90 02 	movss  0x290(%rsi),%xmm8
+   1413960a6:	00 00 
+   1413960a8:	f3 44 0f 10 96 94 02 	movss  0x294(%rsi),%xmm10
+   1413960af:	00 00 
+   1413960b1:	f3 44 0f 10 9e 98 02 	movss  0x298(%rsi),%xmm11
+   1413960b8:	00 00 
+   1413960ba:	44 0f 2e c0          	ucomiss %xmm0,%xmm8
+   1413960be:	7a 30                	jp     1413960f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1c0>
+   1413960c0:	75 2e                	jne    1413960f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1c0>
+   1413960c2:	44 0f 2e d0          	ucomiss %xmm0,%xmm10
+   1413960c6:	7a 28                	jp     1413960f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1c0>
+   1413960c8:	75 26                	jne    1413960f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1c0>
+   1413960ca:	44 0f 2e d8          	ucomiss %xmm0,%xmm11
+   1413960ce:	7a 20                	jp     1413960f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1c0>
+   1413960d0:	75 1e                	jne    1413960f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1c0>
+   1413960d2:	66 45 0f ef ed       	pxor   %xmm13,%xmm13
+   1413960d7:	c6 44 24 20 00       	movb   $0x0,0x20(%rsp)
+   1413960dc:	66 45 0f 28 dd       	movapd %xmm13,%xmm11
+   1413960e1:	66 45 0f 28 d5       	movapd %xmm13,%xmm10
+   1413960e6:	f2 44 0f 11 6c 24 40 	movsd  %xmm13,0x40(%rsp)
+   1413960ed:	eb 24                	jmp    141396113 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1e3>
+   1413960ef:	90                   	nop
+   1413960f0:	c6 44 24 20 01       	movb   $0x1,0x20(%rsp)
+   1413960f5:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   1413960f9:	66 45 0f ef ed       	pxor   %xmm13,%xmm13
+   1413960fe:	f3 45 0f 5a db       	cvtss2sd %xmm11,%xmm11
+   141396103:	f3 41 0f 5a e0       	cvtss2sd %xmm8,%xmm4
+   141396108:	f2 0f 11 64 24 40    	movsd  %xmm4,0x40(%rsp)
+   14139610e:	f3 45 0f 5a d2       	cvtss2sd %xmm10,%xmm10
+   141396113:	f3 0f 10 8e f8 02 00 	movss  0x2f8(%rsi),%xmm1
+   14139611a:	00 
+   14139611b:	f3 0f 10 96 fc 02 00 	movss  0x2fc(%rsi),%xmm2
+   141396122:	00 
+   141396123:	f3 0f 10 9e 00 03 00 	movss  0x300(%rsi),%xmm3
+   14139612a:	00 
+   14139612b:	0f 2e c8             	ucomiss %xmm0,%xmm1
+   14139612e:	7a 30                	jp     141396160 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x230>
+   141396130:	75 2e                	jne    141396160 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x230>
+   141396132:	0f 2e d0             	ucomiss %xmm0,%xmm2
+   141396135:	7a 29                	jp     141396160 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x230>
+   141396137:	75 27                	jne    141396160 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x230>
+   141396139:	0f 2e d8             	ucomiss %xmm0,%xmm3
+   14139613c:	7a 22                	jp     141396160 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x230>
+   14139613e:	75 20                	jne    141396160 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x230>
+   141396140:	c6 44 24 48 00       	movb   $0x0,0x48(%rsp)
+   141396145:	f2 44 0f 11 6c 24 68 	movsd  %xmm13,0x68(%rsp)
+   14139614c:	f2 44 0f 11 6c 24 70 	movsd  %xmm13,0x70(%rsp)
+   141396153:	f2 44 0f 11 6c 24 78 	movsd  %xmm13,0x78(%rsp)
+   14139615a:	eb 2f                	jmp    14139618b <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x25b>
+   14139615c:	0f 1f 40 00          	nopl   0x0(%rax)
+   141396160:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   141396164:	c6 44 24 48 01       	movb   $0x1,0x48(%rsp)
+   141396169:	f3 0f 5a d2          	cvtss2sd %xmm2,%xmm2
+   14139616d:	f3 0f 5a e3          	cvtss2sd %xmm3,%xmm4
+   141396171:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396175:	f2 0f 11 64 24 68    	movsd  %xmm4,0x68(%rsp)
+   14139617b:	f3 0f 5a d9          	cvtss2sd %xmm1,%xmm3
+   14139617f:	f2 0f 11 54 24 70    	movsd  %xmm2,0x70(%rsp)
+   141396185:	f2 0f 11 5c 24 78    	movsd  %xmm3,0x78(%rsp)
+   14139618b:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   141396192:	f3 0f 10 a6 64 02 00 	movss  0x264(%rsi),%xmm4
+   141396199:	00 
+   14139619a:	f3 0f 10 9e 60 02 00 	movss  0x260(%rsi),%xmm3
+   1413961a1:	00 
+   1413961a2:	49 63 41 04          	movslq 0x4(%r9),%rax
+   1413961a6:	49 8b 59 10          	mov    0x10(%r9),%rbx
+   1413961aa:	f3 0f 11 a4 24 d0 00 	movss  %xmm4,0xd0(%rsp)
+   1413961b1:	00 00 
+   1413961b3:	f3 0f 10 a6 5c 02 00 	movss  0x25c(%rsi),%xmm4
+   1413961ba:	00 
+   1413961bb:	f3 0f 11 9c 24 b4 00 	movss  %xmm3,0xb4(%rsp)
+   1413961c2:	00 00 
+   1413961c4:	48 8d 04 c0          	lea    (%rax,%rax,8),%rax
+   1413961c8:	4c 01 cb             	add    %r9,%rbx
+   1413961cb:	48 c1 e0 04          	shl    $0x4,%rax
+   1413961cf:	44 0f 28 c4          	movaps %xmm4,%xmm8
+   1413961d3:	0f 84 6e 04 00 00    	je     141396647 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x717>
+   1413961d9:	c6 84 24 d5 00 00 00 	movb   $0x0,0xd5(%rsp)
+   1413961e0:	00 
+   1413961e1:	66 45 0f 28 e5       	movapd %xmm13,%xmm12
+   1413961e6:	45 31 ed             	xor    %r13d,%r13d
+   1413961e9:	31 ed                	xor    %ebp,%ebp
+   1413961eb:	c6 84 24 d4 00 00 00 	movb   $0x0,0xd4(%rsp)
+   1413961f2:	00 
+   1413961f3:	4c 8d a4 24 10 01 00 	lea    0x110(%rsp),%r12
+   1413961fa:	00 
+   1413961fb:	4c 8d 3d 54 8d f3 00 	lea    0xf38d54(%rip),%r15        # 1422cef56 <.rdata+0x136>
+   141396202:	c6 84 24 b1 00 00 00 	movb   $0x0,0xb1(%rsp)
+   141396209:	00 
+   14139620a:	c6 84 24 d7 00 00 00 	movb   $0x0,0xd7(%rsp)
+   141396211:	00 
+   141396212:	c6 84 24 d6 00 00 00 	movb   $0x0,0xd6(%rsp)
+   141396219:	00 
+   14139621a:	c6 84 24 b3 00 00 00 	movb   $0x0,0xb3(%rsp)
+   141396221:	00 
+   141396222:	c6 84 24 b0 00 00 00 	movb   $0x0,0xb0(%rsp)
+   141396229:	00 
+   14139622a:	c6 44 24 2e 00       	movb   $0x0,0x2e(%rsp)
+   14139622f:	c6 84 24 b2 00 00 00 	movb   $0x0,0xb2(%rsp)
+   141396236:	00 
+   141396237:	c6 44 24 2f 00       	movb   $0x0,0x2f(%rsp)
+   14139623c:	f2 44 0f 11 6c 24 38 	movsd  %xmm13,0x38(%rsp)
+   141396243:	f2 44 0f 11 ac 24 b8 	movsd  %xmm13,0xb8(%rsp)
+   14139624a:	00 00 00 
+   14139624d:	f2 44 0f 11 ac 24 e8 	movsd  %xmm13,0xe8(%rsp)
+   141396254:	00 00 00 
+   141396257:	f2 44 0f 11 ac 24 c0 	movsd  %xmm13,0xc0(%rsp)
+   14139625e:	00 00 00 
+   141396261:	f2 44 0f 11 ac 24 f0 	movsd  %xmm13,0xf0(%rsp)
+   141396268:	00 00 00 
+   14139626b:	f2 44 0f 11 ac 24 88 	movsd  %xmm13,0x88(%rsp)
+   141396272:	00 00 00 
+   141396275:	f2 44 0f 11 ac 24 f8 	movsd  %xmm13,0xf8(%rsp)
+   14139627c:	00 00 00 
+   14139627f:	f2 44 0f 11 ac 24 00 	movsd  %xmm13,0x100(%rsp)
+   141396286:	01 00 00 
+   141396289:	f2 44 0f 11 ac 24 08 	movsd  %xmm13,0x108(%rsp)
+   141396290:	01 00 00 
+   141396293:	f2 44 0f 11 ac 24 e0 	movsd  %xmm13,0xe0(%rsp)
+   14139629a:	00 00 00 
+   14139629d:	f2 44 0f 11 ac 24 d8 	movsd  %xmm13,0xd8(%rsp)
+   1413962a4:	00 00 00 
+   1413962a7:	f2 44 0f 11 ac 24 c8 	movsd  %xmm13,0xc8(%rsp)
+   1413962ae:	00 00 00 
+   1413962b1:	f2 44 0f 11 ac 24 90 	movsd  %xmm13,0x90(%rsp)
+   1413962b8:	00 00 00 
+   1413962bb:	f2 44 0f 11 ac 24 80 	movsd  %xmm13,0x80(%rsp)
+   1413962c2:	00 00 00 
+   1413962c5:	f2 44 0f 11 6c 24 60 	movsd  %xmm13,0x60(%rsp)
+   1413962cc:	f2 44 0f 11 6c 24 58 	movsd  %xmm13,0x58(%rsp)
+   1413962d3:	f2 44 0f 11 6c 24 50 	movsd  %xmm13,0x50(%rsp)
+   1413962da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1413962e0:	4c 8b 43 40          	mov    0x40(%rbx),%r8
+   1413962e4:	66 0f 10 2f          	movupd (%rdi),%xmm5
+   1413962e8:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1413962ec:	4c 89 e2             	mov    %r12,%rdx
+   1413962ef:	f2 0f 5a 4f 10       	cvtsd2ss 0x10(%rdi),%xmm1
+   1413962f4:	48 c7 84 24 30 01 00 	movq   $0x0,0x130(%rsp)
+   1413962fb:	00 00 00 00 00 
+   141396300:	49 8b 48 10          	mov    0x10(%r8),%rcx
+   141396304:	66 0f 5a c5          	cvtpd2ps %xmm5,%xmm0
+   141396308:	0f 13 84 24 38 01 00 	movlps %xmm0,0x138(%rsp)
+   14139630f:	00 
+   141396310:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141396314:	f3 0f 11 8c 24 40 01 	movss  %xmm1,0x140(%rsp)
+   14139631b:	00 00 
+   14139631d:	0f 29 84 24 20 01 00 	movaps %xmm0,0x120(%rsp)
+   141396324:	00 
+   141396325:	e8 96 d0 ff ff       	call   1413933c0 <_ZNK8QMapDataI15Au3dsGLSLVertexdE8findNodeERKS0_.isra.0>
+   14139632a:	48 85 c0             	test   %rax,%rax
+   14139632d:	0f 84 f5 00 00 00    	je     141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396333:	49 83 c0 08          	add    $0x8,%r8
+   141396337:	4c 39 c0             	cmp    %r8,%rax
+   14139633a:	0f 84 e8 00 00 00    	je     141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396340:	ba 04 00 00 00       	mov    $0x4,%edx
+   141396345:	4c 89 f9             	mov    %r15,%rcx
+   141396348:	4c 8d 73 38          	lea    0x38(%rbx),%r14
+   14139634c:	ff 15 36 c8 4f 01    	call   *0x14fc836(%rip)        # 142892b88 <__imp__ZN7QString16fromAscii_helperEPKci>
+   141396352:	45 31 c0             	xor    %r8d,%r8d
+   141396355:	4c 89 e2             	mov    %r12,%rdx
+   141396358:	4c 89 f1             	mov    %r14,%rcx
+   14139635b:	48 89 84 24 10 01 00 	mov    %rax,0x110(%rsp)
+   141396362:	00 
+   141396363:	41 b9 01 00 00 00    	mov    $0x1,%r9d
+   141396369:	ff 15 99 ce 4f 01    	call   *0x14fce99(%rip)        # 142893208 <__imp__ZNK7QString7indexOfERKS_iN2Qt15CaseSensitivityE>
+   14139636f:	89 c5                	mov    %eax,%ebp
+   141396371:	4c 89 e1             	mov    %r12,%rcx
+   141396374:	e8 97 aa 4b 00       	call   141850e10 <_ZN7QStringD1Ev>
+   141396379:	b8 01 00 00 00       	mov    $0x1,%eax
+   14139637e:	83 fd ff             	cmp    $0xffffffff,%ebp
+   141396381:	44 0f 45 e8          	cmovne %eax,%r13d
+   141396385:	8b 43 34             	mov    0x34(%rbx),%eax
+   141396388:	83 f8 02             	cmp    $0x2,%eax
+   14139638b:	0f 84 77 03 00 00    	je     141396708 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x7d8>
+   141396391:	83 f8 04             	cmp    $0x4,%eax
+   141396394:	0f 84 86 03 00 00    	je     141396720 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x7f0>
+   14139639a:	83 f8 05             	cmp    $0x5,%eax
+   14139639d:	0f 84 9d 03 00 00    	je     141396740 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x810>
+   1413963a3:	83 f8 06             	cmp    $0x6,%eax
+   1413963a6:	0f 84 6c 04 00 00    	je     141396818 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x8e8>
+   1413963ac:	0f b6 6b 50          	movzbl 0x50(%rbx),%ebp
+   1413963b0:	40 84 ed             	test   %bpl,%bpl
+   1413963b3:	0f 85 d7 03 00 00    	jne    141396790 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x860>
+   1413963b9:	0f b6 6b 51          	movzbl 0x51(%rbx),%ebp
+   1413963bd:	40 84 ed             	test   %bpl,%bpl
+   1413963c0:	0f 85 98 07 00 00    	jne    141396b5e <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xc2e>
+   1413963c6:	0f b6 6b 52          	movzbl 0x52(%rbx),%ebp
+   1413963ca:	40 84 ed             	test   %bpl,%bpl
+   1413963cd:	0f 85 a1 05 00 00    	jne    141396974 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xa44>
+   1413963d3:	0f b6 6b 53          	movzbl 0x53(%rbx),%ebp
+   1413963d7:	40 84 ed             	test   %bpl,%bpl
+   1413963da:	0f 84 09 08 00 00    	je     141396be9 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xcb9>
+   1413963e0:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413963e4:	40 88 ac 24 d7 00 00 	mov    %bpl,0xd7(%rsp)
+   1413963eb:	00 
+   1413963ec:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   1413963f3:	f3 0f 5a 53 30       	cvtss2sd 0x30(%rbx),%xmm2
+   1413963f8:	f2 0f 11 94 24 e8 00 	movsd  %xmm2,0xe8(%rsp)
+   1413963ff:	00 00 
+   141396401:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396405:	f3 0f 5a 53 2c       	cvtss2sd 0x2c(%rbx),%xmm2
+   14139640a:	f2 0f 11 94 24 c0 00 	movsd  %xmm2,0xc0(%rsp)
+   141396411:	00 00 
+   141396413:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396417:	f3 0f 5a 53 28       	cvtss2sd 0x28(%rbx),%xmm2
+   14139641c:	f2 0f 11 94 24 f0 00 	movsd  %xmm2,0xf0(%rsp)
+   141396423:	00 00 
+   141396425:	0f 1f 00             	nopl   (%rax)
+   141396428:	49 63 51 04          	movslq 0x4(%r9),%rdx
+   14139642c:	49 8b 41 10          	mov    0x10(%r9),%rax
+   141396430:	48 81 c3 90 00 00 00 	add    $0x90,%rbx
+   141396437:	48 8d 14 d2          	lea    (%rdx,%rdx,8),%rdx
+   14139643b:	4c 01 c8             	add    %r9,%rax
+   14139643e:	48 c1 e2 04          	shl    $0x4,%rdx
+   141396442:	48 01 d0             	add    %rdx,%rax
+   141396445:	48 39 c3             	cmp    %rax,%rbx
+   141396448:	0f 85 92 fe ff ff    	jne    1413962e0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x3b0>
+   14139644e:	f2 0f 10 a6 40 01 00 	movsd  0x140(%rsi),%xmm4
+   141396455:	00 
+   141396456:	40 84 ed             	test   %bpl,%bpl
+   141396459:	0f 84 f0 01 00 00    	je     14139664f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x71f>
+   14139645f:	66 41 0f 2e e5       	ucomisd %xmm13,%xmm4
+   141396464:	7a 06                	jp     14139646c <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x53c>
+   141396466:	0f 84 ae 04 00 00    	je     14139691a <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x9ea>
+   14139646c:	66 41 0f 28 ef       	movapd %xmm15,%xmm5
+   141396471:	f2 44 0f 10 6c 24 30 	movsd  0x30(%rsp),%xmm13
+   141396478:	f2 0f 10 57 10       	movsd  0x10(%rdi),%xmm2
+   14139647d:	f2 0f 10 5f 08       	movsd  0x8(%rdi),%xmm3
+   141396482:	f2 0f 10 0f          	movsd  (%rdi),%xmm1
+   141396486:	f2 44 0f 59 f4       	mulsd  %xmm4,%xmm14
+   14139648b:	f2 44 0f 10 bc 24 a0 	movsd  0xa0(%rsp),%xmm15
+   141396492:	00 00 00 
+   141396495:	f2 0f 59 d4          	mulsd  %xmm4,%xmm2
+   141396499:	f2 0f 10 84 24 98 00 	movsd  0x98(%rsp),%xmm0
+   1413964a0:	00 00 
+   1413964a2:	f2 0f 59 dc          	mulsd  %xmm4,%xmm3
+   1413964a6:	f2 44 0f 59 fc       	mulsd  %xmm4,%xmm15
+   1413964ab:	f2 0f 59 cc          	mulsd  %xmm4,%xmm1
+   1413964af:	f2 0f 59 ec          	mulsd  %xmm4,%xmm5
+   1413964b3:	f2 44 0f 59 ec       	mulsd  %xmm4,%xmm13
+   1413964b8:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   1413964bc:	f2 44 0f 11 7c 24 48 	movsd  %xmm15,0x48(%rsp)
+   1413964c3:	f2 44 0f 10 bc 24 a8 	movsd  0xa8(%rsp),%xmm15
+   1413964ca:	00 00 00 
+   1413964cd:	f2 44 0f 59 fc       	mulsd  %xmm4,%xmm15
+   1413964d2:	f2 44 0f 11 7c 24 30 	movsd  %xmm15,0x30(%rsp)
+   1413964d9:	66 45 0f ef ff       	pxor   %xmm15,%xmm15
+   1413964de:	f3 44 0f 5a bc 24 d0 	cvtss2sd 0xd0(%rsp),%xmm15
+   1413964e5:	00 00 00 
+   1413964e8:	f2 44 0f 59 fc       	mulsd  %xmm4,%xmm15
+   1413964ed:	66 4c 0f 7e fa       	movq   %xmm15,%rdx
+   1413964f2:	66 45 0f ef ff       	pxor   %xmm15,%xmm15
+   1413964f7:	f3 44 0f 5a bc 24 b4 	cvtss2sd 0xb4(%rsp),%xmm15
+   1413964fe:	00 00 00 
+   141396501:	f2 44 0f 59 fc       	mulsd  %xmm4,%xmm15
+   141396506:	66 4c 0f 7e f8       	movq   %xmm15,%rax
+   14139650b:	66 45 0f ef ff       	pxor   %xmm15,%xmm15
+   141396510:	f3 45 0f 5a f8       	cvtss2sd %xmm8,%xmm15
+   141396515:	f2 44 0f 59 fc       	mulsd  %xmm4,%xmm15
+   14139651a:	66 4d 0f 7e fa       	movq   %xmm15,%r10
+   14139651f:	f2 0f 10 a6 78 01 00 	movsd  0x178(%rsi),%xmm4
+   141396526:	00 
+   141396527:	80 bc 24 b1 00 00 00 	cmpb   $0x0,0xb1(%rsp)
+   14139652e:	00 
+   14139652f:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141396533:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141396538:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   14139653d:	f2 0f 11 64 24 20    	movsd  %xmm4,0x20(%rsp)
+   141396543:	0f 84 20 03 00 00    	je     141396869 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x939>
+   141396549:	f2 0f 10 86 80 01 00 	movsd  0x180(%rsi),%xmm0
+   141396550:	00 
+   141396551:	f2 0f 10 25 f7 8c f3 	movsd  0xf38cf7(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141396558:	00 
+   141396559:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   14139655d:	0f 8a cf 04 00 00    	jp     141396a32 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xb02>
+   141396563:	0f 85 c9 04 00 00    	jne    141396a32 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xb02>
+   141396569:	f2 0f 10 86 88 01 00 	movsd  0x188(%rsi),%xmm0
+   141396570:	00 
+   141396571:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   141396575:	0f 8a 43 04 00 00    	jp     1413969be <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xa8e>
+   14139657b:	0f 85 3d 04 00 00    	jne    1413969be <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xa8e>
+   141396581:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
+   141396587:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   14139658b:	7a 02                	jp     14139658f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x65f>
+   14139658d:	74 74                	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   14139658f:	80 bc 24 b0 00 00 00 	cmpb   $0x0,0xb0(%rsp)
+   141396596:	00 
+   141396597:	75 34                	jne    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   141396599:	80 bc 24 b3 00 00 00 	cmpb   $0x0,0xb3(%rsp)
+   1413965a0:	00 
+   1413965a1:	75 2a                	jne    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   1413965a3:	80 bc 24 d6 00 00 00 	cmpb   $0x0,0xd6(%rsp)
+   1413965aa:	00 
+   1413965ab:	75 20                	jne    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   1413965ad:	80 bc 24 d7 00 00 00 	cmpb   $0x0,0xd7(%rsp)
+   1413965b4:	00 
+   1413965b5:	75 16                	jne    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   1413965b7:	0f b6 84 24 b1 00 00 	movzbl 0xb1(%rsp),%eax
+   1413965be:	00 
+   1413965bf:	0a 84 24 d4 00 00 00 	or     0xd4(%rsp),%al
+   1413965c6:	75 05                	jne    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   1413965c8:	45 84 ed             	test   %r13b,%r13b
+   1413965cb:	74 0c                	je     1413965d9 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6a9>
+   1413965cd:	80 7c 24 2f 00       	cmpb   $0x0,0x2f(%rsp)
+   1413965d2:	74 2f                	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   1413965d4:	45 84 ed             	test   %r13b,%r13b
+   1413965d7:	74 2a                	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   1413965d9:	f2 0f 10 64 24 40    	movsd  0x40(%rsp),%xmm4
+   1413965df:	f2 41 0f 5c ea       	subsd  %xmm10,%xmm5
+   1413965e4:	f2 45 0f 5c f3       	subsd  %xmm11,%xmm14
+   1413965e9:	f2 0f 59 6c 24 20    	mulsd  0x20(%rsp),%xmm5
+   1413965ef:	f2 44 0f 5c ec       	subsd  %xmm4,%xmm13
+   1413965f4:	f2 45 0f 58 f3       	addsd  %xmm11,%xmm14
+   1413965f9:	f2 41 0f 58 ea       	addsd  %xmm10,%xmm5
+   1413965fe:	f2 44 0f 58 ec       	addsd  %xmm4,%xmm13
+   141396603:	f2 41 0f 5c fe       	subsd  %xmm14,%xmm7
+   141396608:	f2 44 0f 5c cd       	subsd  %xmm5,%xmm9
+   14139660d:	48 8b 84 24 40 02 00 	mov    0x240(%rsp),%rax
+   141396614:	00 
+   141396615:	f2 41 0f 5c f5       	subsd  %xmm13,%xmm6
+   14139661a:	f2 0f 58 fa          	addsd  %xmm2,%xmm7
+   14139661e:	f2 44 0f 58 cb       	addsd  %xmm3,%xmm9
+   141396623:	f2 0f 58 f1          	addsd  %xmm1,%xmm6
+   141396627:	f2 44 0f 11 4f 08    	movsd  %xmm9,0x8(%rdi)
+   14139662d:	f2 0f 11 37          	movsd  %xmm6,(%rdi)
+   141396631:	f2 0f 11 7f 10       	movsd  %xmm7,0x10(%rdi)
+   141396636:	f2 0f 11 30          	movsd  %xmm6,(%rax)
+   14139663a:	f2 44 0f 11 48 08    	movsd  %xmm9,0x8(%rax)
+   141396640:	f2 0f 11 78 10       	movsd  %xmm7,0x10(%rax)
+   141396645:	eb 52                	jmp    141396699 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x769>
+   141396647:	f2 0f 10 a6 40 01 00 	movsd  0x140(%rsi),%xmm4
+   14139664e:	00 
+   14139664f:	66 41 0f 2e e5       	ucomisd %xmm13,%xmm4
+   141396654:	f2 0f 10 44 24 30    	movsd  0x30(%rsp),%xmm0
+   14139665a:	66 0f 28 d4          	movapd %xmm4,%xmm2
+   14139665e:	66 41 0f 14 f1       	unpcklpd %xmm9,%xmm6
+   141396663:	66 0f 14 d2          	unpcklpd %xmm2,%xmm2
+   141396667:	66 41 0f 14 c7       	unpcklpd %xmm15,%xmm0
+   14139666c:	0f 8a 76 01 00 00    	jp     1413967e8 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x8b8>
+   141396672:	0f 85 70 01 00 00    	jne    1413967e8 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x8b8>
+   141396678:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   14139667c:	66 41 0f 28 c5       	movapd %xmm13,%xmm0
+   141396681:	66 0f 58 f1          	addpd  %xmm1,%xmm6
+   141396685:	f2 0f 58 c7          	addsd  %xmm7,%xmm0
+   141396689:	48 8b 84 24 40 02 00 	mov    0x240(%rsp),%rax
+   141396690:	00 
+   141396691:	0f 11 30             	movups %xmm6,(%rax)
+   141396694:	f2 0f 11 40 10       	movsd  %xmm0,0x10(%rax)
+   141396699:	0f 28 b4 24 50 01 00 	movaps 0x150(%rsp),%xmm6
+   1413966a0:	00 
+   1413966a1:	0f 28 bc 24 60 01 00 	movaps 0x160(%rsp),%xmm7
+   1413966a8:	00 
+   1413966a9:	44 0f 28 84 24 70 01 	movaps 0x170(%rsp),%xmm8
+   1413966b0:	00 00 
+   1413966b2:	44 0f 28 8c 24 80 01 	movaps 0x180(%rsp),%xmm9
+   1413966b9:	00 00 
+   1413966bb:	44 0f 28 94 24 90 01 	movaps 0x190(%rsp),%xmm10
+   1413966c2:	00 00 
+   1413966c4:	44 0f 28 9c 24 a0 01 	movaps 0x1a0(%rsp),%xmm11
+   1413966cb:	00 00 
+   1413966cd:	44 0f 28 a4 24 b0 01 	movaps 0x1b0(%rsp),%xmm12
+   1413966d4:	00 00 
+   1413966d6:	44 0f 28 ac 24 c0 01 	movaps 0x1c0(%rsp),%xmm13
+   1413966dd:	00 00 
+   1413966df:	44 0f 28 b4 24 d0 01 	movaps 0x1d0(%rsp),%xmm14
+   1413966e6:	00 00 
+   1413966e8:	44 0f 28 bc 24 e0 01 	movaps 0x1e0(%rsp),%xmm15
+   1413966ef:	00 00 
+   1413966f1:	48 81 c4 f8 01 00 00 	add    $0x1f8,%rsp
+   1413966f8:	5b                   	pop    %rbx
+   1413966f9:	5e                   	pop    %rsi
+   1413966fa:	5f                   	pop    %rdi
+   1413966fb:	5d                   	pop    %rbp
+   1413966fc:	41 5c                	pop    %r12
+   1413966fe:	41 5d                	pop    %r13
+   141396700:	41 5e                	pop    %r14
+   141396702:	41 5f                	pop    %r15
+   141396704:	c3                   	ret
+   141396705:	0f 1f 00             	nopl   (%rax)
+   141396708:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   14139670f:	bd 01 00 00 00       	mov    $0x1,%ebp
+   141396714:	e9 0f fd ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396719:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   141396720:	c6 44 24 2e 01       	movb   $0x1,0x2e(%rsp)
+   141396725:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   14139672c:	bd 01 00 00 00       	mov    $0x1,%ebp
+   141396731:	e9 f2 fc ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396736:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14139673d:	00 00 00 
+   141396740:	80 7c 24 20 00       	cmpb   $0x0,0x20(%rsp)
+   141396745:	0f 85 86 00 00 00    	jne    1413967d1 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x8a1>
+   14139674b:	66 45 0f ef db       	pxor   %xmm11,%xmm11
+   141396750:	66 45 0f ef d2       	pxor   %xmm10,%xmm10
+   141396755:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396759:	c6 44 24 2f 01       	movb   $0x1,0x2f(%rsp)
+   14139675e:	f3 0f 5a 5b 28       	cvtss2sd 0x28(%rbx),%xmm3
+   141396763:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   14139676a:	f2 0f 11 5c 24 40    	movsd  %xmm3,0x40(%rsp)
+   141396770:	bd 01 00 00 00       	mov    $0x1,%ebp
+   141396775:	f3 44 0f 5a 5b 30    	cvtss2sd 0x30(%rbx),%xmm11
+   14139677b:	f3 44 0f 5a 53 2c    	cvtss2sd 0x2c(%rbx),%xmm10
+   141396781:	e9 a2 fc ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396786:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14139678d:	00 00 00 
+   141396790:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396794:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   141396798:	40 88 ac 24 b0 00 00 	mov    %bpl,0xb0(%rsp)
+   14139679f:	00 
+   1413967a0:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   1413967a7:	f3 0f 5a 53 30       	cvtss2sd 0x30(%rbx),%xmm2
+   1413967ac:	f2 0f 11 54 24 60    	movsd  %xmm2,0x60(%rsp)
+   1413967b2:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413967b6:	f3 0f 5a 63 28       	cvtss2sd 0x28(%rbx),%xmm4
+   1413967bb:	f3 0f 5a 53 2c       	cvtss2sd 0x2c(%rbx),%xmm2
+   1413967c0:	f2 0f 11 64 24 50    	movsd  %xmm4,0x50(%rsp)
+   1413967c6:	f2 0f 11 54 24 58    	movsd  %xmm2,0x58(%rsp)
+   1413967cc:	e9 57 fc ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   1413967d1:	0f b6 44 24 20       	movzbl 0x20(%rsp),%eax
+   1413967d6:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   1413967dd:	88 44 24 2f          	mov    %al,0x2f(%rsp)
+   1413967e1:	89 c5                	mov    %eax,%ebp
+   1413967e3:	e9 40 fc ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   1413967e8:	66 0f 59 c2          	mulpd  %xmm2,%xmm0
+   1413967ec:	66 0f 10 0f          	movupd (%rdi),%xmm1
+   1413967f0:	66 0f 59 ca          	mulpd  %xmm2,%xmm1
+   1413967f4:	66 0f 5c f0          	subpd  %xmm0,%xmm6
+   1413967f8:	66 41 0f 28 c6       	movapd %xmm14,%xmm0
+   1413967fd:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   141396801:	f2 0f 59 67 10       	mulsd  0x10(%rdi),%xmm4
+   141396806:	f2 0f 5c f8          	subsd  %xmm0,%xmm7
+   14139680a:	66 0f 28 c4          	movapd %xmm4,%xmm0
+   14139680e:	e9 6e fe ff ff       	jmp    141396681 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x751>
+   141396813:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   141396818:	80 7c 24 48 00       	cmpb   $0x0,0x48(%rsp)
+   14139681d:	0f 85 37 01 00 00    	jne    14139695a <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xa2a>
+   141396823:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396827:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   14139682b:	c6 84 24 b2 00 00 00 	movb   $0x1,0xb2(%rsp)
+   141396832:	01 
+   141396833:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   14139683a:	f3 0f 5a 5b 30       	cvtss2sd 0x30(%rbx),%xmm3
+   14139683f:	f2 0f 11 5c 24 68    	movsd  %xmm3,0x68(%rsp)
+   141396845:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396849:	f3 0f 5a 53 2c       	cvtss2sd 0x2c(%rbx),%xmm2
+   14139684e:	f3 0f 5a 5b 28       	cvtss2sd 0x28(%rbx),%xmm3
+   141396853:	f2 0f 11 54 24 70    	movsd  %xmm2,0x70(%rsp)
+   141396859:	bd 01 00 00 00       	mov    $0x1,%ebp
+   14139685e:	f2 0f 11 5c 24 78    	movsd  %xmm3,0x78(%rsp)
+   141396864:	e9 bf fb ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396869:	80 bc 24 d4 00 00 00 	cmpb   $0x0,0xd4(%rsp)
+   141396870:	00 
+   141396871:	0f 84 39 02 00 00    	je     141396ab0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xb80>
+   141396877:	f2 0f 10 86 80 01 00 	movsd  0x180(%rsi),%xmm0
+   14139687e:	00 
+   14139687f:	f2 0f 10 25 c9 89 f3 	movsd  0xf389c9(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141396886:	00 
+   141396887:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   14139688b:	7a 06                	jp     141396893 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x963>
+   14139688d:	0f 84 ee fc ff ff    	je     141396581 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x651>
+   141396893:	f2 44 0f 10 a4 24 f8 	movsd  0xf8(%rsp),%xmm12
+   14139689a:	00 00 00 
+   14139689d:	f2 44 0f 10 bc 24 00 	movsd  0x100(%rsp),%xmm15
+   1413968a4:	01 00 00 
+   1413968a7:	f2 44 0f 10 84 24 08 	movsd  0x108(%rsp),%xmm8
+   1413968ae:	01 00 00 
+   1413968b1:	f2 41 0f 5c d4       	subsd  %xmm12,%xmm2
+   1413968b6:	f2 41 0f 5c df       	subsd  %xmm15,%xmm3
+   1413968bb:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   1413968c0:	f2 45 0f 5c f4       	subsd  %xmm12,%xmm14
+   1413968c5:	f2 41 0f 5c ef       	subsd  %xmm15,%xmm5
+   1413968ca:	f2 45 0f 5c e8       	subsd  %xmm8,%xmm13
+   1413968cf:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+   1413968d3:	f2 0f 59 d8          	mulsd  %xmm0,%xmm3
+   1413968d7:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   1413968db:	f2 44 0f 59 f0       	mulsd  %xmm0,%xmm14
+   1413968e0:	f2 0f 59 e8          	mulsd  %xmm0,%xmm5
+   1413968e4:	f2 44 0f 59 e8       	mulsd  %xmm0,%xmm13
+   1413968e9:	f2 41 0f 58 d4       	addsd  %xmm12,%xmm2
+   1413968ee:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   1413968f3:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   1413968f8:	f2 45 0f 58 f4       	addsd  %xmm12,%xmm14
+   1413968fd:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396902:	f2 41 0f 58 ef       	addsd  %xmm15,%xmm5
+   141396907:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   14139690c:	f2 45 0f 58 e8       	addsd  %xmm8,%xmm13
+   141396911:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141396915:	e9 67 fc ff ff       	jmp    141396581 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x651>
+   14139691a:	66 41 0f 28 c5       	movapd %xmm13,%xmm0
+   14139691f:	66 45 0f 28 f5       	movapd %xmm13,%xmm14
+   141396924:	66 41 0f 28 ed       	movapd %xmm13,%xmm5
+   141396929:	f2 44 0f 11 6c 24 48 	movsd  %xmm13,0x48(%rsp)
+   141396930:	66 41 0f 28 d5       	movapd %xmm13,%xmm2
+   141396935:	66 41 0f 28 dd       	movapd %xmm13,%xmm3
+   14139693a:	66 41 0f 28 cd       	movapd %xmm13,%xmm1
+   14139693f:	f2 44 0f 11 6c 24 30 	movsd  %xmm13,0x30(%rsp)
+   141396946:	66 4c 0f 7e ea       	movq   %xmm13,%rdx
+   14139694b:	66 4c 0f 7e e8       	movq   %xmm13,%rax
+   141396950:	66 4d 0f 7e ea       	movq   %xmm13,%r10
+   141396955:	e9 c5 fb ff ff       	jmp    14139651f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x5ef>
+   14139695a:	0f b6 44 24 48       	movzbl 0x48(%rsp),%eax
+   14139695f:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   141396966:	88 84 24 b2 00 00 00 	mov    %al,0xb2(%rsp)
+   14139696d:	89 c5                	mov    %eax,%ebp
+   14139696f:	e9 b4 fa ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396974:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396978:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   14139697c:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396980:	40 88 ac 24 d6 00 00 	mov    %bpl,0xd6(%rsp)
+   141396987:	00 
+   141396988:	f3 0f 5a 5b 30       	cvtss2sd 0x30(%rbx),%xmm3
+   14139698d:	f3 0f 5a 63 2c       	cvtss2sd 0x2c(%rbx),%xmm4
+   141396992:	f3 0f 5a 53 28       	cvtss2sd 0x28(%rbx),%xmm2
+   141396997:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   14139699e:	f2 0f 11 9c 24 e0 00 	movsd  %xmm3,0xe0(%rsp)
+   1413969a5:	00 00 
+   1413969a7:	f2 0f 11 a4 24 d8 00 	movsd  %xmm4,0xd8(%rsp)
+   1413969ae:	00 00 
+   1413969b0:	f2 0f 11 94 24 c8 00 	movsd  %xmm2,0xc8(%rsp)
+   1413969b7:	00 00 
+   1413969b9:	e9 6a fa ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   1413969be:	f2 44 0f 10 7c 24 38 	movsd  0x38(%rsp),%xmm15
+   1413969c5:	f2 41 0f 5c d4       	subsd  %xmm12,%xmm2
+   1413969ca:	f2 45 0f 5c f4       	subsd  %xmm12,%xmm14
+   1413969cf:	f2 44 0f 10 84 24 b8 	movsd  0xb8(%rsp),%xmm8
+   1413969d6:	00 00 00 
+   1413969d9:	f2 41 0f 5c df       	subsd  %xmm15,%xmm3
+   1413969de:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   1413969e3:	f2 41 0f 58 d4       	addsd  %xmm12,%xmm2
+   1413969e8:	f2 45 0f 58 f4       	addsd  %xmm12,%xmm14
+   1413969ed:	f2 44 0f 10 64 24 38 	movsd  0x38(%rsp),%xmm12
+   1413969f4:	f2 0f 59 d8          	mulsd  %xmm0,%xmm3
+   1413969f8:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   1413969fd:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396a02:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   141396a07:	66 44 0f 28 f9       	movapd %xmm1,%xmm15
+   141396a0c:	66 44 0f 14 fb       	unpcklpd %xmm3,%xmm15
+   141396a11:	44 0f 11 3f          	movups %xmm15,(%rdi)
+   141396a15:	f2 41 0f 5c ec       	subsd  %xmm12,%xmm5
+   141396a1a:	f2 45 0f 5c e8       	subsd  %xmm8,%xmm13
+   141396a1f:	f2 0f 59 e8          	mulsd  %xmm0,%xmm5
+   141396a23:	f2 45 0f 58 e8       	addsd  %xmm8,%xmm13
+   141396a28:	f2 41 0f 58 ec       	addsd  %xmm12,%xmm5
+   141396a2d:	e9 4f fb ff ff       	jmp    141396581 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x651>
+   141396a32:	f2 44 0f 10 84 24 b8 	movsd  0xb8(%rsp),%xmm8
+   141396a39:	00 00 00 
+   141396a3c:	f2 41 0f 5c d4       	subsd  %xmm12,%xmm2
+   141396a41:	f2 45 0f 5c f4       	subsd  %xmm12,%xmm14
+   141396a46:	f2 44 0f 10 7c 24 38 	movsd  0x38(%rsp),%xmm15
+   141396a4d:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   141396a52:	f2 41 0f 5c df       	subsd  %xmm15,%xmm3
+   141396a57:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+   141396a5b:	f2 45 0f 5c e8       	subsd  %xmm8,%xmm13
+   141396a60:	f2 44 0f 59 f0       	mulsd  %xmm0,%xmm14
+   141396a65:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   141396a69:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   141396a6e:	f2 44 0f 59 e8       	mulsd  %xmm0,%xmm13
+   141396a73:	f2 41 0f 58 d4       	addsd  %xmm12,%xmm2
+   141396a78:	f2 45 0f 58 f4       	addsd  %xmm12,%xmm14
+   141396a7d:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   141396a82:	f2 45 0f 58 e8       	addsd  %xmm8,%xmm13
+   141396a87:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396a8c:	66 44 0f 28 f9       	movapd %xmm1,%xmm15
+   141396a91:	66 44 0f 14 fb       	unpcklpd %xmm3,%xmm15
+   141396a96:	44 0f 11 3f          	movups %xmm15,(%rdi)
+   141396a9a:	f2 44 0f 10 7c 24 38 	movsd  0x38(%rsp),%xmm15
+   141396aa1:	f2 41 0f 5c ef       	subsd  %xmm15,%xmm5
+   141396aa6:	f2 41 0f 58 ef       	addsd  %xmm15,%xmm5
+   141396aab:	e9 b9 fa ff ff       	jmp    141396569 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x639>
+   141396ab0:	80 bc 24 d7 00 00 00 	cmpb   $0x0,0xd7(%rsp)
+   141396ab7:	00 
+   141396ab8:	0f 84 8f 01 00 00    	je     141396c4d <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xd1d>
+   141396abe:	f2 0f 10 86 80 01 00 	movsd  0x180(%rsi),%xmm0
+   141396ac5:	00 
+   141396ac6:	f2 0f 10 25 82 87 f3 	movsd  0xf38782(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141396acd:	00 
+   141396ace:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   141396ad2:	0f 8a 41 06 00 00    	jp     141397119 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x11e9>
+   141396ad8:	0f 85 3b 06 00 00    	jne    141397119 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x11e9>
+   141396ade:	f2 0f 10 86 88 01 00 	movsd  0x188(%rsi),%xmm0
+   141396ae5:	00 
+   141396ae6:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   141396aea:	7a 06                	jp     141396af2 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xbc2>
+   141396aec:	0f 84 8f fa ff ff    	je     141396581 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x651>
+   141396af2:	f2 44 0f 10 a4 24 c0 	movsd  0xc0(%rsp),%xmm12
+   141396af9:	00 00 00 
+   141396afc:	f2 44 0f 10 84 24 f0 	movsd  0xf0(%rsp),%xmm8
+   141396b03:	00 00 00 
+   141396b06:	f2 44 0f 10 bc 24 e8 	movsd  0xe8(%rsp),%xmm15
+   141396b0d:	00 00 00 
+   141396b10:	f2 41 0f 5c dc       	subsd  %xmm12,%xmm3
+   141396b15:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   141396b1a:	f2 41 0f 5c d7       	subsd  %xmm15,%xmm2
+   141396b1f:	f2 45 0f 5c f7       	subsd  %xmm15,%xmm14
+   141396b24:	f2 0f 59 d8          	mulsd  %xmm0,%xmm3
+   141396b28:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   141396b2d:	f2 41 0f 58 d7       	addsd  %xmm15,%xmm2
+   141396b32:	f2 45 0f 58 f7       	addsd  %xmm15,%xmm14
+   141396b37:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396b3c:	f2 41 0f 58 dc       	addsd  %xmm12,%xmm3
+   141396b41:	66 44 0f 28 e1       	movapd %xmm1,%xmm12
+   141396b46:	66 44 0f 14 e3       	unpcklpd %xmm3,%xmm12
+   141396b4b:	44 0f 11 27          	movups %xmm12,(%rdi)
+   141396b4f:	f2 44 0f 10 a4 24 c0 	movsd  0xc0(%rsp),%xmm12
+   141396b56:	00 00 00 
+   141396b59:	e9 b7 fe ff ff       	jmp    141396a15 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xae5>
+   141396b5e:	4c 89 fa             	mov    %r15,%rdx
+   141396b61:	4c 89 e1             	mov    %r12,%rcx
+   141396b64:	e8 67 a2 4b 00       	call   141850dd0 <_ZN7QStringC1EPKc>
+   141396b69:	45 31 c0             	xor    %r8d,%r8d
+   141396b6c:	4c 89 e2             	mov    %r12,%rdx
+   141396b6f:	4c 89 f1             	mov    %r14,%rcx
+   141396b72:	41 b9 01 00 00 00    	mov    $0x1,%r9d
+   141396b78:	ff 15 8a c6 4f 01    	call   *0x14fc68a(%rip)        # 142893208 <__imp__ZNK7QString7indexOfERKS_iN2Qt15CaseSensitivityE>
+   141396b7e:	4c 89 e1             	mov    %r12,%rcx
+   141396b81:	41 89 c6             	mov    %eax,%r14d
+   141396b84:	e8 87 a2 4b 00       	call   141850e10 <_ZN7QStringD1Ev>
+   141396b89:	41 83 fe ff          	cmp    $0xffffffff,%r14d
+   141396b8d:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396b91:	0f b6 84 24 d5 00 00 	movzbl 0xd5(%rsp),%eax
+   141396b98:	00 
+   141396b99:	66 0f ef e4          	pxor   %xmm4,%xmm4
+   141396b9d:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396ba1:	f3 0f 5a 5b 30       	cvtss2sd 0x30(%rbx),%xmm3
+   141396ba6:	40 88 ac 24 b3 00 00 	mov    %bpl,0xb3(%rsp)
+   141396bad:	00 
+   141396bae:	0f 45 c5             	cmovne %ebp,%eax
+   141396bb1:	f3 0f 5a 63 2c       	cvtss2sd 0x2c(%rbx),%xmm4
+   141396bb6:	f3 0f 5a 53 28       	cvtss2sd 0x28(%rbx),%xmm2
+   141396bbb:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   141396bc2:	f2 0f 11 9c 24 88 00 	movsd  %xmm3,0x88(%rsp)
+   141396bc9:	00 00 
+   141396bcb:	88 84 24 d5 00 00 00 	mov    %al,0xd5(%rsp)
+   141396bd2:	f2 0f 11 a4 24 90 00 	movsd  %xmm4,0x90(%rsp)
+   141396bd9:	00 00 
+   141396bdb:	f2 0f 11 94 24 80 00 	movsd  %xmm2,0x80(%rsp)
+   141396be2:	00 00 
+   141396be4:	e9 3f f8 ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396be9:	0f b6 6b 54          	movzbl 0x54(%rbx),%ebp
+   141396bed:	40 84 ed             	test   %bpl,%bpl
+   141396bf0:	0f 85 e3 04 00 00    	jne    1413970d9 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x11a9>
+   141396bf6:	0f b6 6b 55          	movzbl 0x55(%rbx),%ebp
+   141396bfa:	40 84 ed             	test   %bpl,%bpl
+   141396bfd:	0f 84 05 fb ff ff    	je     141396708 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x7d8>
+   141396c03:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396c07:	66 0f ef db          	pxor   %xmm3,%xmm3
+   141396c0b:	40 88 ac 24 d4 00 00 	mov    %bpl,0xd4(%rsp)
+   141396c12:	00 
+   141396c13:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   141396c1a:	f3 0f 5a 53 30       	cvtss2sd 0x30(%rbx),%xmm2
+   141396c1f:	f3 0f 5a 5b 2c       	cvtss2sd 0x2c(%rbx),%xmm3
+   141396c24:	f2 0f 11 94 24 f8 00 	movsd  %xmm2,0xf8(%rsp)
+   141396c2b:	00 00 
+   141396c2d:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   141396c31:	f2 0f 11 9c 24 00 01 	movsd  %xmm3,0x100(%rsp)
+   141396c38:	00 00 
+   141396c3a:	f3 0f 5a 53 28       	cvtss2sd 0x28(%rbx),%xmm2
+   141396c3f:	f2 0f 11 94 24 08 01 	movsd  %xmm2,0x108(%rsp)
+   141396c46:	00 00 
+   141396c48:	e9 db f7 ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141396c4d:	80 bc 24 b3 00 00 00 	cmpb   $0x0,0xb3(%rsp)
+   141396c54:	00 
+   141396c55:	0f 84 3b 03 00 00    	je     141396f96 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1066>
+   141396c5b:	80 bc 24 d5 00 00 00 	cmpb   $0x0,0xd5(%rsp)
+   141396c62:	00 
+   141396c63:	f2 44 0f 10 a6 80 01 	movsd  0x180(%rsi),%xmm12
+   141396c6a:	00 00 
+   141396c6c:	0f 84 35 05 00 00    	je     1413971a7 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1277>
+   141396c72:	66 44 0f 28 c4       	movapd %xmm4,%xmm8
+   141396c77:	f2 0f 10 25 d1 85 f3 	movsd  0xf385d1(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141396c7e:	00 
+   141396c7f:	66 44 0f 2e c4       	ucomisd %xmm4,%xmm8
+   141396c84:	7a 06                	jp     141396c8c <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xd5c>
+   141396c86:	0f 84 9e 00 00 00    	je     141396d2a <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xdfa>
+   141396c8c:	66 44 0f 28 c0       	movapd %xmm0,%xmm8
+   141396c91:	f2 44 0f 10 7c 24 48 	movsd  0x48(%rsp),%xmm15
+   141396c98:	f2 45 0f 5c c3       	subsd  %xmm11,%xmm8
+   141396c9d:	f2 45 0f 5c fa       	subsd  %xmm10,%xmm15
+   141396ca2:	f2 45 0f 58 c3       	addsd  %xmm11,%xmm8
+   141396ca7:	66 4d 0f 7e c0       	movq   %xmm8,%r8
+   141396cac:	66 45 0f 28 c7       	movapd %xmm15,%xmm8
+   141396cb1:	f2 44 0f 10 7c 24 30 	movsd  0x30(%rsp),%xmm15
+   141396cb8:	f2 44 0f 59 44 24 20 	mulsd  0x20(%rsp),%xmm8
+   141396cbf:	f2 45 0f 58 c2       	addsd  %xmm10,%xmm8
+   141396cc4:	66 4c 0f 7e c1       	movq   %xmm8,%rcx
+   141396cc9:	66 45 0f 28 c7       	movapd %xmm15,%xmm8
+   141396cce:	f2 44 0f 5c 44 24 40 	subsd  0x40(%rsp),%xmm8
+   141396cd5:	f2 44 0f 58 44 24 40 	addsd  0x40(%rsp),%xmm8
+   141396cdc:	66 4d 0f 7e c1       	movq   %xmm8,%r9
+   141396ce1:	66 4d 0f 6e c0       	movq   %r8,%xmm8
+   141396ce6:	f2 44 0f 5c c0       	subsd  %xmm0,%xmm8
+   141396ceb:	66 48 0f 6e c1       	movq   %rcx,%xmm0
+   141396cf0:	f2 0f 5c 44 24 48    	subsd  0x48(%rsp),%xmm0
+   141396cf6:	4c 89 4c 24 30       	mov    %r9,0x30(%rsp)
+   141396cfb:	48 89 4c 24 48       	mov    %rcx,0x48(%rsp)
+   141396d00:	f2 0f 58 d8          	addsd  %xmm0,%xmm3
+   141396d04:	66 49 0f 6e c1       	movq   %r9,%xmm0
+   141396d09:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   141396d0e:	f2 41 0f 5c c7       	subsd  %xmm15,%xmm0
+   141396d13:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141396d18:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   141396d1c:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396d21:	66 49 0f 6e c0       	movq   %r8,%xmm0
+   141396d26:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141396d2a:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   141396d2f:	7a 06                	jp     141396d37 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xe07>
+   141396d31:	0f 84 95 00 00 00    	je     141396dcc <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xe9c>
+   141396d37:	f2 44 0f 10 84 24 88 	movsd  0x88(%rsp),%xmm8
+   141396d3e:	00 00 00 
+   141396d41:	f2 44 0f 10 bc 24 90 	movsd  0x90(%rsp),%xmm15
+   141396d48:	00 00 00 
+   141396d4b:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   141396d50:	f2 41 0f 5c df       	subsd  %xmm15,%xmm3
+   141396d55:	f2 41 0f 5c ef       	subsd  %xmm15,%xmm5
+   141396d5a:	f2 41 0f 59 d4       	mulsd  %xmm12,%xmm2
+   141396d5f:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   141396d64:	f2 41 0f 58 ef       	addsd  %xmm15,%xmm5
+   141396d69:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   141396d6e:	f2 44 0f 10 84 24 80 	movsd  0x80(%rsp),%xmm8
+   141396d75:	00 00 00 
+   141396d78:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   141396d7d:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396d82:	f2 41 0f 59 cc       	mulsd  %xmm12,%xmm1
+   141396d87:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   141396d8c:	66 44 0f 28 c1       	movapd %xmm1,%xmm8
+   141396d91:	66 44 0f 14 c3       	unpcklpd %xmm3,%xmm8
+   141396d96:	44 0f 11 07          	movups %xmm8,(%rdi)
+   141396d9a:	f2 44 0f 10 84 24 88 	movsd  0x88(%rsp),%xmm8
+   141396da1:	00 00 00 
+   141396da4:	f2 45 0f 5c f0       	subsd  %xmm8,%xmm14
+   141396da9:	f2 45 0f 59 f4       	mulsd  %xmm12,%xmm14
+   141396dae:	f2 45 0f 58 f0       	addsd  %xmm8,%xmm14
+   141396db3:	f2 44 0f 10 84 24 80 	movsd  0x80(%rsp),%xmm8
+   141396dba:	00 00 00 
+   141396dbd:	f2 45 0f 5c e8       	subsd  %xmm8,%xmm13
+   141396dc2:	f2 45 0f 59 ec       	mulsd  %xmm12,%xmm13
+   141396dc7:	f2 45 0f 58 e8       	addsd  %xmm8,%xmm13
+   141396dcc:	f2 44 0f 10 a6 88 01 	movsd  0x188(%rsi),%xmm12
+   141396dd3:	00 00 
+   141396dd5:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   141396dda:	66 45 0f 28 fc       	movapd %xmm12,%xmm15
+   141396ddf:	7a 06                	jp     141396de7 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xeb7>
+   141396de1:	0f 84 9f 00 00 00    	je     141396e86 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xf56>
+   141396de7:	f2 44 0f 10 44 24 68 	movsd  0x68(%rsp),%xmm8
+   141396dee:	66 44 0f 28 e0       	movapd %xmm0,%xmm12
+   141396df3:	f2 45 0f 5c e0       	subsd  %xmm8,%xmm12
+   141396df8:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   141396dfd:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   141396e02:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   141396e07:	f2 44 0f 10 44 24 70 	movsd  0x70(%rsp),%xmm8
+   141396e0e:	f2 41 0f 5c d8       	subsd  %xmm8,%xmm3
+   141396e13:	f2 41 0f 5c c4       	subsd  %xmm12,%xmm0
+   141396e18:	f2 41 0f 59 df       	mulsd  %xmm15,%xmm3
+   141396e1d:	f2 0f 58 d0          	addsd  %xmm0,%xmm2
+   141396e21:	f2 0f 10 44 24 48    	movsd  0x48(%rsp),%xmm0
+   141396e27:	66 44 0f 28 e0       	movapd %xmm0,%xmm12
+   141396e2c:	f2 45 0f 5c e0       	subsd  %xmm8,%xmm12
+   141396e31:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396e36:	f2 41 0f 58 d8       	addsd  %xmm8,%xmm3
+   141396e3b:	f2 45 0f 59 e7       	mulsd  %xmm15,%xmm12
+   141396e40:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   141396e45:	f2 44 0f 10 44 24 78 	movsd  0x78(%rsp),%xmm8
+   141396e4c:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   141396e51:	f2 41 0f 5c c4       	subsd  %xmm12,%xmm0
+   141396e56:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   141396e5b:	f2 0f 58 d8          	addsd  %xmm0,%xmm3
+   141396e5f:	f2 0f 10 44 24 30    	movsd  0x30(%rsp),%xmm0
+   141396e65:	66 44 0f 28 e0       	movapd %xmm0,%xmm12
+   141396e6a:	f2 45 0f 5c e0       	subsd  %xmm8,%xmm12
+   141396e6f:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141396e74:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   141396e79:	f2 41 0f 5c c4       	subsd  %xmm12,%xmm0
+   141396e7e:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   141396e82:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141396e86:	f2 44 0f 10 a6 90 01 	movsd  0x190(%rsi),%xmm12
+   141396e8d:	00 00 
+   141396e8f:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   141396e94:	7a 06                	jp     141396e9c <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xf6c>
+   141396e96:	0f 84 df 00 00 00    	je     141396f7b <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x104b>
+   141396e9c:	f2 0f 10 84 24 90 00 	movsd  0x90(%rsp),%xmm0
+   141396ea3:	00 00 
+   141396ea5:	80 bc 24 d5 00 00 00 	cmpb   $0x0,0xd5(%rsp)
+   141396eac:	00 
+   141396ead:	f2 44 0f 10 84 24 88 	movsd  0x88(%rsp),%xmm8
+   141396eb4:	00 00 00 
+   141396eb7:	f2 0f 5c d8          	subsd  %xmm0,%xmm3
+   141396ebb:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   141396ec0:	f2 41 0f 59 dc       	mulsd  %xmm12,%xmm3
+   141396ec5:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   141396eca:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396ecf:	f2 0f 58 d8          	addsd  %xmm0,%xmm3
+   141396ed3:	f2 0f 10 84 24 80 00 	movsd  0x80(%rsp),%xmm0
+   141396eda:	00 00 
+   141396edc:	f2 0f 5c c8          	subsd  %xmm0,%xmm1
+   141396ee0:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   141396ee4:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   141396ee8:	66 0f 14 c3          	unpcklpd %xmm3,%xmm0
+   141396eec:	0f 11 07             	movups %xmm0,(%rdi)
+   141396eef:	0f 84 81 04 00 00    	je     141397376 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1446>
+   141396ef5:	66 4c 0f 6e fa       	movq   %rdx,%xmm15
+   141396efa:	f2 45 0f 5c f8       	subsd  %xmm8,%xmm15
+   141396eff:	f2 45 0f 58 f8       	addsd  %xmm8,%xmm15
+   141396f04:	66 4c 0f 6e c2       	movq   %rdx,%xmm8
+   141396f09:	f2 45 0f 5c c7       	subsd  %xmm15,%xmm8
+   141396f0e:	66 4c 0f 6e f8       	movq   %rax,%xmm15
+   141396f13:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   141396f18:	f2 44 0f 10 84 24 90 	movsd  0x90(%rsp),%xmm8
+   141396f1f:	00 00 00 
+   141396f22:	f2 45 0f 5c f8       	subsd  %xmm8,%xmm15
+   141396f27:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141396f2c:	f2 45 0f 59 e7       	mulsd  %xmm15,%xmm12
+   141396f31:	66 4c 0f 6e f8       	movq   %rax,%xmm15
+   141396f36:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   141396f3b:	f2 44 0f 10 84 24 80 	movsd  0x80(%rsp),%xmm8
+   141396f42:	00 00 00 
+   141396f45:	f2 45 0f 5c fc       	subsd  %xmm12,%xmm15
+   141396f4a:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   141396f4f:	66 4d 0f 6e fa       	movq   %r10,%xmm15
+   141396f54:	f2 45 0f 5c f8       	subsd  %xmm8,%xmm15
+   141396f59:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141396f5e:	66 41 0f 28 c7       	movapd %xmm15,%xmm0
+   141396f63:	66 4d 0f 6e fa       	movq   %r10,%xmm15
+   141396f68:	f2 41 0f 58 c0       	addsd  %xmm8,%xmm0
+   141396f6d:	f2 44 0f 5c f8       	subsd  %xmm0,%xmm15
+   141396f72:	f2 41 0f 58 cf       	addsd  %xmm15,%xmm1
+   141396f77:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141396f7b:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
+   141396f81:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   141396f85:	0f 8a 42 f6 ff ff    	jp     1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   141396f8b:	0f 84 72 f6 ff ff    	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   141396f91:	e9 37 f6 ff ff       	jmp    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   141396f96:	80 bc 24 d6 00 00 00 	cmpb   $0x0,0xd6(%rsp)
+   141396f9d:	00 
+   141396f9e:	0f 84 a9 02 00 00    	je     14139724d <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x131d>
+   141396fa4:	f2 0f 10 86 80 01 00 	movsd  0x180(%rsi),%xmm0
+   141396fab:	00 
+   141396fac:	f2 0f 10 25 9c 82 f3 	movsd  0xf3829c(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141396fb3:	00 
+   141396fb4:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   141396fb8:	7a 06                	jp     141396fc0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1090>
+   141396fba:	0f 84 82 00 00 00    	je     141397042 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1112>
+   141396fc0:	f2 44 0f 10 84 24 e0 	movsd  0xe0(%rsp),%xmm8
+   141396fc7:	00 00 00 
+   141396fca:	f2 44 0f 10 a4 24 d8 	movsd  0xd8(%rsp),%xmm12
+   141396fd1:	00 00 00 
+   141396fd4:	f2 44 0f 10 bc 24 c8 	movsd  0xc8(%rsp),%xmm15
+   141396fdb:	00 00 00 
+   141396fde:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   141396fe3:	f2 41 0f 5c dc       	subsd  %xmm12,%xmm3
+   141396fe8:	f2 41 0f 5c cf       	subsd  %xmm15,%xmm1
+   141396fed:	f2 45 0f 5c f0       	subsd  %xmm8,%xmm14
+   141396ff2:	f2 41 0f 5c ec       	subsd  %xmm12,%xmm5
+   141396ff7:	f2 45 0f 5c ef       	subsd  %xmm15,%xmm13
+   141396ffc:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+   141397000:	f2 0f 59 d8          	mulsd  %xmm0,%xmm3
+   141397004:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   141397008:	f2 44 0f 59 f0       	mulsd  %xmm0,%xmm14
+   14139700d:	f2 0f 59 e8          	mulsd  %xmm0,%xmm5
+   141397011:	f2 44 0f 59 e8       	mulsd  %xmm0,%xmm13
+   141397016:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   14139701b:	f2 41 0f 58 dc       	addsd  %xmm12,%xmm3
+   141397020:	f2 41 0f 58 cf       	addsd  %xmm15,%xmm1
+   141397025:	f2 45 0f 58 f0       	addsd  %xmm8,%xmm14
+   14139702a:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   14139702f:	f2 41 0f 58 ec       	addsd  %xmm12,%xmm5
+   141397034:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141397039:	f2 45 0f 58 ef       	addsd  %xmm15,%xmm13
+   14139703e:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141397042:	f2 0f 10 86 88 01 00 	movsd  0x188(%rsi),%xmm0
+   141397049:	00 
+   14139704a:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   14139704e:	7a 06                	jp     141397056 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1126>
+   141397050:	0f 84 2b f5 ff ff    	je     141396581 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x651>
+   141397056:	f2 44 0f 10 bc 24 d8 	movsd  0xd8(%rsp),%xmm15
+   14139705d:	00 00 00 
+   141397060:	f2 44 0f 10 a4 24 c8 	movsd  0xc8(%rsp),%xmm12
+   141397067:	00 00 00 
+   14139706a:	f2 44 0f 10 84 24 e0 	movsd  0xe0(%rsp),%xmm8
+   141397071:	00 00 00 
+   141397074:	f2 41 0f 5c df       	subsd  %xmm15,%xmm3
+   141397079:	f2 41 0f 5c cc       	subsd  %xmm12,%xmm1
+   14139707e:	f2 41 0f 5c ef       	subsd  %xmm15,%xmm5
+   141397083:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   141397088:	f2 45 0f 5c f0       	subsd  %xmm8,%xmm14
+   14139708d:	f2 0f 59 d8          	mulsd  %xmm0,%xmm3
+   141397091:	f2 41 0f 58 cc       	addsd  %xmm12,%xmm1
+   141397096:	f2 0f 59 e8          	mulsd  %xmm0,%xmm5
+   14139709a:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   14139709f:	f2 0f 10 84 24 c8 00 	movsd  0xc8(%rsp),%xmm0
+   1413970a6:	00 00 
+   1413970a8:	f2 45 0f 58 f0       	addsd  %xmm8,%xmm14
+   1413970ad:	f2 44 0f 5c e8       	subsd  %xmm0,%xmm13
+   1413970b2:	66 44 0f 28 e1       	movapd %xmm1,%xmm12
+   1413970b7:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   1413970bc:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   1413970c1:	f2 41 0f 58 ef       	addsd  %xmm15,%xmm5
+   1413970c6:	f2 44 0f 58 e8       	addsd  %xmm0,%xmm13
+   1413970cb:	66 44 0f 14 e3       	unpcklpd %xmm3,%xmm12
+   1413970d0:	44 0f 11 27          	movups %xmm12,(%rdi)
+   1413970d4:	e9 a8 f4 ff ff       	jmp    141396581 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x651>
+   1413970d9:	66 45 0f ef e4       	pxor   %xmm12,%xmm12
+   1413970de:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   1413970e2:	66 0f ef db          	pxor   %xmm3,%xmm3
+   1413970e6:	40 88 ac 24 b1 00 00 	mov    %bpl,0xb1(%rsp)
+   1413970ed:	00 
+   1413970ee:	f3 0f 5a 53 2c       	cvtss2sd 0x2c(%rbx),%xmm2
+   1413970f3:	f3 0f 5a 5b 28       	cvtss2sd 0x28(%rbx),%xmm3
+   1413970f8:	4c 8b 8e 38 01 00 00 	mov    0x138(%rsi),%r9
+   1413970ff:	f2 0f 11 54 24 38    	movsd  %xmm2,0x38(%rsp)
+   141397105:	f2 0f 11 9c 24 b8 00 	movsd  %xmm3,0xb8(%rsp)
+   14139710c:	00 00 
+   14139710e:	f3 44 0f 5a 63 30    	cvtss2sd 0x30(%rbx),%xmm12
+   141397114:	e9 0f f3 ff ff       	jmp    141396428 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x4f8>
+   141397119:	f2 44 0f 10 84 24 f0 	movsd  0xf0(%rsp),%xmm8
+   141397120:	00 00 00 
+   141397123:	f2 44 0f 10 a4 24 c0 	movsd  0xc0(%rsp),%xmm12
+   14139712a:	00 00 00 
+   14139712d:	f2 44 0f 10 bc 24 e8 	movsd  0xe8(%rsp),%xmm15
+   141397134:	00 00 00 
+   141397137:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   14139713c:	f2 41 0f 5c dc       	subsd  %xmm12,%xmm3
+   141397141:	f2 41 0f 5c d7       	subsd  %xmm15,%xmm2
+   141397146:	f2 45 0f 5c f7       	subsd  %xmm15,%xmm14
+   14139714b:	f2 45 0f 5c e8       	subsd  %xmm8,%xmm13
+   141397150:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   141397154:	f2 41 0f 58 dc       	addsd  %xmm12,%xmm3
+   141397159:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+   14139715d:	f2 44 0f 59 f0       	mulsd  %xmm0,%xmm14
+   141397162:	f2 44 0f 59 e8       	mulsd  %xmm0,%xmm13
+   141397167:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   14139716c:	f2 41 0f 58 d7       	addsd  %xmm15,%xmm2
+   141397171:	f2 45 0f 58 f7       	addsd  %xmm15,%xmm14
+   141397176:	66 44 0f 28 e1       	movapd %xmm1,%xmm12
+   14139717b:	f2 45 0f 58 e8       	addsd  %xmm8,%xmm13
+   141397180:	66 44 0f 14 e3       	unpcklpd %xmm3,%xmm12
+   141397185:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   14139718a:	44 0f 11 27          	movups %xmm12,(%rdi)
+   14139718e:	f2 44 0f 10 a4 24 c0 	movsd  0xc0(%rsp),%xmm12
+   141397195:	00 00 00 
+   141397198:	f2 41 0f 5c ec       	subsd  %xmm12,%xmm5
+   14139719d:	f2 41 0f 58 ec       	addsd  %xmm12,%xmm5
+   1413971a2:	e9 37 f9 ff ff       	jmp    141396ade <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xbae>
+   1413971a7:	f2 0f 10 25 a1 80 f3 	movsd  0xf380a1(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   1413971ae:	00 
+   1413971af:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   1413971b4:	7a 06                	jp     1413971bc <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x128c>
+   1413971b6:	0f 84 83 00 00 00    	je     14139723f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x130f>
+   1413971bc:	f2 0f 10 84 24 88 00 	movsd  0x88(%rsp),%xmm0
+   1413971c3:	00 00 
+   1413971c5:	f2 44 0f 10 84 24 90 	movsd  0x90(%rsp),%xmm8
+   1413971cc:	00 00 00 
+   1413971cf:	f2 44 0f 10 bc 24 80 	movsd  0x80(%rsp),%xmm15
+   1413971d6:	00 00 00 
+   1413971d9:	f2 0f 5c d0          	subsd  %xmm0,%xmm2
+   1413971dd:	f2 41 0f 5c d8       	subsd  %xmm8,%xmm3
+   1413971e2:	f2 41 0f 5c cf       	subsd  %xmm15,%xmm1
+   1413971e7:	f2 44 0f 5c f0       	subsd  %xmm0,%xmm14
+   1413971ec:	f2 41 0f 5c e8       	subsd  %xmm8,%xmm5
+   1413971f1:	f2 45 0f 5c ef       	subsd  %xmm15,%xmm13
+   1413971f6:	f2 41 0f 59 d4       	mulsd  %xmm12,%xmm2
+   1413971fb:	f2 41 0f 59 dc       	mulsd  %xmm12,%xmm3
+   141397200:	f2 41 0f 59 cc       	mulsd  %xmm12,%xmm1
+   141397205:	f2 45 0f 59 f4       	mulsd  %xmm12,%xmm14
+   14139720a:	f2 41 0f 59 ec       	mulsd  %xmm12,%xmm5
+   14139720f:	f2 45 0f 59 ec       	mulsd  %xmm12,%xmm13
+   141397214:	f2 0f 58 d0          	addsd  %xmm0,%xmm2
+   141397218:	f2 41 0f 58 d8       	addsd  %xmm8,%xmm3
+   14139721d:	f2 41 0f 58 cf       	addsd  %xmm15,%xmm1
+   141397222:	f2 44 0f 58 f0       	addsd  %xmm0,%xmm14
+   141397227:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   14139722c:	f2 41 0f 58 e8       	addsd  %xmm8,%xmm5
+   141397231:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141397236:	f2 45 0f 58 ef       	addsd  %xmm15,%xmm13
+   14139723b:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   14139723f:	f2 44 0f 10 a6 88 01 	movsd  0x188(%rsi),%xmm12
+   141397246:	00 00 
+   141397248:	e9 42 fc ff ff       	jmp    141396e8f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0xf5f>
+   14139724d:	80 bc 24 b0 00 00 00 	cmpb   $0x0,0xb0(%rsp)
+   141397254:	00 
+   141397255:	0f 84 53 01 00 00    	je     1413973ae <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x147e>
+   14139725b:	f2 0f 10 86 70 01 00 	movsd  0x170(%rsi),%xmm0
+   141397262:	00 
+   141397263:	f2 0f 10 25 e5 7f f3 	movsd  0xf37fe5(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   14139726a:	00 
+   14139726b:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   14139726f:	7a 02                	jp     141397273 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1343>
+   141397271:	74 7d                	je     1413972f0 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x13c0>
+   141397273:	f2 44 0f 10 44 24 60 	movsd  0x60(%rsp),%xmm8
+   14139727a:	f2 44 0f 10 64 24 50 	movsd  0x50(%rsp),%xmm12
+   141397281:	f2 44 0f 10 7c 24 58 	movsd  0x58(%rsp),%xmm15
+   141397288:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   14139728d:	f2 45 0f 5c f0       	subsd  %xmm8,%xmm14
+   141397292:	f2 41 0f 5c cc       	subsd  %xmm12,%xmm1
+   141397297:	f2 41 0f 5c df       	subsd  %xmm15,%xmm3
+   14139729c:	f2 41 0f 5c ef       	subsd  %xmm15,%xmm5
+   1413972a1:	f2 0f 59 d0          	mulsd  %xmm0,%xmm2
+   1413972a5:	f2 44 0f 59 f0       	mulsd  %xmm0,%xmm14
+   1413972aa:	f2 41 0f 58 df       	addsd  %xmm15,%xmm3
+   1413972af:	f2 0f 59 c8          	mulsd  %xmm0,%xmm1
+   1413972b3:	f2 41 0f 58 ef       	addsd  %xmm15,%xmm5
+   1413972b8:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   1413972bd:	f2 45 0f 58 f0       	addsd  %xmm8,%xmm14
+   1413972c2:	f2 44 0f 10 44 24 50 	movsd  0x50(%rsp),%xmm8
+   1413972c9:	f2 41 0f 58 cc       	addsd  %xmm12,%xmm1
+   1413972ce:	f2 45 0f 5c e8       	subsd  %xmm8,%xmm13
+   1413972d3:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   1413972d8:	66 44 0f 28 e1       	movapd %xmm1,%xmm12
+   1413972dd:	f2 44 0f 59 e8       	mulsd  %xmm0,%xmm13
+   1413972e2:	66 44 0f 14 e3       	unpcklpd %xmm3,%xmm12
+   1413972e7:	44 0f 11 27          	movups %xmm12,(%rdi)
+   1413972eb:	f2 45 0f 58 e8       	addsd  %xmm8,%xmm13
+   1413972f0:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
+   1413972f6:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   1413972fa:	7a 06                	jp     141397302 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x13d2>
+   1413972fc:	0f 84 01 f3 ff ff    	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   141397302:	f2 44 0f 10 44 24 58 	movsd  0x58(%rsp),%xmm8
+   141397309:	f2 44 0f 10 7c 24 20 	movsd  0x20(%rsp),%xmm15
+   141397310:	f2 44 0f 10 64 24 50 	movsd  0x50(%rsp),%xmm12
+   141397317:	f2 0f 10 64 24 60    	movsd  0x60(%rsp),%xmm4
+   14139731d:	f2 41 0f 5c d8       	subsd  %xmm8,%xmm3
+   141397322:	f2 41 0f 5c e8       	subsd  %xmm8,%xmm5
+   141397327:	f2 41 0f 5c cc       	subsd  %xmm12,%xmm1
+   14139732c:	f2 0f 5c d4          	subsd  %xmm4,%xmm2
+   141397330:	f2 44 0f 5c f4       	subsd  %xmm4,%xmm14
+   141397335:	f2 45 0f 5c ec       	subsd  %xmm12,%xmm13
+   14139733a:	f2 41 0f 59 df       	mulsd  %xmm15,%xmm3
+   14139733f:	f2 41 0f 59 ef       	mulsd  %xmm15,%xmm5
+   141397344:	f2 41 0f 58 cc       	addsd  %xmm12,%xmm1
+   141397349:	f2 0f 58 d4          	addsd  %xmm4,%xmm2
+   14139734d:	f2 44 0f 58 f4       	addsd  %xmm4,%xmm14
+   141397352:	f2 45 0f 58 ec       	addsd  %xmm12,%xmm13
+   141397357:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   14139735b:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397360:	f2 41 0f 58 d8       	addsd  %xmm8,%xmm3
+   141397365:	f2 41 0f 58 e8       	addsd  %xmm8,%xmm5
+   14139736a:	66 0f 14 c3          	unpcklpd %xmm3,%xmm0
+   14139736e:	0f 11 07             	movups %xmm0,(%rdi)
+   141397371:	e9 57 f2 ff ff       	jmp    1413965cd <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x69d>
+   141397376:	f2 0f 10 84 24 90 00 	movsd  0x90(%rsp),%xmm0
+   14139737d:	00 00 
+   14139737f:	f2 45 0f 5c f0       	subsd  %xmm8,%xmm14
+   141397384:	f2 0f 5c e8          	subsd  %xmm0,%xmm5
+   141397388:	f2 45 0f 58 f0       	addsd  %xmm8,%xmm14
+   14139738d:	f2 41 0f 59 ec       	mulsd  %xmm12,%xmm5
+   141397392:	f2 0f 58 e8          	addsd  %xmm0,%xmm5
+   141397396:	f2 0f 10 84 24 80 00 	movsd  0x80(%rsp),%xmm0
+   14139739d:	00 00 
+   14139739f:	f2 44 0f 5c e8       	subsd  %xmm0,%xmm13
+   1413973a4:	f2 44 0f 58 e8       	addsd  %xmm0,%xmm13
+   1413973a9:	e9 cd fb ff ff       	jmp    141396f7b <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x104b>
+   1413973ae:	80 7c 24 2f 00       	cmpb   $0x0,0x2f(%rsp)
+   1413973b3:	0f 84 d9 00 00 00    	je     141397492 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1562>
+   1413973b9:	80 7c 24 2e 00       	cmpb   $0x0,0x2e(%rsp)
+   1413973be:	f2 0f 10 a6 80 01 00 	movsd  0x180(%rsi),%xmm4
+   1413973c5:	00 
+   1413973c6:	f2 44 0f 10 a6 70 01 	movsd  0x170(%rsi),%xmm12
+   1413973cd:	00 00 
+   1413973cf:	0f 85 a6 03 00 00    	jne    14139777b <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x184b>
+   1413973d5:	66 41 0f 2f e4       	comisd %xmm12,%xmm4
+   1413973da:	76 09                	jbe    1413973e5 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x14b5>
+   1413973dc:	45 84 ed             	test   %r13b,%r13b
+   1413973df:	0f 84 02 04 00 00    	je     1413977e7 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x18b7>
+   1413973e5:	f2 0f 10 25 63 7e f3 	movsd  0xf37e63(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   1413973ec:	00 
+   1413973ed:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   1413973f2:	7a 02                	jp     1413973f6 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x14c6>
+   1413973f4:	74 3f                	je     141397435 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1505>
+   1413973f6:	f2 44 0f 10 44 24 40 	movsd  0x40(%rsp),%xmm8
+   1413973fd:	f2 41 0f 5c d3       	subsd  %xmm11,%xmm2
+   141397402:	f2 41 0f 5c da       	subsd  %xmm10,%xmm3
+   141397407:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   14139740c:	f2 41 0f 59 d4       	mulsd  %xmm12,%xmm2
+   141397411:	f2 41 0f 58 da       	addsd  %xmm10,%xmm3
+   141397416:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   14139741a:	f2 41 0f 59 c4       	mulsd  %xmm12,%xmm0
+   14139741f:	f2 41 0f 58 d3       	addsd  %xmm11,%xmm2
+   141397424:	f2 41 0f 58 c0       	addsd  %xmm8,%xmm0
+   141397429:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   14139742e:	66 0f 14 c3          	unpcklpd %xmm3,%xmm0
+   141397432:	0f 11 07             	movups %xmm0,(%rdi)
+   141397435:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
+   14139743b:	f2 0f 10 57 10       	movsd  0x10(%rdi),%xmm2
+   141397440:	f2 0f 10 5f 08       	movsd  0x8(%rdi),%xmm3
+   141397445:	f2 0f 10 0f          	movsd  (%rdi),%xmm1
+   141397449:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   14139744d:	7a 06                	jp     141397455 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1525>
+   14139744f:	0f 84 ae f1 ff ff    	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   141397455:	f2 0f 10 64 24 40    	movsd  0x40(%rsp),%xmm4
+   14139745b:	f2 41 0f 5c da       	subsd  %xmm10,%xmm3
+   141397460:	f2 41 0f 5c d3       	subsd  %xmm11,%xmm2
+   141397465:	f2 0f 59 5c 24 20    	mulsd  0x20(%rsp),%xmm3
+   14139746b:	f2 0f 5c cc          	subsd  %xmm4,%xmm1
+   14139746f:	f2 41 0f 58 d3       	addsd  %xmm11,%xmm2
+   141397474:	f2 0f 58 cc          	addsd  %xmm4,%xmm1
+   141397478:	f2 41 0f 58 da       	addsd  %xmm10,%xmm3
+   14139747d:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397482:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   141397486:	66 0f 14 c3          	unpcklpd %xmm3,%xmm0
+   14139748a:	0f 11 07             	movups %xmm0,(%rdi)
+   14139748d:	e9 25 f1 ff ff       	jmp    1413965b7 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x687>
+   141397492:	80 bc 24 b2 00 00 00 	cmpb   $0x0,0xb2(%rsp)
+   141397499:	00 
+   14139749a:	f2 0f 10 25 ae 7d f3 	movsd  0xf37dae(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   1413974a1:	00 
+   1413974a2:	0f 84 00 02 00 00    	je     1413976a8 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1778>
+   1413974a8:	f2 44 0f 10 64 24 20 	movsd  0x20(%rsp),%xmm12
+   1413974af:	0f b6 5c 24 2f       	movzbl 0x2f(%rsp),%ebx
+   1413974b4:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   1413974b9:	0f 9b c0             	setnp  %al
+   1413974bc:	0f 45 c3             	cmovne %ebx,%eax
+   1413974bf:	84 c0                	test   %al,%al
+   1413974c1:	0f 85 a2 00 00 00    	jne    141397569 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1639>
+   1413974c7:	45 84 ed             	test   %r13b,%r13b
+   1413974ca:	0f 85 99 00 00 00    	jne    141397569 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1639>
+   1413974d0:	66 44 0f 28 c0       	movapd %xmm0,%xmm8
+   1413974d5:	f2 44 0f 10 64 24 30 	movsd  0x30(%rsp),%xmm12
+   1413974dc:	f2 45 0f 5c c3       	subsd  %xmm11,%xmm8
+   1413974e1:	f2 45 0f 58 c3       	addsd  %xmm11,%xmm8
+   1413974e6:	66 4c 0f 7e c2       	movq   %xmm8,%rdx
+   1413974eb:	f2 44 0f 10 44 24 48 	movsd  0x48(%rsp),%xmm8
+   1413974f2:	66 45 0f 28 f8       	movapd %xmm8,%xmm15
+   1413974f7:	f2 45 0f 5c fa       	subsd  %xmm10,%xmm15
+   1413974fc:	f2 44 0f 59 7c 24 20 	mulsd  0x20(%rsp),%xmm15
+   141397503:	f2 45 0f 58 fa       	addsd  %xmm10,%xmm15
+   141397508:	66 4c 0f 7e f8       	movq   %xmm15,%rax
+   14139750d:	f2 44 0f 10 7c 24 40 	movsd  0x40(%rsp),%xmm15
+   141397514:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   141397519:	f2 45 0f 5c e7       	subsd  %xmm15,%xmm12
+   14139751e:	f2 45 0f 58 e7       	addsd  %xmm15,%xmm12
+   141397523:	66 4c 0f 6e fa       	movq   %rdx,%xmm15
+   141397528:	f2 44 0f 5c f8       	subsd  %xmm0,%xmm15
+   14139752d:	66 48 0f 6e c0       	movq   %rax,%xmm0
+   141397532:	f2 41 0f 5c c0       	subsd  %xmm8,%xmm0
+   141397537:	f2 41 0f 58 d7       	addsd  %xmm15,%xmm2
+   14139753c:	f2 0f 58 d8          	addsd  %xmm0,%xmm3
+   141397540:	66 41 0f 28 c4       	movapd %xmm12,%xmm0
+   141397545:	f2 0f 5c 44 24 30    	subsd  0x30(%rsp),%xmm0
+   14139754b:	f2 44 0f 11 64 24 30 	movsd  %xmm12,0x30(%rsp)
+   141397552:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397557:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   14139755b:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141397560:	66 48 0f 6e c2       	movq   %rdx,%xmm0
+   141397565:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   141397569:	f2 44 0f 10 a6 70 01 	movsd  0x170(%rsi),%xmm12
+   141397570:	00 00 
+   141397572:	80 7c 24 2e 00       	cmpb   $0x0,0x2e(%rsp)
+   141397577:	f2 44 0f 10 be 80 01 	movsd  0x180(%rsi),%xmm15
+   14139757e:	00 00 
+   141397580:	0f 85 3d 01 00 00    	jne    1413976c3 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1793>
+   141397586:	66 45 0f 2f e7       	comisd %xmm15,%xmm12
+   14139758b:	76 09                	jbe    141397596 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1666>
+   14139758d:	45 84 ed             	test   %r13b,%r13b
+   141397590:	0f 84 8c 01 00 00    	je     141397722 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x17f2>
+   141397596:	66 44 0f 2e fc       	ucomisd %xmm4,%xmm15
+   14139759b:	7a 02                	jp     14139759f <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x166f>
+   14139759d:	74 46                	je     1413975e5 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x16b5>
+   14139759f:	f2 44 0f 10 64 24 78 	movsd  0x78(%rsp),%xmm12
+   1413975a6:	f2 41 0f 5c cc       	subsd  %xmm12,%xmm1
+   1413975ab:	f2 41 0f 59 cf       	mulsd  %xmm15,%xmm1
+   1413975b0:	f2 41 0f 58 cc       	addsd  %xmm12,%xmm1
+   1413975b5:	f2 44 0f 10 64 24 70 	movsd  0x70(%rsp),%xmm12
+   1413975bc:	f2 41 0f 5c dc       	subsd  %xmm12,%xmm3
+   1413975c1:	f2 41 0f 58 dc       	addsd  %xmm12,%xmm3
+   1413975c6:	66 0f 14 cb          	unpcklpd %xmm3,%xmm1
+   1413975ca:	f2 0f 10 5c 24 68    	movsd  0x68(%rsp),%xmm3
+   1413975d0:	0f 11 0f             	movups %xmm1,(%rdi)
+   1413975d3:	f2 0f 5c d3          	subsd  %xmm3,%xmm2
+   1413975d7:	f2 41 0f 59 d7       	mulsd  %xmm15,%xmm2
+   1413975dc:	f2 0f 58 d3          	addsd  %xmm3,%xmm2
+   1413975e0:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   1413975e5:	f2 44 0f 10 be 88 01 	movsd  0x188(%rsi),%xmm15
+   1413975ec:	00 00 
+   1413975ee:	f2 0f 10 57 10       	movsd  0x10(%rdi),%xmm2
+   1413975f3:	f2 0f 10 5f 08       	movsd  0x8(%rdi),%xmm3
+   1413975f8:	f2 0f 10 0f          	movsd  (%rdi),%xmm1
+   1413975fc:	66 44 0f 2e fc       	ucomisd %xmm4,%xmm15
+   141397601:	7a 06                	jp     141397609 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x16d9>
+   141397603:	0f 84 9f 00 00 00    	je     1413976a8 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1778>
+   141397609:	f2 44 0f 10 44 24 68 	movsd  0x68(%rsp),%xmm8
+   141397610:	66 44 0f 28 e0       	movapd %xmm0,%xmm12
+   141397615:	f2 45 0f 5c e0       	subsd  %xmm8,%xmm12
+   14139761a:	f2 41 0f 5c d0       	subsd  %xmm8,%xmm2
+   14139761f:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   141397624:	f2 41 0f 58 d0       	addsd  %xmm8,%xmm2
+   141397629:	f2 44 0f 10 44 24 70 	movsd  0x70(%rsp),%xmm8
+   141397630:	f2 41 0f 5c d8       	subsd  %xmm8,%xmm3
+   141397635:	f2 41 0f 5c c4       	subsd  %xmm12,%xmm0
+   14139763a:	f2 41 0f 59 df       	mulsd  %xmm15,%xmm3
+   14139763f:	f2 0f 58 d0          	addsd  %xmm0,%xmm2
+   141397643:	f2 0f 10 44 24 48    	movsd  0x48(%rsp),%xmm0
+   141397649:	66 44 0f 28 e0       	movapd %xmm0,%xmm12
+   14139764e:	f2 45 0f 5c e0       	subsd  %xmm8,%xmm12
+   141397653:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397658:	f2 41 0f 58 d8       	addsd  %xmm8,%xmm3
+   14139765d:	f2 45 0f 59 e7       	mulsd  %xmm15,%xmm12
+   141397662:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   141397667:	f2 44 0f 10 44 24 78 	movsd  0x78(%rsp),%xmm8
+   14139766e:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   141397673:	f2 41 0f 5c c4       	subsd  %xmm12,%xmm0
+   141397678:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   14139767d:	f2 0f 58 d8          	addsd  %xmm0,%xmm3
+   141397681:	f2 0f 10 44 24 30    	movsd  0x30(%rsp),%xmm0
+   141397687:	66 44 0f 28 e0       	movapd %xmm0,%xmm12
+   14139768c:	f2 45 0f 5c e0       	subsd  %xmm8,%xmm12
+   141397691:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   141397696:	f2 45 0f 58 e0       	addsd  %xmm8,%xmm12
+   14139769b:	f2 41 0f 5c c4       	subsd  %xmm12,%xmm0
+   1413976a0:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   1413976a4:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   1413976a8:	f2 0f 10 44 24 20    	movsd  0x20(%rsp),%xmm0
+   1413976ae:	66 0f 2e c4          	ucomisd %xmm4,%xmm0
+   1413976b2:	0f 8a ff ee ff ff    	jp     1413965b7 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x687>
+   1413976b8:	0f 84 45 ef ff ff    	je     141396603 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x6d3>
+   1413976be:	e9 f4 ee ff ff       	jmp    1413965b7 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x687>
+   1413976c3:	f2 45 0f 58 e7       	addsd  %xmm15,%xmm12
+   1413976c8:	f2 44 0f 59 25 af 7b 	mulsd  0xf37baf(%rip),%xmm12        # 1422cf280 <.rdata+0x460>
+   1413976cf:	f3 00 
+   1413976d1:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   1413976d6:	7a 06                	jp     1413976de <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x17ae>
+   1413976d8:	0f 84 07 ff ff ff    	je     1413975e5 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x16b5>
+   1413976de:	f2 44 0f 10 44 24 30 	movsd  0x30(%rsp),%xmm8
+   1413976e5:	f2 0f 5c d0          	subsd  %xmm0,%xmm2
+   1413976e9:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   1413976ee:	f2 41 0f 59 d4       	mulsd  %xmm12,%xmm2
+   1413976f3:	f2 41 0f 59 cc       	mulsd  %xmm12,%xmm1
+   1413976f8:	f2 0f 58 d0          	addsd  %xmm0,%xmm2
+   1413976fc:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   141397701:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397706:	f2 0f 11 0f          	movsd  %xmm1,(%rdi)
+   14139770a:	f2 0f 10 4c 24 48    	movsd  0x48(%rsp),%xmm1
+   141397710:	f2 0f 5c d9          	subsd  %xmm1,%xmm3
+   141397714:	f2 0f 58 d9          	addsd  %xmm1,%xmm3
+   141397718:	f2 0f 11 5f 08       	movsd  %xmm3,0x8(%rdi)
+   14139771d:	e9 c3 fe ff ff       	jmp    1413975e5 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x16b5>
+   141397722:	f2 44 0f 10 44 24 78 	movsd  0x78(%rsp),%xmm8
+   141397729:	f2 45 0f 58 e7       	addsd  %xmm15,%xmm12
+   14139772e:	f2 44 0f 59 25 49 7b 	mulsd  0xf37b49(%rip),%xmm12        # 1422cf280 <.rdata+0x460>
+   141397735:	f3 00 
+   141397737:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   14139773c:	f2 41 0f 59 cc       	mulsd  %xmm12,%xmm1
+   141397741:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   141397746:	f2 44 0f 10 44 24 70 	movsd  0x70(%rsp),%xmm8
+   14139774d:	f2 41 0f 5c d8       	subsd  %xmm8,%xmm3
+   141397752:	f2 41 0f 58 d8       	addsd  %xmm8,%xmm3
+   141397757:	66 0f 14 cb          	unpcklpd %xmm3,%xmm1
+   14139775b:	f2 0f 10 5c 24 68    	movsd  0x68(%rsp),%xmm3
+   141397761:	0f 11 0f             	movups %xmm1,(%rdi)
+   141397764:	f2 0f 5c d3          	subsd  %xmm3,%xmm2
+   141397768:	f2 41 0f 59 d4       	mulsd  %xmm12,%xmm2
+   14139776d:	f2 0f 58 d3          	addsd  %xmm3,%xmm2
+   141397771:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397776:	e9 6a fe ff ff       	jmp    1413975e5 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x16b5>
+   14139777b:	f2 44 0f 58 e4       	addsd  %xmm4,%xmm12
+   141397780:	f2 0f 10 25 c8 7a f3 	movsd  0xf37ac8(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141397787:	00 
+   141397788:	f2 44 0f 59 25 ef 7a 	mulsd  0xf37aef(%rip),%xmm12        # 1422cf280 <.rdata+0x460>
+   14139778f:	f3 00 
+   141397791:	66 44 0f 2e e4       	ucomisd %xmm4,%xmm12
+   141397796:	7a 06                	jp     14139779e <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x186e>
+   141397798:	0f 84 97 fc ff ff    	je     141397435 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1505>
+   14139779e:	f2 44 0f 10 44 24 30 	movsd  0x30(%rsp),%xmm8
+   1413977a5:	f2 0f 5c d0          	subsd  %xmm0,%xmm2
+   1413977a9:	f2 41 0f 5c c8       	subsd  %xmm8,%xmm1
+   1413977ae:	f2 41 0f 59 cc       	mulsd  %xmm12,%xmm1
+   1413977b3:	f2 41 0f 58 c8       	addsd  %xmm8,%xmm1
+   1413977b8:	f2 44 0f 10 44 24 48 	movsd  0x48(%rsp),%xmm8
+   1413977bf:	f2 41 0f 5c d8       	subsd  %xmm8,%xmm3
+   1413977c4:	f2 41 0f 58 d8       	addsd  %xmm8,%xmm3
+   1413977c9:	66 0f 14 cb          	unpcklpd %xmm3,%xmm1
+   1413977cd:	0f 11 0f             	movups %xmm1,(%rdi)
+   1413977d0:	66 0f 28 ca          	movapd %xmm2,%xmm1
+   1413977d4:	f2 41 0f 59 cc       	mulsd  %xmm12,%xmm1
+   1413977d9:	f2 0f 58 c8          	addsd  %xmm0,%xmm1
+   1413977dd:	f2 0f 11 4f 10       	movsd  %xmm1,0x10(%rdi)
+   1413977e2:	e9 4e fc ff ff       	jmp    141397435 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1505>
+   1413977e7:	f2 41 0f 58 e4       	addsd  %xmm12,%xmm4
+   1413977ec:	f2 44 0f 10 64 24 40 	movsd  0x40(%rsp),%xmm12
+   1413977f3:	f2 41 0f 5c d3       	subsd  %xmm11,%xmm2
+   1413977f8:	f2 0f 59 25 80 7a f3 	mulsd  0xf37a80(%rip),%xmm4        # 1422cf280 <.rdata+0x460>
+   1413977ff:	00 
+   141397800:	f2 41 0f 5c da       	subsd  %xmm10,%xmm3
+   141397805:	f2 41 0f 5c cc       	subsd  %xmm12,%xmm1
+   14139780a:	f2 41 0f 58 da       	addsd  %xmm10,%xmm3
+   14139780f:	f2 0f 59 d4          	mulsd  %xmm4,%xmm2
+   141397813:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   141397817:	f2 0f 59 c4          	mulsd  %xmm4,%xmm0
+   14139781b:	f2 0f 10 25 2d 7a f3 	movsd  0xf37a2d(%rip),%xmm4        # 1422cf250 <.rdata+0x430>
+   141397822:	00 
+   141397823:	f2 41 0f 58 d3       	addsd  %xmm11,%xmm2
+   141397828:	f2 41 0f 58 c4       	addsd  %xmm12,%xmm0
+   14139782d:	f2 0f 11 57 10       	movsd  %xmm2,0x10(%rdi)
+   141397832:	66 0f 14 c3          	unpcklpd %xmm3,%xmm0
+   141397836:	0f 11 07             	movups %xmm0,(%rdi)
+   141397839:	e9 f7 fb ff ff       	jmp    141397435 <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x1505>
+   14139783e:	49 89 c5             	mov    %rax,%r13
+   141397841:	4c 89 e1             	mov    %r12,%rcx
+   141397844:	e8 c7 95 4b 00       	call   141850e10 <_ZN7QStringD1Ev>
+   141397849:	4c 89 e9             	mov    %r13,%rcx
+   14139784c:	e8 e7 da 3b 00       	call   141755338 <_Unwind_Resume>
+   141397851:	eb eb                	jmp    14139783e <_ZNK15Au3dsGLSLObject16ApplyScaleFactorER7AuPoint+0x190e>
+   141397853:	90                   	nop
+   141397854:	90                   	nop
+   141397855:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14139785c:	00 00 00 00

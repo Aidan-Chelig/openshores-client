@@ -1037,6 +1037,42 @@ full wing/limb animation and Animate ordering, production timer/model/Person
 ownership and final native avatar publication remain unfinished requirements
 of the original end-to-end objective.
 
+### Priority: visible native geometry, not more isolated animation stages
+
+After confirming the client still renders only a diagnostic native-avatar
+sphere, work is now on the missing skin/mesh pipeline. Full animation remains
+required, but another isolated wing transform does not close the geometry or
+production receive-to-render gap. No placeholder avatar has been substituted.
+
+The existing analyzed session8086 supplied these complete records under
+`target/native-model-analysis-4`, without reimport:
+
+- `dp-torso-create-skin.json` / `dp-create-skin.json` (1.006/0.085s): actual
+  part virtual28 dispatch, skin material setup, torso segment resource selection
+  and merge ordering. The torso is assembled, not a single guessed filename.
+- `cache-create-body-model.json` / `modelinstance-create-geometry.json`
+  (0.085/0.082s): definition-unpacking wrapper and raw model loader.
+- `modelinstance-generate-body.json` / `glsl-object-load-body.json`
+  (0.481/1.204s): copied model/object state, definition fields, group bone-weight
+  assignment, body-triangle construction and ApplyScaleFactor call sites.
+- `glsl-object-apply-scale.json` / `glsl-object-texture-offset.json`
+  (0.151/0.144s): named-group CPU deformation and independent texture handling.
+
+`NativeBodyObjectScale` and `Mesh::body_unweighted_positions` now implement
+the proven unweighted deformation branch; complete source-bound evidence,
+verification and the explicit grouped-mesh Unsupported boundary are documented
+in `docs/native-models.md`. This is the first geometry-deformation step, not
+visible avatars. The entire ApplyScaleFactor record is committed for reuse;
+there is no need to requery it. Its misleading hidden-result signature has
+been checked against GNU.
+
+Next geometry work is actual vertex-group membership and named scaling/connection
+rules in that retained routine, then native definition/part assembly, bone-weight
+publication and an actual client mesh. Production dispatch/Person/model ownership,
+updates, full animation and local/offline end-to-end verification remain required
+under the unchanged objective. Do not claim the diagnostic preview, unweighted
+helper or passing scalar tests satisfy those gates.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or

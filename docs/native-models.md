@@ -237,3 +237,34 @@ position-key deduplication, shared screen state and helper precedence.
 strict Clippy); local GUI and user-installation mount/cache checks pass with
 all 4,882 assets retained and the same 2,224 conversions / 2 opaque models.
 No original executable or DLL is executed, and no public game service is used.
+
+## Native body deformation: unweighted branch
+
+`NativeBodyObjectScale` starts the actual CPU skin-deformation path rather than
+adding more skeletal animation or treating raw assets as finished avatars.
+`Au3dsGLSLObject::ApplyScaleFactor` has a hidden AuPoint result in RCX, object
+in RDX and input point in R8; the decompiler's one-argument signature is wrong.
+The proven no-group/no-matching-group branch reads double140, float offsets
+1c0/1c4/1c8 and float connection coordinates1f4/1f8/1fc. Float metadata widens
+before independent double products. It computes offset-origin*scale plus
+point*scale, NOT (point-origin)*scale+offset. Zero scale skips input/origin
+arithmetic completely, including NaNs; NaN scale takes the nonzero path.
+
+`Mesh::body_unweighted_positions` composes existing native coordinate loading
+with this operation ONLY when the mesh has no vertex groups. Any grouped mesh
+returns Unsupported. This is a deliberate temporary support boundary, not a
+claim all grouped vertices require deformation or a successful uniform-scale
+fallback. The low-level unweighted helper requires callers to establish that
+the point has no matching groups. Renderer publication, weighted deformation,
+body assembly, bone assignment and production Person context remain unfinished;
+this does not make avatars visible in-game.
+
+Complete static Evidence
+`ev_413b8d0889ff3bece7696843079d27ff60f635084248ddc2dc5bb4eba8c1bbb0`
+is retained in `docs/evidence/native-body-apply-scale.json`, with full GNU in
+`native-body-apply-scale-gnu.txt`. `just test-native-body-scale` verifies the
+original SHA256, hidden-result ABI, float metadata, no-group gate and exact
+zero/nonzero branch arithmetic, then tests cancellation-sensitive products,
+zero/NaN/nonfinite inputs, coordinate-stage ordering, input preservation and
+explicit grouped-mesh rejection. These are static/Rust checks, not native
+execution, weighted-mesh parity or rendering verification.
