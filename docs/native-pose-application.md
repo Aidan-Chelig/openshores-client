@@ -80,8 +80,10 @@ A must-use request still requires actual SitAtConsole. Complete reviewed
 shows that it computes OpPose, reuses/replaces consoles by CurrentGeneralPose,
 can notify a parent capsule, applies body poses, conditionally restarts5c0's
 timer and **unconditionally** assigns trailing492 afterward. OpPose,
-Animalia InitPoses and CurrentGeneralPose still need reconstruction. It is not
-safe to equate the request with those completed effects.
+Animalia InitPoses and CurrentGeneralPose are now implemented from complete
+independent assembly; see native-sitting-pose-data.md. Console lifecycle,
+capsule notification and actual animation still require concrete application.
+It is not safe to equate the request with those completed effects.
 
 ## Verification and remaining boundary
 

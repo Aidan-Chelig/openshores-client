@@ -166,3 +166,16 @@ requests were not accepted. Next reconstruct OpPose/InitPoses/CurrentGeneralPose
 and concrete console/body effects, then complete Person reception/dispatch and
 presentation. Required animation callbacks and typed sit requests are not
 substitutes for these outstanding runtime effects.
+
+Sitting calculations milestone: complete OpPose main/occupant tables and its
+shared-u32 random branch, Animalia InitPoses, CurrentGeneralPose body precedence,
+body-specific sitting argument construction and console marker rules are now
+implemented. Independent complete GNU records/table bytes resolve these unseen
+helpers without reopening Ghidra. Missing required shared random state fails
+explicitly instead of inventing a seed. Tests cover raw bounds, signed indices,
+table mappings, random overflow/sequencing and sitting-vs-fallback markers.
+Actual console lifecycle/capsule notification/animation, the concrete Creature
+context and complete Person dispatch/presentation remain open.
+Verification: `just check` passes 368 headless and 389 client library tests,
+9 CLI tests per profile, 1 graphical-entry CLI test, formatting and strict
+client-feature all-target Clippy.

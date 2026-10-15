@@ -1,0 +1,522 @@
+Independent GNU static observations; not REA Evidence IDs.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Exact COFF symbols; trailing whitespace normalized; no supplied native target execution.
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411e9f90 <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_>:
+   1411e9f90:	8b 01                	mov    (%rcx),%eax
+   1411e9f92:	44 8d 80 75 ff ff ff 	lea    -0x8b(%rax),%r8d
+   1411e9f99:	41 83 f8 14          	cmp    $0x14,%r8d
+   1411e9f9d:	76 31                	jbe    1411e9fd0 <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_+0x40>
+   1411e9f9f:	4c 8d 42 24          	lea    0x24(%rdx),%r8
+   1411e9fa3:	89 02                	mov    %eax,(%rdx)
+   1411e9fa5:	4c 39 c1             	cmp    %r8,%rcx
+   1411e9fa8:	73 05                	jae    1411e9faf <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_+0x1f>
+   1411e9faa:	48 39 d1             	cmp    %rdx,%rcx
+   1411e9fad:	77 41                	ja     1411e9ff0 <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_+0x60>
+   1411e9faf:	66 0f 6e c8          	movd   %eax,%xmm1
+   1411e9fb3:	66 0f 70 c1 00       	pshufd $0x0,%xmm1,%xmm0
+   1411e9fb8:	0f 11 42 04          	movups %xmm0,0x4(%rdx)
+   1411e9fbc:	0f 11 42 14          	movups %xmm0,0x14(%rdx)
+   1411e9fc0:	b8 8c 00 00 00       	mov    $0x8c,%eax
+   1411e9fc5:	89 42 24             	mov    %eax,0x24(%rdx)
+   1411e9fc8:	c3                   	ret
+   1411e9fc9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1411e9fd0:	66 0f 6f 05 48 88 0c 	movdqa 0x10c8848(%rip),%xmm0        # 1422b2820 <CSWTCH.788+0x100>
+   1411e9fd7:	01
+   1411e9fd8:	c7 42 20 24 00 00 00 	movl   $0x24,0x20(%rdx)
+   1411e9fdf:	0f 11 02             	movups %xmm0,(%rdx)
+   1411e9fe2:	0f 11 42 10          	movups %xmm0,0x10(%rdx)
+   1411e9fe6:	8b 01                	mov    (%rcx),%eax
+   1411e9fe8:	89 42 24             	mov    %eax,0x24(%rdx)
+   1411e9feb:	c3                   	ret
+   1411e9fec:	0f 1f 40 00          	nopl   0x0(%rax)
+   1411e9ff0:	89 42 04             	mov    %eax,0x4(%rdx)
+   1411e9ff3:	8b 01                	mov    (%rcx),%eax
+   1411e9ff5:	89 42 08             	mov    %eax,0x8(%rdx)
+   1411e9ff8:	89 42 0c             	mov    %eax,0xc(%rdx)
+   1411e9ffb:	8b 01                	mov    (%rcx),%eax
+   1411e9ffd:	89 42 10             	mov    %eax,0x10(%rdx)
+   1411ea000:	89 42 14             	mov    %eax,0x14(%rdx)
+   1411ea003:	8b 01                	mov    (%rcx),%eax
+   1411ea005:	89 42 18             	mov    %eax,0x18(%rdx)
+   1411ea008:	89 42 1c             	mov    %eax,0x1c(%rdx)
+   1411ea00b:	8b 01                	mov    (%rcx),%eax
+   1411ea00d:	89 42 20             	mov    %eax,0x20(%rdx)
+   1411ea010:	eb ae                	jmp    1411e9fc0 <_ZN10AuAnimalia9InitPosesERK6AuPosePS0_+0x30>
+   1411ea012:	0f 1f 00             	nopl   (%rax)
+   1411ea015:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1411ea01c:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014097ed20 <_ZNK10DaCreature18CurrentGeneralPoseEv>:
+   14097ed20:	41 55                	push   %r13
+   14097ed22:	41 54                	push   %r12
+   14097ed24:	53                   	push   %rbx
+   14097ed25:	48 83 ec 20          	sub    $0x20,%rsp
+   14097ed29:	48 89 d3             	mov    %rdx,%rbx
+   14097ed2c:	4c 8d aa 98 04 00 00 	lea    0x498(%rdx),%r13
+   14097ed33:	c7 01 00 00 00 00    	movl   $0x0,(%rcx)
+   14097ed39:	49 89 cc             	mov    %rcx,%r12
+   14097ed3c:	4c 89 e9             	mov    %r13,%rcx
+   14097ed3f:	ff 15 e3 3a f1 01    	call   *0x1f13ae3(%rip)        # 142892828 <__imp__ZN14QReadWriteLock11lockForReadEv>
+   14097ed45:	48 8b 83 b0 05 00 00 	mov    0x5b0(%rbx),%rax
+   14097ed4c:	48 85 c0             	test   %rax,%rax
+   14097ed4f:	74 1f                	je     14097ed70 <_ZNK10DaCreature18CurrentGeneralPoseEv+0x50>
+   14097ed51:	8b 40 48             	mov    0x48(%rax),%eax
+   14097ed54:	41 89 04 24          	mov    %eax,(%r12)
+   14097ed58:	4c 89 e9             	mov    %r13,%rcx
+   14097ed5b:	ff 15 df 3a f1 01    	call   *0x1f13adf(%rip)        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14097ed61:	4c 89 e0             	mov    %r12,%rax
+   14097ed64:	48 83 c4 20          	add    $0x20,%rsp
+   14097ed68:	5b                   	pop    %rbx
+   14097ed69:	41 5c                	pop    %r12
+   14097ed6b:	41 5d                	pop    %r13
+   14097ed6d:	c3                   	ret
+   14097ed6e:	66 90                	xchg   %ax,%ax
+   14097ed70:	48 8b 83 a0 04 00 00 	mov    0x4a0(%rbx),%rax
+   14097ed77:	8b 40 6c             	mov    0x6c(%rax),%eax
+   14097ed7a:	eb d8                	jmp    14097ed54 <_ZNK10DaCreature18CurrentGeneralPoseEv+0x34>
+   14097ed7c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414bde20 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi>:
+   1414bde20:	48 83 ec 18          	sub    $0x18,%rsp
+   1414bde24:	48 89 c8             	mov    %rcx,%rax
+   1414bde27:	83 fa 3b             	cmp    $0x3b,%edx
+   1414bde2a:	77 1c                	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414bde2c:	48 8d 0d 01 01 e2 00 	lea    0xe20101(%rip),%rcx        # 1422ddf34 <.rdata+0x1f4>
+   1414bde33:	89 d2                	mov    %edx,%edx
+   1414bde35:	48 63 14 91          	movslq (%rcx,%rdx,4),%rdx
+   1414bde39:	48 01 ca             	add    %rcx,%rdx
+   1414bde3c:	ff e2                	jmp    *%rdx
+   1414bde3e:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414bde42:	0f 84 8c 00 00 00    	je     1414bded4 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0xb4>
+   1414bde48:	c7 00 24 00 00 00    	movl   $0x24,(%rax)
+   1414bde4e:	48 83 c4 18          	add    $0x18,%rsp
+   1414bde52:	c3                   	ret
+   1414bde53:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bde58:	48 8b 15 91 ab ee 00 	mov    0xeeab91(%rip),%rdx        # 1423a89f0 <.refptr.gp_AuGlobal>
+   1414bde5f:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414bde63:	4c 8b 02             	mov    (%rdx),%r8
+   1414bde66:	41 69 90 f4 00 00 00 	imul   $0x41c64e6d,0xf4(%r8),%edx
+   1414bde6d:	6d 4e c6 41
+   1414bde71:	8d 8a 39 30 00 00    	lea    0x3039(%rdx),%ecx
+   1414bde77:	f2 48 0f 2a c1       	cvtsi2sd %rcx,%xmm0
+   1414bde7c:	f2 0f 59 05 64 03 e2 	mulsd  0xe20364(%rip),%xmm0        # 1422de1e8 <CSWTCH.40+0x88>
+   1414bde83:	00
+   1414bde84:	48 89 ca             	mov    %rcx,%rdx
+   1414bde87:	f2 0f 59 05 61 03 e2 	mulsd  0xe20361(%rip),%xmm0        # 1422de1f0 <CSWTCH.40+0x90>
+   1414bde8e:	00
+   1414bde8f:	f2 0f 2c c8          	cvttsd2si %xmm0,%ecx
+   1414bde93:	45 85 c9             	test   %r9d,%r9d
+   1414bde96:	0f 85 f4 05 00 00    	jne    1414be490 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x670>
+   1414bde9c:	66 0f 6f 05 5c 03 e2 	movdqa 0xe2035c(%rip),%xmm0        # 1422de200 <CSWTCH.40+0xa0>
+   1414bdea3:	00
+   1414bdea4:	48 63 c9             	movslq %ecx,%rcx
+   1414bdea7:	41 89 90 f4 00 00 00 	mov    %edx,0xf4(%r8)
+   1414bdeae:	0f 29 04 24          	movaps %xmm0,(%rsp)
+   1414bdeb2:	8b 14 8c             	mov    (%rsp,%rcx,4),%edx
+   1414bdeb5:	89 10                	mov    %edx,(%rax)
+   1414bdeb7:	eb 95                	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdeb9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1414bdec0:	41 83 f8 04          	cmp    $0x4,%r8d
+   1414bdec4:	0f 87 74 ff ff ff    	ja     1414bde3e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x1e>
+   1414bdeca:	41 83 f8 02          	cmp    $0x2,%r8d
+   1414bdece:	0f 87 cc 05 00 00    	ja     1414be4a0 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x680>
+   1414bded4:	c7 00 86 00 00 00    	movl   $0x86,(%rax)
+   1414bdeda:	e9 6f ff ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdedf:	90                   	nop
+   1414bdee0:	41 83 f9 02          	cmp    $0x2,%r9d
+   1414bdee4:	0f 84 d1 05 00 00    	je     1414be4bb <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x69b>
+   1414bdeea:	0f 8f 88 05 00 00    	jg     1414be478 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x658>
+   1414bdef0:	45 85 c9             	test   %r9d,%r9d
+   1414bdef3:	0f 84 b7 05 00 00    	je     1414be4b0 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x690>
+   1414bdef9:	41 83 f9 01          	cmp    $0x1,%r9d
+   1414bdefd:	0f 85 45 ff ff ff    	jne    1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414bdf03:	c7 00 43 00 00 00    	movl   $0x43,(%rax)
+   1414bdf09:	e9 40 ff ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf0e:	66 90                	xchg   %ax,%ax
+   1414bdf10:	c7 00 0b 00 00 00    	movl   $0xb,(%rax)
+   1414bdf16:	e9 33 ff ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf1b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf20:	c7 00 09 00 00 00    	movl   $0x9,(%rax)
+   1414bdf26:	e9 23 ff ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf2b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf30:	c7 00 0d 00 00 00    	movl   $0xd,(%rax)
+   1414bdf36:	e9 13 ff ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf3b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf40:	c7 00 0a 00 00 00    	movl   $0xa,(%rax)
+   1414bdf46:	e9 03 ff ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf4b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf50:	c7 00 3d 00 00 00    	movl   $0x3d,(%rax)
+   1414bdf56:	e9 f3 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf60:	c7 00 3c 00 00 00    	movl   $0x3c,(%rax)
+   1414bdf66:	e9 e3 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf6b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf70:	c7 00 3b 00 00 00    	movl   $0x3b,(%rax)
+   1414bdf76:	e9 d3 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf7b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf80:	c7 00 3a 00 00 00    	movl   $0x3a,(%rax)
+   1414bdf86:	e9 c3 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf8b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdf90:	c7 00 0e 00 00 00    	movl   $0xe,(%rax)
+   1414bdf96:	e9 b3 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdf9b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdfa0:	c7 00 0f 00 00 00    	movl   $0xf,(%rax)
+   1414bdfa6:	e9 a3 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdfab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdfb0:	c7 00 39 00 00 00    	movl   $0x39,(%rax)
+   1414bdfb6:	e9 93 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414bdfbb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414bdfc0:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414bdfc4:	0f 87 7e fe ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414bdfca:	48 8d 0d 53 00 e2 00 	lea    0xe20053(%rip),%rcx        # 1422de024 <.rdata+0x2e4>
+   1414bdfd1:	45 89 c0             	mov    %r8d,%r8d
+   1414bdfd4:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414bdfd8:	48 01 ca             	add    %rcx,%rdx
+   1414bdfdb:	ff e2                	jmp    *%rdx
+   1414bdfdd:	0f 1f 00             	nopl   (%rax)
+   1414bdfe0:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414bdfe4:	0f 87 5e fe ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414bdfea:	48 8d 0d 4b 00 e2 00 	lea    0xe2004b(%rip),%rcx        # 1422de03c <.rdata+0x2fc>
+   1414bdff1:	45 89 c0             	mov    %r8d,%r8d
+   1414bdff4:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414bdff8:	48 01 ca             	add    %rcx,%rdx
+   1414bdffb:	ff e2                	jmp    *%rdx
+   1414bdffd:	0f 1f 00             	nopl   (%rax)
+   1414be000:	c7 00 03 00 00 00    	movl   $0x3,(%rax)
+   1414be006:	e9 43 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be00b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be010:	c7 00 07 00 00 00    	movl   $0x7,(%rax)
+   1414be016:	e9 33 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be01b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be020:	c7 00 08 00 00 00    	movl   $0x8,(%rax)
+   1414be026:	e9 23 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be02b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be030:	c7 00 06 00 00 00    	movl   $0x6,(%rax)
+   1414be036:	e9 13 fe ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be03b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be040:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be044:	0f 87 fe fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be04a:	48 8d 0d 03 00 e2 00 	lea    0xe20003(%rip),%rcx        # 1422de054 <.rdata+0x314>
+   1414be051:	45 89 c0             	mov    %r8d,%r8d
+   1414be054:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be058:	48 01 ca             	add    %rcx,%rdx
+   1414be05b:	ff e2                	jmp    *%rdx
+   1414be05d:	0f 1f 00             	nopl   (%rax)
+   1414be060:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be064:	0f 87 de fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be06a:	48 8d 0d fb ff e1 00 	lea    0xe1fffb(%rip),%rcx        # 1422de06c <.rdata+0x32c>
+   1414be071:	45 89 c0             	mov    %r8d,%r8d
+   1414be074:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be078:	48 01 ca             	add    %rcx,%rdx
+   1414be07b:	ff e2                	jmp    *%rdx
+   1414be07d:	0f 1f 00             	nopl   (%rax)
+   1414be080:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be084:	0f 87 be fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be08a:	48 8d 0d f3 ff e1 00 	lea    0xe1fff3(%rip),%rcx        # 1422de084 <.rdata+0x344>
+   1414be091:	45 89 c0             	mov    %r8d,%r8d
+   1414be094:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be098:	48 01 ca             	add    %rcx,%rdx
+   1414be09b:	ff e2                	jmp    *%rdx
+   1414be09d:	0f 1f 00             	nopl   (%rax)
+   1414be0a0:	c7 00 0c 00 00 00    	movl   $0xc,(%rax)
+   1414be0a6:	e9 a3 fd ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be0ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be0b0:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be0b4:	0f 87 8e fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be0ba:	48 8d 0d db ff e1 00 	lea    0xe1ffdb(%rip),%rcx        # 1422de09c <.rdata+0x35c>
+   1414be0c1:	45 89 c0             	mov    %r8d,%r8d
+   1414be0c4:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be0c8:	48 01 ca             	add    %rcx,%rdx
+   1414be0cb:	ff e2                	jmp    *%rdx
+   1414be0cd:	0f 1f 00             	nopl   (%rax)
+   1414be0d0:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be0d4:	0f 87 6e fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be0da:	48 8d 0d d3 ff e1 00 	lea    0xe1ffd3(%rip),%rcx        # 1422de0b4 <.rdata+0x374>
+   1414be0e1:	45 89 c0             	mov    %r8d,%r8d
+   1414be0e4:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be0e8:	48 01 ca             	add    %rcx,%rdx
+   1414be0eb:	ff e2                	jmp    *%rdx
+   1414be0ed:	0f 1f 00             	nopl   (%rax)
+   1414be0f0:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be0f4:	0f 87 4e fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be0fa:	48 8d 0d cb ff e1 00 	lea    0xe1ffcb(%rip),%rcx        # 1422de0cc <.rdata+0x38c>
+   1414be101:	45 89 c0             	mov    %r8d,%r8d
+   1414be104:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be108:	48 01 ca             	add    %rcx,%rdx
+   1414be10b:	ff e2                	jmp    *%rdx
+   1414be10d:	0f 1f 00             	nopl   (%rax)
+   1414be110:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be114:	0f 87 2e fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be11a:	48 8d 0d c3 ff e1 00 	lea    0xe1ffc3(%rip),%rcx        # 1422de0e4 <.rdata+0x3a4>
+   1414be121:	45 89 c0             	mov    %r8d,%r8d
+   1414be124:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be128:	48 01 ca             	add    %rcx,%rdx
+   1414be12b:	ff e2                	jmp    *%rdx
+   1414be12d:	0f 1f 00             	nopl   (%rax)
+   1414be130:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be134:	0f 87 0e fd ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be13a:	48 8d 0d bb ff e1 00 	lea    0xe1ffbb(%rip),%rcx        # 1422de0fc <.rdata+0x3bc>
+   1414be141:	45 89 c0             	mov    %r8d,%r8d
+   1414be144:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be148:	48 01 ca             	add    %rcx,%rdx
+   1414be14b:	ff e2                	jmp    *%rdx
+   1414be14d:	0f 1f 00             	nopl   (%rax)
+   1414be150:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be154:	0f 87 ee fc ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be15a:	48 8d 0d b3 ff e1 00 	lea    0xe1ffb3(%rip),%rcx        # 1422de114 <.rdata+0x3d4>
+   1414be161:	45 89 c0             	mov    %r8d,%r8d
+   1414be164:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be168:	48 01 ca             	add    %rcx,%rdx
+   1414be16b:	ff e2                	jmp    *%rdx
+   1414be16d:	0f 1f 00             	nopl   (%rax)
+   1414be170:	41 83 f8 05          	cmp    $0x5,%r8d
+   1414be174:	0f 87 ce fc ff ff    	ja     1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be17a:	48 8d 0d ab ff e1 00 	lea    0xe1ffab(%rip),%rcx        # 1422de12c <.rdata+0x3ec>
+   1414be181:	45 89 c0             	mov    %r8d,%r8d
+   1414be184:	4a 63 14 81          	movslq (%rcx,%r8,4),%rdx
+   1414be188:	48 01 ca             	add    %rcx,%rdx
+   1414be18b:	ff e2                	jmp    *%rdx
+   1414be18d:	0f 1f 00             	nopl   (%rax)
+   1414be190:	c7 00 3e 00 00 00    	movl   $0x3e,(%rax)
+   1414be196:	e9 b3 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be19b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be1a0:	41 83 f9 02          	cmp    $0x2,%r9d
+   1414be1a4:	0f 84 31 03 00 00    	je     1414be4db <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x6bb>
+   1414be1aa:	0f 8f b3 02 00 00    	jg     1414be463 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x643>
+   1414be1b0:	45 85 c9             	test   %r9d,%r9d
+   1414be1b3:	0f 84 17 03 00 00    	je     1414be4d0 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x6b0>
+   1414be1b9:	41 83 f9 01          	cmp    $0x1,%r9d
+   1414be1bd:	0f 85 85 fc ff ff    	jne    1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be1c3:	c7 00 47 00 00 00    	movl   $0x47,(%rax)
+   1414be1c9:	e9 80 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be1ce:	66 90                	xchg   %ax,%ax
+   1414be1d0:	c7 00 05 00 00 00    	movl   $0x5,(%rax)
+   1414be1d6:	e9 73 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be1db:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be1e0:	c7 00 41 00 00 00    	movl   $0x41,(%rax)
+   1414be1e6:	e9 63 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be1eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be1f0:	c7 00 40 00 00 00    	movl   $0x40,(%rax)
+   1414be1f6:	e9 53 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be1fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be200:	c7 00 3f 00 00 00    	movl   $0x3f,(%rax)
+   1414be206:	e9 43 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be20b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be210:	c7 00 64 00 00 00    	movl   $0x64,(%rax)
+   1414be216:	e9 33 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be21b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be220:	c7 00 75 00 00 00    	movl   $0x75,(%rax)
+   1414be226:	e9 23 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be22b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be230:	c7 00 71 00 00 00    	movl   $0x71,(%rax)
+   1414be236:	e9 13 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be23b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be240:	c7 00 68 00 00 00    	movl   $0x68,(%rax)
+   1414be246:	e9 03 fc ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be24b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be250:	c7 00 79 00 00 00    	movl   $0x79,(%rax)
+   1414be256:	e9 f3 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be25b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be260:	c7 00 58 00 00 00    	movl   $0x58,(%rax)
+   1414be266:	e9 e3 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be26b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be270:	c7 00 60 00 00 00    	movl   $0x60,(%rax)
+   1414be276:	e9 d3 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be27b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be280:	c7 00 54 00 00 00    	movl   $0x54,(%rax)
+   1414be286:	e9 c3 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be28b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be290:	c7 00 5c 00 00 00    	movl   $0x5c,(%rax)
+   1414be296:	e9 b3 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be29b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be2a0:	c7 00 7d 00 00 00    	movl   $0x7d,(%rax)
+   1414be2a6:	e9 a3 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2ab:	c7 00 81 00 00 00    	movl   $0x81,(%rax)
+   1414be2b1:	e9 98 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2b6:	c7 00 6d 00 00 00    	movl   $0x6d,(%rax)
+   1414be2bc:	e9 8d fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2c1:	c7 00 57 00 00 00    	movl   $0x57,(%rax)
+   1414be2c7:	e9 82 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2cc:	c7 00 5f 00 00 00    	movl   $0x5f,(%rax)
+   1414be2d2:	e9 77 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2d7:	c7 00 5e 00 00 00    	movl   $0x5e,(%rax)
+   1414be2dd:	e9 6c fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2e2:	c7 00 5d 00 00 00    	movl   $0x5d,(%rax)
+   1414be2e8:	e9 61 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2ed:	c7 00 56 00 00 00    	movl   $0x56,(%rax)
+   1414be2f3:	e9 56 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be2f8:	c7 00 55 00 00 00    	movl   $0x55,(%rax)
+   1414be2fe:	e9 4b fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be303:	c7 00 7f 00 00 00    	movl   $0x7f,(%rax)
+   1414be309:	e9 40 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be30e:	c7 00 7e 00 00 00    	movl   $0x7e,(%rax)
+   1414be314:	e9 35 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be319:	c7 00 80 00 00 00    	movl   $0x80,(%rax)
+   1414be31f:	e9 2a fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be324:	c7 00 78 00 00 00    	movl   $0x78,(%rax)
+   1414be32a:	e9 1f fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be32f:	c7 00 74 00 00 00    	movl   $0x74,(%rax)
+   1414be335:	e9 14 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be33a:	c7 00 73 00 00 00    	movl   $0x73,(%rax)
+   1414be340:	e9 09 fb ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be345:	c7 00 72 00 00 00    	movl   $0x72,(%rax)
+   1414be34b:	e9 fe fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be350:	c7 00 77 00 00 00    	movl   $0x77,(%rax)
+   1414be356:	e9 f3 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be35b:	c7 00 76 00 00 00    	movl   $0x76,(%rax)
+   1414be361:	e9 e8 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be366:	c7 00 67 00 00 00    	movl   $0x67,(%rax)
+   1414be36c:	e9 dd fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be371:	c7 00 5b 00 00 00    	movl   $0x5b,(%rax)
+   1414be377:	e9 d2 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be37c:	c7 00 63 00 00 00    	movl   $0x63,(%rax)
+   1414be382:	e9 c7 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be387:	c7 00 62 00 00 00    	movl   $0x62,(%rax)
+   1414be38d:	e9 bc fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be392:	c7 00 61 00 00 00    	movl   $0x61,(%rax)
+   1414be398:	e9 b1 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be39d:	c7 00 6a 00 00 00    	movl   $0x6a,(%rax)
+   1414be3a3:	e9 a6 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3a8:	c7 00 69 00 00 00    	movl   $0x69,(%rax)
+   1414be3ae:	e9 9b fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3b3:	c7 00 5a 00 00 00    	movl   $0x5a,(%rax)
+   1414be3b9:	e9 90 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3be:	c7 00 59 00 00 00    	movl   $0x59,(%rax)
+   1414be3c4:	e9 85 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3c9:	c7 00 6b 00 00 00    	movl   $0x6b,(%rax)
+   1414be3cf:	e9 7a fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3d4:	c7 00 7c 00 00 00    	movl   $0x7c,(%rax)
+   1414be3da:	e9 6f fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3df:	c7 00 7b 00 00 00    	movl   $0x7b,(%rax)
+   1414be3e5:	e9 64 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3ea:	c7 00 7a 00 00 00    	movl   $0x7a,(%rax)
+   1414be3f0:	e9 59 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be3f5:	c7 00 66 00 00 00    	movl   $0x66,(%rax)
+   1414be3fb:	e9 4e fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be400:	c7 00 65 00 00 00    	movl   $0x65,(%rax)
+   1414be406:	e9 43 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be40b:	c7 00 84 00 00 00    	movl   $0x84,(%rax)
+   1414be411:	e9 38 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be416:	c7 00 70 00 00 00    	movl   $0x70,(%rax)
+   1414be41c:	e9 2d fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be421:	c7 00 6f 00 00 00    	movl   $0x6f,(%rax)
+   1414be427:	e9 22 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be42c:	c7 00 6e 00 00 00    	movl   $0x6e,(%rax)
+   1414be432:	e9 17 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be437:	c7 00 6c 00 00 00    	movl   $0x6c,(%rax)
+   1414be43d:	e9 0c fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be442:	c7 00 85 00 00 00    	movl   $0x85,(%rax)
+   1414be448:	e9 01 fa ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be44d:	c7 00 83 00 00 00    	movl   $0x83,(%rax)
+   1414be453:	e9 f6 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be458:	c7 00 82 00 00 00    	movl   $0x82,(%rax)
+   1414be45e:	e9 eb f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be463:	41 83 f9 03          	cmp    $0x3,%r9d
+   1414be467:	0f 85 db f9 ff ff    	jne    1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be46d:	c7 00 49 00 00 00    	movl   $0x49,(%rax)
+   1414be473:	e9 d6 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be478:	41 83 f9 03          	cmp    $0x3,%r9d
+   1414be47c:	0f 85 c6 f9 ff ff    	jne    1414bde48 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x28>
+   1414be482:	c7 00 45 00 00 00    	movl   $0x45,(%rax)
+   1414be488:	e9 c1 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be48d:	0f 1f 00             	nopl   (%rax)
+   1414be490:	66 0f 6f 05 78 fd e1 	movdqa 0xe1fd78(%rip),%xmm0        # 1422de210 <CSWTCH.40+0xb0>
+   1414be497:	00
+   1414be498:	e9 07 fa ff ff       	jmp    1414bdea4 <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x84>
+   1414be49d:	0f 1f 00             	nopl   (%rax)
+   1414be4a0:	c7 00 87 00 00 00    	movl   $0x87,(%rax)
+   1414be4a6:	e9 a3 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be4ab:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1414be4b0:	c7 00 42 00 00 00    	movl   $0x42,(%rax)
+   1414be4b6:	e9 93 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be4bb:	c7 00 44 00 00 00    	movl   $0x44,(%rax)
+   1414be4c1:	e9 88 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be4c6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1414be4cd:	00 00 00
+   1414be4d0:	c7 00 46 00 00 00    	movl   $0x46,(%rax)
+   1414be4d6:	e9 73 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be4db:	c7 00 48 00 00 00    	movl   $0x48,(%rax)
+   1414be4e1:	e9 68 f9 ff ff       	jmp    1414bde4e <_ZN9AuStation6OpPoseENS_4TYPEENS_17OCCUPANT_POSITIONEi+0x2e>
+   1414be4e6:	90                   	nop
+   1414be4e7:	90                   	nop
+   1414be4e8:	90                   	nop
+   1414be4e9:	90                   	nop
+   1414be4ea:	90                   	nop
+   1414be4eb:	90                   	nop
+   1414be4ec:	90                   	nop
+   1414be4ed:	90                   	nop
+   1414be4ee:	90                   	nop
+   1414be4ef:	90                   	nop
+
+Main60 and12 occupant6 signed-relative jump tables:
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422ddf34 ac021eff 9c021eff fc001eff ec001eff  ................
+ 1422ddf44 dc001eff cc001eff fcff1dff ecff1dff  ................
+ 1422ddf54 0c001eff dcff1dff 6c011eff 4c011eff  ........l...L...
+ 1422ddf64 2c011eff 0c011eff 3c021eff 1c021eff  ,.......<.......
+ 1422ddf74 fc011eff dc011eff 9c011eff 7c011eff  ............|...
+ 1422ddf84 bc011eff ac001eff 8c001eff 7c001eff  ............|...
+ 1422ddf94 6c001eff 5c001eff 4c001eff 3c001eff  l...\...L...<...
+ 1422ddfa4 2c001eff 1c001eff 5c021eff cc021eff  ,.......\.......
+ 1422ddfb4 bc021eff acff1dff acff1dff 6c021eff  ............l...
+ 1422ddfc4 24ff1dff 24ff1dff 24ff1dff 24ff1dff  $...$...$...$...
+ 1422ddfd4 24ff1dff 24ff1dff 24ff1dff 24ff1dff  $...$...$...$...
+ 1422ddfe4 24ff1dff 24ff1dff 24ff1dff 24ff1dff  $...$...$...$...
+ 1422ddff4 24ff1dff 24ff1dff 24ff1dff 24ff1dff  $...$...$...$...
+ 1422de004 24ff1dff 24ff1dff 24ff1dff 24ff1dff  $...$...$...$...
+ 1422de014 24ff1dff 8cff1dff 8cff1dff 8cff1dff  $...............
+ 1422de024 87021eff 34041eff 29041eff e7031eff  ....4...).......
+ 1422de034 1e041eff 87021eff 64021eff d2021eff  ........d.......
+ 1422de044 64021eff c7021eff dd021eff 64021eff  d...........d...
+ 1422de054 3c021eff 8e021eff 3c021eff 83021eff  <.......<.......
+ 1422de064 78021eff 3c021eff f4011eff 52031eff  x...<.......R...
+ 1422de074 f4011eff 47031eff 05031eff f4011eff  ....G...........
+ 1422de084 fc011eff 74021eff fc011eff 69021eff  ....t.......i...
+ 1422de094 3d021eff fc011eff 84011eff bf021eff  =...............
+ 1422de0a4 84011eff b4021eff 88021eff 84011eff  ................
+ 1422de0b4 7c011eff 91021eff 7c011eff 86021eff  |.......|.......
+ 1422de0c4 7b021eff 7c011eff 84011eff 1e031eff  {...|...........
+ 1422de0d4 84011eff 13031eff 08031eff 84011eff  ................
+ 1422de0e4 d2011eff 48031eff d2011eff 3d031eff  ....H.......=...
+ 1422de0f4 32031eff 53031eff 44011eff ac021eff  2...S...D.......
+ 1422de104 44011eff a1021eff cd021eff 44011eff  D...........D...
+ 1422de114 fc001eff ec021eff fc001eff e1021eff  ................
+ 1422de124 52021eff fc001eff 44011eff 66021eff  R.......D...f...
+ 1422de134 44011eff 5b021eff 50021eff 44011eff  D...[...P...D...
+
+InitPoses SIMD and random arithmetic/choice constants:
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422b2820 24000000 24000000 24000000 24000000  $...$...$...$...
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422de1e8 00000000 00001040 00000000 0000f03d  .......@.......=
+ 1422de1f8 00000000 00000000 4c000000 4d000000  ........L...M...
+ 1422de208 4e000000 4f000000 50000000 51000000  N...O...P...Q...
+ 1422de218 52000000 53000000                    R...S...

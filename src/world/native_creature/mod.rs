@@ -26,7 +26,9 @@ pub use receiving::{
 mod pose_application;
 pub use pose_application::{
     NativeAnimaliaPoseChange, NativeAnimaliaPoseState, NativeCreaturePoseMarkers,
-    NativeDpBodyPoseState, NativeStationPoseRequest, native_station_occupant_position,
+    NativeDpBodyPoseState, NativeStationPoseRequest, native_animalia_initialize_poses,
+    native_current_general_pose, native_station_body_pose, native_station_occupant_position,
+    native_station_operator_pose,
 };
 
 #[derive(Clone, Debug, PartialEq, Eq)]
