@@ -716,3 +716,19 @@ These are individual selected fallback pieces, NOT a successfully merged or
 rendered avatar. MergeHeadWithInstance, cache/failure conditions, eye-location
 writes, patched-model publication, torso merging, full bone weights and live
 client/avatar rendering remain unfinished under the original objective.
+# Native weight bone-name routing
+
+`native_body_is_bone`, `native_body_tail_bone`, and `native_body_neck_bone`
+reconstruct the name routing called by `AverageWeights`. Complete static REA
+records are retained in `evidence/native-body-is-bone.json`,
+`evidence/native-body-find-tail-bone.json`, and
+`evidence/native-body-find-neck-bone.json` (entries 141397860, 141397dd0,
+141397ee0). Existing analysis output was reused; no executable was launched
+or reimported. Matching is case-sensitive, anatomical substring priority is
+preserved, and missing Left means right. Exact tail-name lookup defaults to
+17, whereas unknown neck names default to zero. Tests cover precedence,
+negative/large bone indices, exact names, and both fallback values.
+
+This is routing only: per-vertex weight assignment, coordinate-stage integration,
+body assembly, and actual avatar rendering remain incomplete.
+

@@ -12,7 +12,9 @@ fn invalid(message: &str) -> io::Error {
 mod body_scale;
 mod coordinates;
 pub use body_scale::NativeBodyObjectScale;
+mod body_bone_names;
 mod body_groups;
+pub use body_bone_names::{native_body_is_bone, native_body_neck_bone, native_body_tail_bone};
 pub use body_groups::NativeBodyVertexGroup;
 mod body_object_groups;
 pub use body_object_groups::NativeBodyObjectGroups;
