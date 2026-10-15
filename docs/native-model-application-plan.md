@@ -859,6 +859,53 @@ Remaining limb stages/full Animate, native production timer/model/Person
 ownership, mesh generation/publication and final minimal-client presentation
 are still unfinished under the unchanged end-to-end objective.
 
+### Concrete arm RotateShoulder dependency
+
+`NativeDpPartState::rotate_arm_shoulder` now implements the actual arm
+operation required by the wing and arm stages. It gets the three actual
+Bones outputs and current attachment, widens the f32 angle before sincos,
+constructs the native expanded pivot transform and calls the primary matrix
+operator* in native reference order. Ordinary arms and wing forms5/6 rotate
+all three bones. Other wing forms with nonzero arm/wing selectors rotate ONLY
+the first out-reference bone. The part's own DNA is authoritative, including
+wing bits cleared during allocation. Zero/signed-zero angles preserve all
+matrix/flag bits; NaN enters the operation. Non-arm kinds are Unsupported
+before writes. No Arm joint-field dependency is invented for this operation.
+
+The still-live analyzed session8086 was revalidated and reused. Batched
+StandWings/GlideWings/FlyWings queries took0.096–0.108s; shoulder/elbow/StandWing
+wrappers0.078–0.085s; their concrete clones0.114–0.138s. All complete results
+remain in `target/native-model-analysis-4`; no executable reimport occurred.
+Body wing wrappers visit actual wing-bearing arm parts and require these
+concrete rotations, so a dispatcher with successful placeholder operations
+was not added. Elbow/StandWing evidence is retained for the next step, not
+claimed implemented.
+
+Complete canonical shoulder Evidence
+`ev_c11283686be75940378b0af850eb1eae282b7a217060060713ee274cf2ab884a`
+and concrete clone
+`ev_a8d5653e2dcb212733675fd1082fcbc41d0acd7361fe29a047776bc0ac80b189`
+are in `docs/evidence/native-dp-arm-rotate-shoulder{,-part0}.json`, with full
+GNU in `native-dp-arm-shoulder-gnu.txt`. GNU resolves the hidden matrix-return
+arguments and the clone's one-versus-three product branches. It also preserves
+grouping obscured by flattened pseudocode: post-pivot Z/W translations add a
+completed initial translation to completed product terms. Input flags are not
+consulted; the previously verified primary-only operator makes all secondary
+copy paths unreachable.
+
+`just test-native-dp-arm-shoulder` binds static guards, virtual calls, branch
+selectors, pivot arithmetic and all product call sites to the supplied target,
+then tests all256 wing bytes, arm counts, both sides and pair/fallback indices,
+dense non-affine products, repeated current pivots, zero/NaN handling and
+unsupported kinds. The mounted16-part waist fixture additionally checks
+shoulder rotation after repeated real waist transforms: preserved attachment,
+independently rotated projected points and unchanged unselected bones. These
+are offline/static/Rust checks, not original-client execution or cross-platform
+libm bit parity.558 headless and580 client library tests and strict all-target
+Clippy pass. Remaining elbow/wrist/wing and limb stages, full Animate,
+production model/timer/Person ownership and actual native avatar mesh
+publication remain required by the original end-to-end goal.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or
