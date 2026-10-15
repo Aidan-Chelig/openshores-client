@@ -120,3 +120,12 @@ be confused with native null factory results.
 
 Next implement the verified bodies and resolve remaining nested readers, then compose
 the concrete counted layer into Unit reception.
+
+Rust `world::native_condition` now decodes the eight verified bodies directly.
+Four known complex types return Unsupported; native null-factory types return
+None without consumption. The reader is atomic on errors (Rust safety, not Qt
+error parity), uses the existing strict QString decoder, preserves signed i64
+timestamps and nonzero raw bytes, and applies only the observed zero-to-one
+normalization. Tests cover every scalar byte, every truncated scalar/string
+prefix, null/empty/Unicode strings, extreme timestamps and all 256 type bytes.
+This is not yet a counted list, Unit composition or complete Person dispatch.
