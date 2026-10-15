@@ -110,6 +110,10 @@ test-native-dp-model-keys:
     nix develop .#server-test --command python tests/native_dp_model_keys.py
 
 # Read/decode native hand resources from a selected user installation, offline.
+test-native-pose-rhythm:
+    nix develop .#server-test --command python tests/native_pose_rhythm.py
+    nix develop .#server-test --command cargo test --offline --lib pose_rhythm
+
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture
 

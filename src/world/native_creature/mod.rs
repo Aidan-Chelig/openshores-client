@@ -24,12 +24,14 @@ pub use receiving::{
     NativeCreatureReceiveContext, NativeCreatureReceiveState,
 };
 mod pose_application;
+mod pose_rhythm;
 pub use pose_application::{
     NativeAnimaliaPoseChange, NativeAnimaliaPoseState, NativeCreaturePoseMarkers,
     NativeDpBodyPoseState, NativeStationPoseRequest, native_animalia_initialize_poses,
     native_current_general_pose, native_station_body_pose, native_station_occupant_position,
     native_station_operator_pose,
 };
+pub use pose_rhythm::{NativePoseRhythmTimer, native_dh_pose_rhythm, native_pose_rhythm};
 mod console_state;
 mod station_construction;
 pub use console_state::{NativeConsoleBody, NativeConsoleState, NativeConsoleWireReceive};

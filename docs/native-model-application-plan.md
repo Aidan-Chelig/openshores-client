@@ -292,6 +292,29 @@ follow the actual target addresses when resolving those dependencies.
 
 ### Remaining integration gates
 
+The shared native pose-rhythm dependency is now implemented in
+`native_creature/pose_rhythm`: full-width pose classification, exact immediate
+zero versus sine paths, signed reference milliseconds modulo60000 and the
+observed ordered f32 stages. DhDNA's low-nibble rate adjustment starts its timer
+before entering AuPose, even for an immediate-zero pose. A required timer
+interface exposes start and msecsSinceReference separately; there is no guessed
+elapsed-time or wall-clock fallback. The production time-domain provider remains
+part of the production context work.
+
+Complete static records are retained in `docs/evidence/native-pose-rhythm.json`
+and `native-dhdna-rhythm.json`, with GNU return-register/call-site corroboration
+in `native-pose-rhythm-gnu.txt`. The decompiler misidentified AuPose's return as
+an integer and confused DhDNA's void timer-start return with a float argument.
+The SSE instructions prove the rate/phase argument registers and float return;
+those misleading expressions were not copied into Rust. `just
+test-native-pose-rhythm` checks the SHA-bound native switch targets, mask and
+scalar constants, timer calls and numeric widths, then runs offline fixtures.
+Tests cover every byte pose, full-width defaults, signed reference extremes,
+all256 DNA selector bytes, timer call order/errors and nonfinite inputs. Rust's
+platform sine implementation is used; no cross-platform bit-identical native
+libm or original-game runtime parity is claimed. Complete body animation still
+requires composing this operation with the real pose, bone and resource state.
+
 1. Implement the real model/part state and mounted-resource selection from the
    verified constructor/SetDNA paths. Unresolved generation must fail explicitly;
    an empty model or successful no-op is not a fallback implementation.
