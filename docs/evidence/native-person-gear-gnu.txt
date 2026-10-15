@@ -1,0 +1,356 @@
+Independent static GNU evidence; target SHA-256 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80. No target execution.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414f04b0 <_ZNK6AuItem7FixItemEv>:
+   1414f04b0:	66 83 79 08 02       	cmpw   $0x2,0x8(%rcx)
+   1414f04b5:	74 09                	je     1414f04c0 <_ZNK6AuItem7FixItemEv+0x10>
+   1414f04b7:	31 c0                	xor    %eax,%eax
+   1414f04b9:	c3                   	ret
+   1414f04ba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1414f04c0:	0f b6 51 20          	movzbl 0x20(%rcx),%edx
+   1414f04c4:	44 8b 49 0c          	mov    0xc(%rcx),%r9d
+   1414f04c8:	44 8b 41 10          	mov    0x10(%rcx),%r8d
+   1414f04cc:	b9 a1 00 00 00       	mov    $0xa1,%ecx
+   1414f04d1:	e9 ea f7 ff ff       	jmp    1414efcc0 <_ZN6AuItem6CreateE11COMMODITYIDhjj>
+   1414f04d6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1414f04dd:	00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414c6120 <_ZN10AuGearSlotlsER11QDataStream>:
+   1414c6120:	41 54                	push   %r12
+   1414c6122:	56                   	push   %rsi
+   1414c6123:	53                   	push   %rbx
+   1414c6124:	48 83 ec 30          	sub    $0x30,%rsp
+   1414c6128:	48 8b 35 b1 c5 3c 01 	mov    0x13cc5b1(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1414c612f:	49 89 d4             	mov    %rdx,%r12
+   1414c6132:	48 89 cb             	mov    %rcx,%rbx
+   1414c6135:	48 8d 54 24 2e       	lea    0x2e(%rsp),%rdx
+   1414c613a:	4c 89 e1             	mov    %r12,%rcx
+   1414c613d:	ff d6                	call   *%rsi
+   1414c613f:	0f b6 44 24 2e       	movzbl 0x2e(%rsp),%eax
+   1414c6144:	31 d2                	xor    %edx,%edx
+   1414c6146:	89 c1                	mov    %eax,%ecx
+   1414c6148:	c0 e8 04             	shr    $0x4,%al
+   1414c614b:	83 e1 0f             	and    $0xf,%ecx
+   1414c614e:	88 ca                	mov    %cl,%dl
+   1414c6150:	4c 89 e1             	mov    %r12,%rcx
+   1414c6153:	88 c6                	mov    %al,%dh
+   1414c6155:	66 89 53 08          	mov    %dx,0x8(%rbx)
+   1414c6159:	48 8d 54 24 2f       	lea    0x2f(%rsp),%rdx
+   1414c615e:	ff d6                	call   *%rsi
+   1414c6160:	0f b6 4c 24 2f       	movzbl 0x2f(%rsp),%ecx
+   1414c6165:	84 c9                	test   %cl,%cl
+   1414c6167:	75 17                	jne    1414c6180 <_ZN10AuGearSlotlsER11QDataStream+0x60>
+   1414c6169:	48 c7 03 00 00 00 00 	movq   $0x0,(%rbx)
+   1414c6170:	48 83 c4 30          	add    $0x30,%rsp
+   1414c6174:	5b                   	pop    %rbx
+   1414c6175:	5e                   	pop    %rsi
+   1414c6176:	41 5c                	pop    %r12
+   1414c6178:	c3                   	ret
+   1414c6179:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1414c6180:	e8 5b a4 02 00       	call   1414f05e0 <_ZN6AuItem6CreateEh>
+   1414c6185:	48 89 03             	mov    %rax,(%rbx)
+   1414c6188:	48 89 c1             	mov    %rax,%rcx
+   1414c618b:	48 85 c0             	test   %rax,%rax
+   1414c618e:	74 e0                	je     1414c6170 <_ZN10AuGearSlotlsER11QDataStream+0x50>
+   1414c6190:	48 8b 00             	mov    (%rax),%rax
+   1414c6193:	4c 89 e2             	mov    %r12,%rdx
+   1414c6196:	ff 50 28             	call   *0x28(%rax)
+   1414c6199:	48 8b 0b             	mov    (%rbx),%rcx
+   1414c619c:	e8 0f a3 02 00       	call   1414f04b0 <_ZNK6AuItem7FixItemEv>
+   1414c61a1:	48 89 c6             	mov    %rax,%rsi
+   1414c61a4:	48 85 c0             	test   %rax,%rax
+   1414c61a7:	74 c7                	je     1414c6170 <_ZN10AuGearSlotlsER11QDataStream+0x50>
+   1414c61a9:	48 8b 0b             	mov    (%rbx),%rcx
+   1414c61ac:	48 85 c9             	test   %rcx,%rcx
+   1414c61af:	74 06                	je     1414c61b7 <_ZN10AuGearSlotlsER11QDataStream+0x97>
+   1414c61b1:	48 8b 01             	mov    (%rcx),%rax
+   1414c61b4:	ff 50 08             	call   *0x8(%rax)
+   1414c61b7:	48 89 33             	mov    %rsi,(%rbx)
+   1414c61ba:	48 83 c4 30          	add    $0x30,%rsp
+   1414c61be:	5b                   	pop    %rbx
+   1414c61bf:	5e                   	pop    %rsi
+   1414c61c0:	41 5c                	pop    %r12
+   1414c61c2:	c3                   	ret
+   1414c61c3:	90                   	nop
+   1414c61c4:	90                   	nop
+   1414c61c5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1414c61cc:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414c83e0 <_ZN6AuGearlsER11QDataStream>:
+   1414c83e0:	41 57                	push   %r15
+   1414c83e2:	41 56                	push   %r14
+   1414c83e4:	41 55                	push   %r13
+   1414c83e6:	41 54                	push   %r12
+   1414c83e8:	55                   	push   %rbp
+   1414c83e9:	57                   	push   %rdi
+   1414c83ea:	56                   	push   %rsi
+   1414c83eb:	53                   	push   %rbx
+   1414c83ec:	48 81 ec 98 00 00 00 	sub    $0x98,%rsp
+   1414c83f3:	0f 29 b4 24 80 00 00 	movaps %xmm6,0x80(%rsp)
+   1414c83fa:	00
+   1414c83fb:	4c 8b 2d 3e aa 3c 01 	mov    0x13caa3e(%rip),%r13        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   1414c8402:	4c 8b 31             	mov    (%rcx),%r14
+   1414c8405:	4c 89 29             	mov    %r13,(%rcx)
+   1414c8408:	41 8b 06             	mov    (%r14),%eax
+   1414c840b:	48 89 cf             	mov    %rcx,%rdi
+   1414c840e:	48 89 d6             	mov    %rdx,%rsi
+   1414c8411:	85 c0                	test   %eax,%eax
+   1414c8413:	0f 84 d7 02 00 00    	je     1414c86f0 <_ZN6AuGearlsER11QDataStream+0x310>
+   1414c8419:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1414c841c:	74 0b                	je     1414c8429 <_ZN6AuGearlsER11QDataStream+0x49>
+   1414c841e:	f0 41 83 2e 01       	lock subl $0x1,(%r14)
+   1414c8423:	0f 84 c7 02 00 00    	je     1414c86f0 <_ZN6AuGearlsER11QDataStream+0x310>
+   1414c8429:	41 8b 45 00          	mov    0x0(%r13),%eax
+   1414c842d:	85 c0                	test   %eax,%eax
+   1414c842f:	0f 84 19 03 00 00    	je     1414c874e <_ZN6AuGearlsER11QDataStream+0x36e>
+   1414c8435:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1414c8438:	74 0c                	je     1414c8446 <_ZN6AuGearlsER11QDataStream+0x66>
+   1414c843a:	f0 41 83 6d 00 01    	lock subl $0x1,0x0(%r13)
+   1414c8440:	0f 84 08 03 00 00    	je     1414c874e <_ZN6AuGearlsER11QDataStream+0x36e>
+   1414c8446:	48 8d 54 24 3f       	lea    0x3f(%rsp),%rdx
+   1414c844b:	48 89 f1             	mov    %rsi,%rcx
+   1414c844e:	48 8d 5c 24 50       	lea    0x50(%rsp),%rbx
+   1414c8453:	ff 15 87 a2 3c 01    	call   *0x13ca287(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1414c8459:	0f b6 44 24 3f       	movzbl 0x3f(%rsp),%eax
+   1414c845e:	f3 0f 7e 35 4a 6a e1 	movq   0xe16a4a(%rip),%xmm6        # 1422deeb0 <.rdata+0x100>
+   1414c8465:	00
+   1414c8466:	8d 50 ff             	lea    -0x1(%rax),%edx
+   1414c8469:	88 54 24 3f          	mov    %dl,0x3f(%rsp)
+   1414c846d:	84 c0                	test   %al,%al
+   1414c846f:	75 3e                	jne    1414c84af <_ZN6AuGearlsER11QDataStream+0xcf>
+   1414c8471:	e9 1a 02 00 00       	jmp    1414c8690 <_ZN6AuGearlsER11QDataStream+0x2b0>
+   1414c8476:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1414c847d:	00 00 00
+   1414c8480:	48 89 da             	mov    %rbx,%rdx
+   1414c8483:	48 89 f9             	mov    %rdi,%rcx
+   1414c8486:	e8 25 28 34 00       	call   14180acb0 <_ZN5QListI10AuGearSlotE6appendERKS0_>
+   1414c848b:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+   1414c8490:	48 85 c9             	test   %rcx,%rcx
+   1414c8493:	74 06                	je     1414c849b <_ZN6AuGearlsER11QDataStream+0xbb>
+   1414c8495:	48 8b 01             	mov    (%rcx),%rax
+   1414c8498:	ff 50 08             	call   *0x8(%rax)
+   1414c849b:	0f b6 44 24 3f       	movzbl 0x3f(%rsp),%eax
+   1414c84a0:	8d 50 ff             	lea    -0x1(%rax),%edx
+   1414c84a3:	88 54 24 3f          	mov    %dl,0x3f(%rsp)
+   1414c84a7:	84 c0                	test   %al,%al
+   1414c84a9:	0f 84 e1 01 00 00    	je     1414c8690 <_ZN6AuGearlsER11QDataStream+0x2b0>
+   1414c84af:	31 c0                	xor    %eax,%eax
+   1414c84b1:	48 89 f2             	mov    %rsi,%rdx
+   1414c84b4:	48 89 d9             	mov    %rbx,%rcx
+   1414c84b7:	48 c7 44 24 50 00 00 	movq   $0x0,0x50(%rsp)
+   1414c84be:	00 00
+   1414c84c0:	66 89 44 24 58       	mov    %ax,0x58(%rsp)
+   1414c84c5:	e8 56 dc ff ff       	call   1414c6120 <_ZN10AuGearSlotlsER11QDataStream>
+   1414c84ca:	48 83 7c 24 50 00    	cmpq   $0x0,0x50(%rsp)
+   1414c84d0:	75 ae                	jne    1414c8480 <_ZN6AuGearlsER11QDataStream+0xa0>
+   1414c84d2:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414c84d6:	48 8d 05 69 69 e1 00 	lea    0xe16969(%rip),%rax        # 1422dee46 <.rdata+0x96>
+   1414c84dd:	4c 8d 74 24 40       	lea    0x40(%rsp),%r14
+   1414c84e2:	66 0f d6 74 24 60    	movq   %xmm6,0x60(%rsp)
+   1414c84e8:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+   1414c84ed:	48 8d 54 24 60       	lea    0x60(%rsp),%rdx
+   1414c84f2:	4c 89 f1             	mov    %r14,%rcx
+   1414c84f5:	0f 11 44 24 68       	movups %xmm0,0x68(%rsp)
+   1414c84fa:	ff 15 08 ab 3c 01    	call   *0x13cab08(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   1414c8500:	4c 8d 64 24 48       	lea    0x48(%rsp),%r12
+   1414c8505:	4c 8b 6c 24 40       	mov    0x40(%rsp),%r13
+   1414c850a:	4c 8b 3d 67 a6 3c 01 	mov    0x13ca667(%rip),%r15        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   1414c8511:	41 b8 2d 00 00 00    	mov    $0x2d,%r8d
+   1414c8517:	48 8d 15 32 69 e1 00 	lea    0xe16932(%rip),%rdx        # 1422dee50 <.rdata+0xa0>
+   1414c851e:	4c 89 e1             	mov    %r12,%rcx
+   1414c8521:	41 ff d7             	call   *%r15
+   1414c8524:	48 8b 2d 4d a2 3c 01 	mov    0x13ca24d(%rip),%rbp        # 142892778 <__imp__ZN11QTextStreamlsERK7QString>
+   1414c852b:	4c 89 e2             	mov    %r12,%rdx
+   1414c852e:	4c 89 e9             	mov    %r13,%rcx
+   1414c8531:	ff d5                	call   *%rbp
+   1414c8533:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   1414c8538:	8b 01                	mov    (%rcx),%eax
+   1414c853a:	85 c0                	test   %eax,%eax
+   1414c853c:	0f 84 16 01 00 00    	je     1414c8658 <_ZN6AuGearlsER11QDataStream+0x278>
+   1414c8542:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1414c8545:	74 0f                	je     1414c8556 <_ZN6AuGearlsER11QDataStream+0x176>
+   1414c8547:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1414c854b:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   1414c8550:	0f 84 02 01 00 00    	je     1414c8658 <_ZN6AuGearlsER11QDataStream+0x278>
+   1414c8556:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c855b:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414c855f:	0f 85 13 01 00 00    	jne    1414c8678 <_ZN6AuGearlsER11QDataStream+0x298>
+   1414c8565:	48 8b 05 2c a2 3c 01 	mov    0x13ca22c(%rip),%rax        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   1414c856c:	0f b6 54 24 3f       	movzbl 0x3f(%rsp),%edx
+   1414c8571:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+   1414c8576:	ff d0                	call   *%rax
+   1414c8578:	4c 8b 6c 24 40       	mov    0x40(%rsp),%r13
+   1414c857d:	41 80 7d 20 00       	cmpb   $0x0,0x20(%r13)
+   1414c8582:	0f 85 48 01 00 00    	jne    1414c86d0 <_ZN6AuGearlsER11QDataStream+0x2f0>
+   1414c8588:	41 b8 04 00 00 00    	mov    $0x4,%r8d
+   1414c858e:	48 8d 15 e9 68 e1 00 	lea    0xe168e9(%rip),%rdx        # 1422dee7e <.rdata+0xce>
+   1414c8595:	4c 89 e1             	mov    %r12,%rcx
+   1414c8598:	41 ff d7             	call   *%r15
+   1414c859b:	4c 89 e2             	mov    %r12,%rdx
+   1414c859e:	4c 89 e9             	mov    %r13,%rcx
+   1414c85a1:	ff d5                	call   *%rbp
+   1414c85a3:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   1414c85a8:	8b 01                	mov    (%rcx),%eax
+   1414c85aa:	85 c0                	test   %eax,%eax
+   1414c85ac:	74 72                	je     1414c8620 <_ZN6AuGearlsER11QDataStream+0x240>
+   1414c85ae:	83 f8 ff             	cmp    $0xffffffff,%eax
+   1414c85b1:	74 0b                	je     1414c85be <_ZN6AuGearlsER11QDataStream+0x1de>
+   1414c85b3:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   1414c85b7:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   1414c85bc:	74 62                	je     1414c8620 <_ZN6AuGearlsER11QDataStream+0x240>
+   1414c85be:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c85c3:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414c85c7:	75 73                	jne    1414c863c <_ZN6AuGearlsER11QDataStream+0x25c>
+   1414c85c9:	48 8b 07             	mov    (%rdi),%rax
+   1414c85cc:	8b 50 0c             	mov    0xc(%rax),%edx
+   1414c85cf:	2b 50 08             	sub    0x8(%rax),%edx
+   1414c85d2:	48 8b 44 24 28       	mov    0x28(%rsp),%rax
+   1414c85d7:	ff d0                	call   *%rax
+   1414c85d9:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c85de:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414c85e2:	0f 85 d8 00 00 00    	jne    1414c86c0 <_ZN6AuGearlsER11QDataStream+0x2e0>
+   1414c85e8:	48 8b 4e 08          	mov    0x8(%rsi),%rcx
+   1414c85ec:	48 8b 01             	mov    (%rcx),%rax
+   1414c85ef:	ff 90 a0 00 00 00    	call   *0xa0(%rax)
+   1414c85f5:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c85fa:	48 89 c2             	mov    %rax,%rdx
+   1414c85fd:	ff 15 b5 a1 3c 01    	call   *0x13ca1b5(%rip)        # 1428927b8 <__imp__ZN11QTextStreamlsEx>
+   1414c8603:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c8608:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414c860c:	0f 85 9e 00 00 00    	jne    1414c86b0 <_ZN6AuGearlsER11QDataStream+0x2d0>
+   1414c8612:	4c 89 f1             	mov    %r14,%rcx
+   1414c8615:	ff 15 0d a4 3c 01    	call   *0x13ca40d(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1414c861b:	e9 6b fe ff ff       	jmp    1414c848b <_ZN6AuGearlsER11QDataStream+0xab>
+   1414c8620:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1414c8626:	ba 02 00 00 00       	mov    $0x2,%edx
+   1414c862b:	ff 15 6f 9f 3c 01    	call   *0x13c9f6f(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1414c8631:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c8636:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414c863a:	74 8d                	je     1414c85c9 <_ZN6AuGearlsER11QDataStream+0x1e9>
+   1414c863c:	ba 20 00 00 00       	mov    $0x20,%edx
+   1414c8641:	ff 15 39 a1 3c 01    	call   *0x13ca139(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1414c8647:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c864c:	e9 78 ff ff ff       	jmp    1414c85c9 <_ZN6AuGearlsER11QDataStream+0x1e9>
+   1414c8651:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1414c8658:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   1414c865e:	ba 02 00 00 00       	mov    $0x2,%edx
+   1414c8663:	ff 15 37 9f 3c 01    	call   *0x13c9f37(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   1414c8669:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c866e:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   1414c8672:	0f 84 ed fe ff ff    	je     1414c8565 <_ZN6AuGearlsER11QDataStream+0x185>
+   1414c8678:	ba 20 00 00 00       	mov    $0x20,%edx
+   1414c867d:	ff 15 fd a0 3c 01    	call   *0x13ca0fd(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1414c8683:	48 8b 4c 24 40       	mov    0x40(%rsp),%rcx
+   1414c8688:	e9 d8 fe ff ff       	jmp    1414c8565 <_ZN6AuGearlsER11QDataStream+0x185>
+   1414c868d:	0f 1f 00             	nopl   (%rax)
+   1414c8690:	0f 28 b4 24 80 00 00 	movaps 0x80(%rsp),%xmm6
+   1414c8697:	00
+   1414c8698:	48 81 c4 98 00 00 00 	add    $0x98,%rsp
+   1414c869f:	5b                   	pop    %rbx
+   1414c86a0:	5e                   	pop    %rsi
+   1414c86a1:	5f                   	pop    %rdi
+   1414c86a2:	5d                   	pop    %rbp
+   1414c86a3:	41 5c                	pop    %r12
+   1414c86a5:	41 5d                	pop    %r13
+   1414c86a7:	41 5e                	pop    %r14
+   1414c86a9:	41 5f                	pop    %r15
+   1414c86ab:	c3                   	ret
+   1414c86ac:	0f 1f 40 00          	nopl   0x0(%rax)
+   1414c86b0:	ba 20 00 00 00       	mov    $0x20,%edx
+   1414c86b5:	ff 15 c5 a0 3c 01    	call   *0x13ca0c5(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1414c86bb:	e9 52 ff ff ff       	jmp    1414c8612 <_ZN6AuGearlsER11QDataStream+0x232>
+   1414c86c0:	ba 20 00 00 00       	mov    $0x20,%edx
+   1414c86c5:	ff 15 b5 a0 3c 01    	call   *0x13ca0b5(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1414c86cb:	e9 18 ff ff ff       	jmp    1414c85e8 <_ZN6AuGearlsER11QDataStream+0x208>
+   1414c86d0:	ba 20 00 00 00       	mov    $0x20,%edx
+   1414c86d5:	4c 89 e9             	mov    %r13,%rcx
+   1414c86d8:	ff 15 a2 a0 3c 01    	call   *0x13ca0a2(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   1414c86de:	4c 8b 6c 24 40       	mov    0x40(%rsp),%r13
+   1414c86e3:	e9 a0 fe ff ff       	jmp    1414c8588 <_ZN6AuGearlsER11QDataStream+0x1a8>
+   1414c86e8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1414c86ef:	00
+   1414c86f0:	49 63 56 0c          	movslq 0xc(%r14),%rdx
+   1414c86f4:	49 8d 46 10          	lea    0x10(%r14),%rax
+   1414c86f8:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1414c86fc:	49 63 56 08          	movslq 0x8(%r14),%rdx
+   1414c8700:	48 8d 2c d0          	lea    (%rax,%rdx,8),%rbp
+   1414c8704:	48 39 eb             	cmp    %rbp,%rbx
+   1414c8707:	74 30                	je     1414c8739 <_ZN6AuGearlsER11QDataStream+0x359>
+   1414c8709:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1414c8710:	4c 8b 63 f8          	mov    -0x8(%rbx),%r12
+   1414c8714:	48 83 eb 08          	sub    $0x8,%rbx
+   1414c8718:	4d 85 e4             	test   %r12,%r12
+   1414c871b:	74 17                	je     1414c8734 <_ZN6AuGearlsER11QDataStream+0x354>
+   1414c871d:	49 8b 0c 24          	mov    (%r12),%rcx
+   1414c8721:	48 85 c9             	test   %rcx,%rcx
+   1414c8724:	74 06                	je     1414c872c <_ZN6AuGearlsER11QDataStream+0x34c>
+   1414c8726:	48 8b 01             	mov    (%rcx),%rax
+   1414c8729:	ff 50 08             	call   *0x8(%rax)
+   1414c872c:	4c 89 e1             	mov    %r12,%rcx
+   1414c872f:	e8 74 b8 28 00       	call   141753fa8 <_ZdlPv>
+   1414c8734:	48 39 dd             	cmp    %rbx,%rbp
+   1414c8737:	75 d7                	jne    1414c8710 <_ZN6AuGearlsER11QDataStream+0x330>
+   1414c8739:	4c 89 f1             	mov    %r14,%rcx
+   1414c873c:	ff 15 36 a7 3c 01    	call   *0x13ca736(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1414c8742:	41 8b 45 00          	mov    0x0(%r13),%eax
+   1414c8746:	85 c0                	test   %eax,%eax
+   1414c8748:	0f 85 e7 fc ff ff    	jne    1414c8435 <_ZN6AuGearlsER11QDataStream+0x55>
+   1414c874e:	49 63 55 0c          	movslq 0xc(%r13),%rdx
+   1414c8752:	49 8d 45 10          	lea    0x10(%r13),%rax
+   1414c8756:	48 8d 1c d0          	lea    (%rax,%rdx,8),%rbx
+   1414c875a:	49 63 55 08          	movslq 0x8(%r13),%rdx
+   1414c875e:	48 8d 2c d0          	lea    (%rax,%rdx,8),%rbp
+   1414c8762:	48 39 eb             	cmp    %rbp,%rbx
+   1414c8765:	74 32                	je     1414c8799 <_ZN6AuGearlsER11QDataStream+0x3b9>
+   1414c8767:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1414c876e:	00 00
+   1414c8770:	4c 8b 63 f8          	mov    -0x8(%rbx),%r12
+   1414c8774:	48 83 eb 08          	sub    $0x8,%rbx
+   1414c8778:	4d 85 e4             	test   %r12,%r12
+   1414c877b:	74 17                	je     1414c8794 <_ZN6AuGearlsER11QDataStream+0x3b4>
+   1414c877d:	49 8b 0c 24          	mov    (%r12),%rcx
+   1414c8781:	48 85 c9             	test   %rcx,%rcx
+   1414c8784:	74 06                	je     1414c878c <_ZN6AuGearlsER11QDataStream+0x3ac>
+   1414c8786:	48 8b 01             	mov    (%rcx),%rax
+   1414c8789:	ff 50 08             	call   *0x8(%rax)
+   1414c878c:	4c 89 e1             	mov    %r12,%rcx
+   1414c878f:	e8 14 b8 28 00       	call   141753fa8 <_ZdlPv>
+   1414c8794:	48 39 dd             	cmp    %rbx,%rbp
+   1414c8797:	75 d7                	jne    1414c8770 <_ZN6AuGearlsER11QDataStream+0x390>
+   1414c8799:	4c 89 e9             	mov    %r13,%rcx
+   1414c879c:	ff 15 d6 a6 3c 01    	call   *0x13ca6d6(%rip)        # 142892e78 <__imp__ZN9QListData7disposeEPNS_4DataE>
+   1414c87a2:	e9 9f fc ff ff       	jmp    1414c8446 <_ZN6AuGearlsER11QDataStream+0x66>
+   1414c87a7:	4c 89 e1             	mov    %r12,%rcx
+   1414c87aa:	48 89 c3             	mov    %rax,%rbx
+   1414c87ad:	e8 5e 86 38 00       	call   141850e10 <_ZN7QStringD1Ev>
+   1414c87b2:	4c 89 f1             	mov    %r14,%rcx
+   1414c87b5:	ff 15 6d a2 3c 01    	call   *0x13ca26d(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1414c87bb:	48 8b 4c 24 50       	mov    0x50(%rsp),%rcx
+   1414c87c0:	48 85 c9             	test   %rcx,%rcx
+   1414c87c3:	74 06                	je     1414c87cb <_ZN6AuGearlsER11QDataStream+0x3eb>
+   1414c87c5:	48 8b 01             	mov    (%rcx),%rax
+   1414c87c8:	ff 50 08             	call   *0x8(%rax)
+   1414c87cb:	48 89 d9             	mov    %rbx,%rcx
+   1414c87ce:	e8 65 cb 28 00       	call   141755338 <_Unwind_Resume>
+   1414c87d3:	eb d2                	jmp    1414c87a7 <_ZN6AuGearlsER11QDataStream+0x3c7>
+   1414c87d5:	48 89 c3             	mov    %rax,%rbx
+   1414c87d8:	eb d8                	jmp    1414c87b2 <_ZN6AuGearlsER11QDataStream+0x3d2>
+   1414c87da:	48 89 c3             	mov    %rax,%rbx
+   1414c87dd:	eb dc                	jmp    1414c87bb <_ZN6AuGearlsER11QDataStream+0x3db>
+   1414c87df:	90                   	nop

@@ -71,6 +71,11 @@ The ordered Unit/Creature stage exists with required application context hooks;
 no concrete Person construction/dispatch or presentation is implied by those
 component fixtures. See native-creature.md for the exact remaining boundary.
 
+Gear wire composition is now implemented for the seven established item types;
+see native-person-gear.md. Commodity2 replacement, remaining item types and
+Person's required weight recomputation remain explicitly unsupported/unfinished.
+Null slots are diagnosed and skipped without truncating the counted loop.
+
 ## Implemented Person dependencies
 
 `world::native_person` now contains NativeDomain, NativeGlobeLlf and

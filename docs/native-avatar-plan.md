@@ -208,3 +208,11 @@ and confirms double overloads for the three extended floating fields. These
 are nested codecs, not a full Person suffix, inherited construction/dispatch
 or presentation. Gear fixup/weight, job polymorphism and item hash still need
 reconstruction; the concrete Creature context remains required as well.
+
+Person gear wire milestone: real GearSlot/Gear composition now uses all seven
+established item codecs, preserves ordered duplicate slots, clears before count,
+and diagnoses null entries while continuing. Commodity2 replacement and unknown
+item types fail explicitly; native weight recomputation remains open. Retained
+REA records and exact GNU evidence establish FixItem's condition and distinguish
+inventory's separate obsolete filter/count/insertion path. Full Person suffix,
+inherited construction/context, dispatch and presentation remain required.
