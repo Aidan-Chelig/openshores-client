@@ -199,3 +199,12 @@ callbacks are not final runtime effects; the concrete Creature context,
 remaining Person reception, packet dispatch and avatar presentation are still
 required. Retained REA evidence and exact GNU output were reused without a new
 analysis session/import.
+
+Person dependencies milestone: actual Domain, GlobeLLF and HitNotify readers now
+exist with complete retained REA records and independent GNU corroboration.
+Complete Person update assembly resolves formerly ambiguous scalar reads as
+bytes (including the content-ID count/entries and late identity/nibble bytes),
+and confirms double overloads for the three extended floating fields. These
+are nested codecs, not a full Person suffix, inherited construction/dispatch
+or presentation. Gear fixup/weight, job polymorphism and item hash still need
+reconstruction; the concrete Creature context remains required as well.

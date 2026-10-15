@@ -1,0 +1,83 @@
+{
+  "evidence_id": "ev_0af5413a56bb9f87961b98a82e44cd281f1322cf4c7bc89af5a9c1ab2ca328f8",
+  "subject": {
+    "name": "OpenShores.exe",
+    "digest": {
+      "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+    },
+    "format": "pe",
+    "architecture": "x86_64",
+    "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.2"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+      "no_return_repair": "returning-imports-decoded-return-v2",
+      "process_launch": "inspected-jvm-launch-support-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "_ZN8AuDomainlsER11QDataStream"
+  },
+  "raw_result": {
+    "value": "\n/* AuDomain::TEMPNAMEPLACEHOLDERVALUE(QDataStream&) */\n\nvoid __thiscall AuDomain::operator<<(AuDomain *this,QDataStream *param_1)\n\n{\n  code *pcVar1;\n  int *piVar2;\n  int iVar3;\n  uint uVar4;\n  _func_void_Node_ptr *p_Var5;\n  undefined8 uVar6;\n  code *pcVar7;\n  undefined8 *puVar8;\n  AuDomain *pAVar9;\n  AuDomain *pAVar10;\n  uint uVar11;\n  AuDomain *pAVar12;\n  char local_55;\n  uint local_54;\n  QArrayData *local_50 [2];\n  \n  pcVar7 = shared_null_exref;\n  p_Var5 = *(_func_void_Node_ptr **)this;\n  *(code **)this = shared_null_exref;\n  pcVar1 = p_Var5 + 0x10;\n  if (*(int *)(p_Var5 + 0x10) == 0) {\nLAB_141361fc0:\n    QHashData::free_helper(p_Var5);\n    iVar3 = *(int *)(pcVar7 + 0x10);\n  }\n  else {\n    if (*(int *)(p_Var5 + 0x10) != -1) {\n      LOCK();\n      *(int *)pcVar1 = *(int *)pcVar1 + -1;\n      UNLOCK();\n      if (*(int *)pcVar1 == 0) goto LAB_141361fc0;\n    }\n    iVar3 = *(int *)(pcVar7 + 0x10);\n  }\n  if (iVar3 != 0) {\n    if (iVar3 == -1) goto LAB_141361d40;\n    LOCK();\n    pcVar1 = pcVar7 + 0x10;\n    *(int *)pcVar1 = *(int *)pcVar1 + -1;\n    UNLOCK();\n    if (*(int *)pcVar1 != 0) goto LAB_141361d40;\n  }\n  QHashData::free_helper(pcVar7);\nLAB_141361d40:\n  QDataStream::operator>>(param_1,&local_55);\njoined_r0x000141361d74:\n  if (local_55 == '\\0') {\n    return;\n  }\n  local_55 = local_55 + -1;\n  local_54 = 0;\n  local_50[0] = (QArrayData *)shared_null_exref;\n  AuId::operator<<((AuId *)&local_54,param_1);\n  ::operator>>(param_1,(QString *)local_50);\n  pAVar10 = *(AuDomain **)this;\n  if (1 < *(uint *)(pAVar10 + 0x10)) {\n    pAVar10 = (AuDomain *)\n              QHashData::detach_helper\n                        ((_func_void_Node_ptr_void_ptr *)pAVar10,QHash<AuId,QString>::duplicateNode,\n                         0x417facb0,0x18);\n    piVar2 = (int *)(*(longlong *)this + 0x10);\n    iVar3 = *(int *)(*(longlong *)this + 0x10);\n    if (iVar3 == 0) {\nLAB_141361fa0:\n      QHashData::free_helper(*(_func_void_Node_ptr **)this);\n    }\n    else if (iVar3 != -1) {\n      LOCK();\n      *piVar2 = *piVar2 + -1;\n      UNLOCK();\n      if (*piVar2 == 0) goto LAB_141361fa0;\n    }\n    *(AuDomain **)this = pAVar10;\n  }\n  uVar4 = *(uint *)(pAVar10 + 0x20);\n  uVar11 = *(uint *)(pAVar10 + 0x24) ^ local_54;\n  if (uVar4 == 0) {\n    pAVar12 = this;\n    if (-1 < *(int *)(pAVar10 + 0x14)) goto LAB_141361eee;\n  }\n  else {\n    pAVar12 = (AuDomain *)(*(longlong *)(pAVar10 + 8) + ((ulonglong)uVar11 % (ulonglong)uVar4) * 8);\n    for (pAVar9 = *(AuDomain **)pAVar12; pAVar10 != pAVar9; pAVar9 = *(AuDomain **)pAVar9) {\n      if ((uVar11 == *(uint *)(pAVar9 + 8)) && (local_54 == *(uint *)(pAVar9 + 0xc))) {\n        if (pAVar10 != pAVar9) {\n          QString::operator=((QString *)(pAVar9 + 0x10),(QString *)local_50);\n          iVar3 = *(int *)local_50[0];\n          goto joined_r0x000141361ec9;\n        }\n        break;\n      }\n      pAVar12 = pAVar9;\n    }\n    if ((int)uVar4 <= *(int *)(pAVar10 + 0x14)) {\nLAB_141361eee:\n      QHashData::rehash((int)pAVar10);\n      pAVar10 = *(AuDomain **)this;\n      pAVar12 = this;\n      if (*(uint *)(pAVar10 + 0x20) != 0) {\n        pAVar12 = (AuDomain *)\n                  (*(longlong *)(pAVar10 + 8) +\n                  ((ulonglong)uVar11 % (ulonglong)*(uint *)(pAVar10 + 0x20)) * 8);\n        pAVar9 = *(AuDomain **)pAVar12;\n        if (pAVar9 != pAVar10) {\n          if (*(uint *)(pAVar9 + 8) == uVar11) goto LAB_141361f54;\n          do {\n            do {\n              pAVar12 = pAVar9;\n              pAVar9 = *(AuDomain **)pAVar12;\n              if (pAVar10 == pAVar9) goto LAB_141361e18;\n            } while (*(uint *)(pAVar9 + 8) != uVar11);\nLAB_141361f54:\n          } while (local_54 != *(uint *)(pAVar9 + 0xc));\n        }\n      }\n    }\n  }\nLAB_141361e18:\n  puVar8 = (undefined8 *)QHashData::allocateNode((int)pAVar10);\n  uVar6 = *(undefined8 *)pAVar12;\n  *(uint *)(puVar8 + 1) = uVar11;\n  *puVar8 = uVar6;\n  puVar8[2] = local_50[0];\n  *(uint *)((longlong)puVar8 + 0xc) = local_54;\n  if (1 < *(int *)local_50[0] + 1U) {\n    LOCK();\n    *(int *)local_50[0] = *(int *)local_50[0] + 1;\n    UNLOCK();\n  }\n  *(undefined8 **)pAVar12 = puVar8;\n  *(int *)(*(longlong *)this + 0x14) = *(int *)(*(longlong *)this + 0x14) + 1;\n  iVar3 = *(int *)local_50[0];\njoined_r0x000141361ec9:\n  if (iVar3 != 0) goto LAB_141361e62;\n  goto LAB_141361ecb;\nLAB_141361e62:\n  if (iVar3 != -1) {\n    LOCK();\n    *(int *)local_50[0] = *(int *)local_50[0] + -1;\n    UNLOCK();\n    if (*(int *)local_50[0] == 0) {\nLAB_141361ecb:\n      QArrayData::deallocate(local_50[0],2,8);\n    }\n  }\n  goto joined_r0x000141361d74;\n}\n\n",
+    "limitations": []
+  },
+  "normalized_result": "\n/* AuDomain::TEMPNAMEPLACEHOLDERVALUE(QDataStream&) */\n\nvoid __thiscall AuDomain::operator<<(AuDomain *this,QDataStream *param_1)\n\n{\n  code *pcVar1;\n  int *piVar2;\n  int iVar3;\n  uint uVar4;\n  _func_void_Node_ptr *p_Var5;\n  undefined8 uVar6;\n  code *pcVar7;\n  undefined8 *puVar8;\n  AuDomain *pAVar9;\n  AuDomain *pAVar10;\n  uint uVar11;\n  AuDomain *pAVar12;\n  char local_55;\n  uint local_54;\n  QArrayData *local_50 [2];\n  \n  pcVar7 = shared_null_exref;\n  p_Var5 = *(_func_void_Node_ptr **)this;\n  *(code **)this = shared_null_exref;\n  pcVar1 = p_Var5 + 0x10;\n  if (*(int *)(p_Var5 + 0x10) == 0) {\nLAB_141361fc0:\n    QHashData::free_helper(p_Var5);\n    iVar3 = *(int *)(pcVar7 + 0x10);\n  }\n  else {\n    if (*(int *)(p_Var5 + 0x10) != -1) {\n      LOCK();\n      *(int *)pcVar1 = *(int *)pcVar1 + -1;\n      UNLOCK();\n      if (*(int *)pcVar1 == 0) goto LAB_141361fc0;\n    }\n    iVar3 = *(int *)(pcVar7 + 0x10);\n  }\n  if (iVar3 != 0) {\n    if (iVar3 == -1) goto LAB_141361d40;\n    LOCK();\n    pcVar1 = pcVar7 + 0x10;\n    *(int *)pcVar1 = *(int *)pcVar1 + -1;\n    UNLOCK();\n    if (*(int *)pcVar1 != 0) goto LAB_141361d40;\n  }\n  QHashData::free_helper(pcVar7);\nLAB_141361d40:\n  QDataStream::operator>>(param_1,&local_55);\njoined_r0x000141361d74:\n  if (local_55 == '\\0') {\n    return;\n  }\n  local_55 = local_55 + -1;\n  local_54 = 0;\n  local_50[0] = (QArrayData *)shared_null_exref;\n  AuId::operator<<((AuId *)&local_54,param_1);\n  ::operator>>(param_1,(QString *)local_50);\n  pAVar10 = *(AuDomain **)this;\n  if (1 < *(uint *)(pAVar10 + 0x10)) {\n    pAVar10 = (AuDomain *)\n              QHashData::detach_helper\n                        ((_func_void_Node_ptr_void_ptr *)pAVar10,QHash<AuId,QString>::duplicateNode,\n                         0x417facb0,0x18);\n    piVar2 = (int *)(*(longlong *)this + 0x10);\n    iVar3 = *(int *)(*(longlong *)this + 0x10);\n    if (iVar3 == 0) {\nLAB_141361fa0:\n      QHashData::free_helper(*(_func_void_Node_ptr **)this);\n    }\n    else if (iVar3 != -1) {\n      LOCK();\n      *piVar2 = *piVar2 + -1;\n      UNLOCK();\n      if (*piVar2 == 0) goto LAB_141361fa0;\n    }\n    *(AuDomain **)this = pAVar10;\n  }\n  uVar4 = *(uint *)(pAVar10 + 0x20);\n  uVar11 = *(uint *)(pAVar10 + 0x24) ^ local_54;\n  if (uVar4 == 0) {\n    pAVar12 = this;\n    if (-1 < *(int *)(pAVar10 + 0x14)) goto LAB_141361eee;\n  }\n  else {\n    pAVar12 = (AuDomain *)(*(longlong *)(pAVar10 + 8) + ((ulonglong)uVar11 % (ulonglong)uVar4) * 8);\n    for (pAVar9 = *(AuDomain **)pAVar12; pAVar10 != pAVar9; pAVar9 = *(AuDomain **)pAVar9) {\n      if ((uVar11 == *(uint *)(pAVar9 + 8)) && (local_54 == *(uint *)(pAVar9 + 0xc))) {\n        if (pAVar10 != pAVar9) {\n          QString::operator=((QString *)(pAVar9 + 0x10),(QString *)local_50);\n          iVar3 = *(int *)local_50[0];\n          goto joined_r0x000141361ec9;\n        }\n        break;\n      }\n      pAVar12 = pAVar9;\n    }\n    if ((int)uVar4 <= *(int *)(pAVar10 + 0x14)) {\nLAB_141361eee:\n      QHashData::rehash((int)pAVar10);\n      pAVar10 = *(AuDomain **)this;\n      pAVar12 = this;\n      if (*(uint *)(pAVar10 + 0x20) != 0) {\n        pAVar12 = (AuDomain *)\n                  (*(longlong *)(pAVar10 + 8) +\n                  ((ulonglong)uVar11 % (ulonglong)*(uint *)(pAVar10 + 0x20)) * 8);\n        pAVar9 = *(AuDomain **)pAVar12;\n        if (pAVar9 != pAVar10) {\n          if (*(uint *)(pAVar9 + 8) == uVar11) goto LAB_141361f54;\n          do {\n            do {\n              pAVar12 = pAVar9;\n              pAVar9 = *(AuDomain **)pAVar12;\n              if (pAVar10 == pAVar9) goto LAB_141361e18;\n            } while (*(uint *)(pAVar9 + 8) != uVar11);\nLAB_141361f54:\n          } while (local_54 != *(uint *)(pAVar9 + 0xc));\n        }\n      }\n    }\n  }\nLAB_141361e18:\n  puVar8 = (undefined8 *)QHashData::allocateNode((int)pAVar10);\n  uVar6 = *(undefined8 *)pAVar12;\n  *(uint *)(puVar8 + 1) = uVar11;\n  *puVar8 = uVar6;\n  puVar8[2] = local_50[0];\n  *(uint *)((longlong)puVar8 + 0xc) = local_54;\n  if (1 < *(int *)local_50[0] + 1U) {\n    LOCK();\n    *(int *)local_50[0] = *(int *)local_50[0] + 1;\n    UNLOCK();\n  }\n  *(undefined8 **)pAVar12 = puVar8;\n  *(int *)(*(longlong *)this + 0x14) = *(int *)(*(longlong *)this + 0x14) + 1;\n  iVar3 = *(int *)local_50[0];\njoined_r0x000141361ec9:\n  if (iVar3 != 0) goto LAB_141361e62;\n  goto LAB_141361ecb;\nLAB_141361e62:\n  if (iVar3 != -1) {\n    LOCK();\n    *(int *)local_50[0] = *(int *)local_50[0] + -1;\n    UNLOCK();\n    if (*(int *)local_50[0] == 0) {\nLAB_141361ecb:\n      QArrayData::deallocate(local_50[0],2,8);\n    }\n  }\n  goto joined_r0x000141361d74;\n}\n\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

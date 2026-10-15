@@ -44,9 +44,18 @@ otherwise B is zero. The suffix then proceeds in this order:
   to the earlier A `0x01` identity fields on the wire.
 - C `0x40`: final packed scalar; low nibble becomes `0x83d`, high `0x83b`.
 
-Subreader layouts, ambiguous scalar overload widths, floating stream precision,
-constructor defaults and semantic field names remain unresolved. In particular,
-decompiler `double*` alone does not establish eight-byte stream consumption.
+Independent complete exact-symbol assembly is now retained in
+`evidence/native-person-update-gnu.txt`. The `signed*`/misidentified collection
+overloads above are **byte reads** (`QDataStreamrsERa`), not four-byte integers:
+A10's packed value, A20's optional count and each content ID, A20's final scalar,
+the trailing A01 scalar and C40's final packed scalar. A10's f80 and B08's10d0
+are signed32; B08's f58 is signed16. B10/B20 use the **double** overload
+`QDataStreamrsERd`; their actual wire widths still depend on the explicitly
+selected stream precision. This corroboration resolves those former scalar
+ambiguities, without claiming a complete Person receiver.
+
+Gear's item fixup/weight semantics, polymorphic job bodies, item hash,
+full inherited construction/application and semantic field names remain open.
 Do not implement an opaque skipped subreader or borrow the source-server body.
 
 Next: reconstruct its Sentient/Creature layers
@@ -61,3 +70,43 @@ It calls DaSentient first; this record is not yet a complete Rust constructor.
 The ordered Unit/Creature stage exists with required application context hooks;
 no concrete Person construction/dispatch or presentation is implied by those
 component fixtures. See native-creature.md for the exact remaining boundary.
+
+## Implemented Person dependencies
+
+`world::native_person` now contains NativeDomain, NativeGlobeLlf and
+NativeHitNotify. These are actual nested readers, not a full Person suffix or
+dispatch bridge. Their static Ghidra records are retained completely with
+limitations, together with independent exact-symbol GNU disassembly in
+`evidence/native-person-helpers-gnu.txt`:
+
+- Domain: `evidence/native-person-domain.json`,
+  `ev_0af5413a56bb9f87961b98a82e44cd281f1322cf4c7bc89af5a9c1ab2ca328f8`,
+  entry141361ce0. Clear before the unsigned8 count; each entry is AuId32 then
+  nullable QString. Later duplicate keys replace earlier values. Rust BTreeMap
+  preserves values/lookup, not Qt's hash iteration order or memory layout.
+- GlobeLLF: `evidence/native-person-globe-llf.json`,
+  `ev_09abc1f5bbd78e46c8e6331d889638c0e4dba99ecebb484bce1b7d5e00c49f2b`,
+  entry14163cd10. Float field04 then float field00; the second call is a tail
+  jump corroborated in GNU, not an unknown jump table. Rust fresh-value reads
+  are atomic on malformed input, unlike native partial writes.
+- HitNotify: `evidence/native-person-hit-notify.json`,
+  `ev_24efd4c58f6d9197225f13412bb5f10221b9ac355d1e32584468d2e539f2a20b`,
+  entry1411e1230. Three float temporaries are widened into double vector00.
+  Raw unsigned byte18 controls signed32 field28 then20; raw unsigned byte1c
+  controls signed32 field2c then24. Zero discriminants do not clear the omitted
+  integers. Default Options indicate unobserved values, not constructor zeros.
+
+All three support explicit TypeWidths/SinglePrecision/DoublePrecision profiles
+where applicable. Float-overload destinations narrow even in double wire mode.
+No finite-value filtering or semantic coordinate guesses are added. Successful
+earlier Domain/HitNotify writes survive later Rust read failures; Qt failed-stream
+and allocation/locking parity are not claimed. Fixtures cover every count and
+both raw byte discriminants, repeated-key replacement, nullable/empty/non-ASCII
+strings, preserved omitted integers, float narrowing/signed zero, exact trailing
+alignment and all truncated prefixes. These records were reused from the saved
+batch; no new Ghidra import or target execution was needed.
+
+Verification: `just check` passes389 headless and410 client library tests,
+9 CLI tests per profile,1 graphical-entry CLI test, formatting and strict
+client-feature all-target Clippy. This verifies the implemented dependencies,
+not the still-missing end-to-end Person/avatar path.

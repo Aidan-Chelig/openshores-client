@@ -1,0 +1,349 @@
+Static GNU exact-symbol disassembly; no target execution. Target SHA-256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141361ce0 <_ZN8AuDomainlsER11QDataStream>:
+   141361ce0:	41 57                	push   %r15
+   141361ce2:	41 56                	push   %r14
+   141361ce4:	41 55                	push   %r13
+   141361ce6:	41 54                	push   %r12
+   141361ce8:	55                   	push   %rbp
+   141361ce9:	57                   	push   %rdi
+   141361cea:	56                   	push   %rsi
+   141361ceb:	53                   	push   %rbx
+   141361cec:	48 83 ec 58          	sub    $0x58,%rsp
+   141361cf0:	4c 8b 25 f1 10 53 01 	mov    0x15310f1(%rip),%r12        # 142892de8 <__imp__ZN9QHashData11shared_nullE>
+   141361cf7:	48 89 cf             	mov    %rcx,%rdi
+   141361cfa:	48 8b 09             	mov    (%rcx),%rcx
+   141361cfd:	48 89 d5             	mov    %rdx,%rbp
+   141361d00:	4c 89 27             	mov    %r12,(%rdi)
+   141361d03:	8b 41 10             	mov    0x10(%rcx),%eax
+   141361d06:	48 8d 51 10          	lea    0x10(%rcx),%rdx
+   141361d0a:	85 c0                	test   %eax,%eax
+   141361d0c:	0f 84 ae 02 00 00    	je     141361fc0 <_ZN8AuDomainlsER11QDataStream+0x2e0>
+   141361d12:	83 f8 ff             	cmp    $0xffffffff,%eax
+   141361d15:	74 0a                	je     141361d21 <_ZN8AuDomainlsER11QDataStream+0x41>
+   141361d17:	f0 83 2a 01          	lock subl $0x1,(%rdx)
+   141361d1b:	0f 84 9f 02 00 00    	je     141361fc0 <_ZN8AuDomainlsER11QDataStream+0x2e0>
+   141361d21:	41 8b 44 24 10       	mov    0x10(%r12),%eax
+   141361d26:	85 c0                	test   %eax,%eax
+   141361d28:	0f 84 ac 02 00 00    	je     141361fda <_ZN8AuDomainlsER11QDataStream+0x2fa>
+   141361d2e:	83 f8 ff             	cmp    $0xffffffff,%eax
+   141361d31:	74 0d                	je     141361d40 <_ZN8AuDomainlsER11QDataStream+0x60>
+   141361d33:	f0 41 83 6c 24 10 01 	lock subl $0x1,0x10(%r12)
+   141361d3a:	0f 84 9a 02 00 00    	je     141361fda <_ZN8AuDomainlsER11QDataStream+0x2fa>
+   141361d40:	48 8d 54 24 43       	lea    0x43(%rsp),%rdx
+   141361d45:	48 89 e9             	mov    %rbp,%rcx
+   141361d48:	48 8d 35 a1 8f 49 00 	lea    0x498fa1(%rip),%rsi        # 1417facf0 <_ZN5QHashI4AuId7QStringE13duplicateNodeEPN9QHashData4NodeEPv>
+   141361d4f:	ff 15 8b 09 53 01    	call   *0x153098b(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141361d55:	0f b6 44 24 43       	movzbl 0x43(%rsp),%eax
+   141361d5a:	48 89 74 24 38       	mov    %rsi,0x38(%rsp)
+   141361d5f:	4c 8d 74 24 44       	lea    0x44(%rsp),%r14
+   141361d64:	4c 8d 3d 45 8f 49 00 	lea    0x498f45(%rip),%r15        # 1417facb0 <_ZN5QHashI4AuId7QStringE11deleteNode2EPN9QHashData4NodeE>
+   141361d6b:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141361d6e:	88 54 24 43          	mov    %dl,0x43(%rsp)
+   141361d72:	84 c0                	test   %al,%al
+   141361d74:	0f 84 0c 01 00 00    	je     141361e86 <_ZN8AuDomainlsER11QDataStream+0x1a6>
+   141361d7a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   141361d80:	48 8b 05 21 08 53 01 	mov    0x1530821(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   141361d87:	48 89 ea             	mov    %rbp,%rdx
+   141361d8a:	4c 89 f1             	mov    %r14,%rcx
+   141361d8d:	c7 44 24 44 00 00 00 	movl   $0x0,0x44(%rsp)
+   141361d94:	00
+   141361d95:	48 89 44 24 48       	mov    %rax,0x48(%rsp)
+   141361d9a:	e8 21 36 2d 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   141361d9f:	4c 8d 6c 24 48       	lea    0x48(%rsp),%r13
+   141361da4:	48 89 e9             	mov    %rbp,%rcx
+   141361da7:	4c 89 ea             	mov    %r13,%rdx
+   141361daa:	ff 15 60 16 53 01    	call   *0x1531660(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   141361db0:	48 8b 0f             	mov    (%rdi),%rcx
+   141361db3:	8b 41 10             	mov    0x10(%rcx),%eax
+   141361db6:	49 89 cc             	mov    %rcx,%r12
+   141361db9:	83 f8 01             	cmp    $0x1,%eax
+   141361dbc:	0f 87 9e 01 00 00    	ja     141361f60 <_ZN8AuDomainlsER11QDataStream+0x280>
+   141361dc2:	44 8b 4c 24 44       	mov    0x44(%rsp),%r9d
+   141361dc7:	41 8b 5c 24 24       	mov    0x24(%r12),%ebx
+   141361dcc:	45 8b 44 24 20       	mov    0x20(%r12),%r8d
+   141361dd1:	44 31 cb             	xor    %r9d,%ebx
+   141361dd4:	45 85 c0             	test   %r8d,%r8d
+   141361dd7:	0f 84 03 01 00 00    	je     141361ee0 <_ZN8AuDomainlsER11QDataStream+0x200>
+   141361ddd:	89 d8                	mov    %ebx,%eax
+   141361ddf:	31 d2                	xor    %edx,%edx
+   141361de1:	41 f7 f0             	div    %r8d
+   141361de4:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+   141361de9:	48 8d 34 d0          	lea    (%rax,%rdx,8),%rsi
+   141361ded:	48 8b 0e             	mov    (%rsi),%rcx
+   141361df0:	49 39 cc             	cmp    %rcx,%r12
+   141361df3:	74 14                	je     141361e09 <_ZN8AuDomainlsER11QDataStream+0x129>
+   141361df5:	3b 59 08             	cmp    0x8(%rcx),%ebx
+   141361df8:	0f 84 a2 00 00 00    	je     141361ea0 <_ZN8AuDomainlsER11QDataStream+0x1c0>
+   141361dfe:	48 89 ce             	mov    %rcx,%rsi
+   141361e01:	48 8b 09             	mov    (%rcx),%rcx
+   141361e04:	49 39 cc             	cmp    %rcx,%r12
+   141361e07:	75 ec                	jne    141361df5 <_ZN8AuDomainlsER11QDataStream+0x115>
+   141361e09:	45 39 44 24 14       	cmp    %r8d,0x14(%r12)
+   141361e0e:	0f 8d da 00 00 00    	jge    141361eee <_ZN8AuDomainlsER11QDataStream+0x20e>
+   141361e14:	0f 1f 40 00          	nopl   0x0(%rax)
+   141361e18:	ba 08 00 00 00       	mov    $0x8,%edx
+   141361e1d:	4c 89 e1             	mov    %r12,%rcx
+   141361e20:	ff 15 ca 0f 53 01    	call   *0x1530fca(%rip)        # 142892df0 <__imp__ZN9QHashData12allocateNodeEi>
+   141361e26:	48 8b 16             	mov    (%rsi),%rdx
+   141361e29:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   141361e2e:	89 58 08             	mov    %ebx,0x8(%rax)
+   141361e31:	48 89 10             	mov    %rdx,(%rax)
+   141361e34:	8b 54 24 44          	mov    0x44(%rsp),%edx
+   141361e38:	48 89 48 10          	mov    %rcx,0x10(%rax)
+   141361e3c:	89 50 0c             	mov    %edx,0xc(%rax)
+   141361e3f:	8b 11                	mov    (%rcx),%edx
+   141361e41:	83 c2 01             	add    $0x1,%edx
+   141361e44:	83 fa 01             	cmp    $0x1,%edx
+   141361e47:	0f 87 63 01 00 00    	ja     141361fb0 <_ZN8AuDomainlsER11QDataStream+0x2d0>
+   141361e4d:	48 89 06             	mov    %rax,(%rsi)
+   141361e50:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   141361e55:	48 8b 07             	mov    (%rdi),%rax
+   141361e58:	83 40 14 01          	addl   $0x1,0x14(%rax)
+   141361e5c:	8b 01                	mov    (%rcx),%eax
+   141361e5e:	85 c0                	test   %eax,%eax
+   141361e60:	74 69                	je     141361ecb <_ZN8AuDomainlsER11QDataStream+0x1eb>
+   141361e62:	83 f8 ff             	cmp    $0xffffffff,%eax
+   141361e65:	74 0b                	je     141361e72 <_ZN8AuDomainlsER11QDataStream+0x192>
+   141361e67:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   141361e6b:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   141361e70:	74 59                	je     141361ecb <_ZN8AuDomainlsER11QDataStream+0x1eb>
+   141361e72:	0f b6 44 24 43       	movzbl 0x43(%rsp),%eax
+   141361e77:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141361e7a:	88 54 24 43          	mov    %dl,0x43(%rsp)
+   141361e7e:	84 c0                	test   %al,%al
+   141361e80:	0f 85 fa fe ff ff    	jne    141361d80 <_ZN8AuDomainlsER11QDataStream+0xa0>
+   141361e86:	48 83 c4 58          	add    $0x58,%rsp
+   141361e8a:	5b                   	pop    %rbx
+   141361e8b:	5e                   	pop    %rsi
+   141361e8c:	5f                   	pop    %rdi
+   141361e8d:	5d                   	pop    %rbp
+   141361e8e:	41 5c                	pop    %r12
+   141361e90:	41 5d                	pop    %r13
+   141361e92:	41 5e                	pop    %r14
+   141361e94:	41 5f                	pop    %r15
+   141361e96:	c3                   	ret
+   141361e97:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   141361e9e:	00 00
+   141361ea0:	44 3b 49 0c          	cmp    0xc(%rcx),%r9d
+   141361ea4:	0f 85 54 ff ff ff    	jne    141361dfe <_ZN8AuDomainlsER11QDataStream+0x11e>
+   141361eaa:	49 39 cc             	cmp    %rcx,%r12
+   141361ead:	0f 84 56 ff ff ff    	je     141361e09 <_ZN8AuDomainlsER11QDataStream+0x129>
+   141361eb3:	48 83 c1 10          	add    $0x10,%rcx
+   141361eb7:	4c 89 ea             	mov    %r13,%rdx
+   141361eba:	ff 15 90 0d 53 01    	call   *0x1530d90(%rip)        # 142892c50 <__imp__ZN7QStringaSERKS_>
+   141361ec0:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   141361ec5:	8b 01                	mov    (%rcx),%eax
+   141361ec7:	85 c0                	test   %eax,%eax
+   141361ec9:	75 97                	jne    141361e62 <_ZN8AuDomainlsER11QDataStream+0x182>
+   141361ecb:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   141361ed1:	ba 02 00 00 00       	mov    $0x2,%edx
+   141361ed6:	ff 15 c4 06 53 01    	call   *0x15306c4(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   141361edc:	eb 94                	jmp    141361e72 <_ZN8AuDomainlsER11QDataStream+0x192>
+   141361ede:	66 90                	xchg   %ax,%ax
+   141361ee0:	48 89 fe             	mov    %rdi,%rsi
+   141361ee3:	45 39 44 24 14       	cmp    %r8d,0x14(%r12)
+   141361ee8:	0f 8c 2a ff ff ff    	jl     141361e18 <_ZN8AuDomainlsER11QDataStream+0x138>
+   141361eee:	41 0f bf 54 24 1e    	movswl 0x1e(%r12),%edx
+   141361ef4:	4c 89 e1             	mov    %r12,%rcx
+   141361ef7:	83 c2 01             	add    $0x1,%edx
+   141361efa:	ff 15 08 0f 53 01    	call   *0x1530f08(%rip)        # 142892e08 <__imp__ZN9QHashData6rehashEi>
+   141361f00:	4c 8b 27             	mov    (%rdi),%r12
+   141361f03:	48 89 fe             	mov    %rdi,%rsi
+   141361f06:	41 8b 4c 24 20       	mov    0x20(%r12),%ecx
+   141361f0b:	85 c9                	test   %ecx,%ecx
+   141361f0d:	0f 84 05 ff ff ff    	je     141361e18 <_ZN8AuDomainlsER11QDataStream+0x138>
+   141361f13:	89 d8                	mov    %ebx,%eax
+   141361f15:	31 d2                	xor    %edx,%edx
+   141361f17:	f7 f1                	div    %ecx
+   141361f19:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+   141361f1e:	48 8d 34 d0          	lea    (%rax,%rdx,8),%rsi
+   141361f22:	48 8b 06             	mov    (%rsi),%rax
+   141361f25:	4c 39 e0             	cmp    %r12,%rax
+   141361f28:	0f 84 ea fe ff ff    	je     141361e18 <_ZN8AuDomainlsER11QDataStream+0x138>
+   141361f2e:	8b 54 24 44          	mov    0x44(%rsp),%edx
+   141361f32:	39 58 08             	cmp    %ebx,0x8(%rax)
+   141361f35:	74 1d                	je     141361f54 <_ZN8AuDomainlsER11QDataStream+0x274>
+   141361f37:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   141361f3e:	00 00
+   141361f40:	48 89 c6             	mov    %rax,%rsi
+   141361f43:	48 8b 00             	mov    (%rax),%rax
+   141361f46:	49 39 c4             	cmp    %rax,%r12
+   141361f49:	0f 84 c9 fe ff ff    	je     141361e18 <_ZN8AuDomainlsER11QDataStream+0x138>
+   141361f4f:	39 58 08             	cmp    %ebx,0x8(%rax)
+   141361f52:	75 ec                	jne    141361f40 <_ZN8AuDomainlsER11QDataStream+0x260>
+   141361f54:	3b 50 0c             	cmp    0xc(%rax),%edx
+   141361f57:	75 e7                	jne    141361f40 <_ZN8AuDomainlsER11QDataStream+0x260>
+   141361f59:	e9 ba fe ff ff       	jmp    141361e18 <_ZN8AuDomainlsER11QDataStream+0x138>
+   141361f5e:	66 90                	xchg   %ax,%ax
+   141361f60:	c7 44 24 20 08 00 00 	movl   $0x8,0x20(%rsp)
+   141361f67:	00
+   141361f68:	48 8b 54 24 38       	mov    0x38(%rsp),%rdx
+   141361f6d:	41 b9 18 00 00 00    	mov    $0x18,%r9d
+   141361f73:	4d 89 f8             	mov    %r15,%r8
+   141361f76:	ff 15 84 0e 53 01    	call   *0x1530e84(%rip)        # 142892e00 <__imp__ZN9QHashData13detach_helperEPFvPNS_4NodeEPvEPFvS1_Eii>
+   141361f7c:	49 89 c4             	mov    %rax,%r12
+   141361f7f:	48 8b 07             	mov    (%rdi),%rax
+   141361f82:	48 8d 50 10          	lea    0x10(%rax),%rdx
+   141361f86:	8b 40 10             	mov    0x10(%rax),%eax
+   141361f89:	85 c0                	test   %eax,%eax
+   141361f8b:	74 13                	je     141361fa0 <_ZN8AuDomainlsER11QDataStream+0x2c0>
+   141361f8d:	83 f8 ff             	cmp    $0xffffffff,%eax
+   141361f90:	74 06                	je     141361f98 <_ZN8AuDomainlsER11QDataStream+0x2b8>
+   141361f92:	f0 83 2a 01          	lock subl $0x1,(%rdx)
+   141361f96:	74 08                	je     141361fa0 <_ZN8AuDomainlsER11QDataStream+0x2c0>
+   141361f98:	4c 89 27             	mov    %r12,(%rdi)
+   141361f9b:	e9 22 fe ff ff       	jmp    141361dc2 <_ZN8AuDomainlsER11QDataStream+0xe2>
+   141361fa0:	48 8b 0f             	mov    (%rdi),%rcx
+   141361fa3:	4c 89 fa             	mov    %r15,%rdx
+   141361fa6:	ff 15 34 0e 53 01    	call   *0x1530e34(%rip)        # 142892de0 <__imp__ZN9QHashData11free_helperEPFvPNS_4NodeEE>
+   141361fac:	eb ea                	jmp    141361f98 <_ZN8AuDomainlsER11QDataStream+0x2b8>
+   141361fae:	66 90                	xchg   %ax,%ax
+   141361fb0:	f0 83 01 01          	lock addl $0x1,(%rcx)
+   141361fb4:	e9 94 fe ff ff       	jmp    141361e4d <_ZN8AuDomainlsER11QDataStream+0x16d>
+   141361fb9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   141361fc0:	48 8d 15 e9 8c 49 00 	lea    0x498ce9(%rip),%rdx        # 1417facb0 <_ZN5QHashI4AuId7QStringE11deleteNode2EPN9QHashData4NodeE>
+   141361fc7:	ff 15 13 0e 53 01    	call   *0x1530e13(%rip)        # 142892de0 <__imp__ZN9QHashData11free_helperEPFvPNS_4NodeEE>
+   141361fcd:	41 8b 44 24 10       	mov    0x10(%r12),%eax
+   141361fd2:	85 c0                	test   %eax,%eax
+   141361fd4:	0f 85 54 fd ff ff    	jne    141361d2e <_ZN8AuDomainlsER11QDataStream+0x4e>
+   141361fda:	48 8d 15 cf 8c 49 00 	lea    0x498ccf(%rip),%rdx        # 1417facb0 <_ZN5QHashI4AuId7QStringE11deleteNode2EPN9QHashData4NodeE>
+   141361fe1:	4c 89 e1             	mov    %r12,%rcx
+   141361fe4:	ff 15 f6 0d 53 01    	call   *0x1530df6(%rip)        # 142892de0 <__imp__ZN9QHashData11free_helperEPFvPNS_4NodeEE>
+   141361fea:	e9 51 fd ff ff       	jmp    141361d40 <_ZN8AuDomainlsER11QDataStream+0x60>
+   141361fef:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   141361ff4:	49 89 c4             	mov    %rax,%r12
+   141361ff7:	8b 01                	mov    (%rcx),%eax
+   141361ff9:	85 c0                	test   %eax,%eax
+   141361ffb:	75 19                	jne    141362016 <_ZN8AuDomainlsER11QDataStream+0x336>
+   141361ffd:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   141362003:	ba 02 00 00 00       	mov    $0x2,%edx
+   141362008:	ff 15 92 05 53 01    	call   *0x1530592(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   14136200e:	4c 89 e1             	mov    %r12,%rcx
+   141362011:	e8 22 33 3f 00       	call   141755338 <_Unwind_Resume>
+   141362016:	83 c0 01             	add    $0x1,%eax
+   141362019:	74 f3                	je     14136200e <_ZN8AuDomainlsER11QDataStream+0x32e>
+   14136201b:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   14136201f:	48 8b 4c 24 48       	mov    0x48(%rsp),%rcx
+   141362024:	75 e8                	jne    14136200e <_ZN8AuDomainlsER11QDataStream+0x32e>
+   141362026:	eb d5                	jmp    141361ffd <_ZN8AuDomainlsER11QDataStream+0x31d>
+   141362028:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14136202f:	00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014163cd10 <_ZN10AuGlobeLLFlsER11QDataStream>:
+   14163cd10:	41 55                	push   %r13
+   14163cd12:	41 54                	push   %r12
+   14163cd14:	53                   	push   %rbx
+   14163cd15:	48 83 ec 20          	sub    $0x20,%rsp
+   14163cd19:	48 8b 1d d8 59 25 01 	mov    0x12559d8(%rip),%rbx        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   14163cd20:	49 89 d4             	mov    %rdx,%r12
+   14163cd23:	49 89 cd             	mov    %rcx,%r13
+   14163cd26:	48 8d 51 04          	lea    0x4(%rcx),%rdx
+   14163cd2a:	4c 89 e1             	mov    %r12,%rcx
+   14163cd2d:	ff d3                	call   *%rbx
+   14163cd2f:	4c 89 ea             	mov    %r13,%rdx
+   14163cd32:	4c 89 e1             	mov    %r12,%rcx
+   14163cd35:	48 89 d8             	mov    %rbx,%rax
+   14163cd38:	48 83 c4 20          	add    $0x20,%rsp
+   14163cd3c:	5b                   	pop    %rbx
+   14163cd3d:	41 5c                	pop    %r12
+   14163cd3f:	41 5d                	pop    %r13
+   14163cd41:	48 ff e0             	rex.W jmp *%rax
+   14163cd44:	90                   	nop
+   14163cd45:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14163cd4c:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411e1230 <_ZN11AuHitNotifylsER11QDataStream>:
+   1411e1230:	41 55                	push   %r13
+   1411e1232:	41 54                	push   %r12
+   1411e1234:	57                   	push   %rdi
+   1411e1235:	56                   	push   %rsi
+   1411e1236:	53                   	push   %rbx
+   1411e1237:	48 83 ec 30          	sub    $0x30,%rsp
+   1411e123b:	48 8b 35 b6 14 6b 01 	mov    0x16b14b6(%rip),%rsi        # 1428926f8 <__imp__ZN11QDataStreamrsERf>
+   1411e1242:	49 89 d4             	mov    %rdx,%r12
+   1411e1245:	48 8d 54 24 24       	lea    0x24(%rsp),%rdx
+   1411e124a:	4c 8d 6c 24 23       	lea    0x23(%rsp),%r13
+   1411e124f:	48 89 cb             	mov    %rcx,%rbx
+   1411e1252:	4c 89 e1             	mov    %r12,%rcx
+   1411e1255:	ff d6                	call   *%rsi
+   1411e1257:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   1411e125c:	4c 89 e1             	mov    %r12,%rcx
+   1411e125f:	ff d6                	call   *%rsi
+   1411e1261:	48 8d 54 24 2c       	lea    0x2c(%rsp),%rdx
+   1411e1266:	4c 89 e1             	mov    %r12,%rcx
+   1411e1269:	ff d6                	call   *%rsi
+   1411e126b:	f3 0f 10 54 24 28    	movss  0x28(%rsp),%xmm2
+   1411e1271:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1411e1275:	4c 89 ea             	mov    %r13,%rdx
+   1411e1278:	f3 0f 10 44 24 24    	movss  0x24(%rsp),%xmm0
+   1411e127e:	f3 0f 5a 4c 24 2c    	cvtss2sd 0x2c(%rsp),%xmm1
+   1411e1284:	48 8b 35 55 14 6b 01 	mov    0x16b1455(%rip),%rsi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   1411e128b:	f2 0f 11 4b 10       	movsd  %xmm1,0x10(%rbx)
+   1411e1290:	4c 89 e1             	mov    %r12,%rcx
+   1411e1293:	0f 14 c2             	unpcklps %xmm2,%xmm0
+   1411e1296:	0f 5a c0             	cvtps2pd %xmm0,%xmm0
+   1411e1299:	0f 11 03             	movups %xmm0,(%rbx)
+   1411e129c:	ff d6                	call   *%rsi
+   1411e129e:	0f b6 44 24 23       	movzbl 0x23(%rsp),%eax
+   1411e12a3:	89 43 18             	mov    %eax,0x18(%rbx)
+   1411e12a6:	85 c0                	test   %eax,%eax
+   1411e12a8:	75 26                	jne    1411e12d0 <_ZN11AuHitNotifylsER11QDataStream+0xa0>
+   1411e12aa:	4c 89 ea             	mov    %r13,%rdx
+   1411e12ad:	4c 89 e1             	mov    %r12,%rcx
+   1411e12b0:	ff d6                	call   *%rsi
+   1411e12b2:	0f b6 44 24 23       	movzbl 0x23(%rsp),%eax
+   1411e12b7:	89 43 1c             	mov    %eax,0x1c(%rbx)
+   1411e12ba:	85 c0                	test   %eax,%eax
+   1411e12bc:	75 32                	jne    1411e12f0 <_ZN11AuHitNotifylsER11QDataStream+0xc0>
+   1411e12be:	48 83 c4 30          	add    $0x30,%rsp
+   1411e12c2:	5b                   	pop    %rbx
+   1411e12c3:	5e                   	pop    %rsi
+   1411e12c4:	5f                   	pop    %rdi
+   1411e12c5:	41 5c                	pop    %r12
+   1411e12c7:	41 5d                	pop    %r13
+   1411e12c9:	c3                   	ret
+   1411e12ca:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1411e12d0:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1411e12d4:	4c 89 e1             	mov    %r12,%rcx
+   1411e12d7:	48 8b 3d 22 14 6b 01 	mov    0x16b1422(%rip),%rdi        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1411e12de:	ff d7                	call   *%rdi
+   1411e12e0:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   1411e12e4:	4c 89 e1             	mov    %r12,%rcx
+   1411e12e7:	ff d7                	call   *%rdi
+   1411e12e9:	eb bf                	jmp    1411e12aa <_ZN11AuHitNotifylsER11QDataStream+0x7a>
+   1411e12eb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1411e12f0:	48 8b 35 09 14 6b 01 	mov    0x16b1409(%rip),%rsi        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1411e12f7:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1411e12fb:	4c 89 e1             	mov    %r12,%rcx
+   1411e12fe:	ff d6                	call   *%rsi
+   1411e1300:	48 8d 53 24          	lea    0x24(%rbx),%rdx
+   1411e1304:	4c 89 e1             	mov    %r12,%rcx
+   1411e1307:	ff d6                	call   *%rsi
+   1411e1309:	90                   	nop
+   1411e130a:	48 83 c4 30          	add    $0x30,%rsp
+   1411e130e:	5b                   	pop    %rbx
+   1411e130f:	5e                   	pop    %rsi
+   1411e1310:	5f                   	pop    %rdi
+   1411e1311:	41 5c                	pop    %r12
+   1411e1313:	41 5d                	pop    %r13
+   1411e1315:	c3                   	ret
+   1411e1316:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1411e131d:	00 00 00

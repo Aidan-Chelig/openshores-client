@@ -21,6 +21,7 @@ pub mod native_dispatch;
 pub mod native_dna;
 pub mod native_effect;
 pub mod native_item;
+pub mod native_person;
 pub mod native_position_updates;
 pub mod native_prefix;
 pub mod native_runaways;
