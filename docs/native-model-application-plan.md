@@ -74,6 +74,44 @@ Preserve exact conversions and sum order, not simplified geometric formulas.
 
 ## Required implementation and verification
 
+### Model-part construction evidence
+
+`docs/evidence/native-model-part-dispatch-gnu.txt` independently establishes
+AuDNA::MakeParts at141228890: select the requested chromatid, seed one shared
+byte bone index to zero, iterate chromosomes in order, call virtuald0 with that
+chromatid and mutable index, and append only nonnull results. The source list is
+not reordered or filtered to volume-bearing chromosomes. `just
+test-native-model-parts` checks every factory vptr slot against the original PE:
+
+| Kind | Part generator | Address | BoneLoc slot48 |
+| --- | --- | --- | --- |
+| 8 | Head | 1412261a0 | 1412193e0 |
+| 9 | Torso | 141225fe0 | 141205c20 |
+| 10 | Arm | 141226370 | 141215a30 |
+| 11 | Leg | 141224730 | 141215df0 |
+| 12 | Fin | 141225e00 | 141206450 |
+| 13 | Tentacle | 141225a50 | 141206480 |
+| 14 | Wing | 141225c20 | 1412064d0 |
+
+All other kinds dispatch to the complete null-returning base MakePart at
+141205af0. This differs from Volume: Ear/Nose/Mouth/Mammary contribute volume
+but no standalone part; Wing/Fin/Tentacle create parts despite zero Volume.
+Do not derive the part list from nonzero volume or invent separate facial parts.
+
+Wing MakePart clones its chromosome, captures the pre-increment bone-index byte,
+then invokes GenBones; it does not load a mesh at this stage. Torso has the same
+clone/GenBones structure. Their complete geometry, pose and rendering consumers
+still need reconstruction. Wing::CanFly at1411fcd50 delegates through its cloned
+chromosome at+f8 to AuChromoWing::CanFly at14121e550, whose full body returns
+true. This establishes capability for an actual generated Wing, not that any
+unresolved part allocation/generation may be replaced by a fake Wing marker.
+
+The same live analysis session also queues MakeParts, AuDNA equality, the
+Animalia DNA constructor, the seven MakePart overrides, Wing CanFly, and the
+four nontrivial BoneLoc methods. Do not resubmit these while queued or completed.
+
+### Remaining integration gates
+
 1. Implement the real model/part state and mounted-resource selection from the
    verified constructor/SetDNA paths. Unresolved generation must fail explicitly;
    an empty model or successful no-op is not a fallback implementation.

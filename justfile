@@ -97,6 +97,10 @@ test-native-health:
 test-native-chromosome-volumes:
     nix develop .#server-test --command python tests/native_chromosome_volumes.py
 
+# Static MakeParts factory and Wing CanFly bindings, not complete morphology.
+test-native-model-parts:
+    nix develop .#server-test --command python tests/native_model_parts.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

@@ -1,0 +1,103 @@
+Independent GNU static disassembly, not REA Evidence or runtime observation.
+Target SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141228890 <_ZNK5AuDNA9MakePartsER5QListIP12AuAnimalPartEN9AuDNABase9CHROMATIDE>:
+   141228890:	41 54                	push   %r12
+   141228892:	55                   	push   %rbp
+   141228893:	57                   	push   %rdi
+   141228894:	56                   	push   %rsi
+   141228895:	53                   	push   %rbx
+   141228896:	48 83 ec 30          	sub    $0x30,%rsp
+   14122889a:	4d 63 c0             	movslq %r8d,%r8
+   14122889d:	48 89 d5             	mov    %rdx,%rbp
+   1412288a0:	c6 44 24 27 00       	movb   $0x0,0x27(%rsp)
+   1412288a5:	4a 8d 74 c1 08       	lea    0x8(%rcx,%r8,8),%rsi
+   1412288aa:	48 8b 06             	mov    (%rsi),%rax
+   1412288ad:	48 8d 50 10          	lea    0x10(%rax),%rdx
+   1412288b1:	48 63 48 08          	movslq 0x8(%rax),%rcx
+   1412288b5:	48 63 40 0c          	movslq 0xc(%rax),%rax
+   1412288b9:	48 8d 1c ca          	lea    (%rdx,%rcx,8),%rbx
+   1412288bd:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1412288c1:	48 39 c3             	cmp    %rax,%rbx
+   1412288c4:	74 46                	je     14122890c <_ZNK5AuDNA9MakePartsER5QListIP12AuAnimalPartEN9AuDNABase9CHROMATIDE+0x7c>
+   1412288c6:	48 8d 7c 24 27       	lea    0x27(%rsp),%rdi
+   1412288cb:	4c 8d 64 24 28       	lea    0x28(%rsp),%r12
+   1412288d0:	48 8b 0b             	mov    (%rbx),%rcx
+   1412288d3:	49 89 f8             	mov    %rdi,%r8
+   1412288d6:	48 89 f2             	mov    %rsi,%rdx
+   1412288d9:	48 8b 01             	mov    (%rcx),%rax
+   1412288dc:	ff 90 d0 00 00 00    	call   *0xd0(%rax)
+   1412288e2:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+   1412288e7:	48 85 c0             	test   %rax,%rax
+   1412288ea:	74 34                	je     141228920 <_ZNK5AuDNA9MakePartsER5QListIP12AuAnimalPartEN9AuDNABase9CHROMATIDE+0x90>
+   1412288ec:	4c 89 e2             	mov    %r12,%rdx
+   1412288ef:	48 89 e9             	mov    %rbp,%rcx
+   1412288f2:	48 83 c3 08          	add    $0x8,%rbx
+   1412288f6:	e8 f5 7b 61 00       	call   1418404f0 <_ZN5QListIP12AuAnimalPartE6appendERKS1_>
+   1412288fb:	48 8b 06             	mov    (%rsi),%rax
+   1412288fe:	48 63 50 0c          	movslq 0xc(%rax),%rdx
+   141228902:	48 8d 44 d0 10       	lea    0x10(%rax,%rdx,8),%rax
+   141228907:	48 39 c3             	cmp    %rax,%rbx
+   14122890a:	75 c4                	jne    1412288d0 <_ZNK5AuDNA9MakePartsER5QListIP12AuAnimalPartEN9AuDNABase9CHROMATIDE+0x40>
+   14122890c:	48 83 c4 30          	add    $0x30,%rsp
+   141228910:	5b                   	pop    %rbx
+   141228911:	5e                   	pop    %rsi
+   141228912:	5f                   	pop    %rdi
+   141228913:	5d                   	pop    %rbp
+   141228914:	41 5c                	pop    %r12
+   141228916:	c3                   	ret
+   141228917:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   14122891e:	00 00 
+   141228920:	48 8b 06             	mov    (%rsi),%rax
+   141228923:	48 83 c3 08          	add    $0x8,%rbx
+   141228927:	48 63 50 0c          	movslq 0xc(%rax),%rdx
+   14122892b:	48 8d 44 d0 10       	lea    0x10(%rax,%rdx,8),%rax
+   141228930:	48 39 d8             	cmp    %rbx,%rax
+   141228933:	75 9b                	jne    1412288d0 <_ZNK5AuDNA9MakePartsER5QListIP12AuAnimalPartEN9AuDNABase9CHROMATIDE+0x40>
+   141228935:	48 83 c4 30          	add    $0x30,%rsp
+   141228939:	5b                   	pop    %rbx
+   14122893a:	5e                   	pop    %rsi
+   14122893b:	5f                   	pop    %rdi
+   14122893c:	5d                   	pop    %rbp
+   14122893d:	41 5c                	pop    %r12
+   14122893f:	c3                   	ret
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141205af0 <_ZNK12AuChromosome8MakePartERK11AuChromatidRh>:
+   141205af0:	31 c0                	xor    %eax,%eax
+   141205af2:	c3                   	ret
+   141205af3:	90                   	nop
+   141205af4:	90                   	nop
+   141205af5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   141205afc:	00 00 00 00 
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411fcd50 <_ZNK12AuAnimalWing6CanFlyEv>:
+   1411fcd50:	48 8b 89 f8 00 00 00 	mov    0xf8(%rcx),%rcx
+   1411fcd57:	e9 f4 17 02 00       	jmp    14121e550 <_ZNK12AuChromoWing6CanFlyEv>
+   1411fcd5c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014121e550 <_ZNK12AuChromoWing6CanFlyEv>:
+   14121e550:	b8 01 00 00 00       	mov    $0x1,%eax
+   14121e555:	c3                   	ret
+   14121e556:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14121e55d:	00 00 00 
+
