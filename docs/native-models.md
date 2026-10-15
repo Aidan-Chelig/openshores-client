@@ -718,6 +718,16 @@ writes, patched-model publication, torso merging, full bone weights and live
 client/avatar rendering remain unfinished under the original objective.
 # Native weight bone-name routing
 
+`Mesh::body_defined_geometry` now carries deformed positions, native weight
+payloads, source faces, and UVs together without changing vertex indexing.
+The mounted initialized-part integration test no longer discards each request's
+bone triplet: arm/hand, leg/foot, tail, torso fallback pieces, head pieces and
+neck feed their actual planned indices into mesh weighting. On the local
+user-provided installation fixture, 17 resources / 3,410 vertices produce
+3,410 finite native weight payloads and zero nonfinite ones. Faces and UVs are
+checked against the decoded source. This is offline CPU integration evidence,
+not native runtime parity, full cache merging, posing, or visible rendering.
+
 Mesh weighting now uses `native_weight_lookup_positions`: the shared ordered
 geometry loader's f32 object-buffer state, before caller scaling or the final
 matrix projection. `native_body_vertex_weights` produces one raw weight payload

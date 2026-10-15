@@ -161,43 +161,45 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
         .unwrap();
     let mut resources = 0;
     let mut points = 0;
+    let mut finite_weight_vertices = 0;
+    let mut nonfinite_weight_vertices = 0;
     for (index, part) in body.parts().iter().enumerate() {
         let requests: Vec<_> = match part.allocation.kind {
             NativeDpPartKind::LeftArmAndHand | NativeDpPartKind::RightArmAndHand => body
                 .arm_skin_geometry_requests(index, 0, [1.; 4])
                 .unwrap()
                 .into_iter()
-                .map(|r| (r.resource, r.geometry))
+                .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
             NativeDpPartKind::LeftLegAndFoot | NativeDpPartKind::RightLegAndFoot => body
                 .leg_skin_geometry_requests(index, 0, [1.; 4])
                 .unwrap()
                 .into_iter()
-                .map(|r| (r.resource, r.geometry))
+                .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
             NativeDpPartKind::Tail => body
                 .tail_skin_geometry_request(index, [1.; 4])
                 .unwrap()
                 .into_iter()
-                .map(|r| (r.resource, r.geometry))
+                .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
             NativeDpPartKind::Torso => body
                 .torso_skin_geometry_plan(index, 0, [1.; 4])
                 .unwrap()
                 .into_iter()
                 .flat_map(|p| p.fallback)
-                .map(|r| (r.resource, r.geometry))
+                .map(|r| (r.resource, r.geometry, r.bones))
                 .collect(),
             NativeDpPartKind::HeadAndNeck => {
                 let plan = body.head_skin_geometry_plan(index, 0, [1.; 4]).unwrap();
                 plan.fallback
                     .into_iter()
                     .chain(plan.neck)
-                    .map(|r| (r.resource, r.geometry))
+                    .map(|r| (r.resource, r.geometry, r.bones))
                     .collect()
             }
         };
-        for (resource, geometry) in requests {
+        for (resource, geometry, bones) in requests {
             let model = openshores_client::model::Model::decode(
                 &mount.read_resource(&resource).unwrap(),
                 ModelVariant::N,
@@ -206,17 +208,39 @@ fn initialized_part_skin_requests_load_and_deform_mounted_models() {
             resources += 1;
             for mesh in model.meshes {
                 let output = mesh
-                    .body_defined_positions(ModelVariant::N, 1., &geometry)
+                    .body_defined_geometry(
+                        ModelVariant::N,
+                        1.,
+                        &geometry,
+                        bones.map(|bone| i32::try_from(bone).unwrap()),
+                    )
                     .unwrap();
-                points += output.len();
-                assert_eq!(output.len(), mesh.vertices.len());
-                assert!(output.iter().flatten().all(|value| value.is_finite()));
+                points += output.positions.len();
+                assert_eq!(output.positions.len(), mesh.vertices.len());
+                assert_eq!(output.weights.len(), mesh.vertices.len());
+                assert_eq!(output.faces, mesh.faces);
+                assert_eq!(output.uvs, mesh.uvs);
+                for vertex in &output.weights {
+                    if vertex.weights().iter().all(|weight| weight.is_finite()) {
+                        finite_weight_vertices += 1;
+                    } else {
+                        nonfinite_weight_vertices += 1;
+                    }
+                }
+                assert!(
+                    output
+                        .positions
+                        .iter()
+                        .flatten()
+                        .all(|value| value.is_finite())
+                );
             }
         }
     }
     assert_eq!(resources, 17);
     assert!(points > 0);
+    assert_eq!(finite_weight_vertices + nonfinite_weight_vertices, points);
     eprintln!(
-        "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices; verified native geometry defaults, no complete model/rendering parity claim."
+        "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices, {finite_weight_vertices} finite and {nonfinite_weight_vertices} nonfinite native weight payloads; no complete model/rendering parity claim."
     );
 }
