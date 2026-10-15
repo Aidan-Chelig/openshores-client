@@ -273,3 +273,13 @@ as inventory. Known null types continue/diagnose instead of conservatively
 failing Unsupported; real unimplemented bodies still fail. All-byte Gear and
 Person Gear→zero-weight→Domain fixtures verify the corrected continuation.
 This reuses existing evidence and does not close the remaining runtime gates.
+
+Galaxy-location item milestone: type10 now composes the real common/AuId/
+AuPoint/QString body. Actual float profiles flow through Person Gear/inventory
+and Creature's selected item; stored double bits preserve signed zero and NaN.
+Offline fixtures cover all profiles, every truncated prefix, later-field
+sentinels and actual parent-reader composition. Digest-bound factory/vptr and
+reader evidence is retained without importing another analysis database.
+This brings supported item families to eight; other valid types, commodity2
+fixup, weight, concrete runtime context/construction/dispatch and actual avatar
+presentation remain unfinished. No native end-to-end session claim is made.

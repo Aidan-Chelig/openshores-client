@@ -72,12 +72,12 @@ The ordered Unit/Creature stage exists with required application context hooks;
 no concrete Person construction/dispatch or presentation is implied by those
 component fixtures. See native-creature.md for the exact remaining boundary.
 
-Gear wire composition is now implemented for the seven established item types;
+Gear wire composition is now implemented for the eight established item types;
 see native-person-gear.md. Commodity2 replacement, remaining item types and
 Person's required weight recomputation remain explicitly unsupported/unfinished.
 Null slots are diagnosed and skipped without truncating the counted loop.
 
-Person's inventory stage now composes seven real item families, native obsolete
+Person's inventory stage now composes eight real item families, native obsolete
 filtering, duplicate commodity retention and verified null-factory continuation.
 Other valid item types and commodity2 replacement fail explicitly. The inventory
 report and subsequent late identity/nibble fields are tested in actual Person

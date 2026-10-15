@@ -44,6 +44,14 @@ pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
                     NativeItemExtension::State { field_4c } => {
                         format!("{{\"field_4c\":{field_4c}}}")
                     }
+                    NativeItemExtension::GalaxyLocation(location) => format!(
+                        "{{\"id_4c\":{},\"point_50_bits_hex\":[\"{:016x}\",\"{:016x}\",\"{:016x}\"],\"string_68_utf8_hex\":{}}}",
+                        location.id_4c,
+                        location.point_50_bits[0],
+                        location.point_50_bits[1],
+                        location.point_50_bits[2],
+                        string_hex(location.string_68.as_deref())
+                    ),
                     NativeItemExtension::StateMessage { field_4c, field_50 } => format!(
                         "{{\"field_4c\":{},\"field_50_utf8_hex\":{}}}",
                         field_4c,

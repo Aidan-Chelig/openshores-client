@@ -13,6 +13,13 @@ impl NativeGearSlot {
     /// None means a verified null factory. Other unimplemented factory types
     /// and commodity2 replacement fail explicitly, never guess/skip a body.
     pub fn read(input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
+        Self::read_with_profile(input, FloatEncoding::TypeWidths)
+    }
+
+    pub fn read_with_profile(
+        input: &mut QtReader<'_>,
+        profile: FloatEncoding,
+    ) -> io::Result<Option<Self>> {
         let mut record = QtReader::new(input.remaining_bytes());
         let packed = record.read_u8()?;
         let mut probe = QtReader::new(record.remaining_bytes());
@@ -21,12 +28,13 @@ impl NativeGearSlot {
             record.skip(1)?;
             None
         } else {
-            let item = NativeItemValue::read(&mut record)?.ok_or_else(|| {
-                io::Error::new(
-                    io::ErrorKind::Unsupported,
-                    format!("native gear item factory type {kind}"),
-                )
-            })?;
+            let item =
+                NativeItemValue::read_with_profile(&mut record, profile)?.ok_or_else(|| {
+                    io::Error::new(
+                        io::ErrorKind::Unsupported,
+                        format!("native gear item factory type {kind}"),
+                    )
+                })?;
             if item.common.commodity == 2 {
                 return Err(io::Error::new(
                     io::ErrorKind::Unsupported,
@@ -61,12 +69,20 @@ impl NativeGear {
     /// duplicates). No count-based allocation. Earlier appends survive later
     /// errors. Person must separately recompute actual native Gear::Weight.
     pub fn receive(&mut self, input: &mut QtReader<'_>) -> io::Result<NativeGearReceive> {
+        self.receive_with_profile(input, FloatEncoding::TypeWidths)
+    }
+
+    pub fn receive_with_profile(
+        &mut self,
+        input: &mut QtReader<'_>,
+        profile: FloatEncoding,
+    ) -> io::Result<NativeGearReceive> {
         let length = input.remaining();
         self.0.clear();
         let wire_count = input.read_u8()?;
         let mut null_slots = vec![];
         for index in 0..wire_count {
-            if let Some(slot) = NativeGearSlot::read(input)? {
+            if let Some(slot) = NativeGearSlot::read_with_profile(input, profile)? {
                 self.0.push(slot);
             } else {
                 null_slots.push(index);

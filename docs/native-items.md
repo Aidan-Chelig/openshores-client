@@ -55,9 +55,10 @@ Additional established bindings, checked from original PE bytes:
 | --- | --- | --- | --- |
 | 6, AuItemState | 0x1414f0a30 | 0x1423d1ee0 | 0x1414d0a00 |
 | 7, AuItemAmmo | 0x1414f09b8 | 0x1423c4720 | 0x1414d0a70 |
+| 10, AuItemGalaxyLoc | 0x1414f08d0 | 0x14240ee60 | 0x1414d0de0 |
 | 17, AuItemStateMessage | 0x1414f0f38 | 0x142438ed0 | 0x1414d0a30 |
 
-All three call/tail-call the common reader first. State adds one byte at 0x4c;
+State, Ammo and StateMessage call/tail-call the common reader first. State adds one byte at 0x4c;
 StateMessage adds that byte and a QString at 0x50; Ammo adds nothing.
 `NativeItemValue` preserves the subtype even when two share the same layout.
 Factory type 8 constructs AuItemWeapon through its constructor; it is **not**
@@ -65,7 +66,18 @@ an Ammo alias just because a sequential disassembly window reaches the next
 case. Weapon layouts, including ammunition and weapon-state variants, now have
 separate extension readers; see [native weapons](native-weapons.md).
 
-`NativeItemBody` decodes these seven types, omission of the item value, and
+GalaxyLoc also reads the common body first, then AuId at 0x4c, AuPoint at
+0x50 and nullable QString at 0x68. AuPoint's reader at 0x141648040 calls
+the QDataStream double overload three times. The actual stored f64 bits are
+retained (including signed zero/NaN); SinglePrecision reads f32 and widens.
+`read_with_profile` APIs propagate this through Gear, inventory and Creature's
+selected item. Existing profile-free APIs remain TypeWidths. Coordinates and
+ID/string gameplay meanings beyond these proven types are not guessed.
+Full independent GNU evidence is retained in
+[native-item-galaxy-location-gnu.txt](evidence/native-item-galaxy-location-gnu.txt);
+it is static evidence, not a native runtime observation.
+
+`NativeItemBody` decodes these eight types, omission of the item value, and
 the native ownership branches: 0x80 reads an ID and two QStrings at offsets
 0x3dc/0x3e0/0x3e8; otherwise 0x40 writes sentinel ID 1 without resetting the
 strings; otherwise ownership remains unchanged. Flag 0x20 replaces boolean
@@ -91,12 +103,12 @@ Unit tests exhaust all 256 flags, truncations, signed extremes, normalization,
 surrogate pairs, and name safety bounds; these are synthetic layout checks,
 not a Qt/original-runtime oracle or full native session compatibility.
 Body tests also exhaust all 256 outer flags, ownership precedence and omission,
-all 249 unimplemented subtype IDs, truncations, and base-layer dispatch guards.
+all 248 unimplemented subtype IDs, truncations, and base-layer dispatch guards.
 `just test-native-items` additionally pins the native reader anchors to the
 target digest and checks 256 independent Python struct/UTF-16 fixtures through
 the Rust command, plus malformed and overbudget diagnostics. Static checks also
-pin all seven factory/vtable bindings, subtype and outer-reader call sites.
-The value diagnostic additionally verifies 36 independent subtype fixtures and
+pin all eight factory/vtable bindings, subtype and outer-reader call sites.
+The value diagnostic additionally verifies 39 independent simple/location fixtures and
 byte-exact preservation of all unsupported type IDs.
 
 ## Capture integration
@@ -112,7 +124,7 @@ retains only summaries during that validation, not a second full collection
 of decoded names. `inspect-native-capture` remains prefix-only and unchanged.
 
 `just test-native-items` also checks a multi-frame independent fixture with
-all seven supported subtypes, sentinel ownership, unknown DNA, effects/sync
+all eight supported subtypes, sentinel ownership, unknown DNA, effects/sync
 boundaries, nonitem/unknown opcodes, byte-exact raw retention, and a malformed
 last body. This is offline capture decoding, not native world-state mutation,
 render integration, native capture framing parity, or a live-session test.

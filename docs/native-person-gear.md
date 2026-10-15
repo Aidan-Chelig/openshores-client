@@ -27,7 +27,7 @@ and25..255. Gear warns and continues without appending them.
 Successful non-null slots append in wire order, including duplicate positions.
 NativeGearReceive surfaces null-slot indices as a must-use diagnostic result.
 
-All seven established NativeItemValue types1/6/7/8/9/12/17 compose their actual
+All eight established NativeItemValue types1/6/7/8/9/10/12/17 compose their actual
 common/extension readers. Other valid factory types fail Unsupported, not guessed null or
 opaque body skipping. The slot is atomic on Rust read failure; completed prior
 Gear appends remain after a later failure. This safety policy is distinct from

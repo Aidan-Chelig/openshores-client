@@ -1,0 +1,100 @@
+Independent GNU static evidence; OpenShores.exe SHA-256 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80. No native execution.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414d0de0 <_ZN15AuItemGalaxyLoclsER11QDataStream>:
+   1414d0de0:	41 54                	push   %r12
+   1414d0de2:	53                   	push   %rbx
+   1414d0de3:	48 83 ec 28          	sub    $0x28,%rsp
+   1414d0de7:	48 89 cb             	mov    %rcx,%rbx
+   1414d0dea:	49 89 d4             	mov    %rdx,%r12
+   1414d0ded:	e8 ae f9 ff ff       	call   1414d07a0 <_ZN6AuItemlsER11QDataStream>
+   1414d0df2:	48 8d 4b 4c          	lea    0x4c(%rbx),%rcx
+   1414d0df6:	4c 89 e2             	mov    %r12,%rdx
+   1414d0df9:	e8 c2 45 16 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1414d0dfe:	48 8d 53 50          	lea    0x50(%rbx),%rdx
+   1414d0e02:	4c 89 e1             	mov    %r12,%rcx
+   1414d0e05:	e8 36 72 17 00       	call   141648040 <_ZrsR11QDataStreamR7AuPoint>
+   1414d0e0a:	48 8d 53 68          	lea    0x68(%rbx),%rdx
+   1414d0e0e:	4c 89 e1             	mov    %r12,%rcx
+   1414d0e11:	48 83 c4 28          	add    $0x28,%rsp
+   1414d0e15:	5b                   	pop    %rbx
+   1414d0e16:	41 5c                	pop    %r12
+   1414d0e18:	48 ff 25 f1 25 3c 01 	rex.W jmp *0x13c25f1(%rip)        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1414d0e1f:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141648040 <_ZrsR11QDataStreamR7AuPoint>:
+   141648040:	41 54                	push   %r12
+   141648042:	56                   	push   %rsi
+   141648043:	53                   	push   %rbx
+   141648044:	48 83 ec 20          	sub    $0x20,%rsp
+   141648048:	48 8b 35 a1 a6 24 01 	mov    0x124a6a1(%rip),%rsi        # 1428926f0 <__imp__ZN11QDataStreamrsERd>
+   14164804f:	49 89 cc             	mov    %rcx,%r12
+   141648052:	48 89 d3             	mov    %rdx,%rbx
+   141648055:	ff d6                	call   *%rsi
+   141648057:	48 8d 53 08          	lea    0x8(%rbx),%rdx
+   14164805b:	4c 89 e1             	mov    %r12,%rcx
+   14164805e:	ff d6                	call   *%rsi
+   141648060:	48 8d 53 10          	lea    0x10(%rbx),%rdx
+   141648064:	4c 89 e1             	mov    %r12,%rcx
+   141648067:	ff d6                	call   *%rsi
+   141648069:	4c 89 e0             	mov    %r12,%rax
+   14164806c:	48 83 c4 20          	add    $0x20,%rsp
+   141648070:	5b                   	pop    %rbx
+   141648071:	5e                   	pop    %rsi
+   141648072:	41 5c                	pop    %r12
+   141648074:	c3                   	ret
+   141648075:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14164807c:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001414f08d0 <_ZN6AuItem6CreateEh+0x2f0>:
+   1414f08d0:	b9 70 00 00 00       	mov    $0x70,%ecx
+   1414f08d5:	48 8d 1d 84 e5 f1 00 	lea    0xf1e584(%rip),%rbx        # 14240ee60 <_ZTV15AuItemGalaxyLoc+0x10>
+   1414f08dc:	e8 b7 36 26 00       	call   141753f98 <_Znwy>
+   1414f08e1:	31 d2                	xor    %edx,%edx
+   1414f08e3:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f08e7:	49 89 c4             	mov    %rax,%r12
+   1414f08ea:	48 8b 05 b7 1c 3a 01 	mov    0x13a1cb7(%rip),%rax        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   1414f08f1:	66 41 89 54 24 08    	mov    %dx,0x8(%r12)
+   1414f08f7:	48 8b 15 8a 10 df 00 	mov    0xdf108a(%rip),%rdx        # 1422e1988 <CSWTCH.2048+0x108>
+   1414f08fe:	41 0f 11 44 24 38    	movups %xmm0,0x38(%r12)
+   1414f0904:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1414f0908:	49 89 44 24 18       	mov    %rax,0x18(%r12)
+   1414f090d:	41 c6 44 24 28 00    	movb   $0x0,0x28(%r12)
+   1414f0913:	49 89 54 24 0c       	mov    %rdx,0xc(%r12)
+   1414f0918:	41 c6 44 24 14 00    	movb   $0x0,0x14(%r12)
+   1414f091e:	41 c6 44 24 20 01    	movb   $0x1,0x20(%r12)
+   1414f0924:	41 c7 44 24 24 00 00 	movl   $0x0,0x24(%r12)
+   1414f092b:	00 00
+   1414f092d:	49 c7 44 24 2c 00 00 	movq   $0x0,0x2c(%r12)
+   1414f0934:	00 00
+   1414f0936:	49 89 1c 24          	mov    %rbx,(%r12)
+   1414f093a:	49 c7 44 24 48 00 00 	movq   $0x0,0x48(%r12)
+   1414f0941:	00 00
+   1414f0943:	49 c7 44 24 60 00 00 	movq   $0x0,0x60(%r12)
+   1414f094a:	00 00
+   1414f094c:	49 89 44 24 68       	mov    %rax,0x68(%r12)
+   1414f0951:	41 0f 11 44 24 50    	movups %xmm0,0x50(%r12)
+   1414f0957:	e9 21 fd ff ff       	jmp    1414f067d <_ZN6AuItem6CreateEh+0x9d>
+   1414f095c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14240ee88 e00d4d41 01000000                    ..MA....

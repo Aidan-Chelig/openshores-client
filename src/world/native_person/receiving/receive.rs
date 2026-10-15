@@ -74,7 +74,7 @@ impl NativePersonSuffixState {
         }
         let gear = if flags_a & 0x40 != 0 {
             let gear = self.gear_1390.get_or_insert_with(Default::default);
-            let report = gear.receive(input)?;
+            let report = gear.receive_with_profile(input, profile)?;
             if !gear.0.is_empty() {
                 return Err(unsupported(
                     "native nonempty Gear::Weight item virtual+298 is not implemented",
@@ -122,7 +122,7 @@ impl NativePersonSuffixState {
             Some(
                 self.inventory_1458
                     .get_or_insert_with(Default::default)
-                    .receive_qt7(input)?,
+                    .receive_qt7_with_profile(input, profile)?,
             )
         } else {
             None

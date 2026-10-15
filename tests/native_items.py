@@ -37,6 +37,7 @@ assert struct.unpack("<Q", read(0x14247C7B0 + 0x28, 8))[0] == 0x1414D07A0
 for type_id, factory_entry, address_point, reader in (
     (6, 0x1414F0A30, 0x1423D1EE0, 0x1414D0A00),
     (7, 0x1414F09B8, 0x1423C4720, 0x1414D0A70),
+    (10, 0x1414F08D0, 0x14240EE60, 0x1414D0DE0),
     (17, 0x1414F0F38, 0x142438ED0, 0x1414D0A30),
 ):
     assert table + struct.unpack("<i", read(table + type_id * 4, 4))[0] == factory_entry
@@ -48,6 +49,18 @@ subtypes = subprocess.check_output(["objdump", "-d", "--start-address=0x1414d0a0
     "--stop-address=0x1414d0a75", str(target)], text=True)
 for anchor in ("1414d0a0d:", "1414d0a20:", "1414d0a3d:", "1414d0a49:", "1414d0a5d:", "1414d0a70:"):
     assert anchor in subtypes, anchor
+location = subprocess.check_output(["objdump", "-d",
+    "--disassemble=_ZN15AuItemGalaxyLoclsER11QDataStream", str(target)], text=True)
+for anchor in ("1414d07a0 <_ZN6AuItemlsER11QDataStream>",
+               "0x4c(%rbx)", "1416353c0 <_ZN4AuIdlsER11QDataStream>",
+               "0x50(%rbx)", "141648040 <_ZrsR11QDataStreamR7AuPoint>",
+               "0x68(%rbx)", "__imp__ZrsR11QDataStreamR7QString"):
+    assert anchor in location, anchor
+point = subprocess.check_output(["objdump", "-d",
+    "--disassemble=_ZrsR11QDataStreamR7AuPoint", str(target)], text=True)
+assert "__imp__ZN11QDataStreamrsERd>" in point
+assert point.count("call   *%rsi") == 3
+assert "0x8(%rbx),%rdx" in point and "0x10(%rbx),%rdx" in point
 for type_id, expected_entry, address_point, reader in (
     (8, 0x1414F0998, 0x1423DE1A0, 0x1414D0A80),
     (9, 0x1414F0960, 0x14241E890, 0x1414D0D50),
@@ -151,12 +164,32 @@ for type_id in (1, 6, 7, 17):
             assert result["type_id"] == type_id and result["extension"] == extension
             assert result["consumed_bytes"] == len(wire) and result["tail_hex"] == "dead"
             assert result["common"]["commodity"] == 1 and result["common"]["field_20"] == 1
-for type_id in set(range(256)) - {1, 6, 7, 8, 9, 12, 17}:
+for message in (None, "", "location 🚀"):
+    bits = (0x8000000000000000, 0x7FF8000000001234, 0x3FF4000000000000)
+    raw = message.encode("utf-16-be") if message is not None else None
+    wire = bytes([10]) + struct.pack(">BhBI3Q", 0, 3, 1, 0xFFFFFFFF, *bits)
+    wire += struct.pack(">I", len(raw) if raw is not None else 0xFFFFFFFF)
+    if raw is not None:
+        wire += raw
+    result = json.loads(subprocess.check_output([client, "inspect-native-item-value",
+        (wire + b"\xde\xad").hex()], text=True))
+    assert result["extension"] == {
+        "id_4c": 0xFFFFFFFF,
+        "point_50_bits_hex": [f"{value:016x}" for value in bits],
+        "string_68_utf8_hex": message.encode().hex() if message is not None else None,
+    }
+    assert result["type_id"] == 10
+    assert result["consumed_bytes"] == len(wire) and result["tail_hex"] == "dead"
+    for end in range(len(wire)):
+        truncated = subprocess.run([client, "inspect-native-item-value", wire[:end].hex()],
+            capture_output=True)
+        assert truncated.returncode != 0 and truncated.stdout == b"", end
+for type_id in set(range(256)) - {1, 6, 7, 8, 9, 10, 12, 17}:
     wire = bytes([type_id, 0xde, 0xad])
     result = json.loads(subprocess.check_output([client, "inspect-native-item-value", wire.hex()], text=True))
     assert result == {"type_id": None, "payload_hex": wire.hex()}
 print("Native common item: static reader anchors, 256 independent fixtures, and malformed input verified offline.")
-print("Native simple item subtypes: four factory/vtable bindings, 36 independent value fixtures, and 249 opaque types verified.")
+print("Native simple/location items: five factory/vtable bindings, 39 independent value fixtures, location truncations, and 248 opaque types verified.")
 for flags in range(256):
     wire = struct.pack(">Bh", flags, -123)
     groups = []

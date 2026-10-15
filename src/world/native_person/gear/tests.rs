@@ -6,6 +6,11 @@ fn slot(packed: u8, kind: u8, commodity: i16) -> Vec<u8> {
     bytes.extend(commodity.to_be_bytes());
     bytes.push(1);
     match kind {
+        10 => {
+            bytes.extend(u32::MAX.to_be_bytes());
+            bytes.extend([0; 24]);
+            bytes.extend(u32::MAX.to_be_bytes());
+        }
         6 => bytes.push(0x80),
         8 | 9 | 12 => {
             bytes.extend([0, 0x12, 0x34]);
@@ -25,7 +30,7 @@ fn slot(packed: u8, kind: u8, commodity: i16) -> Vec<u8> {
 #[test]
 fn packed_slots_use_both_nibbles_without_merging_duplicates() {
     for packed in 0..=255_u8 {
-        for kind in [1, 6, 7, 8, 9, 12, 17] {
+        for kind in [1, 6, 7, 8, 9, 10, 12, 17] {
             let bytes = slot(packed, kind, 3);
             let mut input = QtReader::new(&bytes);
             let result = NativeGearSlot::read(&mut input).unwrap().unwrap();
@@ -89,7 +94,7 @@ fn unsupported_factory_and_special_fixup_are_not_silent_null_slots() {
 fn every_factory_byte_keeps_null_factories_distinct_from_unimplemented_bodies() {
     for kind in 0..=255_u8 {
         let null = matches!(kind, 0 | 2 | 3 | 11 | 15 | 21 | 25..=255);
-        let supported = matches!(kind, 1 | 6 | 7 | 8 | 9 | 12 | 17);
+        let supported = matches!(kind, 1 | 6 | 7 | 8 | 9 | 10 | 12 | 17);
         let mut bytes = vec![3];
         if null {
             bytes.extend([0xab, kind]);

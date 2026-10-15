@@ -53,7 +53,7 @@ state1130 fails at its read-modify-write stage after preceding completed reads.
 The full inherited construction path is still required; this API is not it.
 
 Unsupported JobList datetime profiles and inventory item bodies/fixup fail at
-their native read stages. Inventory now composes seven real item families,
+their native read stages. Inventory now composes eight real item families,
 duplicate-key retention, the native obsolete filter and null-factory continuation;
 see native-person-inventory.md.
 JobList now supports all27 native body types and empty lists; verified

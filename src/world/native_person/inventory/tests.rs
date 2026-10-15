@@ -6,6 +6,11 @@ fn item(kind: u8, commodity: u16) -> Vec<u8> {
     bytes.extend(commodity.to_be_bytes());
     bytes.push(1);
     match kind {
+        10 => {
+            bytes.extend(u32::MAX.to_be_bytes());
+            bytes.extend([0; 24]);
+            bytes.extend(u32::MAX.to_be_bytes());
+        }
         6 => bytes.push(0x80),
         8 | 9 | 12 => {
             bytes.extend([0, 0x12, 0x34]);
@@ -54,7 +59,7 @@ fn every_commodity_bit_pattern_matches_native_range_and_bitset_predicate() {
 fn every_factory_byte_distinguishes_native_null_from_unsupported_valid_body() {
     for kind in 0..=255_u8 {
         let null = matches!(kind, 0 | 2 | 3 | 11 | 15 | 21 | 25..=255);
-        let supported = matches!(kind, 1 | 6 | 7 | 8 | 9 | 12 | 17);
+        let supported = matches!(kind, 1 | 6 | 7 | 8 | 9 | 10 | 12 | 17);
         let mut bytes = 3_u32.to_be_bytes().to_vec();
         if null {
             bytes.push(kind);
@@ -92,7 +97,7 @@ fn obsolete_items_are_fully_received_before_discard_and_duplicates_survive() {
     let obsolete = [
         0x36, 0x46, 0x47, 0x67, 0xed, 0x118, 0x119, 0x27b, 0x27c, 0x27d, 0x27e,
     ];
-    for kind in [1, 6, 7, 8, 9, 12, 17] {
+    for kind in [1, 6, 7, 8, 9, 10, 12, 17] {
         for commodity in obsolete {
             let bytes = list(&[
                 item(kind, commodity),

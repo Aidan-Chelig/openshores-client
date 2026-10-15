@@ -1,9 +1,11 @@
 use super::{NativeItemCommon, NativeWeapon, common::bounded_string};
+use crate::atom_position::FloatEncoding;
 use crate::protocol::QtReader;
 use std::io;
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum NativeItemExtension {
+    GalaxyLocation(super::NativeItemGalaxyLocation),
     Plain,
     Ammo,
     Weapon(NativeWeapon),
@@ -27,6 +29,7 @@ pub enum NativeItemExtension {
 impl NativeItemExtension {
     pub fn type_id(&self) -> u8 {
         match self {
+            Self::GalaxyLocation(_) => 10,
             Self::Plain => 1,
             Self::State { .. } => 6,
             Self::Ammo => 7,
@@ -56,14 +59,25 @@ impl NativeItemValue {
     /// Read type byte and established subtype fields. Unsupported types return
     /// None without consumption; malformed supported types return Err atomically.
     pub fn read(input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
+        Self::read_with_profile(input, FloatEncoding::TypeWidths)
+    }
+
+    pub fn read_with_profile(
+        input: &mut QtReader<'_>,
+        profile: FloatEncoding,
+    ) -> io::Result<Option<Self>> {
         let length = input.remaining();
         let mut record = QtReader::new(input.remaining_bytes());
         let type_id = record.read_u8()?;
-        if !matches!(type_id, 1 | 6 | 7 | 8 | 9 | 12 | 17) {
+        if !matches!(type_id, 1 | 6 | 7 | 8 | 9 | 10 | 12 | 17) {
             return Ok(None);
         }
         let common = NativeItemCommon::read(&mut record)?;
         let extension = match type_id {
+            10 => NativeItemExtension::GalaxyLocation(super::NativeItemGalaxyLocation::read(
+                &mut record,
+                profile,
+            )?),
             1 => NativeItemExtension::Plain,
             6 => NativeItemExtension::State {
                 field_4c: record.read_u8()?,

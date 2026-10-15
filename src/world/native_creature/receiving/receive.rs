@@ -78,12 +78,16 @@ impl NativeCreatureReceiveState {
             if item_type == 0 {
                 input.read_u8()?;
             } else {
-                self.item_698 = Some(NativeItemValue::read(input)?.ok_or_else(|| {
-                    io::Error::new(
-                        io::ErrorKind::Unsupported,
-                        format!("native Creature item factory/body {item_type} is not implemented"),
-                    )
-                })?);
+                self.item_698 = Some(
+                    NativeItemValue::read_with_profile(input, profile)?.ok_or_else(|| {
+                        io::Error::new(
+                            io::ErrorKind::Unsupported,
+                            format!(
+                                "native Creature item factory/body {item_type} is not implemented"
+                            ),
+                        )
+                    })?,
+                );
             }
         }
         let now = context.wall_clock_ms()?;

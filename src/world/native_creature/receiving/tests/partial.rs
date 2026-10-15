@@ -1,6 +1,43 @@
 use super::*;
 
 #[test]
+fn selected_galaxy_location_item_receives_the_creature_float_profile() {
+    for profile in PROFILES {
+        let mut bytes = unit(profile);
+        bytes.extend(0x80_u16.to_be_bytes());
+        bytes.push(0xfa);
+        bytes.extend([10, 0, 0, 3, 1]);
+        bytes.extend(88_u32.to_be_bytes());
+        for value in [1.25_f64, -0.0, -99.5] {
+            if profile == FloatEncoding::SinglePrecision {
+                bytes.extend((value as f32).to_be_bytes());
+            } else {
+                bytes.extend(value.to_be_bytes());
+            }
+        }
+        bytes.extend(u32::MAX.to_be_bytes());
+        bytes.push(0xde);
+        let mut input = QtReader::new(&bytes);
+        let mut state = NativeCreatureReceiveState::default();
+        state
+            .receive_qt7(&mut input, profile, &mut Trace::default())
+            .unwrap();
+        let crate::world::native_item::NativeItemExtension::GalaxyLocation(location) =
+            state.item_698.unwrap().extension
+        else {
+            panic!("wrong selected item");
+        };
+        assert_eq!(location.id_4c, 88);
+        assert_eq!(
+            location.point_50_bits,
+            [1.25_f64, -0.0, -99.5].map(f64::to_bits)
+        );
+        assert_eq!(location.string_68, None);
+        assert_eq!(input.read_u8().unwrap(), 0xde);
+    }
+}
+
+#[test]
 fn every_truncated_combined_unit_creature_prefix_fails_and_does_not_run_later_effects() {
     for profile in PROFILES {
         for flags in [0x2ff, 0x3ff, 0, 0x100] {
@@ -71,7 +108,7 @@ fn item_omission_null_factory_and_unsupported_body_never_preserve_the_old_select
         .unwrap();
     assert!(state.item_698.is_none());
     assert_eq!(input.read_u8().unwrap(), 0xde);
-    for unsupported in (1..=255).filter(|kind| ![1, 6, 7, 8, 9, 12, 17].contains(kind)) {
+    for unsupported in (1..=255).filter(|kind| ![1, 6, 7, 8, 9, 10, 12, 17].contains(kind)) {
         let mut bytes = bytes.clone();
         bytes[type_offset] = unsupported;
         context.events.clear();

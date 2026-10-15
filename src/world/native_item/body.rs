@@ -32,11 +32,18 @@ impl NativeItemBody {
     /// Unsupported subtypes return None with the entire input unchanged.
     /// Known malformed bodies return Err atomically. A suffix is never discarded.
     pub fn read(input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
+        Self::read_with_profile(input, crate::atom_position::FloatEncoding::TypeWidths)
+    }
+
+    pub fn read_with_profile(
+        input: &mut QtReader<'_>,
+        profile: crate::atom_position::FloatEncoding,
+    ) -> io::Result<Option<Self>> {
         let length = input.remaining();
         let mut record = QtReader::new(input.remaining_bytes());
         let flags = record.read_u8()?;
         let item = if flags & 1 != 0 {
-            let Some(value) = NativeItemValue::read(&mut record)? else {
+            let Some(value) = NativeItemValue::read_with_profile(&mut record, profile)? else {
                 return Ok(None);
             };
             Some(value)

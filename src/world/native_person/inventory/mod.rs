@@ -30,6 +30,14 @@ impl NativeItemHash {
     /// errors. Known null factories continue, not stop. Supported item bodies
     /// retain their atomic Rust read policy, unlike Qt failed-stream storage.
     pub fn receive_qt7(&mut self, input: &mut QtReader<'_>) -> io::Result<NativeItemHashReceive> {
+        self.receive_qt7_with_profile(input, FloatEncoding::TypeWidths)
+    }
+
+    pub fn receive_qt7_with_profile(
+        &mut self,
+        input: &mut QtReader<'_>,
+        profile: FloatEncoding,
+    ) -> io::Result<NativeItemHashReceive> {
         let length = input.remaining();
         self.0.clear();
         let declared_count_bits = input.read_u32()?;
@@ -43,7 +51,7 @@ impl NativeItemHash {
                 null_factories.push((index, kind));
                 continue;
             }
-            let item = NativeItemValue::read(input)?.ok_or_else(|| {
+            let item = NativeItemValue::read_with_profile(input, profile)?.ok_or_else(|| {
                 io::Error::new(
                     io::ErrorKind::Unsupported,
                     format!("native inventory item factory/body {kind} is not implemented"),

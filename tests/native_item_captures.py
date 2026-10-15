@@ -23,7 +23,7 @@ def atom(body, opcode=0x16, flags=0, entity=7):
 
 payloads = []
 expected = []
-for subtype in (1, 6, 7, 8, 9, 12, 17):
+for subtype in (1, 6, 7, 8, 9, 10, 12, 17):
     value = struct.pack(">BBhB", subtype, 0, 42, 1)
     if subtype in (6, 17):
         value += b"\x80"
@@ -35,6 +35,8 @@ for subtype in (1, 6, 7, 8, 9, 12, 17):
         value += b"\x00\x80\xff\x01"
     if subtype == 12:
         value += b"\xfe"
+    if subtype == 10:
+        value += struct.pack(">I3dI", 88, 1.25, -0.0, -99.5, 0xFFFFFFFF)
     body = b"\x81" + value + struct.pack(">III", 99, 0xFFFFFFFF, 0)
     payloads.append(atom(body + b"\xde\xad"))
     expected.append({
@@ -109,5 +111,5 @@ with tempfile.TemporaryDirectory(prefix="openshores-native-items-") as directory
     assert json.loads(empty) == {"frames": 0, "payload_bytes": 0}
     empty_replay = subprocess.check_output([client, "replay-native-items", str(capture)], text=True)
     assert json.loads(empty_replay) == {"item_entities": 0, "decoded_updates": 0, "opaque_updates": 0}
-print("Native item capture: seven subtypes, ownership, opaque boundaries, raw hashes, late-error atomic output and unchanged source verified offline.")
+print("Native item capture: eight subtypes, ownership, opaque boundaries, raw hashes, late-error atomic output and unchanged source verified offline.")
 print("Retained item observations: capture-order replacement/omission, ownership retention, opaque invalidation and sparse recovery verified offline.")

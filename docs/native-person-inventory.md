@@ -25,8 +25,8 @@ Completed prior inserts remain on a later Rust error.
 The factory's25 signed-relative entries at1422e1338 establish null types
 0/2/3/11/15/21; bytes above24 also return null. Inventory continues after these
 nulls, unlike the job list's null-factory stop. NativeItemHashReceive records
-their wire indices/types. Every other factory is a real body: seven established
-NativeItemValue types1/6/7/8/9/12/17 are composed directly. The remaining valid
+their wire indices/types. Every other factory is a real body: eight established
+NativeItemValue types1/6/7/8/9/10/12/17 are composed directly. The remaining valid
 types fail Unsupported, not guessed null or opaque skipping.
 
 DbCommodity::IsObsolete14162fec0 returns true, for received unsigned16 bits,
@@ -66,7 +66,7 @@ not proof of those unfinished gates or complete native Person packets.
 ## Verification
 
 Fixtures cover all256 factory bytes, the65536-value obsolete predicate, all
-seven supported item families, read-before-discard/truncation, duplicates and
+eight supported item families, read-before-discard/truncation, duplicates and
 raw high-bit commodity IDs, counts through65536, missing high-bit/maximal32-bit
 counts without preallocation, clear-before-count, retained earlier values on
 error, explicit fixup rejection, Person tail alignment in all precision profiles

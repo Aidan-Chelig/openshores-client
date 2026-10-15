@@ -9,8 +9,10 @@ pub use atom::{
 mod common;
 mod construction;
 pub use construction::NativeItemInitialization;
+mod galaxy_location;
 mod state;
 mod value;
+pub use galaxy_location::NativeItemGalaxyLocation;
 mod weapon;
 pub use body::{NativeItemBody, OwnershipUpdate};
 pub use common::NativeItemCommon;
