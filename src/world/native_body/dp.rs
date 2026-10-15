@@ -19,6 +19,7 @@ mod height;
 mod standing;
 mod tail_bend;
 mod tail_fold;
+mod tail_motion;
 mod tail_slither;
 mod tail_slither_pose;
 pub use foot::{NativeDpFootCache, NativeDpFootResource, native_dh_has_ankle_bend};

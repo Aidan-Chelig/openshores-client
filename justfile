@@ -150,6 +150,10 @@ test-native-dp-tail-fold:
     nix develop .#server-test --command python tests/native_dp_tail_fold.py
     nix develop .#server-test --command cargo test --offline --lib native_body::dp::tail_fold
 
+test-native-dp-tail-motion:
+    nix develop .#server-test --command python tests/native_dp_tail_motion.py
+    nix develop .#server-test --command cargo test --offline --lib native_body::dp::tail_motion
+
 # Mounted hands, feet, part calculations and standing heights; entirely offline.
 test-native-dp-mounted installation:
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_dp_mounted_hand -- --ignored --nocapture

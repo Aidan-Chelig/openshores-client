@@ -717,3 +717,34 @@ This is static/Rust evidence, not observed original-client runtime or general
 libm/NaN-payload bit parity. Remaining tail poses, complete PositionTail/Animate,
 production timer/body/Person context ownership and actual native avatar geometry
 publication remain required work under the original end-to-end objective.
+
+### Body rhythmic tail motions and relaxation
+
+The calculated-body `swim_tail`, `wave_tail`, `lash_tail`, `wag_tail` and
+`relax_tail` methods now compose actual native tail transforms. Swim/Wave use
+owner pose word48; Lash/Wag synthesize poses30/47. Their f32 arc constants are
+divided by twice the part's segment selector before multiplying the actual
+part-DNA rhythm. Swim/Wag force speed1 while Wave/Lash retain supplied speed;
+Swim disables ground correction with clearance-1 and the others retain caller
+clearance. Exact-zero amplitude exits before bone writes, but NaN does not.
+Capability determines the bend axis; Wag adds the native fixed negative pitch
+only for a tail with both capabilities. Relax uses positive clearance and
+vertical capability for Bend, otherwise lateral capability for fixed Slither.
+All select the first concrete tail; no tail is an actual native no-op.
+
+The five complete REA records are retained in `docs/evidence/native-dp-tail-`
+`{swim,wave,lash,wag,relax}.json`, with full GNU corroboration in
+`native-dp-tail-motion-gnu.txt`. Related queries reused the warm analysis
+session in0.09–0.15s each. `just test-native-dp-tail-motion` checks the source
+digest, seven float constants, synthetic pose words, div/multiply/zero stages
+and concrete/virtual call anchors before fixtures. Tests span every segment
+selector and shape/form combination, general-pose and speed inputs, callback
+order, timer failure, NaN speed and incomplete-body errors. Mounted tests
+compare complete resource-initialized bones with direct rhythm/Bend/Slither
+composition for three forms and all five motions, including relaxation with
+negative/zero/positive/NaN clearance. This remains static/Rust evidence rather
+than original-client runtime or libm/NaN-payload bit parity.
+
+Strike, writhe/receptive poses, complete PositionTail/Animate, production body
+and timer ownership, real Person context/session integration and publication of
+actual native avatar geometry remain required under the original objective.
