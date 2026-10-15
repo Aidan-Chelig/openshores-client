@@ -124,3 +124,13 @@ fn unclassified_members_still_select_weighted_path_and_extracted_groups_do_not()
     assert!(selected.any_match);
     assert_eq!(selected.anatomical, [None; 6]);
 }
+#[test]
+fn initialized_top_scale_is_retained_without_top_membership() {
+    let groups = NativeBodyObjectGroups::default();
+    let selection = groups
+        .select_vertex([1.; 3], [1., 2., 3.], [0.; 3])
+        .unwrap();
+    assert_eq!(selection.top, None);
+    assert_eq!(selection.top_scale_point, [1., 2., 3.]);
+    assert!(!selection.any_match);
+}

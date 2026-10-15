@@ -3,6 +3,7 @@ use super::{
     Mesh, ModelVariant, NativeBodyObjectGroups, NativeBodyObjectScale, NativeBodyVertexSelection,
 };
 use std::io;
+mod bottom;
 mod top;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -17,8 +18,8 @@ pub struct NativeBodyDeformation {
 }
 
 impl NativeBodyDeformation {
-    /// Anatomical branches except HandWing, plus the no-membership branch.
-    /// Other branches are errors, NEVER successful uniform-scale substitutes.
+    /// Anatomical and top/bottom/default branches except HandWing.
+    /// HandWing is an error, NEVER a successful uniform-scale substitute.
     pub fn apply_vertex(
         &self,
         point: [f64; 3],
@@ -27,8 +28,12 @@ impl NativeBodyDeformation {
         if !selected.any_match {
             return Ok(self.base.apply_unweighted_vertex(point));
         }
-        if selected.anatomical.iter().all(Option::is_none) && selected.top.is_some() {
-            return Ok(self.apply_top_vertex(point, selected));
+        if selected.anatomical.iter().all(Option::is_none) {
+            return Ok(if selected.top.is_some() {
+                self.apply_top_vertex(point, selected)
+            } else {
+                self.apply_bottom_vertex(point, selected)
+            });
         }
         // Native precedence is Tail, Head, Neck, Hand, Foot, Torso, then
         // top/bottom-only paths. Higher-priority unsupported HandWing must not

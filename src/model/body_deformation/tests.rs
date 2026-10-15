@@ -187,7 +187,7 @@ fn zero_scale_skips_nan_input_but_not_later_branch_arithmetic() {
 }
 
 #[test]
-fn no_match_uses_existing_exact_unweighted_branch_but_unknown_match_is_error() {
+fn no_match_and_unclassified_membership_use_distinct_native_exits() {
     let definition = definition();
     let point = [4., 5., 10.];
     assert_eq!(
@@ -205,9 +205,8 @@ fn no_match_uses_existing_exact_unweighted_branch_but_unknown_match_is_error() {
                     ..Default::default()
                 }
             )
-            .unwrap_err()
-            .kind(),
-        io::ErrorKind::Unsupported
+            .unwrap(),
+        [16., 10., 44.]
     );
 }
 
@@ -264,6 +263,12 @@ fn mesh_pipeline_selects_actual_members_and_rejects_unsupported_vertices() {
         mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
             .unwrap(),
         [[28., 92., 72.], [10., 20., 30.]]
+    );
+    mesh.vertex_groups[0].name = Some(b"Bottom".to_vec());
+    assert_eq!(
+        mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
+            .unwrap(),
+        [[20., 40., 88.], [10., 20., 30.]]
     );
     mesh.vertex_groups[0].name = Some(b"HandWing".to_vec());
     assert_eq!(
@@ -394,5 +399,68 @@ fn unordered_top_comparison_takes_native_jbe_arm_not_average() {
     assert_eq!(
         definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
         [22., 50., 110.]
+    );
+}
+
+#[test]
+fn bottom_average_height_compensation_and_wing_exit_match_native() {
+    let mut selection = NativeBodyVertexSelection {
+        any_match: true,
+        bottom: Some([7., 8., 9.]),
+        ..Default::default()
+    };
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [20., 40., 88.]
+    );
+    selection.wing = true;
+    assert_eq!(
+        definition()
+            .apply_vertex([4., 5., 10.], &selection)
+            .unwrap(),
+        [18., 56., 66.]
+    );
+    let mut definition = definition();
+    definition.field_170 = f64::NAN;
+    selection.wing = false;
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [18., 40., 66.]
+    );
+}
+
+#[test]
+fn bottom_midpoint_moves_before_radial_and_height_compensation() {
+    let mut definition = definition();
+    definition.fields_228 = [1., 2., 3.];
+    let selection = NativeBodyVertexSelection {
+        any_match: true,
+        bottom: Some([7., 8., 9.]),
+        midpoint: true,
+        ..Default::default()
+    };
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [40., 44., 100.]
+    );
+}
+
+#[test]
+fn bottom_zero_scale_skips_nonfinite_inputs_but_preserves_pivot_math() {
+    let mut definition = definition();
+    definition.base.field_140 = 0.;
+    definition.base.fields_1f4 = [f32::NAN; 3];
+    definition.fields_228 = [f32::NAN; 3];
+    let selection = NativeBodyVertexSelection {
+        any_match: true,
+        bottom: Some([7., 8., 9.]),
+        ..Default::default()
+    };
+    // XZ still deform around raw Bottom even with zero input scale.
+    assert_eq!(
+        definition.apply_vertex([f64::NAN; 3], &selection).unwrap(),
+        [-18., 20., -6.]
     );
 }

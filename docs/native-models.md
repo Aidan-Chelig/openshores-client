@@ -385,7 +385,7 @@ cancellation and full mesh composition; `just test-native-body-deformation`
 also verifies digest-bound static branch/final-correction anchors against
 the existing evidence. No reimport, query or reference-client execution occurs.
 
-HandWing, bottom-only and other matched branches remain Unsupported.
+HandWing remains Unsupported; later sections extend the other matched branches.
 Model definition generation, complete part assembly, bone weights and live
 renderer publication remain required: these APIs do not yet render avatars.
 
@@ -434,3 +434,20 @@ obscures. Static checks pin original branch destinations and midpoint addition/
 half multiplication in the retained routine. This extends CPU deformation,
 not complete avatar generation or rendering. Bottom-only and HandWing paths
 remain Unsupported, and live model definitions/assembly/publication are pending.
+
+Bottom-only and default non-anatomical membership now follow their native
+branches. Selection preserves initialized Top scale coordinates separately from
+Top membership. Bottom first shifts the scaled midpoint and vertex by178 when
+Wing is absent, chooses180 or the170+180 average with original COMISD/JBE
+unordered behavior, then applies188 about Bottom with midpoint compensation.
+The connection takes178 only for non-Wing vertices without matching Top.
+Default/ScalePt-only matches skip Bottom arithmetic but retain this distinct
+connection exit; they are not silently treated as absent membership.
+
+Fixtures cover Bottom through the real raw-mesh pipeline, midpoint motion,
+Wing bypass, unordered scale choice, zero-scale nonfinite inputs and unmatched
+Top scale retention. The static verifier pins the Bottom block's scale reads,
+branch destinations and shared exits using the existing digest-bound evidence.
+Only HandWing remains Unsupported in the CPU deformation dispatcher. This is
+not full model generation: live definitions, part assembly, bone weights and
+renderer publication are still pending, and avatars are not yet visible.
