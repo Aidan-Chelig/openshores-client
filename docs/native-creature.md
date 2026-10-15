@@ -163,7 +163,8 @@ independently corroborated and implemented; see native-dna-application.md.
 Actual nested model generation remains required. DpBody::Pose and Animalia::Pose records establish word
 comparisons, different bool-change behavior and Animalia's final-pose fallback,
 but their AnimatePose effects remain unimplemented. MovementSpeedMod's Ghidra
-return type is incorrectly void; no value is inferred from that pseudocode.
+return type is incorrectly void; its actual float return/arithmetic are now
+independently reconstructed from machine code; see native-movement.md.
 OccPosForPose's 133-byte table and SetStationPose's relative jump table are now
 retained and implemented, along with concrete body pose data/change rules and
 fallback markers. See native-pose-application.md. Animation callbacks and station

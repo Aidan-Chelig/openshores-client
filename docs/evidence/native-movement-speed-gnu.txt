@@ -1,0 +1,164 @@
+Independent GNU static evidence. Selected OpenShores.exe SHA256 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80.
+No target execution; no REA Evidence ID or runtime observation is implied.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001418f4f50 <_ZNK10DaCreature16MovementSpeedModEv>:
+   1418f4f50:	41 55                	push   %r13
+   1418f4f52:	41 54                	push   %r12
+   1418f4f54:	57                   	push   %rdi
+   1418f4f55:	56                   	push   %rsi
+   1418f4f56:	53                   	push   %rbx
+   1418f4f57:	48 83 ec 40          	sub    $0x40,%rsp
+   1418f4f5b:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   1418f4f60:	0f 29 7c 24 30       	movaps %xmm7,0x30(%rsp)
+   1418f4f65:	48 8b 35 bc d8 f9 00 	mov    0xf9d8bc(%rip),%rsi        # 142892828 <__imp__ZN14QReadWriteLock11lockForReadEv>
+   1418f4f6c:	49 89 cc             	mov    %rcx,%r12
+   1418f4f6f:	4c 8d a9 98 04 00 00 	lea    0x498(%rcx),%r13
+   1418f4f76:	4c 89 e9             	mov    %r13,%rcx
+   1418f4f79:	ff d6                	call   *%rsi
+   1418f4f7b:	49 8b 84 24 b0 05 00 	mov    0x5b0(%r12),%rax
+   1418f4f82:	00 
+   1418f4f83:	48 85 c0             	test   %rax,%rax
+   1418f4f86:	0f 84 34 01 00 00    	je     1418f50c0 <_ZNK10DaCreature16MovementSpeedModEv+0x170>
+   1418f4f8c:	0f bf 58 38          	movswl 0x38(%rax),%ebx
+   1418f4f90:	48 8b 3d a9 d8 f9 00 	mov    0xf9d8a9(%rip),%rdi        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   1418f4f97:	4c 89 e9             	mov    %r13,%rcx
+   1418f4f9a:	ff d7                	call   *%rdi
+   1418f4f9c:	41 80 bc 24 94 04 00 	cmpb   $0x0,0x494(%r12)
+   1418f4fa3:	00 00 
+   1418f4fa5:	74 55                	je     1418f4ffc <_ZNK10DaCreature16MovementSpeedModEv+0xac>
+   1418f4fa7:	66 85 db             	test   %bx,%bx
+   1418f4faa:	7f 24                	jg     1418f4fd0 <_ZNK10DaCreature16MovementSpeedModEv+0x80>
+   1418f4fac:	f3 0f 10 35 68 4c 8d 	movss  0x8d4c68(%rip),%xmm6        # 1421c9c1c <CSWTCH.2080+0x10c>
+   1418f4fb3:	00 
+   1418f4fb4:	0f 28 c6             	movaps %xmm6,%xmm0
+   1418f4fb7:	0f 28 7c 24 30       	movaps 0x30(%rsp),%xmm7
+   1418f4fbc:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1418f4fc1:	48 83 c4 40          	add    $0x40,%rsp
+   1418f4fc5:	5b                   	pop    %rbx
+   1418f4fc6:	5e                   	pop    %rsi
+   1418f4fc7:	5f                   	pop    %rdi
+   1418f4fc8:	41 5c                	pop    %r12
+   1418f4fca:	41 5d                	pop    %r13
+   1418f4fcc:	c3                   	ret
+   1418f4fcd:	0f 1f 00             	nopl   (%rax)
+   1418f4fd0:	4c 89 e1             	mov    %r12,%rcx
+   1418f4fd3:	e8 58 8a 08 ff       	call   14097da30 <_ZNK10DaCreature10GrowthTimeEv>
+   1418f4fd8:	41 0f b6 94 24 94 04 	movzbl 0x494(%r12),%edx
+   1418f4fdf:	00 00 
+   1418f4fe1:	0f b6 c8             	movzbl %al,%ecx
+   1418f4fe4:	83 ea 01             	sub    $0x1,%edx
+   1418f4fe7:	89 c8                	mov    %ecx,%eax
+   1418f4fe9:	29 d0                	sub    %edx,%eax
+   1418f4feb:	0f af c3             	imul   %ebx,%eax
+   1418f4fee:	99                   	cltd
+   1418f4fef:	f7 f9                	idiv   %ecx
+   1418f4ff1:	89 c3                	mov    %eax,%ebx
+   1418f4ff3:	66 85 c0             	test   %ax,%ax
+   1418f4ff6:	0f 84 0c 01 00 00    	je     1418f5108 <_ZNK10DaCreature16MovementSpeedModEv+0x1b8>
+   1418f4ffc:	66 85 db             	test   %bx,%bx
+   1418f4fff:	7e ab                	jle    1418f4fac <_ZNK10DaCreature16MovementSpeedModEv+0x5c>
+   1418f5001:	4c 89 e9             	mov    %r13,%rcx
+   1418f5004:	ff d6                	call   *%rsi
+   1418f5006:	49 8b 84 24 b0 05 00 	mov    0x5b0(%r12),%rax
+   1418f500d:	00 
+   1418f500e:	48 85 c0             	test   %rax,%rax
+   1418f5011:	0f 84 d1 00 00 00    	je     1418f50e8 <_ZNK10DaCreature16MovementSpeedModEv+0x198>
+   1418f5017:	0f b6 70 29          	movzbl 0x29(%rax),%esi
+   1418f501b:	4c 89 e9             	mov    %r13,%rcx
+   1418f501e:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1418f5022:	ff d7                	call   *%rdi
+   1418f5024:	4c 89 e1             	mov    %r12,%rcx
+   1418f5027:	e8 84 27 09 ff       	call   1409877b0 <_ZNK10DaCreature12MaxHitPointsEv>
+   1418f502c:	40 c0 ee 04          	shr    $0x4,%sil
+   1418f5030:	0f bf d0             	movswl %ax,%edx
+   1418f5033:	66 c1 f8 0f          	sar    $0xf,%ax
+   1418f5037:	40 0f b6 f6          	movzbl %sil,%esi
+   1418f503b:	69 d2 67 66 00 00    	imul   $0x6667,%edx,%edx
+   1418f5041:	c1 fa 12             	sar    $0x12,%edx
+   1418f5044:	29 c2                	sub    %eax,%edx
+   1418f5046:	83 c2 01             	add    $0x1,%edx
+   1418f5049:	0f bf d2             	movswl %dx,%edx
+   1418f504c:	01 f2                	add    %esi,%edx
+   1418f504e:	8d 04 92             	lea    (%rdx,%rdx,4),%eax
+   1418f5051:	8d 04 80             	lea    (%rax,%rax,4),%eax
+   1418f5054:	f3 0f 2a f8          	cvtsi2ss %eax,%xmm7
+   1418f5058:	49 8b 04 24          	mov    (%r12),%rax
+   1418f505c:	4c 89 e1             	mov    %r12,%rcx
+   1418f505f:	ff 90 70 09 00 00    	call   *0x970(%rax)
+   1418f5065:	0f 2f c7             	comiss %xmm7,%xmm0
+   1418f5068:	73 6e                	jae    1418f50d8 <_ZNK10DaCreature16MovementSpeedModEv+0x188>
+   1418f506a:	49 8b 04 24          	mov    (%r12),%rax
+   1418f506e:	4c 89 e1             	mov    %r12,%rcx
+   1418f5071:	0f 28 f7             	movaps %xmm7,%xmm6
+   1418f5074:	ff 90 70 09 00 00    	call   *0x970(%rax)
+   1418f507a:	f3 0f 5c f0          	subss  %xmm0,%xmm6
+   1418f507e:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1418f5082:	f3 0f 5e f7          	divss  %xmm7,%xmm6
+   1418f5086:	0f 2f c6             	comiss %xmm6,%xmm0
+   1418f5089:	73 51                	jae    1418f50dc <_ZNK10DaCreature16MovementSpeedModEv+0x18c>
+   1418f508b:	4c 89 e1             	mov    %r12,%rcx
+   1418f508e:	01 db                	add    %ebx,%ebx
+   1418f5090:	e8 1b 27 09 ff       	call   1409877b0 <_ZNK10DaCreature12MaxHitPointsEv>
+   1418f5095:	66 39 d8             	cmp    %bx,%ax
+   1418f5098:	0f 8e 16 ff ff ff    	jle    1418f4fb4 <_ZNK10DaCreature16MovementSpeedModEv+0x64>
+   1418f509e:	0f bf db             	movswl %bx,%ebx
+   1418f50a1:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1418f50a5:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1418f50a9:	98                   	cwtl
+   1418f50aa:	f3 0f 2a c3          	cvtsi2ss %ebx,%xmm0
+   1418f50ae:	f3 0f 2a c8          	cvtsi2ss %eax,%xmm1
+   1418f50b2:	f3 0f 5e c1          	divss  %xmm1,%xmm0
+   1418f50b6:	f3 0f 59 f0          	mulss  %xmm0,%xmm6
+   1418f50ba:	e9 f5 fe ff ff       	jmp    1418f4fb4 <_ZNK10DaCreature16MovementSpeedModEv+0x64>
+   1418f50bf:	90                   	nop
+   1418f50c0:	49 8b 84 24 a0 04 00 	mov    0x4a0(%r12),%rax
+   1418f50c7:	00 
+   1418f50c8:	0f bf 58 30          	movswl 0x30(%rax),%ebx
+   1418f50cc:	e9 bf fe ff ff       	jmp    1418f4f90 <_ZNK10DaCreature16MovementSpeedModEv+0x40>
+   1418f50d1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1418f50d8:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1418f50dc:	0f 28 f0             	movaps %xmm0,%xmm6
+   1418f50df:	e9 d0 fe ff ff       	jmp    1418f4fb4 <_ZNK10DaCreature16MovementSpeedModEv+0x64>
+   1418f50e4:	0f 1f 40 00          	nopl   0x0(%rax)
+   1418f50e8:	49 8b 8c 24 a0 04 00 	mov    0x4a0(%r12),%rcx
+   1418f50ef:	00 
+   1418f50f0:	e8 bb 6a 8f ff       	call   1411ebbb0 <_ZNK10AuAnimalia9BurdenMaxEv>
+   1418f50f5:	4c 89 e9             	mov    %r13,%rcx
+   1418f50f8:	0f 28 f8             	movaps %xmm0,%xmm7
+   1418f50fb:	ff d7                	call   *%rdi
+   1418f50fd:	e9 56 ff ff ff       	jmp    1418f5058 <_ZNK10DaCreature16MovementSpeedModEv+0x108>
+   1418f5102:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1418f5108:	bb 01 00 00 00       	mov    $0x1,%ebx
+   1418f510d:	e9 ef fe ff ff       	jmp    1418f5001 <_ZNK10DaCreature16MovementSpeedModEv+0xb1>
+   1418f5112:	90                   	nop
+   1418f5113:	90                   	nop
+   1418f5114:	90                   	nop
+   1418f5115:	90                   	nop
+   1418f5116:	90                   	nop
+   1418f5117:	90                   	nop
+   1418f5118:	90                   	nop
+   1418f5119:	90                   	nop
+   1418f511a:	90                   	nop
+   1418f511b:	90                   	nop
+   1418f511c:	90                   	nop
+   1418f511d:	90                   	nop
+   1418f511e:	90                   	nop
+   1418f511f:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001411ebbb0 <_ZNK10AuAnimalia9BurdenMaxEv>:
+   1411ebbb0:	f3 0f 10 05 a0 6c 0c 	movss  0x10c6ca0(%rip),%xmm0        # 1422b2858 <CSWTCH.788+0x138>
+   1411ebbb7:	01 
+   1411ebbb8:	c3                   	ret
+   1411ebbb9:	90                   	nop
+   1411ebbba:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)

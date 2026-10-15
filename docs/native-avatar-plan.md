@@ -337,3 +337,10 @@ The actual function is composed in full native Person packet fixtures for all
 profiles. Evidence/tests are documented in native-head-tilt.md. Movement-speed
 dependencies, actual skeletal animation and production client presentation
 remain unfinished; fixture observations are not substituted for those effects.
+
+Movement dependency follow-up: MovementSpeedMod's lost float return is now
+reconstructed from complete GNU code, with exact growth/signed-short arithmetic,
+ordered two-sample burden logic, constant Animalia capacity200 and f32 health
+scaling. Native Person fixtures compose it through real head tilt instead of
+the former constant-speed stub. Actual morphology MaxHP/weights/burden context
+and client presentation remain open; see native-movement.md.

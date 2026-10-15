@@ -43,6 +43,8 @@ impl NativeCreatureReceiveContext for BodyContext {
         Err(unsupported())
     }
     fn set_scalar_1e0(&mut self, value: f32) -> io::Result<()> {
+        self.head_effects.hp = self.hp;
+        self.head_effects.kind = self.kind;
         let _report = self
             .head
             .apply(value, self.kind, &self.pose, &mut self.head_effects)?;
@@ -144,7 +146,10 @@ impl NativePersonDispatchHooks for Hooks {
                 time: 0,
                 head: Default::default(),
                 pose: [0; 10],
-                head_effects: HeadEffects,
+                head_effects: HeadEffects {
+                    hp: 0,
+                    kind: NativeCreatureBodyKind::DpBody,
+                },
             },
         );
         Ok(())
