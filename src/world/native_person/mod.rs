@@ -9,7 +9,10 @@ pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffi
 mod atom;
 mod body;
 mod construction;
-pub use atom::NativePersonAtom;
+pub use atom::{
+    NativePersonAtom, NativePersonCandidateReceiveContext, NativePersonObjects,
+    NativePersonOwnedReceiveContext,
+};
 pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
 mod inventory;
 mod jobs;

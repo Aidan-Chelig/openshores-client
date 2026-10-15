@@ -301,3 +301,12 @@ retained evidence and original PE bytes. A constructed-object fixture composes
 base effects/controllers and all four receive stages without injected Person
 priors. Its model effects are explicitly trace-only; concrete runtime context,
 owner dispatch and the actual presentation bridge remain required.
+
+Person owner-storage follow-up: stable-handle Person storage now admits and
+disposes candidates, composes real candidate/retained base reception with the
+cache graph, and calls the existing owner-arrival lifecycle. Tests verify fresh
+attachment, refusal to replace an indexed identity, retained wire-ID runaway/
+registration behavior, partial-error synchronization and explicit float
+profiles. See native-person-owner.md. These adapters still require runtime
+model/environment context; native packet dispatch and actual avatar presentation
+remain open, rather than being substituted by source-profile GUI success.

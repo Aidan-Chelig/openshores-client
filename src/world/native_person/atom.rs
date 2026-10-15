@@ -12,6 +12,15 @@ use crate::{
     },
 };
 use std::io;
+mod owned;
+mod owner;
+mod receiving;
+mod store;
+pub use owned::NativePersonOwnedReceiveContext;
+pub use receiving::NativePersonCandidateReceiveContext;
+pub use store::NativePersonObjects;
+#[cfg(test)]
+mod tests;
 
 #[derive(Clone, Debug)]
 pub struct NativePersonAtom {
