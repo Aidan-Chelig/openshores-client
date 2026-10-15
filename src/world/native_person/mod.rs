@@ -6,6 +6,8 @@ mod gear;
 pub use gear::{NativeGear, NativeGearReceive, NativeGearSlot};
 mod receiving;
 pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffixState};
+mod body;
+pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct NativeDomain(pub BTreeMap<u32, Option<String>>);

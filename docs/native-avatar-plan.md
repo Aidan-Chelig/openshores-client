@@ -226,3 +226,11 @@ state1130 are required instead of guessed constructor defaults. Offline suffix
 fixtures are not full Person packet/dispatch/presentation proof. Remaining
 nested bodies, concrete inherited construction/Creature context and client
 presentation remain open under the unchanged full goal.
+
+Inherited body composition milestone: NativePersonBodyState now owns and invokes
+real Unit→Creature→Sentient→Person receive state on one cursor, retaining earlier
+mutations and propagating nested diagnostics/errors. Offline fixtures exercise
+actual scalar/order/skill/content codecs, repeated sparse updates, truncation
+and required-effect failures in all profiles. The model context remains
+trace-only in these tests: native construction/base dispatch/runtime effects
+and actual avatar presentation are not proven or complete. See native-person-body.md.
