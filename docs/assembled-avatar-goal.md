@@ -1,5 +1,7 @@
 # Next goal: a complete, assembled native avatar preview
 
+Implementation/evidence ledger: [native avatar assembly](native-avatar-assembly.md).
+
 Render one complete, textured avatar in a verified neutral standing pose in the
 offline Rust preview. Assemble the existing native head, torso, neck, arm/hand,
 leg/foot and optional tail geometry using the reconstructed bone hierarchy and

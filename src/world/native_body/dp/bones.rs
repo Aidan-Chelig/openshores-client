@@ -3,7 +3,9 @@
 use super::NativeDhDna;
 mod multiply;
 mod project;
+mod skinning;
 mod transform;
+pub use skinning::NativeDpSkinnedVertex;
 
 const IDENTITY: [f64; 16] = [
     1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1., 0., 0., 0., 0., 1.,

@@ -23,6 +23,11 @@ test-native-textures installation="reference/hazeron":
 test-avatar-previews installation="reference/hazeron":
     nix develop .#server-test --command python tests/avatar_previews.py {{quote(installation)}}
 
+# CPU shader bone loop and the mounted body vertex-shader contract; no window.
+test-native-skinning installation="reference/hazeron":
+    nix develop .#server-test --command cargo test --offline --lib skinning
+    nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_body_mounted_skinning -- --ignored --nocapture
+
 # Inspect assets without extraction; installation files are never executed.
 assets installation="reference/hazeron": build
     nix develop .#server-test --command target/debug/openshores-client inspect-mount {{quote(installation)}}

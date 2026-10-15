@@ -3,7 +3,7 @@
 //! corroborating assembly: docs/evidence/native-dp-initialization-gnu.txt.
 use crate::world::native_dna::NativeDhDna;
 mod bones;
-pub use bones::{NativeDpBoneTransform, NativeDpBoneTransforms};
+pub use bones::{NativeDpBoneTransform, NativeDpBoneTransforms, NativeDpSkinnedVertex};
 mod dimensions;
 pub use dimensions::NativeDpDimensions;
 mod layout;
