@@ -125,22 +125,16 @@ reader methods previously located to the actual list dispatcher:
 | 12 ImplantSpecies | `0x142442260` | `0x1408b6b50` |
 | 13 Antitoxin | `0x1423fd650` | `0x1408b6760` |
 
-Fire therefore consumes only the shared full-width timestamp. Eight condition
-types now have verified body layouts; the four complex types still need their
-nested readers. Unsupported known bodies must produce an explicit error, not
-be confused with native null factory results.
-
-Next implement the verified bodies and resolve remaining nested readers, then compose
-the concrete counted layer into Unit reception.
-
-Rust `world::native_condition` now decodes the eight verified bodies directly.
-Four known complex types return Unsupported; native null-factory types return
+Fire therefore consumes only the shared full-width timestamp. All 12 condition
+types now have implemented body readers and nested DNA/species dependencies.
+Rust `world::native_condition` decodes these bodies directly; null-factory types return
 None without consumption. The reader is atomic on errors (Rust safety, not Qt
 error parity), uses the existing strict QString decoder, preserves signed i64
 timestamps and nonzero raw bytes, and applies only the observed zero-to-one
 normalization. Tests cover every scalar byte, every truncated scalar/string
 prefix, null/empty/Unicode strings, extreme timestamps and all 256 type bytes.
-This is not yet a counted list, Unit composition or complete Person dispatch.
+The counted replacement list is composed into Unit reception. Complete Person
+dispatch remains outstanding.
 
 ## Pregnant body dependencies
 
@@ -159,10 +153,15 @@ when flags `0x80` is set. Its omission retains an existing ID (factory initial
 ID was zero); this optional trailing ID must not be moved before the string.
 There is no zero-to-one normalization of `0x18` in this reader.
 
-Pregnant remains explicitly Unsupported in Rust until DNA is reconstructed;
-do not quietly support only its null-DNA flag combinations. DhDNA is also
-needed by Creature and ImplantDNA, so its receive layout is the next shared
-dependency to inspect.
+Pregnant is now implemented with the complete DNA readers, not just its null
+flag combinations. This API decodes a fresh factory condition, as required by
+counted-list replacement, so omitted ID retains the factory's zero. It is not
+an in-place update API for an existing Pregnant object. Tests cover every flag
+pattern with implicit DhDNA, null, dynamic DhDNA/AuDNA/unknown types, raw byte
+values including zero, nullable/empty/Unicode strings, optional high-bit ID
+after the string, every truncated prefix and following-field alignment. A
+concrete Unit fixture receives Pregnant with nested AuDNA, a following Fire
+condition and the final motion vector, proving these stage boundaries.
 
 ## Remaining condition reader records
 
@@ -189,5 +188,5 @@ Bounty's double overload consumes four bytes for SinglePrecision and eight for
 TypeWidths/DoublePrecision. IDs retain all 32 bits; nullable strings and raw
 floating values (including signed zero and non-finite values) are preserved.
 Offline fixtures exercise all profiles, high-bit IDs, null/Unicode strings,
-every truncated prefix, and following-field alignment. Pregnant remains
-Unsupported; full avatar-pipeline integration is still pending.
+every truncated prefix, and following-field alignment. Full avatar-pipeline
+integration is still pending.

@@ -2,6 +2,56 @@ use super::*;
 use crate::protocol::QtWriter;
 
 #[test]
+fn unit_receives_real_pregnant_dna_then_following_conditions_and_vector() {
+    use crate::world::{native_condition::NativeConditionBody, native_dna::NativeDna};
+    let mut bytes = vec![7, 0xff, 0xff, 0xff, 0xff]; // identity: null string
+    bytes.extend((-17_i32).to_be_bytes());
+    bytes.push(0x81);
+    bytes.extend(2_u16.to_be_bytes());
+    bytes.push(9);
+    bytes.extend(23_i64.to_be_bytes());
+    bytes.extend([0xe3, 4, 0xab, 0, 1, 13, 0, 0xfe, 0x80, 0, 0, 0]);
+    // dynamic AuDNA despite null bit: version ab, one Tentacle without genes,
+    // empty second chromatid, raw Pregnant byte zero.
+    let mut writer = QtWriter::default();
+    writer.write_string(Some("native offspring")).unwrap();
+    bytes.extend(writer.into_bytes());
+    bytes.extend(u32::MAX.to_be_bytes());
+    bytes.push(8); // Fire immediately follows the optional trailing ID
+    bytes.extend(99_i64.to_be_bytes());
+    for value in [1.25_f32, -2.5, 3.75] {
+        bytes.extend(value.to_be_bytes());
+    }
+    bytes.push(0xde);
+    let mut input = QtReader::new(&bytes);
+    let mut state = NativeUnitState::default();
+    state
+        .receive(&mut input, FloatEncoding::TypeWidths)
+        .unwrap();
+    assert_eq!(state.fields.field_3a8, Some(-17));
+    assert_eq!(state.fields.vector_330, Some([1.25, -2.5, 3.75]));
+    let conditions = &state.conditions.as_ref().unwrap().0;
+    assert_eq!(conditions.len(), 2);
+    let NativeConditionBody::Pregnant {
+        field_10: Some(NativeDna::Au(dna)),
+        field_18,
+        id_1c,
+        field_20,
+        field_28,
+    } = &conditions[0].body
+    else {
+        panic!()
+    };
+    assert_eq!(dna.version, 0xab);
+    assert_eq!(dna.chromatids[0][0].kind, 13);
+    assert_eq!((*field_18, *id_1c, *field_20), (0, u32::MAX, 3));
+    assert_eq!(field_28.as_deref(), Some("native offspring"));
+    assert_eq!(conditions[1].body, NativeConditionBody::Fire);
+    assert_eq!(conditions[1].time_08, 99);
+    assert_eq!(input.read_u8().unwrap(), 0xde);
+}
+
+#[test]
 fn concrete_conditions_replace_retain_and_fail_in_unit_order() {
     let profile = FloatEncoding::TypeWidths;
     let mut state = NativeUnitState::default();
@@ -18,14 +68,14 @@ fn concrete_conditions_replace_retain_and_fail_in_unit_order() {
     state.receive(&mut QtReader::new(&[0]), profile).unwrap();
     assert_eq!(state.conditions.as_ref().unwrap().0.len(), 1);
     state.fields.vector_330 = Some([9.; 3]);
-    // Replacement clears old entries, appends Fire, then stops at Pregnant.
+    // Replacement clears old entries, appends Fire, then stops at truncated Pregnant.
     let mut bytes = vec![2, 0, 2, 8];
     bytes.extend(23_i64.to_be_bytes());
     bytes.extend([9, 0xde]);
     let mut input = QtReader::new(&bytes);
     assert_eq!(
         state.receive(&mut input, profile).unwrap_err().kind(),
-        io::ErrorKind::Unsupported
+        io::ErrorKind::UnexpectedEof
     );
     assert_eq!(state.conditions.as_ref().unwrap().0[0].time_08, 23);
     assert_eq!(state.fields.vector_330, Some([9.; 3]));

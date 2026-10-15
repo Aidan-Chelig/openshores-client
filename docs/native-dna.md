@@ -30,8 +30,8 @@ New retained records use the complete MCP envelope; evidence is in
   The decompiler reports an imported tail-jump warning; semantic species
   interpretation and later consumers are not established by this reader.
 
-Both DNA variants now have wire readers; next compose them into Pregnant and
-Creature reception. Wire storage is not body-model generation.
+Both DNA variants now have wire readers and Pregnant composition; next compose
+them into Creature reception. Wire storage is not body-model generation.
 
 Rust `world::native_dna` now reads normalized DhDNA bytes and raw AuSpecies
 byte arrays, preserving null versus empty species storage. DhDNA rejects null
@@ -41,7 +41,7 @@ ImplantDNA and ImplantSpecies are connected to the real condition decoder,
 without inserting an extra dynamic-DNA discriminator. Tests cover all 256
 DhDNA byte values, every truncated DhDNA/implant prefix, wrong lengths, null,
 raw non-text species bytes, storage bounds and following-field alignment.
-Dynamic AuDNA/chromatid readers are now implemented; Pregnant remains outstanding.
+Dynamic AuDNA/chromatid readers and Pregnant composition are now implemented.
 
 ## Chromatid receive boundary
 

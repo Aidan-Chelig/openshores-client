@@ -11,7 +11,7 @@ Required milestones and proof:
    now verify reuse: first query 665.655s; next three 0.348s/0.078s/0.079s.
 2. Reconstruct nested readers: complete retained evidence for DNA, conditions,
    Creature pose/console bodies, Sentient skills/orders and Person helpers;
-   corroborate scalar overloads and virtual bindings. Eleven condition bodies
+   corroborate scalar overloads and virtual bindings. All twelve condition bodies
    are implemented; the remaining dependencies are not complete.
 3. Implement ordered Unit → Creature → Sentient → Person receive state in
    manageable module folders. Preserve sparse/reset distinctions and native
@@ -51,7 +51,7 @@ the single initial import rather than restarting per function.
 
 Unit now has concrete condition-list composition (`NativeUnitState`), including
 destructive replacement before count, unknown factory continuation, explicit
-Pregnant rejection, and partial-list retention on later failures. This remains
+truncated-body rejection, and partial-list retention on later failures. This remains
 a receive stage, not complete Person dispatch or avatar presentation.
 
 DNA milestone: all 28 chromosome bodies, four gene bodies, both counted
@@ -61,4 +61,6 @@ and 16-bit count behavior; existing complete REA records cover the chromosome
 readers. The shared follow-up analysis process is live with GeneChain/factory
 and three distinct gene readers queued. Headless verification now passes
 302 library tests, 9 CLI tests and strict all-target Clippy. This does not yet
-verify Pregnant composition, Creature/Sentient/Person or client presentation.
+verify Creature/Sentient/Person or client presentation. Pregnant composition
+subsequently passed all-flag/truncation fixtures and a real mixed-condition
+Unit update carrying dynamic AuDNA, a trailing condition and the final vector.

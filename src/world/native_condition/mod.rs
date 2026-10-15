@@ -1,6 +1,6 @@
 //! Verified native condition bodies; see docs/native-conditions.md.
 //! List replacement and Unit/Person composition are separate receive stages.
-use super::native_dna::{NativeDhDna, NativeSpecies};
+use super::native_dna::{NativeDhDna, NativeDna, NativeSpecies};
 use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::io;
 
@@ -32,6 +32,13 @@ pub struct NativeCondition {
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum NativeConditionBody {
+    Pregnant {
+        field_10: Option<NativeDna>,
+        field_18: u8,
+        id_1c: u32,
+        field_20: u8,
+        field_28: Option<String>,
+    },
     Bounty {
         id_10: u32,
         field_18: Option<String>,
@@ -74,9 +81,9 @@ pub enum NativeConditionBody {
 }
 
 impl NativeCondition {
-    /// Body only, after the caller consumes its type byte. None means the
-    /// native factory returns null. Known but unreconstructed bodies return
-    /// Unsupported, never None. Errors leave the reader unchanged as Rust
+    /// Fresh factory body, after the caller consumes its type byte, using the
+    /// Qt7 scene layout for nested DNA. None means the native factory returns
+    /// null. Errors leave the reader unchanged as Rust
     /// safety, not a claim about Qt malformed-stream or destructor behavior.
     pub fn read(
         kind: u8,
@@ -84,18 +91,39 @@ impl NativeCondition {
         encoding: FloatEncoding,
     ) -> io::Result<Option<Self>> {
         match kind {
-            9 => {
-                return Err(io::Error::new(
-                    io::ErrorKind::Unsupported,
-                    "native condition body not reconstructed",
-                ));
-            }
-            1..=5 | 7 | 8 | 10..=13 => (),
+            1..=5 | 7..=13 => (),
             _ => return Ok(None),
         }
         let mut record = QtReader::new(input.remaining_bytes());
         let time_08 = record.read_i64()?;
         let body = match kind {
+            9 => {
+                let flags = record.read_u8()?;
+                let field_10 = if flags & 0x40 != 0 {
+                    NativeDna::read_qt7(&mut record)?
+                } else if flags & 0x20 != 0 {
+                    None
+                } else {
+                    Some(NativeDna::Dh(NativeDhDna::read(&mut record)?))
+                };
+                let field_18 = record.read_u8()?;
+                let field_28 = record.read_string()?;
+                // Counted list reception constructs fresh conditions. Native
+                // omission retains this factory-initialized zero ID; this is
+                // not a reusable in-place Pregnant update API.
+                let id_1c = if flags & 0x80 != 0 {
+                    record.read_u32()?
+                } else {
+                    0
+                };
+                NativeConditionBody::Pregnant {
+                    field_10,
+                    field_18,
+                    id_1c,
+                    field_20: flags & 3,
+                    field_28,
+                }
+            }
             11 => NativeConditionBody::Bounty {
                 id_10: record.read_u32()?,
                 field_18: record.read_string()?,
@@ -153,3 +181,6 @@ fn nonzero(value: u8) -> u8 {
 
 #[cfg(test)]
 mod tests;
+
+#[cfg(test)]
+mod pregnant_tests;

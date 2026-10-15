@@ -99,15 +99,11 @@ fn thought_retains_null_empty_unicode_and_timestamp_extremes() {
 }
 
 #[test]
-fn unknown_factory_and_known_unimplemented_are_distinct_and_consume_nothing() {
+fn unknown_factory_and_truncated_known_bodies_are_distinct_and_consume_nothing() {
     for kind in 0..=255 {
         let mut input = QtReader::new(&[]);
         match kind {
-            9 => assert_eq!(
-                read(kind, &mut input).unwrap_err().kind(),
-                io::ErrorKind::Unsupported
-            ),
-            1..=5 | 7 | 8 | 10..=13 => assert_eq!(
+            1..=5 | 7..=13 => assert_eq!(
                 read(kind, &mut input).unwrap_err().kind(),
                 io::ErrorKind::UnexpectedEof
             ),
