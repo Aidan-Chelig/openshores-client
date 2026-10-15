@@ -339,3 +339,24 @@ The complete previously retained REA record is
 `docs/evidence/native-body-group-object-loader.json`; independent full GNU is
 `docs/evidence/native-body-object-groups-gnu.txt`. No binary execution or new
 analysis import was needed.
+
+## Native per-vertex deformation selection
+
+`NativeBodyObjectGroups::select_vertex` now implements ApplyScaleFactor's
+ordered membership/pivot gathering. It narrows the lookup coordinates to f32;
+membership, not the numeric weight, selects this stage. ScalePt, MidPt, Top and
+Bottom cases precede anatomical flags. Each other group uses only its first
+set flag in Torso/Hand/Foot/Neck/Tail/Head order. Later matching groups replace
+their category's pivot; Wing and HandWing flags stay set across subsequent
+groups. Wing substring matching is case-sensitive. Top/Bottom use explicit
+initialized object scale-point overrides unless every component equals zero;
+signed zeros count as zero, while NaNs select the override. The API requires
+these values from its caller rather than inventing constructor defaults.
+
+`just test-native-body-selection` binds static checks to the existing complete
+ApplyScaleFactor evidence (`ev_413b8d0889ff3bece7696843079d27ff60f635084248ddc2dc5bb4eba8c1bbb0`)
+and original PE digest, then exercises zero-weight membership, narrowing,
+ordered replacement, flag precedence, sticky/case-sensitive wing flags,
+overrides and absent/NaN keys. No new REA import or query was performed.
+This collects inputs for the still-required weighted arithmetic, not a uniform
+fallback, complete skin assembly or renderer publication.

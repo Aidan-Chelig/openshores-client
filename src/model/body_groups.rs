@@ -38,6 +38,7 @@ impl Ord for Position {
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeBodyVertexGroup {
+    name: Vec<u8>,
     pub kind_34: u32,
     pub flags_50: [bool; 6],
     pub point_28: [f32; 3],
@@ -142,6 +143,7 @@ impl NativeBodyVertexGroup {
             return Err(invalid("missing native body group field order"));
         }
         let mut result = Self {
+            name: Vec::new(),
             kind_34: 1,
             flags_50: [false; 6],
             point_28: [0.; 3],
@@ -150,6 +152,10 @@ impl NativeBodyVertexGroup {
         for field in &group.field_order {
             match field {
                 VertexGroupChunk::Name => {
+                    result.name = group
+                        .name
+                        .clone()
+                        .ok_or_else(|| invalid("missing group name"))?;
                     (result.kind_34, result.flags_50) = classify(
                         group
                             .name
@@ -199,6 +205,10 @@ impl NativeBodyVertexGroup {
             }
         }
         Ok(result)
+    }
+
+    pub fn name(&self) -> &[u8] {
+        &self.name
     }
 
     /// ApplyScaleFactor constructs its lookup key by narrowing xyz to f32.
