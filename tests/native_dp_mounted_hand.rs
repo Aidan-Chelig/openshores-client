@@ -167,6 +167,22 @@ fn native_part_initialization_consumes_mounted_body_hand_geometry() {
         assert!(part.connect_30.iter().all(|n| n.is_finite()));
         let attachment = part.current_connect_loc(body.bones()).unwrap();
         assert!(attachment.iter().all(|n| n.is_finite()));
+        if part.allocation.kind == NativeDpPartKind::Tail {
+            let mut bones = body.bones().clone();
+            part.bend_tail(&mut bones, body.dimensions(), 0.25, -0.125, 0.)
+                .unwrap();
+            assert!(
+                bones
+                    .slots
+                    .iter()
+                    .all(|b| b.matrix_00.iter().all(|v| v.is_finite()))
+            );
+            for (i, bone) in bones.slots.iter().enumerate() {
+                if i != 17 {
+                    assert_eq!(*bone, body.bones().slots[i]);
+                }
+            }
+        }
         if matches!(part.joints, NativeDpPartJoints::Head { .. }) {
             let mut bones = body.bones().clone();
             part.bend_neck(&mut bones, body.dimensions(), 0.125)

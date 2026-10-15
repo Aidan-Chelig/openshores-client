@@ -585,3 +585,36 @@ requires composing this operation with the real pose, bone and resource state.
 
 This plan preserves the original end-to-end objective; model/body fidelity and
 production context remain required work, not optional polish after the preview.
+
+### Concrete tail bending
+
+`NativeDpPartState::bend_tail` now mutates the actual tail bone range using
+the owner body's length at40a8. The high two bits of copied DNA14 select the
+last joint (17 for zero, otherwise16+2*selector). The initial local offset is
+rounded in f32; joints then descend to17 with f64 local-Y additions. Each
+projected joint pivot rotates its inclusive suffix, not a neck-style prefix.
+Both pitch and yaw are widened before the native sin/cos coefficient stages;
+homogeneous rows and the slot+100 invalidation byte are included. Zero angles
+still perform the native writes.
+
+Nonnegative clearance enables the native repeated ground scan over joints
+last..18 and its fixed double-coefficient correction pass. Negative clearance
+and NaN skip that pass. The scan preserves the origin homogeneous sum and
+separate fifth-joint branch; it does not substitute an affine translation.
+A Rust-only20,000-pass guard reports InvalidData rather than hanging on a
+degenerate state; already-applied bone writes survive that error. Other part
+kinds report Unsupported before writes. This guard is not a native limit.
+
+The existing complete REA record is retained as
+`docs/evidence/native-dp-tail-bend.json`, with GNU corroboration in
+`native-dp-tail-bend-gnu.txt`; no additional import/query was performed.
+`just test-native-dp-tail-bend` checks source digest, spacing/selection/loop
+anchors and correction constants before Rust fixtures. Fixtures cover all
+four ranges, suffix rotation accumulation, mixed-width pivot placement,
+combined axes, dense non-affine matrices, homogeneous ground projection,
+ground correction, negative/NaN clearance, zero angles and wrong-kind errors.
+The mounted-part test also bends its initialized tail. Static checks and Rust
+tests are not execution evidence from the original client, and no NaN-payload
+or cross-platform libm bit parity is claimed. Body-level tail pose routines,
+the remaining body animation, production Person ownership and actual avatar
+render publication remain required work.
