@@ -81,6 +81,10 @@ test-native-body-definition:
     nix develop .#server-test --command python tests/native_body_definition.py
     nix develop .#server-test --command cargo test --offline --lib model::body_definition
 
+test-native-dp-arm-skin:
+    nix develop .#server-test --command python tests/native_dp_arm_skin.py
+    nix develop .#server-test --command cargo test --offline --lib world::native_body::dp::arm_skin
+
 # Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
 test-native-jobs:
     nix develop .#server-test --command python tests/native_jobs.py

@@ -13,7 +13,9 @@ pub use layout::{
 };
 mod model_dna;
 pub use model_dna::NativeDpModelDna;
+mod arm_skin;
 mod hand_resource;
+pub use arm_skin::NativeDpArmSkinGeometry;
 pub use hand_resource::NativeDpHandResource;
 mod hand_geometry;
 pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};

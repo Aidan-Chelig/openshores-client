@@ -510,3 +510,40 @@ mapping, metadata preservation, float narrowing and mesh composition. The
 mounted hand fixture now applies this projection before deformation using
 explicit fixture parameters, not live Person definitions. Production part
 CreateSkin definitions, full assembly/bones and avatar rendering remain pending.
+
+## Initialized arm/hand skin geometry requests
+
+`NativeDpPartState::arm_skin_geometry` now reconstructs the geometry requests
+from DpArmAndHand::CreateSkin: actual Bones out-reference order, literal
+first-bone side mask, owner prefix/PA selection, part-DNA arm/hand/wing variants,
+constructor geometry scalars and stored connection. Ordinary arms request Arm
+then Hand; wing selectors2..7 request Wing only. The Hand translation uses
+(body40b4 + connectionY) + body4088 in native order; its definition68 is replaced
+with the doubled float Hand factor, not definition78. Uniform scale divides
+owner SizeFactor by0.84 in f32 before widening; limb factors retain their actual
+float/double stages and separate double multiplications.
+
+`NativeDpInitialization::arm_skin_geometry_requests` requires completed part
+calculations and obtains actual owner DNA/dimensions and the selected part.
+The caller must supply real body4120..4138 fields. Wrong part kinds fail
+Unsupported; incomplete initialization fails InvalidData. This is a geometry
+projection, not complete CreateSkin: material/color parameters, cache success/
+failure behavior, bounds, model publication and bone weights are not fabricated.
+
+Complete static evidence is `native-dp-arm-create-skin.json`
+(`ev_a185d7368b4d96d25c37384b278ad798ecbd1bd756ea6e0deeec1c60516678f8`),
+with full GNU in `native-dp-arm-create-skin-gnu.txt`; the reused prefix record is
+`native-dp-body-model-prefix.json`
+(`ev_587e4a153a7a8d64ebffce5b9e797df65ba2d41cc4237b587891da95c62757ff`).
+The new query took0.197s on the existing warm analyzed session; no import.
+`just test-native-dp-arm-skin` verifies the original PE digest, actual scalar
+constant bytes, call/translation/Hand68 anchors, prefix bytes and bone-side
+mask. Rust fixtures cover both sides, all selectors, all three pairs plus
+native index fallback, PA modes, source precision and initialization failures.
+
+The mounted fixture initializes an actual one-arm-pair body using its mounted
+HandLength provider, selects four Arm/Hand resources and runs their940 vertices
+through definition projection and CPU deformation. Its metadata defaults are
+explicit fixtures, not reconstructed object-constructor defaults or a claim of
+native/rendering parity. Leg/torso/head/tail skin generation, full model state,
+bone weights and renderer publication still remain under the original goal.

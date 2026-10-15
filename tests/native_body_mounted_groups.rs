@@ -5,7 +5,12 @@ use openshores_client::{
         ModelVariant, NativeBodyDeformation, NativeBodyModelGeometry, NativeBodyObjectGroups,
         NativeBodyObjectScale, NativeBodyVertexGroup,
     },
-    world::{native_body::NativeDpHandResource, native_dna::NativeDhDna},
+    world::{
+        native_body::{
+            NativeDpHandCache, NativeDpHandResource, NativeDpInitialization, NativeDpPartKind,
+        },
+        native_dna::NativeDhDna,
+    },
 };
 
 #[test]
@@ -136,5 +141,68 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
     );
     eprintln!(
         "Explicit-definition mesh deformation: {deformed_meshes} supported, {unsupported_meshes} unsupported, {changed_points} points differ from the unweighted branch. Not complete avatar generation or rendering."
+    );
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION pointing to a user-provided copy"]
+fn initialized_arm_skin_requests_load_and_deform_mounted_models() {
+    let mount = AssetMount::open(
+        std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation path"),
+    )
+    .unwrap();
+    let mut dna = NativeDhDna([0; 24]);
+    dna.0[1] = 1;
+    let mut body = NativeDpInitialization::begin(&dna);
+    body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))
+        .unwrap();
+    let mut resources = 0;
+    let mut points = 0;
+    for (index, part) in body.parts().iter().enumerate() {
+        if !matches!(
+            part.allocation.kind,
+            NativeDpPartKind::LeftArmAndHand | NativeDpPartKind::RightArmAndHand
+        ) {
+            continue;
+        }
+        for request in body.arm_skin_geometry_requests(index, 0, [1.; 4]).unwrap() {
+            let model = openshores_client::model::Model::decode(
+                &mount.read_resource(&request.resource).unwrap(),
+                ModelVariant::N,
+            )
+            .unwrap();
+            resources += 1;
+            for mesh in model.meshes {
+                // Explicit metadata fixture defaults: not a reconstructed
+                // object constructor, device object or rendered model.
+                let mut definition = NativeBodyDeformation {
+                    base: NativeBodyObjectScale {
+                        field_140: 1.,
+                        fields_1c0: [0.; 3],
+                        fields_1f4: [0.; 3],
+                    },
+                    field_170: 1.,
+                    field_178: 1.,
+                    field_180: 1.,
+                    field_188: 1.,
+                    field_190: 1.,
+                    fields_228: [0.; 3],
+                    fields_2c4: [0.; 3],
+                    fields_25c: [0.; 3],
+                };
+                request.geometry.apply_to_deformation(&mut definition);
+                let output = mesh
+                    .body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
+                    .unwrap();
+                points += output.len();
+                assert_eq!(output.len(), mesh.vertices.len());
+                assert!(output.iter().flatten().all(|value| value.is_finite()));
+            }
+        }
+    }
+    assert_eq!(resources, 4);
+    assert!(points > 0);
+    eprintln!(
+        "Initialized arm skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."
     );
 }
