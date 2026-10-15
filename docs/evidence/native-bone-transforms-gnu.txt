@@ -1,0 +1,224 @@
+Static GNU corroboration, not executable runtime evidence.
+SHA-256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014176ac50 <_ZN11AuMatrix4x47RotateXEd>:
+   14176ac50:	53                   	push   %rbx
+   14176ac51:	48 81 ec b0 00 00 00 	sub    $0xb0,%rsp
+   14176ac58:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   14176ac5c:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14176ac61:	4c 8d 44 24 20       	lea    0x20(%rsp),%r8
+   14176ac66:	48 89 cb             	mov    %rcx,%rbx
+   14176ac69:	e8 82 05 ff ff       	call   14175b1f0 <sincos>
+   14176ac6e:	f2 0f 10 44 24 28    	movsd  0x28(%rsp),%xmm0
+   14176ac74:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+   14176ac7a:	c6 83 00 01 00 00 00 	movb   $0x0,0x100(%rbx)
+   14176ac81:	66 0f 10 6b 20       	movupd 0x20(%rbx),%xmm5
+   14176ac86:	66 0f 10 5b 40       	movupd 0x40(%rbx),%xmm3
+   14176ac8b:	66 0f 28 c8          	movapd %xmm0,%xmm1
+   14176ac8f:	66 0f 14 d2          	unpcklpd %xmm2,%xmm2
+   14176ac93:	66 0f 10 63 30       	movupd 0x30(%rbx),%xmm4
+   14176ac98:	66 0f 57 05 70 0e 70 	xorpd  0x700e70(%rip),%xmm0        # 141e6bb10 <CSWTCH.2853+0x130>
+   14176ac9f:	00 
+   14176aca0:	66 0f 59 ea          	mulpd  %xmm2,%xmm5
+   14176aca4:	66 0f 14 c9          	unpcklpd %xmm1,%xmm1
+   14176aca8:	66 0f 59 d9          	mulpd  %xmm1,%xmm3
+   14176acac:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+   14176acb0:	66 0f 59 e2          	mulpd  %xmm2,%xmm4
+   14176acb4:	66 0f 58 eb          	addpd  %xmm3,%xmm5
+   14176acb8:	66 0f 10 5b 50       	movupd 0x50(%rbx),%xmm3
+   14176acbd:	66 0f 59 cb          	mulpd  %xmm3,%xmm1
+   14176acc1:	66 0f 10 5b 40       	movupd 0x40(%rbx),%xmm3
+   14176acc6:	66 0f 59 da          	mulpd  %xmm2,%xmm3
+   14176acca:	66 0f 58 e1          	addpd  %xmm1,%xmm4
+   14176acce:	66 0f 10 4b 20       	movupd 0x20(%rbx),%xmm1
+   14176acd3:	0f 11 6b 20          	movups %xmm5,0x20(%rbx)
+   14176acd7:	66 0f 59 c8          	mulpd  %xmm0,%xmm1
+   14176acdb:	66 0f 58 cb          	addpd  %xmm3,%xmm1
+   14176acdf:	66 0f 10 5b 30       	movupd 0x30(%rbx),%xmm3
+   14176ace4:	0f 11 63 30          	movups %xmm4,0x30(%rbx)
+   14176ace8:	66 0f 59 c3          	mulpd  %xmm3,%xmm0
+   14176acec:	66 0f 10 5b 50       	movupd 0x50(%rbx),%xmm3
+   14176acf1:	0f 11 4b 40          	movups %xmm1,0x40(%rbx)
+   14176acf5:	66 0f 59 d3          	mulpd  %xmm3,%xmm2
+   14176acf9:	66 0f 58 c2          	addpd  %xmm2,%xmm0
+   14176acfd:	0f 11 43 50          	movups %xmm0,0x50(%rbx)
+   14176ad01:	48 81 c4 b0 00 00 00 	add    $0xb0,%rsp
+   14176ad08:	5b                   	pop    %rbx
+   14176ad09:	c3                   	ret
+   14176ad0a:	90                   	nop
+   14176ad0b:	90                   	nop
+   14176ad0c:	90                   	nop
+   14176ad0d:	90                   	nop
+   14176ad0e:	90                   	nop
+   14176ad0f:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014176ad10 <_ZN11AuMatrix4x47RotateYEd>:
+   14176ad10:	53                   	push   %rbx
+   14176ad11:	48 81 ec b0 00 00 00 	sub    $0xb0,%rsp
+   14176ad18:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   14176ad1c:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14176ad21:	4c 8d 44 24 20       	lea    0x20(%rsp),%r8
+   14176ad26:	48 89 cb             	mov    %rcx,%rbx
+   14176ad29:	e8 c2 04 ff ff       	call   14175b1f0 <sincos>
+   14176ad2e:	f2 0f 10 44 24 28    	movsd  0x28(%rsp),%xmm0
+   14176ad34:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+   14176ad3a:	c6 83 00 01 00 00 00 	movb   $0x0,0x100(%rbx)
+   14176ad41:	66 0f 10 23          	movupd (%rbx),%xmm4
+   14176ad45:	66 0f 10 4b 40       	movupd 0x40(%rbx),%xmm1
+   14176ad4a:	66 0f 28 e8          	movapd %xmm0,%xmm5
+   14176ad4e:	66 0f 57 05 ba 0d 70 	xorpd  0x700dba(%rip),%xmm0        # 141e6bb10 <CSWTCH.2853+0x130>
+   14176ad55:	00 
+   14176ad56:	66 0f 14 d2          	unpcklpd %xmm2,%xmm2
+   14176ad5a:	66 0f 10 5b 10       	movupd 0x10(%rbx),%xmm3
+   14176ad5f:	66 0f 59 e2          	mulpd  %xmm2,%xmm4
+   14176ad63:	66 0f 14 ed          	unpcklpd %xmm5,%xmm5
+   14176ad67:	66 0f 59 da          	mulpd  %xmm2,%xmm3
+   14176ad6b:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+   14176ad6f:	66 0f 59 c8          	mulpd  %xmm0,%xmm1
+   14176ad73:	66 0f 58 e1          	addpd  %xmm1,%xmm4
+   14176ad77:	66 0f 10 4b 50       	movupd 0x50(%rbx),%xmm1
+   14176ad7c:	66 0f 59 c1          	mulpd  %xmm1,%xmm0
+   14176ad80:	66 0f 10 0b          	movupd (%rbx),%xmm1
+   14176ad84:	0f 11 23             	movups %xmm4,(%rbx)
+   14176ad87:	66 0f 59 cd          	mulpd  %xmm5,%xmm1
+   14176ad8b:	66 0f 58 d8          	addpd  %xmm0,%xmm3
+   14176ad8f:	66 0f 10 43 40       	movupd 0x40(%rbx),%xmm0
+   14176ad94:	66 0f 59 c2          	mulpd  %xmm2,%xmm0
+   14176ad98:	66 0f 58 c8          	addpd  %xmm0,%xmm1
+   14176ad9c:	66 0f 10 43 10       	movupd 0x10(%rbx),%xmm0
+   14176ada1:	0f 11 5b 10          	movups %xmm3,0x10(%rbx)
+   14176ada5:	66 0f 59 c5          	mulpd  %xmm5,%xmm0
+   14176ada9:	66 0f 10 6b 50       	movupd 0x50(%rbx),%xmm5
+   14176adae:	0f 11 4b 40          	movups %xmm1,0x40(%rbx)
+   14176adb2:	66 0f 59 d5          	mulpd  %xmm5,%xmm2
+   14176adb6:	66 0f 58 c2          	addpd  %xmm2,%xmm0
+   14176adba:	0f 11 43 50          	movups %xmm0,0x50(%rbx)
+   14176adbe:	48 81 c4 b0 00 00 00 	add    $0xb0,%rsp
+   14176adc5:	5b                   	pop    %rbx
+   14176adc6:	c3                   	ret
+   14176adc7:	90                   	nop
+   14176adc8:	90                   	nop
+   14176adc9:	90                   	nop
+   14176adca:	90                   	nop
+   14176adcb:	90                   	nop
+   14176adcc:	90                   	nop
+   14176adcd:	90                   	nop
+   14176adce:	90                   	nop
+   14176adcf:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014176add0 <_ZN11AuMatrix4x47RotateZEd>:
+   14176add0:	53                   	push   %rbx
+   14176add1:	48 81 ec b0 00 00 00 	sub    $0xb0,%rsp
+   14176add8:	66 0f 28 c1          	movapd %xmm1,%xmm0
+   14176addc:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   14176ade1:	4c 8d 44 24 20       	lea    0x20(%rsp),%r8
+   14176ade6:	48 89 cb             	mov    %rcx,%rbx
+   14176ade9:	e8 02 04 ff ff       	call   14175b1f0 <sincos>
+   14176adee:	f2 0f 10 44 24 28    	movsd  0x28(%rsp),%xmm0
+   14176adf4:	f2 0f 10 54 24 20    	movsd  0x20(%rsp),%xmm2
+   14176adfa:	c6 83 00 01 00 00 00 	movb   $0x0,0x100(%rbx)
+   14176ae01:	66 0f 10 2b          	movupd (%rbx),%xmm5
+   14176ae05:	66 0f 10 5b 20       	movupd 0x20(%rbx),%xmm3
+   14176ae0a:	66 0f 28 c8          	movapd %xmm0,%xmm1
+   14176ae0e:	66 0f 14 d2          	unpcklpd %xmm2,%xmm2
+   14176ae12:	66 0f 10 63 10       	movupd 0x10(%rbx),%xmm4
+   14176ae17:	66 0f 57 05 f1 0c 70 	xorpd  0x700cf1(%rip),%xmm0        # 141e6bb10 <CSWTCH.2853+0x130>
+   14176ae1e:	00 
+   14176ae1f:	66 0f 59 ea          	mulpd  %xmm2,%xmm5
+   14176ae23:	66 0f 14 c9          	unpcklpd %xmm1,%xmm1
+   14176ae27:	66 0f 59 d9          	mulpd  %xmm1,%xmm3
+   14176ae2b:	66 0f 14 c0          	unpcklpd %xmm0,%xmm0
+   14176ae2f:	66 0f 59 e2          	mulpd  %xmm2,%xmm4
+   14176ae33:	66 0f 58 eb          	addpd  %xmm3,%xmm5
+   14176ae37:	66 0f 10 5b 30       	movupd 0x30(%rbx),%xmm3
+   14176ae3c:	66 0f 59 cb          	mulpd  %xmm3,%xmm1
+   14176ae40:	66 0f 10 5b 20       	movupd 0x20(%rbx),%xmm3
+   14176ae45:	66 0f 59 da          	mulpd  %xmm2,%xmm3
+   14176ae49:	66 0f 58 e1          	addpd  %xmm1,%xmm4
+   14176ae4d:	66 0f 10 0b          	movupd (%rbx),%xmm1
+   14176ae51:	0f 11 2b             	movups %xmm5,(%rbx)
+   14176ae54:	66 0f 59 c8          	mulpd  %xmm0,%xmm1
+   14176ae58:	66 0f 58 cb          	addpd  %xmm3,%xmm1
+   14176ae5c:	66 0f 10 5b 10       	movupd 0x10(%rbx),%xmm3
+   14176ae61:	0f 11 63 10          	movups %xmm4,0x10(%rbx)
+   14176ae65:	66 0f 59 c3          	mulpd  %xmm3,%xmm0
+   14176ae69:	66 0f 10 5b 30       	movupd 0x30(%rbx),%xmm3
+   14176ae6e:	0f 11 4b 20          	movups %xmm1,0x20(%rbx)
+   14176ae72:	66 0f 59 d3          	mulpd  %xmm3,%xmm2
+   14176ae76:	66 0f 58 c2          	addpd  %xmm2,%xmm0
+   14176ae7a:	0f 11 43 30          	movups %xmm0,0x30(%rbx)
+   14176ae7e:	48 81 c4 b0 00 00 00 	add    $0xb0,%rsp
+   14176ae85:	5b                   	pop    %rbx
+   14176ae86:	c3                   	ret
+   14176ae87:	90                   	nop
+   14176ae88:	90                   	nop
+   14176ae89:	90                   	nop
+   14176ae8a:	90                   	nop
+   14176ae8b:	90                   	nop
+   14176ae8c:	90                   	nop
+   14176ae8d:	90                   	nop
+   14176ae8e:	90                   	nop
+   14176ae8f:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014176ae90 <_ZN11AuMatrix4x49TranslateEddd>:
+   14176ae90:	66 0f 10 41 10       	movupd 0x10(%rcx),%xmm0
+   14176ae95:	66 0f 10 69 70       	movupd 0x70(%rcx),%xmm5
+   14176ae9a:	66 0f 28 e3          	movapd %xmm3,%xmm4
+   14176ae9e:	66 0f 10 59 30       	movupd 0x30(%rcx),%xmm3
+   14176aea3:	66 0f 14 d2          	unpcklpd %xmm2,%xmm2
+   14176aea7:	66 0f 14 c9          	unpcklpd %xmm1,%xmm1
+   14176aeab:	66 0f 59 c1          	mulpd  %xmm1,%xmm0
+   14176aeaf:	66 0f 14 e4          	unpcklpd %xmm4,%xmm4
+   14176aeb3:	c6 81 00 01 00 00 00 	movb   $0x0,0x100(%rcx)
+   14176aeba:	66 0f 59 da          	mulpd  %xmm2,%xmm3
+   14176aebe:	66 0f 58 c3          	addpd  %xmm3,%xmm0
+   14176aec2:	66 0f 10 59 50       	movupd 0x50(%rcx),%xmm3
+   14176aec7:	66 0f 59 dc          	mulpd  %xmm4,%xmm3
+   14176aecb:	66 0f 58 c3          	addpd  %xmm3,%xmm0
+   14176aecf:	66 0f 10 19          	movupd (%rcx),%xmm3
+   14176aed3:	66 0f 59 d9          	mulpd  %xmm1,%xmm3
+   14176aed7:	66 0f 10 49 20       	movupd 0x20(%rcx),%xmm1
+   14176aedc:	66 0f 58 c5          	addpd  %xmm5,%xmm0
+   14176aee0:	66 0f 10 69 60       	movupd 0x60(%rcx),%xmm5
+   14176aee5:	66 0f 59 ca          	mulpd  %xmm2,%xmm1
+   14176aee9:	0f 11 41 70          	movups %xmm0,0x70(%rcx)
+   14176aeed:	66 0f 58 d9          	addpd  %xmm1,%xmm3
+   14176aef1:	66 0f 10 49 40       	movupd 0x40(%rcx),%xmm1
+   14176aef6:	66 0f 59 cc          	mulpd  %xmm4,%xmm1
+   14176aefa:	66 0f 58 d9          	addpd  %xmm1,%xmm3
+   14176aefe:	66 0f 58 dd          	addpd  %xmm5,%xmm3
+   14176af02:	0f 11 59 60          	movups %xmm3,0x60(%rcx)
+   14176af06:	c3                   	ret
+   14176af07:	90                   	nop
+   14176af08:	90                   	nop
+   14176af09:	90                   	nop
+   14176af0a:	90                   	nop
+   14176af0b:	90                   	nop
+   14176af0c:	90                   	nop
+   14176af0d:	90                   	nop
+   14176af0e:	90                   	nop
+   14176af0f:	90                   	nop

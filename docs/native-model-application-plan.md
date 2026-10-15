@@ -357,6 +357,29 @@ position/rotation routines, body mesh generation or production Person context.
 
 ### Remaining integration gates
 
+Bone transforms now implement the native in-place RotateX/RotateY/RotateZ and
+Translate operations on `NativeDpBoneTransform`. These mix the existing columns
+including their homogeneous fourth row, preserve unaffected columns, and clear
+the native slot+0x100 byte. Zero-angle/zero-translation calls still execute their
+arithmetic and invalidate the flag; the fresh affine atom-position helper was
+not substituted. Multiplication/addition stages and the native SSE lane-pair
+operand expressions are retained. Rust's platform sin/cos implementation is
+used, without claiming native libm bit identity or NaN payload parity.
+
+Complete static records are `docs/evidence/native-aumatrix-{rotate-x,rotate-y,
+rotate-z,translate}.json`, corroborated by `native-bone-transforms-gnu.txt`.
+Tests use dense nonaffine matrices, independent column-product expectations,
+signed/zero angles and nonfinite zero-operation cases. This is a required matrix
+dependency, not complete skeletal positioning. The still-live REA session
+returned these queries in0.077–0.093s without another import.
+
+The next retained dependencies include `dp-tail-{dead-down,dead-left,fold,bend}.json`
+and `aumatrix-project.json` under `target/native-model-analysis-4`. Body wrapper
+dispatch and the actual tail bend/Slither/Fold paths must still be composed;
+retention is not implementation. The Project decompilation has hidden-return
+ABI artifacts and an unusual all-zero-coordinate branch; check its instructions
+before translating it rather than replacing it with a conventional dot product.
+
 The shared native pose-rhythm dependency is now implemented in
 `native_creature/pose_rhythm`: full-width pose classification, exact immediate
 zero versus sine paths, signed reference milliseconds modulo60000 and the
