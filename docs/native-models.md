@@ -580,3 +580,33 @@ pair: eight selected Arm/Hand/Leg/Foot resources and1,758 CPU vertices pass
 through definitions and deformation. Object metadata defaults remain explicit
 fixture inputs, not reconstructed production defaults. Torso/head/tail requests,
 full skin assembly, bone weights and actual avatar rendering remain unfinished.
+
+## Initialized tail skin geometry request
+
+`tail_skin_geometry` and the completed-owner wrapper now produce the native
+optional Tail request. DNA14 bits4..5 zero mean no geometry; bits6..7 choose
+Tip or Tail1/3/5, and the suffix is bits4..5. Unlike limbs, the resource prefix
+comes from part DNA16 low bits and never PA/body4068. All three bone references
+are17. The definition retains the initialized tail attachment and owner4120..
+4138; uniform scale uses the owner's SizeFactor. Height divides the DNA19
+float factor by1.5 in f32 before widening. Width uses ordered float products
+of DNA20 low bits and that length, adds length/3 in float, divides by0.875 in
+float, then widens. These are not the limbs' double-division formulas.
+
+Complete evidence is `native-dp-tail-create-skin.json`
+(`ev_89a93f737697907ef0718e90add2c5e915053e46299e99e7c889c82774bc4171`)
+and full GNU `native-dp-tail-create-skin-gnu.txt`. The query used the existing
+warm session in0.139s with no import. `just test-native-dp-tail-skin` checks the
+original digest, disable/segment gates, resource rules, bone17 arguments,
+source float constants, division/widening instructions and constructor ABI.
+Fixtures exhaust prefix/type/segment combinations and length/width factors,
+distinguish float from double division, and check wrong-part/incomplete-owner
+errors. The decompiler's apparent constructor literal0 is corrected from the
+actual XMM1 load of1.0, as for Leg.
+
+The initialized mounted-part fixture now selects nine Arm/Hand/Leg/Foot/Tail
+resources and deforms2,016 vertices. Its object metadata defaults remain
+explicit test inputs, not reconstructed production defaults or runtime parity.
+This request builder does not execute full CreateSkin cache/material/device
+effects. Torso and head/neck generation, production object defaults/weights,
+full assembly and avatar rendering are still required.

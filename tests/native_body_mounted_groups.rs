@@ -146,7 +146,7 @@ fn mounted_body_groups_preserve_native_membership_and_pivot_separation() {
 
 #[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION pointing to a user-provided copy"]
-fn initialized_limb_skin_requests_load_and_deform_mounted_models() {
+fn initialized_part_skin_requests_load_and_deform_mounted_models() {
     let mount = AssetMount::open(
         std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation path"),
     )
@@ -154,6 +154,7 @@ fn initialized_limb_skin_requests_load_and_deform_mounted_models() {
     let mut dna = NativeDhDna([0; 24]);
     dna.0[1] = 1;
     dna.0[12] = 4;
+    dna.0[14] = 0x50;
     let mut body = NativeDpInitialization::begin(&dna);
     body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))
         .unwrap();
@@ -169,6 +170,12 @@ fn initialized_limb_skin_requests_load_and_deform_mounted_models() {
                 .collect(),
             NativeDpPartKind::LeftLegAndFoot | NativeDpPartKind::RightLegAndFoot => body
                 .leg_skin_geometry_requests(index, 0, [1.; 4])
+                .unwrap()
+                .into_iter()
+                .map(|r| (r.resource, r.geometry))
+                .collect(),
+            NativeDpPartKind::Tail => body
+                .tail_skin_geometry_request(index, [1.; 4])
                 .unwrap()
                 .into_iter()
                 .map(|r| (r.resource, r.geometry))
@@ -210,9 +217,9 @@ fn initialized_limb_skin_requests_load_and_deform_mounted_models() {
             }
         }
     }
-    assert_eq!(resources, 8);
+    assert_eq!(resources, 9);
     assert!(points > 0);
     eprintln!(
-        "Initialized limb skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."
+        "Initialized part skin geometry: {resources} mounted resources, {points} CPU vertices; explicit metadata fixture defaults, no complete model/rendering parity claim."
     );
 }

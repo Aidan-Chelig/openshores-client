@@ -3,6 +3,7 @@
 mod dp;
 pub use dp::NativeDpArmSkinGeometry;
 pub use dp::NativeDpLegSkinGeometry;
+pub use dp::NativeDpTailSkinGeometry;
 pub use dp::{
     NativeDpAllocatedPart, NativeDpDimensions, NativeDpHandCache, NativeDpHandGeometry,
     NativeDpHandResource, NativeDpModelDna, NativeDpPartKind, native_allocate_dp_parts,

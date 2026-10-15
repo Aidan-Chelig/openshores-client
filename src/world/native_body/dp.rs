@@ -19,6 +19,8 @@ pub use arm_skin::NativeDpArmSkinGeometry;
 mod leg_skin;
 pub use hand_resource::NativeDpHandResource;
 pub use leg_skin::NativeDpLegSkinGeometry;
+mod tail_skin;
+pub use tail_skin::NativeDpTailSkinGeometry;
 mod hand_geometry;
 pub use hand_geometry::{NativeDpFootGeometry, NativeDpHandGeometry};
 mod arm_elbow;
