@@ -15,8 +15,20 @@ continues with the next type: there is no observed unknown-body length or skip.
 Zero count therefore clears the previous list, unlike the additive base effect
 and controller layers. Prior completed appends precede later iterations.
 
-Remaining unknowns: count overload signedness/loop interpretation, complete
-factory mapping, each concrete virtual reader and constructors. Do not treat
+Count corroboration: independent GNU disassembly at `0x1408be618..0x1408be67e`
+calls imported `QDataStream >> short` (`__imp__ZN11QDataStreamrsERs`), loads
+the word with `movzwl`, decrements/stores its low word and tests the original
+word for zero. Thus all 16-bit count patterns represent that many iterations,
+including high-bit patterns; this is not a signed-positive-only loop.
+`NativeConditionList` implements clear-before-count and ordered append, with
+unknown types consuming only their type byte and known unsupported types
+returning an error. Rust errors stop immediately rather than emulating Qt
+failed-stream continuation. Completed entries remain after later failure.
+`NativeUnitState` composes this decoder with Unit's ordered scalar/vector
+reader; absent condition flags retain the list. Unobserved storage remains
+None, not a claim about native constructor defaults.
+
+Remaining unknowns include Pregnant's nested DNA and full constructor semantics. Do not treat
 these as Item/controller types or silently skip arbitrary condition payloads.
 Rust malformed-input behavior must be documented separately from Qt streams.
 
@@ -178,4 +190,4 @@ TypeWidths/DoublePrecision. IDs retain all 32 bits; nullable strings and raw
 floating values (including signed zero and non-finite values) are preserved.
 Offline fixtures exercise all profiles, high-bit IDs, null/Unicode strings,
 every truncated prefix, and following-field alignment. Pregnant remains
-Unsupported; counted-list and avatar-pipeline integration are still pending.
+Unsupported; full avatar-pipeline integration is still pending.

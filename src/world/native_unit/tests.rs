@@ -2,6 +2,40 @@ use super::*;
 use crate::protocol::QtWriter;
 
 #[test]
+fn concrete_conditions_replace_retain_and_fail_in_unit_order() {
+    let profile = FloatEncoding::TypeWidths;
+    let mut state = NativeUnitState::default();
+    state.receive(&mut QtReader::new(&[0]), profile).unwrap();
+    assert!(state.conditions.is_none());
+    let mut bytes = vec![2, 0, 2, 6, 8]; // unknown factory, then Fire
+    bytes.extend(17_i64.to_be_bytes());
+    bytes.push(0xde);
+    let mut input = QtReader::new(&bytes);
+    state.receive(&mut input, profile).unwrap();
+    assert_eq!(input.read_u8().unwrap(), 0xde);
+    assert_eq!(state.conditions.as_ref().unwrap().0.len(), 1);
+    assert_eq!(state.conditions.as_ref().unwrap().0[0].time_08, 17);
+    state.receive(&mut QtReader::new(&[0]), profile).unwrap();
+    assert_eq!(state.conditions.as_ref().unwrap().0.len(), 1);
+    state.fields.vector_330 = Some([9.; 3]);
+    // Replacement clears old entries, appends Fire, then stops at Pregnant.
+    let mut bytes = vec![2, 0, 2, 8];
+    bytes.extend(23_i64.to_be_bytes());
+    bytes.extend([9, 0xde]);
+    let mut input = QtReader::new(&bytes);
+    assert_eq!(
+        state.receive(&mut input, profile).unwrap_err().kind(),
+        io::ErrorKind::Unsupported
+    );
+    assert_eq!(state.conditions.as_ref().unwrap().0[0].time_08, 23);
+    assert_eq!(state.fields.vector_330, Some([9.; 3]));
+    assert_eq!(input.read_u8().unwrap(), 0xde);
+    // Even a truncated count clears before failing.
+    assert!(state.receive(&mut QtReader::new(&[2, 0]), profile).is_err());
+    assert!(state.conditions.as_ref().unwrap().0.is_empty());
+}
+
+#[test]
 fn every_flag_combination_preserves_order_profile_and_suffix_boundary() {
     for flags in 0..=255 {
         for encoding in [

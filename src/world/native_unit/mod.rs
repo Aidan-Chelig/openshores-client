@@ -1,7 +1,29 @@
 //! Ordered native Unit suffix, before Creature/Sentient/Person reception.
 //! Evidence and unresolved constructor semantics: docs/native-unit.md.
+use super::native_condition::NativeConditionList;
 use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::io;
+
+/// Unobserved condition storage stays None until its receive flag occurs.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct NativeUnitState {
+    pub fields: NativeUnitFields,
+    pub conditions: Option<NativeConditionList>,
+}
+
+impl NativeUnitState {
+    pub fn receive(
+        &mut self,
+        input: &mut QtReader<'_>,
+        encoding: FloatEncoding,
+    ) -> io::Result<NativeUnitReceive> {
+        self.fields.receive(input, encoding, |input| {
+            self.conditions
+                .get_or_insert_with(Default::default)
+                .receive(input, encoding)
+        })
+    }
+}
 
 /// None means not yet observed, not a reconstructed constructor default.
 #[derive(Clone, Debug, Default, PartialEq)]

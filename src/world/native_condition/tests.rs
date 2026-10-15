@@ -1,6 +1,20 @@
 use super::*;
 use crate::protocol::QtWriter;
 
+#[test]
+fn list_count_uses_all_sixteen_bits_without_unknown_body_skipping() {
+    for count in [0_u16, 1, 32767, 32768, 65535] {
+        let mut bytes = count.to_be_bytes().to_vec();
+        bytes.extend(std::iter::repeat_n(6, usize::from(count)));
+        bytes.push(0xde);
+        let mut input = QtReader::new(&bytes);
+        let mut list = NativeConditionList::default();
+        list.receive(&mut input, FloatEncoding::TypeWidths).unwrap();
+        assert!(list.0.is_empty());
+        assert_eq!(input.read_u8().unwrap(), 0xde);
+    }
+}
+
 // Scalar-only fixtures use the explicit historical type-width profile.
 fn read(kind: u8, input: &mut QtReader<'_>) -> io::Result<Option<NativeCondition>> {
     NativeCondition::read(kind, input, FloatEncoding::TypeWidths)

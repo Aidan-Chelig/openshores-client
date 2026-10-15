@@ -11,7 +11,7 @@ Required milestones and proof:
    now verify reuse: first query 665.655s; next three 0.348s/0.078s/0.079s.
 2. Reconstruct nested readers: complete retained evidence for DNA, conditions,
    Creature pose/console bodies, Sentient skills/orders and Person helpers;
-   corroborate scalar overloads and virtual bindings. Eight condition bodies
+   corroborate scalar overloads and virtual bindings. Eleven condition bodies
    are implemented; the remaining dependencies are not complete.
 3. Implement ordered Unit → Creature → Sentient → Person receive state in
    manageable module folders. Preserve sparse/reset distinctions and native
@@ -44,4 +44,12 @@ format checking, 285 headless library tests, 306 client-feature library tests,
 client-feature all-target Clippy. This verifies the implemented components,
 not the still-missing full Person dispatch/presentation pipeline. The first
 shared analysis batch subsequently completed with the warm-query times above.
-The session remains open; complete returned records still need review.
+The former process handle no longer exists (verified after interruption).
+Complete returned records remain saved; do not repeat those queries. A new
+long-lived session is needed only for unresolved readers, batching them after
+the single initial import rather than restarting per function.
+
+Unit now has concrete condition-list composition (`NativeUnitState`), including
+destructive replacement before count, unknown factory continuation, explicit
+Pregnant rejection, and partial-list retention on later failures. This remains
+a receive stage, not complete Person dispatch or avatar presentation.

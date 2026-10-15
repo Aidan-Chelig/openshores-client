@@ -4,6 +4,26 @@ use super::native_dna::{NativeDhDna, NativeSpecies};
 use crate::{atom_position::FloatEncoding, protocol::QtReader};
 use std::io;
 
+/// Replacement storage, not an additive effect/controller layer.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct NativeConditionList(pub Vec<NativeCondition>);
+
+impl NativeConditionList {
+    /// Clear before reading count; completed entries survive a later error.
+    /// The native signed-short decrement wraps through all 16-bit patterns.
+    pub fn receive(&mut self, input: &mut QtReader<'_>, encoding: FloatEncoding) -> io::Result<()> {
+        self.0.clear();
+        let count = input.read_u16()?;
+        for _ in 0..count {
+            let kind = input.read_u8()?;
+            if let Some(condition) = NativeCondition::read(kind, input, encoding)? {
+                self.0.push(condition);
+            }
+        }
+        Ok(())
+    }
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeCondition {
     pub time_08: i64,
