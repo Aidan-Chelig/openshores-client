@@ -1,0 +1,58 @@
+Independent static GNU observations, not REA evidence or target execution.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+Command: objdump -d -C --start-address=0x141226600 --stop-address=0x1412266a3 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141226600 <AuChromatid::ReadStream(QDataStream&, unsigned char)>:
+   141226600:	41 57                	push   %r15
+   141226602:	41 56                	push   %r14
+   141226604:	41 55                	push   %r13
+   141226606:	41 54                	push   %r12
+   141226608:	55                   	push   %rbp
+   141226609:	57                   	push   %rdi
+   14122660a:	56                   	push   %rsi
+   14122660b:	53                   	push   %rbx
+   14122660c:	48 83 ec 78          	sub    $0x78,%rsp
+   141226610:	0f 29 74 24 60       	movaps %xmm6,0x60(%rsp)
+   141226615:	48 89 d3             	mov    %rdx,%rbx
+   141226618:	48 89 ce             	mov    %rcx,%rsi
+   14122661b:	4c 8d 64 24 25       	lea    0x25(%rsp),%r12
+   141226620:	44 89 c7             	mov    %r8d,%edi
+   141226623:	e8 48 0e 54 00       	call   141767470 <AuChromatid::Clear()>
+   141226628:	48 8d 54 24 26       	lea    0x26(%rsp),%rdx
+   14122662d:	48 89 d9             	mov    %rbx,%rcx
+   141226630:	ff 15 d2 c0 66 01    	call   *0x166c0d2(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141226636:	0f b7 44 24 26       	movzwl 0x26(%rsp),%eax
+   14122663b:	48 8b 2d 9e c0 66 01 	mov    0x166c09e(%rip),%rbp        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141226642:	f3 0f 7e 35 de df 08 	movq   0x108dfde(%rip),%xmm6        # 1422b4628 <.rdata+0x1c78>
+   141226649:	01 
+   14122664a:	8d 50 ff             	lea    -0x1(%rax),%edx
+   14122664d:	66 89 54 24 26       	mov    %dx,0x26(%rsp)
+   141226652:	66 85 c0             	test   %ax,%ax
+   141226655:	75 39                	jne    141226690 <AuChromatid::ReadStream(QDataStream&, unsigned char)+0x90>
+   141226657:	e9 34 01 00 00       	jmp    141226790 <AuChromatid::ReadStream(QDataStream&, unsigned char)+0x190>
+   14122665c:	0f 1f 40 00          	nopl   0x0(%rax)
+   141226660:	48 8b 00             	mov    (%rax),%rax
+   141226663:	48 89 da             	mov    %rbx,%rdx
+   141226666:	44 0f b6 c7          	movzbl %dil,%r8d
+   14122666a:	ff 50 20             	call   *0x20(%rax)
+   14122666d:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141226672:	48 89 f1             	mov    %rsi,%rcx
+   141226675:	e8 c6 a0 61 00       	call   141840740 <QList<AuChromosome*>::append(AuChromosome* const&)>
+   14122667a:	0f b7 44 24 26       	movzwl 0x26(%rsp),%eax
+   14122667f:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141226682:	66 89 54 24 26       	mov    %dx,0x26(%rsp)
+   141226687:	66 85 c0             	test   %ax,%ax
+   14122668a:	0f 84 00 01 00 00    	je     141226790 <AuChromatid::ReadStream(QDataStream&, unsigned char)+0x190>
+   141226690:	4c 89 e2             	mov    %r12,%rdx
+   141226693:	48 89 d9             	mov    %rbx,%rcx
+   141226696:	ff d5                	call   *%rbp
+   141226698:	0f b6 4c 24 25       	movzbl 0x25(%rsp),%ecx
+   14122669d:	e8 9e 15 ff ff       	call   141217c40 <AuChromosome::CreateChromosome(AuChromosome::CTYPE)>
+   1412266a2:	48                   	rex.W
+

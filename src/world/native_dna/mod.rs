@@ -6,6 +6,12 @@ mod chromosome;
 pub use chromosome::{NativeChromosome, NativeChromosomeBody};
 mod color;
 pub use color::NativeColorQt7;
+mod gene;
+pub use gene::{NativeGene, NativeGeneChain, NativeGeneSuffix};
+mod gene_chromosome;
+pub use gene_chromosome::{NativeChromosomeField, NativeChromosomeValue};
+mod animal;
+pub use animal::{NativeAuDna, NativeDna};
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct NativeDhDna(pub [u8; 24]);

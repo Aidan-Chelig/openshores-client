@@ -8,6 +8,15 @@ fn chromosome_factory_boundaries_and_scalar_body_lengths_are_explicit() {
             0 | 1 => Some(0),
             4 | 5 | 7 => Some(22),
             6 => Some(12),
+            8 | 10 => Some(18),
+            9 => Some(17),
+            11 => Some(23),
+            12 => Some(6),
+            13 => Some(3),
+            14 => Some(5),
+            17 => Some(7),
+            18 | 19 => Some(9),
+            20 => Some(16),
             2 | 3 | 21 | 23 | 24 => Some(1),
             16 | 22 | 25 => Some(2),
             15 | 26 => Some(4),
@@ -15,7 +24,10 @@ fn chromosome_factory_boundaries_and_scalar_body_lengths_are_explicit() {
             _ => None,
         };
         for byte in [0, 0x7f, 0x80, 0xff] {
-            let bytes = vec![byte; length.unwrap_or(0)];
+            let mut bytes = vec![byte; length.unwrap_or(0)];
+            if matches!(kind, 8..=14 | 17..=20) {
+                bytes[0] = 0;
+            }
             let mut input = QtReader::new(&bytes);
             match length {
                 Some(length) => {

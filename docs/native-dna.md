@@ -23,14 +23,15 @@ New retained records use the complete MCP envelope; evidence is in
   unimplemented type 4 or silently skip a guessed body.
 - `native-audna-reader.json`: `ev_169a199e8dbf16da02475e7ec9d1a8c73da03e4868e6d82743f0218e87a9cfab`.
   Read one byte, then call AuChromatid::ReadStream twice for fields `0x08`
-  and `0x10`, forwarding that byte to both. The chromatid format is pending.
+  and `0x10`, forwarding that byte to both. The reconstructed chromatid format
+  is documented in native-chromosomes.md.
 - `native-species-reader.json`: `ev_105347d63c396b94e47fb5ca7b1e4942f369b402d7bf2cb370fe2fda26a5a10a`.
   AuSpecies receives QByteArray at object `+0x08`, not QString or DhDNA.
   The decompiler reports an imported tail-jump warning; semantic species
   interpretation and later consumers are not established by this reader.
 
-Next reconstruct chromatids, then compose both DNA variants into Pregnant,
-ImplantDNA and Creature reception. Wire storage is not body-model generation.
+Both DNA variants now have wire readers; next compose them into Pregnant and
+Creature reception. Wire storage is not body-model generation.
 
 Rust `world::native_dna` now reads normalized DhDNA bytes and raw AuSpecies
 byte arrays, preserving null versus empty species storage. DhDNA rejects null
@@ -40,7 +41,7 @@ ImplantDNA and ImplantSpecies are connected to the real condition decoder,
 without inserting an extra dynamic-DNA discriminator. Tests cover all 256
 DhDNA byte values, every truncated DhDNA/implant prefix, wrong lengths, null,
 raw non-text species bytes, storage bounds and following-field alignment.
-Dynamic AuDNA/chromatid and Pregnant decoding remain outstanding.
+Dynamic AuDNA/chromatid readers are now implemented; Pregnant remains outstanding.
 
 ## Chromatid receive boundary
 
@@ -49,7 +50,10 @@ Reviewed `native-chromatid-reader.json`,
 clear existing chromatid, read short count, then per entry read type byte,
 CreateChromosome, receive through virtual `+0x20` forwarding AuDNA's leading
 byte, and append. Null factory results warn and continue without guessed
-body skipping. Exact count overload/loop width still requires corroboration.
+body skipping. GNU count corroboration is now retained in
+evidence/native-chromatid-count-gnu.txt: signed-short overload, zero-extended
+word load, low-word decrement/store, zero test. All 16-bit patterns therefore
+represent that many iterations, subject to the explicit Rust storage budget.
 
 Reviewed factory `native-chromosome-factory.json`,
 `ev_3e1690f65965b3d640869ce299508c3f780c8485ef4da8fed1e9420833087d6b`:
@@ -58,12 +62,32 @@ Feathers, Fur, Scales, Skin, Head, Torso, Arm, Leg, Fin, Tentacle, Wing,
 Antenna, Horn, Ear, Eye, Nose, Mouth, Lungs, Gills, Blood, EatsAnimals,
 EatsPlants, Reproduction, Mammary. Type 28 explicitly returns null; other
 values warn and return null. Factory initializers are retained in full evidence,
-but reader layouts and vtable bindings remain to be reconstructed. In
+and reader layouts/vtable bindings are now reconstructed in native-chromosomes.md. In
 particular, a raw QByteArray is not the complete AuDNA representation.
 
 The 26 distinct reader records are now retained and reviewed; see
 native-chromosomes.md for ordered fields and independently checked virtual
-dispatch bindings. Remaining shared dependencies include GeneChain and QColor.
+dispatch bindings. GeneChain and QColor have since been resolved below.
 A rejected guessed factory symbol
 is retained only under target/avatar-analysis-session/chromosome-factory.json;
 the successful factory evidence uses the exact COFF CTYPE symbol.
+
+## Current Rust DNA composition
+
+`NativeAuDna::read_qt7` reads the leading version and both actual counted
+chromatids, including all 28 chromosome types and their optional counted gene
+chains. `NativeDna::read_qt7` adds the dynamic discriminator (3 DhDNA, 4 AuDNA);
+unknown types consume only one byte and return None, matching the null factory
+boundary. No opaque body skipping or byte-array substitute is used for AuDNA.
+All currently known chromosome/gene readers ignore the forwarded AuDNA version
+byte; it is retained rather than rejected or rewritten.
+
+Fresh-value decoding is atomic on Rust errors, unlike native in-place clearing
+and partial appends. This is an explicit malformed-input safety policy, not
+native stream-failure parity. One Rust-only 20,000-entry budget spans both
+chromatids and every gene chain, including null-factory entries; counts never
+directly preallocate storage. This bounds nested allocation amplification.
+Tests exercise all chromosome types together, both chains, every version byte,
+null factories, nested concrete genes, every truncated full-DNA prefix,
+dynamic discriminators, high-bit values, field order and budget failure.
+Complete Person construction/reception and presentation are not yet integrated.

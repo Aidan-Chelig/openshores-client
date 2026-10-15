@@ -1,0 +1,499 @@
+Independent static GNU observations, not REA evidence or execution.
+Target: reference/openshores-full/OpenShores.exe
+SHA256: 285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80
+
+Command: objdump -d -C --start-address=0x141220c90 --stop-address=0x141220e70 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141220c90 <AuGeneChain::ReadStream(QDataStream&, unsigned char)>:
+   141220c90:	41 57                	push   %r15
+   141220c92:	41 56                	push   %r14
+   141220c94:	41 55                	push   %r13
+   141220c96:	41 54                	push   %r12
+   141220c98:	55                   	push   %rbp
+   141220c99:	57                   	push   %rdi
+   141220c9a:	56                   	push   %rsi
+   141220c9b:	53                   	push   %rbx
+   141220c9c:	48 83 ec 78          	sub    $0x78,%rsp
+   141220ca0:	0f 29 74 24 60       	movaps %xmm6,0x60(%rsp)
+   141220ca5:	48 89 d3             	mov    %rdx,%rbx
+   141220ca8:	48 89 ce             	mov    %rcx,%rsi
+   141220cab:	4c 8d 64 24 25       	lea    0x25(%rsp),%r12
+   141220cb0:	44 89 c7             	mov    %r8d,%edi
+   141220cb3:	e8 a8 82 54 00       	call   141768f60 <AuGeneChain::Clear()>
+   141220cb8:	48 8d 54 24 26       	lea    0x26(%rsp),%rdx
+   141220cbd:	48 89 d9             	mov    %rbx,%rcx
+   141220cc0:	ff 15 42 1a 67 01    	call   *0x1671a42(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141220cc6:	0f b7 44 24 26       	movzwl 0x26(%rsp),%eax
+   141220ccb:	48 8b 2d 0e 1a 67 01 	mov    0x1671a0e(%rip),%rbp        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   141220cd2:	f3 0f 7e 35 4e 39 09 	movq   0x109394e(%rip),%xmm6        # 1422b4628 <.rdata+0x1c78>
+   141220cd9:	01 
+   141220cda:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141220cdd:	66 89 54 24 26       	mov    %dx,0x26(%rsp)
+   141220ce2:	66 85 c0             	test   %ax,%ax
+   141220ce5:	75 39                	jne    141220d20 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x90>
+   141220ce7:	e9 34 01 00 00       	jmp    141220e20 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x190>
+   141220cec:	0f 1f 40 00          	nopl   0x0(%rax)
+   141220cf0:	48 8b 00             	mov    (%rax),%rax
+   141220cf3:	48 89 da             	mov    %rbx,%rdx
+   141220cf6:	44 0f b6 c7          	movzbl %dil,%r8d
+   141220cfa:	ff 50 18             	call   *0x18(%rax)
+   141220cfd:	48 8d 54 24 28       	lea    0x28(%rsp),%rdx
+   141220d02:	48 89 f1             	mov    %rsi,%rcx
+   141220d05:	e8 76 44 62 00       	call   141845180 <QList<AuGene*>::append(AuGene* const&)>
+   141220d0a:	0f b7 44 24 26       	movzwl 0x26(%rsp),%eax
+   141220d0f:	8d 50 ff             	lea    -0x1(%rax),%edx
+   141220d12:	66 89 54 24 26       	mov    %dx,0x26(%rsp)
+   141220d17:	66 85 c0             	test   %ax,%ax
+   141220d1a:	0f 84 00 01 00 00    	je     141220e20 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x190>
+   141220d20:	4c 89 e2             	mov    %r12,%rdx
+   141220d23:	48 89 d9             	mov    %rbx,%rcx
+   141220d26:	ff d5                	call   *%rbp
+   141220d28:	0f b6 4c 24 25       	movzbl 0x25(%rsp),%ecx
+   141220d2d:	e8 ee fa fe ff       	call   141210820 <AuGene::CreateGene(AuGene::GTYPE)>
+   141220d32:	48 89 44 24 28       	mov    %rax,0x28(%rsp)
+   141220d37:	48 89 c1             	mov    %rax,%rcx
+   141220d3a:	48 85 c0             	test   %rax,%rax
+   141220d3d:	75 b1                	jne    141220cf0 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x60>
+   141220d3f:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   141220d43:	4c 8d 6c 24 30       	lea    0x30(%rsp),%r13
+   141220d48:	4c 8d 74 24 38       	lea    0x38(%rsp),%r14
+   141220d4d:	66 0f d6 74 24 40    	movq   %xmm6,0x40(%rsp)
+   141220d53:	48 8d 05 56 29 09 01 	lea    0x1092956(%rip),%rax        # 1422b36b0 <.rdata+0xd00>
+   141220d5a:	48 8d 54 24 40       	lea    0x40(%rsp),%rdx
+   141220d5f:	4c 89 e9             	mov    %r13,%rcx
+   141220d62:	0f 11 44 24 48       	movups %xmm0,0x48(%rsp)
+   141220d67:	48 89 44 24 58       	mov    %rax,0x58(%rsp)
+   141220d6c:	ff 15 96 22 67 01    	call   *0x1672296(%rip)        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   141220d72:	4c 8b 7c 24 30       	mov    0x30(%rsp),%r15
+   141220d77:	41 b8 32 00 00 00    	mov    $0x32,%r8d
+   141220d7d:	4c 89 f1             	mov    %r14,%rcx
+   141220d80:	48 8d 15 51 35 09 01 	lea    0x1093551(%rip),%rdx        # 1422b42d8 <.rdata+0x1928>
+   141220d87:	ff 15 eb 1d 67 01    	call   *0x1671deb(%rip)        # 142892b78 <__imp__ZN7QString15fromUtf8_helperEPKci>
+   141220d8d:	4c 89 f2             	mov    %r14,%rdx
+   141220d90:	4c 89 f9             	mov    %r15,%rcx
+   141220d93:	ff 15 df 19 67 01    	call   *0x16719df(%rip)        # 142892778 <__imp__ZN11QTextStreamlsERK7QString>
+   141220d99:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   141220d9e:	8b 01                	mov    (%rcx),%eax
+   141220da0:	85 c0                	test   %eax,%eax
+   141220da2:	74 44                	je     141220de8 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x158>
+   141220da4:	83 f8 ff             	cmp    $0xffffffff,%eax
+   141220da7:	74 0b                	je     141220db4 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x124>
+   141220da9:	f0 83 29 01          	lock subl $0x1,(%rcx)
+   141220dad:	48 8b 4c 24 38       	mov    0x38(%rsp),%rcx
+   141220db2:	74 34                	je     141220de8 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x158>
+   141220db4:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141220db9:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141220dbd:	75 45                	jne    141220e04 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x174>
+   141220dbf:	0f b6 54 24 25       	movzbl 0x25(%rsp),%edx
+   141220dc4:	ff 15 ce 19 67 01    	call   *0x16719ce(%rip)        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   141220dca:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141220dcf:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141220dd3:	75 6b                	jne    141220e40 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x1b0>
+   141220dd5:	4c 89 e9             	mov    %r13,%rcx
+   141220dd8:	ff 15 4a 1c 67 01    	call   *0x1671c4a(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   141220dde:	e9 27 ff ff ff       	jmp    141220d0a <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x7a>
+   141220de3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   141220de8:	41 b8 08 00 00 00    	mov    $0x8,%r8d
+   141220dee:	ba 02 00 00 00       	mov    $0x2,%edx
+   141220df3:	ff 15 a7 17 67 01    	call   *0x16717a7(%rip)        # 1428925a0 <__imp__ZN10QArrayData10deallocateEPS_yy>
+   141220df9:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141220dfe:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141220e02:	74 bb                	je     141220dbf <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x12f>
+   141220e04:	ba 20 00 00 00       	mov    $0x20,%edx
+   141220e09:	ff 15 71 19 67 01    	call   *0x1671971(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   141220e0f:	48 8b 4c 24 30       	mov    0x30(%rsp),%rcx
+   141220e14:	eb a9                	jmp    141220dbf <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x12f>
+   141220e16:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   141220e1d:	00 00 00 
+   141220e20:	0f 28 74 24 60       	movaps 0x60(%rsp),%xmm6
+   141220e25:	48 83 c4 78          	add    $0x78,%rsp
+   141220e29:	5b                   	pop    %rbx
+   141220e2a:	5e                   	pop    %rsi
+   141220e2b:	5f                   	pop    %rdi
+   141220e2c:	5d                   	pop    %rbp
+   141220e2d:	41 5c                	pop    %r12
+   141220e2f:	41 5d                	pop    %r13
+   141220e31:	41 5e                	pop    %r14
+   141220e33:	41 5f                	pop    %r15
+   141220e35:	c3                   	ret
+   141220e36:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   141220e3d:	00 00 00 
+   141220e40:	ba 20 00 00 00       	mov    $0x20,%edx
+   141220e45:	ff 15 35 19 67 01    	call   *0x1671935(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   141220e4b:	eb 88                	jmp    141220dd5 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x145>
+   141220e4d:	4c 89 f1             	mov    %r14,%rcx
+   141220e50:	49 89 c4             	mov    %rax,%r12
+   141220e53:	e8 b8 ff 62 00       	call   141850e10 <QString::~QString()>
+   141220e58:	4c 89 e9             	mov    %r13,%rcx
+   141220e5b:	ff 15 c7 1b 67 01    	call   *0x1671bc7(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   141220e61:	4c 89 e1             	mov    %r12,%rcx
+   141220e64:	e8 cf 44 53 00       	call   141755338 <_Unwind_Resume>
+   141220e69:	49 89 c4             	mov    %rax,%r12
+   141220e6c:	eb ea                	jmp    141220e58 <AuGeneChain::ReadStream(QDataStream&, unsigned char)+0x1c8>
+   141220e6e:	66 90                	xchg   %ax,%ax
+
+Command: objdump -d -C --start-address=0x141210820 --stop-address=0x141210b70 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141210820 <AuGene::CreateGene(AuGene::GTYPE)>:
+   141210820:	41 57                	push   %r15
+   141210822:	41 56                	push   %r14
+   141210824:	41 55                	push   %r13
+   141210826:	41 54                	push   %r12
+   141210828:	57                   	push   %rdi
+   141210829:	56                   	push   %rsi
+   14121082a:	53                   	push   %rbx
+   14121082b:	48 83 ec 50          	sub    $0x50,%rsp
+   14121082f:	41 89 cc             	mov    %ecx,%r12d
+   141210832:	83 f9 04             	cmp    $0x4,%ecx
+   141210835:	0f 87 fd 01 00 00    	ja     141210a38 <AuGene::CreateGene(AuGene::GTYPE)+0x218>
+   14121083b:	48 8d 15 5e 2f 0a 01 	lea    0x10a2f5e(%rip),%rdx        # 1422b37a0 <.rdata+0xdf0>
+   141210842:	89 c8                	mov    %ecx,%eax
+   141210844:	48 63 04 82          	movslq (%rdx,%rax,4),%rax
+   141210848:	48 01 d0             	add    %rdx,%rax
+   14121084b:	ff e0                	jmp    *%rax
+   14121084d:	0f 1f 00             	nopl   (%rax)
+   141210850:	b9 20 00 00 00       	mov    $0x20,%ecx
+   141210855:	48 8d 35 b4 c8 1c 01 	lea    0x11cc8b4(%rip),%rsi        # 1423dd110 <vtable for AuGeneSpines+0x10>
+   14121085c:	e8 37 37 54 00       	call   141753f98 <operator new(unsigned long long)>
+   141210861:	48 89 30             	mov    %rsi,(%rax)
+   141210864:	48 8b 15 4d 3d 0a 01 	mov    0x10a3d4d(%rip),%rdx        # 1422b45b8 <.rdata+0x1c08>
+   14121086b:	b9 64 00 00 00       	mov    $0x64,%ecx
+   141210870:	c7 40 08 00 00 00 00 	movl   $0x0,0x8(%rax)
+   141210877:	66 89 48 18          	mov    %cx,0x18(%rax)
+   14121087b:	48 89 50 0c          	mov    %rdx,0xc(%rax)
+   14121087f:	31 d2                	xor    %edx,%edx
+   141210881:	66 89 50 14          	mov    %dx,0x14(%rax)
+   141210885:	48 83 c4 50          	add    $0x50,%rsp
+   141210889:	5b                   	pop    %rbx
+   14121088a:	5e                   	pop    %rsi
+   14121088b:	5f                   	pop    %rdi
+   14121088c:	41 5c                	pop    %r12
+   14121088e:	41 5d                	pop    %r13
+   141210890:	41 5e                	pop    %r14
+   141210892:	41 5f                	pop    %r15
+   141210894:	c3                   	ret
+   141210895:	0f 1f 00             	nopl   (%rax)
+   141210898:	48 8b 3d 89 3d 0a 01 	mov    0x10a3d89(%rip),%rdi        # 1422b4628 <.rdata+0x1c78>
+   14121089f:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1412108a3:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   1412108a8:	48 8d 35 01 2e 0a 01 	lea    0x10a2e01(%rip),%rsi        # 1422b36b0 <.rdata+0xd00>
+   1412108af:	4c 8d 7c 24 30       	lea    0x30(%rsp),%r15
+   1412108b4:	4c 89 f1             	mov    %r14,%rcx
+   1412108b7:	48 89 74 24 48       	mov    %rsi,0x48(%rsp)
+   1412108bc:	4c 8b 2d 45 27 68 01 	mov    0x1682745(%rip),%r13        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   1412108c3:	4c 89 fa             	mov    %r15,%rdx
+   1412108c6:	48 89 7c 24 30       	mov    %rdi,0x30(%rsp)
+   1412108cb:	0f 11 44 24 38       	movups %xmm0,0x38(%rsp)
+   1412108d0:	41 ff d5             	call   *%r13
+   1412108d3:	48 8d 15 2e 2e 0a 01 	lea    0x10a2e2e(%rip),%rdx        # 1422b3708 <.rdata+0xd58>
+   1412108da:	4c 89 f1             	mov    %r14,%rcx
+   1412108dd:	e8 ae a8 63 00       	call   14184b190 <QDebug::operator<<(char const*)>
+   1412108e2:	48 8b 1d 3f 21 68 01 	mov    0x168213f(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   1412108e9:	4c 89 f1             	mov    %r14,%rcx
+   1412108ec:	ff d3                	call   *%rbx
+   1412108ee:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   1412108f2:	4c 89 fa             	mov    %r15,%rdx
+   1412108f5:	4c 89 f1             	mov    %r14,%rcx
+   1412108f8:	48 89 7c 24 30       	mov    %rdi,0x30(%rsp)
+   1412108fd:	48 89 74 24 48       	mov    %rsi,0x48(%rsp)
+   141210902:	0f 11 44 24 38       	movups %xmm0,0x38(%rsp)
+   141210907:	41 ff d5             	call   *%r13
+   14121090a:	48 8d 15 2f 2e 0a 01 	lea    0x10a2e2f(%rip),%rdx        # 1422b3740 <.rdata+0xd90>
+   141210911:	4c 89 f1             	mov    %r14,%rcx
+   141210914:	e8 77 a8 63 00       	call   14184b190 <QDebug::operator<<(char const*)>
+   141210919:	48 8b 08             	mov    (%rax),%rcx
+   14121091c:	49 89 c5             	mov    %rax,%r13
+   14121091f:	44 89 e2             	mov    %r12d,%edx
+   141210922:	ff 15 70 1e 68 01    	call   *0x1681e70(%rip)        # 142892798 <__imp__ZN11QTextStreamlsEi>
+   141210928:	49 8b 4d 00          	mov    0x0(%r13),%rcx
+   14121092c:	80 79 20 00          	cmpb   $0x0,0x20(%rcx)
+   141210930:	0f 85 f2 00 00 00    	jne    141210a28 <AuGene::CreateGene(AuGene::GTYPE)+0x208>
+   141210936:	48 8d 15 2b 2e 0a 01 	lea    0x10a2e2b(%rip),%rdx        # 1422b3768 <.rdata+0xdb8>
+   14121093d:	4c 89 e9             	mov    %r13,%rcx
+   141210940:	e8 4b a8 63 00       	call   14184b190 <QDebug::operator<<(char const*)>
+   141210945:	4c 89 f1             	mov    %r14,%rcx
+   141210948:	ff d3                	call   *%rbx
+   14121094a:	31 c0                	xor    %eax,%eax
+   14121094c:	48 83 c4 50          	add    $0x50,%rsp
+   141210950:	5b                   	pop    %rbx
+   141210951:	5e                   	pop    %rsi
+   141210952:	5f                   	pop    %rdi
+   141210953:	41 5c                	pop    %r12
+   141210955:	41 5d                	pop    %r13
+   141210957:	41 5e                	pop    %r14
+   141210959:	41 5f                	pop    %r15
+   14121095b:	c3                   	ret
+   14121095c:	0f 1f 40 00          	nopl   0x0(%rax)
+   141210960:	b9 20 00 00 00       	mov    $0x20,%ecx
+   141210965:	48 8d 3d a4 dd 1e 01 	lea    0x11edda4(%rip),%rdi        # 1423fe710 <vtable for AuGeneFeathers+0x10>
+   14121096c:	e8 27 36 54 00       	call   141753f98 <operator new(unsigned long long)>
+   141210971:	48 8b 15 40 3c 0a 01 	mov    0x10a3c40(%rip),%rdx        # 1422b45b8 <.rdata+0x1c08>
+   141210978:	45 31 c0             	xor    %r8d,%r8d
+   14121097b:	41 b9 64 00 00 00    	mov    $0x64,%r9d
+   141210981:	48 89 38             	mov    %rdi,(%rax)
+   141210984:	c7 40 08 00 00 00 00 	movl   $0x0,0x8(%rax)
+   14121098b:	48 89 50 0c          	mov    %rdx,0xc(%rax)
+   14121098f:	66 44 89 40 14       	mov    %r8w,0x14(%rax)
+   141210994:	66 44 89 48 18       	mov    %r9w,0x18(%rax)
+   141210999:	c6 40 1a 00          	movb   $0x0,0x1a(%rax)
+   14121099d:	48 83 c4 50          	add    $0x50,%rsp
+   1412109a1:	5b                   	pop    %rbx
+   1412109a2:	5e                   	pop    %rsi
+   1412109a3:	5f                   	pop    %rdi
+   1412109a4:	41 5c                	pop    %r12
+   1412109a6:	41 5d                	pop    %r13
+   1412109a8:	41 5e                	pop    %r14
+   1412109aa:	41 5f                	pop    %r15
+   1412109ac:	c3                   	ret
+   1412109ad:	0f 1f 00             	nopl   (%rax)
+   1412109b0:	b9 28 00 00 00       	mov    $0x28,%ecx
+   1412109b5:	48 8d 35 74 2b 1b 01 	lea    0x11b2b74(%rip),%rsi        # 1423c3530 <vtable for AuGeneHair+0x10>
+   1412109bc:	e8 d7 35 54 00       	call   141753f98 <operator new(unsigned long long)>
+   1412109c1:	48 8b 15 68 3c 0a 01 	mov    0x10a3c68(%rip),%rdx        # 1422b4630 <.rdata+0x1c80>
+   1412109c8:	45 31 d2             	xor    %r10d,%r10d
+   1412109cb:	41 bb 64 00 00 00    	mov    $0x64,%r11d
+   1412109d1:	48 89 30             	mov    %rsi,(%rax)
+   1412109d4:	c7 40 08 01 00 00 00 	movl   $0x1,0x8(%rax)
+   1412109db:	48 89 50 0c          	mov    %rdx,0xc(%rax)
+   1412109df:	66 44 89 50 14       	mov    %r10w,0x14(%rax)
+   1412109e4:	66 44 89 58 18       	mov    %r11w,0x18(%rax)
+   1412109e9:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+   1412109f0:	00 
+   1412109f1:	48 83 c4 50          	add    $0x50,%rsp
+   1412109f5:	5b                   	pop    %rbx
+   1412109f6:	5e                   	pop    %rsi
+   1412109f7:	5f                   	pop    %rdi
+   1412109f8:	41 5c                	pop    %r12
+   1412109fa:	41 5d                	pop    %r13
+   1412109fc:	41 5e                	pop    %r14
+   1412109fe:	41 5f                	pop    %r15
+   141210a00:	c3                   	ret
+   141210a01:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   141210a08:	b9 20 00 00 00       	mov    $0x20,%ecx
+   141210a0d:	48 8d 1d 6c c6 1c 01 	lea    0x11cc66c(%rip),%rbx        # 1423dd080 <vtable for AuGeneScales+0x10>
+   141210a14:	e8 7f 35 54 00       	call   141753f98 <operator new(unsigned long long)>
+   141210a19:	48 89 18             	mov    %rbx,(%rax)
+   141210a1c:	e9 43 fe ff ff       	jmp    141210864 <AuGene::CreateGene(AuGene::GTYPE)+0x44>
+   141210a21:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   141210a28:	ba 20 00 00 00       	mov    $0x20,%edx
+   141210a2d:	ff 15 4d 1d 68 01    	call   *0x1681d4d(%rip)        # 142892780 <__imp__ZN11QTextStreamlsEc>
+   141210a33:	e9 fe fe ff ff       	jmp    141210936 <AuGene::CreateGene(AuGene::GTYPE)+0x116>
+   141210a38:	48 8b 3d e9 3b 0a 01 	mov    0x10a3be9(%rip),%rdi        # 1422b4628 <.rdata+0x1c78>
+   141210a3f:	4c 8b 2d c2 25 68 01 	mov    0x16825c2(%rip),%r13        # 142893008 <__imp__ZNK14QMessageLogger7warningEv>
+   141210a46:	48 8d 35 63 2c 0a 01 	lea    0x10a2c63(%rip),%rsi        # 1422b36b0 <.rdata+0xd00>
+   141210a4d:	4c 8d 74 24 28       	lea    0x28(%rsp),%r14
+   141210a52:	48 8b 1d cf 1f 68 01 	mov    0x1681fcf(%rip),%rbx        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   141210a59:	4c 8d 7c 24 30       	lea    0x30(%rsp),%r15
+   141210a5e:	e9 8b fe ff ff       	jmp    1412108ee <AuGene::CreateGene(AuGene::GTYPE)+0xce>
+   141210a63:	49 89 c4             	mov    %rax,%r12
+   141210a66:	4c 89 f1             	mov    %r14,%rcx
+   141210a69:	ff d3                	call   *%rbx
+   141210a6b:	4c 89 e1             	mov    %r12,%rcx
+   141210a6e:	e8 c5 48 54 00       	call   141755338 <_Unwind_Resume>
+   141210a73:	49 89 c4             	mov    %rax,%r12
+   141210a76:	4c 89 f1             	mov    %r14,%rcx
+   141210a79:	ff 15 a9 1f 68 01    	call   *0x1681fa9(%rip)        # 142892a28 <__imp__ZN6QDebugD1Ev>
+   141210a7f:	4c 89 e1             	mov    %r12,%rcx
+   141210a82:	e8 b1 48 54 00       	call   141755338 <_Unwind_Resume>
+   141210a87:	90                   	nop
+   141210a88:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   141210a8f:	00 
+
+0000000141210a90 <AuGeneHair::AuGeneHair(QColor const&, unsigned short, unsigned long long)>:
+   141210a90:	57                   	push   %rdi
+   141210a91:	56                   	push   %rsi
+   141210a92:	53                   	push   %rbx
+   141210a93:	48 83 ec 20          	sub    $0x20,%rsp
+   141210a97:	48 8d 05 92 2a 1b 01 	lea    0x11b2a92(%rip),%rax        # 1423c3530 <vtable for AuGeneHair+0x10>
+   141210a9e:	48 89 01             	mov    %rax,(%rcx)
+   141210aa1:	48 8b 05 10 3b 0a 01 	mov    0x10a3b10(%rip),%rax        # 1422b45b8 <.rdata+0x1c08>
+   141210aa8:	48 89 cb             	mov    %rcx,%rbx
+   141210aab:	44 89 c7             	mov    %r8d,%edi
+   141210aae:	c7 41 08 00 00 00 00 	movl   $0x0,0x8(%rcx)
+   141210ab5:	4c 89 ce             	mov    %r9,%rsi
+   141210ab8:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141210abc:	48 89 41 04          	mov    %rax,0x4(%rcx)
+   141210ac0:	31 c0                	xor    %eax,%eax
+   141210ac2:	66 89 41 0c          	mov    %ax,0xc(%rcx)
+   141210ac6:	ff 15 0c 2f 68 01    	call   *0x1682f0c(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   141210acc:	66 89 7b 18          	mov    %di,0x18(%rbx)
+   141210ad0:	48 89 73 20          	mov    %rsi,0x20(%rbx)
+   141210ad4:	48 83 c4 20          	add    $0x20,%rsp
+   141210ad8:	5b                   	pop    %rbx
+   141210ad9:	5e                   	pop    %rsi
+   141210ada:	5f                   	pop    %rdi
+   141210adb:	c3                   	ret
+   141210adc:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000141210ae0 <AuGeneHair::AuGeneHair()>:
+   141210ae0:	48 8d 05 49 2a 1b 01 	lea    0x11b2a49(%rip),%rax        # 1423c3530 <vtable for AuGeneHair+0x10>
+   141210ae7:	ba 64 00 00 00       	mov    $0x64,%edx
+   141210aec:	48 89 01             	mov    %rax,(%rcx)
+   141210aef:	48 8b 05 3a 3b 0a 01 	mov    0x10a3b3a(%rip),%rax        # 1422b4630 <.rdata+0x1c80>
+   141210af6:	c7 41 08 01 00 00 00 	movl   $0x1,0x8(%rcx)
+   141210afd:	48 89 41 0c          	mov    %rax,0xc(%rcx)
+   141210b01:	31 c0                	xor    %eax,%eax
+   141210b03:	66 89 41 14          	mov    %ax,0x14(%rcx)
+   141210b07:	66 89 51 18          	mov    %dx,0x18(%rcx)
+   141210b0b:	48 c7 41 20 00 00 00 	movq   $0x0,0x20(%rcx)
+   141210b12:	00 
+   141210b13:	c3                   	ret
+   141210b14:	90                   	nop
+   141210b15:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   141210b1c:	00 00 00 00 
+
+0000000141210b20 <AuGeneHair::AuGeneHair(AuGeneHair const&)>:
+   141210b20:	56                   	push   %rsi
+   141210b21:	53                   	push   %rbx
+   141210b22:	48 83 ec 28          	sub    $0x28,%rsp
+   141210b26:	48 8d 05 03 2a 1b 01 	lea    0x11b2a03(%rip),%rax        # 1423c3530 <vtable for AuGeneHair+0x10>
+   141210b2d:	48 89 01             	mov    %rax,(%rcx)
+   141210b30:	48 89 d6             	mov    %rdx,%rsi
+   141210b33:	48 89 cb             	mov    %rcx,%rbx
+   141210b36:	48 8b 05 7b 3a 0a 01 	mov    0x10a3a7b(%rip),%rax        # 1422b45b8 <.rdata+0x1c08>
+   141210b3d:	c7 41 08 00 00 00 00 	movl   $0x0,0x8(%rcx)
+   141210b44:	48 8d 52 08          	lea    0x8(%rdx),%rdx
+   141210b48:	48 8d 49 08          	lea    0x8(%rcx),%rcx
+   141210b4c:	48 89 41 04          	mov    %rax,0x4(%rcx)
+   141210b50:	31 c0                	xor    %eax,%eax
+   141210b52:	66 89 41 0c          	mov    %ax,0xc(%rcx)
+   141210b56:	ff 15 7c 2e 68 01    	call   *0x1682e7c(%rip)        # 1428939d8 <__imp__ZN6QColoraSERKS_>
+   141210b5c:	0f b7 46 18          	movzwl 0x18(%rsi),%eax
+   141210b60:	66 89 43 18          	mov    %ax,0x18(%rbx)
+   141210b64:	48 8b 46 20          	mov    0x20(%rsi),%rax
+   141210b68:	48 89 43 20          	mov    %rax,0x20(%rbx)
+   141210b6c:	48 83 c4 28          	add    $0x28,%rsp
+
+Command: objdump -d -C --start-address=0x141206af0 --stop-address=0x141206b90 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141206af0 <AuGeneScales::ReadStream(QDataStream&, unsigned char)>:
+   141206af0:	41 54                	push   %r12
+   141206af2:	53                   	push   %rbx
+   141206af3:	48 83 ec 28          	sub    $0x28,%rsp
+   141206af7:	49 89 d4             	mov    %rdx,%r12
+   141206afa:	48 89 cb             	mov    %rcx,%rbx
+   141206afd:	48 8d 51 08          	lea    0x8(%rcx),%rdx
+   141206b01:	4c 89 e1             	mov    %r12,%rcx
+   141206b04:	ff 15 16 d4 68 01    	call   *0x168d416(%rip)        # 142893f20 <__imp__ZrsR11QDataStreamR6QColor>
+   141206b0a:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   141206b0e:	4c 89 e1             	mov    %r12,%rcx
+   141206b11:	48 83 c4 28          	add    $0x28,%rsp
+   141206b15:	5b                   	pop    %rbx
+   141206b16:	41 5c                	pop    %r12
+   141206b18:	48 ff 25 e9 bb 68 01 	rex.W jmp *0x168bbe9(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141206b1f:	90                   	nop
+
+0000000141206b20 <AuChromoEatsPlants::ReadStream(QDataStream&, unsigned char)>:
+   141206b20:	53                   	push   %rbx
+   141206b21:	48 83 ec 30          	sub    $0x30,%rsp
+   141206b25:	48 89 cb             	mov    %rcx,%rbx
+   141206b28:	48 89 d1             	mov    %rdx,%rcx
+   141206b2b:	48 8d 54 24 2e       	lea    0x2e(%rsp),%rdx
+   141206b30:	ff 15 d2 bb 68 01    	call   *0x168bbd2(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141206b36:	0f b7 44 24 2e       	movzwl 0x2e(%rsp),%eax
+   141206b3b:	89 43 08             	mov    %eax,0x8(%rbx)
+   141206b3e:	48 83 c4 30          	add    $0x30,%rsp
+   141206b42:	5b                   	pop    %rbx
+   141206b43:	c3                   	ret
+   141206b44:	90                   	nop
+   141206b45:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   141206b4c:	00 00 00 00 
+
+0000000141206b50 <AuGeneHair::ReadStream(QDataStream&, unsigned char)>:
+   141206b50:	41 54                	push   %r12
+   141206b52:	53                   	push   %rbx
+   141206b53:	48 83 ec 28          	sub    $0x28,%rsp
+   141206b57:	49 89 d4             	mov    %rdx,%r12
+   141206b5a:	48 89 cb             	mov    %rcx,%rbx
+   141206b5d:	48 8d 51 08          	lea    0x8(%rcx),%rdx
+   141206b61:	4c 89 e1             	mov    %r12,%rcx
+   141206b64:	ff 15 b6 d3 68 01    	call   *0x168d3b6(%rip)        # 142893f20 <__imp__ZrsR11QDataStreamR6QColor>
+   141206b6a:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   141206b6e:	4c 89 e1             	mov    %r12,%rcx
+   141206b71:	ff 15 91 bb 68 01    	call   *0x168bb91(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   141206b77:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   141206b7b:	4c 89 e1             	mov    %r12,%rcx
+   141206b7e:	48 83 c4 28          	add    $0x28,%rsp
+   141206b82:	5b                   	pop    %rbx
+   141206b83:	41 5c                	pop    %r12
+   141206b85:	48 ff 25 84 bb 68 01 	rex.W jmp *0x168bb84(%rip)        # 142892710 <__imp__ZN11QDataStreamrsERx>
+   141206b8c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+Command: objdump -d -C --start-address=0x1412070d0 --stop-address=0x141207110 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412070d0 <AuGeneFeathers::ReadStream(QDataStream&, unsigned char)>:
+   1412070d0:	41 54                	push   %r12
+   1412070d2:	53                   	push   %rbx
+   1412070d3:	48 83 ec 28          	sub    $0x28,%rsp
+   1412070d7:	49 89 d4             	mov    %rdx,%r12
+   1412070da:	48 89 cb             	mov    %rcx,%rbx
+   1412070dd:	48 8d 51 08          	lea    0x8(%rcx),%rdx
+   1412070e1:	4c 89 e1             	mov    %r12,%rcx
+   1412070e4:	ff 15 36 ce 68 01    	call   *0x168ce36(%rip)        # 142893f20 <__imp__ZrsR11QDataStreamR6QColor>
+   1412070ea:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   1412070ee:	4c 89 e1             	mov    %r12,%rcx
+   1412070f1:	ff 15 11 b6 68 01    	call   *0x168b611(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   1412070f7:	48 8d 53 1a          	lea    0x1a(%rbx),%rdx
+   1412070fb:	4c 89 e1             	mov    %r12,%rcx
+   1412070fe:	48 83 c4 28          	add    $0x28,%rsp
+   141207102:	5b                   	pop    %rbx
+   141207103:	41 5c                	pop    %r12
+   141207105:	48 ff 25 d4 b5 68 01 	rex.W jmp *0x168b5d4(%rip)        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   14120710c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+Command: objdump -s --start-address=0x1422b37a0 --stop-address=0x1422b37b4 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1422b37a0 c0d1f5fe 10d2f5fe 68d2f5fe b0d0f5fe  ........h.......
+ 1422b37b0 f8d0f5fe                             ....            
+
+Command: objdump -s --start-address=0x1423dd098 --stop-address=0x1423dd0a0 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1423dd098 f06a2041 01000000                    .j A....        
+
+Command: objdump -s --start-address=0x1423dd128 --stop-address=0x1423dd130 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1423dd128 f06a2041 01000000                    .j A....        
+
+Command: objdump -s --start-address=0x1423fe728 --stop-address=0x1423fe730 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1423fe728 d0702041 01000000                    .p A....        
+
+Command: objdump -s --start-address=0x1423c3548 --stop-address=0x1423c3550 reference/openshores-full/OpenShores.exe
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1423c3548 506b2041 01000000                    Pk A....        
+

@@ -92,13 +92,13 @@ values, all byte values for widening/packed fields, short high bits, every
 truncated scalar prefix and following-field alignment. This is a body reader,
 not yet a chromatid container or complete AuDNA implementation.
 
-AuGeneChain and its concrete gene readers, chromatid
-count overload/loop width, and signed interpretation of stored short fields
-still need evidence. Reader pseudocode includes imported tail-call warnings;
+Signed interpretation of stored short fields by later consumers still needs
+evidence. Gene and chromatid-count dependencies are now resolved below.
+Reader pseudocode includes imported tail-call warnings;
 retain these in the complete records rather than treating the warnings as
 actual switch statements. Some recovered signatures misidentify the `this`
 register; field ordering here follows calls and destination offsets, not those
-misrecovered parameter labels. No complete AuDNA decoder is claimed yet.
+misrecovered parameter labels. Wire decoding does not establish model generation.
 
 ## QColor dependency resolved for scene version 7
 
@@ -119,3 +119,28 @@ Feathers/Fur/Skin (two colors) and Scales (color then byte), bringing support
 to 17 factory types. Tests cover all 256 spec bytes, high-bit components,
 every truncated prefix and color-chromosome suffix alignment. Storage is raw:
 this does not claim conversion to renderable RGBA or color-space validation.
+
+## GeneChain and full wire composition
+
+Independent GNU evidence `evidence/native-genes-gnu.txt` establishes:
+
+- GeneChain at `0x141220c90`: Clear before signed-short count, decrement/test
+  as a 16-bit word, then byte type, CreateGene, virtual receive `+0x18`, append.
+  Null factory entries continue with no guessed body skip.
+- Gene factory at `0x141210820`: the five jump-table destinations from
+  `0x1422b37a0` bind types 0 Feathers, 1 Hair, 2 Scales, 3 Spines, 4 null;
+  higher types also warn/return null. Slots `+0x18` at vptrs
+  `1423fe710`, `1423c3530`, `1423dd080`, `1423dd110` respectively bind to
+  `1412070d0`, `141206b50`, `141206af0`, `141206af0`.
+- All concrete genes receive QColor08 then short18. Feathers additionally
+  receives byte1a; Hair additionally receives qword20 via the signed 64-bit
+  overload (raw bits retained). Scales/Spines have no further wire fields.
+  None of these readers branches on the forwarded AuDNA version byte.
+
+All 28 chromosome bodies now decode in Rust, with explicit native destination
+offsets and raw byte/short/unsigned-widened values for gene-bearing fields.
+The complete AuDNA reader composes both chromatids and gene chains; dynamic
+DNA dispatch is also implemented. See native-dna.md for atomic error policy,
+aggregate storage budget and offline coverage. The pending REA query batch
+will independently corroborate these GNU observations without restarting the
+analysis process for each reader.

@@ -53,3 +53,12 @@ Unit now has concrete condition-list composition (`NativeUnitState`), including
 destructive replacement before count, unknown factory continuation, explicit
 Pregnant rejection, and partial-list retention on later failures. This remains
 a receive stage, not complete Person dispatch or avatar presentation.
+
+DNA milestone: all 28 chromosome bodies, four gene bodies, both counted
+chromatids and dynamic DhDNA/AuDNA dispatch are implemented for the verified
+Qt7 scene profile. Static GNU records corroborate gene dispatch/read layouts
+and 16-bit count behavior; existing complete REA records cover the chromosome
+readers. The shared follow-up analysis process is live with GeneChain/factory
+and three distinct gene readers queued. Headless verification now passes
+302 library tests, 9 CLI tests and strict all-target Clippy. This does not yet
+verify Pregnant composition, Creature/Sentient/Person or client presentation.

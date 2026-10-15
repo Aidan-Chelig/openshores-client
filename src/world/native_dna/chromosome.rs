@@ -1,4 +1,4 @@
-//! Factory-bound scalar chromosome bodies. See docs/native-chromosomes.md.
+//! Factory-bound chromosome bodies. See docs/native-chromosomes.md.
 use super::NativeColorQt7;
 use crate::protocol::QtReader;
 use std::io;
@@ -13,6 +13,10 @@ pub struct NativeChromosome {
 /// retain raw bits; byte-to-u32 widening is explicit where observed.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum NativeChromosomeBody {
+    WithGenes {
+        genes: Option<super::NativeGeneChain>,
+        fields: Vec<super::NativeChromosomeField>,
+    },
     Colors {
         field_08: NativeColorQt7,
         field_18: NativeColorQt7,
@@ -62,22 +66,24 @@ pub enum NativeChromosomeBody {
 
 impl NativeChromosome {
     /// Body after the type byte. Unknown factory types return None without
-    /// consuming guessed bytes. Known nested bodies remain Unsupported until
-    /// their complete gene/color readers are available. Atomic Rust errors do
+    /// consuming guessed bytes. All 28 factory bodies include their real
+    /// nested gene/color readers. Atomic Rust errors do
     /// not emulate Qt failed-stream continuation or native partial writes.
     pub fn read_qt7(kind: u8, input: &mut QtReader<'_>) -> io::Result<Option<Self>> {
-        match kind {
-            8..=14 | 17..=20 => {
-                return Err(io::Error::new(
-                    io::ErrorKind::Unsupported,
-                    "native chromosome gene body not reconstructed",
-                ));
-            }
-            0..=7 | 15 | 16 | 21..=27 => (),
-            _ => return Ok(None),
+        Self::read_budget(kind, input, &mut 20_000)
+    }
+
+    pub(super) fn read_budget(
+        kind: u8,
+        input: &mut QtReader<'_>,
+        budget: &mut usize,
+    ) -> io::Result<Option<Self>> {
+        if kind > 27 {
+            return Ok(None);
         }
         let mut record = QtReader::new(input.remaining_bytes());
         let body = match kind {
+            8..=14 | 17..=20 => super::gene_chromosome::read(kind, &mut record, budget)?,
             4 | 5 | 7 => NativeChromosomeBody::Colors {
                 field_08: NativeColorQt7::read(&mut record)?,
                 field_18: NativeColorQt7::read(&mut record)?,
