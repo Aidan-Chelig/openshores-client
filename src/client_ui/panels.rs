@@ -86,6 +86,30 @@ pub(super) fn rebuild_panels(
         ))
         .id();
     match ui.model.phase {
+        Phase::NativePreview => {
+            label(
+                &mut commands,
+                root,
+                "Native avatar • offline read-only preview",
+            );
+            if let Some(avatar) = ui.model.native_avatar.as_ref() {
+                label(&mut commands, root, avatar.summary());
+                label(
+                    &mut commands,
+                    root,
+                    format!(
+                        "Native Unit text (raw nullable field): {}",
+                        avatar.unit_text_summary()
+                    ),
+                );
+            }
+            label(&mut commands, root, &ui.model.status);
+            label(
+                &mut commands,
+                root,
+                "Marker centered in a diagnostic frame; not native world placement or body geometry.",
+            );
+        }
         Phase::Login | Phase::Disconnected => {
             label(&mut commands, root, "OpenShores Rust • local slice");
             label(

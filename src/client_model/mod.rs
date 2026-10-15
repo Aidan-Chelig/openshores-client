@@ -6,6 +6,8 @@ use crate::{
     world::{AtomKind, WorldState},
 };
 use std::io;
+mod native;
+pub use native::NativeAvatarPresentation;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Phase {
@@ -15,10 +17,12 @@ pub enum Phase {
     Roster,
     Joining,
     Playing,
+    NativePreview,
     Disconnected,
 }
 #[derive(Default)]
 pub struct ClientModel {
+    pub native_avatar: Option<Box<NativeAvatarPresentation>>,
     pub story_open: bool,
     pub story: std::collections::VecDeque<crate::chat::StoryText>,
     pub hail_environments: std::collections::BTreeMap<u32, u32>,
@@ -39,7 +43,19 @@ pub struct ClientModel {
 }
 impl ClientModel {
     pub fn apply(&mut self, event: Event) -> io::Result<()> {
+        if self.phase == Phase::NativePreview
+            && !matches!(
+                &event,
+                Event::NativeAvatar(_) | Event::Status(_) | Event::Error(_) | Event::Disconnected
+            )
+        {
+            return Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "source-profile event in native avatar preview",
+            ));
+        }
         match event {
+            Event::NativeAvatar(avatar) => self.present_native(avatar),
             Event::IncomingChat(crate::chat::Incoming::Story(text)) => {
                 if Some(text.header.target) == self.avatar {
                     self.story_open = true;
@@ -164,6 +180,7 @@ impl ClientModel {
                 self.status = format!("Error: {error}");
             }
             Event::Disconnected => {
+                self.native_avatar = None;
                 self.story_open = false;
                 self.choices.clear();
                 self.phase = Phase::Disconnected;

@@ -1,6 +1,20 @@
 use super::*;
 
 #[test]
+#[cfg(feature = "client")]
+fn offline_native_preview_has_no_worker_or_network_request_channel() {
+    let runtime = ClientRuntime::offline();
+    assert!(runtime.worker.is_none());
+    assert!(runtime.requests.is_none());
+    assert!(runtime.events.is_none());
+    assert!(runtime.send(Request::Disconnect).is_err());
+    assert!(matches!(
+        runtime.next_event(),
+        Err(TryRecvError::Disconnected)
+    ));
+}
+
+#[test]
 fn unoffered_story_reply_is_rejected_without_network_io() {
     let runtime = ClientRuntime::start(LocalEndpoint {
         login: "127.0.0.1:1".parse().unwrap(),

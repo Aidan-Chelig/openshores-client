@@ -344,3 +344,13 @@ ordered two-sample burden logic, constant Animalia capacity200 and f32 health
 scaling. Native Person fixtures compose it through real head tilt instead of
 the former constant-speed stub. Actual morphology MaxHP/weights/burden context
 and client presentation remain open; see native-movement.md.
+
+Native presentation boundary milestone: successful native Person dispatch now
+feeds an explicit NativeAvatarPresentation event/model and the minimal client's
+actual Bevy marker/HUD systems, without source WorldState conversion. A separate
+read-only NativePreview phase rejects source events and disables source gameplay;
+the standalone preview creates no network worker or sockets. Full native packet
+fixtures reach actual marker/Text components in all profiles and test retained
+updates and disposal/identity guards. This is diagnostic presentation, not native
+body geometry/world placement; production model/session context and faithful
+avatar presentation remain unfinished. See native-avatar-presentation.md.

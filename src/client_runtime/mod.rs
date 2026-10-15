@@ -58,6 +58,7 @@ pub enum Request {
     Disconnect,
 }
 pub enum Event {
+    NativeAvatar(Box<crate::client_model::NativeAvatarPresentation>),
     StoryControlSent(crate::chat::StoryControl),
     ChoiceSent(crate::chat::Reply),
     IncomingChat(crate::chat::Incoming),
@@ -78,6 +79,16 @@ pub struct ClientRuntime {
     worker: Option<JoinHandle<()>>,
 }
 impl ClientRuntime {
+    /// Explicit offline UI instance: no sockets, queues or worker thread.
+    #[cfg(feature = "client")]
+    pub(crate) fn offline() -> Self {
+        Self {
+            requests: None,
+            events: None,
+            stopped: Arc::new(AtomicBool::new(true)),
+            worker: None,
+        }
+    }
     pub fn start(endpoint: LocalEndpoint) -> io::Result<Self> {
         let endpoint = endpoint.validate()?;
         let (requests, incoming) = mpsc::sync_channel(32);

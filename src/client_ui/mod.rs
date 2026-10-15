@@ -14,6 +14,9 @@ mod camera;
 mod chat;
 mod controls;
 mod models;
+mod native_scene;
+#[cfg(test)]
+pub(crate) use native_scene::assert_native_preview;
 mod panels;
 mod placement;
 mod scene;
@@ -111,7 +114,16 @@ enum Action {
 struct Smoke(u32, bool);
 
 pub fn run(endpoint: LocalEndpoint, smoke_frames: Option<u32>) -> io::Result<()> {
-    launch(endpoint, smoke_frames, None, None)
+    launch(Some(endpoint), smoke_frames, None, None, None)
+}
+
+/// Offline presentation of an explicitly dispatched native Person snapshot.
+/// No network worker is created and source gameplay requests remain disabled.
+pub fn run_native_preview(
+    avatar: crate::client_model::NativeAvatarPresentation,
+    smoke_frames: Option<u32>,
+) -> io::Result<()> {
+    launch(None, smoke_frames, None, None, Some(avatar))
 }
 
 /// Login and select a synthetic local avatar, then leave control to the user.
@@ -132,7 +144,7 @@ pub fn run_auto_login(
             "auto-login requires a synthetic rust-local-* account and nonzero avatar",
         ));
     }
-    launch(endpoint, smoke_frames, None, Some(profile))
+    launch(Some(endpoint), smoke_frames, None, Some(profile), None)
 }
 
 /// Explicit synthetic-account integration mode, never enabled by normal UI use.
@@ -161,14 +173,15 @@ pub fn run_local_smoke(endpoint: LocalEndpoint, profile: LocalSmoke) -> io::Resu
             "smoke screenshot must be a new file",
         ));
     }
-    launch(endpoint, None, Some(profile), None)
+    launch(Some(endpoint), None, Some(profile), None, None)
 }
 
 fn launch(
-    endpoint: LocalEndpoint,
+    endpoint: Option<LocalEndpoint>,
     smoke_frames: Option<u32>,
     profile: Option<LocalSmoke>,
     auto_profile: Option<LocalAutoLogin>,
+    native_avatar: Option<crate::client_model::NativeAvatarPresentation>,
 ) -> io::Result<()> {
     if smoke_frames.is_some_and(|frames| !(1..=3600).contains(&frames)) {
         return Err(io::Error::new(
@@ -176,7 +189,15 @@ fn launch(
             "smoke frame limit must be 1..=3600",
         ));
     }
-    let runtime = ClientRuntime::start(endpoint)?;
+    let runtime = if let Some(endpoint) = endpoint {
+        ClientRuntime::start(endpoint)?
+    } else {
+        ClientRuntime::offline()
+    };
+    let mut model = ClientModel::default();
+    if let Some(avatar) = native_avatar {
+        model.apply(Event::NativeAvatar(Box::new(avatar)))?;
+    }
     let asset_path = std::env::var("HAZERON_INSTALL").unwrap_or_default();
     // Explicit scripted fixture mode can still test without proprietary assets.
     let bypass_assets = profile.is_some() && asset_path.is_empty();
@@ -185,6 +206,7 @@ fn launch(
         .init_resource::<assets::Setup>()
         .init_resource::<models::Cache>()
         .insert_resource(Presentation {
+            model,
             chat_channel: 2,
             asset_request: !asset_path.is_empty(),
             asset_path,
@@ -218,6 +240,7 @@ fn launch(
                 chat::typing,
                 controls::keyboard,
                 scene::scene,
+                native_scene::scene,
                 panels::rebuild_panels,
             )
                 .chain(),

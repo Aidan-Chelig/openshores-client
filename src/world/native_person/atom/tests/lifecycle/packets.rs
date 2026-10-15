@@ -167,6 +167,34 @@ fn complete_native_person_packets_construct_attach_receive_reuse_and_dispose_can
             [(0, 0), (1, 21)]
         );
         let signal_count = h.connector.0.len();
+        let presentation =
+            crate::client_model::NativeAvatarPresentation::from_dispatched(&h.people, first)
+                .unwrap();
+        assert_eq!(presentation.hit_points, Some(-30));
+        assert_eq!(presentation.unit_text, Some(None));
+        assert_eq!(presentation.condition_count, Some(0));
+        assert_eq!(presentation.inventory_count, Some(0));
+        let mut model = crate::client_model::ClientModel::default();
+        model
+            .apply(crate::client_runtime::Event::NativeAvatar(Box::new(
+                presentation.clone(),
+            )))
+            .unwrap();
+        assert_eq!(model.phase, crate::client_model::Phase::NativePreview);
+        assert!(model.world.entities.is_empty());
+        assert_eq!(model.avatar, None);
+        let revision = model.revision;
+        assert_eq!(
+            model
+                .apply(crate::client_runtime::Event::Packet(vec![5]))
+                .unwrap_err()
+                .kind(),
+            io::ErrorKind::Unsupported
+        );
+        assert_eq!(model.revision, revision);
+        assert_eq!(model.native_avatar.as_deref(), Some(&presentation));
+        #[cfg(feature = "client")]
+        crate::client_ui::assert_native_preview(presentation);
         let second_bytes = packet(456, &[0, 0, 0, 0, 0xab, 0, 0, 0xee]);
         let second = h.receive(&second_bytes).unwrap().unwrap();
         assert!(!second.is_new);
@@ -179,6 +207,36 @@ fn complete_native_person_packets_construct_attach_receive_reuse_and_dispose_can
         assert_eq!(h.people.get(90).unwrap().base.received_time, 456);
         assert_eq!(h.hooks.live[&90].head.vertical, 0.5);
         assert_eq!(h.hooks.live[&90].head.timer_5e8, tilt_epoch);
+        let presentation =
+            crate::client_model::NativeAvatarPresentation::from_dispatched(&h.people, second)
+                .unwrap();
+        assert_eq!(presentation.timestamp_ms, 456);
+        model
+            .apply(crate::client_runtime::Event::NativeAvatar(Box::new(
+                presentation,
+            )))
+            .unwrap();
+        assert_eq!(model.native_avatar.as_ref().unwrap().hit_points, Some(-30));
+        assert!(
+            crate::client_model::NativeAvatarPresentation::from_dispatched(
+                &h.people,
+                NativeAtomDispatchOutcome {
+                    handle: 91,
+                    ..second
+                }
+            )
+            .is_err()
+        );
+        assert!(
+            crate::client_model::NativeAvatarPresentation::from_dispatched(
+                &h.people,
+                NativeAtomDispatchOutcome {
+                    wire_id: 8,
+                    ..second
+                }
+            )
+            .is_err()
+        );
         assert_eq!(h.people.get(90).unwrap().body.person.field_83d, Some(11));
         assert_eq!(h.connector.0.len(), signal_count);
         assert_eq!(h.owner.assigned, [90]);

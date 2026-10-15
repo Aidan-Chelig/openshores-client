@@ -73,6 +73,10 @@ test-native-person-construction:
 test-native-person-dispatch:
     nix develop .#server-test --command cargo test --offline --lib world::native_person::atom::tests::lifecycle::packets
 
+# Native packet -> selected presentation -> actual Bevy marker/HUD components, headless.
+test-native-avatar-presentation:
+    nix develop .#server-test --command cargo test --offline --features client --lib complete_native_person_packets
+
 # Independent native outer DNA-application anchors; no target execution.
 test-native-dna-application:
     nix develop .#server-test --command python tests/native_dna_application.py
