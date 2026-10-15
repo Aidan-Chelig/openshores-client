@@ -7,9 +7,8 @@ loopback reference-server tests where the protocols actually overlap.
 Required milestones and proof:
 
 1. Reuse analysis: `native_session.py` and workflow documentation exist;
-   transport tests pass and the selected target opens. **Pending:** measure
-   first versus subsequent function queries in the same session. Do not claim
-   a verified speedup from merely writing the driver.
+   transport tests pass and the selected target opens. Same-session measurements
+   now verify reuse: first query 665.655s; next three 0.348s/0.078s/0.079s.
 2. Reconstruct nested readers: complete retained evidence for DNA, conditions,
    Creature pose/console bodies, Sentient skills/orders and Person helpers;
    corroborate scalar overloads and virtual bindings. Eight condition bodies
@@ -44,4 +43,5 @@ format checking, 285 headless library tests, 306 client-feature library tests,
 9 CLI tests in each configuration, 1 graphical-entry CLI test, and strict
 client-feature all-target Clippy. This verifies the implemented components,
 not the still-missing full Person dispatch/presentation pipeline. The first
-shared analysis query remains in progress; warm-query timing is not yet proven.
+shared analysis batch subsequently completed with the warm-query times above.
+The session remains open; complete returned records still need review.

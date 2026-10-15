@@ -40,3 +40,12 @@ are not a substitute for an analyzed database for unseen function queries.
 Legacy tests/native_decompile.py remains for isolated requests only, not the
 default reconstruction workflow. Transport tests: `python -m unittest discover
 -s tests -p test_native_session.py`.
+
+## Measured reuse
+
+The first batch in `target/avatar-analysis-session` returned these elapsed
+times from one live server: DhDNA_ 665.655s (initial import/analysis), Bounty
+0.348s, ImplantDNA 0.078s, ImplantSpecies 0.079s. All four MCP responses reported
+isError=false and were retained completely. The server remains open for more
+queries. This verifies reuse for new functions, not merely replay of a saved
+answer. Returned pseudocode still requires review before implementation.
