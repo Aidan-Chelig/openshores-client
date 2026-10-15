@@ -7,6 +7,7 @@ pub use gear::{NativeGear, NativeGearReceive, NativeGearSlot};
 mod receiving;
 pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffixState};
 mod body;
+mod construction;
 pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
 mod inventory;
 mod jobs;

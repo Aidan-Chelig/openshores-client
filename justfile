@@ -65,6 +65,10 @@ test-native-jobs:
 test-native-inventory:
     nix develop .#server-test --command python tests/native_inventory.py
 
+# Proven receive-visible Person constructor defaults, without target execution.
+test-native-person-construction:
+    nix develop .#server-test --command python tests/native_person_construction.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

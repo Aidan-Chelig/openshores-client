@@ -283,3 +283,12 @@ reader evidence is retained without importing another analysis database.
 This brings supported item families to eight; other valid types, commodity2
 fixup, weight, concrete runtime context/construction/dispatch and actual avatar
 presentation remain unfinished. No native end-to-end session claim is made.
+
+Construction follow-up: an explicit receive-visible Person suffix constructor
+now seeds proven inherited660/state1130 priors, scalar/null/empty defaults and
+the nonzero83b/83d nibbles. Observation-only Default remains unchanged; unknown
+1114 and delegated HitNotify defaults are not guessed. Retained REA records
+and digest-bound independent GNU checks are documented in
+native-person-construction.md. This removes caller-injected priors for fresh
+suffix reception, but does not yet construct the inherited runtime object or
+close the dispatch/presentation gates.

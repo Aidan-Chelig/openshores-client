@@ -68,6 +68,9 @@ The default constructor is now retained as
 `evidence/native-person-default-constructor.json`, Evidence ID
 `ev_372afccd2f5bf68461eece6a46942f116f301dfb259ce0e34ef654f65a79f3b1`.
 It calls DaSentient first; this record is not yet a complete Rust constructor.
+The explicit receive-visible suffix subset is now available; see
+[native-person-construction.md](native-person-construction.md). It establishes
+fresh masked-update priors without inventing the remaining runtime object.
 The ordered Unit/Creature stage exists with required application context hooks;
 no concrete Person construction/dispatch or presentation is implied by those
 component fixtures. See native-creature.md for the exact remaining boundary.
