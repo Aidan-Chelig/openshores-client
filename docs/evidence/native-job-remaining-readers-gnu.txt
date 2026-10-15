@@ -1,0 +1,771 @@
+Static exact-symbol records for remaining readers; retained for follow-up, not proof of implemented bodies.
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014091f880 <_ZN17AuJobBountyHunterlsER11QDataStream>:
+   14091f880:	41 55                	push   %r13
+   14091f882:	41 54                	push   %r12
+   14091f884:	53                   	push   %rbx
+   14091f885:	48 83 ec 30          	sub    $0x30,%rsp
+   14091f889:	49 89 d4             	mov    %rdx,%r12
+   14091f88c:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   14091f891:	48 89 cb             	mov    %rcx,%rbx
+   14091f894:	4c 89 e9             	mov    %r13,%rcx
+   14091f897:	ff 15 0b 35 f7 01    	call   *0x1f7350b(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   14091f89d:	4c 89 ea             	mov    %r13,%rdx
+   14091f8a0:	4c 89 e1             	mov    %r12,%rcx
+   14091f8a3:	ff 15 77 3b f7 01    	call   *0x1f73b77(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   14091f8a9:	ba 01 00 00 00       	mov    $0x1,%edx
+   14091f8ae:	4c 89 e9             	mov    %r13,%rcx
+   14091f8b1:	ff 15 a1 34 f7 01    	call   *0x1f734a1(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   14091f8b7:	4c 89 e9             	mov    %r13,%rcx
+   14091f8ba:	ff 15 10 3a f7 01    	call   *0x1f73a10(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   14091f8c0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   14091f8c4:	4c 89 e9             	mov    %r13,%rcx
+   14091f8c7:	ff 15 e3 34 f7 01    	call   *0x1f734e3(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   14091f8cd:	4c 8b 2d 3c 3b f7 01 	mov    0x1f73b3c(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   14091f8d4:	48 8d 53 10          	lea    0x10(%rbx),%rdx
+   14091f8d8:	4c 89 e1             	mov    %r12,%rcx
+   14091f8db:	41 ff d5             	call   *%r13
+   14091f8de:	48 8d 4b 18          	lea    0x18(%rbx),%rcx
+   14091f8e2:	4c 89 e2             	mov    %r12,%rdx
+   14091f8e5:	e8 d6 5a d1 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14091f8ea:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   14091f8ee:	4c 89 e1             	mov    %r12,%rcx
+   14091f8f1:	41 ff d5             	call   *%r13
+   14091f8f4:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14091f8f8:	4c 89 e1             	mov    %r12,%rcx
+   14091f8fb:	e8 f0 bc fc 00       	call   1418eb5f0 <_ZN9QtPrivate23readArrayBasedContainerI5QListI7QStringEEER11QDataStreamS5_RT_>
+   14091f900:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   14091f904:	4c 89 e1             	mov    %r12,%rcx
+   14091f907:	48 83 c4 30          	add    $0x30,%rsp
+   14091f90b:	5b                   	pop    %rbx
+   14091f90c:	41 5c                	pop    %r12
+   14091f90e:	41 5d                	pop    %r13
+   14091f910:	48 ff 25 d9 2d f7 01 	rex.W jmp *0x1f72dd9(%rip)        # 1428926f0 <__imp__ZN11QDataStreamrsERd>
+   14091f917:	49 89 c4             	mov    %rax,%r12
+   14091f91a:	4c 89 e9             	mov    %r13,%rcx
+   14091f91d:	ff 15 8d 34 f7 01    	call   *0x1f7348d(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   14091f923:	4c 89 e1             	mov    %r12,%rcx
+   14091f926:	e8 0d 5a e3 00       	call   141755338 <_Unwind_Resume>
+   14091f92b:	90                   	nop
+   14091f92c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001409074c0 <_ZN23AuJobCommandShipInOrbitlsER11QDataStream>:
+   1409074c0:	41 55                	push   %r13
+   1409074c2:	41 54                	push   %r12
+   1409074c4:	56                   	push   %rsi
+   1409074c5:	53                   	push   %rbx
+   1409074c6:	48 83 ec 38          	sub    $0x38,%rsp
+   1409074ca:	49 89 d4             	mov    %rdx,%r12
+   1409074cd:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   1409074d2:	48 89 cb             	mov    %rcx,%rbx
+   1409074d5:	4c 89 e9             	mov    %r13,%rcx
+   1409074d8:	ff 15 ca b8 f8 01    	call   *0x1f8b8ca(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   1409074de:	4c 89 ea             	mov    %r13,%rdx
+   1409074e1:	4c 89 e1             	mov    %r12,%rcx
+   1409074e4:	ff 15 36 bf f8 01    	call   *0x1f8bf36(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   1409074ea:	ba 01 00 00 00       	mov    $0x1,%edx
+   1409074ef:	4c 89 e9             	mov    %r13,%rcx
+   1409074f2:	ff 15 60 b8 f8 01    	call   *0x1f8b860(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   1409074f8:	4c 89 e9             	mov    %r13,%rcx
+   1409074fb:	ff 15 cf bd f8 01    	call   *0x1f8bdcf(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140907501:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140907505:	4c 89 e9             	mov    %r13,%rcx
+   140907508:	ff 15 a2 b8 f8 01    	call   *0x1f8b8a2(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   14090750e:	48 8b 35 fb be f8 01 	mov    0x1f8befb(%rip),%rsi        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   140907515:	48 8d 53 10          	lea    0x10(%rbx),%rdx
+   140907519:	4c 89 e1             	mov    %r12,%rcx
+   14090751c:	ff d6                	call   *%rsi
+   14090751e:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   140907522:	4c 89 e1             	mov    %r12,%rcx
+   140907525:	ff d6                	call   *%rsi
+   140907527:	4c 89 ea             	mov    %r13,%rdx
+   14090752a:	4c 89 e1             	mov    %r12,%rcx
+   14090752d:	ff 15 cd b1 f8 01    	call   *0x1f8b1cd(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   140907533:	48 8d 4b 20          	lea    0x20(%rbx),%rcx
+   140907537:	4c 89 e2             	mov    %r12,%rdx
+   14090753a:	e8 81 de d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090753f:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   140907543:	4c 89 e1             	mov    %r12,%rcx
+   140907546:	ff d6                	call   *%rsi
+   140907548:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   14090754c:	4c 89 e2             	mov    %r12,%rdx
+   14090754f:	e8 6c de d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140907554:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   140907558:	4c 89 e1             	mov    %r12,%rcx
+   14090755b:	ff d6                	call   *%rsi
+   14090755d:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   140907561:	4c 89 e1             	mov    %r12,%rcx
+   140907564:	48 89 f0             	mov    %rsi,%rax
+   140907567:	48 83 c4 38          	add    $0x38,%rsp
+   14090756b:	5b                   	pop    %rbx
+   14090756c:	5e                   	pop    %rsi
+   14090756d:	41 5c                	pop    %r12
+   14090756f:	41 5d                	pop    %r13
+   140907571:	48 ff e0             	rex.W jmp *%rax
+   140907574:	49 89 c4             	mov    %rax,%r12
+   140907577:	4c 89 e9             	mov    %r13,%rcx
+   14090757a:	ff 15 30 b8 f8 01    	call   *0x1f8b830(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907580:	4c 89 e1             	mov    %r12,%rcx
+   140907583:	e8 b0 dd e4 00       	call   141755338 <_Unwind_Resume>
+   140907588:	90                   	nop
+   140907589:	90                   	nop
+   14090758a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140907660 <_ZN24AuJobCommandShipOnGroundlsER11QDataStream>:
+   140907660:	41 55                	push   %r13
+   140907662:	41 54                	push   %r12
+   140907664:	56                   	push   %rsi
+   140907665:	53                   	push   %rbx
+   140907666:	48 83 ec 38          	sub    $0x38,%rsp
+   14090766a:	49 89 d4             	mov    %rdx,%r12
+   14090766d:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140907672:	48 89 cb             	mov    %rcx,%rbx
+   140907675:	4c 89 e9             	mov    %r13,%rcx
+   140907678:	ff 15 2a b7 f8 01    	call   *0x1f8b72a(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   14090767e:	4c 89 ea             	mov    %r13,%rdx
+   140907681:	4c 89 e1             	mov    %r12,%rcx
+   140907684:	ff 15 96 bd f8 01    	call   *0x1f8bd96(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   14090768a:	ba 01 00 00 00       	mov    $0x1,%edx
+   14090768f:	4c 89 e9             	mov    %r13,%rcx
+   140907692:	ff 15 c0 b6 f8 01    	call   *0x1f8b6c0(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140907698:	4c 89 e9             	mov    %r13,%rcx
+   14090769b:	ff 15 2f bc f8 01    	call   *0x1f8bc2f(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   1409076a1:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   1409076a5:	4c 89 e9             	mov    %r13,%rcx
+   1409076a8:	ff 15 02 b7 f8 01    	call   *0x1f8b702(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   1409076ae:	48 8b 35 5b bd f8 01 	mov    0x1f8bd5b(%rip),%rsi        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1409076b5:	48 8d 53 10          	lea    0x10(%rbx),%rdx
+   1409076b9:	4c 89 e1             	mov    %r12,%rcx
+   1409076bc:	ff d6                	call   *%rsi
+   1409076be:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   1409076c2:	4c 89 e1             	mov    %r12,%rcx
+   1409076c5:	ff d6                	call   *%rsi
+   1409076c7:	4c 89 ea             	mov    %r13,%rdx
+   1409076ca:	4c 89 e1             	mov    %r12,%rcx
+   1409076cd:	ff 15 2d b0 f8 01    	call   *0x1f8b02d(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1409076d3:	48 8d 4b 20          	lea    0x20(%rbx),%rcx
+   1409076d7:	4c 89 e2             	mov    %r12,%rdx
+   1409076da:	e8 e1 dc d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409076df:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1409076e3:	4c 89 e1             	mov    %r12,%rcx
+   1409076e6:	ff d6                	call   *%rsi
+   1409076e8:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   1409076ec:	4c 89 e2             	mov    %r12,%rdx
+   1409076ef:	e8 cc dc d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409076f4:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   1409076f8:	4c 89 e1             	mov    %r12,%rcx
+   1409076fb:	ff d6                	call   *%rsi
+   1409076fd:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   140907701:	4c 89 e1             	mov    %r12,%rcx
+   140907704:	48 89 f0             	mov    %rsi,%rax
+   140907707:	48 83 c4 38          	add    $0x38,%rsp
+   14090770b:	5b                   	pop    %rbx
+   14090770c:	5e                   	pop    %rsi
+   14090770d:	41 5c                	pop    %r12
+   14090770f:	41 5d                	pop    %r13
+   140907711:	48 ff e0             	rex.W jmp *%rax
+   140907714:	49 89 c4             	mov    %rax,%r12
+   140907717:	4c 89 e9             	mov    %r13,%rcx
+   14090771a:	ff 15 90 b6 f8 01    	call   *0x1f8b690(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907720:	4c 89 e1             	mov    %r12,%rcx
+   140907723:	e8 10 dc e4 00       	call   141755338 <_Unwind_Resume>
+   140907728:	90                   	nop
+   140907729:	90                   	nop
+   14090772a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001409079f0 <_ZN17AuJobDeliverCargolsER11QDataStream>:
+   1409079f0:	41 55                	push   %r13
+   1409079f2:	41 54                	push   %r12
+   1409079f4:	57                   	push   %rdi
+   1409079f5:	56                   	push   %rsi
+   1409079f6:	53                   	push   %rbx
+   1409079f7:	48 83 ec 30          	sub    $0x30,%rsp
+   1409079fb:	49 89 d4             	mov    %rdx,%r12
+   1409079fe:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140907a03:	48 89 cb             	mov    %rcx,%rbx
+   140907a06:	4c 89 e9             	mov    %r13,%rcx
+   140907a09:	ff 15 99 b3 f8 01    	call   *0x1f8b399(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   140907a0f:	4c 89 ea             	mov    %r13,%rdx
+   140907a12:	4c 89 e1             	mov    %r12,%rcx
+   140907a15:	ff 15 05 ba f8 01    	call   *0x1f8ba05(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   140907a1b:	ba 01 00 00 00       	mov    $0x1,%edx
+   140907a20:	4c 89 e9             	mov    %r13,%rcx
+   140907a23:	ff 15 2f b3 f8 01    	call   *0x1f8b32f(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140907a29:	4c 89 e9             	mov    %r13,%rcx
+   140907a2c:	ff 15 9e b8 f8 01    	call   *0x1f8b89e(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140907a32:	4c 89 e9             	mov    %r13,%rcx
+   140907a35:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140907a39:	ff 15 71 b3 f8 01    	call   *0x1f8b371(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907a3f:	4c 89 ea             	mov    %r13,%rdx
+   140907a42:	4c 89 e1             	mov    %r12,%rcx
+   140907a45:	ff 15 bd ac f8 01    	call   *0x1f8acbd(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   140907a4b:	0f b7 44 24 28       	movzwl 0x28(%rsp),%eax
+   140907a50:	48 8d 4b 14          	lea    0x14(%rbx),%rcx
+   140907a54:	4c 89 e2             	mov    %r12,%rdx
+   140907a57:	89 43 10             	mov    %eax,0x10(%rbx)
+   140907a5a:	e8 61 d9 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140907a5f:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   140907a63:	4c 89 e1             	mov    %r12,%rcx
+   140907a66:	4c 8b 2d a3 b9 f8 01 	mov    0x1f8b9a3(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   140907a6d:	41 ff d5             	call   *%r13
+   140907a70:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   140907a74:	4c 89 e1             	mov    %r12,%rcx
+   140907a77:	48 8b 35 82 ac f8 01 	mov    0x1f8ac82(%rip),%rsi        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   140907a7e:	ff d6                	call   *%rsi
+   140907a80:	48 8b 3d 59 ac f8 01 	mov    0x1f8ac59(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   140907a87:	48 8d 53 24          	lea    0x24(%rbx),%rdx
+   140907a8b:	4c 89 e1             	mov    %r12,%rcx
+   140907a8e:	ff d7                	call   *%rdi
+   140907a90:	80 7b 24 00          	cmpb   $0x0,0x24(%rbx)
+   140907a94:	75 04                	jne    140907a9a <_ZN17AuJobDeliverCargolsER11QDataStream+0xaa>
+   140907a96:	c6 43 24 01          	movb   $0x1,0x24(%rbx)
+   140907a9a:	48 8d 54 24 27       	lea    0x27(%rsp),%rdx
+   140907a9f:	4c 89 e1             	mov    %r12,%rcx
+   140907aa2:	ff d7                	call   *%rdi
+   140907aa4:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   140907aa8:	4c 89 e1             	mov    %r12,%rcx
+   140907aab:	ff d6                	call   *%rsi
+   140907aad:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   140907ab1:	4c 89 e1             	mov    %r12,%rcx
+   140907ab4:	41 ff d5             	call   *%r13
+   140907ab7:	48 8d 4b 38          	lea    0x38(%rbx),%rcx
+   140907abb:	4c 89 e2             	mov    %r12,%rdx
+   140907abe:	e8 fd d8 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140907ac3:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   140907ac7:	4c 89 e1             	mov    %r12,%rcx
+   140907aca:	41 ff d5             	call   *%r13
+   140907acd:	90                   	nop
+   140907ace:	48 83 c4 30          	add    $0x30,%rsp
+   140907ad2:	5b                   	pop    %rbx
+   140907ad3:	5e                   	pop    %rsi
+   140907ad4:	5f                   	pop    %rdi
+   140907ad5:	41 5c                	pop    %r12
+   140907ad7:	41 5d                	pop    %r13
+   140907ad9:	c3                   	ret
+   140907ada:	49 89 c4             	mov    %rax,%r12
+   140907add:	4c 89 e9             	mov    %r13,%rcx
+   140907ae0:	ff 15 ca b2 f8 01    	call   *0x1f8b2ca(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907ae6:	4c 89 e1             	mov    %r12,%rcx
+   140907ae9:	e8 4a d8 e4 00       	call   141755338 <_Unwind_Resume>
+   140907aee:	90                   	nop
+   140907aef:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140907af0 <_ZN28AuJobDeliverCargoManufacturelsER11QDataStream>:
+   140907af0:	41 54                	push   %r12
+   140907af2:	53                   	push   %rbx
+   140907af3:	48 83 ec 38          	sub    $0x38,%rsp
+   140907af7:	49 89 d4             	mov    %rdx,%r12
+   140907afa:	48 89 cb             	mov    %rcx,%rbx
+   140907afd:	e8 ee fe ff ff       	call   1409079f0 <_ZN17AuJobDeliverCargolsER11QDataStream>
+   140907b02:	48 8d 54 24 2e       	lea    0x2e(%rsp),%rdx
+   140907b07:	4c 89 e1             	mov    %r12,%rcx
+   140907b0a:	ff 15 f8 ab f8 01    	call   *0x1f8abf8(%rip)        # 142892708 <__imp__ZN11QDataStreamrsERs>
+   140907b10:	0f b7 44 24 2e       	movzwl 0x2e(%rsp),%eax
+   140907b15:	89 43 48             	mov    %eax,0x48(%rbx)
+   140907b18:	48 83 c4 38          	add    $0x38,%rsp
+   140907b1c:	5b                   	pop    %rbx
+   140907b1d:	41 5c                	pop    %r12
+   140907b1f:	c3                   	ret
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001409078f0 <_ZN16AuJobDeliverFoodlsER11QDataStream>:
+   1409078f0:	41 55                	push   %r13
+   1409078f2:	41 54                	push   %r12
+   1409078f4:	55                   	push   %rbp
+   1409078f5:	57                   	push   %rdi
+   1409078f6:	56                   	push   %rsi
+   1409078f7:	53                   	push   %rbx
+   1409078f8:	48 83 ec 38          	sub    $0x38,%rsp
+   1409078fc:	49 89 d4             	mov    %rdx,%r12
+   1409078ff:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140907904:	48 89 cb             	mov    %rcx,%rbx
+   140907907:	4c 89 e9             	mov    %r13,%rcx
+   14090790a:	ff 15 98 b4 f8 01    	call   *0x1f8b498(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   140907910:	4c 89 ea             	mov    %r13,%rdx
+   140907913:	4c 89 e1             	mov    %r12,%rcx
+   140907916:	ff 15 04 bb f8 01    	call   *0x1f8bb04(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   14090791c:	ba 01 00 00 00       	mov    $0x1,%edx
+   140907921:	4c 89 e9             	mov    %r13,%rcx
+   140907924:	ff 15 2e b4 f8 01    	call   *0x1f8b42e(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   14090792a:	4c 89 e9             	mov    %r13,%rcx
+   14090792d:	ff 15 9d b9 f8 01    	call   *0x1f8b99d(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140907933:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140907937:	4c 89 e9             	mov    %r13,%rcx
+   14090793a:	ff 15 70 b4 f8 01    	call   *0x1f8b470(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907940:	48 8d 4b 10          	lea    0x10(%rbx),%rcx
+   140907944:	4c 89 e2             	mov    %r12,%rdx
+   140907947:	e8 74 da d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090794c:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   140907950:	4c 89 e1             	mov    %r12,%rcx
+   140907953:	48 8b 35 b6 ba f8 01 	mov    0x1f8bab6(%rip),%rsi        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   14090795a:	ff d6                	call   *%rsi
+   14090795c:	48 8b 3d 7d ad f8 01 	mov    0x1f8ad7d(%rip),%rdi        # 1428926e0 <__imp__ZN11QDataStreamrsERa>
+   140907963:	48 8d 54 24 27       	lea    0x27(%rsp),%rdx
+   140907968:	4c 89 e1             	mov    %r12,%rcx
+   14090796b:	ff d7                	call   *%rdi
+   14090796d:	0f b6 44 24 27       	movzbl 0x27(%rsp),%eax
+   140907972:	48 8d 53 24          	lea    0x24(%rbx),%rdx
+   140907976:	4c 89 e1             	mov    %r12,%rcx
+   140907979:	48 8b 2d 80 ad f8 01 	mov    0x1f8ad80(%rip),%rbp        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   140907980:	89 43 20             	mov    %eax,0x20(%rbx)
+   140907983:	ff d5                	call   *%rbp
+   140907985:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   140907989:	4c 89 e1             	mov    %r12,%rcx
+   14090798c:	ff d7                	call   *%rdi
+   14090798e:	80 7b 28 00          	cmpb   $0x0,0x28(%rbx)
+   140907992:	75 04                	jne    140907998 <_ZN16AuJobDeliverFoodlsER11QDataStream+0xa8>
+   140907994:	c6 43 28 01          	movb   $0x1,0x28(%rbx)
+   140907998:	4c 89 ea             	mov    %r13,%rdx
+   14090799b:	4c 89 e1             	mov    %r12,%rcx
+   14090799e:	ff d7                	call   *%rdi
+   1409079a0:	48 8d 53 2c          	lea    0x2c(%rbx),%rdx
+   1409079a4:	4c 89 e1             	mov    %r12,%rcx
+   1409079a7:	ff d5                	call   *%rbp
+   1409079a9:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   1409079ad:	4c 89 e1             	mov    %r12,%rcx
+   1409079b0:	ff d6                	call   *%rsi
+   1409079b2:	48 8d 4b 38          	lea    0x38(%rbx),%rcx
+   1409079b6:	4c 89 e2             	mov    %r12,%rdx
+   1409079b9:	e8 02 da d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409079be:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   1409079c2:	4c 89 e1             	mov    %r12,%rcx
+   1409079c5:	ff d6                	call   *%rsi
+   1409079c7:	90                   	nop
+   1409079c8:	48 83 c4 38          	add    $0x38,%rsp
+   1409079cc:	5b                   	pop    %rbx
+   1409079cd:	5e                   	pop    %rsi
+   1409079ce:	5f                   	pop    %rdi
+   1409079cf:	5d                   	pop    %rbp
+   1409079d0:	41 5c                	pop    %r12
+   1409079d2:	41 5d                	pop    %r13
+   1409079d4:	c3                   	ret
+   1409079d5:	49 89 c4             	mov    %rax,%r12
+   1409079d8:	4c 89 e9             	mov    %r13,%rcx
+   1409079db:	ff 15 cf b3 f8 01    	call   *0x1f8b3cf(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   1409079e1:	4c 89 e1             	mov    %r12,%rcx
+   1409079e4:	e8 4f d9 e4 00       	call   141755338 <_Unwind_Resume>
+   1409079e9:	90                   	nop
+   1409079ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140907330 <_ZN22AuJobDeliverPassengerslsER11QDataStream>:
+   140907330:	41 55                	push   %r13
+   140907332:	41 54                	push   %r12
+   140907334:	56                   	push   %rsi
+   140907335:	53                   	push   %rbx
+   140907336:	48 83 ec 38          	sub    $0x38,%rsp
+   14090733a:	49 89 d4             	mov    %rdx,%r12
+   14090733d:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140907342:	48 89 cb             	mov    %rcx,%rbx
+   140907345:	4c 89 e9             	mov    %r13,%rcx
+   140907348:	ff 15 5a ba f8 01    	call   *0x1f8ba5a(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   14090734e:	4c 89 ea             	mov    %r13,%rdx
+   140907351:	4c 89 e1             	mov    %r12,%rcx
+   140907354:	ff 15 c6 c0 f8 01    	call   *0x1f8c0c6(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   14090735a:	ba 01 00 00 00       	mov    $0x1,%edx
+   14090735f:	4c 89 e9             	mov    %r13,%rcx
+   140907362:	ff 15 f0 b9 f8 01    	call   *0x1f8b9f0(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140907368:	4c 89 e9             	mov    %r13,%rcx
+   14090736b:	ff 15 5f bf f8 01    	call   *0x1f8bf5f(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140907371:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140907375:	4c 89 e9             	mov    %r13,%rcx
+   140907378:	ff 15 32 ba f8 01    	call   *0x1f8ba32(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   14090737e:	48 8d 4b 10          	lea    0x10(%rbx),%rcx
+   140907382:	4c 89 e2             	mov    %r12,%rdx
+   140907385:	e8 36 e0 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090738a:	4c 8b 2d 7f c0 f8 01 	mov    0x1f8c07f(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   140907391:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   140907395:	4c 89 e1             	mov    %r12,%rcx
+   140907398:	41 ff d5             	call   *%r13
+   14090739b:	48 8b 35 5e b3 f8 01 	mov    0x1f8b35e(%rip),%rsi        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1409073a2:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   1409073a6:	4c 89 e1             	mov    %r12,%rcx
+   1409073a9:	ff d6                	call   *%rsi
+   1409073ab:	48 8d 53 24          	lea    0x24(%rbx),%rdx
+   1409073af:	4c 89 e1             	mov    %r12,%rcx
+   1409073b2:	ff d6                	call   *%rsi
+   1409073b4:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1409073b8:	4c 89 e1             	mov    %r12,%rcx
+   1409073bb:	41 ff d5             	call   *%r13
+   1409073be:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   1409073c2:	4c 89 e2             	mov    %r12,%rdx
+   1409073c5:	e8 f6 df d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409073ca:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   1409073ce:	4c 89 e1             	mov    %r12,%rcx
+   1409073d1:	4c 89 e8             	mov    %r13,%rax
+   1409073d4:	48 83 c4 38          	add    $0x38,%rsp
+   1409073d8:	5b                   	pop    %rbx
+   1409073d9:	5e                   	pop    %rsi
+   1409073da:	41 5c                	pop    %r12
+   1409073dc:	41 5d                	pop    %r13
+   1409073de:	48 ff e0             	rex.W jmp *%rax
+   1409073e1:	49 89 c4             	mov    %rax,%r12
+   1409073e4:	4c 89 e9             	mov    %r13,%rcx
+   1409073e7:	ff 15 c3 b9 f8 01    	call   *0x1f8b9c3(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   1409073ed:	4c 89 e1             	mov    %r12,%rcx
+   1409073f0:	e8 43 df e4 00       	call   141755338 <_Unwind_Resume>
+   1409073f5:	90                   	nop
+   1409073f6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1409073fd:	00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140906a40 <_ZN24AuJobDestroyEnemyStationlsER11QDataStream>:
+   140906a40:	41 55                	push   %r13
+   140906a42:	41 54                	push   %r12
+   140906a44:	53                   	push   %rbx
+   140906a45:	48 83 ec 30          	sub    $0x30,%rsp
+   140906a49:	49 89 d4             	mov    %rdx,%r12
+   140906a4c:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140906a51:	48 89 cb             	mov    %rcx,%rbx
+   140906a54:	4c 89 e9             	mov    %r13,%rcx
+   140906a57:	ff 15 4b c3 f8 01    	call   *0x1f8c34b(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   140906a5d:	4c 89 ea             	mov    %r13,%rdx
+   140906a60:	4c 89 e1             	mov    %r12,%rcx
+   140906a63:	ff 15 b7 c9 f8 01    	call   *0x1f8c9b7(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   140906a69:	ba 01 00 00 00       	mov    $0x1,%edx
+   140906a6e:	4c 89 e9             	mov    %r13,%rcx
+   140906a71:	ff 15 e1 c2 f8 01    	call   *0x1f8c2e1(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140906a77:	4c 89 e9             	mov    %r13,%rcx
+   140906a7a:	ff 15 50 c8 f8 01    	call   *0x1f8c850(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140906a80:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140906a84:	4c 89 e9             	mov    %r13,%rcx
+   140906a87:	ff 15 23 c3 f8 01    	call   *0x1f8c323(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140906a8d:	4c 8b 2d 7c c9 f8 01 	mov    0x1f8c97c(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   140906a94:	48 8d 53 10          	lea    0x10(%rbx),%rdx
+   140906a98:	4c 89 e1             	mov    %r12,%rcx
+   140906a9b:	41 ff d5             	call   *%r13
+   140906a9e:	48 8d 4b 18          	lea    0x18(%rbx),%rcx
+   140906aa2:	4c 89 e2             	mov    %r12,%rdx
+   140906aa5:	e8 16 e9 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140906aaa:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   140906aae:	4c 89 e1             	mov    %r12,%rcx
+   140906ab1:	41 ff d5             	call   *%r13
+   140906ab4:	48 8d 4b 28          	lea    0x28(%rbx),%rcx
+   140906ab8:	4c 89 e2             	mov    %r12,%rdx
+   140906abb:	e8 00 e9 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140906ac0:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   140906ac4:	4c 89 e1             	mov    %r12,%rcx
+   140906ac7:	4c 89 e8             	mov    %r13,%rax
+   140906aca:	48 83 c4 30          	add    $0x30,%rsp
+   140906ace:	5b                   	pop    %rbx
+   140906acf:	41 5c                	pop    %r12
+   140906ad1:	41 5d                	pop    %r13
+   140906ad3:	48 ff e0             	rex.W jmp *%rax
+   140906ad6:	49 89 c4             	mov    %rax,%r12
+   140906ad9:	4c 89 e9             	mov    %r13,%rcx
+   140906adc:	ff 15 ce c2 f8 01    	call   *0x1f8c2ce(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140906ae2:	4c 89 e1             	mov    %r12,%rcx
+   140906ae5:	e8 4e e8 e4 00       	call   141755338 <_Unwind_Resume>
+   140906aea:	90                   	nop
+   140906aeb:	90                   	nop
+   140906aec:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140907260 <_ZN21AuJobPickUpPassengerslsER11QDataStream>:
+   140907260:	41 55                	push   %r13
+   140907262:	41 54                	push   %r12
+   140907264:	53                   	push   %rbx
+   140907265:	48 83 ec 30          	sub    $0x30,%rsp
+   140907269:	49 89 d4             	mov    %rdx,%r12
+   14090726c:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140907271:	48 89 cb             	mov    %rcx,%rbx
+   140907274:	4c 89 e9             	mov    %r13,%rcx
+   140907277:	ff 15 2b bb f8 01    	call   *0x1f8bb2b(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   14090727d:	4c 89 ea             	mov    %r13,%rdx
+   140907280:	4c 89 e1             	mov    %r12,%rcx
+   140907283:	ff 15 97 c1 f8 01    	call   *0x1f8c197(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   140907289:	ba 01 00 00 00       	mov    $0x1,%edx
+   14090728e:	4c 89 e9             	mov    %r13,%rcx
+   140907291:	ff 15 c1 ba f8 01    	call   *0x1f8bac1(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140907297:	4c 89 e9             	mov    %r13,%rcx
+   14090729a:	ff 15 30 c0 f8 01    	call   *0x1f8c030(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   1409072a0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   1409072a4:	4c 89 e9             	mov    %r13,%rcx
+   1409072a7:	ff 15 03 bb f8 01    	call   *0x1f8bb03(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   1409072ad:	48 8d 4b 10          	lea    0x10(%rbx),%rcx
+   1409072b1:	4c 89 e2             	mov    %r12,%rdx
+   1409072b4:	e8 07 e1 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409072b9:	4c 8b 2d 50 c1 f8 01 	mov    0x1f8c150(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1409072c0:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   1409072c4:	4c 89 e1             	mov    %r12,%rcx
+   1409072c7:	41 ff d5             	call   *%r13
+   1409072ca:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   1409072ce:	4c 89 e1             	mov    %r12,%rcx
+   1409072d1:	ff 15 29 b4 f8 01    	call   *0x1f8b429(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   1409072d7:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   1409072db:	4c 89 e1             	mov    %r12,%rcx
+   1409072de:	41 ff d5             	call   *%r13
+   1409072e1:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   1409072e5:	4c 89 e2             	mov    %r12,%rdx
+   1409072e8:	e8 d3 e0 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409072ed:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   1409072f1:	4c 89 e1             	mov    %r12,%rcx
+   1409072f4:	41 ff d5             	call   *%r13
+   1409072f7:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   1409072fb:	4c 89 e1             	mov    %r12,%rcx
+   1409072fe:	4c 89 e8             	mov    %r13,%rax
+   140907301:	48 83 c4 30          	add    $0x30,%rsp
+   140907305:	5b                   	pop    %rbx
+   140907306:	41 5c                	pop    %r12
+   140907308:	41 5d                	pop    %r13
+   14090730a:	48 ff e0             	rex.W jmp *%rax
+   14090730d:	49 89 c4             	mov    %rax,%r12
+   140907310:	4c 89 e9             	mov    %r13,%rcx
+   140907313:	ff 15 97 ba f8 01    	call   *0x1f8ba97(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907319:	4c 89 e1             	mov    %r12,%rcx
+   14090731c:	e8 17 e0 e4 00       	call   141755338 <_Unwind_Resume>
+   140907321:	90                   	nop
+   140907322:	0f 1f 00             	nopl   (%rax)
+   140907325:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   14090732c:	00 00 00 00
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140907590 <_ZN34AuJobPickUpPassengersOverpopulatedlsER11QDataStream>:
+   140907590:	41 55                	push   %r13
+   140907592:	41 54                	push   %r12
+   140907594:	53                   	push   %rbx
+   140907595:	48 83 ec 30          	sub    $0x30,%rsp
+   140907599:	49 89 d4             	mov    %rdx,%r12
+   14090759c:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   1409075a1:	48 89 cb             	mov    %rcx,%rbx
+   1409075a4:	4c 89 e9             	mov    %r13,%rcx
+   1409075a7:	ff 15 fb b7 f8 01    	call   *0x1f8b7fb(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   1409075ad:	4c 89 ea             	mov    %r13,%rdx
+   1409075b0:	4c 89 e1             	mov    %r12,%rcx
+   1409075b3:	ff 15 67 be f8 01    	call   *0x1f8be67(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   1409075b9:	ba 01 00 00 00       	mov    $0x1,%edx
+   1409075be:	4c 89 e9             	mov    %r13,%rcx
+   1409075c1:	ff 15 91 b7 f8 01    	call   *0x1f8b791(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   1409075c7:	4c 89 e9             	mov    %r13,%rcx
+   1409075ca:	ff 15 00 bd f8 01    	call   *0x1f8bd00(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   1409075d0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   1409075d4:	4c 89 e9             	mov    %r13,%rcx
+   1409075d7:	ff 15 d3 b7 f8 01    	call   *0x1f8b7d3(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   1409075dd:	48 8d 4b 10          	lea    0x10(%rbx),%rcx
+   1409075e1:	4c 89 e2             	mov    %r12,%rdx
+   1409075e4:	e8 d7 dd d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409075e9:	4c 8b 2d 20 be f8 01 	mov    0x1f8be20(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   1409075f0:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   1409075f4:	4c 89 e1             	mov    %r12,%rcx
+   1409075f7:	41 ff d5             	call   *%r13
+   1409075fa:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   1409075fe:	4c 89 e1             	mov    %r12,%rcx
+   140907601:	ff 15 f9 b0 f8 01    	call   *0x1f8b0f9(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   140907607:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   14090760b:	4c 89 e1             	mov    %r12,%rcx
+   14090760e:	41 ff d5             	call   *%r13
+   140907611:	48 8d 4b 30          	lea    0x30(%rbx),%rcx
+   140907615:	4c 89 e2             	mov    %r12,%rdx
+   140907618:	e8 a3 dd d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090761d:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   140907621:	4c 89 e1             	mov    %r12,%rcx
+   140907624:	41 ff d5             	call   *%r13
+   140907627:	48 8d 53 40          	lea    0x40(%rbx),%rdx
+   14090762b:	4c 89 e1             	mov    %r12,%rcx
+   14090762e:	41 ff d5             	call   *%r13
+   140907631:	48 8d 4b 48          	lea    0x48(%rbx),%rcx
+   140907635:	4c 89 e2             	mov    %r12,%rdx
+   140907638:	48 83 c4 30          	add    $0x30,%rsp
+   14090763c:	5b                   	pop    %rbx
+   14090763d:	41 5c                	pop    %r12
+   14090763f:	41 5d                	pop    %r13
+   140907641:	e9 7a dd d2 00       	jmp    1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140907646:	49 89 c4             	mov    %rax,%r12
+   140907649:	4c 89 e9             	mov    %r13,%rcx
+   14090764c:	ff 15 5e b7 f8 01    	call   *0x1f8b75e(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140907652:	4c 89 e1             	mov    %r12,%rcx
+   140907655:	e8 de dc e4 00       	call   141755338 <_Unwind_Resume>
+   14090765a:	90                   	nop
+   14090765b:	90                   	nop
+   14090765c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001409077f0 <_ZN22AuJobTransferPrisonerslsER11QDataStream>:
+   1409077f0:	41 55                	push   %r13
+   1409077f2:	41 54                	push   %r12
+   1409077f4:	56                   	push   %rsi
+   1409077f5:	53                   	push   %rbx
+   1409077f6:	48 83 ec 38          	sub    $0x38,%rsp
+   1409077fa:	49 89 d4             	mov    %rdx,%r12
+   1409077fd:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140907802:	48 89 cb             	mov    %rcx,%rbx
+   140907805:	4c 89 e9             	mov    %r13,%rcx
+   140907808:	ff 15 9a b5 f8 01    	call   *0x1f8b59a(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   14090780e:	4c 89 ea             	mov    %r13,%rdx
+   140907811:	4c 89 e1             	mov    %r12,%rcx
+   140907814:	ff 15 06 bc f8 01    	call   *0x1f8bc06(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   14090781a:	ba 01 00 00 00       	mov    $0x1,%edx
+   14090781f:	4c 89 e9             	mov    %r13,%rcx
+   140907822:	ff 15 30 b5 f8 01    	call   *0x1f8b530(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140907828:	4c 89 e9             	mov    %r13,%rcx
+   14090782b:	ff 15 9f ba f8 01    	call   *0x1f8ba9f(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140907831:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140907835:	4c 89 e9             	mov    %r13,%rcx
+   140907838:	ff 15 72 b5 f8 01    	call   *0x1f8b572(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   14090783e:	48 8d 4b 10          	lea    0x10(%rbx),%rcx
+   140907842:	4c 89 e2             	mov    %r12,%rdx
+   140907845:	e8 76 db d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090784a:	48 8b 35 bf bb f8 01 	mov    0x1f8bbbf(%rip),%rsi        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   140907851:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   140907855:	4c 89 e1             	mov    %r12,%rcx
+   140907858:	ff d6                	call   *%rsi
+   14090785a:	48 8d 53 20          	lea    0x20(%rbx),%rdx
+   14090785e:	4c 89 e1             	mov    %r12,%rcx
+   140907861:	ff d6                	call   *%rsi
+   140907863:	48 8d 4b 28          	lea    0x28(%rbx),%rcx
+   140907867:	4c 89 e2             	mov    %r12,%rdx
+   14090786a:	e8 51 db d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090786f:	48 8d 53 30          	lea    0x30(%rbx),%rdx
+   140907873:	4c 89 e1             	mov    %r12,%rcx
+   140907876:	ff d6                	call   *%rsi
+   140907878:	4c 8b 2d 81 ae f8 01 	mov    0x1f8ae81(%rip),%r13        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   14090787f:	48 8d 53 38          	lea    0x38(%rbx),%rdx
+   140907883:	4c 89 e1             	mov    %r12,%rcx
+   140907886:	41 ff d5             	call   *%r13
+   140907889:	48 8d 53 3c          	lea    0x3c(%rbx),%rdx
+   14090788d:	4c 89 e1             	mov    %r12,%rcx
+   140907890:	41 ff d5             	call   *%r13
+   140907893:	48 8d 4b 40          	lea    0x40(%rbx),%rcx
+   140907897:	4c 89 e2             	mov    %r12,%rdx
+   14090789a:	e8 21 db d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   14090789f:	48 8d 53 48          	lea    0x48(%rbx),%rdx
+   1409078a3:	4c 89 e1             	mov    %r12,%rcx
+   1409078a6:	ff d6                	call   *%rsi
+   1409078a8:	48 8d 53 50          	lea    0x50(%rbx),%rdx
+   1409078ac:	4c 89 e1             	mov    %r12,%rcx
+   1409078af:	ff d6                	call   *%rsi
+   1409078b1:	48 8d 4b 58          	lea    0x58(%rbx),%rcx
+   1409078b5:	4c 89 e2             	mov    %r12,%rdx
+   1409078b8:	e8 03 db d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   1409078bd:	48 8d 53 60          	lea    0x60(%rbx),%rdx
+   1409078c1:	4c 89 e1             	mov    %r12,%rcx
+   1409078c4:	48 89 f0             	mov    %rsi,%rax
+   1409078c7:	48 83 c4 38          	add    $0x38,%rsp
+   1409078cb:	5b                   	pop    %rbx
+   1409078cc:	5e                   	pop    %rsi
+   1409078cd:	41 5c                	pop    %r12
+   1409078cf:	41 5d                	pop    %r13
+   1409078d1:	48 ff e0             	rex.W jmp *%rax
+   1409078d4:	49 89 c4             	mov    %rax,%r12
+   1409078d7:	4c 89 e9             	mov    %r13,%rcx
+   1409078da:	ff 15 d0 b4 f8 01    	call   *0x1f8b4d0(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   1409078e0:	4c 89 e1             	mov    %r12,%rcx
+   1409078e3:	e8 50 da e4 00       	call   141755338 <_Unwind_Resume>
+   1409078e8:	90                   	nop
+   1409078e9:	90                   	nop
+   1409078ea:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140906ba0 <_ZN16AuJobVisitSystemlsER11QDataStream>:
+   140906ba0:	41 55                	push   %r13
+   140906ba2:	41 54                	push   %r12
+   140906ba4:	53                   	push   %rbx
+   140906ba5:	48 83 ec 30          	sub    $0x30,%rsp
+   140906ba9:	49 89 d4             	mov    %rdx,%r12
+   140906bac:	4c 8d 6c 24 28       	lea    0x28(%rsp),%r13
+   140906bb1:	48 89 cb             	mov    %rcx,%rbx
+   140906bb4:	4c 89 e9             	mov    %r13,%rcx
+   140906bb7:	ff 15 eb c1 f8 01    	call   *0x1f8c1eb(%rip)        # 142892da8 <__imp__ZN9QDateTimeC1Ev>
+   140906bbd:	4c 89 ea             	mov    %r13,%rdx
+   140906bc0:	4c 89 e1             	mov    %r12,%rcx
+   140906bc3:	ff 15 57 c8 f8 01    	call   *0x1f8c857(%rip)        # 142893420 <__imp__ZrsR11QDataStreamR9QDateTime>
+   140906bc9:	ba 01 00 00 00       	mov    $0x1,%edx
+   140906bce:	4c 89 e9             	mov    %r13,%rcx
+   140906bd1:	ff 15 81 c1 f8 01    	call   *0x1f8c181(%rip)        # 142892d58 <__imp__ZN9QDateTime11setTimeSpecEN2Qt8TimeSpecE>
+   140906bd7:	4c 89 e9             	mov    %r13,%rcx
+   140906bda:	ff 15 f0 c6 f8 01    	call   *0x1f8c6f0(%rip)        # 1428932d0 <__imp__ZNK9QDateTime17toMSecsSinceEpochEv>
+   140906be0:	48 89 43 08          	mov    %rax,0x8(%rbx)
+   140906be4:	4c 89 e9             	mov    %r13,%rcx
+   140906be7:	ff 15 c3 c1 f8 01    	call   *0x1f8c1c3(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140906bed:	48 8d 4b 10          	lea    0x10(%rbx),%rcx
+   140906bf1:	4c 89 e2             	mov    %r12,%rdx
+   140906bf4:	e8 c7 e7 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140906bf9:	48 8d 53 14          	lea    0x14(%rbx),%rdx
+   140906bfd:	4c 89 e1             	mov    %r12,%rcx
+   140906c00:	ff 15 fa ba f8 01    	call   *0x1f8bafa(%rip)        # 142892700 <__imp__ZN11QDataStreamrsERi>
+   140906c06:	4c 8b 2d 03 c8 f8 01 	mov    0x1f8c803(%rip),%r13        # 142893410 <__imp__ZrsR11QDataStreamR7QString>
+   140906c0d:	48 8d 53 18          	lea    0x18(%rbx),%rdx
+   140906c11:	4c 89 e1             	mov    %r12,%rcx
+   140906c14:	41 ff d5             	call   *%r13
+   140906c17:	48 8d 4b 20          	lea    0x20(%rbx),%rcx
+   140906c1b:	4c 89 e2             	mov    %r12,%rdx
+   140906c1e:	e8 9d e7 d2 00       	call   1416353c0 <_ZN4AuIdlsER11QDataStream>
+   140906c23:	48 8d 53 28          	lea    0x28(%rbx),%rdx
+   140906c27:	4c 89 e1             	mov    %r12,%rcx
+   140906c2a:	4c 89 e8             	mov    %r13,%rax
+   140906c2d:	48 83 c4 30          	add    $0x30,%rsp
+   140906c31:	5b                   	pop    %rbx
+   140906c32:	41 5c                	pop    %r12
+   140906c34:	41 5d                	pop    %r13
+   140906c36:	48 ff e0             	rex.W jmp *%rax
+   140906c39:	49 89 c4             	mov    %rax,%r12
+   140906c3c:	4c 89 e9             	mov    %r13,%rcx
+   140906c3f:	ff 15 6b c1 f8 01    	call   *0x1f8c16b(%rip)        # 142892db0 <__imp__ZN9QDateTimeD1Ev>
+   140906c45:	4c 89 e1             	mov    %r12,%rcx
+   140906c48:	e8 eb e6 e4 00       	call   141755338 <_Unwind_Resume>
+   140906c4d:	90                   	nop
+   140906c4e:	66 90                	xchg   %ax,%ax

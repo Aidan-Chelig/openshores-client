@@ -8,6 +8,8 @@ mod receiving;
 pub use receiving::{NativePersonIdentity, NativePersonReceive, NativePersonSuffixState};
 mod body;
 pub use body::{NativePersonBodyReceive, NativePersonBodyState, NativePersonReceiveContext};
+mod jobs;
+pub use jobs::{NativeJob, NativeJobBody, NativeJobList, NativeJobListReceive, NativeJobStop};
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct NativeDomain(pub BTreeMap<u32, Option<String>>);

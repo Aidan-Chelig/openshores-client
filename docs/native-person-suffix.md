@@ -32,8 +32,8 @@ zero, traverses entries in order and calls each item's virtual+298 before each
 float add. Nonempty Gear currently fails Unsupported **after** wire reception,
 before writing weight or proceeding to the domain. No weight is guessed.
 
-Extended fields execute in native order: actual Domain, then the unresolved
-JobList boundary, signed32 10d0/signed16 f58, double-overload1408, then
+Extended fields execute in native order: actual Domain, NativeJobList (with
+explicit unsupported-body boundaries), signed32 10d0/signed16 f58, double-overload1408, then
 double-overload f60/f68. SinglePrecision narrows these wire values to float
 then widens; TypeWidths/DoublePrecision consume and preserve f64. These are
 distinct from GlobeLLF/HitNotify's float destinations.
@@ -52,8 +52,11 @@ prior660 fails after consuming A04's short, without applying it. Missing
 state1130 fails at its read-modify-write stage after preceding completed reads.
 The full inherited construction path is still required; this API is not it.
 
-JobList and ItemHash fail Unsupported at their native call positions, leaving
-their payload untouched. Nonempty Gear weight and commodity2 replacement are
+Unsupported JobList bodies and ItemHash fail at their native read positions.
+JobList now supports Assassin/InterdictSystem/Story and empty lists; verified
+null factories report a stop without skipping their unreceived bodies, after
+which the Person suffix continues as native code does. See native-person-jobs.md.
+Nonempty Gear weight and commodity2 replacement are
 also explicit Unsupported cases. These are temporary unfinished requirements,
 not alternate successful interpretations or ignored packet fields. No opaque
 skip or successful no-op callback bypasses them.

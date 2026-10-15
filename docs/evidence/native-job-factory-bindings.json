@@ -1,0 +1,223 @@
+{
+  "target_sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80",
+  "evidence": "Independent GNU static factory/jump-table/vptr slots; not runtime evidence or REA Evidence ID",
+  "jump_table": "0x1421b6c28",
+  "rows": [
+    {
+      "type": 0,
+      "entry": "0x14091be60",
+      "vptr": "0x1423edee0",
+      "class": "_ZTV13AuJobAssassin",
+      "discard": "0x141933e60",
+      "reader": "0x1409069a0"
+    },
+    {
+      "type": 1,
+      "entry": "0x14091be20",
+      "vptr": "0x1424649e0",
+      "class": "_ZTV23AuJobBountyHunterPerson",
+      "discard": "0x141919550",
+      "reader": "0x14091f880"
+    },
+    {
+      "type": 2,
+      "entry": "0x14091bde0",
+      "vptr": "0x142455e40",
+      "class": "_ZTV21AuJobBountyHunterShip",
+      "discard": "0x141919550",
+      "reader": "0x14091f880"
+    },
+    {
+      "type": 3,
+      "entry": "0x14091bda0",
+      "vptr": "0x142467b80",
+      "class": "_ZTV24AuJobBountyHunterVehicle",
+      "discard": "0x141919550",
+      "reader": "0x14091f880"
+    },
+    {
+      "type": 4,
+      "entry": "0x14091bd60",
+      "vptr": "0x142464b20",
+      "class": "_ZTV23AuJobCommandShipInOrbit",
+      "discard": "0x141933e60",
+      "reader": "0x1409074c0"
+    },
+    {
+      "type": 5,
+      "entry": "0x14091bd20",
+      "vptr": "0x142467cc0",
+      "class": "_ZTV24AuJobCommandShipOnGround",
+      "discard": "0x141933e60",
+      "reader": "0x140907660"
+    },
+    {
+      "type": 6,
+      "entry": "0x14091bcd0",
+      "vptr": "0x1424726d0",
+      "class": "_ZTV29AuJobDeliverCargoConstruction",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 7,
+      "entry": "0x14091bc80",
+      "vptr": "0x142467e00",
+      "class": "_ZTV24AuJobDeliverCargoDisease",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 8,
+      "entry": "0x14091bc28",
+      "vptr": "0x142467f40",
+      "class": "_ZTV24AuJobDeliverCargoGasping",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 9,
+      "entry": "0x14091bbd0",
+      "vptr": "0x142470d20",
+      "class": "_ZTV28AuJobDeliverCargoManufacture",
+      "discard": "0x141933e60",
+      "reader": "0x140907af0"
+    },
+    {
+      "type": 10,
+      "entry": "0x14091bb80",
+      "vptr": "0x142464c60",
+      "class": "_ZTV23AuJobDeliverCargoPoison",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 11,
+      "entry": "0x14091bb30",
+      "vptr": "0x142455f80",
+      "class": "_ZTV21AuJobDeliverCargoRats",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 12,
+      "entry": "0x14091bae0",
+      "vptr": "0x1424776c0",
+      "class": "_ZTV34AuJobDeliverCargoSpacecraftFactory",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 13,
+      "entry": "0x14091ba90",
+      "vptr": "0x142470e60",
+      "class": "_ZTV28AuJobDeliverCargoSuffocating",
+      "discard": "0x141933e60",
+      "reader": "0x1409079f0"
+    },
+    {
+      "type": 14,
+      "entry": "0x14091ba40",
+      "vptr": "0x14245d190",
+      "class": "_ZTV22AuJobDeliverFoodHungry",
+      "discard": "0x141933e60",
+      "reader": "0x1409078f0"
+    },
+    {
+      "type": 15,
+      "entry": "0x14091b9e8",
+      "vptr": "0x142468080",
+      "class": "_ZTV24AuJobDeliverFoodStarving",
+      "discard": "0x141933e60",
+      "reader": "0x1409078f0"
+    },
+    {
+      "type": 16,
+      "entry": "0x14091b9a0",
+      "vptr": "0x1424760d0",
+      "class": "_ZTV31AuJobDeliverPassengersColonists",
+      "discard": "0x141933e60",
+      "reader": "0x140907330"
+    },
+    {
+      "type": 17,
+      "entry": "0x14091b958",
+      "vptr": "0x142474b40",
+      "class": "_ZTV30AuJobDeliverPassengersDeserted",
+      "discard": "0x141933e60",
+      "reader": "0x140907330"
+    },
+    {
+      "type": 18,
+      "entry": "0x14091b910",
+      "vptr": "0x142472810",
+      "class": "_ZTV29AuJobDeliverPassengersWorkers",
+      "discard": "0x141933e60",
+      "reader": "0x140907330"
+    },
+    {
+      "type": 19,
+      "entry": "0x14091b8d0",
+      "vptr": "0x1424681c0",
+      "class": "_ZTV24AuJobDestroyEnemyStation",
+      "discard": "0x141933e60",
+      "reader": "0x140906a40"
+    },
+    {
+      "type": 20,
+      "entry": "0x14091b898",
+      "vptr": "0x14244df20",
+      "class": "_ZTV20AuJobInterdictSystem",
+      "discard": "0x141933e60",
+      "reader": "0x140906900"
+    },
+    {
+      "type": 21,
+      "entry": "0x14091b850",
+      "vptr": "0x142472950",
+      "class": "_ZTV29AuJobPickUpPassengersHomeless",
+      "discard": "0x141933e60",
+      "reader": "0x140907260"
+    },
+    {
+      "type": 22,
+      "entry": "0x14091b800",
+      "vptr": "0x142477800",
+      "class": "_ZTV34AuJobPickUpPassengersOverpopulated",
+      "discard": "0x141933e60",
+      "reader": "0x140907590"
+    },
+    {
+      "type": 23,
+      "entry": "0x14091b7c0",
+      "vptr": "0x142472a90",
+      "class": "_ZTV29AuJobPickUpPassengersStranded",
+      "discard": "0x141933e60",
+      "reader": "0x140907260"
+    },
+    {
+      "type": 24,
+      "entry": "0x14091b790",
+      "vptr": "0x1423c4e20",
+      "class": "_ZTV10AuJobStory",
+      "discard": "0x141933e60",
+      "reader": "0x140906af0"
+    },
+    {
+      "type": 25,
+      "entry": "0x14091b730",
+      "vptr": "0x14245d410",
+      "class": "_ZTV22AuJobTransferPrisoners",
+      "discard": "0x141933e60",
+      "reader": "0x1409077f0"
+    },
+    {
+      "type": 26,
+      "entry": "0x14091bea0",
+      "vptr": "0x14241edc0",
+      "class": "_ZTV16AuJobVisitSystem",
+      "discard": "0x141933e60",
+      "reader": "0x140906ba0"
+    }
+  ]
+}

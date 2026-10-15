@@ -90,11 +90,15 @@ impl NativePersonSuffixState {
                 .get_or_insert_with(Default::default)
                 .receive(input)?;
         }
-        if flags_b & 4 != 0 {
-            return Err(unsupported(
-                "native Person AuJobList reception is not implemented",
-            ));
-        }
+        let jobs = if flags_b & 4 != 0 {
+            Some(
+                self.jobs_13b8
+                    .get_or_insert_with(Default::default)
+                    .receive_qt7(input)?,
+            )
+        } else {
+            None
+        };
         if flags_b & 8 != 0 {
             self.field_10d0 = Some(input.read_i32()?);
             self.field_f58 = Some(input.read_i16()?);
@@ -133,6 +137,7 @@ impl NativePersonSuffixState {
             flags_c,
             timer_restarted,
             gear,
+            jobs,
             consumed_bytes: length - input.remaining(),
         })
     }

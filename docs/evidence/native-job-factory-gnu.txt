@@ -1,0 +1,629 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+000000014091b6e0 <_ZN5AuJob9CreateJobENS_4TYPEE>:
+   14091b6e0:	53                   	push   %rbx
+   14091b6e1:	48 83 ec 40          	sub    $0x40,%rsp
+   14091b6e5:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   14091b6ea:	0f 29 7c 24 30       	movaps %xmm7,0x30(%rsp)
+   14091b6ef:	48 8b 1d b2 6e f7 01 	mov    0x1f76eb2(%rip),%rbx        # 1428925a8 <__imp__ZN10QArrayData11shared_nullE>
+   14091b6f6:	66 48 0f 6e fb       	movq   %rbx,%xmm7
+   14091b6fb:	66 48 0f 6e f3       	movq   %rbx,%xmm6
+   14091b700:	0f 16 3d 39 77 f7 01 	movhps 0x1f77739(%rip),%xmm7        # 142892e40 <__imp__ZN9QListData11shared_nullE>
+   14091b707:	66 0f 6c f6          	punpcklqdq %xmm6,%xmm6
+   14091b70b:	83 f9 1a             	cmp    $0x1a,%ecx
+   14091b70e:	0f 87 c4 07 00 00    	ja     14091bed8 <_ZN5AuJob9CreateJobENS_4TYPEE+0x7f8>
+   14091b714:	48 8d 15 0d b5 89 01 	lea    0x189b50d(%rip),%rdx        # 1421b6c28 <.rdata+0x4f08>
+   14091b71b:	89 c9                	mov    %ecx,%ecx
+   14091b71d:	48 63 04 8a          	movslq (%rdx,%rcx,4),%rax
+   14091b721:	48 01 d0             	add    %rdx,%rax
+   14091b724:	ff e0                	jmp    *%rax
+   14091b726:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14091b72d:	00 00 00
+   14091b730:	b9 68 00 00 00       	mov    $0x68,%ecx
+   14091b735:	e8 5e 88 e3 00       	call   141753f98 <_Znwy>
+   14091b73a:	48 8d 15 cf 1c b4 01 	lea    0x1b41ccf(%rip),%rdx        # 14245d410 <_ZTV22AuJobTransferPrisoners+0x10>
+   14091b741:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b748:	00
+   14091b749:	48 89 10             	mov    %rdx,(%rax)
+   14091b74c:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b753:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091b75a:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091b75e:	c7 40 40 00 00 00 00 	movl   $0x0,0x40(%rax)
+   14091b765:	c7 40 58 00 00 00 00 	movl   $0x0,0x58(%rax)
+   14091b76c:	48 89 58 60          	mov    %rbx,0x60(%rax)
+   14091b770:	48 c7 40 38 00 00 00 	movq   $0x0,0x38(%rax)
+   14091b777:	00
+   14091b778:	0f 11 70 18          	movups %xmm6,0x18(%rax)
+   14091b77c:	0f 11 70 48          	movups %xmm6,0x48(%rax)
+   14091b780:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   14091b785:	0f 28 7c 24 30       	movaps 0x30(%rsp),%xmm7
+   14091b78a:	48 83 c4 40          	add    $0x40,%rsp
+   14091b78e:	5b                   	pop    %rbx
+   14091b78f:	c3                   	ret
+   14091b790:	b9 30 00 00 00       	mov    $0x30,%ecx
+   14091b795:	e8 fe 87 e3 00       	call   141753f98 <_Znwy>
+   14091b79a:	48 8d 15 7f 96 aa 01 	lea    0x1aa967f(%rip),%rdx        # 1423c4e20 <_ZTV10AuJobStory+0x10>
+   14091b7a1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b7a8:	00
+   14091b7a9:	48 89 10             	mov    %rdx,(%rax)
+   14091b7ac:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b7b0:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091b7b7:	0f 11 70 10          	movups %xmm6,0x10(%rax)
+   14091b7bb:	eb c3                	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b7bd:	0f 1f 00             	nopl   (%rax)
+   14091b7c0:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091b7c5:	e8 ce 87 e3 00       	call   141753f98 <_Znwy>
+   14091b7ca:	48 8d 15 bf 72 b5 01 	lea    0x1b572bf(%rip),%rdx        # 142472a90 <_ZTV29AuJobPickUpPassengersStranded+0x10>
+   14091b7d1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b7d8:	00
+   14091b7d9:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b7e0:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091b7e4:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b7e8:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091b7ef:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091b7f6:	48 89 10             	mov    %rdx,(%rax)
+   14091b7f9:	0f 11 70 38          	movups %xmm6,0x38(%rax)
+   14091b7fd:	eb 81                	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b7ff:	90                   	nop
+   14091b800:	b9 50 00 00 00       	mov    $0x50,%ecx
+   14091b805:	e8 8e 87 e3 00       	call   141753f98 <_Znwy>
+   14091b80a:	48 8d 15 ef bf b5 01 	lea    0x1b5bfef(%rip),%rdx        # 142477800 <_ZTV34AuJobPickUpPassengersOverpopulated+0x10>
+   14091b811:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b818:	00
+   14091b819:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b820:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091b824:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b828:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091b82f:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091b836:	48 89 10             	mov    %rdx,(%rax)
+   14091b839:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%rax)
+   14091b840:	0f 11 70 38          	movups %xmm6,0x38(%rax)
+   14091b844:	e9 37 ff ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b849:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14091b850:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091b855:	e8 3e 87 e3 00       	call   141753f98 <_Znwy>
+   14091b85a:	48 8d 15 ef 70 b5 01 	lea    0x1b570ef(%rip),%rdx        # 142472950 <_ZTV29AuJobPickUpPassengersHomeless+0x10>
+   14091b861:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b868:	00
+   14091b869:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b870:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091b874:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b878:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091b87f:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091b886:	48 89 10             	mov    %rdx,(%rax)
+   14091b889:	0f 11 70 38          	movups %xmm6,0x38(%rax)
+   14091b88d:	e9 ee fe ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b892:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   14091b898:	b9 28 00 00 00       	mov    $0x28,%ecx
+   14091b89d:	e8 f6 86 e3 00       	call   141753f98 <_Znwy>
+   14091b8a2:	48 8d 15 77 26 b3 01 	lea    0x1b32677(%rip),%rdx        # 14244df20 <_ZTV20AuJobInterdictSystem+0x10>
+   14091b8a9:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b8b0:	00
+   14091b8b1:	48 89 10             	mov    %rdx,(%rax)
+   14091b8b4:	48 89 58 10          	mov    %rbx,0x10(%rax)
+   14091b8b8:	48 89 58 20          	mov    %rbx,0x20(%rax)
+   14091b8bc:	48 c7 40 18 00 00 00 	movq   $0x0,0x18(%rax)
+   14091b8c3:	00
+   14091b8c4:	e9 b7 fe ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b8c9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   14091b8d0:	b9 38 00 00 00       	mov    $0x38,%ecx
+   14091b8d5:	e8 be 86 e3 00       	call   141753f98 <_Znwy>
+   14091b8da:	48 8d 15 df c8 b4 01 	lea    0x1b4c8df(%rip),%rdx        # 1424681c0 <_ZTV24AuJobDestroyEnemyStation+0x10>
+   14091b8e1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b8e8:	00
+   14091b8e9:	48 89 10             	mov    %rdx,(%rax)
+   14091b8ec:	48 89 58 10          	mov    %rbx,0x10(%rax)
+   14091b8f0:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+   14091b8f7:	48 89 58 20          	mov    %rbx,0x20(%rax)
+   14091b8fb:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091b902:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091b906:	e9 75 fe ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b90b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14091b910:	b9 40 00 00 00       	mov    $0x40,%ecx
+   14091b915:	e8 7e 86 e3 00       	call   141753f98 <_Znwy>
+   14091b91a:	48 8d 15 ef 6e b5 01 	lea    0x1b56eef(%rip),%rdx        # 142472810 <_ZTV29AuJobDeliverPassengersWorkers+0x10>
+   14091b921:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b928:	00
+   14091b929:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b930:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091b934:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b938:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091b93f:	48 89 58 38          	mov    %rbx,0x38(%rax)
+   14091b943:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+   14091b94a:	00
+   14091b94b:	48 89 10             	mov    %rdx,(%rax)
+   14091b94e:	e9 2d fe ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b953:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14091b958:	b9 40 00 00 00       	mov    $0x40,%ecx
+   14091b95d:	e8 36 86 e3 00       	call   141753f98 <_Znwy>
+   14091b962:	48 8d 15 d7 91 b5 01 	lea    0x1b591d7(%rip),%rdx        # 142474b40 <_ZTV30AuJobDeliverPassengersDeserted+0x10>
+   14091b969:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b970:	00
+   14091b971:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b978:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091b97c:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b980:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091b987:	48 89 58 38          	mov    %rbx,0x38(%rax)
+   14091b98b:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+   14091b992:	00
+   14091b993:	48 89 10             	mov    %rdx,(%rax)
+   14091b996:	e9 e5 fd ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b99b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14091b9a0:	b9 40 00 00 00       	mov    $0x40,%ecx
+   14091b9a5:	e8 ee 85 e3 00       	call   141753f98 <_Znwy>
+   14091b9aa:	48 8d 15 1f a7 b5 01 	lea    0x1b5a71f(%rip),%rdx        # 1424760d0 <_ZTV31AuJobDeliverPassengersColonists+0x10>
+   14091b9b1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091b9b8:	00
+   14091b9b9:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091b9c0:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091b9c4:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091b9c8:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091b9cf:	48 89 58 38          	mov    %rbx,0x38(%rax)
+   14091b9d3:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+   14091b9da:	00
+   14091b9db:	48 89 10             	mov    %rdx,(%rax)
+   14091b9de:	e9 9d fd ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091b9e3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14091b9e8:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091b9ed:	e8 a6 85 e3 00       	call   141753f98 <_Znwy>
+   14091b9f2:	48 8d 15 87 c6 b4 01 	lea    0x1b4c687(%rip),%rdx        # 142468080 <_ZTV24AuJobDeliverFoodStarving+0x10>
+   14091b9f9:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091ba00:	00
+   14091ba01:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091ba08:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091ba0c:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091ba10:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091ba17:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091ba1b:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+   14091ba22:	00
+   14091ba23:	c6 40 28 01          	movb   $0x1,0x28(%rax)
+   14091ba27:	c7 40 2c 00 00 00 00 	movl   $0x0,0x2c(%rax)
+   14091ba2e:	48 89 10             	mov    %rdx,(%rax)
+   14091ba31:	e9 4a fd ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091ba36:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14091ba3d:	00 00 00
+   14091ba40:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091ba45:	e8 4e 85 e3 00       	call   141753f98 <_Znwy>
+   14091ba4a:	48 8d 15 3f 17 b4 01 	lea    0x1b4173f(%rip),%rdx        # 14245d190 <_ZTV22AuJobDeliverFoodHungry+0x10>
+   14091ba51:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091ba58:	00
+   14091ba59:	c7 40 10 00 00 00 00 	movl   $0x0,0x10(%rax)
+   14091ba60:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091ba64:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091ba68:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091ba6f:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091ba73:	48 c7 40 20 00 00 00 	movq   $0x0,0x20(%rax)
+   14091ba7a:	00
+   14091ba7b:	c6 40 28 01          	movb   $0x1,0x28(%rax)
+   14091ba7f:	c7 40 2c 00 00 00 00 	movl   $0x0,0x2c(%rax)
+   14091ba86:	48 89 10             	mov    %rdx,(%rax)
+   14091ba89:	e9 f2 fc ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091ba8e:	66 90                	xchg   %ax,%ax
+   14091ba90:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091ba95:	e8 fe 84 e3 00       	call   141753f98 <_Znwy>
+   14091ba9a:	48 8d 15 bf 53 b5 01 	lea    0x1b553bf(%rip),%rdx        # 142470e60 <_ZTV28AuJobDeliverCargoSuffocating+0x10>
+   14091baa1:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091baa5:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091baa9:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bab0:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bab4:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091babb:	00
+   14091babc:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bac3:	00
+   14091bac4:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bacb:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bacf:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bad6:	48 89 10             	mov    %rdx,(%rax)
+   14091bad9:	e9 a2 fc ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bade:	66 90                	xchg   %ax,%ax
+   14091bae0:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bae5:	e8 ae 84 e3 00       	call   141753f98 <_Znwy>
+   14091baea:	48 8d 15 cf bb b5 01 	lea    0x1b5bbcf(%rip),%rdx        # 1424776c0 <_ZTV34AuJobDeliverCargoSpacecraftFactory+0x10>
+   14091baf1:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091baf5:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091baf9:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bb00:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bb04:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bb0b:	00
+   14091bb0c:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bb13:	00
+   14091bb14:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bb1b:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bb1f:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bb26:	48 89 10             	mov    %rdx,(%rax)
+   14091bb29:	e9 52 fc ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bb2e:	66 90                	xchg   %ax,%ax
+   14091bb30:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bb35:	e8 5e 84 e3 00       	call   141753f98 <_Znwy>
+   14091bb3a:	48 8d 15 3f a4 b3 01 	lea    0x1b3a43f(%rip),%rdx        # 142455f80 <_ZTV21AuJobDeliverCargoRats+0x10>
+   14091bb41:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bb45:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091bb49:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bb50:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bb54:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bb5b:	00
+   14091bb5c:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bb63:	00
+   14091bb64:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bb6b:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bb6f:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bb76:	48 89 10             	mov    %rdx,(%rax)
+   14091bb79:	e9 02 fc ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bb7e:	66 90                	xchg   %ax,%ax
+   14091bb80:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bb85:	e8 0e 84 e3 00       	call   141753f98 <_Znwy>
+   14091bb8a:	48 8d 15 cf 90 b4 01 	lea    0x1b490cf(%rip),%rdx        # 142464c60 <_ZTV23AuJobDeliverCargoPoison+0x10>
+   14091bb91:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bb95:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091bb99:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bba0:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bba4:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bbab:	00
+   14091bbac:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bbb3:	00
+   14091bbb4:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bbbb:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bbbf:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bbc6:	48 89 10             	mov    %rdx,(%rax)
+   14091bbc9:	e9 b2 fb ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bbce:	66 90                	xchg   %ax,%ax
+   14091bbd0:	b9 50 00 00 00       	mov    $0x50,%ecx
+   14091bbd5:	e8 be 83 e3 00       	call   141753f98 <_Znwy>
+   14091bbda:	48 8d 15 3f 51 b5 01 	lea    0x1b5513f(%rip),%rdx        # 142470d20 <_ZTV28AuJobDeliverCargoManufacture+0x10>
+   14091bbe1:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bbe5:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091bbe9:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bbf0:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bbf4:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bbfb:	00
+   14091bbfc:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bc03:	00
+   14091bc04:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bc0b:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bc0f:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bc16:	48 89 10             	mov    %rdx,(%rax)
+   14091bc19:	c7 40 48 00 00 00 00 	movl   $0x0,0x48(%rax)
+   14091bc20:	e9 5b fb ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bc25:	0f 1f 00             	nopl   (%rax)
+   14091bc28:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bc2d:	e8 66 83 e3 00       	call   141753f98 <_Znwy>
+   14091bc32:	48 8d 15 07 c3 b4 01 	lea    0x1b4c307(%rip),%rdx        # 142467f40 <_ZTV24AuJobDeliverCargoGasping+0x10>
+   14091bc39:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bc3d:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091bc41:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bc48:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bc4c:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bc53:	00
+   14091bc54:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bc5b:	00
+   14091bc5c:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bc63:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bc67:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bc6e:	48 89 10             	mov    %rdx,(%rax)
+   14091bc71:	e9 0a fb ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bc76:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   14091bc7d:	00 00 00
+   14091bc80:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bc85:	e8 0e 83 e3 00       	call   141753f98 <_Znwy>
+   14091bc8a:	48 8d 15 6f c1 b4 01 	lea    0x1b4c16f(%rip),%rdx        # 142467e00 <_ZTV24AuJobDeliverCargoDisease+0x10>
+   14091bc91:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bc95:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091bc99:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bca0:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bca4:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bcab:	00
+   14091bcac:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bcb3:	00
+   14091bcb4:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bcbb:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bcbf:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bcc6:	48 89 10             	mov    %rdx,(%rax)
+   14091bcc9:	e9 b2 fa ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bcce:	66 90                	xchg   %ax,%ax
+   14091bcd0:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bcd5:	e8 be 82 e3 00       	call   141753f98 <_Znwy>
+   14091bcda:	48 8d 15 ef 69 b5 01 	lea    0x1b569ef(%rip),%rdx        # 1424726d0 <_ZTV29AuJobDeliverCargoConstruction+0x10>
+   14091bce1:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bce5:	48 89 58 30          	mov    %rbx,0x30(%rax)
+   14091bce9:	c7 40 38 00 00 00 00 	movl   $0x0,0x38(%rax)
+   14091bcf0:	48 89 58 40          	mov    %rbx,0x40(%rax)
+   14091bcf4:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bcfb:	00
+   14091bcfc:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bd03:	00
+   14091bd04:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bd0b:	c6 40 24 01          	movb   $0x1,0x24(%rax)
+   14091bd0f:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091bd16:	48 89 10             	mov    %rdx,(%rax)
+   14091bd19:	e9 62 fa ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bd1e:	66 90                	xchg   %ax,%ax
+   14091bd20:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bd25:	e8 6e 82 e3 00       	call   141753f98 <_Znwy>
+   14091bd2a:	48 8d 15 8f bf b4 01 	lea    0x1b4bf8f(%rip),%rdx        # 142467cc0 <_ZTV24AuJobCommandShipOnGround+0x10>
+   14091bd31:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bd38:	00
+   14091bd39:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bd40:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091bd44:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091bd4b:	48 89 10             	mov    %rdx,(%rax)
+   14091bd4e:	0f 11 70 10          	movups %xmm6,0x10(%rax)
+   14091bd52:	0f 11 70 38          	movups %xmm6,0x38(%rax)
+   14091bd56:	e9 25 fa ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bd5b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14091bd60:	b9 48 00 00 00       	mov    $0x48,%ecx
+   14091bd65:	e8 2e 82 e3 00       	call   141753f98 <_Znwy>
+   14091bd6a:	48 8d 15 af 8d b4 01 	lea    0x1b48daf(%rip),%rdx        # 142464b20 <_ZTV23AuJobCommandShipInOrbit+0x10>
+   14091bd71:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bd78:	00
+   14091bd79:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bd80:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091bd84:	c7 40 30 00 00 00 00 	movl   $0x0,0x30(%rax)
+   14091bd8b:	48 89 10             	mov    %rdx,(%rax)
+   14091bd8e:	0f 11 70 10          	movups %xmm6,0x10(%rax)
+   14091bd92:	0f 11 70 38          	movups %xmm6,0x38(%rax)
+   14091bd96:	e9 e5 f9 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bd9b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   14091bda0:	b9 38 00 00 00       	mov    $0x38,%ecx
+   14091bda5:	e8 ee 81 e3 00       	call   141753f98 <_Znwy>
+   14091bdaa:	48 8d 15 cf bd b4 01 	lea    0x1b4bdcf(%rip),%rdx        # 142467b80 <_ZTV24AuJobBountyHunterVehicle+0x10>
+   14091bdb1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bdb8:	00
+   14091bdb9:	48 89 58 10          	mov    %rbx,0x10(%rax)
+   14091bdbd:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+   14091bdc4:	48 c7 40 30 00 00 00 	movq   $0x0,0x30(%rax)
+   14091bdcb:	00
+   14091bdcc:	48 89 10             	mov    %rdx,(%rax)
+   14091bdcf:	0f 11 78 20          	movups %xmm7,0x20(%rax)
+   14091bdd3:	e9 a8 f9 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bdd8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14091bddf:	00
+   14091bde0:	b9 38 00 00 00       	mov    $0x38,%ecx
+   14091bde5:	e8 ae 81 e3 00       	call   141753f98 <_Znwy>
+   14091bdea:	48 8d 15 4f a0 b3 01 	lea    0x1b3a04f(%rip),%rdx        # 142455e40 <_ZTV21AuJobBountyHunterShip+0x10>
+   14091bdf1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091bdf8:	00
+   14091bdf9:	48 89 58 10          	mov    %rbx,0x10(%rax)
+   14091bdfd:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+   14091be04:	48 c7 40 30 00 00 00 	movq   $0x0,0x30(%rax)
+   14091be0b:	00
+   14091be0c:	48 89 10             	mov    %rdx,(%rax)
+   14091be0f:	0f 11 78 20          	movups %xmm7,0x20(%rax)
+   14091be13:	e9 68 f9 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091be18:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14091be1f:	00
+   14091be20:	b9 38 00 00 00       	mov    $0x38,%ecx
+   14091be25:	e8 6e 81 e3 00       	call   141753f98 <_Znwy>
+   14091be2a:	48 8d 15 af 8b b4 01 	lea    0x1b48baf(%rip),%rdx        # 1424649e0 <_ZTV23AuJobBountyHunterPerson+0x10>
+   14091be31:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091be38:	00
+   14091be39:	48 89 58 10          	mov    %rbx,0x10(%rax)
+   14091be3d:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+   14091be44:	48 c7 40 30 00 00 00 	movq   $0x0,0x30(%rax)
+   14091be4b:	00
+   14091be4c:	48 89 10             	mov    %rdx,(%rax)
+   14091be4f:	0f 11 78 20          	movups %xmm7,0x20(%rax)
+   14091be53:	e9 28 f9 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091be58:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   14091be5f:	00
+   14091be60:	b9 30 00 00 00       	mov    $0x30,%ecx
+   14091be65:	e8 2e 81 e3 00       	call   141753f98 <_Znwy>
+   14091be6a:	48 8d 15 6f 20 ad 01 	lea    0x1ad206f(%rip),%rdx        # 1423edee0 <_ZTV13AuJobAssassin+0x10>
+   14091be71:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091be78:	00
+   14091be79:	48 89 10             	mov    %rdx,(%rax)
+   14091be7c:	48 89 58 10          	mov    %rbx,0x10(%rax)
+   14091be80:	c7 40 18 00 00 00 00 	movl   $0x0,0x18(%rax)
+   14091be87:	48 89 58 20          	mov    %rbx,0x20(%rax)
+   14091be8b:	c7 40 28 00 00 00 00 	movl   $0x0,0x28(%rax)
+   14091be92:	e9 e9 f8 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091be97:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   14091be9e:	00 00
+   14091bea0:	b9 30 00 00 00       	mov    $0x30,%ecx
+   14091bea5:	e8 ee 80 e3 00       	call   141753f98 <_Znwy>
+   14091beaa:	48 8d 15 0f 2f b0 01 	lea    0x1b02f0f(%rip),%rdx        # 14241edc0 <_ZTV16AuJobVisitSystem+0x10>
+   14091beb1:	48 c7 40 08 00 00 00 	movq   $0x0,0x8(%rax)
+   14091beb8:	00
+   14091beb9:	48 89 10             	mov    %rdx,(%rax)
+   14091bebc:	48 89 58 18          	mov    %rbx,0x18(%rax)
+   14091bec0:	c7 40 20 00 00 00 00 	movl   $0x0,0x20(%rax)
+   14091bec7:	48 89 58 28          	mov    %rbx,0x28(%rax)
+   14091becb:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   14091bed2:	00
+   14091bed3:	e9 a8 f8 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bed8:	31 c0                	xor    %eax,%eax
+   14091beda:	e9 a1 f8 ff ff       	jmp    14091b780 <_ZN5AuJob9CreateJobENS_4TYPEE+0xa0>
+   14091bedf:	90                   	nop
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1423edf30 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 1423edf40 303e9040 01000000 20199040 01000000  0>.@.... ..@....
+ 1423edf50 a0699040 01000000                    .i.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142464a30 50959141 01000000 f0189040 01000000  P..A.......@....
+ 142464a40 70509040 01000000 60199040 01000000  pP.@....`..@....
+ 142464a50 80f89140 01000000                    ...@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142455e90 50959141 01000000 f0189040 01000000  P..A.......@....
+ 142455ea0 00529040 01000000 60199040 01000000  .R.@....`..@....
+ 142455eb0 80f89140 01000000                    ...@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142467bd0 50959141 01000000 f0189040 01000000  P..A.......@....
+ 142467be0 60519040 01000000 60199040 01000000  `Q.@....`..@....
+ 142467bf0 80f89140 01000000                    ...@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142464b70 603e9341 01000000 601e9040 01000000  `>.A....`..@....
+ 142464b80 c0439040 01000000 605a9040 01000000  .C.@....`Z.@....
+ 142464b90 c0749040 01000000                    .t.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142467d10 603e9341 01000000 601e9040 01000000  `>.A....`..@....
+ 142467d20 c0439040 01000000 f05a9040 01000000  .C.@.....Z.@....
+ 142467d30 60769040 01000000                    `v.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142472720 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142472730 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142472740 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142467e50 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142467e60 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142467e70 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142467f90 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142467fa0 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142467fb0 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142470d70 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142470d80 70409040 01000000 b04b9040 01000000  p@.@.....K.@....
+ 142470d90 f07a9040 01000000                    .z.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142464cb0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142464cc0 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142464cd0 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142455fd0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142455fe0 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142455ff0 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142477710 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142477720 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142477730 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142470eb0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142470ec0 70409040 01000000 101a9040 01000000  p@.@.......@....
+ 142470ed0 f0799040 01000000                    .y.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14245d1e0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 14245d1f0 f0429040 01000000 101a9040 01000000  .B.@.......@....
+ 14245d200 f0789040 01000000                    .x.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1424680d0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 1424680e0 f0429040 01000000 101a9040 01000000  .B.@.......@....
+ 1424680f0 f0789040 01000000                    .x.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142476120 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142476130 40419040 01000000 f01a9040 01000000  @A.@.......@....
+ 142476140 30739040 01000000                    0s.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142474b90 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142474ba0 40419040 01000000 f01a9040 01000000  @A.@.......@....
+ 142474bb0 30739040 01000000                    0s.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142472860 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142472870 40419040 01000000 f01a9040 01000000  @A.@.......@....
+ 142472880 30739040 01000000                    0s.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142468210 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142468220 004a9040 01000000 301c9040 01000000  .J.@....0..@....
+ 142468230 406a9040 01000000                    @j.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14244df70 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 14244df80 004a9040 01000000 a01c9040 01000000  .J.@.......@....
+ 14244df90 00699040 01000000                    .i.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1424729a0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 1424729b0 00429040 01000000 801b9040 01000000  .B.@.......@....
+ 1424729c0 60729040 01000000                    `r.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142477850 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142477860 00429040 01000000 f0509040 01000000  .B.@.....P.@....
+ 142477870 90759040 01000000                    .u.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 142472ae0 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 142472af0 00429040 01000000 801b9040 01000000  .B.@.......@....
+ 142472b00 60729040 01000000                    `r.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 1423c4e70 603e9341 01000000 e01c9040 01000000  `>.A.......@....
+ 1423c4e80 60409040 01000000 001d9040 01000000  `@.@.......@....
+ 1423c4e90 f06a9040 01000000                    .j.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14245d460 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 14245d470 60449040 01000000 701d9040 01000000  `D.@....p..@....
+ 14245d480 f0779040 01000000                    .w.@....
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+Contents of section .rdata:
+ 14241ee10 603e9341 01000000 f0189040 01000000  `>.A.......@....
+ 14241ee20 b03e9040 01000000 201e9040 01000000  .>.@.... ..@....
+ 14241ee30 a06b9040 01000000                    .k.@....

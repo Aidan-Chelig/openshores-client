@@ -234,3 +234,11 @@ actual scalar/order/skill/content codecs, repeated sparse updates, truncation
 and required-effect failures in all profiles. The model context remains
 trace-only in these tests: native construction/base dispatch/runtime effects
 and actual avatar presentation are not proven or complete. See native-person-body.md.
+
+Person job milestone: all27 native job factory/vptr/reader/obsolete bindings are
+verified against immutable bytes. Assassin0/InterdictSystem20/Story24 and empty
+lists now decode in Person suffix order; source Story31 is not reused. Valid
+Qt7 UTC timestamps are supported, other time semantics/remaining bodies fail
+explicitly. Null factories return native stop diagnostics without opaque skip.
+Real job/Person fixtures and the static binding verifier cover this scope, not
+the still-incomplete construction/context/dispatch/avatar-presentation goal.

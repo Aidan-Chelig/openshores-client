@@ -77,6 +77,11 @@ see native-person-gear.md. Commodity2 replacement, remaining item types and
 Person's required weight recomputation remain explicitly unsupported/unfinished.
 Null slots are diagnosed and skipped without truncating the counted loop.
 
+NativeJobList now composes Assassin0, InterdictSystem20 and Story24 with valid
+Qt7 UTC timestamps. All27 factory/reader/obsolete bindings are verified; other
+body/time profiles remain explicit Unsupported. Null factory stops propagate
+as nested diagnostics, not guessed skipping. See native-person-jobs.md.
+
 ## Implemented Person dependencies
 
 `world::native_person` now contains NativeDomain, NativeGlobeLlf and

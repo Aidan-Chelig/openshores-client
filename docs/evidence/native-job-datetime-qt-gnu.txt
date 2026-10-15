@@ -1,0 +1,141 @@
+Qt5Core.dll SHA-256: 3aad8885b1c7b2c0c5e2016095c8c51c3089c17a70269bc332cfe2c483b65ccc
+Bounded static QDateTime stream-reader entry/version7 branch, not whole function or runtime evidence.
+
+reference/openshores-full/Qt5Core.dll:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000003955481c0 <.text+0xf71c0>:
+   3955481c0:	41 57                	push   %r15
+   3955481c2:	41 56                	push   %r14
+   3955481c4:	41 55                	push   %r13
+   3955481c6:	41 54                	push   %r12
+   3955481c8:	53                   	push   %rbx
+   3955481c9:	48 81 ec a0 00 00 00 	sub    $0xa0,%rsp
+   3955481d0:	48 b8 00 00 00 00 00 	movabs $0x8000000000000000,%rax
+   3955481d7:	00 00 80
+   3955481da:	4c 8d 6c 24 48       	lea    0x48(%rsp),%r13
+   3955481df:	49 89 cc             	mov    %rcx,%r12
+   3955481e2:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   3955481e7:	48 89 d3             	mov    %rdx,%rbx
+   3955481ea:	4c 89 e9             	mov    %r13,%rcx
+   3955481ed:	c7 44 24 38 ff ff ff 	movl   $0xffffffff,0x38(%rsp)
+   3955481f4:	ff
+   3955481f5:	c6 44 24 37 00       	movb   $0x0,0x37(%rsp)
+   3955481fa:	c7 44 24 3c 00 00 00 	movl   $0x0,0x3c(%rsp)
+   395548201:	00
+   395548202:	e8 e9 9f 00 00       	call   0x3955521f0
+   395548207:	41 8b 44 24 18       	mov    0x18(%r12),%eax
+   39554820c:	83 f8 0e             	cmp    $0xe,%eax
+   39554820f:	0f 8f cb 01 00 00    	jg     0x3955483e0
+   395548215:	83 f8 0d             	cmp    $0xd,%eax
+   395548218:	0f 84 12 03 00 00    	je     0x395548530
+   39554821e:	4c 8d b4 24 98 00 00 	lea    0x98(%rsp),%r14
+   395548225:	00
+   395548226:	4c 89 e1             	mov    %r12,%rcx
+   395548229:	4c 89 f2             	mov    %r14,%rdx
+   39554822c:	83 f8 06             	cmp    $0x6,%eax
+   39554822f:	0f 8f ab 00 00 00    	jg     0x3955482e0
+   395548235:	e8 26 d1 16 00       	call   0x3956b5360
+   39554823a:	8b 84 24 98 00 00 00 	mov    0x98(%rsp),%eax
+   395548241:	4c 89 e1             	mov    %r12,%rcx
+   395548244:	48 ba 00 00 00 00 00 	movabs $0x8000000000000000,%rdx
+   39554824b:	00 00 80
+   39554824e:	85 c0                	test   %eax,%eax
+   395548250:	48 0f 44 c2          	cmove  %rdx,%rax
+   395548254:	4c 89 f2             	mov    %r14,%rdx
+   395548257:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   39554825c:	e8 ff d0 16 00       	call   0x3956b5360
+   395548261:	41 83 7c 24 18 06    	cmpl   $0x6,0x18(%r12)
+   395548267:	8b 84 24 98 00 00 00 	mov    0x98(%rsp),%eax
+   39554826e:	7f 0a                	jg     0x39554827a
+   395548270:	85 c0                	test   %eax,%eax
+   395548272:	ba ff ff ff ff       	mov    $0xffffffff,%edx
+   395548277:	0f 44 c2             	cmove  %edx,%eax
+   39554827a:	89 44 24 38          	mov    %eax,0x38(%rsp)
+   39554827e:	8b 44 24 3c          	mov    0x3c(%rsp),%eax
+   395548282:	48 8d 54 24 40       	lea    0x40(%rsp),%rdx
+   395548287:	45 31 c9             	xor    %r9d,%r9d
+   39554828a:	48 8d 8c 24 80 00 00 	lea    0x80(%rsp),%rcx
+   395548291:	00
+   395548292:	4c 8d 44 24 38       	lea    0x38(%rsp),%r8
+   395548297:	89 44 24 20          	mov    %eax,0x20(%rsp)
+   39554829b:	e8 c0 93 ff ff       	call   0x395541660
+   3955482a0:	48 8b 03             	mov    (%rbx),%rax
+   3955482a3:	48 8b 94 24 80 00 00 	mov    0x80(%rsp),%rdx
+   3955482aa:	00
+   3955482ab:	48 89 84 24 80 00 00 	mov    %rax,0x80(%rsp)
+   3955482b2:	00
+   3955482b3:	48 89 13             	mov    %rdx,(%rbx)
+   3955482b6:	a8 01                	test   $0x1,%al
+   3955482b8:	0f 84 a2 03 00 00    	je     0x395548660
+   3955482be:	4c 89 e9             	mov    %r13,%rcx
+   3955482c1:	e8 ea 9f 00 00       	call   0x3955522b0
+   3955482c6:	4c 89 e0             	mov    %r12,%rax
+   3955482c9:	48 81 c4 a0 00 00 00 	add    $0xa0,%rsp
+   3955482d0:	5b                   	pop    %rbx
+   3955482d1:	41 5c                	pop    %r12
+   3955482d3:	41 5d                	pop    %r13
+   3955482d5:	41 5e                	pop    %r14
+   3955482d7:	41 5f                	pop    %r15
+   3955482d9:	c3                   	ret
+   3955482da:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   3955482e0:	83 f8 0c             	cmp    $0xc,%eax
+   3955482e3:	0f 8e c7 00 00 00    	jle    0x3955483b0
+   3955482e9:	e8 02 d1 16 00       	call   0x3956b53f0
+   3955482ee:	48 8b 84 24 98 00 00 	mov    0x98(%rsp),%rax
+   3955482f5:	00
+   3955482f6:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   3955482fb:	4c 89 f2             	mov    %r14,%rdx
+   3955482fe:	4c 89 e1             	mov    %r12,%rcx
+   395548301:	e8 5a d0 16 00       	call   0x3956b5360
+   395548306:	41 83 7c 24 18 06    	cmpl   $0x6,0x18(%r12)
+   39554830c:	8b 84 24 98 00 00 00 	mov    0x98(%rsp),%eax
+   395548313:	7f 0a                	jg     0x39554831f
+   395548315:	85 c0                	test   %eax,%eax
+   395548317:	ba ff ff ff ff       	mov    $0xffffffff,%edx
+   39554831c:	0f 44 c2             	cmove  %edx,%eax
+   39554831f:	48 8d 54 24 37       	lea    0x37(%rsp),%rdx
+   395548324:	4c 89 e1             	mov    %r12,%rcx
+   395548327:	89 44 24 38          	mov    %eax,0x38(%rsp)
+   39554832b:	e8 20 cf 16 00       	call   0x3956b5250
+   395548330:	44 0f be 4c 24 37    	movsbl 0x37(%rsp),%r9d
+   395548336:	48 8d 4c 24 78       	lea    0x78(%rsp),%rcx
+   39554833b:	48 8d 54 24 40       	lea    0x40(%rsp),%rdx
+   395548340:	4c 8d 44 24 38       	lea    0x38(%rsp),%r8
+   395548345:	41 8d 41 fe          	lea    -0x2(%r9),%eax
+   395548349:	41 83 e9 01          	sub    $0x1,%r9d
+   39554834d:	3c 03                	cmp    $0x3,%al
+   39554834f:	b8 00 00 00 00       	mov    $0x0,%eax
+   395548354:	44 0f 43 c8          	cmovae %eax,%r9d
+   395548358:	8b 44 24 3c          	mov    0x3c(%rsp),%eax
+   39554835c:	89 44 24 20          	mov    %eax,0x20(%rsp)
+   395548360:	e8 fb 92 ff ff       	call   0x395541660
+   395548365:	48 8b 03             	mov    (%rbx),%rax
+   395548368:	48 8b 54 24 78       	mov    0x78(%rsp),%rdx
+   39554836d:	48 89 44 24 78       	mov    %rax,0x78(%rsp)
+   395548372:	48 89 13             	mov    %rdx,(%rbx)
+   395548375:	a8 01                	test   $0x1,%al
+   395548377:	0f 85 41 ff ff ff    	jne    0x3955482be
+   39554837d:	f0 83 28 01          	lock subl $0x1,(%rax)
+   395548381:	0f 85 37 ff ff ff    	jne    0x3955482be
+   395548387:	4c 8b 74 24 78       	mov    0x78(%rsp),%r14
+   39554838c:	4d 85 f6             	test   %r14,%r14
+   39554838f:	0f 84 29 ff ff ff    	je     0x3955482be
+   395548395:	49 8d 4e 18          	lea    0x18(%r14),%rcx
+   395548399:	e8 12 9f 00 00       	call   0x3955522b0
+   39554839e:	ba 20 00 00 00       	mov    $0x20,%edx
+   3955483a3:	4c 89 f1             	mov    %r14,%rcx
+   3955483a6:	e8 15 bc 1d 00       	call   0x395723fc0
+   3955483ab:	e9 0e ff ff ff       	jmp    0x3955482be
+   3955483b0:	e8 ab cf 16 00       	call   0x3956b5360
+   3955483b5:	8b 84 24 98 00 00 00 	mov    0x98(%rsp),%eax
+   3955483bc:	48 ba 00 00 00 00 00 	movabs $0x8000000000000000,%rdx
+   3955483c3:	00 00 80
+   3955483c6:	85 c0                	test   %eax,%eax
+   3955483c8:	48 0f 44 c2          	cmove  %rdx,%rax
+   3955483cc:	48 89 44 24 40       	mov    %rax,0x40(%rsp)
+   3955483d1:	e9 25 ff ff ff       	jmp    0x3955482fb
+   3955483d6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   3955483dd:	00 00 00

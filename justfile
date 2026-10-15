@@ -57,6 +57,10 @@ interop: build
 test-native-models: build
     nix develop .#server-test --command python tests/reference_native_models.py
 
+# Native job factory/vptr bindings and Qt7 datetime anchors; no target execution.
+test-native-jobs:
+    nix develop .#server-test --command python tests/native_jobs.py
+
 # Packed position fixtures and static patched-client anchors; no target execution.
 test-native-transforms: build
     nix develop .#server-test --command python tests/native_atom_positions.py

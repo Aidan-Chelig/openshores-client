@@ -259,7 +259,7 @@ fn every_truncated_supported_suffix_fails_without_claiming_success() {
 #[test]
 fn unsupported_readers_stop_in_order_and_keep_completed_prior_state() {
     // Jobs stop after domain, before the extended scalars/state bits.
-    let bytes = [0x80, 0xcd, 0, 0xaa, 0xbb];
+    let bytes = [0x80, 0xcd, 0, 0, 1, 1, 0xaa, 0xbb];
     let mut input = QtReader::new(&bytes);
     let mut state = NativePersonSuffixState::with_prior_fields(0, 0x8000);
     assert_eq!(
