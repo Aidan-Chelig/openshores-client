@@ -77,3 +77,28 @@ capacity beyond the native signed-int range are explicit unsupported cases.
 Still required: complete instance CopyInstance/state inheritance, head face,
 material/group update stages, torso's different vertex/remap path, and final
 cache/model publication. No complete merge or runtime parity is claimed.
+
+## Stored faces and head appended-face fields
+
+The warm session additionally retained `native-body-load-face-list.json`
+(1413a3e00, 0.134s) and `native-body-copy-instance.json` (1417ad9f0,
+0.237s). CopyInstance is retained for subsequent state-lifecycle work; it is
+not implemented by copying only a Rust vertex vector.
+
+`NativeBodyLoadedFace::from_serialized` models assigned native face fields
+separately from the serialized `Face`. The first nine N/NT floats widen into
+native50..90, NT's next nine widen into08..48, and its final float sets98;
+otherwise arrays/default98 are zero/one. The trailing9c..a4 words initialize
+to zero. Mismatched raw extension/variant combinations are errors.
+
+`NativeHeadVertexMapping::head_appended_faces` implements the appended-face
+field construction at retained head lines530..676: mapped source indices
+narrow to u16, flags06 and08..48 become zero, fields50..90 are copied,98=1,
+and9c..a4=0. Degenerate mapped triangles are retained, not culled. Tests cover
+raw-to-loaded N/NT/default storage, metadata resets, missing mappings, native
+u16 narrowing, and actual connection-vertex maps feeding the face stage.
+
+This stage does not perform the conditional connection-normal hash table,
+face-material mapping, smoothing updates or later face/group removal/rewrite.
+These remain required parts of full head merging; the returned faces alone
+must not be treated as completed instance publication.

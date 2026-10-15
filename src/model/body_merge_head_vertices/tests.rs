@@ -54,6 +54,19 @@ fn head_connection_vertices_append_at_inclusive_boundary_and_keep_first_mapping(
     assert_eq!(result.existing_to_appended[&0], 1);
     assert_eq!(result.appended_to_connection[&1], 0);
     assert_eq!(result.appended_to_connection[&2], 0);
+    let face = crate::model::NativeBodyLoadedFace::from_serialized(
+        &crate::model::Face {
+            vertices: [0, 1, 0],
+            flags: 7,
+            extension: Some([0.5; 9]),
+            nt_extension: None,
+        },
+        crate::model::ModelVariant::N,
+    )
+    .unwrap();
+    let faces = result.head_appended_faces(&[face]).unwrap();
+    assert_eq!(faces[0].vertices, [1, 2, 1]);
+    assert_eq!(faces[0].fields_50, [0.5; 9]);
     assert!(destination.vertices.iter().all(|v| v.position == [0.; 3]));
     assert_eq!(
         source.groups.retained_groups()[0]
