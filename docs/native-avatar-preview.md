@@ -1,6 +1,7 @@
 # Native avatar geometry presentation boundary
 
 Texture milestone and evidence: [native avatar textures](native-avatar-textures.md).
+Next goal: [complete assembled avatar preview](assembled-avatar-goal.md).
 
 `NativeAvatarPresentation::from_dispatched` still publishes only verified
 received state and leaves model-space geometry absent. It does not infer DNA,
