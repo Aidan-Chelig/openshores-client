@@ -277,3 +277,26 @@ matching legitimately change when these fields are populated. The17-resource
 body fixture still produces3,410 finite weight payloads. SetMappingCoords also
 writes flag3a8 and builds an auxiliary multimap; those effects are not represented
 by this payload-only reconstruction and remain outside complete loader parity.
+
+## Normal torso face/corner stages
+
+Retained torso lines635..894 establish that the normal/non-crest branch builds
+the same fresh face fields as head and, with param3=false, the same N/NT
+first-inserted connection corner values and sticky incomplete-connection result.
+Its all-destination-face corner application also uses the same stored vertex
+hash identity. `NativeTorsoVertexMapping` now exposes torso-named appended-face,
+corner collection and application operations using the actual torso primary and
+secondary maps. An internal schema adapter reuses the verified arithmetic;
+it does not replace torso vertex mapping with head's different remap semantics.
+Tests cover actual torso tables feeding fresh faces and old/new corner writes,
+metadata resets, incomplete secondary mappings and X-format bypass.
+
+Unlike head, torso does not run a face-material membership update loop after
+each appended face. These methods deliberately do not fabricate that side effect.
+They cover only the normal torso branch: crest instance/object appends take a
+different earlier branch and are not routed through this face operation.
+
+Post-face source BottomSkin/BottomConnect transformation and same-kind group-map
+transfer (torso900..1174), plus instance state/cache publication, remain required
+before composing complete torso merging. This change does not establish visible
+in-game avatars or full native runtime parity.
