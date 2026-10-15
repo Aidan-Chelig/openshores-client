@@ -19,4 +19,4 @@ pub use dp::{NativeDpHeadSkinPiece, NativeDpHeadSkinPlan};
 pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 pub use dp::{NativeDpPartSkinPlan, NativeDpSkinPlan};
 pub use dp::{NativeDpTorsoSkinPiece, NativeDpTorsoSkinPlan};
-pub use textures::NativeDpSkinAtlas;
+pub use textures::{NativeDpSkinAtlas, native_dp_skin_offsets};

@@ -4,6 +4,18 @@ use std::io::Read;
 
 pub(super) fn run(args: &[String]) -> Result<bool, Box<dyn std::error::Error>> {
     match args.first().map(String::as_str) {
+        Some("inspect-mounted-har") if (3..=4).contains(&args.len()) => {
+            let mount = openshores_client::asset_mount::AssetMount::open(&args[1])?;
+            let bytes = mount.read_resource(&args[2])?;
+            let archive = openshores_client::har::HarArchive::open_sequential(&bytes)?;
+            if let Some(name) = args.get(3) {
+                println!("{}", std::str::from_utf8(&archive.read_entry(name)?)?);
+            } else {
+                for entry in archive.entries() {
+                    println!("{}", entry.name);
+                }
+            }
+        }
         Some("inspect-mounted-model") if args.len() == 3 => {
             let mount = openshores_client::asset_mount::AssetMount::open(&args[1])?;
             let bytes = mount.read_resource(&args[2])?;

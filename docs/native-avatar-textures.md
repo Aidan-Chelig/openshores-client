@@ -74,3 +74,68 @@ interactive previews and perform visual placement checks plus GPU smoke tests.
 
 No texture pipeline, visual inspection, full material parity, or completion of
 the texture goal is claimed by this resource-selection milestone.
+
+## CPU surface-upload milestone
+
+`NativeBodyMergeGeometry::textured_baked_preview_geometry` now projects the
+already baked geometry once and publishes normal N/NT UVs from stored vertex
+payload20/24, gated by the native mapping-array presence. It rejects absent
+mapping, unsupported variants, unbaked geometry, malformed indices and nonfinite
+UVs explicitly. It retains raw weights and does not replace the untextured
+adapter. Per-vertex top/bottom values reproduce GetTextureWeight's kind7
+membership test, including zero-weight membership. Every face's matching
+material names remain retained in map order; partitioning includes an explicit
+unassigned set. The adapter does not repair native head's off-by-one membership
+or invent material colors. Synthetic tests cover head/torso merge UV remapping,
+seams, material partitions and malformed/unsupported inputs.
+
+The mounted CLI fixture now supplies verified SetupSkinMaterial atlas offsets
+to the geometry plans instead of the earlier explicit all-ones placeholders.
+Positions/counts remain unchanged. Mounted CPU checks pass with902 head UVs,
+0 bottom vertices,2 material partitions;639 torso UVs,323 bottom vertices,
+2 material partitions. These are CPU upload inputs, not GPU texture rendering.
+
+### Appearance, shader and image evidence
+
+The new `inspect-mounted-har INSTALLATION :glsl.har [ENTRY]` diagnostic reads
+the supplied pre-patch sequential HAR through the existing mount/archive
+decoders. `Body.f.glsl` and `Body.v.glsl` are present. Their contents are not
+copied into this repository. Inspection establishes that this asset shader
+uses unchanged UVs, blends bottom/top skin samples with the interpolated
+top-face value, then optionally combines clothes by wear/alpha. It discards
+fragments with alpha below0.15. Model material colors are not an independent
+skin atlas selector in that shader. Its lighting is separate and remains
+deferred. This is the supplied pre-patch shader evidence, not an observation
+of the patched executable running.
+
+`native-dp-setup-skin-material.json` plus independent full GNU disassembly
+establish normal skin offsets: top selector DNA19&7; bottom DNA3&7. Each
+selects U=(selector&3)/4 and V=0 for selectors0..3,0.75 for4..7.
+The native doubles at4120/28/30/38 are narrowed to float at4070..7c for GPU
+uniforms. `native_dp_skin_offsets` implements this subset; exhaustive tests
+cover all256x256 input bytes. This does not implement all SetupSkinMaterial
+QColor, shininess or armor fields. Fixture selectors are both zero.
+
+`native-glsl-body-build.json` binds Body.v/Body.f and resolves skin/clothes
+offset uniforms. `native-vao-create-for-body.json` publishes per-corner UVs and
+top-face controls. The retained RenderSkin query in the same analysis session
+selects the same atlas families and binds skin without clothes for owner4068=0.
+
+`native-gl-texture-create-bitmap.json` and its independent GNU disassembly
+establish bottom-to-top image row traversal and RGBA byte order. The bitmap
+effects wrapper (`native-effects-create-bitmap-image.json`) delegates the
+upload and can choose sRGB under the patched linear-lighting mode. Do not infer
+that the original renderer always used sRGB. Preview color-space and lighting
+choices must be explicit. Wrapping defaults and actual GPU decode/upload still
+need implementation/verification.
+
+`python tests/native_body_textures.py` pins the original PE digest, family
+strings, offset constants1024/4096/0.75, selector reads, kind7 control and row
+order anchors. `just test-native-textures` combines static checks, library tests,
+and the real mounted head/torso CPU-surface fixture. No target execution occurs.
+
+Next implementation: decode atlas PNGs, apply the verified row orientation,
+publish per-corner UV/top-face/material partitions while computing smoothing
+before render splits, and implement the two-sample skin blend in a preview
+material. Keep owner4068=0 fixture clothing disabled, expose an untextured
+comparison mode, then run GPU and visual placement checks for both parts.

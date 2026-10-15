@@ -1,0 +1,42 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000141395d70 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex>:
+   141395d70:	sub    $0x28,%rsp
+   141395d74:	mov    0x138(%rcx),%rax
+   141395d7b:	mov    0x10(%rax),%r8
+   141395d7f:	add    %rax,%r8
+   141395d82:	movslq 0x4(%rax),%rax
+   141395d86:	mov    %rdx,%r11
+   141395d89:	lea    (%rax,%rax,8),%r10
+   141395d8d:	shl    $0x4,%r10
+   141395d91:	add    %r8,%r10
+   141395d94:	cmp    %r10,%r8
+   141395d97:	je     141395dd1 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex+0x61>
+   141395d99:	nopl   0x0(%rax)
+   141395da0:	cmpl   $0x7,0x34(%r8)
+   141395da5:	jne    141395dc5 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex+0x55>
+   141395da7:	mov    0x40(%r8),%r9
+   141395dab:	mov    %r11,%rdx
+   141395dae:	mov    0x10(%r9),%rcx
+   141395db2:	add    $0x8,%r9
+   141395db6:	call   1413933c0 <_ZNK8QMapDataI15Au3dsGLSLVertexdE8findNodeERKS0_.isra.0>
+   141395dbb:	cmp    %r9,%rax
+   141395dbe:	je     141395dc5 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex+0x55>
+   141395dc0:	test   %rax,%rax
+   141395dc3:	jne    141395de0 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex+0x70>
+   141395dc5:	add    $0x90,%r8
+   141395dcc:	cmp    %r10,%r8
+   141395dcf:	jne    141395da0 <_ZN15Au3dsGLSLObject16GetTextureWeightE15Au3dsGLSLVertex+0x30>
+   141395dd1:	movsd  0xf39477(%rip),%xmm0        # 1422cf250 <.rdata+0x430>
+   141395dd9:	add    $0x28,%rsp
+   141395ddd:	ret
+   141395dde:	xchg   %ax,%ax
+   141395de0:	pxor   %xmm0,%xmm0
+   141395de4:	add    $0x28,%rsp
+   141395de8:	ret
+   141395de9:	nop
+   141395dea:	nopw   0x0(%rax,%rax,1)

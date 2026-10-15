@@ -11,6 +11,19 @@ pub enum NativeDpSkinAtlas {
     FurFeathers,
 }
 
+/// SetupSkinMaterial's atlas offsets (top U/V, bottom U/V), independent of
+/// lighting/material QColor fields and the separate clothes wear uniforms.
+pub fn native_dp_skin_offsets(dna: &NativeDhDna) -> [f64; 4] {
+    let top = dna.0[19] & 7;
+    let bottom = dna.0[3] & 7;
+    [
+        f64::from(top & 3) * 1024. * (1. / 4096.),
+        if top < 4 { 0. } else { 0.75 },
+        f64::from(bottom & 3) * 1024. * (1. / 4096.),
+        if bottom < 4 { 0. } else { 0.75 },
+    ]
+}
+
 impl NativeDpSkinAtlas {
     /// Native DpBody DNA begins at +0x18; SelectTextures tests byte +0x28.
     pub fn from_dna(dna: &NativeDhDna) -> Self {
@@ -52,6 +65,26 @@ impl NativeDpSkinAtlas {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn skin_offsets_cover_all_top_bottom_tiles_and_ignore_other_bits() {
+        for top in 0..=u8::MAX {
+            for bottom in 0..=u8::MAX {
+                let mut dna = NativeDhDna([255; 24]);
+                dna.0[19] = top;
+                dna.0[3] = bottom;
+                assert_eq!(
+                    native_dp_skin_offsets(&dna),
+                    [
+                        f64::from(top % 4) / 4.,
+                        if top & 4 == 0 { 0. } else { 0.75 },
+                        f64::from(bottom % 4) / 4.,
+                        if bottom & 4 == 0 { 0. } else { 0.75 },
+                    ]
+                );
+            }
+        }
+    }
 
     #[test]
     fn all_dna_byte_values_follow_native_ordered_masks() {

@@ -1,0 +1,99 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001416b90d0 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb>:
+   1416b90d0:	push   %r15
+   1416b90d2:	push   %r14
+   1416b90d4:	push   %r13
+   1416b90d6:	push   %r12
+   1416b90d8:	push   %rbp
+   1416b90d9:	push   %rdi
+   1416b90da:	push   %rsi
+   1416b90db:	push   %rbx
+   1416b90dc:	sub    $0x58,%rsp
+   1416b90e0:	mov    0x11dad71(%rip),%rsi        # 142893e58 <__imp__ZNK6QImage5widthEv>
+   1416b90e7:	mov    %rdx,%r12
+   1416b90ea:	mov    %rcx,0xa0(%rsp)
+   1416b90f2:	mov    %rdx,%rcx
+   1416b90f5:	mov    %r8d,0x4c(%rsp)
+   1416b90fa:	call   *%rsi
+   1416b90fc:	mov    0x11dad65(%rip),%r15        # 142893e68 <__imp__ZNK6QImage6heightEv>
+   1416b9103:	mov    %r12,%rcx
+   1416b9106:	mov    %eax,%ebx
+   1416b9108:	call   *%r15
+   1416b910b:	imul   %ebx,%eax
+   1416b910e:	test   %eax,%eax
+   1416b9110:	je     1416b91f1 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0x121>
+   1416b9116:	movabs $0x1ffffffffffffffe,%rdx
+   1416b9120:	cltq
+   1416b9122:	cmp    %rdx,%rax
+   1416b9125:	ja     1416b91f6 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0x126>
+   1416b912b:	lea    0x0(,%rax,4),%rcx
+   1416b9133:	call   141753fa0 <_Znay>
+   1416b9138:	mov    %r12,%rcx
+   1416b913b:	mov    %rax,%r13
+   1416b913e:	call   *%r15
+   1416b9141:	mov    %r13,%rbp
+   1416b9144:	mov    0x11dad05(%rip),%rdi        # 142893e50 <__imp__ZNK6QImage5pixelEii>
+   1416b914b:	sub    $0x1,%eax
+   1416b914e:	mov    %eax,%ebx
+   1416b9150:	js     1416b9196 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0xc6>
+   1416b9152:	nopw   0x0(%rax,%rax,1)
+   1416b9158:	xor    %r14d,%r14d
+   1416b915b:	jmp    1416b9187 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0xb7>
+   1416b915d:	nopl   (%rax)
+   1416b9160:	mov    %r14d,%edx
+   1416b9163:	mov    %r12,%rcx
+   1416b9166:	mov    %ebx,%r8d
+   1416b9169:	add    $0x4,%rbp
+   1416b916d:	call   *%rdi
+   1416b916f:	add    $0x1,%r14d
+   1416b9173:	mov    %eax,%ecx
+   1416b9175:	mov    %ah,-0x3(%rbp)
+   1416b9178:	mov    %al,-0x2(%rbp)
+   1416b917b:	shr    $0x10,%ecx
+   1416b917e:	shr    $0x18,%eax
+   1416b9181:	mov    %cl,-0x4(%rbp)
+   1416b9184:	mov    %al,-0x1(%rbp)
+   1416b9187:	mov    %r12,%rcx
+   1416b918a:	call   *%rsi
+   1416b918c:	cmp    %eax,%r14d
+   1416b918f:	jl     1416b9160 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0x90>
+   1416b9191:	sub    $0x1,%ebx
+   1416b9194:	jae    1416b9158 <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0x88>
+   1416b9196:	mov    %r12,%rcx
+   1416b9199:	call   *%r15
+   1416b919c:	mov    %r12,%rcx
+   1416b919f:	mov    %eax,%ebx
+   1416b91a1:	call   *%rsi
+   1416b91a3:	movzbl 0x4c(%rsp),%ebp
+   1416b91a8:	mov    %ebx,%r9d
+   1416b91ab:	mov    %r13,%rdx
+   1416b91ae:	movl   $0x1401,0x28(%rsp)
+   1416b91b6:	mov    0xa0(%rsp),%rcx
+   1416b91be:	mov    %eax,%r8d
+   1416b91c1:	mov    %ebp,0x30(%rsp)
+   1416b91c5:	movl   $0x1908,0x20(%rsp)
+   1416b91cd:	call   1416b8c10 <_ZN11AuGLTexture13CreateFromRGBER17AuOpenGLFunctionsPKhiijjb>
+   1416b91d2:	mov    %r13,%rcx
+   1416b91d5:	mov    %eax,%r12d
+   1416b91d8:	call   141753fb0 <_ZdaPv>
+   1416b91dd:	mov    %r12d,%eax
+   1416b91e0:	add    $0x58,%rsp
+   1416b91e4:	pop    %rbx
+   1416b91e5:	pop    %rsi
+   1416b91e6:	pop    %rdi
+   1416b91e7:	pop    %rbp
+   1416b91e8:	pop    %r12
+   1416b91ea:	pop    %r13
+   1416b91ec:	pop    %r14
+   1416b91ee:	pop    %r15
+   1416b91f0:	ret
+   1416b91f1:	xor    %r12d,%r12d
+   1416b91f4:	jmp    1416b91dd <_ZN11AuGLTexture16CreateFromBitmapER17AuOpenGLFunctionsRK6QImageb+0x10d>
+   1416b91f6:	call   141753f40 <__cxa_throw_bad_array_new_length>
+   1416b91fb:	nop
+   1416b91fc:	nopl   0x0(%rax)

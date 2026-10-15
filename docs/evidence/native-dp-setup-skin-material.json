@@ -1,0 +1,83 @@
+{
+  "evidence_id": "ev_d52c56fc6581218210720aba39d11d6a8610019809a440313e4614d020849a4c",
+  "subject": {
+    "name": "OpenShores.exe",
+    "digest": {
+      "sha256": "285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80"
+    },
+    "format": "pe",
+    "architecture": "x86_64",
+    "local_path": "/home/icy/development/rust/openshores-client/reference/openshores-full/OpenShores.exe"
+  },
+  "provider": {
+    "id": "ghidra",
+    "name": "Ghidra",
+    "version": "12.1.2"
+  },
+  "analysis_profile": {
+    "provider": {
+      "id": "ghidra",
+      "name": "Ghidra",
+      "version": "12.1.2"
+    },
+    "parameters": {
+      "target_kind": "executable",
+      "target_format": "pe",
+      "executable_role": "application",
+      "managed": false,
+      "native_aot_metadata": {
+        "contract_revision": "rtr-9.1-x64-pe-read-only-v3",
+        "source_bytes": 134217728,
+        "work_units": 67108864,
+        "working_memory_bytes": 67108864,
+        "report_bytes": 4194304
+      },
+      "architecture": "x86_64",
+      "available_architectures": [
+        "x86_64"
+      ],
+      "import_mode": "ephemeral-source-immutable",
+      "annotation_policy": "atomic-function-entry-metadata-v1",
+      "load_image_observations": "source-mappings-entry-context-v2",
+      "function_body_evidence": "complete-inclusive-ranges-v1",
+      "function_references": "complete-body-and-entry-reference-manager-v2",
+      "string_inventory_evidence": "defined-data-coverage-v1",
+      "location_resolution": "explicit-address-exact-entry-symbol-first-v3",
+      "instruction_flow_evidence": "decoded-return-pcode-v1",
+      "function_boundary_observations": "ghidra-terminal-call-limitations-v1",
+      "no_return_repair": "returning-imports-decoded-return-v2",
+      "process_launch": "inspected-jvm-launch-support-v1",
+      "jump_table_evidence": "typed-case-default-blocks-v1",
+      "decompiler_jump_loads": true,
+      "loader": "auto-from-header",
+      "language_id": "auto-from-header",
+      "compiler_spec_id": "auto-default",
+      "analyzer_preset": "ghidra-default"
+    },
+    "digest": "8e3a14075ec67e0acc0e527cf433a32154bc1e12800cc3154deb7d62e385ced2"
+  },
+  "predicate_type": "rea.analysis",
+  "operation": "procedure_pseudo_code",
+  "parameters": {
+    "procedure": "DpBody::SetupSkinMaterial"
+  },
+  "raw_result": {
+    "value": "\n/* DpBody::SetupSkinMaterial() */\n\nvoid __thiscall DpBody::SetupSkinMaterial(DpBody *this)\n\n{\n  int iVar1;\n  undefined4 uVar2;\n  short sVar3;\n  uint uVar4;\n  uint uVar5;\n  float fVar6;\n  double dVar7;\n  double dVar8;\n  double dVar9;\n  \n  iVar1 = *(int *)(this + 0x4068);\n  if (iVar1 == 0x99) {\nLAB_1412c248c:\n    *(undefined4 *)(this + 0x40cc) = 1;\n    *(undefined2 *)(this + 0x40d8) = 0;\n    *(undefined8 *)(this + 0x40d0) = 0xffffffffffff0000;\n    *(undefined8 *)(this + 0x40f8) = 0xffffffffffff0000;\n    fVar6 = (*(float *)(this + 0x410c) * 0.05) / 0.3;\n    *(undefined4 *)(this + 0x40f4) = 1;\n    *(undefined2 *)(this + 0x4100) = 0;\n    *(undefined4 *)(this + 0x40e0) = 0;\n    *(undefined4 *)(this + 0x4108) = 0;\n    *(undefined4 *)(this + 0x4110) = 0;\n  }\n  else {\n    if (iVar1 < 0x9a) {\n      if ((iVar1 == 0x41) || (iVar1 == 0x50)) goto LAB_1412c248c;\n    }\n    else if (iVar1 == 0x9b) goto LAB_1412c248c;\n    *(undefined4 *)(this + 0x40bc) = 1;\n    *(undefined2 *)(this + 0x40c8) = 0;\n    *(undefined2 *)(this + 0x40e8) = 0;\n    *(undefined4 *)(this + 0x40e4) = 1;\n    *(undefined2 *)(this + 0x40f0) = 0;\n    *(undefined4 *)(this + 0x40dc) = 0;\n    *(undefined4 *)(this + 0x4104) = 0;\n    sVar3 = (0xff - (short)((((byte)this[0x2a] >> 2 & 3) * 0xff) / 0xe)) * 0x101;\n    *(undefined2 *)(this + 0x40c0) = 0;\n    *(short *)(this + 0x40c2) = sVar3;\n    *(short *)(this + 0x40c4) = sVar3;\n    *(short *)(this + 0x40c6) = sVar3;\n    sVar3 = (0xff - (short)((((byte)this[0x1c] & 3) * 0xff) / 0xe)) * 0x101;\n    *(short *)(this + 0x40ea) = sVar3;\n    *(short *)(this + 0x40ec) = sVar3;\n    *(short *)(this + 0x40ee) = sVar3;\n    switch((byte)this[0x28] & 7) {\n    case 1:\n      *(undefined4 *)(this + 0x40dc) = 0x3f800000;\n      *(undefined4 *)(this + 0x4104) = 0x3f800000;\n      break;\n    case 2:\n      *(undefined4 *)(this + 0x40dc) = 0x43960000;\n      *(undefined4 *)(this + 0x4104) = 0x43960000;\n      break;\n    case 3:\n      *(undefined4 *)(this + 0x40dc) = 0x40800000;\n      *(undefined4 *)(this + 0x4104) = 0x40800000;\n      break;\n    case 4:\n      *(undefined4 *)(this + 0x40dc) = 0x40a00000;\n      *(undefined4 *)(this + 0x4104) = 0x40a00000;\n      break;\n    case 5:\n      *(undefined4 *)(this + 0x40dc) = 0x43480000;\n      *(undefined4 *)(this + 0x4104) = 0x43480000;\n      break;\n    case 6:\n      *(undefined4 *)(this + 0x40dc) = 0x42200000;\n      *(undefined4 *)(this + 0x4104) = 0x42200000;\n      break;\n    case 7:\n      *(undefined4 *)(this + 0x40dc) = 0x41a00000;\n      *(undefined4 *)(this + 0x4104) = 0x41a00000;\n    }\n    fVar6 = 0.0;\n    *(undefined4 *)(this + 0x410c) = 0;\n    if (((byte)this[0x19] & 0xf0) == 0x50) {\n      fVar6 = ((float)((byte)this[0x2d] >> 5) + 1.0) * 0.1;\n      *(float *)(this + 0x410c) = fVar6;\n      fVar6 = (fVar6 * 0.05) / 0.3;\n    }\n  }\n  *(float *)(this + 0x4114) = fVar6;\n  *(undefined8 *)(this + 0x4128) = 0;\n  *(undefined8 *)(this + 0x4138) = 0;\n  uVar4 = (byte)this[0x2b] & 7;\n  if (((byte)this[0x2b] & 7) < 4) {\n    dVar9 = 0.0;\n    uVar5 = (byte)this[0x1b] & 7;\n    dVar7 = (double)uVar4 * 1024.0;\n    if (((byte)this[0x1b] & 7) < 4) {\n      dVar7 = dVar7 * 0.000244140625;\n      uVar2 = 0;\n      *(double *)(this + 0x4120) = dVar7;\n      dVar9 = 0.0;\n      dVar8 = (double)uVar5 * 1024.0 * 0.000244140625;\n      *(double *)(this + 0x4130) = dVar8;\n      goto LAB_1412c2650;\n    }\n  }\n  else {\n    *(undefined8 *)(this + 0x4128) = 0x4090000000000000;\n    uVar5 = (byte)this[0x1b] & 7;\n    dVar7 = (double)(int)(uVar4 - 4) * 1024.0;\n    if (((byte)this[0x1b] & 7) < 4) {\n      dVar7 = dVar7 * 0.000244140625;\n      *(double *)(this + 0x4120) = dVar7;\n      dVar9 = 0.75;\n      *(undefined8 *)(this + 0x4128) = 0x3fe8000000000000;\n      uVar2 = 0;\n      dVar8 = (double)uVar5 * 1024.0 * 0.000244140625;\n      *(double *)(this + 0x4130) = dVar8;\n      goto LAB_1412c2650;\n    }\n    dVar9 = 1024.0;\n  }\n  *(undefined8 *)(this + 0x4138) = 0x4090000000000000;\n  dVar7 = dVar7 * 0.000244140625;\n  *(double *)(this + 0x4120) = dVar7;\n  dVar8 = (double)(int)(uVar5 - 4) * 1024.0 * 0.000244140625;\n  *(double *)(this + 0x4130) = dVar8;\n  if (0.0 < dVar9) {\n    dVar9 = 1.0 - dVar9 * 0.000244140625;\n    *(double *)(this + 0x4128) = dVar9;\n  }\n  uVar2 = 0x3f400000;\n  *(undefined8 *)(this + 0x4138) = 0x3fe8000000000000;\nLAB_1412c2650:\n  *(ulonglong *)(this + 0x4070) = CONCAT44((float)dVar9,(float)dVar7);\n  *(ulonglong *)(this + 0x4078) = CONCAT44(uVar2,(float)dVar8);\n  return;\n}\n\n",
+    "limitations": []
+  },
+  "normalized_result": "\n/* DpBody::SetupSkinMaterial() */\n\nvoid __thiscall DpBody::SetupSkinMaterial(DpBody *this)\n\n{\n  int iVar1;\n  undefined4 uVar2;\n  short sVar3;\n  uint uVar4;\n  uint uVar5;\n  float fVar6;\n  double dVar7;\n  double dVar8;\n  double dVar9;\n  \n  iVar1 = *(int *)(this + 0x4068);\n  if (iVar1 == 0x99) {\nLAB_1412c248c:\n    *(undefined4 *)(this + 0x40cc) = 1;\n    *(undefined2 *)(this + 0x40d8) = 0;\n    *(undefined8 *)(this + 0x40d0) = 0xffffffffffff0000;\n    *(undefined8 *)(this + 0x40f8) = 0xffffffffffff0000;\n    fVar6 = (*(float *)(this + 0x410c) * 0.05) / 0.3;\n    *(undefined4 *)(this + 0x40f4) = 1;\n    *(undefined2 *)(this + 0x4100) = 0;\n    *(undefined4 *)(this + 0x40e0) = 0;\n    *(undefined4 *)(this + 0x4108) = 0;\n    *(undefined4 *)(this + 0x4110) = 0;\n  }\n  else {\n    if (iVar1 < 0x9a) {\n      if ((iVar1 == 0x41) || (iVar1 == 0x50)) goto LAB_1412c248c;\n    }\n    else if (iVar1 == 0x9b) goto LAB_1412c248c;\n    *(undefined4 *)(this + 0x40bc) = 1;\n    *(undefined2 *)(this + 0x40c8) = 0;\n    *(undefined2 *)(this + 0x40e8) = 0;\n    *(undefined4 *)(this + 0x40e4) = 1;\n    *(undefined2 *)(this + 0x40f0) = 0;\n    *(undefined4 *)(this + 0x40dc) = 0;\n    *(undefined4 *)(this + 0x4104) = 0;\n    sVar3 = (0xff - (short)((((byte)this[0x2a] >> 2 & 3) * 0xff) / 0xe)) * 0x101;\n    *(undefined2 *)(this + 0x40c0) = 0;\n    *(short *)(this + 0x40c2) = sVar3;\n    *(short *)(this + 0x40c4) = sVar3;\n    *(short *)(this + 0x40c6) = sVar3;\n    sVar3 = (0xff - (short)((((byte)this[0x1c] & 3) * 0xff) / 0xe)) * 0x101;\n    *(short *)(this + 0x40ea) = sVar3;\n    *(short *)(this + 0x40ec) = sVar3;\n    *(short *)(this + 0x40ee) = sVar3;\n    switch((byte)this[0x28] & 7) {\n    case 1:\n      *(undefined4 *)(this + 0x40dc) = 0x3f800000;\n      *(undefined4 *)(this + 0x4104) = 0x3f800000;\n      break;\n    case 2:\n      *(undefined4 *)(this + 0x40dc) = 0x43960000;\n      *(undefined4 *)(this + 0x4104) = 0x43960000;\n      break;\n    case 3:\n      *(undefined4 *)(this + 0x40dc) = 0x40800000;\n      *(undefined4 *)(this + 0x4104) = 0x40800000;\n      break;\n    case 4:\n      *(undefined4 *)(this + 0x40dc) = 0x40a00000;\n      *(undefined4 *)(this + 0x4104) = 0x40a00000;\n      break;\n    case 5:\n      *(undefined4 *)(this + 0x40dc) = 0x43480000;\n      *(undefined4 *)(this + 0x4104) = 0x43480000;\n      break;\n    case 6:\n      *(undefined4 *)(this + 0x40dc) = 0x42200000;\n      *(undefined4 *)(this + 0x4104) = 0x42200000;\n      break;\n    case 7:\n      *(undefined4 *)(this + 0x40dc) = 0x41a00000;\n      *(undefined4 *)(this + 0x4104) = 0x41a00000;\n    }\n    fVar6 = 0.0;\n    *(undefined4 *)(this + 0x410c) = 0;\n    if (((byte)this[0x19] & 0xf0) == 0x50) {\n      fVar6 = ((float)((byte)this[0x2d] >> 5) + 1.0) * 0.1;\n      *(float *)(this + 0x410c) = fVar6;\n      fVar6 = (fVar6 * 0.05) / 0.3;\n    }\n  }\n  *(float *)(this + 0x4114) = fVar6;\n  *(undefined8 *)(this + 0x4128) = 0;\n  *(undefined8 *)(this + 0x4138) = 0;\n  uVar4 = (byte)this[0x2b] & 7;\n  if (((byte)this[0x2b] & 7) < 4) {\n    dVar9 = 0.0;\n    uVar5 = (byte)this[0x1b] & 7;\n    dVar7 = (double)uVar4 * 1024.0;\n    if (((byte)this[0x1b] & 7) < 4) {\n      dVar7 = dVar7 * 0.000244140625;\n      uVar2 = 0;\n      *(double *)(this + 0x4120) = dVar7;\n      dVar9 = 0.0;\n      dVar8 = (double)uVar5 * 1024.0 * 0.000244140625;\n      *(double *)(this + 0x4130) = dVar8;\n      goto LAB_1412c2650;\n    }\n  }\n  else {\n    *(undefined8 *)(this + 0x4128) = 0x4090000000000000;\n    uVar5 = (byte)this[0x1b] & 7;\n    dVar7 = (double)(int)(uVar4 - 4) * 1024.0;\n    if (((byte)this[0x1b] & 7) < 4) {\n      dVar7 = dVar7 * 0.000244140625;\n      *(double *)(this + 0x4120) = dVar7;\n      dVar9 = 0.75;\n      *(undefined8 *)(this + 0x4128) = 0x3fe8000000000000;\n      uVar2 = 0;\n      dVar8 = (double)uVar5 * 1024.0 * 0.000244140625;\n      *(double *)(this + 0x4130) = dVar8;\n      goto LAB_1412c2650;\n    }\n    dVar9 = 1024.0;\n  }\n  *(undefined8 *)(this + 0x4138) = 0x4090000000000000;\n  dVar7 = dVar7 * 0.000244140625;\n  *(double *)(this + 0x4120) = dVar7;\n  dVar8 = (double)(int)(uVar5 - 4) * 1024.0 * 0.000244140625;\n  *(double *)(this + 0x4130) = dVar8;\n  if (0.0 < dVar9) {\n    dVar9 = 1.0 - dVar9 * 0.000244140625;\n    *(double *)(this + 0x4128) = dVar9;\n  }\n  uVar2 = 0x3f400000;\n  *(undefined8 *)(this + 0x4138) = 0x3fe8000000000000;\nLAB_1412c2650:\n  *(ulonglong *)(this + 0x4070) = CONCAT44((float)dVar9,(float)dVar7);\n  *(ulonglong *)(this + 0x4078) = CONCAT44(uVar2,(float)dVar8);\n  return;\n}\n\n",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "The session serves operations only after Ghidra reports default auto-analysis complete; incomplete analysis does not expose partial results.",
+    "The imported Program and temporary project are ephemeral and deleted on close. Annotation operations edit session database metadata; original executable bytes are never written.",
+    "Cancelling an active Ghidra request terminates its ephemeral database and discards session annotations. The selected target remains open; the next provider query imports the original artifact again.",
+    "Default-space addresses use lowercase 0x-prefixed hexadecimal; other address spaces use <percent-encoded-space>:0x<hex>.",
+    "Pseudocode is Ghidra decompiler output, not original source and not text-equivalent to Hopper output.",
+    "External functions and functions without an analyzable body return null; other decompiler failures remain explicit.",
+    "This session uses Ghidra 12.1.2. The bridge is verified against 12.1.4; other 12.1.x builds are accepted and the observed version is reported."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

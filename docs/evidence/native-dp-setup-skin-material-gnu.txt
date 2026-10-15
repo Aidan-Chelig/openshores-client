@@ -1,0 +1,237 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412c2350 <_ZN6DpBody17SetupSkinMaterialEv>:
+   1412c2350:	mov    0x4068(%rcx),%edx
+   1412c2356:	mov    %rcx,%rax
+   1412c2359:	cmp    $0x99,%edx
+   1412c235f:	je     1412c248c <_ZN6DpBody17SetupSkinMaterialEv+0x13c>
+   1412c2365:	jg     1412c2480 <_ZN6DpBody17SetupSkinMaterialEv+0x130>
+   1412c236b:	cmp    $0x41,%edx
+   1412c236e:	je     1412c248c <_ZN6DpBody17SetupSkinMaterialEv+0x13c>
+   1412c2374:	cmp    $0x50,%edx
+   1412c2377:	je     1412c248c <_ZN6DpBody17SetupSkinMaterialEv+0x13c>
+   1412c237d:	movzbl 0x2a(%rax),%ecx
+   1412c2381:	xor    %r8d,%r8d
+   1412c2384:	xor    %r9d,%r9d
+   1412c2387:	xor    %r10d,%r10d
+   1412c238a:	movl   $0x1,0x40bc(%rax)
+   1412c2394:	shr    $0x2,%cl
+   1412c2397:	mov    %r8w,0x40c8(%rax)
+   1412c239f:	and    $0x3,%ecx
+   1412c23a2:	mov    %r9w,0x40e8(%rax)
+   1412c23aa:	mov    %ecx,%edx
+   1412c23ac:	movl   $0x1,0x40e4(%rax)
+   1412c23b6:	shl    $0x8,%edx
+   1412c23b9:	mov    %r10w,0x40f0(%rax)
+   1412c23c1:	movl   $0x0,0x40dc(%rax)
+   1412c23cb:	sub    %ecx,%edx
+   1412c23cd:	movl   $0x0,0x4104(%rax)
+   1412c23d7:	movslq %edx,%rcx
+   1412c23da:	imul   $0xffffffff92492493,%rcx,%rcx
+   1412c23e1:	shr    $0x20,%rcx
+   1412c23e5:	add    %edx,%ecx
+   1412c23e7:	sar    $0x1f,%edx
+   1412c23ea:	sar    $0x3,%ecx
+   1412c23ed:	sub    %ecx,%edx
+   1412c23ef:	add    $0xff,%edx
+   1412c23f5:	mov    %edx,%ecx
+   1412c23f7:	shl    $0x8,%ecx
+   1412c23fa:	add    %ecx,%edx
+   1412c23fc:	xor    %ecx,%ecx
+   1412c23fe:	mov    %cx,0x40c0(%rax)
+   1412c2405:	movzbl 0x1c(%rax),%ecx
+   1412c2409:	mov    %dx,0x40c2(%rax)
+   1412c2410:	and    $0x3,%ecx
+   1412c2413:	mov    %dx,0x40c4(%rax)
+   1412c241a:	mov    %dx,0x40c6(%rax)
+   1412c2421:	mov    %ecx,%edx
+   1412c2423:	shl    $0x8,%edx
+   1412c2426:	sub    %ecx,%edx
+   1412c2428:	movslq %edx,%rcx
+   1412c242b:	imul   $0xffffffff92492493,%rcx,%rcx
+   1412c2432:	shr    $0x20,%rcx
+   1412c2436:	add    %edx,%ecx
+   1412c2438:	sar    $0x1f,%edx
+   1412c243b:	sar    $0x3,%ecx
+   1412c243e:	sub    %ecx,%edx
+   1412c2440:	add    $0xff,%edx
+   1412c2446:	mov    %edx,%ecx
+   1412c2448:	shl    $0x8,%ecx
+   1412c244b:	add    %ecx,%edx
+   1412c244d:	lea    0xffb848(%rip),%rcx        # 1422bdc9c <.rdata+0x1dc>
+   1412c2454:	mov    %dx,0x40ea(%rax)
+   1412c245b:	mov    %dx,0x40ec(%rax)
+   1412c2462:	mov    %dx,0x40ee(%rax)
+   1412c2469:	movzbl 0x28(%rax),%edx
+   1412c246d:	and    $0x7,%edx
+   1412c2470:	movslq (%rcx,%rdx,4),%rdx
+   1412c2474:	add    %rcx,%rdx
+   1412c2477:	jmp    *%rdx
+   1412c2479:	nopl   0x0(%rax)
+   1412c2480:	cmp    $0x9b,%edx
+   1412c2486:	jne    1412c237d <_ZN6DpBody17SetupSkinMaterialEv+0x2d>
+   1412c248c:	mov    0xffd625(%rip),%rdx        # 1422bfab8 <CSWTCH.2328+0x318>
+   1412c2493:	xor    %r11d,%r11d
+   1412c2496:	movl   $0x1,0x40cc(%rax)
+   1412c24a0:	mov    %r11w,0x40d8(%rax)
+   1412c24a8:	movss  0xffd610(%rip),%xmm0        # 1422bfac0 <CSWTCH.2328+0x320>
+   1412c24b0:	mov    %rdx,0x40d0(%rax)
+   1412c24b7:	mulss  0x410c(%rax),%xmm0
+   1412c24bf:	mov    %rdx,0x40f8(%rax)
+   1412c24c6:	xor    %edx,%edx
+   1412c24c8:	divss  0xffd5f4(%rip),%xmm0        # 1422bfac4 <CSWTCH.2328+0x324>
+   1412c24d0:	movl   $0x1,0x40f4(%rax)
+   1412c24da:	mov    %dx,0x4100(%rax)
+   1412c24e1:	movl   $0x0,0x40e0(%rax)
+   1412c24eb:	movl   $0x0,0x4108(%rax)
+   1412c24f5:	movl   $0x0,0x4110(%rax)
+   1412c24ff:	movzbl 0x2b(%rax),%edx
+   1412c2503:	movss  %xmm0,0x4114(%rax)
+   1412c250b:	movq   $0x0,0x4128(%rax)
+   1412c2516:	movq   $0x0,0x4138(%rax)
+   1412c2521:	mov    %edx,%ecx
+   1412c2523:	and    $0x7,%edx
+   1412c2526:	and    $0x7,%ecx
+   1412c2529:	cmp    $0x3,%cl
+   1412c252c:	ja     1412c25d8 <_ZN6DpBody17SetupSkinMaterialEv+0x288>
+   1412c2532:	pxor   %xmm0,%xmm0
+   1412c2536:	movsd  0xffd56a(%rip),%xmm2        # 1422bfaa8 <CSWTCH.2328+0x308>
+   1412c253e:	pxor   %xmm3,%xmm3
+   1412c2542:	cvtsi2sd %edx,%xmm0
+   1412c2546:	movzbl 0x1b(%rax),%edx
+   1412c254a:	mov    %edx,%ecx
+   1412c254c:	and    $0x7,%edx
+   1412c254f:	and    $0x7,%ecx
+   1412c2552:	mulsd  %xmm2,%xmm0
+   1412c2556:	cmp    $0x3,%cl
+   1412c2559:	jbe    1412c2708 <_ZN6DpBody17SetupSkinMaterialEv+0x3b8>
+   1412c255f:	sub    $0x4,%edx
+   1412c2562:	pxor   %xmm1,%xmm1
+   1412c2566:	pxor   %xmm5,%xmm5
+   1412c256a:	movsd  0xffd576(%rip),%xmm4        # 1422bfae8 <CSWTCH.2328+0x348>
+   1412c2572:	cvtsi2sd %edx,%xmm1
+   1412c2576:	comisd %xmm5,%xmm3
+   1412c257a:	movsd  %xmm2,0x4138(%rax)
+   1412c2582:	mulsd  %xmm4,%xmm0
+   1412c2586:	mulsd  %xmm2,%xmm1
+   1412c258a:	movsd  %xmm0,0x4120(%rax)
+   1412c2592:	mulsd  %xmm4,%xmm1
+   1412c2596:	movsd  %xmm1,0x4130(%rax)
+   1412c259e:	jbe    1412c26f8 <_ZN6DpBody17SetupSkinMaterialEv+0x3a8>
+   1412c25a4:	mulsd  %xmm4,%xmm3
+   1412c25a8:	movsd  0xffd450(%rip),%xmm2        # 1422bfa00 <CSWTCH.2328+0x260>
+   1412c25b0:	subsd  %xmm3,%xmm2
+   1412c25b4:	movsd  %xmm2,0x4128(%rax)
+   1412c25bc:	unpcklpd %xmm2,%xmm0
+   1412c25c0:	movsd  0xffd4e8(%rip),%xmm2        # 1422bfab0 <CSWTCH.2328+0x310>
+   1412c25c8:	movsd  %xmm2,0x4138(%rax)
+   1412c25d0:	jmp    1412c2650 <_ZN6DpBody17SetupSkinMaterialEv+0x300>
+   1412c25d2:	nopw   0x0(%rax,%rax,1)
+   1412c25d8:	sub    $0x4,%edx
+   1412c25db:	pxor   %xmm0,%xmm0
+   1412c25df:	movsd  0xffd4c1(%rip),%xmm2        # 1422bfaa8 <CSWTCH.2328+0x308>
+   1412c25e7:	cvtsi2sd %edx,%xmm0
+   1412c25eb:	movzbl 0x1b(%rax),%edx
+   1412c25ef:	movsd  %xmm2,0x4128(%rax)
+   1412c25f7:	mov    %edx,%ecx
+   1412c25f9:	and    $0x7,%edx
+   1412c25fc:	and    $0x7,%ecx
+   1412c25ff:	mulsd  %xmm2,%xmm0
+   1412c2603:	cmp    $0x3,%cl
+   1412c2606:	ja     1412c2748 <_ZN6DpBody17SetupSkinMaterialEv+0x3f8>
+   1412c260c:	pxor   %xmm1,%xmm1
+   1412c2610:	movsd  0xffd4d0(%rip),%xmm3        # 1422bfae8 <CSWTCH.2328+0x348>
+   1412c2618:	cvtsi2sd %edx,%xmm1
+   1412c261c:	mulsd  %xmm3,%xmm0
+   1412c2620:	mulsd  %xmm2,%xmm1
+   1412c2624:	movsd  0xffd484(%rip),%xmm2        # 1422bfab0 <CSWTCH.2328+0x310>
+   1412c262c:	movsd  %xmm0,0x4120(%rax)
+   1412c2634:	unpcklpd %xmm2,%xmm0
+   1412c2638:	movsd  %xmm2,0x4128(%rax)
+   1412c2640:	pxor   %xmm2,%xmm2
+   1412c2644:	mulsd  %xmm3,%xmm1
+   1412c2648:	movsd  %xmm1,0x4130(%rax)
+   1412c2650:	unpcklpd %xmm2,%xmm1
+   1412c2654:	cvtpd2ps %xmm0,%xmm0
+   1412c2658:	cvtpd2ps %xmm1,%xmm1
+   1412c265c:	movlhps %xmm1,%xmm0
+   1412c265f:	movups %xmm0,0x4070(%rax)
+   1412c2666:	ret
+   1412c2667:	nopw   0x0(%rax,%rax,1)
+   1412c2670:	movss  0xffd464(%rip),%xmm0        # 1422bfadc <CSWTCH.2328+0x33c>
+   1412c2678:	movss  %xmm0,0x40dc(%rax)
+   1412c2680:	movss  %xmm0,0x4104(%rax)
+   1412c2688:	nopl   0x0(%rax,%rax,1)
+   1412c2690:	movzbl 0x19(%rax),%edx
+   1412c2694:	pxor   %xmm0,%xmm0
+   1412c2698:	movl   $0x0,0x410c(%rax)
+   1412c26a2:	and    $0xfffffff0,%edx
+   1412c26a5:	cmp    $0x50,%dl
+   1412c26a8:	jne    1412c24ff <_ZN6DpBody17SetupSkinMaterialEv+0x1af>
+   1412c26ae:	movzbl 0x2d(%rax),%edx
+   1412c26b2:	pxor   %xmm0,%xmm0
+   1412c26b6:	shr    $0x5,%dl
+   1412c26b9:	movzbl %dl,%edx
+   1412c26bc:	cvtsi2ss %edx,%xmm0
+   1412c26c0:	addss  0xffd1c8(%rip),%xmm0        # 1422bf890 <CSWTCH.2328+0xf0>
+   1412c26c8:	cvtss2sd %xmm0,%xmm0
+   1412c26cc:	mulsd  0xffd40c(%rip),%xmm0        # 1422bfae0 <CSWTCH.2328+0x340>
+   1412c26d4:	cvtsd2ss %xmm0,%xmm0
+   1412c26d8:	movss  %xmm0,0x410c(%rax)
+   1412c26e0:	mulss  0xffd3d8(%rip),%xmm0        # 1422bfac0 <CSWTCH.2328+0x320>
+   1412c26e8:	divss  0xffd3d4(%rip),%xmm0        # 1422bfac4 <CSWTCH.2328+0x324>
+   1412c26f0:	jmp    1412c24ff <_ZN6DpBody17SetupSkinMaterialEv+0x1af>
+   1412c26f5:	nopl   (%rax)
+   1412c26f8:	unpcklpd %xmm3,%xmm0
+   1412c26fc:	jmp    1412c25c0 <_ZN6DpBody17SetupSkinMaterialEv+0x270>
+   1412c2701:	nopl   0x0(%rax)
+   1412c2708:	pxor   %xmm1,%xmm1
+   1412c270c:	movsd  0xffd3d4(%rip),%xmm3        # 1422bfae8 <CSWTCH.2328+0x348>
+   1412c2714:	cvtsi2sd %edx,%xmm1
+   1412c2718:	mulsd  %xmm3,%xmm0
+   1412c271c:	mulsd  %xmm2,%xmm1
+   1412c2720:	pxor   %xmm2,%xmm2
+   1412c2724:	movsd  %xmm0,0x4120(%rax)
+   1412c272c:	movq   %xmm0,%xmm0
+   1412c2730:	mulsd  %xmm3,%xmm1
+   1412c2734:	movsd  %xmm1,0x4130(%rax)
+   1412c273c:	jmp    1412c2650 <_ZN6DpBody17SetupSkinMaterialEv+0x300>
+   1412c2741:	nopl   0x0(%rax)
+   1412c2748:	movapd %xmm2,%xmm3
+   1412c274c:	jmp    1412c255f <_ZN6DpBody17SetupSkinMaterialEv+0x20f>
+   1412c2751:	nopl   0x0(%rax)
+   1412c2758:	movss  0xffd36c(%rip),%xmm0        # 1422bfacc <CSWTCH.2328+0x32c>
+   1412c2760:	movss  %xmm0,0x40dc(%rax)
+   1412c2768:	movss  %xmm0,0x4104(%rax)
+   1412c2770:	jmp    1412c2690 <_ZN6DpBody17SetupSkinMaterialEv+0x340>
+   1412c2775:	nopl   (%rax)
+   1412c2778:	movss  0xffd350(%rip),%xmm0        # 1422bfad0 <CSWTCH.2328+0x330>
+   1412c2780:	movss  %xmm0,0x40dc(%rax)
+   1412c2788:	movss  %xmm0,0x4104(%rax)
+   1412c2790:	jmp    1412c2690 <_ZN6DpBody17SetupSkinMaterialEv+0x340>
+   1412c2795:	nopl   (%rax)
+   1412c2798:	movss  0xffd334(%rip),%xmm0        # 1422bfad4 <CSWTCH.2328+0x334>
+   1412c27a0:	movss  %xmm0,0x40dc(%rax)
+   1412c27a8:	movss  %xmm0,0x4104(%rax)
+   1412c27b0:	jmp    1412c2690 <_ZN6DpBody17SetupSkinMaterialEv+0x340>
+   1412c27b5:	nopl   (%rax)
+   1412c27b8:	movss  0xffd318(%rip),%xmm0        # 1422bfad8 <CSWTCH.2328+0x338>
+   1412c27c0:	movss  %xmm0,0x40dc(%rax)
+   1412c27c8:	movss  %xmm0,0x4104(%rax)
+   1412c27d0:	jmp    1412c2690 <_ZN6DpBody17SetupSkinMaterialEv+0x340>
+   1412c27d5:	nopl   (%rax)
+   1412c27d8:	movss  0xffd0b0(%rip),%xmm0        # 1422bf890 <CSWTCH.2328+0xf0>
+   1412c27e0:	movss  %xmm0,0x40dc(%rax)
+   1412c27e8:	movss  %xmm0,0x4104(%rax)
+   1412c27f0:	jmp    1412c2690 <_ZN6DpBody17SetupSkinMaterialEv+0x340>
+   1412c27f5:	nopl   (%rax)
+   1412c27f8:	movss  0xffd2c8(%rip),%xmm0        # 1422bfac8 <CSWTCH.2328+0x328>
+   1412c2800:	movss  %xmm0,0x40dc(%rax)
+   1412c2808:	movss  %xmm0,0x4104(%rax)
+   1412c2810:	jmp    1412c2690 <_ZN6DpBody17SetupSkinMaterialEv+0x340>
+   1412c2815:	nop
+   1412c2816:	cs nopw 0x0(%rax,%rax,1)

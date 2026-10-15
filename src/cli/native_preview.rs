@@ -3,7 +3,9 @@ use openshores_client::{
     asset_mount::AssetMount,
     model::{Mesh, Model, ModelVariant, NativeBodyFaceMetadata, NativeBodyMergeGeometry},
     world::{
-        native_body::{NativeDpHandCache, NativeDpInitialization, NativeDpSkinPlan},
+        native_body::{
+            NativeDpHandCache, NativeDpInitialization, NativeDpSkinPlan, native_dp_skin_offsets,
+        },
         native_dna::NativeDhDna,
     },
 };
@@ -59,7 +61,7 @@ fn invalid(message: &str) -> io::Error {
     io::Error::new(io::ErrorKind::Unsupported, message)
 }
 
-fn build(installation: &Path, head: bool) -> io::Result<Model> {
+fn build_native(installation: &Path, head: bool) -> io::Result<(NativeBodyMergeGeometry, Mesh)> {
     let mount = AssetMount::open(installation)?;
     let mut dna = NativeDhDna([0; 24]);
     dna.0[1] = 1;
@@ -69,7 +71,7 @@ fn build(installation: &Path, head: bool) -> io::Result<Model> {
     let mut body = NativeDpInitialization::begin(&dna);
     body.finish_part_calculations(0, &mut NativeDpHandCache::new(&mount))?;
     let mut pieces = Vec::new();
-    for planned in body.skin_geometry_plans(0, 0, [1.; 4])? {
+    for planned in body.skin_geometry_plans(0, 0, native_dp_skin_offsets(&dna))? {
         match planned.plan {
             NativeDpSkinPlan::Head(plan) if head => {
                 for piece in plan.fallback {
@@ -145,12 +147,15 @@ fn build(installation: &Path, head: bool) -> io::Result<Model> {
             projection_source = model.meshes.into_iter().next();
         }
     }
-    let geometry = destination
-        .ok_or_else(|| invalid("no preview pieces"))?
-        .untextured_baked_preview_geometry(
-            &projection_source.ok_or_else(|| invalid("no projection seed"))?,
-            ModelVariant::N,
-        )?;
+    Ok((
+        destination.ok_or_else(|| invalid("no preview pieces"))?,
+        projection_source.ok_or_else(|| invalid("no projection seed"))?,
+    ))
+}
+
+fn build(installation: &Path, head: bool) -> io::Result<Model> {
+    let (destination, source) = build_native(installation, head)?;
+    let geometry = destination.untextured_baked_preview_geometry(&source, ModelVariant::N)?;
     // The inspector centers/scales for viewing only; native mesh state is untouched.
     Ok(Model {
         meshes: vec![Mesh {
@@ -195,6 +200,26 @@ mod tests {
     fn mounted_visual_preview_geometry() {
         let path = std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap();
         for (head, vertices, faces) in [(true, 902, 1228), (false, 639, 996)] {
+            let (native, seed) = super::build_native(std::path::Path::new(&path), head).unwrap();
+            let surface = native
+                .textured_baked_preview_geometry(&seed, super::ModelVariant::N)
+                .unwrap();
+            let uvs = surface.geometry.uvs.as_ref().unwrap();
+            assert_eq!(uvs.len(), vertices);
+            assert!(uvs.iter().flatten().all(|v| v.is_finite()));
+            assert_eq!(surface.top_face.len(), vertices);
+            assert!(surface.top_face.iter().all(|v| *v == 0. || *v == 1.));
+            assert_eq!(
+                surface.partitions().values().map(Vec::len).sum::<usize>(),
+                faces
+            );
+            println!(
+                "{}: {} UVs, {} bottom vertices, {} material partitions",
+                if head { "head" } else { "torso" },
+                uvs.len(),
+                surface.top_face.iter().filter(|v| **v == 0.).count(),
+                surface.partitions().len()
+            );
             let model = super::build(std::path::Path::new(&path), head).unwrap();
             assert_eq!(model.meshes[0].vertices.len(), vertices);
             assert_eq!(model.meshes[0].faces.len(), faces);
