@@ -35,6 +35,7 @@ mod tail_slither_pose;
 mod tail_special;
 mod torso_base;
 mod waist;
+mod wing_bow;
 pub use foot::{NativeDpFootCache, NativeDpFootResource, native_dh_has_ankle_bend};
 mod hand_cache;
 pub use hand_cache::NativeDpHandCache;

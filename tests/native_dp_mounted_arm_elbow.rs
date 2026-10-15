@@ -111,6 +111,37 @@ fn mounted_elbows_use_initialized_joints_after_waist_and_shoulder_motion() {
                         assert!((actual[axis] - expected[axis]).abs() < 1e-12);
                     }
                 }
+                let before = bones.clone();
+                let signed = if part.allocation.kind == NativeDpPartKind::LeftArmAndHand {
+                    -angle
+                } else {
+                    angle
+                };
+                let rotate = |point: [f64; 3], pivot: [f64; 3]| {
+                    let (s, c) = f64::from(signed).sin_cos();
+                    let x = point[0] - pivot[0];
+                    let y = point[1] - pivot[1];
+                    [pivot[0] + x * c - y * s, pivot[1] + x * s + y * c, point[2]]
+                };
+                let elbow = before.slots[indices[1]].project(field_58);
+                let wrist = rotate(before.slots[indices[2]].project(field_70), elbow);
+                part.bow_wing(&mut bones, angle).unwrap();
+                for (index, bone) in bones.slots.iter().enumerate() {
+                    if !indices[1..].contains(&index) {
+                        assert_eq!(*bone, before.slots[index]);
+                        continue;
+                    }
+                    let mut expected =
+                        rotate(before.slots[index].project([0.125, -0.25, 0.5]), elbow);
+                    if index == indices[2] {
+                        expected = rotate(expected, wrist);
+                    }
+                    let actual = bone.project([0.125, -0.25, 0.5]);
+                    for axis in 0..3 {
+                        assert!((actual[axis] - expected[axis]).abs() < 1e-12);
+                    }
+                    assert_eq!(bone.field_100, 0);
+                }
             }
         }
     }

@@ -995,6 +995,48 @@ Bow/flap/StandWing/FlyWing and complete wing/limb stages, full Animate,
 production timer/model/Person ownership and final native avatar mesh
 publication remain unfinished under the original end-to-end objective.
 
+### Concrete two-stage BowWing
+
+`NativeDpPartState::bow_wing` implements both actual Z-rotation stages. IsLeft
+negates the f32 angle before widening. Stage1 projects initialized field58
+through Bones output2 using the routine's own sparse/origin/W projection,
+then premultiplies outputs2 and3 in order. Stage2 projects field70 through the
+ALREADY UPDATED output3 using actual AuMatrix::Project and rotates output3
+again. Capturing the second pivot before stage1 would be incorrect. Native
+stage-specific initial/post-translation operand orders remain explicit.
+Zero/signed-zero preserve all bits, NaN enters; non-arm kinds return
+Unsupported, and missing required arm joints return InvalidData before writes.
+No DNA wing-form guard is invented in this concrete operation.
+
+Complete source-bound records are
+`docs/evidence/native-dp-arm-bow-wing{,-part0}.json`, Evidence
+`ev_9c7c743d0608eb91c0ac9d8507860bcbc72dc953bff2b86367edf8252ac9ecca`
+and
+`ev_7288194b5e8dc999fbf401708dcdcda45818dd51de045649c2abb6857453a603`,
+with full GNU in `native-dp-wing-bow-gnu.txt`. The concrete record was reused;
+the live session8086 supplied missing BowWing/FlapWing wrappers together in
+0.079/0.077s, with no reimport. GNU establishes left=true/right=false vtable
+results, sign inversion, three stateless Bones calls and exact stage ordering.
+The decompiler's second Project signature is misleading; Win64 registers bind
+the updated output3 matrix, hidden return and field70/78/80 coordinates.
+
+`just test-native-dp-wing-bow` verifies static side bindings, guards, fields,
+products and second Project ordering, then runs independent affine two-pivot
+fixtures for both sides/all pairs/fallback, repeated dense non-affine stage
+composition, sparse/origin/W projection and zero/NaN/error cases. The mounted
+elbow fixture additionally applies BowWing after real waist/shoulder/elbow/
+wrist motion for five wing forms, checking every selected point against two
+independent Z rotations and preserving all unselected bones. These are
+static/Rust/offline checks, not original-client execution or general host-libm/
+NaN-payload parity.
+
+FlapWing's retained clone shows a distinct inline first-bone product before
+two actual operator* calls; it must not be replaced with a generic all-bone
+multiply without preserving that arithmetic. FlapWing, StandWing/FlyWing,
+full wing/limb animation and Animate ordering, production timer/model/Person
+ownership and final native avatar publication remain unfinished requirements
+of the original end-to-end objective.
+
 ### Waist location and concrete torso rotation
 
 `current_waist_loc` implements the native first-part-only lookup: absent or
