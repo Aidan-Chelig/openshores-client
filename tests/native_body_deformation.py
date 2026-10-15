@@ -59,4 +59,10 @@ for anchor in ["movsd  0x170(%rsi),%xmm12", "movsd  0x180(%rsi),%xmm15",
                "je     141396603", "jmp    1413965b7"]:
     assert anchor in bottom, anchor
 assert "call " not in bottom
+wing = assembly[assembly.index("141396c5b:"):assembly.index("141396f96:")]
+for anchor in ["movsd  0x180(%rsi),%xmm12", "movsd  0x188(%rsi),%xmm12",
+               "movsd  0x190(%rsi),%xmm12", "mulsd  %xmm12,%xmm3",
+               "mulsd  %xmm15,%xmm3", "jmp    1413965cd"]:
+    assert anchor in wing, anchor
+assert "call " not in wing
 print("Verified retained anatomical branch precedence, neck/torso scale stages and final independent offset-minus-connection-plus-vertex. Static/Rust checks only; no native execution or rendered-avatar claim.")

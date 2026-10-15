@@ -11,6 +11,7 @@ pub struct NativeBodyVertexSelection {
     /// Initialized xyz290 even when no Top group matches. Native replaces an
     /// all-zero value with positive zeros; matching Top uses `top` instead.
     pub top_scale_point: [f64; 3],
+    pub bottom_scale_point: [f64; 3],
     pub bottom: Option<[f64; 3]>,
     /// Torso, Hand, Foot, Neck, Tail, Head, corresponding to flags50..55.
     pub anatomical: [Option<[f64; 3]>; 6],
@@ -29,6 +30,11 @@ impl NativeBodyObjectGroups {
         bottom_scale: [f32; 3],
     ) -> io::Result<NativeBodyVertexSelection> {
         let mut result = NativeBodyVertexSelection {
+            bottom_scale_point: if bottom_scale.iter().all(|v| *v == 0.) {
+                [0.; 3]
+            } else {
+                bottom_scale.map(f64::from)
+            },
             top_scale_point: if top_scale.iter().all(|v| *v == 0.) {
                 [0.; 3]
             } else {

@@ -451,3 +451,23 @@ branch destinations and shared exits using the existing digest-bound evidence.
 Only HandWing remains Unsupported in the CPU deformation dispatcher. This is
 not full model generation: live definitions, part assembly, bone weights and
 renderer publication are still pending, and avatars are not yet visible.
+
+HandWing now has its own connected arithmetic module too. At native Hand
+priority it moves the scaled midpoint and vertex by178, scales vertex and
+connection XZ by180 around Hand, applies188 around Bottom with midpoint
+compensation, then applies190 around Hand with scaled HandWingPt compensation.
+The final correction preserves native operand order, including190 on the left
+of the Wing-point Y delta. Top membership can additionally transform the
+connection at the shared exit. Selection retains initialized Bottom scale
+coordinates even without Bottom membership; extracted HandWingPt overrides
+the caller's explicit object defaults. Zero140 skips nonfinite input/control
+point products but not subsequent branch arithmetic.
+
+Fixtures cover control-point extraction through the raw-mesh path, nonzero
+Wing-point compensation, native priority, initialized Bottom without membership,
+zero scale and NaN190 behavior. Static checks pin180/188/190 reads, arithmetic
+and the shared exit in the existing complete digest-bound evidence. All normal
+CPU deformation branches are now represented; unsupported key ordering or
+malformed inputs still fail explicitly. This is not original-client execution
+or a claim of native floating-point payload parity. Live model definitions,
+complete skin assembly, bone weights and rendering remain unfinished.

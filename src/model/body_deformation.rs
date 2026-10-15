@@ -5,6 +5,7 @@ use super::{
 use std::io;
 mod bottom;
 mod top;
+mod wing;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct NativeBodyDeformation {
@@ -13,13 +14,14 @@ pub struct NativeBodyDeformation {
     pub field_178: f64,
     pub field_180: f64,
     pub field_188: f64,
+    pub field_190: f64,
+    pub fields_25c: [f32; 3],
     pub fields_228: [f32; 3],
     pub fields_2c4: [f32; 3],
 }
 
 impl NativeBodyDeformation {
-    /// Anatomical and top/bottom/default branches except HandWing.
-    /// HandWing is an error, NEVER a successful uniform-scale substitute.
+    /// Native anatomical and top/bottom/default CPU deformation branches.
     pub fn apply_vertex(
         &self,
         point: [f64; 3],
@@ -35,9 +37,16 @@ impl NativeBodyDeformation {
                 self.apply_bottom_vertex(point, selected)
             });
         }
+        if selected.anatomical[4].is_none()
+            && selected.anatomical[5].is_none()
+            && selected.anatomical[3].is_none()
+            && selected.anatomical[1].is_some()
+            && selected.hand_wing
+        {
+            return Ok(self.apply_wing_vertex(point, selected));
+        }
         // Native precedence is Tail, Head, Neck, Hand, Foot, Torso, then
-        // top/bottom-only paths. Higher-priority unsupported HandWing must not
-        // accidentally fall through to a supported Foot group.
+        // top/bottom-only paths. HandWing was handled above at Hand priority.
         let (pivot, uniform, vertical, torso) = if let Some(pivot) = selected.anatomical[4] {
             (pivot, false, true, false)
         } else if let Some(pivot) = selected.anatomical[5] {
@@ -45,9 +54,6 @@ impl NativeBodyDeformation {
         } else if let Some(pivot) = selected.anatomical[3] {
             (pivot, false, true, false)
         } else if let Some(pivot) = selected.anatomical[1] {
-            if selected.hand_wing {
-                return Err(unsupported());
-            }
             (pivot, true, true, false)
         } else if let Some(pivot) = selected.anatomical[2] {
             (pivot, true, true, false)
@@ -122,6 +128,9 @@ impl Mesh {
         }
         if let Some(midpoint) = groups.control_point(0x29c) {
             definition.fields_2c4 = midpoint;
+        }
+        if let Some(wing) = groups.control_point(0x234) {
+            definition.fields_25c = wing;
         }
         let top = groups.control_point(0x268).unwrap_or(top_scale);
         let bottom = groups.control_point(0x2d0).unwrap_or(bottom_scale);

@@ -11,6 +11,8 @@ fn definition() -> NativeBodyDeformation {
         field_178: 5.,
         field_180: 3.,
         field_188: 4.,
+        field_190: 2.,
+        fields_25c: [0.; 3],
         fields_228: [0.; 3],
         fields_2c4: [0.; 3],
     }
@@ -86,7 +88,7 @@ fn torso_top_wing_correction_runs_after_torso_height_scaling() {
 }
 
 #[test]
-fn torso_remains_lower_priority_than_foot_and_unsupported_hand() {
+fn torso_remains_lower_priority_than_foot_and_hand_wing() {
     let mut selection = selected(0);
     selection.anatomical[2] = Some([7., 8., 9.]);
     assert_eq!(
@@ -100,23 +102,21 @@ fn torso_remains_lower_priority_than_foot_and_unsupported_hand() {
     assert_eq!(
         definition()
             .apply_vertex([4., 5., 10.], &selection)
-            .unwrap_err()
-            .kind(),
-        io::ErrorKind::Unsupported
+            .unwrap(),
+        [28., 96., 72.]
     );
 }
 
 #[test]
-fn native_priority_and_unsupported_hand_cannot_fall_through() {
+fn native_priority_keeps_hand_wing_before_foot_and_after_neck() {
     let mut selection = selected(2);
     selection.anatomical[1] = Some([0.; 3]);
     selection.hand_wing = true;
     assert_eq!(
         definition()
             .apply_vertex([4., 5., 10.], &selection)
-            .unwrap_err()
-            .kind(),
-        io::ErrorKind::Unsupported
+            .unwrap(),
+        [28., 96., 72.]
     );
     selection.anatomical[3] = Some([7., 8., 9.]);
     assert_eq!(
@@ -226,7 +226,7 @@ fn taken_branch_retains_cancellation_on_unscaled_axes() {
 }
 
 #[test]
-fn mesh_pipeline_selects_actual_members_and_rejects_unsupported_vertices() {
+fn mesh_pipeline_selects_actual_members_for_each_connected_branch() {
     use crate::model::{GroupVertex, Mesh, ModelVariant, VertexGroup, VertexGroupChunk};
     let mut mesh = Mesh {
         vertices: vec![[4., 5., 10.], [1., 2., 3.]],
@@ -273,9 +273,8 @@ fn mesh_pipeline_selects_actual_members_and_rejects_unsupported_vertices() {
     mesh.vertex_groups[0].name = Some(b"HandWing".to_vec());
     assert_eq!(
         mesh.body_deformed_positions(ModelVariant::N, 1., &definition, [0.; 3], [0.; 3])
-            .unwrap_err()
-            .kind(),
-        io::ErrorKind::Unsupported
+            .unwrap(),
+        [[28., 96., 72.], [10., 20., 30.]]
     );
     assert_eq!(mesh.vertices, [[4., 5., 10.], [1., 2., 3.]]);
 }
@@ -303,9 +302,8 @@ fn non_wing_hand_uses_both_scales_and_precedes_foot_and_torso() {
     assert_eq!(
         definition()
             .apply_vertex([4., 5., 10.], &selection)
-            .unwrap_err()
-            .kind(),
-        io::ErrorKind::Unsupported
+            .unwrap(),
+        [28., 72., 72.]
     );
 }
 
@@ -462,5 +460,101 @@ fn bottom_zero_scale_skips_nonfinite_inputs_but_preserves_pivot_math() {
     assert_eq!(
         definition.apply_vertex([f64::NAN; 3], &selection).unwrap(),
         [-18., 20., -6.]
+    );
+}
+
+#[test]
+fn hand_wing_uses_explicit_wing_point_for_final_compensation() {
+    let mut definition = definition();
+    definition.fields_25c = [1., 2., 3.];
+    let mut selection = selected(1);
+    selection.hand_wing = true;
+    selection.wing = true;
+    // Wing y4 contributes4 - (2*(4-8)+8)=4 instead of the
+    // zero-point contribution8, reducing the final y by4.
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [28., 92., 72.]
+    );
+    definition.field_190 = 1.;
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        [28., 56., 72.]
+    );
+}
+
+#[test]
+fn hand_wing_zero_scale_skips_nonfinite_inputs_and_control_points() {
+    let mut definition = definition();
+    definition.base.field_140 = -0.;
+    definition.base.fields_1f4 = [f32::NAN; 3];
+    definition.fields_228 = [f32::NAN; 3];
+    definition.fields_25c = [f32::NAN; 3];
+    let mut selection = selected(1);
+    selection.hand_wing = true;
+    selection.wing = true;
+    assert_eq!(
+        definition.apply_vertex([f64::NAN; 3], &selection).unwrap(),
+        [10., 20., 30.]
+    );
+    definition.field_190 = f64::NAN;
+    let point = definition.apply_vertex([f64::NAN; 3], &selection).unwrap();
+    assert_eq!([point[0], point[2]], [10., 30.]);
+    assert!(point[1].is_nan());
+}
+
+#[test]
+fn hand_wing_reads_initialized_bottom_scale_without_bottom_membership() {
+    let mut definition = definition();
+    definition.fields_228 = [1., 2., 3.];
+    let mut selection = selected(1);
+    selection.hand_wing = true;
+    selection.wing = true;
+    selection.top_scale_point = [1., 2., 3.];
+    selection.bottom_scale_point = [3., 4., 5.];
+    let initialized = definition.apply_vertex([4., 5., 10.], &selection).unwrap();
+    selection.bottom = Some(selection.bottom_scale_point);
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        initialized
+    );
+    selection.bottom = None;
+    selection.bottom_scale_point = [0.; 3];
+    // In exact integer arithmetic compensation cancels the Bottom pivot;
+    // both still exercise the native explicit subtract/add sequence.
+    assert_eq!(
+        definition.apply_vertex([4., 5., 10.], &selection).unwrap(),
+        initialized
+    );
+}
+
+#[test]
+fn mesh_extracts_hand_wing_control_point_before_deformation() {
+    use crate::model::{GroupVertex, Mesh, ModelVariant, VertexGroup, VertexGroupChunk};
+    let group = |name: &[u8], points: &[[f32; 3]]| VertexGroup {
+        name: Some(name.to_vec()),
+        members: Some(
+            points
+                .iter()
+                .map(|position| GroupVertex {
+                    position: *position,
+                    weight: 1.,
+                })
+                .collect(),
+        ),
+        field_order: vec![VertexGroupChunk::Name, VertexGroupChunk::Members],
+    };
+    let mesh = Mesh {
+        vertices: vec![[4., 5., 10.]],
+        vertex_groups: vec![
+            group(b"HandWing", &[[4., 5., 10.], [7., 8., 9.]]),
+            group(b"HandWingPt", &[[1., 2., 3.]]),
+        ],
+        ..Default::default()
+    };
+    assert_eq!(
+        mesh.body_deformed_positions(ModelVariant::N, 1., &definition(), [0.; 3], [0.; 3])
+            .unwrap(),
+        [[28., 92., 72.]]
     );
 }
