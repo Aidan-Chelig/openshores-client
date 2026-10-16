@@ -258,7 +258,7 @@ pub(super) fn run() -> Result<(), Box<dyn std::error::Error>> {
                 "Offline base-terrain export:\n       cargo run -- export-terrain CAPTURE_FILE GLOBE_ID LATITUDE_BANDS NEW_OBJ_FILE\n       LATITUDE_BANDS: 3..128; original LOD/geology/water omitted\n"
             );
             println!(
-                "Optional offline Bevy previews:\n       cargo run --features viewer -- view-model MODEL_FILE [--unlit] [--smoke-frames 1..3600]\n       cargo run --features viewer -- view-native-body INSTALLATION head|torso [--smooth-angle 0..180] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames 1..3600]\n"
+                "Optional offline Bevy previews:\n       cargo run --features viewer -- view-model MODEL_FILE [--unlit] [--smoke-frames 1..3600]\n       cargo run --features viewer -- view-native-body INSTALLATION head|torso|body [--fixture base|many] [--view oblique|front|side|back] [--native-seams] [--smooth-angle 0..180] [--untextured] [--screenshot NEW_PNG] [--unlit] [--smoke-frames 1..3600]\n"
             );
             println!(
                 "Raw-coordinate model commands:\n       cargo run -- inspect-model MODEL_FILE\n       cargo run -- audit-model MODEL_FILE\n       cargo run -- verify-models DLL VERSION\n       cargo run -- export-model MODEL_FILE NEW_OBJ_FILE\n       cargo run -- preview-model MODEL_FILE NEW_SVG_FILE\n"

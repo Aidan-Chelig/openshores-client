@@ -1,5 +1,72 @@
 # Assembled avatar: evidence and implementation ledger
 
+Current acceptance: the [original preview goal](assembled-avatar-goal.md) is
+complete with the explicitly approved modern sleeves. See the
+[requirement-by-requirement final audit](assembled-avatar-acceptance.md).
+Historical checkpoints below retain earlier limitations as they were discovered;
+they do not supersede the current audited status.
+
+## Torso topology audit and proximal attachment repair
+
+The read-only mounted topology diagnostic now distinguishes actual boundary
+components from shaded/skin-colored panels. In model space, the base merged
+torso has 24 boundary edges, 3 nonmanifold edges and 3 collapsed-coordinate
+triangles; the many fixture has 68, 13 and 13 respectively. One four-edge opening
+already exists in a decoded source segment. These are retained native/source
+limitations, not evidence that all pale torso panels are missing geometry.
+
+The focused retained-code audit found no reconstruction mismatch in torso
+fallback resource order, dimensions, bone forwarding or tolerance (CreateSkin
+`ev_bd95f62b443a571fce7c7f6b5a209ab557397d1a065fbebe584c2c6c7b946bd5`).
+`native-body-merge-torso-gnu.txt` at `1413aacf0..1413aad6d` searches the first
+in-tolerance destination point, including points appended earlier in that same
+source pass. `1413aba5f..1413aba73` snaps XYZ before testing BottomConnect;
+`1413aadc3..1413aade9` still appends a new vertex. Face append does not remove
+collapsed triangles. Rust preserves those semantics. This is a static semantic
+comparison, not observed original-runtime visual parity. The normal CPU builder
+still deliberately uses fallback geometry rather than emulating the full native
+combined-instance cache/publication lifecycle.
+
+An independent complete triangle-distance contact test found all posed proximal
+attachments touching except the base left shoulder: separation is
+0.010344130214687029 before posing and 0.009462679835832452 after posing.
+The user-approved modern seam repair now extends to that root without changing
+native state. A SAT overlap check on actual posed triangles decides whether a
+limb needs repair; it has no fixture-name special case or guessed placement
+offset. Zero-area triangles are not rendered contact witnesses. Contact with a
+previously repaired limb cannot substitute for contact with the original torso.
+
+For a separated root, take a closed proximal cuff around the native `connect_30`
+point and the closest actual torso triangle with ordinary two-face edge incidence.
+Remove those caps only in a derived copy and reuse the existing directed zipper.
+The base case removes one torso triangle and 24 proximal cap triangles and adds
+17 sleeve triangles. The many fixture needs no proximal repair. No original
+vertex positions, UVs, top/bottom controls, weights or bones are modified.
+Existing torso edge defects must be preserved exactly; newly introduced edge
+defects or zero-area sleeve triangles are rejected, not hidden.
+
+`root_seam_repairs()` exposes the removed/added counts and original surface vertex
+ranges, including torso/arm/hand provenance. The complete render adapter uses
+`posed_surfaces_with_attachment_repair()`. Its primary torso batch can span
+several native parts, but all raw native surfaces and allocated-part identities
+remain present in the CPU generation result. The original `posed_surfaces()` and
+distal-only `posed_surfaces_with_seam_repair()` remain available for diagnostics.
+The viewer's `--native-seams` option disables all modern sleeves.
+
+The contact gate checks head-to-neck, neck-to-torso, tail-to-torso and all
+remaining proximal limbs using an independent triangle-distance algorithm.
+For a repaired torso, only its remaining original torso triangles count as the
+parent witness. The root batch is checked corner-by-corner against model-space
+crease normals followed by the actual native bone loop; its post-skinning edge
+defect map must equal the original inputs. Every allocated part remains represented
+through explicit provenance, not merely a batch count.
+
+Fresh GPU captures are in ignored `target/avatar-textures-vwjerdpe/`: both
+anatomies from four directions, base untextured, and head/torso regressions. All
+11 pass nonblank/shader-error checks and were opened for visual inspection.
+The shoulder is connected without moving any parts; the native narrow torso,
+source openings, native weld artifacts and modern diagnostic lighting remain.
+
 ## User-approved modern seam repair
 
 After the native deformation/definition audits, the user explicitly chose a

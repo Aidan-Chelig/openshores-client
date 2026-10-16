@@ -147,7 +147,7 @@ pub fn run_textured_avatar(
         return Err(invalid("nonfinite avatar skin offsets"));
     }
     let surfaces = if repair_seams {
-        avatar.posed_surfaces_with_seam_repair(options.angle_degrees)?
+        avatar.posed_surfaces_with_attachment_repair(options.angle_degrees)?
     } else {
         avatar.posed_surfaces(options.angle_degrees)?
     };

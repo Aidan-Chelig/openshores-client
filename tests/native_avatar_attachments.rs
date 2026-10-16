@@ -150,6 +150,33 @@ fn mesh_distance(a: &[[[f64; 3]; 3]], b: &[[[f64; 3]; 3]]) -> f64 {
     nearest
 }
 
+type PosedEdgeDefects = std::collections::BTreeMap<([u64; 3], [u64; 3]), (usize, i32)>;
+fn posed_edge_defects(
+    surfaces: &[&openshores_client::world::native_body::NativeDpPosedAvatarSurface],
+) -> PosedEdgeDefects {
+    let mut edges = PosedEdgeDefects::new();
+    for surface in surfaces {
+        for triangle in surface.corners.chunks_exact(3) {
+            let keys: Vec<_> = triangle
+                .iter()
+                .map(|c| {
+                    std::array::from_fn::<_, 3, _>(|i| {
+                        let v = f64::from(c.position[i]) / f64::from(c.position[3]);
+                        if v == 0. { 0 } else { v.to_bits() }
+                    })
+                })
+                .collect();
+            for (a, b) in [(keys[0], keys[1]), (keys[1], keys[2]), (keys[2], keys[0])] {
+                let entry = edges.entry((a.min(b), a.max(b))).or_insert((0, 0));
+                entry.0 += 1;
+                entry.1 += if a < b { 1 } else { -1 };
+            }
+        }
+    }
+    edges.retain(|_, v| *v != (2, 0));
+    edges
+}
+
 #[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; source/control-point diagnostic, no GPU"]
 fn mounted_attachment_coordinate_diagnostics() {
@@ -532,4 +559,180 @@ fn contact_diagnostic_handles_crossing_edges_piercing_faces_and_separation() {
     let coplanar = [[0.5, -1., 0.], [0.5, 2., 0.], [1.5, 2., 0.]];
     assert!(triangle_distance(a, coplanar) < 1e-14);
     assert_eq!(triangle_distance([[0.; 3]; 3], [[1., 0., 0.]; 3]), 1.);
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; posed inter-part triangle contact, offline"]
+fn mounted_avatar_attachment_contact_graph() {
+    use openshores_client::world::native_body::NativeDpPartKind;
+    let mount = AssetMount::open(
+        std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").expect("installation"),
+    )
+    .unwrap();
+    let point = |c: &openshores_client::world::native_body::NativeDpAvatarCorner| -> [f64; 3] {
+        std::array::from_fn(|i| f64::from(c.position[i]) / f64::from(c.position[3]))
+    };
+    for many in [false, true] {
+        let mut dna = NativeDhDna([0; 24]);
+        dna.0[1] = 1;
+        dna.0[12] = 4;
+        dna.0[14] = 0x51;
+        dna.0[20] = 0x60;
+        if many {
+            dna.0[1] = 2;
+            dna.0[12] = 8;
+            dna.0[14] = 0x91;
+            dna.0[20] = 0x80;
+            dna.0[5] = 2;
+            dna.0[13] = 0x60;
+            dna.0[15] = 0x40;
+        }
+        let avatar = NativeDpAvatarGeometry::generate(&mount, &dna, 0, 0).unwrap();
+        let roots = avatar.root_seam_repairs().unwrap();
+        assert_eq!(roots.len(), usize::from(!many));
+        for root in &roots {
+            println!(
+                "root repair many={many} part {} removed {:?} bridge {} sources {:?}",
+                root.root_part_index, root.removed_faces, root.bridge_faces, root.vertex_sources
+            );
+            let g = &root.surface.geometry;
+            for range in &root.vertex_sources {
+                let source = &avatar.surfaces[range.surface_index].surface;
+                assert_eq!(range.count, source.geometry.positions.len());
+                let span = range.start..range.start + range.count;
+                assert_eq!(&g.positions[span.clone()], source.geometry.positions);
+                assert_eq!(&g.weights[span.clone()], source.geometry.weights);
+                assert_eq!(
+                    &g.uvs.as_ref().unwrap()[span.clone()],
+                    source.geometry.uvs.as_ref().unwrap()
+                );
+                assert_eq!(&root.surface.top_face[span], source.top_face);
+            }
+        }
+        let posed = avatar.posed_surfaces_with_attachment_repair(60.).unwrap();
+        let legacy = avatar.posed_surfaces_with_seam_repair(60.).unwrap();
+        if let Some(root) = roots.last() {
+            let rendered = posed
+                .iter()
+                .find(|s| s.surface_index == root.torso_surface_index)
+                .unwrap();
+            let g = &root.surface.geometry;
+            let points: Vec<_> = g.positions.iter().map(|p| p.map(|v| v as f32)).collect();
+            let faces: Vec<_> = g.faces.iter().map(|f| f.vertices.map(u32::from)).collect();
+            let normals =
+                openshores_client::model::crease_corner_normals(&points, &faces, 60.).unwrap();
+            for (i, corner) in rendered.corners.iter().enumerate() {
+                let vertex = usize::from(g.faces[i / 3].vertices[i % 3]);
+                let expected = avatar
+                    .body
+                    .bones()
+                    .skin_shader_vertex(points[vertex], normals[i], &g.weights[vertex])
+                    .unwrap();
+                assert_eq!(corner.position, expected.position);
+                assert_eq!(corner.normal, expected.normal);
+                assert_eq!(corner.uv, g.uvs.as_ref().unwrap()[vertex]);
+                assert_eq!(corner.top_face, root.surface.top_face[vertex]);
+            }
+            assert_eq!(rendered.corners.len(), g.faces.len() * 3);
+            let inputs: Vec<_> = legacy
+                .iter()
+                .filter(|s| {
+                    s.surface_index == root.torso_surface_index
+                        || root
+                            .consumed_render_surface_indices
+                            .contains(&s.surface_index)
+                })
+                .collect();
+            assert_eq!(
+                posed_edge_defects(&[rendered]),
+                posed_edge_defects(&inputs),
+                "root repair must not introduce new skinned edge defects"
+            );
+            for face in &g.faces[g.faces.len() - root.bridge_faces..] {
+                assert!(
+                    face.vertices
+                        .iter()
+                        .any(|i| usize::from(*i) < root.first_vertex_count)
+                );
+                assert!(
+                    face.vertices
+                        .iter()
+                        .any(|i| usize::from(*i) >= root.first_vertex_count)
+                );
+            }
+        }
+        let mut represented: std::collections::BTreeSet<_> =
+            posed.iter().map(|s| s.part_index).collect();
+        if let Some(root) = roots.last() {
+            represented.extend(
+                root.vertex_sources
+                    .iter()
+                    .map(|s| avatar.surfaces[s.surface_index].part_index),
+            );
+        }
+        assert_eq!(represented, (0..avatar.body.parts().len()).collect());
+        let mut triangles: Vec<Vec<[[f64; 3]; 3]>> = posed
+            .iter()
+            .map(|s| {
+                s.corners
+                    .chunks_exact(3)
+                    .map(|c| [point(&c[0]), point(&c[1]), point(&c[2])])
+                    .collect()
+            })
+            .collect();
+        let torso = posed.iter().position(|s| s.part_index == 0).unwrap();
+        if !roots.is_empty() {
+            triangles[torso]
+                .truncate(avatar.surfaces[0].surface.geometry.faces.len() - roots.len());
+        }
+        let necks: Vec<_> = posed
+            .iter()
+            .enumerate()
+            .filter(|(_, s)| {
+                avatar.surfaces[s.surface_index]
+                    .sources
+                    .iter()
+                    .any(|s| s.resource.contains("Neck"))
+            })
+            .map(|(i, _)| i)
+            .collect();
+        for (i, surface) in posed.iter().enumerate() {
+            if i == torso {
+                continue;
+            }
+            let kind = avatar.body.parts()[surface.part_index].allocation.kind;
+            let is_neck = necks.contains(&i);
+            let parents = if kind == NativeDpPartKind::HeadAndNeck && !is_neck {
+                necks.clone()
+            } else {
+                vec![torso]
+            };
+            let distance = parents
+                .iter()
+                .map(|parent| mesh_distance(&triangles[*parent], &triangles[i]))
+                .fold(f64::INFINITY, f64::min);
+            println!(
+                "attachment many={many} surface {} part {} {kind:?} neck={is_neck} parent distance {distance}",
+                surface.surface_index, surface.part_index
+            );
+            assert_eq!(
+                distance, 0.,
+                "rendered part must contact its attachment parent"
+            );
+            if distance > 0. {
+                let model_triangles = |i: usize| {
+                    let g = &avatar.surfaces[i].surface.geometry;
+                    g.faces
+                        .iter()
+                        .map(|f| f.vertices.map(|v| g.positions[usize::from(v)]))
+                        .collect::<Vec<_>>()
+                };
+                println!(
+                    "  model-space distance {} native root {:?}",
+                    mesh_distance(&model_triangles(0), &model_triangles(surface.surface_index)),
+                    avatar.body.parts()[surface.part_index].connect_30
+                );
+            }
+        }
+    }
 }

@@ -2,7 +2,7 @@
 use super::{Mesh, ModelVariant, NativeBodyMergeGeometry, NativeBodyMeshGeometry, invalid};
 use std::{collections::BTreeMap, io};
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct NativeBodySurfacePreview {
     pub geometry: NativeBodyMeshGeometry,
     /// GetTextureWeight: zero for kind7 membership, one otherwise. Interpolated

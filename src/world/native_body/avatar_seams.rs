@@ -239,6 +239,19 @@ fn repair_pair(
     joint: [f64; 3],
     source_surfaces: [usize; 2],
 ) -> io::Result<NativeAvatarSeamRepair> {
+    let ca = native_avatar_end_cap(a, joint)?;
+    let cb = native_avatar_end_cap(b, joint)?;
+    bridge_surfaces(a, b, ca, cb, source_surfaces, true)
+}
+
+pub(super) fn bridge_surfaces(
+    a: &NativeBodySurfacePreview,
+    b: &NativeBodySurfacePreview,
+    ca: NativeAvatarEndCap,
+    cb: NativeAvatarEndCap,
+    source_surfaces: [usize; 2],
+    require_closed: bool,
+) -> io::Result<NativeAvatarSeamRepair> {
     for source in [a, b] {
         let count = source.geometry.positions.len();
         if source.geometry.weights.len() != count
@@ -253,8 +266,6 @@ fn repair_pair(
             return Err(invalid("seam source attribute count mismatch"));
         }
     }
-    let ca = native_avatar_end_cap(a, joint)?;
-    let cb = native_avatar_end_cap(b, joint)?;
     let offset = a.geometry.positions.len();
     if offset + b.geometry.positions.len() > usize::from(u16::MAX) + 1 {
         return Err(invalid("seam repair exceeds native face index capacity"));
@@ -341,6 +352,7 @@ fn repair_pair(
     if !costs[n * (m + 1) + m].is_finite() {
         return Err(invalid("no valid bounded-progress cuff zipper"));
     }
+    let bridge_start = geometry.faces.len();
     let (mut i, mut j) = (n, m);
     while i > 0 || j > 0 {
         let advance_a = from_a[i * (m + 1) + j];
@@ -381,11 +393,11 @@ fn repair_pair(
         })
         .collect();
     let mut edges = BTreeMap::new();
-    for face in &geometry.faces {
+    for (face_index, face) in geometry.faces.iter().enumerate() {
         let t = face
             .vertices
             .map(|i| geometry.positions[usize::from(i)].map(|v| f64::from(v as f32)));
-        if dot(normal(t), normal(t)) == 0. {
+        if (require_closed || face_index >= bridge_start) && dot(normal(t), normal(t)) == 0. {
             return Err(invalid("seam repair has a degenerate render triangle"));
         }
         let v = face.vertices.map(|i| ids[usize::from(i)]);
@@ -395,7 +407,29 @@ fn repair_pair(
             entry.1 += if a < b { 1 } else { -1 };
         }
     }
-    if edges.values().any(|v| *v != (2, 0)) {
+    let mut original_edges = BTreeMap::new();
+    if !require_closed {
+        for (source, offset) in [(a, 0), (b, offset)] {
+            for face in &source.geometry.faces {
+                let v = face.vertices.map(|i| ids[usize::from(i) + offset]);
+                for (a, b) in [(v[0], v[1]), (v[1], v[2]), (v[2], v[0])] {
+                    let entry = original_edges
+                        .entry((a.min(b), a.max(b)))
+                        .or_insert((0usize, 0i32));
+                    entry.0 += 1;
+                    entry.1 += if a < b { 1 } else { -1 };
+                }
+            }
+        }
+        original_edges.retain(|_, v| *v != (2, 0));
+    }
+    if edges
+        .iter()
+        .any(|(key, v)| *v != (2, 0) && original_edges.get(key) != Some(v))
+        || original_edges
+            .iter()
+            .any(|(key, v)| edges.get(key) != Some(v))
+    {
         return Err(invalid("seam repair is not closed and consistently wound"));
     }
     Ok(NativeAvatarSeamRepair {

@@ -1,26 +1,28 @@
-# Next goal: a complete, assembled native avatar preview
+# Completed goal: a complete, assembled native avatar preview
 
 Implementation/evidence ledger: [native avatar assembly](native-avatar-assembly.md).
 
 ## Current checkpoint
 
-Textured part previews, angle-based smoothing, CPU skinning, composed native
-Stand bones and viewer-independent whole-body source generation are implemented.
-Both mounted anatomies pass smoothed render-corner position/normal skinning
-checks, preserving UVs, material memberships and homogeneous W. The full-body
-viewer now runs via `just preview-avatar body`; both fixtures have nonblank GPU
-captures inspected from four angles, plus an untextured comparison. Visual
-inspection found apparent small hand/foot-end gaps and the existing thin/open
-torso surfaces. Those require evidence-led investigation before visual assembly
-can be accepted. The goal remains active; passing smoke checks are not completion.
+The complete offline preview is implemented and verified against the original
+requirements in the [acceptance audit](assembled-avatar-acceptance.md). Both
+mounted anatomies have inspected captures from four directions, plus untextured
+and head/torso regression views. CPU generation, native Stand bones, raw-weight
+skinning, UV/material/control preservation and model-space angle smoothing are
+covered by unit and mounted tests. This completes the fixture preview, not
+in-world or multiplayer avatar integration.
 
 The native-path audit found model-space separation before posing despite shared
 wrist/ankle bone points and matching source assets. The user approved an explicit
 modern **render-only seam repair**. It replaces facing closed end caps with a
 derived triangle sleeve, retaining the original vertices, UVs, weights and pose.
-The body viewer uses this repair; `--native-seams` retains the fidelity-reference
-path. This is intentionally not a newly claimed native algorithm. Its mounted
-topology tests cover both anatomies; visual acceptance remains a separate check.
+The body viewer uses this repair and an additional sleeve for the separated base
+left shoulder; `--native-seams` retains the fidelity-reference path. These are
+intentionally not newly claimed native algorithms. The torso audit found no
+reconstruction mismatch in the inspected native fallback; narrow shape, source
+openings and native weld artifacts remain documented, not replaced with invented
+anatomy. Contact, post-skinning topology and provenance checks plus actual GPU
+inspection now establish complete fixture assembly with the approved repairs.
 
 ## Objective
 

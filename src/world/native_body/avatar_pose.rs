@@ -6,8 +6,8 @@ use std::io;
 #[derive(Clone, Debug, PartialEq)]
 pub struct NativeDpAvatarCorner {
     /// Face-major source vertex, retained for payload/UV/normal diagnostics.
-    /// With seam repair, indexes the derived combined surface; its repair
-    /// report identifies the two sources and their vertex-index split.
+    /// With seam repair, indexes the derived combined surface; its distal or
+    /// root repair report identifies the original sources and vertex ranges.
     pub source_vertex: usize,
     /// Native homogeneous shader result. No weight normalization or W discard.
     pub position: [f32; 4],
@@ -19,6 +19,8 @@ pub struct NativeDpAvatarCorner {
 #[derive(Debug)]
 pub struct NativeDpPosedAvatarSurface {
     pub surface_index: usize,
+    /// Primary part. A modern root-repaired batch can contain additional parts;
+    /// its explicit root repair report retains their vertex provenance.
     pub part_index: usize,
     /// Face order matches the input render surface, independent of material
     /// splits. The explicit repair path uses its derived combined surface.
