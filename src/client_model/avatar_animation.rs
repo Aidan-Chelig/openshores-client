@@ -39,6 +39,19 @@ impl PreparedNormalAvatar {
         for gait in [NativeDpGait::Walk, NativeDpGait::Run] {
             body.pose_locomotion(gait, 1., 0, &mut hands, &mut feet, &mut Timer(0))?;
         }
+        for code in [0x12, 0x15] {
+            body.pose_locomotion_channels(
+                &NativeDpBodyPoseState {
+                    fields_3c: [code; 10],
+                    field_6c: false,
+                },
+                0.,
+                0,
+                &mut hands,
+                &mut feet,
+                &mut Timer(0),
+            )?;
+        }
         body.pose_neutral_standing(0, &mut hands, &mut feet)?;
         Ok(PreparedAvatarAnimation {
             body,

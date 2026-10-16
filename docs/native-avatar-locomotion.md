@@ -1,7 +1,7 @@
 # Native avatar locomotion checkpoint
 
-Status: leg/arm Walk/Run consumers and normal uniform full-body composition
-implemented, not yet connected animation. The active [animation goal](in-game-avatar-animation-goal.md) remains
+Status: leg/arm Stand/Walk/Run and admitted mixed received channels now animate
+the persistent connected avatar. The active [animation goal](in-game-avatar-animation-goal.md) remains
 open. No original executable/DLL has been run.
 
 ## Target and observations
@@ -95,3 +95,52 @@ and exact repeats, then restores Stand and compares every bone with the original
 generated Stand. It passes, alongside 782 client-library tests (six ignored),
 the arm static verifier, formatting/diff checks and warnings-denied client Clippy.
 No original runtime was executed and no connected animated GPU output is claimed.
+
+The paragraph above records the historical full-body checkpoint, not current
+connected coverage; see the animation goal for subsequent GPU/camera/lifecycle
+acceptance.
+
+## Face-down dead limb checkpoint
+
+Retained PositionLegs evidence
+`ev_2519dd7344a1badc224e6107dd2daf6acaefcb4edfcf9b8bb8abaa2783f3c74d`
+and `docs/evidence/native-dp-position-arms.json` dispatch native 0x12/0x15 to
+DeadLegsFacingDown/DeadArmsFacingDown. This agrees with the supplied source
+server's Dying/Dead codes, but does not establish arbitrary protocol equivalence.
+
+Bounded complete symbol disassembly of `DpBody::DeadLegsFacingDown`
+(`0x1412f00b0`–`0x1412f0295`) and `DpBody::DeadArmsFacingDown`
+(`0x1412ebef0`–`0x1412ec086`) establishes the newly ported isolated stages.
+`tests/native_dead_pose.py` binds the original SHA, literals, selectors, traversal
+and joint calls. No original code executes.
+
+Legs spread at float bits bc8efa35 and traverse trailing legs in reverse,
+selecting later/first/all pairs like Walk/Run. Hip is bdb2b8c2 except when part
+DNA byte 20 masked by 0x0c equals 4 AND stored signed splay is strictly below
+float 0x3f490fdb: then hip is c0437a15. Knee is be32b8c2; conditional ankle bend
+is 3f32b8c3; stored splay is applied last. This compares signed splay, not its
+absolute value. Arms spread at 3edf66f3 with zero lift, scan ordinary arms
+forward by side, then rotate shoulder c04b4bc3, elbow 3d0efa35 and stored splay.
+There is deliberately no wrist rotation or LiftShoulder call in this stage.
+
+CPU tests cover strict threshold/DNA-mask behavior and all arm side selectors,
+finite changed selected bones, untouched others and deterministic reset/repeat.
+Subsequent composition reuses the existing SHA-bound height, tail, torso and
+head dispatch: uniform 0x12/0x15 use the height default (nonnegative half of the
+measured dimension), zero torso-angle default, face-down tail and -half-pi head.
+The caller still resets selected bones before applying stages in native order.
+No world-space corpse offset or guessed fall transition is introduced.
+
+Mounted received-DNA coverage now passes both full-body codes with cached-only
+hand/foot dependencies: changed geometry and eye, finite vertices, identical
+samples at 0/500 ms, and exact subsequent Stand restoration. Preparation warms
+these actions before discarding mount access. The source adapter admits 0x12
+and 0x15 explicitly, preserving mixed channels and giving uniform requests a
+named HUD status. The connected fixture now requests Dying then Dead, checks
+their fixed repeated meshes, and captures both before unsupported 0x13 and
+Stand recovery. That connected run passes; both death images under
+`target/connected-avatar-uittt3kf` were opened and show the textured body lying
+face-down with unchanged render resources. The root deliberately remains at its
+received standing elevation, so this fixture hovers above terrain: animation does
+not implement death gravity/settling or invent a corpse placement correction.
+No timed dying transition or broader death-direction/action catalog is claimed.

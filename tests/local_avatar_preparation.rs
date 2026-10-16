@@ -238,12 +238,37 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     mixed.fields_3c[4] = 0x25;
     let a = animation.sample_channels(&mixed, 4., 125).unwrap();
     let mut bad = mixed.clone();
-    bad.fields_3c[2] = 0x12;
+    bad.fields_3c[2] = 0x13;
     assert!(animation.sample_channels(&bad, 4., 125).is_err());
     let repeat = animation.sample_channels(&mixed, 4., 125).unwrap();
     assert_eq!(a.eye, repeat.eye);
     for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
         assert_eq!(a.corners, b.corners);
+    }
+    for code in [0x12, 0x15] {
+        let pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
+            fields_3c: [code; 10],
+            field_6c: false,
+        };
+        let dead = animation.sample_channels(&pose, 0., 0).unwrap();
+        let repeat = animation.sample_channels(&pose, 0., 500).unwrap();
+        assert!(dead.eye.iter().all(|v| v.is_finite()));
+        assert_eq!(dead.eye, repeat.eye);
+        assert_ne!(dead.eye, stand.eye);
+        assert!(
+            dead.surfaces
+                .iter()
+                .zip(&stand.surfaces)
+                .any(|(a, b)| a.corners != b.corners)
+        );
+        for (a, b) in dead.surfaces.iter().zip(&repeat.surfaces) {
+            assert_eq!(a.corners, b.corners);
+            assert!(
+                a.corners
+                    .iter()
+                    .all(|corner| corner.position.iter().all(|v| v.is_finite()))
+            );
+        }
     }
     let stopped = animation.sample(None, 0., 500).unwrap();
     assert_eq!(stopped.eye, stand.eye);

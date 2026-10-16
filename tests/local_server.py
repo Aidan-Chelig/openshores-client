@@ -286,10 +286,12 @@ def main() -> None:
                                         assert (directory / f"{gait}-{phase}.png").is_file()
                                 if received_animation:
                                     assert "received mixed phases and unsupported/recovery verified" in result.stdout
-                                    for request in ("mixed", "unsupported", "stand"):
+                                    for request in ("mixed", "dying", "dead", "unsupported", "stand"):
                                         assert f"AVATAR POSE sent {request}:" in log_path.read_text()
                                     for phase in ("a", "b"):
                                         assert (directory / f"received-{phase}.png").is_file()
+                                    for pose in ("dying", "dead"):
+                                        assert (directory / f"received-{pose}.png").is_file()
                                     assert "Connected avatar received/render appearance verified" in result.stdout
                                     assert screenshot.is_file() and screenshot.stat().st_size > 1000
                                     assert "Shader compilation error" not in result.stdout

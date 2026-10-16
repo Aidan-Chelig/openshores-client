@@ -226,3 +226,27 @@ is `target/connected-avatar-9z4n0xft/live-lifecycle.png`. The current client-lib
 suite passes 784 tests (six ignored), and strict client Clippy passes. Broader
 action dispatch and final preview/regression acceptance remain open.
 
+Next action checkpoint: retained dispatch and bounded SHA-verified disassembly
+now support isolated native face-down dead leg/arm stages. These are ported with
+literal constants, native pair/side traversal and conditional ankle/DNA behavior;
+see the locomotion ledger. Static anchors and two CPU tests pass. The runtime
+still rejects source Dying/Dead until full height/torso/head composition, mounted
+coverage and connected acceptance are verified. This is progress toward action
+support, not a claim that dead animation is finished.
+
+Full face-down action checkpoint: the compositor now admits native 0x12/0x15,
+reusing existing height/tail/torso/head dispatch and the new leg/arm stages.
+Preparation warms the dependencies off-thread before freezing the caches.
+Mounted received-DNA tests pass finite, time-independent full-body samples and
+exact Stand restoration. The explicit source adapter now accepts those two
+codes; other unsupported actions still report clearly.
+
+The expanded connected received-pose test passes mixed locomotion, Dying, Dead,
+unsupported 0x13 and Stand recovery, retaining root/mesh/material/atlas/UVs.
+Both death captures in `target/connected-avatar-uittt3kf` were inspected. They
+show a face-down textured body; the root remains at its received standing
+elevation, visibly above terrain. No death placement/physics or interpolated fall
+is claimed. All 786 client-library tests pass (six ignored), strict client Clippy
+passes, and mounted tests pass for both default and smaller received DNA.
+The wider animation goal remains active; this is not complete action coverage.
+

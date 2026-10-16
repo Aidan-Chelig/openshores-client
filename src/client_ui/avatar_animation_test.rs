@@ -39,10 +39,10 @@ impl Workflow {
         }
     }
     pub(super) fn complete(&self) -> bool {
-        self.stage == 4
+        self.stage == if self.pose_control.is_some() { 6 } else { 4 }
     }
     pub(super) fn side_view(&self) -> bool {
-        matches!(self.stage, 1..=3)
+        self.stage > 0 && !self.complete()
     }
     fn advance(&mut self) {
         self.stage += 1;
@@ -212,7 +212,9 @@ pub(super) fn workflow(
         );
         let expected = match flow.stage {
             1 => "Avatar animation: received mixed locomotion channels",
-            2 => "Avatar animation unavailable:",
+            2 => "Avatar animation: dying (face down)",
+            3 => "Avatar animation: dead (face down)",
+            4 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
@@ -235,10 +237,39 @@ pub(super) fn workflow(
                 flow.last_phase = Some(current.positions);
             }
             if frames == 120 {
-                std::fs::write(control, "unsupported").unwrap();
+                std::fs::write(control, "dying").unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 2 {
+        } else if matches!(flow.stage, 2 | 3) {
+            assert_ne!(current.positions, initial.positions);
+            assert_ne!(current.eye, initial.eye);
+            if let Some(previous) = &flow.last_phase {
+                assert_eq!(
+                    &current.positions, previous,
+                    "dead pose accumulated transforms or sampled a fabricated rhythm"
+                );
+            }
+            flow.last_phase = Some(current.positions);
+            if frames == 30 {
+                commands
+                    .spawn(Screenshot::primary_window())
+                    .observe(save_to_disk(flow.directory.join(if flow.stage == 2 {
+                        "received-dying.png"
+                    } else {
+                        "received-dead.png"
+                    })));
+                std::fs::write(
+                    control,
+                    if flow.stage == 2 {
+                        "dead"
+                    } else {
+                        "unsupported"
+                    },
+                )
+                .unwrap();
+                flow.advance();
+            }
+        } else if flow.stage == 4 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();

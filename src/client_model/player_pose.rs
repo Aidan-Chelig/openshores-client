@@ -48,7 +48,10 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
             "invalid predicted animation speed",
         ));
     }
-    if received.iter().any(|code| !matches!(code, 0x24..=0x26)) {
+    if received
+        .iter()
+        .any(|code| !matches!(code, 0x12 | 0x15 | 0x24..=0x26))
+    {
         return Err(io::Error::new(
             io::ErrorKind::Unsupported,
             format!("unsupported received action channels {received:02x?}"),
@@ -129,7 +132,7 @@ mod tests {
             model.local_player_pose(4.).unwrap().unwrap().received,
             mixed
         );
-        model.world.ingest(&packet(Some([0x12; 10]))).unwrap();
+        model.world.ingest(&packet(Some([0x13; 10]))).unwrap();
         assert!(model.local_player_pose(12.).is_err());
         model.world.ingest(&packet(Some([0x25; 10]))).unwrap();
         assert_eq!(
@@ -173,6 +176,16 @@ mod tests {
         assert_eq!(selected.native.fields_3c, mixed.map(u32::from));
         assert_eq!(select(&person, 0.).unwrap().unwrap().speed, 1.);
         person.poses = Some([0x12; 10]);
+        assert_eq!(
+            select(&person, 12.).unwrap().unwrap().native.fields_3c,
+            [0x12; 10]
+        );
+        person.poses = Some([0x15; 10]);
+        assert_eq!(
+            select(&person, 0.).unwrap().unwrap().native.fields_3c,
+            [0x15; 10]
+        );
+        person.poses = Some([0x13; 10]);
         assert!(select(&person, 12.).is_err());
         person.poses = Some([0x24; 10]);
         person.pose_parameter = Some(1);

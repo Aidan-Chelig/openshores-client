@@ -127,6 +127,10 @@ pub(super) fn animate(
                 "Avatar animation: walking"
             } else if selected.native.fields_3c == [0x25; 10] {
                 "Avatar animation: running"
+            } else if selected.native.fields_3c == [0x12; 10] {
+                "Avatar animation: dying (face down)"
+            } else if selected.native.fields_3c == [0x15; 10] {
+                "Avatar animation: dead (face down)"
             } else {
                 "Avatar animation: received mixed locomotion channels"
             },

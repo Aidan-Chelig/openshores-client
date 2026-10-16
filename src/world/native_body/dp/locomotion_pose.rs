@@ -34,7 +34,8 @@ impl NativeDpInitialization {
         self.pose_locomotion_channels(&pose, speed, field_4068, hands, feet, timer)
     }
 
-    /// Explicit admitted ten-channel subset: Stand/Walk/Run, normal mode.
+    /// Explicit admitted ten-channel subset: Stand/Walk/Run and face-down dead,
+    /// normal mode. Source-profile admission remains the caller's responsibility.
     /// Preserve mixed limb/head/torso channels; reject unsupported actions
     /// before changing the skeleton instead of replacing them with Stand.
     pub fn pose_locomotion_channels(
@@ -52,7 +53,7 @@ impl NativeDpInitialization {
             || pose
                 .fields_3c
                 .iter()
-                .any(|code| !matches!(code, 0x24..=0x26))
+                .any(|code| !matches!(code, 0x12 | 0x15 | 0x24..=0x26))
         {
             return Err(io::Error::new(
                 io::ErrorKind::Unsupported,
@@ -63,6 +64,10 @@ impl NativeDpInitialization {
         self.bones.reset_for_animation(&self.dna);
         for selector in [0, 1] {
             let code = pose.fields_3c[if selector == 0 { 4 } else { 0 }];
+            if matches!(code, 0x12 | 0x15) {
+                self.dead_legs_facing_down(selector, field_4068, feet)?;
+                continue;
+            }
             if code == 0x24 {
                 self.stand_legs(height, selector, field_4068, feet)?;
                 continue;
@@ -92,6 +97,10 @@ impl NativeDpInitialization {
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
                 let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
+                if matches!(code, 0x12 | 0x15) {
+                    self.dead_arms_facing_down(side)?;
+                    continue;
+                }
                 if code == 0x24 {
                     self.stand_arms(height, side, None, field_4068, hands)?;
                     continue;

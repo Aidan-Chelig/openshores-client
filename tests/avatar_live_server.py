@@ -89,7 +89,9 @@ async def observe_pose_requests(live, writer):
     previous = None
     channels = {
         "mixed": bytes([0x26, 0x24, 0x25, 0x24, 0x25, 0x24, 0x24, 0x24, 0x24, 0x24]),
-        "unsupported": bytes([0x12] * 10),
+        "dying": bytes([0x12] * 10),
+        "dead": bytes([0x15] * 10),
+        "unsupported": bytes([0x13] * 10),
         "stand": bytes([0x24] * 10),
     }
     while not writer.is_closing():
