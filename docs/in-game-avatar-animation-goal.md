@@ -384,3 +384,16 @@ hands appear at the bottom during the extended phase, without skull interior.
 Strict client Clippy passes. This is not native physics or coverage of actions
 that the adapter still explicitly rejects.
 
+Fold dependency checkpoint: native fixed Fold leg/arm stages are ported from
+bounded disassembly, including conditional ankle, pair/side traversal and the
+first-arm override's distinct float literal. The internal compositor supports
+native numeric codes0x18/0x19/0x1b/0x35 using existing height/tail/torso/head stages;
+user-facing action names are not inferred from limb shape. Worker preparation
+warms these requests before mount access is discarded. Full mounted received-DNA
+samples pass finite geometry/eye, exact repeats and subsequent Stand restoration.
+The leg selector/ankle matrix and first-arm override test also pass. Combined
+offline checks pass eleven static verifiers, 791 library tests (six ignored),
+both received-DNA tests and all eight mounted limb tests; strict client Clippy
+passes. Source admission and connected Fold captures remain required, so the
+runtime adapter still rejects these codes instead of drawing an unverified pose.
+

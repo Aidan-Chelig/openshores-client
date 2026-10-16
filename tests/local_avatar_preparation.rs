@@ -270,6 +270,31 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             );
         }
     }
+    for code in [0x18, 0x19, 0x1b, 0x35] {
+        let pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
+            fields_3c: [code; 10],
+            field_6c: false,
+        };
+        let a = animation.sample_channels(&pose, 0., 0).unwrap();
+        let b = animation.sample_channels(&pose, 0., 125).unwrap();
+        let repeat = animation.sample_channels(&pose, 0., 0).unwrap();
+        assert!(b.eye.iter().all(|v| v.is_finite()));
+        assert_eq!(a.eye, repeat.eye);
+        assert!(
+            a.surfaces
+                .iter()
+                .zip(&stand.surfaces)
+                .any(|(a, b)| a.corners != b.corners)
+        );
+        for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
+            assert_eq!(a.corners, b.corners);
+            assert!(
+                a.corners
+                    .iter()
+                    .all(|corner| corner.position.iter().all(|v| v.is_finite()))
+            );
+        }
+    }
     let jump_pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
         fields_3c: [0x1c; 10],
         field_6c: false,

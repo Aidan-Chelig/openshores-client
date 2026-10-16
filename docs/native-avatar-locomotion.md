@@ -254,3 +254,31 @@ recovery. Both Jump images under `target/connected-avatar-6sh8tgso` were opened
 and show intact tucked/extended body phases. No local pose reports overwrite
 the received action. This implements received jump posing, not keyboard jump
 input, root displacement, native physics or landing synchronization.
+
+## Folded-limb composition (not admitted in-game yet)
+
+Retained PositionLegs/PositionArms dispatch selects Fold for numeric codes
+0x18/0x19/0x1b/0x35. Their user-facing action names are not established here;
+do not label all of them as the same sitting action. Bounded complete symbols
+FoldLegs (`0x1412efc20`–`0x1412efdc0`) and FoldArms
+(`0x1412eb990`–`0x1412ebbab`) establish the
+ported stages. `tests/native_fold_pose.py` SHA-binds literals, traversal,
+conditional ankle and first-arm override. These are static observations only.
+
+Legs spread at float 0x3eb2b8c2 and use reverse trailing-leg/pair selection.
+Hip/knee/conditional-ankle literals are beb2b8c2/c021f770/3fc90fdb; stored splay
+is last. Arms spread AND lift at 3e32b8c2, scanning ordinary arms forward by side.
+Normal shoulder/elbow are c0384e89/40384e88 with no wrist rotation. The first
+selected override instead uses ownerPitch+float(40384e89) elbow and bd0efa35
+wrist. The one-ULP distinction from normal elbow is deliberate. Stored splay
+and lift finish the arm stage. Neither limb stage samples a rhythm.
+
+The internal compositor routes all four codes through existing height/tail/
+torso/head stages; those stages can still animate while the limbs stay folded.
+Preparation warms each code before caches become mount-free. Mounted received
+DNA tests pass changed-from-Stand surfaces, finite geometry/eyes, exact repeated
+samples and later Stand restoration. A separate leg matrix covers one/two/three
+pairs, all selectors and both ankle branches on one cached-only body, preserving
+all unselected bones and requesting no clock for the leg-only request. The arm
+unit test proves override changes only the first selected arm and rejects NaN
+pitch before writes. Runtime source admission and connected captures remain open.
