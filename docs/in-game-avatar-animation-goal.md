@@ -284,3 +284,28 @@ both mounted/ownership tests. It does not execute original binaries or launch
 new disassembler analysis. Connected GPU recipes remain separate because the
 offline suite cannot prove rendering or network behavior.
 
+Wave dependency checkpoint: bounded static analysis and retained PositionArms
+dispatch now support the native Wave arm stage, including pose-1 rhythm,
+pair phases, owner pitch and wrist-bend branches. It is ported but not admitted
+by the runtime until full composition/mounted/connected verification. During
+that audit, a DhDNA object-header offset error in the recent death hip branch
+was corrected (packed byte12, not20). A regression distinguishes those bytes;
+788 library tests and both mounted received-DNA tests pass. Earlier death
+captures must be rerun before claiming the corrected branch visually verified.
+
+Wave is now integrated on received arm channels2/5, preserving all other pose
+channels rather than fabricating a uniform standing-wave request. Unsupported
+Wave codes on non-arm channels remain explicit errors. Worker preparation warms
+Wave before freezing mount access. Mounted tests cover either/both arms,
+0/125/0-ms phase changes, exact repeats, unchanged eye, rejection of non-arm Wave,
+and exact Stand restoration.
+
+The expanded connected receive run passes through mixed locomotion, corrected
+Dying/Dead, left-arm Wave, unsupported action and Stand recovery. Wave-A/B and
+Dead in `target/connected-avatar-fg7sv59n` were opened and inspected: raised arm
+and wrist phases change without moving the rest of the standing body or eye;
+the face-down death pose retains its deliberately unchanged root elevation.
+Persistent GPU identities and actual server-decoder non-overwrite gates pass.
+The combined offline suite passes nine static checks, 788 library tests (six
+ignored) and both mounted received-DNA tests. Broader action support remains open.
+

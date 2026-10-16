@@ -131,6 +131,8 @@ pub(super) fn animate(
                 "Avatar animation: dying (face down)"
             } else if selected.native.fields_3c == [0x15; 10] {
                 "Avatar animation: dead (face down)"
+            } else if selected.native.fields_3c[2] == 0x30 || selected.native.fields_3c[5] == 0x30 {
+                "Avatar animation: received wave channels"
             } else {
                 "Avatar animation: received mixed locomotion channels"
             },

@@ -43,6 +43,7 @@ pub use locomotion_pose::NativeDpLocomotionSample;
 pub use neutral_pose::NativeDpStandingPose;
 mod arm_shoulder;
 mod arm_standing;
+mod arm_wave;
 mod arm_wrist;
 mod body_waist;
 mod foot;

@@ -116,7 +116,7 @@ and joint calls. No original code executes.
 
 Legs spread at float bits bc8efa35 and traverse trailing legs in reverse,
 selecting later/first/all pairs like Walk/Run. Hip is bdb2b8c2 except when part
-DNA byte 20 masked by 0x0c equals 4 AND stored signed splay is strictly below
+DNA byte 12 masked by 0x0c equals 4 AND stored signed splay is strictly below
 float 0x3f490fdb: then hip is c0437a15. Knee is be32b8c2; conditional ankle bend
 is 3f32b8c3; stored splay is applied last. This compares signed splay, not its
 absolute value. Arms spread at 3edf66f3 with zero lift, scan ordinary arms
@@ -144,3 +144,51 @@ face-down with unchanged render resources. The root deliberately remains at its
 received standing elevation, so this fixture hovers above terrain: animation does
 not implement death gravity/settling or invent a corpse placement correction.
 No timed dying transition or broader death-direction/action catalog is claimed.
+
+Offset correction: the first death-stage port mistakenly used packed byte 20
+for part+0x24. DhDNA is embedded at part+0x10 with an eight-byte object header,
+so that load is packed byte 12. The corrected implementation and CPU test now
+explicitly distinguish bytes 12 and 20. Prior death screenshots precede this
+correction and are not visual proof of the corrected branch. Mounted full-body
+repeat/finite/Stand-recovery checks pass again; connected captures need rerunning.
+
+## Wave arm stage (not admitted in-game yet)
+
+Retained PositionArms evidence
+`ev_17f36040ffbb5a56c997011ed3faac068c5298cb20355ac571cdd958fd71f315`
+dispatches arm channel 0x30 to WaveArms. Bounded complete symbol disassembly of
+WaveArms (`0x1412ed090`–`0x1412ed1f7`) and DpArmAndHand::Wave
+(`0x1412d7140`–`0x1412d7340`) supplies the ported stage. Static anchors in
+`tests/native_wave_pose.py` bind the same target SHA and literal bytes.
+
+WaveArms spreads at float bits bfbde44e with lift be860a92, scans ordinary arms
+forward by side, and passes actual owner pitch30 to every selected arm. Unlike
+Walk/Run it has no left/right phase difference: two pairs use pi for index1;
+three pairs use 2pi/3 and 4pi/3 for indices1/2. Other phases are zero.
+Wave samples DhDNA rhythm pose **1**, speed1. For rhythm r and float degree d,
+shoulder=(85+r)*d+ownerPitch; elbow=(15+10*r)*d; lift=storedLift+(10*r)*d.
+Wrist-bending DNA uses r*float(10degrees)-float(6degrees); otherwise wrist is
+float(-2degrees). Joint order is shoulder, wrist, elbow, stored splay, lift.
+The Rust stage preserves observed f32 operation order.
+
+Static anchors and pure phase/angle tests pass; 788 client-library tests pass
+(six ignored). This is not full Wave composition or in-game action support:
+leg dispatch, mounted stage sampling and connected acceptance remain required.
+
+Wave composition checkpoint: 0x30 is now admitted on the two arm channels
+(indices2/5), with every other channel preserved. It does not reinterpret a
+uniform all-0x30 request as a standing wave: non-arm Wave channels are explicitly
+unsupported until their dispatch semantics are implemented. Both the native
+compositor and source adapter enforce that boundary before skeleton writes.
+Mounted default received-DNA tests pass left-only, right-only and both-arm Wave
+samples at 0/125/0 ms with changing phases, exact repeats, unchanged eye and
+subsequent exact Stand restoration. Worker preparation warms both Wave arms
+before caches become mount-free. The connected fixture now requests a left-arm
+Wave over Stand, captures two phases and checks no eye/root/resource changes or
+outgoing reports overriding the request. That connected run passes; Wave-A/B
+and the corrected Dead capture in `target/connected-avatar-fg7sv59n` were opened.
+The arm is raised with visibly different hand/wrist phases, while the other arm,
+eye and standing body stay stable. The corrected death body remains face-down
+at the unchanged received elevation. Exact Stand recovery, persistent assets
+and source-decoder non-overwrite checks all pass. The offline combined suite
+passes nine static anchors, 788 library tests and both mounted tests.

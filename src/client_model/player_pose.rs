@@ -48,10 +48,9 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
             "invalid predicted animation speed",
         ));
     }
-    if received
-        .iter()
-        .any(|code| !matches!(code, 0x12 | 0x15 | 0x24..=0x26))
-    {
+    if received.iter().enumerate().any(|(index, code)| {
+        !(matches!(code, 0x12 | 0x15 | 0x24..=0x26) || matches!(index, 2 | 5) && *code == 0x30)
+    }) {
         return Err(io::Error::new(
             io::ErrorKind::Unsupported,
             format!("unsupported received action channels {received:02x?}"),
@@ -186,6 +185,15 @@ mod tests {
             [0x15; 10]
         );
         person.poses = Some([0x13; 10]);
+        assert!(select(&person, 12.).is_err());
+        let mut wave = [0x24; 10];
+        wave[2] = 0x30;
+        person.poses = Some(wave);
+        assert_eq!(
+            select(&person, 12.).unwrap().unwrap().native.fields_3c,
+            wave.map(u32::from)
+        );
+        person.poses = Some([0x30; 10]);
         assert!(select(&person, 12.).is_err());
         person.poses = Some([0x24; 10]);
         person.pose_parameter = Some(1);

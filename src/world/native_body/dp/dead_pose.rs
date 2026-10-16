@@ -68,7 +68,9 @@ impl NativeDpInitialization {
 fn dead_hip(dna: &NativeDhDna, splay: f32) -> f32 {
     // Native compares the stored signed splay directly, not abs(splay).
     f32::from_bits(
-        if dna.0[20] & 0x0c == 4 && splay < f32::from_bits(0x3f490fdb) {
+        // Part +0x24 = DhDNA object +0x14 = packed byte 12, after
+        // the native DNA object's eight-byte header.
+        if dna.0[12] & 0x0c == 4 && splay < f32::from_bits(0x3f490fdb) {
             0xc0437a15
         } else {
             0xbdb2b8c2
@@ -122,6 +124,8 @@ mod tests {
         let mut dna = NativeDhDna([0; 24]);
         assert_eq!(dead_hip(&dna, 0.).to_bits(), 0xbdb2b8c2);
         dna.0[20] = 4;
+        assert_eq!(dead_hip(&dna, 0.).to_bits(), 0xbdb2b8c2);
+        dna.0[12] = 4;
         assert_eq!(dead_hip(&dna, -2.).to_bits(), 0xc0437a15);
         assert_eq!(dead_hip(&dna, 0.7).to_bits(), 0xc0437a15);
         assert_eq!(
@@ -129,7 +133,7 @@ mod tests {
             0xbdb2b8c2
         );
         assert_eq!(dead_hip(&dna, f32::NAN).to_bits(), 0xbdb2b8c2);
-        dna.0[20] = 12;
+        dna.0[12] = 12;
         assert_eq!(dead_hip(&dna, 0.).to_bits(), 0xbdb2b8c2);
     }
 }

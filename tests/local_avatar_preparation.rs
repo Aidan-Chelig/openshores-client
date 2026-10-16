@@ -270,6 +270,32 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             );
         }
     }
+    for sides in [[true, false], [false, true], [true, true]] {
+        let mut pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
+            fields_3c: [0x24; 10],
+            field_6c: false,
+        };
+        for (index, enabled) in [2, 5].into_iter().zip(sides) {
+            if enabled {
+                pose.fields_3c[index] = 0x30;
+            }
+        }
+        let a = animation.sample_channels(&pose, 0., 0).unwrap();
+        let b = animation.sample_channels(&pose, 0., 125).unwrap();
+        let repeat = animation.sample_channels(&pose, 0., 0).unwrap();
+        assert_eq!(a.eye, stand.eye, "arm-only wave moved the eye");
+        assert!(
+            a.surfaces
+                .iter()
+                .zip(&b.surfaces)
+                .any(|(a, b)| a.corners != b.corners)
+        );
+        for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
+            assert_eq!(a.corners, b.corners);
+        }
+        pose.fields_3c[0] = 0x30;
+        assert!(animation.sample_channels(&pose, 0., 0).is_err());
+    }
     let stopped = animation.sample(None, 0., 500).unwrap();
     assert_eq!(stopped.eye, stand.eye);
     for (a, b) in stand.surfaces.iter().zip(&stopped.surfaces) {

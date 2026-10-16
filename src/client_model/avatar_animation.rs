@@ -52,6 +52,13 @@ impl PreparedNormalAvatar {
                 &mut Timer(0),
             )?;
         }
+        let mut wave = NativeDpBodyPoseState {
+            fields_3c: [0x24; 10],
+            field_6c: false,
+        };
+        wave.fields_3c[2] = 0x30;
+        wave.fields_3c[5] = 0x30;
+        body.pose_locomotion_channels(&wave, 0., 0, &mut hands, &mut feet, &mut Timer(0))?;
         body.pose_neutral_standing(0, &mut hands, &mut feet)?;
         Ok(PreparedAvatarAnimation {
             body,

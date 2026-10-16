@@ -39,7 +39,7 @@ impl Workflow {
         }
     }
     pub(super) fn complete(&self) -> bool {
-        self.stage == if self.pose_control.is_some() { 6 } else { 4 }
+        self.stage == if self.pose_control.is_some() { 7 } else { 4 }
     }
     pub(super) fn side_view(&self) -> bool {
         self.stage > 0 && !self.complete()
@@ -214,30 +214,42 @@ pub(super) fn workflow(
             1 => "Avatar animation: received mixed locomotion channels",
             2 => "Avatar animation: dying (face down)",
             3 => "Avatar animation: dead (face down)",
-            4 => "Avatar animation unavailable:",
+            4 => "Avatar animation: received wave channels",
+            5 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
             flow.frames = 0;
             return;
         }
-        if flow.stage == 1 {
+        if matches!(flow.stage, 1 | 4) {
             if matches!(frames, 37 | 83) {
                 assert_ne!(current.positions, initial.positions);
                 if let Some(previous) = &flow.last_phase {
                     assert_ne!(&current.positions, previous);
                 }
+                if flow.stage == 4 {
+                    assert_eq!(current.eye, initial.eye, "arm wave moved the eye");
+                }
+                let label = if flow.stage == 4 { "wave" } else { "received" };
                 commands
                     .spawn(Screenshot::primary_window())
-                    .observe(save_to_disk(flow.directory.join(if frames == 37 {
-                        "received-a.png"
-                    } else {
-                        "received-b.png"
-                    })));
+                    .observe(save_to_disk(flow.directory.join(format!(
+                        "{label}-{}.png",
+                        if frames == 37 { "a" } else { "b" }
+                    ))));
                 flow.last_phase = Some(current.positions);
             }
             if frames == 120 {
-                std::fs::write(control, "dying").unwrap();
+                std::fs::write(
+                    control,
+                    if flow.stage == 1 {
+                        "dying"
+                    } else {
+                        "unsupported"
+                    },
+                )
+                .unwrap();
                 flow.advance();
             }
         } else if matches!(flow.stage, 2 | 3) {
@@ -258,18 +270,10 @@ pub(super) fn workflow(
                     } else {
                         "received-dead.png"
                     })));
-                std::fs::write(
-                    control,
-                    if flow.stage == 2 {
-                        "dead"
-                    } else {
-                        "unsupported"
-                    },
-                )
-                .unwrap();
+                std::fs::write(control, if flow.stage == 2 { "dead" } else { "wave" }).unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 4 {
+        } else if flow.stage == 5 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();
