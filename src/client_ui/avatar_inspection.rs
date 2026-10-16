@@ -92,6 +92,7 @@ pub(super) struct Capture {
     root: Option<Entity>,
     expected_position: Option<[f64; 3]>,
     expected_appearance: Option<([u8; 24], f32)>,
+    southern: bool,
 }
 impl Capture {
     pub(super) fn from_environment(auto_login: bool) -> io::Result<Option<Self>> {
@@ -141,6 +142,7 @@ impl Capture {
             root: None,
             expected_position,
             expected_appearance,
+            southern: std::env::var_os("OPENSHORES_TEST_AVATAR_SOUTH").is_some(),
         }))
     }
 }
@@ -186,6 +188,24 @@ pub(super) fn capture(
     // Match the offline preview's cold-pipeline warmup, starting AFTER attachment.
     if capture.frames != 600 {
         return;
+    }
+    if capture.southern {
+        let valid = ui
+            .model
+            .avatar
+            .and_then(|id| ui.model.world.entities.get(&id))
+            .and_then(|entity| entity.transform)
+            .zip(ui.model.position())
+            .zip(roots.get(root).ok())
+            .is_some_and(|((source, position), body)| {
+                southern_frame(position, source.rotation, body.rotation)
+            });
+        if !valid {
+            eprintln!("Connected avatar southern orientation mismatch");
+            exit.write(AppExit::error());
+            return;
+        }
+        println!("Connected avatar southern received/render orientation verified");
     }
     if let Some(expected) = capture.expected_position {
         let valid =
@@ -293,6 +313,17 @@ fn verify_origin(expected: [f64; 3], received: [f64; 3], rendered: Vec3, scale: 
         })
 }
 
+fn southern_frame(position: [f64; 3], received: [f32; 3], body: Quat) -> bool {
+    let Some(source) = placement::local_model(position, received, 1.) else {
+        return false;
+    };
+    let up = DVec3::from_array(position).normalize_or_zero().as_vec3();
+    position[2] < 0.
+        && body.is_finite()
+        && (body * Vec3::Z).dot(up) > 0.9999
+        && body.angle_between(source.rotation) < 1e-3
+}
+
 fn parse_appearance(dna: &str, height: &str) -> io::Result<([u8; 24], f32)> {
     if dna.len() != 48 || !dna.is_ascii() {
         return Err(io::Error::other("expected 48 hex DNA digits"));
@@ -314,6 +345,23 @@ fn parse_appearance(dna: &str, height: &str) -> io::Result<([u8; 24], f32)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn southern_frame_preserves_received_heading_and_rejects_global_up_or_added_rotation() {
+        let position = [0., 0., -100.];
+        let rotation = [std::f32::consts::PI, 0., 0.7];
+        let body = placement::local_model(position, rotation, 1.)
+            .unwrap()
+            .rotation;
+        assert!(southern_frame(position, rotation, body));
+        assert!(!southern_frame(position, rotation, Quat::IDENTITY));
+        assert!(!southern_frame(
+            position,
+            rotation,
+            body * Quat::from_rotation_z(0.1)
+        ));
+        assert!(!southern_frame([0., 0., 100.], rotation, body));
+    }
 
     #[test]
     fn appearance_expectations_are_exact_and_finite() {

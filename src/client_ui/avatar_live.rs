@@ -64,6 +64,22 @@ pub(super) fn workflow(
     flow.frames += 1;
     match flow.stage {
         0 if flow.frames > 30 => {
+            if std::env::var_os("OPENSHORES_TEST_AVATAR_SOUTH").is_some() {
+                let position = ui.local_position.unwrap();
+                assert!(position[2] < 0.);
+                assert!(
+                    ui.local_rotation.is_none(),
+                    "bootstrap frame was replaced by prediction"
+                );
+                assert!(
+                    (body.rotation * Vec3::Z)
+                        .dot(DVec3::from_array(position).normalize().as_vec3())
+                        > 0.9999
+                );
+                println!(
+                    "Connected avatar southern bootstrap used received outward-facing rotation before prediction"
+                );
+            }
             flow.original = Some((root, state.mesh_ids(), received.model));
             flow.target = Some(report(&mut ui, &bridge, 0.7));
             flow.stage = 1;

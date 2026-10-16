@@ -82,6 +82,7 @@ def main() -> None:
         raise RuntimeError("connected avatar placement test requires a mounted installation")
     fixture = {}
     lifecycle = action == "avatar-live" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_LIFECYCLE"))
+    south = action in ("avatar", "avatar-live") and bool(os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"))
     # Hold distinct ephemeral ports until the server is ready to start.
     reservations = [socket.socket() for _ in range(5)]
     for sock in reservations:
@@ -125,6 +126,8 @@ def main() -> None:
             })
             if lifecycle:
                 os.environ["OPENSHORES_TEST_AVATAR_LIFECYCLE"] = "1"
+            if south:
+                os.environ["OPENSHORES_TEST_AVATAR_SOUTH"] = "1"
             if graphical:
                 if installation.is_dir():
                     os.environ["HAZERON_INSTALL"] = str(installation)
@@ -157,8 +160,9 @@ def main() -> None:
                                 AuDice(seed=int(globe["id"])), size, water, zone_count=3 if size > 2 else 1)
                             # Owned player uses native nominal CG clearance when
                             # mounted; other diagnostics retain the old +5.
-                            floor = size * 1000 / 1.609344 * 5 + terrain_altitude_msl(terrain, size, math.pi / 2, 0)
-                            z = floor + (anchor[0] if anchor else 5)
+                            latitude = -math.pi / 2 if south else math.pi / 2
+                            floor = size * 1000 / 1.609344 * 5 + terrain_altitude_msl(terrain, size, latitude, 0)
+                            z = (floor + (anchor[0] if anchor else 5)) * (-1 if south else 1)
                             fixture.update(floor=floor, z=z)
                             await conn.execute('UPDATE "a_Person" SET "locZ"=$1 WHERE "id"=$2', z, avatar)
                     finally:
@@ -172,7 +176,7 @@ def main() -> None:
             with log_path.open("w") as log:
                 server_command = ([sys.executable, str(ROOT / "tests/conversation_server.py")]
                                   if action == "conversation" else [sys.executable, "-m", "openshores"])
-                if action == "avatar-live":
+                if action == "avatar-live" or south:
                     server_command = [sys.executable, str(ROOT / "tests/avatar_live_server.py")]
                 server = subprocess.Popen(server_command, stdout=log, stderr=log)
                 deadline = time.monotonic() + 120
@@ -202,13 +206,20 @@ def main() -> None:
                         cases = [("landed", 0., original_dna, anchor),
                                  ("off-ground", 5., original_dna, anchor),
                                  ("smaller-received", 0., smaller_dna, smaller_anchor)]
+                        if south:
+                            cases = [("south-landed", 0., original_dna, anchor),
+                                     ("south-off-ground", 5., original_dna, anchor)]
                         if action == "avatar-live":
                             cases = [("live-update", 0., original_dna, smaller_anchor)]
+                            if south:
+                                cases = [("south-live-update", 0., original_dna, smaller_anchor)]
                             os.environ["OPENSHORES_TEST_AVATAR_LIVE"] = "1"
                             if lifecycle:
                                 cases = [("live-lifecycle", 0., original_dna, anchor)]
                         for label, elevation, dna, metrics in cases:
                             z = fixture["floor"] + (anchor[0] if action == "avatar-live" else metrics[0]) + elevation
+                            if south:
+                                z = -z
                             async def place_avatar():
                                 import asyncpg
                                 conn = await asyncpg.connect(dsn)
@@ -243,6 +254,9 @@ def main() -> None:
                             else:
                                 assert "Connected avatar received/render origin verified" in result.stdout
                             assert "Connected avatar received/render appearance verified" in result.stdout
+                            if south:
+                                assert "southern received/render orientation verified" in result.stdout
+                                assert "AVATAR SOUTH bootstrap orientation" in log_path.read_text()
                             assert PASSWORD not in result.stdout
                             assert screenshot.is_file() and screenshot.stat().st_size > 1000
                             assert "Shader compilation error" not in result.stdout

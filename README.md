@@ -87,6 +87,12 @@ received manifest removal/restore, GPU-resource cleanup, cached CPU-body reuse,
 disconnect and authenticated reconnect to the same selected player. Its final
 capture checks the new bootstrap DNA rather than retaining the previous update.
 
+`just test-connected-avatar-south` verifies southern landed/airborne placement
+and live turning/update. Its labelled server fixture supplies the correct radial
+bootstrap orientation: the supplied server hard-codes zero rotation for the
+selected player. Rust preserves the received transform; it does not silently
+gravity-align a bad server rotation. Reference source remains unchanged.
+
 For an already running local server:
 
 ```sh

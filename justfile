@@ -100,6 +100,11 @@ test-connected-avatar-live: build-client
 test-connected-avatar-lifecycle: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_LIFECYCLE=1 python tests/local_server.py avatar-live
 
+# South-pole landed/airborne and live motion/update, with explicit server orientation fixture.
+test-connected-avatar-south: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_SOUTH=1 python tests/local_server.py avatar
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_SOUTH=1 python tests/local_server.py avatar-live
+
 # Disposable server + client, manual login.
 play: build-client
     nix develop .#server-test --command python tests/local_server.py play

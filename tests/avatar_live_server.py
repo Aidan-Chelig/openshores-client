@@ -20,6 +20,21 @@ from openshores.protocol.login_reply import _default_dna
 
 original = connection.handle_scene
 
+if os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"):
+    from openshores.gameplay.natives.village import gravity_align_euler
+    original_base = connection._bpt2_tc
+
+    @functools.wraps(original_base)
+    def southern_base(parent, created, tx=0., ty=0., tz=0., rx=0., ry=0., rz=0.):
+        # Selected-player bootstrap hard-codes zero rotation; supply an explicit
+        # correct test-server orientation rather than correcting it in Rust.
+        if tz < 0 and (rx, ry, rz) == (0., 0., 0.):
+            rx, ry, rz = gravity_align_euler((tx, ty, tz))
+            print(f"AVATAR SOUTH bootstrap orientation: position={(tx,ty,tz)}, rotation={(rx,ry,rz)}", flush=True)
+        return original_base(parent, created, tx, ty, tz, rx, ry, rz)
+
+    connection._bpt2_tc = southern_base
+
 
 async def observe_reports(live, writer):
     previous = None

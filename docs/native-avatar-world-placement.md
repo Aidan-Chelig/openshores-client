@@ -104,3 +104,18 @@ Mounted quick-dev/play spawns now use the same native nominal clearance instead
 of the previous arbitrary +5. This only changes owned disposable server seed
 data, never received coordinates inside the renderer. Other diagnostic workflows
 retain their earlier fixture behavior.
+
+## Southern connected frame verification
+
+The negative-Z fixture now passes landed, five-unit airborne and live-turn/update
+checks through `just test-connected-avatar-south`. Received model +Z must point
+radially outward and the render quaternion must match the received rotation;
+no additional gravity rotation is allowed. The live test verifies that bootstrap
+frame before local prediction and retains mesh identities while turning.
+
+The supplied selected-player bootstrap hard-codes zero rotation. The explicit
+test-server wrapper supplies an outward orientation using its existing gravity
+helper for the southern person record. This bounds the result to correct
+source-profile received transforms; it does not prove unmodified selected-player
+bootstrap at the south pole or original native environment parity. See the
+[progress ledger](in-world-avatar-progress.md) for inspected captures and gates.

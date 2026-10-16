@@ -329,3 +329,39 @@ Verification: 773 client-library tests pass (six ignored); strict client library
 and binary Clippy, formatting and diff checks pass. Connected southern placement,
 normal first-person camera acceptance and final offline regressions remain open.
 The milestone is active, not complete.
+
+## Connected southern-hemisphere checkpoint
+
+`just test-connected-avatar-south` runs south-pole landed/airborne captures and
+the continuous motion/turning/sparse-appearance-update scenario. The disposable
+SQL position uses the analytic terrain height at latitude -pi/2, with native
+nominal clearance and an explicit five-unit off-ground variant. No new renderer
+position, scale or gravity correction is introduced.
+
+Source inspection identifies a relevant supplied-server defect:
+`network/scene/connection.py` emits `(0,0,0)` rotation specifically for its selected
+player's bootstrap, while using `_peer_upright_euler` for peers. The opt-in test
+wrapper replaces only that negative-Z, zero-rotation person base record with
+the source's `gravity_align_euler` result before it is sent. This is explicit
+controlled-server evidence, not a claim that unmodified selected-player
+bootstrap is correct at every latitude. It neither changes reference files nor
+silently replaces received rotations in Rust.
+
+Acceptance requires negative-Z position, model +Z pointing outward, and render
+rotation matching the received raw transform. CPU checks reject global +Z up,
+an additional renderer rotation and a northern point. The live case also checks
+the outward bootstrap before any local rotation prediction, then verifies real
+report receipt, root/mesh reuse during turning, and sparse DNA replacement.
+
+All three Vulkan runs completed and their captures were opened and inspected:
+`target/connected-avatar-lq49c67t/south-landed.png`, `south-off-ground.png`, and
+`target/connected-avatar-r249tuf5/south-live-update.png`. The complete textured
+bodies are outward-facing relative to the terrain/ruler; the off-ground body
+remains five native units above the ground reference. Captures remain ignored
+local artifacts. The source's incorrect zero bootstrap remains a documented
+server limitation outside this explicit fixture.
+
+Verification: 774 client-library tests pass (six ignored), with warnings-denied
+client library/binary Clippy, formatting and diff checks passing. Normal
+first-person camera acceptance and final offline/local-client regressions remain
+open. The full milestone is not complete.
