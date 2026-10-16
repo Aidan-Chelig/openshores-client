@@ -7,7 +7,9 @@ use crate::{
 };
 use std::io;
 mod native;
+mod player_appearance;
 pub use native::NativeAvatarPresentation;
+pub use player_appearance::LocalPlayerDna;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Phase {

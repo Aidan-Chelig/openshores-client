@@ -2,6 +2,8 @@
 
 Implementation/evidence ledger: [native avatar assembly](native-avatar-assembly.md).
 
+Next milestone: [the logged-in player's actual in-world avatar](in-world-avatar-goal.md).
+
 ## Current checkpoint
 
 The complete offline preview is implemented and verified against the original

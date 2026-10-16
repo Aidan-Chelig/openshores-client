@@ -20,6 +20,16 @@ pub use volume::native_chromatid_volume;
 pub struct NativeDhDna(pub [u8; 24]);
 
 impl NativeDhDna {
+    /// Adapt an already unframed DhDNA byte array to native model storage.
+    /// Keep wire/profile selection in the caller; this does not decode an atom.
+    pub fn from_received_bytes(raw: &[u8]) -> io::Result<Self> {
+        let mut bytes: [u8; 24] = raw
+            .try_into()
+            .map_err(|_| invalid("DhDNA requires 24 bytes"))?;
+        bytes[5] &= 0x7f;
+        bytes[23] = 0;
+        Ok(Self(bytes))
+    }
     /// DhDNA/DhDNA_ receive body. Reject invalid lengths atomically as Rust
     /// safety; native warns then copies regardless of the declared length.
     pub fn read(input: &mut QtReader<'_>) -> io::Result<Self> {
@@ -27,13 +37,9 @@ impl NativeDhDna {
         let raw = record
             .read_bytes()?
             .ok_or_else(|| invalid("null DhDNA bytes"))?;
-        let mut bytes: [u8; 24] = raw
-            .try_into()
-            .map_err(|_| invalid("DhDNA requires 24 bytes"))?;
-        bytes[5] &= 0x7f;
-        bytes[23] = 0;
+        let dna = Self::from_received_bytes(raw)?;
         input.skip(input.remaining() - record.remaining())?;
-        Ok(Self(bytes))
+        Ok(dna)
     }
 }
 

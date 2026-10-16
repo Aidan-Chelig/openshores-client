@@ -6,6 +6,8 @@ use std::io;
 pub struct PersonState {
     pub empire: Option<i32>,
     pub identity_tag: Option<u8>,
+    /// Opaque source-profile byte before DNA. The supplied bootstrap writes
+    /// person_pose here; do not assume this is a native anatomy discriminator.
     pub dna_tag: Option<u8>,
     /// Omission differs from Qt null and empty DNA.
     pub dna: Option<Option<Vec<u8>>>,
