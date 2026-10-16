@@ -74,3 +74,33 @@ inspect landed/off-ground GPU output. Preserve the small native sole residual
 explicitly rather than silently applying a geometry-fit correction. The existing
 first-person camera's fixed 1.7-unit offset and terrain-clearance clamp are
 prototype camera policy, not evidence for a body-placement offset.
+
+## Connected north-pole fixture verification
+
+The controlled hypothesis above is now tested by `just test-connected-avatar`.
+The harness obtains the clearance from the Rust received-DNA pipeline and seeds
+the disposable server at the north-pole terrain radius plus that clearance.
+After the first capture it updates the owned account to five units higher and
+starts a second authenticated session. The reference server source is unchanged.
+
+Both sessions verify received position and render-root position independently
+against the seeded coordinates (0.01 native-unit tolerance for f32 wire/display
+roundoff). An inspection-only gold ruler uses one world unit per tick, with its
+base at the radial intersection of the actual terrain mesh. At the north-pole
+vertex that mesh height agrees with the analytic fixture height. A 0.02-unit
+line lift avoids z-fighting; it changes no body or terrain position. The camera
+includes the ground reference in its view rather than recentering the body alone.
+
+The inspected captures in `target/connected-avatar-1ffbaeup/` show nominal landed
+feet at the ground cross, retaining the small native sole residual, and airborne
+feet roughly five ticks above it. Body height is roughly six native world units,
+consistent with its measured native Z extent rather than preview normalization.
+Both cases pass origin checks; no shader or hierarchy errors were emitted.
+This verifies this adult source-profile north-pole fixture, not all original
+native environments or anatomy. Southern connected placement, appearance changes,
+movement/turning and ordinary first-person-camera acceptance remain separate gates.
+
+Mounted quick-dev/play spawns now use the same native nominal clearance instead
+of the previous arbitrary +5. This only changes owned disposable server seed
+data, never received coordinates inside the renderer. Other diagnostic workflows
+retain their earlier fixture behavior.

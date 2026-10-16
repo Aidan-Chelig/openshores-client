@@ -105,6 +105,7 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     assert!(ground_height.is_finite() && ground_height > 0.);
     assert!(low < 0. && high > 0., "origin is not a soles origin");
     assert!(ground_height >= prepared.native.standing.height);
+    println!("AVATAR_ANCHOR_METRICS {ground_height} {low} {high}");
     assert!(!prepared.surfaces.is_empty());
     assert!(!prepared.atlas_png.is_empty());
     assert!(

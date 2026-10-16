@@ -68,8 +68,12 @@ For avatar development, Shift+Backspace toggles a full-body inspection camera
 (an explicit Rust diagnostic addition, not an original-game binding). It follows
 the actual connected body without changing its placement. `just
 test-connected-avatar` launches the disposable server, auto-selects Rust Explorer,
-waits for body preparation and shader warmup, saves a new capture under ignored
-`target/connected-avatar-*`, then exits. Ground-contact acceptance is still pending.
+waits for body preparation and shader warmup, and saves landed and five-unit
+airborne captures under ignored `target/connected-avatar-*`. It checks received
+and render origins without snapping. The gold inspection ruler has one native
+world unit per tick; its base cross marks the rendered-terrain radial hit.
+Mounted quick-dev/play spawns use native nominal CG clearance, not a guessed
+five-unit height. Broader placement/appearance acceptance is still pending.
 
 For an already running local server:
 

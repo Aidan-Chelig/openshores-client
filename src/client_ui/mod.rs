@@ -259,6 +259,7 @@ fn launch(
                 scene::scene,
                 avatar_rendering::render,
                 avatar_inspection::camera,
+                avatar_inspection::ground_reference,
                 native_scene::scene,
                 panels::rebuild_panels,
             )

@@ -7,7 +7,7 @@ const NEAR_DISTANCE: f64 = 0.05;
 
 /// Intersect a radial ray with the actual tessellation, not the analytic height:
 /// the coarse diagnostic mesh can sit above or below that continuous surface.
-fn surface_radius(terrain: &TerrainMesh, up: DVec3) -> Option<f64> {
+pub(super) fn surface_radius(terrain: &TerrainMesh, up: DVec3) -> Option<f64> {
     terrain
         .triangles()
         .iter()

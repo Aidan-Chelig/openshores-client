@@ -73,6 +73,14 @@ def main() -> None:
     binary = str(ROOT / "target/debug" / ("openshores-client-slice" if graphical else "openshores-client"))
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
+    anchor = None
+    installation = Path(os.environ.get("HAZERON_INSTALL", ROOT / "reference/hazeron")).resolve()
+    if action in ("avatar", "quick-dev", "quick-smoke", "play") and installation.is_dir():
+        from local_avatar_preparation import anchor_metrics
+        anchor = anchor_metrics(str(installation))
+    if action == "avatar" and anchor is None:
+        raise RuntimeError("connected avatar placement test requires a mounted installation")
+    fixture = {}
     # Hold distinct ephemeral ports until the server is ready to start.
     reservations = [socket.socket() for _ in range(5)]
     for sock in reservations:
@@ -115,8 +123,8 @@ def main() -> None:
                 "OPENSHORES_LOG_LEVEL": "INFO",
             })
             if graphical:
-                if (ROOT / "reference/hazeron").is_dir():
-                    os.environ.setdefault("HAZERON_INSTALL", str(ROOT / "reference/hazeron"))
+                if installation.is_dir():
+                    os.environ["HAZERON_INSTALL"] = str(installation)
                 os.environ["OPENSHORES_ASSET_CACHE"] = str(runtime / "assets")
             if action == "conversation":
                 os.environ["OPENSHORES_TEST_CONVERSATION"] = "1"
@@ -144,9 +152,11 @@ def main() -> None:
                             water = (bytes(globe["water"])[0] if globe["water"] else 50) or 50
                             terrain = _terrain_floats(globe["terrain"]) or create_terrain_data(
                                 AuDice(seed=int(globe["id"])), size, water, zone_count=3 if size > 2 else 1)
-                            # Owned GUI fixture is placed above the reference base
-                            # surface, unlike the old wire-only (0,0,1000) fixture.
-                            z = size * 1000 / 1.609344 * 5 + terrain_altitude_msl(terrain, size, math.pi / 2, 0) + 5
+                            # Owned player uses native nominal CG clearance when
+                            # mounted; other diagnostics retain the old +5.
+                            floor = size * 1000 / 1.609344 * 5 + terrain_altitude_msl(terrain, size, math.pi / 2, 0)
+                            z = floor + (anchor[0] if anchor else 5)
+                            fixture.update(floor=floor, z=z)
                             await conn.execute('UPDATE "a_Person" SET "locZ"=$1 WHERE "id"=$2', z, avatar)
                     finally:
                         await conn.close()
@@ -175,17 +185,29 @@ def main() -> None:
                     print("Close the client window to clean up the disposable local world.", flush=True)
                     if action == "avatar":
                         directory = Path(tempfile.mkdtemp(prefix="connected-avatar-", dir=ROOT / "target"))
-                        screenshot = directory / "received-avatar.png"
-                        os.environ["OPENSHORES_TEST_AVATAR_CAPTURE"] = str(screenshot)
-                        result = run(*command, input=PASSWORD + "\n", timeout=180)
-                        print(result.stdout, end="", flush=True)
-                        assert "Avatar body prepared:" in result.stdout
-                        assert "Connected avatar capture saved:" in result.stdout
-                        assert PASSWORD not in result.stdout
-                        assert screenshot.is_file() and screenshot.stat().st_size > 1000
-                        assert "Shader compilation error" not in result.stdout
-                        assert "warning[B0004]" not in result.stdout
-                        print(f"Connected avatar inspection: {screenshot}", flush=True)
+                        for label, elevation in [("landed", 0.), ("off-ground", 5.)]:
+                            z = fixture["z"] + elevation
+                            async def place_avatar():
+                                import asyncpg
+                                conn = await asyncpg.connect(dsn)
+                                try:
+                                    await conn.execute('UPDATE "a_Person" SET "locX"=0, "locY"=0, "locZ"=$1 WHERE "id"=$2', z, avatar)
+                                finally:
+                                    await conn.close()
+                            asyncio.run(place_avatar())
+                            screenshot = directory / f"{label}.png"
+                            os.environ["OPENSHORES_TEST_AVATAR_CAPTURE"] = str(screenshot)
+                            os.environ["OPENSHORES_TEST_AVATAR_POSITION"] = f"0,0,{z}"
+                            result = run(*command, input=PASSWORD + "\n", timeout=180)
+                            print(result.stdout, end="", flush=True)
+                            assert "Avatar body prepared:" in result.stdout
+                            assert "Connected avatar capture saved:" in result.stdout
+                            assert "Connected avatar received/render origin verified" in result.stdout
+                            assert PASSWORD not in result.stdout
+                            assert screenshot.is_file() and screenshot.stat().st_size > 1000
+                            assert "Shader compilation error" not in result.stdout
+                            assert "warning[B0004]" not in result.stdout
+                            print(f"Connected avatar {label}: {screenshot}; nominal ground clearance={anchor[0]}, sole residual={anchor[0]+anchor[1]}, elevation={elevation}", flush=True)
                     elif action == "quick-smoke":
                         result = run(*command, "--smoke-frames", "30", input=PASSWORD + "\n")
                         print(result.stdout, end="", flush=True)

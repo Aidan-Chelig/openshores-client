@@ -222,3 +222,29 @@ receive/preparation integration cases pass; 732 default-library tests pass
 (one ignored). Client-library/integration-test Clippy with warnings denied,
 formatting and diff whitespace checks pass. No new GPU acceptance is claimed
 for this metadata/evidence-only placement checkpoint.
+
+## Controlled landed/off-ground connected checkpoint
+
+`just test-connected-avatar` now performs two authenticated client launches in
+the same disposable world. The first receives a north-pole position at terrain
+plus native `CGHeight(true)`; the second receives a database update five native
+units higher. The harness measures clearance using Rust and the actual supplied
+server DNA, not an independently copied Python formula. Before each capture,
+both received and render-root positions must agree with the server fixture.
+CPU coverage rejects an offset, forced snap, double scale and nonfinite values.
+
+The inspection camera includes ground context. Its gold tangent cross marks the
+actual rendered-terrain radial hit, and a gold vertical ruler has one native
+world unit per tick. These are explicitly diagnostic additions; neither body
+nor terrain placement changes. Both final captures under ignored
+`target/connected-avatar-1ffbaeup/` were opened: `landed.png` shows nominal ground
+contact with the known small sole residual, and `off-ground.png` shows the body
+remaining about five ticks above that reference. The six-unit body height agrees
+with measured native geometry. No shader/hierarchy errors occurred.
+
+Mounted quick-dev/play seed their owned account at the same native nominal
+clearance, replacing the arbitrary five-unit spawn. Installation paths are
+resolved before the harness changes into its disposable runtime directory.
+Remaining gates include a second received appearance, connected motion/turning,
+southern placement, lifecycle workflows and normal camera acceptance; this is not
+completion of the full milestone.

@@ -88,7 +88,7 @@ build-client:
 quick-dev: build-client
     nix develop .#server-test --command python tests/local_server.py quick-dev
 
-# Actual received local avatar: warm pipelines, capture full body, then exit.
+# Received avatar at native nominal ground clearance and five units airborne.
 test-connected-avatar: build-client
     nix develop .#server-test --command python tests/local_server.py avatar
 
