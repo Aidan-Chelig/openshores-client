@@ -217,7 +217,11 @@ pub(super) fn rebuild_panels(
                     root,
                     "F4 Gear • F8 Bio • F1 windows • Shift+Esc HUD",
                 );
-                label(&mut commands, root, "Backspace: first-person/top-down");
+                label(
+                    &mut commands,
+                    root,
+                    "Backspace: elevated view • hold [ / ]: lower / raise",
+                );
                 label(
                     &mut commands,
                     root,
@@ -225,6 +229,7 @@ pub(super) fn rebuild_panels(
                 );
                 label(&mut commands, root, &ui.model.status);
                 label(&mut commands, root, &ui.avatar_status);
+                label(&mut commands, root, &ui.avatar_animation_status);
                 label(&mut commands, root, &ui.avatar_placement_status);
             }
             if ui.windows_open {

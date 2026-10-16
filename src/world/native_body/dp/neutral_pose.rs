@@ -62,7 +62,7 @@ impl NativeDpInitialization {
         })
     }
 
-    fn validate_neutral_standing(&self) -> io::Result<()> {
+    pub(super) fn validate_neutral_standing(&self) -> io::Result<()> {
         if !self.parts_calculated() {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidData,

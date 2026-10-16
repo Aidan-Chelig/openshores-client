@@ -2,7 +2,9 @@
 use crate::{
     asset_mount::AssetMount,
     world::{
-        native_body::{NativeDpAvatarGeometry, NativeDpPosedAvatarSurface},
+        native_body::{
+            NativeDpAvatarGeometry, NativeDpPosedAvatarSurface, NativeDpPreparedAvatarSurface,
+        },
         native_dna::NativeDhDna,
     },
 };
@@ -61,20 +63,26 @@ pub struct AvatarRequest {
 pub struct PreparedNormalAvatar {
     pub native: NativeDpAvatarGeometry,
     pub surfaces: Vec<NativeDpPosedAvatarSurface>,
+    pub animation_surfaces: Vec<NativeDpPreparedAvatarSurface>,
     pub atlas_png: Vec<u8>,
 }
 impl PreparedNormalAvatar {
     pub fn generate(mount: &AssetMount, key: &AvatarContentKey) -> io::Result<Self> {
         let native = NativeDpAvatarGeometry::generate(mount, &key.dna, 0, 0)?;
-        let surfaces = if key.repair_seams {
-            native.posed_surfaces_with_attachment_repair(key.angle())?
+        let animation_surfaces = if key.repair_seams {
+            native.prepare_surfaces_with_attachment_repair(key.angle())?
         } else {
-            native.posed_surfaces(key.angle())?
+            native.prepare_surfaces(key.angle())?
         };
+        let surfaces = animation_surfaces
+            .iter()
+            .map(|surface| surface.skin(native.body.bones()))
+            .collect::<io::Result<_>>()?;
         let atlas_png = native.skin.read_skin(mount)?;
         Ok(Self {
             native,
             surfaces,
+            animation_surfaces,
             atlas_png,
         })
     }

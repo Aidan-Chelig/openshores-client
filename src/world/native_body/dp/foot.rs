@@ -45,7 +45,7 @@ impl NativeDpFootResource {
 }
 
 pub struct NativeDpFootCache<'a> {
-    mount: &'a AssetMount,
+    mount: Option<&'a AssetMount>,
     geometry: BTreeMap<String, NativeDpFootGeometry>,
     offsets: BTreeMap<NativeDpModelDna, [f64; 3]>,
 }
@@ -53,9 +53,17 @@ pub struct NativeDpFootCache<'a> {
 impl<'a> NativeDpFootCache<'a> {
     pub fn new(mount: &'a AssetMount) -> Self {
         Self {
-            mount,
+            mount: Some(mount),
             geometry: BTreeMap::new(),
             offsets: BTreeMap::new(),
+        }
+    }
+    /// Retain warmed measurements without retaining a mount or allowing I/O.
+    pub fn into_cached_only(self) -> NativeDpFootCache<'static> {
+        NativeDpFootCache {
+            mount: None,
+            geometry: self.geometry,
+            offsets: self.offsets,
         }
     }
     fn offset(&mut self, dna: &NativeDhDna, field_4068: i32, mode: bool) -> io::Result<[f64; 3]> {
@@ -72,7 +80,13 @@ impl<'a> NativeDpFootCache<'a> {
             ));
         }
         if !self.geometry.contains_key(request.resource()) {
-            let geometry = NativeDpFootGeometry::from_model(&request.read_model(self.mount)?)?;
+            let mount = self.mount.ok_or_else(|| {
+                io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "foot measurement not prepared for animation",
+                )
+            })?;
+            let geometry = NativeDpFootGeometry::from_model(&request.read_model(mount)?)?;
             self.geometry
                 .insert(request.resource().to_owned(), geometry);
         }

@@ -152,20 +152,13 @@ pub(super) fn scene(
         let Some(frame) = placement::tangent_frame(position, ui.yaw) else {
             return;
         };
-        let up = frame.z_axis;
-        let forward = frame.y_axis;
-        let look = forward * ui.pitch.cos() + up * ui.pitch.sin();
         if let Ok((mut transform, mut projection)) = camera.single_mut() {
             if let Projection::Perspective(perspective) = &mut *projection {
                 perspective.near = super::camera::near(ui.scale);
             }
             let eye = super::camera::eye(position, ui.camera_terrain.as_ref(), ui.scale);
-            *transform = if ui.top_down {
-                Transform::from_translation(eye + up * ui.top_height.max(0.1) - forward * 0.5)
-                    .looking_at(point, forward)
-            } else {
-                Transform::from_translation(eye).looking_at(eye + look, up)
-            };
+            *transform =
+                super::camera::view(eye, frame, ui.pitch, ui.top_height * ui.top_blend, ui.scale);
         }
     }
 }

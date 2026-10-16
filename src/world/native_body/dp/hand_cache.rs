@@ -4,7 +4,7 @@ use crate::asset_mount::AssetMount;
 use std::{collections::BTreeMap, io};
 
 pub struct NativeDpHandCache<'a> {
-    mount: &'a AssetMount,
+    mount: Option<&'a AssetMount>,
     geometry: BTreeMap<String, NativeDpHandGeometry>,
     offsets: BTreeMap<NativeDpModelDna, [f64; 3]>,
 }
@@ -12,9 +12,17 @@ pub struct NativeDpHandCache<'a> {
 impl<'a> NativeDpHandCache<'a> {
     pub fn new(mount: &'a AssetMount) -> Self {
         Self {
-            mount,
+            mount: Some(mount),
             geometry: BTreeMap::new(),
             offsets: BTreeMap::new(),
+        }
+    }
+    /// Retain warmed measurements without retaining a mount or allowing I/O.
+    pub fn into_cached_only(self) -> NativeDpHandCache<'static> {
+        NativeDpHandCache {
+            mount: None,
+            geometry: self.geometry,
+            offsets: self.offsets,
         }
     }
 
@@ -39,7 +47,13 @@ impl<'a> NativeDpHandCache<'a> {
             ));
         }
         if !self.geometry.contains_key(request.resource()) {
-            let geometry = NativeDpHandGeometry::from_model(&request.read_model(self.mount)?)?;
+            let mount = self.mount.ok_or_else(|| {
+                io::Error::new(
+                    io::ErrorKind::NotFound,
+                    "hand measurement not prepared for animation",
+                )
+            })?;
+            let geometry = NativeDpHandGeometry::from_model(&request.read_model(mount)?)?;
             self.geometry
                 .insert(request.resource().to_owned(), geometry);
         }

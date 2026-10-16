@@ -5,6 +5,24 @@ use bevy::ecs::system::SystemParam;
 #[path = "controls_tests.rs"]
 mod tests;
 
+fn elevation_step(held: &mut f32, direction: f32, seconds: f32) -> f32 {
+    if direction == 0. {
+        *held = 0.;
+        return 0.;
+    }
+    let before = if held.signum() == direction {
+        held.abs()
+    } else {
+        0.
+    };
+    let ramp = seconds.min((2. - before).max(0.));
+    // 24.3 -> 89.1 world units/second over two seconds. Integrate the ramp so
+    // distance does not depend on frame rate, including crossing its cap.
+    let distance = (24.3 + 32.4 * before) * seconds + 32.4 * (ramp * seconds - 0.5 * ramp * ramp);
+    *held = direction * (before + seconds).min(2.);
+    direction * distance
+}
+
 #[derive(SystemParam)]
 pub(super) struct InputFrame<'w, 's> {
     keys: Res<'w, ButtonInput<KeyCode>>,
@@ -47,6 +65,7 @@ fn cycle_gear(ui: &mut Presentation, forward: bool) {
 }
 
 pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input: InputFrame) {
+    ui.avatar_motion_speed = 0.;
     let InputFrame {
         keys,
         mouse,
@@ -60,6 +79,7 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
     let alt = keys.pressed(KeyCode::AltLeft) || keys.pressed(KeyCode::AltRight);
     let shift = keys.pressed(KeyCode::ShiftLeft) || keys.pressed(KeyCode::ShiftRight);
     if ui.chat_focus {
+        ui.top_height_hold = 0.;
         typed.clear();
         if let Ok(mut cursor) = window.single_mut() {
             cursor.visible = true;
@@ -124,6 +144,7 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
         typed.clear();
     }
     if ui.model.phase != Phase::Playing {
+        ui.top_height_hold = 0.;
         if let Ok(mut cursor) = window.single_mut() {
             cursor.visible = true;
             cursor.grab_mode = CursorGrabMode::None;
@@ -160,12 +181,17 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
         ui.dirty = true;
     }
     if ui.top_down && !alt && !ctrl && !shift {
-        if keys.just_pressed(KeyCode::BracketLeft) {
-            ui.top_height = (ui.top_height - 0.2).max(0.1);
-        }
-        if keys.just_pressed(KeyCode::BracketRight) {
-            ui.top_height = (ui.top_height + 0.2).min(10.);
-        }
+        let direction = i32::from(keys.pressed(KeyCode::BracketRight))
+            - i32::from(keys.pressed(KeyCode::BracketLeft));
+        // Camera-only world units per second; cap a stalled frame like movement.
+        let step = elevation_step(
+            &mut ui.top_height_hold,
+            direction as f32,
+            time.delta_secs().min(0.05),
+        );
+        ui.top_height = (ui.top_height + step).clamp(0.1, 100.);
+    } else {
+        ui.top_height_hold = 0.;
     }
     let hand = ui.hand || ctrl;
     if hand && scroll.delta.y != 0. {
@@ -257,6 +283,9 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
         } else {
             4.
         };
+        if (direction - up * direction.dot(up)).length_squared() > 0. {
+            ui.avatar_motion_speed = speed as f32;
+        }
         ui.local_position = Some(
             (DVec3::from_array(position) + direction.normalize() * f64::from(seconds) * speed)
                 .to_array(),

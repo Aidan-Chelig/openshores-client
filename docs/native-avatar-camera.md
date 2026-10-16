@@ -55,3 +55,33 @@ a claim that feet must enter that frustum). Inspection restores the complete
 textured head/body after 300 first-person frames, without replacing the body.
 The native lateral-zero correction is included. Southern CPU coverage also
 checks pitched/yawed camera direction and that non-head visibility is untouched.
+
+## Elevated view follow-up
+
+Backspace now translates the ordinary camera eight native world units upward
+without changing pitch/yaw or forcing it to look at the avatar. Both prepared
+and fallback cameras use the same view helper. The old elevated offset was in
+display units and made the avatar tiny; height is now scaled exactly once.
+The entire body/head is visible in elevated mode; aim down to see it.
+
+At the user's request, holding [/] smoothly lowers/raises the offset at six
+native units per second initially. A follow-up increases that baseline by 35%
+to 8.1, accelerating to 9.9 (+65%) over two seconds held. The user's next
+adjustment triples both endpoints to 24.3–29.7; a later maximum-only increase
+sets the current ramp to 24.3–89.1, keeping two seconds, with release/reversal
+reset and frame-rate-independent integration. Height stays bounded to 0.1–100.
+Opposite keys cancel, release stops,
+and modified brackets retain their other meanings. This is a deliberate modern
+control change, not a claim of native stepped-control fidelity. CPU input tests
+cover held-not-just-pressed frames, release, opposite/modifier keys and mode
+exclusions; southern camera tests check equal orientation, scaled upward-only
+translation, head restoration and unchanged body placement.
+
+Verification: 778 client-library tests pass (six asset/GPU cases ignored),
+warnings-denied client Clippy and formatting pass. The owned-server elevated
+capture `target/connected-avatar-zegpdmlx/elevated-look-down.png` passed received
+origin/DNA/height gates and was opened: the textured head/shoulders are visible
+from above at the expected scale, with no full-screen head occlusion. The capture
+remains local and ignored. Reproduce just this view with
+`OPENSHORES_TEST_AVATAR_FIRST_PERSON=elevated` in the connected avatar harness;
+the ordinary first-person recipe now includes it in its full camera batch.

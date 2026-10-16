@@ -1,6 +1,6 @@
 //! Render-corner expansion after model-space smoothing and native bone skinning.
 use super::{NativeDpAvatarGeometry, NativeDpBoneTransforms};
-use crate::model::{NativeBodySurfacePreview, crease_corner_normals};
+use crate::model::{NativeBodySurfacePreview, NativeBodyVertexWeights, crease_corner_normals};
 use std::io;
 
 #[derive(Clone, Debug, PartialEq)]
@@ -28,6 +28,67 @@ pub struct NativeDpPosedAvatarSurface {
     pub material_memberships: Vec<Vec<Vec<u16>>>,
 }
 
+/// Immutable model-space corners, smoothed once before any animated bone pose.
+/// UVs, material controls and raw influences survive every animation sample.
+#[derive(Clone, Debug)]
+pub struct NativeDpPreparedAvatarCorners {
+    corners: Vec<NativeDpAvatarCorner>,
+    weights: Vec<NativeBodyVertexWeights>,
+}
+
+/// Fixed topology/material partitioning for an animated render batch.
+#[derive(Clone, Debug)]
+pub struct NativeDpPreparedAvatarSurface {
+    pub surface_index: usize,
+    pub part_index: usize,
+    pub corners: NativeDpPreparedAvatarCorners,
+    pub material_memberships: Vec<Vec<Vec<u16>>>,
+}
+
+impl NativeDpPreparedAvatarSurface {
+    pub fn from_surface(
+        surface_index: usize,
+        part_index: usize,
+        surface: &NativeBodySurfacePreview,
+        angle: f64,
+    ) -> io::Result<Self> {
+        Ok(Self {
+            surface_index,
+            part_index,
+            corners: NativeDpPreparedAvatarCorners::from_surface(surface, angle)?,
+            material_memberships: surface.material_memberships.clone(),
+        })
+    }
+    pub fn skin(&self, bones: &NativeDpBoneTransforms) -> io::Result<NativeDpPosedAvatarSurface> {
+        Ok(NativeDpPosedAvatarSurface {
+            surface_index: self.surface_index,
+            part_index: self.part_index,
+            corners: self.corners.skin(bones)?,
+            material_memberships: self.material_memberships.clone(),
+        })
+    }
+}
+
+impl NativeDpPreparedAvatarCorners {
+    pub fn skin(&self, bones: &NativeDpBoneTransforms) -> io::Result<Vec<NativeDpAvatarCorner>> {
+        self.corners
+            .iter()
+            .zip(&self.weights)
+            .map(|(corner, weights)| {
+                let result = bones.skin_shader_vertex(
+                    [corner.position[0], corner.position[1], corner.position[2]],
+                    corner.normal,
+                    weights,
+                )?;
+                let mut corner = corner.clone();
+                corner.position = result.position;
+                corner.normal = result.normal;
+                Ok(corner)
+            })
+            .collect()
+    }
+}
+
 fn invalid(message: &str) -> io::Error {
     io::Error::new(io::ErrorKind::InvalidData, message)
 }
@@ -40,66 +101,91 @@ impl NativeDpAvatarGeometry {
         &self,
         angle_degrees: f64,
     ) -> io::Result<Vec<NativeDpPosedAvatarSurface>> {
+        self.prepare_surfaces(angle_degrees)?
+            .iter()
+            .map(|surface| surface.skin(self.body.bones()))
+            .collect()
+    }
+
+    pub fn prepare_surfaces(
+        &self,
+        angle_degrees: f64,
+    ) -> io::Result<Vec<NativeDpPreparedAvatarSurface>> {
         // Validate even if a caller supplies an empty public surface list.
         crease_corner_normals(&[], &[], angle_degrees)?;
         self.surfaces
             .iter()
             .enumerate()
             .map(|(surface_index, source)| {
-                Ok(NativeDpPosedAvatarSurface {
+                NativeDpPreparedAvatarSurface::from_surface(
                     surface_index,
-                    part_index: source.part_index,
-                    corners: skin_corners(&source.surface, self.body.bones(), angle_degrees)?,
-                    material_memberships: source.surface.material_memberships.clone(),
-                })
+                    source.part_index,
+                    &source.surface,
+                    angle_degrees,
+                )
             })
             .collect()
     }
 }
 
-pub(super) fn skin_corners(
+#[cfg(test)]
+fn skin_corners(
     surface: &NativeBodySurfacePreview,
     bones: &NativeDpBoneTransforms,
     angle: f64,
 ) -> io::Result<Vec<NativeDpAvatarCorner>> {
-    let g = &surface.geometry;
-    let uv = g
-        .uvs
-        .as_ref()
-        .ok_or_else(|| invalid("avatar surface lacks UVs"))?;
-    let count = g.positions.len();
-    if g.weights.len() != count
-        || uv.len() != count
-        || surface.top_face.len() != count
-        || surface.material_memberships.len() != g.faces.len()
-        || uv.iter().flatten().any(|v| !v.is_finite())
-        || surface
-            .top_face
+    NativeDpPreparedAvatarCorners::from_surface(surface, angle)?.skin(bones)
+}
+
+impl NativeDpPreparedAvatarCorners {
+    pub fn from_surface(surface: &NativeBodySurfacePreview, angle: f64) -> io::Result<Self> {
+        let g = &surface.geometry;
+        let uv = g
+            .uvs
+            .as_ref()
+            .ok_or_else(|| invalid("avatar surface lacks UVs"))?;
+        let count = g.positions.len();
+        if g.weights.len() != count
+            || uv.len() != count
+            || surface.top_face.len() != count
+            || surface.material_memberships.len() != g.faces.len()
+            || uv.iter().flatten().any(|v| !v.is_finite())
+            || surface
+                .top_face
+                .iter()
+                .any(|v| !v.is_finite() || !(0.0..=1.).contains(v))
+        {
+            return Err(invalid("inconsistent avatar surface attributes"));
+        }
+        let positions: Vec<_> = g.positions.iter().map(|p| p.map(|v| v as f32)).collect();
+        let triangles: Vec<_> = g.faces.iter().map(|f| f.vertices.map(u32::from)).collect();
+        let normals = crease_corner_normals(&positions, &triangles, angle)?;
+        let corners = triangles
             .iter()
-            .any(|v| !v.is_finite() || !(0.0..=1.).contains(v))
-    {
-        return Err(invalid("inconsistent avatar surface attributes"));
-    }
-    let positions: Vec<_> = g.positions.iter().map(|p| p.map(|v| v as f32)).collect();
-    let triangles: Vec<_> = g.faces.iter().map(|f| f.vertices.map(u32::from)).collect();
-    let normals = crease_corner_normals(&positions, &triangles, angle)?;
-    triangles
-        .iter()
-        .flatten()
-        .enumerate()
-        .map(|(corner, index)| {
-            let index = *index as usize;
-            let result =
-                bones.skin_shader_vertex(positions[index], normals[corner], &g.weights[index])?;
-            Ok(NativeDpAvatarCorner {
-                source_vertex: index,
-                position: result.position,
-                normal: result.normal,
-                uv: uv[index],
-                top_face: surface.top_face[index],
+            .flatten()
+            .enumerate()
+            .map(|(corner, index)| {
+                let index = *index as usize;
+                Ok(NativeDpAvatarCorner {
+                    source_vertex: index,
+                    position: [
+                        positions[index][0],
+                        positions[index][1],
+                        positions[index][2],
+                        1.,
+                    ],
+                    normal: normals[corner],
+                    uv: uv[index],
+                    top_face: surface.top_face[index],
+                })
             })
-        })
-        .collect()
+            .collect::<io::Result<Vec<_>>>()?;
+        let weights = corners
+            .iter()
+            .map(|corner| g.weights[corner.source_vertex])
+            .collect();
+        Ok(Self { corners, weights })
+    }
 }
 
 #[cfg(test)]
@@ -135,6 +221,19 @@ mod tests {
             1., 0., 0., 0., 0., 0., 1., 0., 0., -1., 0., 0., 10., 20., 30., 1.,
         ];
         let result = skin_corners(&surface, &bones, 91.).unwrap();
+        let prepared = NativeDpPreparedAvatarCorners::from_surface(&surface, 91.).unwrap();
+        assert_eq!(prepared.skin(&bones).unwrap(), result);
+        let rest = prepared
+            .skin(&NativeDpBoneTransforms::initialized())
+            .unwrap();
+        assert_ne!(rest[0].position, result[0].position);
+        assert_eq!(rest[0].uv, result[0].uv);
+        assert_eq!(rest[0].source_vertex, result[0].source_vertex);
+        assert_eq!(
+            prepared.skin(&bones).unwrap(),
+            result,
+            "sampling must not accumulate transforms"
+        );
         assert_eq!(result.len(), 6);
         assert_eq!(result[0].position, [20., 40., 60., 2.]);
         assert_eq!(result[1].position, [22., 40., 60., 2.]);

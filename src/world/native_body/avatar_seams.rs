@@ -1,6 +1,8 @@
 //! Optional modern render-only repairs. Never mutate mounted/native geometry.
-use super::avatar_pose::skin_corners;
-use super::{NativeDpAvatarGeometry, NativeDpPartJoints, NativeDpPosedAvatarSurface};
+use super::{
+    NativeDpAvatarGeometry, NativeDpPartJoints, NativeDpPosedAvatarSurface,
+    NativeDpPreparedAvatarSurface,
+};
 use crate::model::Face;
 use crate::model::NativeBodySurfacePreview;
 use std::collections::{BTreeMap, BTreeSet};
@@ -210,6 +212,16 @@ impl NativeDpAvatarGeometry {
         &self,
         angle: f64,
     ) -> io::Result<Vec<NativeDpPosedAvatarSurface>> {
+        self.prepare_surfaces_with_seam_repair(angle)?
+            .iter()
+            .map(|surface| surface.skin(self.body.bones()))
+            .collect()
+    }
+
+    pub fn prepare_surfaces_with_seam_repair(
+        &self,
+        angle: f64,
+    ) -> io::Result<Vec<NativeDpPreparedAvatarSurface>> {
         let repairs = self.seam_repairs()?;
         let mut result = Vec::new();
         for (i, source) in self.surfaces.iter().enumerate() {
@@ -220,12 +232,12 @@ impl NativeDpAvatarGeometry {
                 .iter()
                 .find(|r| r.source_surfaces[0] == i)
                 .map_or(&source.surface, |r| &r.surface);
-            result.push(NativeDpPosedAvatarSurface {
-                surface_index: i,
-                part_index: source.part_index,
-                corners: skin_corners(surface, self.body.bones(), angle)?,
-                material_memberships: surface.material_memberships.clone(),
-            });
+            result.push(NativeDpPreparedAvatarSurface::from_surface(
+                i,
+                source.part_index,
+                surface,
+                angle,
+            )?);
         }
         // Also validate the smoothing angle for an empty avatar.
         crate::model::crease_corner_normals(&[], &[], angle)?;

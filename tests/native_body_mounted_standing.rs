@@ -11,6 +11,97 @@ use openshores_client::{
 };
 
 #[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; static native locomotion port, no original runtime"]
+fn mounted_walk_run_leg_samples_change_selected_bones_without_accumulation() {
+    use openshores_client::world::{
+        native_body::{NativeDpGait, NativeDpLegLocomotion},
+        native_creature::NativePoseRhythmTimer,
+    };
+    struct Timer {
+        millis: i64,
+        starts: usize,
+        samples: usize,
+    }
+    impl NativePoseRhythmTimer for Timer {
+        fn start(&mut self) -> std::io::Result<()> {
+            self.starts += 1;
+            Ok(())
+        }
+        fn msecs_since_reference(&mut self) -> std::io::Result<i64> {
+            self.samples += 1;
+            Ok(self.millis)
+        }
+    }
+    let mount =
+        AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
+    let mut hands = NativeDpHandCache::new(&mount);
+    let mut feet = NativeDpFootCache::new(&mount);
+    for pairs in [1, 2, 3] {
+        let mut dna = NativeDhDna([0; 24]);
+        dna.0[1] = 1;
+        dna.0[12] = pairs << 2;
+        dna.0[14] = 0x51;
+        dna.0[20] = 0x80;
+        let mut base = NativeDpInitialization::begin(&dna);
+        base.finish_part_calculations(0, &mut hands).unwrap();
+        let height = feet
+            .standing_height(&dna, base.dimensions(), 0, false)
+            .unwrap();
+        for gait in [NativeDpGait::Walk, NativeDpGait::Run] {
+            for selector in [0, 1, 2] {
+                let input = NativeDpLegLocomotion {
+                    gait,
+                    selector,
+                    height,
+                    speed: 4.,
+                    field_4068: 0,
+                };
+                let mut sampled = Vec::new();
+                for millis in [0, 125, 0] {
+                    let mut body = base.clone();
+                    let mut timer = Timer {
+                        millis,
+                        starts: 0,
+                        samples: 0,
+                    };
+                    body.locomote_legs(input, &mut feet, &mut timer).unwrap();
+                    let mut selected_bones = std::collections::BTreeSet::new();
+                    let mut count = 0;
+                    for (before, part) in base.parts().iter().zip(body.parts()) {
+                        let leg = matches!(
+                            part.allocation.kind,
+                            NativeDpPartKind::LeftLegAndFoot | NativeDpPartKind::RightLegAndFoot
+                        );
+                        let selected = selector == 2
+                            || (selector == 0 && part.allocation.index != 0)
+                            || (selector == 1 && part.allocation.index == 0);
+                        if leg && selected {
+                            count += 1;
+                            selected_bones.extend(part.limb_bones().unwrap());
+                        } else {
+                            assert_eq!(before, part);
+                        }
+                    }
+                    assert_eq!(timer.starts, count);
+                    assert_eq!(timer.samples, count);
+                    for (index, bone) in body.bones().slots.iter().enumerate() {
+                        assert!(bone.matrix_00.iter().all(|v| v.is_finite()));
+                        if !selected_bones.contains(&index) {
+                            assert_eq!(bone, &base.bones().slots[index]);
+                        }
+                    }
+                    sampled.push(body.bones().clone());
+                }
+                assert_eq!(sampled[0], sampled[2]);
+                if pairs > 1 || selector != 0 {
+                    assert_ne!(sampled[0], sampled[1]);
+                }
+            }
+        }
+    }
+}
+
+#[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; no original executable or GPU"]
 fn mounted_standing_legs_compose_measured_angles_for_two_anatomies() {
     let mount =

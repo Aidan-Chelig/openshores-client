@@ -1,0 +1,78 @@
+//! Owned, I/O-free normal-avatar pose sampling after background preparation.
+use super::PreparedNormalAvatar;
+use crate::{
+    asset_mount::AssetMount,
+    world::{native_body::*, native_creature::NativePoseRhythmTimer},
+};
+use std::io;
+
+pub struct PreparedAvatarAnimation {
+    body: NativeDpInitialization,
+    hands: NativeDpHandCache<'static>,
+    feet: NativeDpFootCache<'static>,
+    surfaces: Vec<NativeDpPreparedAvatarSurface>,
+    eye: NativeDpAvatarEye,
+}
+pub struct AvatarAnimationFrame {
+    pub surfaces: Vec<NativeDpPosedAvatarSurface>,
+    pub eye: [f64; 3],
+}
+struct Timer(i64);
+impl NativePoseRhythmTimer for Timer {
+    fn start(&mut self) -> io::Result<()> {
+        Ok(())
+    }
+    fn msecs_since_reference(&mut self) -> io::Result<i64> {
+        Ok(self.0)
+    }
+}
+impl PreparedNormalAvatar {
+    /// Warm every admitted locomotion dependency off-thread, then discard mount access.
+    pub fn into_animation(self, mount: &AssetMount) -> io::Result<PreparedAvatarAnimation> {
+        let eye = self.native.prepare_eye(false)?;
+        let mut body = self.native.body;
+        let mut hands = NativeDpHandCache::new(mount);
+        let mut feet = NativeDpFootCache::new(mount);
+        for gait in [NativeDpGait::Walk, NativeDpGait::Run] {
+            body.pose_locomotion(gait, 1., 0, &mut hands, &mut feet, &mut Timer(0))?;
+        }
+        body.pose_neutral_standing(0, &mut hands, &mut feet)?;
+        Ok(PreparedAvatarAnimation {
+            body,
+            hands: hands.into_cached_only(),
+            feet: feet.into_cached_only(),
+            surfaces: self.animation_surfaces,
+            eye,
+        })
+    }
+}
+impl PreparedAvatarAnimation {
+    pub fn sample(
+        &mut self,
+        gait: Option<NativeDpGait>,
+        speed: f32,
+        reference_millis: i64,
+    ) -> io::Result<AvatarAnimationFrame> {
+        if let Some(gait) = gait {
+            self.body.pose_locomotion(
+                gait,
+                speed,
+                0,
+                &mut self.hands,
+                &mut self.feet,
+                &mut Timer(reference_millis),
+            )?;
+        } else {
+            self.body
+                .pose_neutral_standing(0, &mut self.hands, &mut self.feet)?;
+        }
+        Ok(AvatarAnimationFrame {
+            surfaces: self
+                .surfaces
+                .iter()
+                .map(|surface| surface.skin(self.body.bones()))
+                .collect::<io::Result<_>>()?,
+            eye: self.eye.location(self.body.bones())?,
+        })
+    }
+}

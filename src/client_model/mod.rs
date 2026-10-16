@@ -6,7 +6,9 @@ use crate::{
     world::{AtomKind, WorldState},
 };
 use std::io;
+mod avatar_animation;
 mod avatar_preparation;
+pub use avatar_animation::{AvatarAnimationFrame, PreparedAvatarAnimation};
 mod native;
 mod player_appearance;
 pub use avatar_preparation::{

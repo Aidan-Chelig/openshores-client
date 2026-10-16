@@ -9,6 +9,7 @@ type InspectionCamera = (With<SliceCamera>, Without<avatar_rendering::LocalAvata
 pub(super) struct Acceptance<'w> {
     live: Option<Res<'w, avatar_live::Workflow>>,
     lifecycle: Option<Res<'w, avatar_lifecycle::Workflow>>,
+    animation: Option<Res<'w, avatar_animation_test::Workflow>>,
 }
 
 pub(super) fn camera(
@@ -16,6 +17,7 @@ pub(super) fn camera(
     state: Res<avatar_rendering::State>,
     roots: Query<&Transform, With<avatar_rendering::LocalAvatar>>,
     mut cameras: Query<(&mut Transform, &mut Projection), InspectionCamera>,
+    animation_test: Option<Res<avatar_animation_test::Workflow>>,
 ) {
     if !ui.avatar_inspect {
         return;
@@ -34,7 +36,12 @@ pub(super) fn camera(
         radius += target.distance(ground) * 0.5;
         target = (target + ground) * 0.5;
     }
-    let eye = target + body.rotation * Vec3::new(0., 3.5, 1.) * radius;
+    let offset = if animation_test.is_some_and(|flow| flow.side_view()) {
+        Vec3::new(3.5, 0., 1.)
+    } else {
+        Vec3::new(0., 3.5, 1.)
+    };
+    let eye = target + body.rotation * offset * radius;
     for (mut camera, mut projection) in &mut cameras {
         *camera = Transform::from_translation(eye).looking_at(target, body.rotation * Vec3::Z);
         if let Projection::Perspective(perspective) = &mut *projection {
@@ -96,6 +103,7 @@ pub(super) struct Capture {
     first_person: bool,
     look_down: bool,
     restore_inspection: bool,
+    elevated: bool,
 }
 impl Capture {
     pub(super) fn inspection(&self) -> bool {
@@ -154,6 +162,8 @@ impl Capture {
                 == Ok("down"),
             restore_inspection: std::env::var("OPENSHORES_TEST_AVATAR_FIRST_PERSON").as_deref()
                 == Ok("restore"),
+            elevated: std::env::var("OPENSHORES_TEST_AVATAR_FIRST_PERSON").as_deref()
+                == Ok("elevated"),
         }))
     }
 }
@@ -177,6 +187,7 @@ pub(super) fn capture(
     }
     if acceptance.live.is_some_and(|flow| !flow.complete())
         || acceptance.lifecycle.is_some_and(|flow| !flow.complete())
+        || acceptance.animation.is_some_and(|flow| !flow.complete())
     {
         return;
     }
@@ -192,6 +203,11 @@ pub(super) fn capture(
     ui.avatar_inspect = capture.inspection();
     if capture.look_down {
         ui.pitch = -1.2;
+    }
+    if capture.elevated {
+        ui.top_down = true;
+        ui.top_height = 8.;
+        ui.pitch = -1.4;
     }
     if ui.windows_open || ui.hud {
         ui.windows_open = false;

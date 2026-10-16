@@ -59,13 +59,27 @@ graphics libraries needed on NixOS.
 
 Implemented shortcuts follow the supplied controls page: W/A/S/D, C/Z,
 Shift+W, U/middle-click, T, wheel/{/}, Alt+digits/digits, F1/F4/F8, Shift+Esc,
-Backspace, and top-down [/] height controls. Unsupported shortcuts are not
+Backspace, and elevated-view [/] height controls. Backspace raises the camera
+eight world units above the normal eye with a quick smooth transition while preserving mouse pitch/yaw; look
+down to see your character. Hold `[` to lower or `]` to raise it smoothly (24.3
+world units/second, accelerating to 89.1 over two seconds; release or reverse to
+reset). Height is bounded to 0.1–100 above the eye. This continuous adjustment
+deliberately replaces the original stepped height controls. Unsupported shortcuts are not
 repurposed. Movement speed/camera tuning are prototype choices, not reconstructed
 physics. Drop has no invented default shortcut. See
 [slice scope and evidence](docs/vertical-slice.md).
 
 For avatar development, Shift+Backspace toggles a full-body inspection camera
-(an explicit Rust diagnostic addition, not an original-game binding). It follows
+and the connected avatar now uses native Walk/Run poses for W/Shift+W movement,
+returning to Stand on release. This is still an in-progress animation path:
+received action dispatch and terrain-following physics are not claimed complete.
+`just test-connected-avatar-animation` drives the actual keyboard controls on an
+owned local server, captures two phases per gait and checks exact stop recovery,
+stable render assets/UVs and persisted movement reports. See the
+[animation progress](docs/in-game-avatar-animation-goal.md).
+
+The inspection camera is an explicit Rust diagnostic addition, not an
+original-game binding. It follows
 the actual connected body without changing its placement. `just
 test-connected-avatar` launches the disposable server, auto-selects Rust Explorer,
 waits for body preparation and shader warmup, and saves landed, five-unit

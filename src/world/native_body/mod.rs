@@ -2,20 +2,26 @@
 //! Allocation is an initialization phase, not successful complete model creation.
 mod avatar;
 mod avatar_camera;
+pub use avatar_camera::NativeDpAvatarEye;
 mod avatar_contact;
 mod avatar_root_seams;
 pub use avatar_root_seams::{NativeAvatarRootSeamRepair, NativeAvatarVertexSourceRange};
 mod avatar_pose;
 mod avatar_seams;
-pub use avatar_pose::{NativeDpAvatarCorner, NativeDpPosedAvatarSurface};
+pub use avatar_pose::{
+    NativeDpAvatarCorner, NativeDpPosedAvatarSurface, NativeDpPreparedAvatarCorners,
+    NativeDpPreparedAvatarSurface,
+};
 pub use avatar_seams::{NativeAvatarEndCap, NativeAvatarSeamRepair, native_avatar_end_cap};
 mod dp;
 mod textures;
 pub use avatar::{NativeDpAvatarGeometry, NativeDpAvatarSource, NativeDpAvatarSurface};
+pub use dp::NativeDpArmLocomotion;
 pub use dp::NativeDpArmSkinGeometry;
 pub use dp::NativeDpArmStandAngles;
 pub use dp::NativeDpLegSkinGeometry;
 pub use dp::NativeDpLegStandAngles;
+pub use dp::NativeDpLocomotionSample;
 pub use dp::NativeDpStandingPose;
 pub use dp::NativeDpTailSkinGeometry;
 pub use dp::native_dp_torso_segment;
@@ -28,6 +34,7 @@ pub use dp::{NativeDpBoneTransform, NativeDpBoneTransforms, NativeDpSkinnedVerte
 pub use dp::{
     NativeDpFootCache, NativeDpFootGeometry, NativeDpFootResource, native_dh_has_ankle_bend,
 };
+pub use dp::{NativeDpGait, NativeDpLegLocomotion, NativeDpLegLocomotionAngles};
 pub use dp::{NativeDpHeadSkinPiece, NativeDpHeadSkinPlan};
 pub use dp::{NativeDpInitialization, NativeDpPartJoints, NativeDpPartState};
 pub use dp::{NativeDpPartSkinPlan, NativeDpSkinPlan};

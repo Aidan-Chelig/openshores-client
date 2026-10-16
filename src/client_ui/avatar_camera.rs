@@ -9,7 +9,8 @@ pub(super) fn view(
     mut cameras: Query<&mut Transform, CameraFilter>,
     mut heads: Query<&mut Visibility, With<avatar_rendering::FirstPersonHead>>,
 ) {
-    let first_person = !ui.avatar_inspect && !ui.top_down;
+    // Don't reveal the skull while the rising camera is still inside it.
+    let first_person = !ui.avatar_inspect && (!ui.top_down || ui.top_blend < 0.15);
     for mut head in &mut heads {
         *head = if first_person {
             Visibility::Hidden
@@ -17,7 +18,7 @@ pub(super) fn view(
             Visibility::Inherited
         };
     }
-    if !first_person {
+    if ui.avatar_inspect {
         return;
     }
     let Some((root, eye)) = state.camera else {
@@ -37,9 +38,8 @@ pub(super) fn view(
         ui.camera_terrain.as_ref(),
         ui.scale,
     );
-    let look = frame.y_axis * ui.pitch.cos() + frame.z_axis * ui.pitch.sin();
     for mut camera in &mut cameras {
-        *camera = Transform::from_translation(eye).looking_at(eye + look, frame.z_axis);
+        *camera = camera::view(eye, frame, ui.pitch, ui.top_height * ui.top_blend, ui.scale);
     }
 }
 
@@ -109,6 +109,24 @@ mod tests {
             app.world().get::<Visibility>(torso),
             Some(&Visibility::Inherited)
         );
+        let ordinary = *app.world().get::<Transform>(camera).unwrap();
+        {
+            let mut ui = app.world_mut().resource_mut::<Presentation>();
+            ui.top_down = true;
+            ui.top_blend = 1.;
+            ui.top_height = 8.;
+        }
+        app.update();
+        let elevated = app.world().get::<Transform>(camera).unwrap();
+        assert!(elevated.rotation.abs_diff_eq(ordinary.rotation, 1e-6));
+        assert!(
+            (elevated.translation - ordinary.translation - frame.z_axis * 0.008).length() < 1e-6
+        );
+        assert_eq!(
+            app.world().get::<Visibility>(head),
+            Some(&Visibility::Inherited)
+        );
+        assert_eq!(app.world().get::<Transform>(root), Some(&body));
         app.world_mut()
             .resource_mut::<Presentation>()
             .avatar_inspect = true;

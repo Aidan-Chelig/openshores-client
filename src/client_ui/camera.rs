@@ -5,6 +5,23 @@ use super::*;
 const EYE_HEIGHT: f64 = 1.7;
 const NEAR_DISTANCE: f64 = 0.05;
 
+pub(super) fn transition(mut ui: ResMut<Presentation>, time: Res<Time>) {
+    let target = if ui.top_down { 1. } else { 0. };
+    // Frame-rate-independent quick lerp; reversing mid-transition starts here.
+    let amount = 1. - (-20. * time.delta_secs()).exp();
+    ui.top_blend += (target - ui.top_blend) * amount;
+    if (target - ui.top_blend).abs() < 0.001 {
+        ui.top_blend = target;
+    }
+}
+
+/// Elevated view translates the ordinary eye only; mouse-look is identical.
+pub(super) fn view(eye: Vec3, frame: Mat3, pitch: f32, height: f32, scale: f64) -> Transform {
+    let eye = eye + frame.z_axis * height * scale as f32;
+    let look = frame.y_axis * pitch.cos() + frame.z_axis * pitch.sin();
+    Transform::from_translation(eye).looking_to(look, frame.z_axis)
+}
+
 /// Intersect a radial ray with the actual tessellation, not the analytic height:
 /// the coarse diagnostic mesh can sit above or below that continuous surface.
 pub(super) fn surface_radius(terrain: &TerrainMesh, up: DVec3) -> Option<f64> {

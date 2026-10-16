@@ -158,6 +158,7 @@ pub(super) fn render(
                         Mesh3d(mesh.clone()),
                         MeshMaterial3d(material.clone()),
                         NotShadowCaster,
+                        bevy::camera::visibility::NoFrustumCulling,
                     ));
                     if *head {
                         child.insert(FirstPersonHead);
@@ -294,6 +295,8 @@ mod tests {
                     meshes: vec![Sphere::new(1.).mesh().uv(8, 4)],
                     camera: Vec3::new(0., 0.6, 2.5),
                     first_person_heads: vec![false],
+                    animation: None,
+                    bindings: vec![],
                 }))
                 .unwrap_or_else(|_| panic!("receiver disappeared"));
                 rx

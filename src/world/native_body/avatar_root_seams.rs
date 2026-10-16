@@ -1,10 +1,9 @@
 //! Modern proximal sleeves, separate from native geometry and bone placement.
 use super::avatar_contact::{Triangle, has_area, meshes_touch, point_triangle_distance};
-use super::avatar_pose::skin_corners;
 use super::avatar_seams::bridge_surfaces;
 use super::{
     NativeAvatarEndCap, NativeDpAvatarGeometry, NativeDpBoneTransforms, NativeDpPartKind,
-    NativeDpPosedAvatarSurface, native_avatar_end_cap,
+    NativeDpPosedAvatarSurface, NativeDpPreparedAvatarSurface, native_avatar_end_cap,
 };
 use crate::model::NativeBodySurfacePreview;
 use std::{
@@ -207,7 +206,20 @@ impl NativeDpAvatarGeometry {
         &self,
         angle: f64,
     ) -> io::Result<Vec<NativeDpPosedAvatarSurface>> {
-        let mut posed = self.posed_surfaces_with_seam_repair(angle)?;
+        self.prepare_surfaces_with_attachment_repair(angle)?
+            .iter()
+            .map(|surface| surface.skin(self.body.bones()))
+            .collect()
+    }
+
+    /// Choose repair topology once in the current neutral pose, then retain
+    /// model-space corners for all subsequent bone samples. Never re-run the
+    /// posed contact test mid-stride, which would change topology each frame.
+    pub fn prepare_surfaces_with_attachment_repair(
+        &self,
+        angle: f64,
+    ) -> io::Result<Vec<NativeDpPreparedAvatarSurface>> {
+        let mut posed = self.prepare_surfaces_with_seam_repair(angle)?;
         let repairs = self.root_seam_repairs()?;
         if let Some(last) = repairs.last() {
             posed.retain(|s| {
@@ -218,12 +230,12 @@ impl NativeDpAvatarGeometry {
             });
             posed.insert(
                 0,
-                NativeDpPosedAvatarSurface {
-                    surface_index: last.torso_surface_index,
-                    part_index: self.surfaces[last.torso_surface_index].part_index,
-                    corners: skin_corners(&last.surface, self.body.bones(), angle)?,
-                    material_memberships: last.surface.material_memberships.clone(),
-                },
+                NativeDpPreparedAvatarSurface::from_surface(
+                    last.torso_surface_index,
+                    self.surfaces[last.torso_surface_index].part_index,
+                    &last.surface,
+                    angle,
+                )?,
             );
         }
         Ok(posed)

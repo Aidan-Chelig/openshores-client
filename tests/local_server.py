@@ -83,7 +83,9 @@ def main() -> None:
     fixture = {}
     lifecycle = action == "avatar-live" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_LIFECYCLE"))
     south = action in ("avatar", "avatar-live") and bool(os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"))
-    first_person = action == "avatar" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_FIRST_PERSON"))
+    first_person_mode = os.environ.get("OPENSHORES_TEST_AVATAR_FIRST_PERSON")
+    first_person = action == "avatar" and bool(first_person_mode)
+    animation = action == "avatar" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION"))
     # Hold distinct ephemeral ports until the server is ready to start.
     reservations = [socket.socket() for _ in range(5)]
     for sock in reservations:
@@ -131,6 +133,8 @@ def main() -> None:
                 os.environ["OPENSHORES_TEST_AVATAR_SOUTH"] = "1"
             if first_person:
                 os.environ["OPENSHORES_TEST_AVATAR_FIRST_PERSON"] = "1"
+            if animation:
+                os.environ["OPENSHORES_TEST_AVATAR_ANIMATION"] = "1"
             if graphical:
                 if installation.is_dir():
                     os.environ["HAZERON_INSTALL"] = str(installation)
@@ -215,7 +219,10 @@ def main() -> None:
                         if first_person:
                             cases = [("first-person", 0., original_dna, anchor),
                                      ("first-person-down", 0., original_dna, anchor),
+                                     ("elevated-look-down", 0., original_dna, anchor),
                                      ("inspection-restored", 0., original_dna, anchor)]
+                            if first_person_mode == "elevated":
+                                cases = [("elevated-look-down", 0., original_dna, anchor)]
                         if action == "avatar-live":
                             cases = [("live-update", 0., original_dna, smaller_anchor)]
                             if south:
@@ -223,10 +230,13 @@ def main() -> None:
                             os.environ["OPENSHORES_TEST_AVATAR_LIVE"] = "1"
                             if lifecycle:
                                 cases = [("live-lifecycle", 0., original_dna, anchor)]
+                        if animation:
+                            cases = [("animation-stopped", 0., original_dna, anchor)]
                         for label, elevation, dna, metrics in cases:
                             if first_person:
                                 os.environ["OPENSHORES_TEST_AVATAR_FIRST_PERSON"] = {
                                     "first-person": "1", "first-person-down": "down",
+                                    "elevated-look-down": "elevated",
                                     "inspection-restored": "restore",
                                 }[label]
                             z = fixture["floor"] + (anchor[0] if action == "avatar-live" else metrics[0]) + elevation
@@ -243,7 +253,7 @@ def main() -> None:
                             screenshot = directory / f"{label}.png"
                             os.environ["OPENSHORES_TEST_AVATAR_CAPTURE"] = str(screenshot)
                             os.environ["OPENSHORES_TEST_AVATAR_POSITION"] = f"0,0,{z}"
-                            if action == "avatar-live":
+                            if action == "avatar-live" or animation:
                                 os.environ.pop("OPENSHORES_TEST_AVATAR_POSITION", None)
                             expected_dna = smaller_dna if action == "avatar-live" and not lifecycle else dna
                             os.environ["OPENSHORES_TEST_AVATAR_DNA"] = expected_dna.hex()
@@ -263,6 +273,22 @@ def main() -> None:
                                     assert "same-player authenticated reconnect advanced generation" in result.stdout
                                     assert "AVATAR LIFECYCLE manifest removed" in log_path.read_text()
                                     assert "AVATAR LIFECYCLE manifest restored" in log_path.read_text()
+                            elif animation:
+                                for gait in ("walk", "run"):
+                                    assert f"{gait} keyboard input moved player and changed native mesh phases" in result.stdout
+                                    for phase in ("a", "b"):
+                                        assert (directory / f"{gait}-{phase}.png").is_file()
+                                assert "released input restored exact Stand/eye" in result.stdout
+                                async def verify_animation_reports():
+                                    import asyncpg
+                                    conn = await asyncpg.connect(dsn)
+                                    try:
+                                        row = await conn.fetchrow('SELECT "locX", "locY" FROM "a_Person" WHERE "id"=$1', avatar)
+                                        assert abs(row["locX"]) + abs(row["locY"]) > 1., "server did not persist actual keyboard movement reports"
+                                    finally:
+                                        await conn.close()
+                                asyncio.run(verify_animation_reports())
+                                print("Connected avatar animation: local server persisted keyboard movement reports", flush=True)
                             else:
                                 assert "Connected avatar received/render origin verified" in result.stdout
                             assert "Connected avatar received/render appearance verified" in result.stdout

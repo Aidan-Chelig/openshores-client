@@ -11,6 +11,8 @@ mod actions;
 mod assets;
 mod auto_login;
 mod avatar;
+mod avatar_animation;
+mod avatar_animation_test;
 mod avatar_camera;
 mod avatar_inspection;
 mod avatar_lifecycle;
@@ -85,6 +87,10 @@ struct Presentation {
     last_scene_revision: u64,
     panel_scroll: f32,
     top_height: f32,
+    top_height_hold: f32,
+    top_blend: f32,
+    avatar_motion_speed: f32,
+    avatar_animation_status: String,
 }
 
 #[derive(Component)]
@@ -218,6 +224,12 @@ fn launch(
     let capture = avatar_inspection::Capture::from_environment(auto_profile.is_some())?;
     let live_test = std::env::var_os("OPENSHORES_TEST_AVATAR_LIVE").is_some();
     let lifecycle_test = std::env::var_os("OPENSHORES_TEST_AVATAR_LIFECYCLE").is_some();
+    let animation_test = std::env::var_os("OPENSHORES_TEST_AVATAR_ANIMATION").is_some();
+    if animation_test && (auto_profile.is_none() || capture.is_none() || live_test) {
+        return Err(io::Error::other(
+            "animation acceptance requires synthetic auto-login/capture and excludes the live-report fixture",
+        ));
+    }
     if lifecycle_test && !live_test {
         return Err(io::Error::other(
             "avatar lifecycle acceptance requires live acceptance",
@@ -250,7 +262,7 @@ fn launch(
             hud: true,
             avatar_inspect: inspect,
             scale: 1.0,
-            top_height: 1.2,
+            top_height: 8., // native world units above the ordinary eye
             ..default()
         })
         .insert_resource(ClearColor(Color::srgb(0.025, 0.045, 0.07)))
@@ -263,6 +275,7 @@ fn launch(
             ..default()
         }))
         .add_plugins(crate::viewer::native_skin::SkinPlugin)
+        .init_resource::<avatar_animation::State>()
         .add_systems(Startup, setup)
         .add_systems(
             Update,
@@ -273,8 +286,10 @@ fn launch(
                 avatar::preparation,
                 chat::typing,
                 controls::keyboard,
+                camera::transition,
                 scene::scene,
                 avatar_rendering::render,
+                avatar_animation::animate,
                 avatar_camera::view,
                 avatar_inspection::camera,
                 avatar_inspection::ground_reference,
@@ -293,6 +308,23 @@ fn launch(
         app.init_resource::<avatar_live::Workflow>().add_systems(
             Update,
             avatar_live::workflow
+                .after(avatar_inspection::camera)
+                .before(avatar_inspection::capture),
+        );
+    }
+    if animation_test {
+        let path =
+            std::path::PathBuf::from(std::env::var_os("OPENSHORES_TEST_AVATAR_CAPTURE").unwrap());
+        app.insert_resource(avatar_animation_test::Workflow::new(
+            path.parent().unwrap().to_owned(),
+        ))
+        .add_systems(
+            Update,
+            avatar_animation_test::input.before(controls::keyboard),
+        )
+        .add_systems(
+            Update,
+            avatar_animation_test::workflow
                 .after(avatar_inspection::camera)
                 .before(avatar_inspection::capture),
         );

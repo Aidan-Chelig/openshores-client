@@ -2,6 +2,21 @@
 use super::*;
 use std::io;
 
+#[derive(Clone, Debug)]
+pub struct NativeDpAvatarEye {
+    local: [f64; 3],
+    bone: usize,
+}
+impl NativeDpAvatarEye {
+    pub fn location(&self, bones: &NativeDpBoneTransforms) -> io::Result<[f64; 3]> {
+        let point = bones.slots[self.bone].project(self.local);
+        if point.iter().any(|v| !v.is_finite()) {
+            return Err(invalid("nonfinite native camera point"));
+        }
+        Ok(point)
+    }
+}
+
 impl NativeDpAvatarGeometry {
     /// DpBody::CameraLocation/CurrentCameraLoc for the represented neutral pose.
     /// field3a is an explicit native head-selection flag, not guessed from sex.
@@ -9,6 +24,11 @@ impl NativeDpAvatarGeometry {
         if self.standing.pose.fields_3c != [0x24; 10] || self.standing.pose.field_6c {
             return Err(invalid("camera location requires neutral Stand"));
         }
+        self.prepare_eye(field_3a)?.location(self.body.bones())
+    }
+
+    /// Retain authored camera metadata once; sample it through current head bones.
+    pub fn prepare_eye(&self, field_3a: bool) -> io::Result<NativeDpAvatarEye> {
         let selected = usize::from(self.dna.0[5] & 2 != 0 && !field_3a);
         let (index, part) = self
             .body
@@ -55,11 +75,7 @@ impl NativeDpAvatarGeometry {
         let offset = skull_camera_offset(eye, connection, pivot, uniform, width);
         let local = current_camera_point(head, offset);
         let bone = if part.allocation.index == 1 { 12 } else { 7 };
-        let point = self.body.bones().slots[bone].project(local);
-        if point.iter().any(|v| !v.is_finite()) {
-            return Err(invalid("nonfinite native camera point"));
-        }
-        Ok(point)
+        Ok(NativeDpAvatarEye { local, bone })
     }
 }
 

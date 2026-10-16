@@ -1,4 +1,5 @@
 use super::*;
+use std::time::Duration;
 
 #[test]
 fn short_mouse_turn_predicts_body_and_remains_pending_until_report_interval() {
@@ -142,6 +143,41 @@ fn keys(app: &mut App, keys: &[KeyCode]) {
         }
     }
     app.update();
+}
+
+#[test]
+fn elevated_brackets_translate_while_held_and_stop_on_release() {
+    let mut app = app();
+    app.insert_resource(bevy::time::TimeUpdateStrategy::ManualDuration(
+        Duration::from_secs_f32(0.02),
+    ));
+    app.update();
+    {
+        let mut ui = app.world_mut().resource_mut::<Presentation>();
+        ui.top_down = true;
+        ui.top_height = 8.;
+    }
+    keys(&mut app, &[KeyCode::BracketRight]);
+    let first = app.world().resource::<Presentation>().top_height;
+    app.world_mut()
+        .resource_mut::<ButtonInput<KeyCode>>()
+        .clear();
+    app.update(); // held, but no just_pressed event
+    let second = app.world().resource::<Presentation>().top_height;
+    assert!(first > 8.);
+    assert!(second > first);
+    keys(&mut app, &[]);
+    assert_eq!(app.world().resource::<Presentation>().top_height, second);
+    keys(&mut app, &[KeyCode::BracketLeft]);
+    let reversed = app.world().resource::<Presentation>().top_height;
+    assert!(reversed < second);
+    keys(&mut app, &[KeyCode::BracketLeft, KeyCode::BracketRight]);
+    assert!((app.world().resource::<Presentation>().top_height - reversed).abs() < 1e-5);
+    keys(&mut app, &[KeyCode::ShiftLeft, KeyCode::BracketRight]);
+    assert!((app.world().resource::<Presentation>().top_height - reversed).abs() < 1e-5);
+    app.world_mut().resource_mut::<Presentation>().top_down = false;
+    keys(&mut app, &[KeyCode::BracketRight]);
+    assert!((app.world().resource::<Presentation>().top_height - reversed).abs() < 1e-5);
 }
 
 #[test]

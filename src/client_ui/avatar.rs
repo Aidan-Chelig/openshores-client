@@ -16,6 +16,8 @@ pub(super) struct PreparedRenderAvatar {
     pub image: Image,
     pub camera: Vec3,
     pub first_person_heads: Vec<bool>,
+    pub animation: Option<Mutex<crate::client_model::PreparedAvatarAnimation>>,
+    pub bindings: Vec<Vec<(usize, usize)>>,
 }
 
 pub(super) fn preparation(
@@ -67,7 +69,8 @@ pub(super) fn preparation(
                         );
                         let mut meshes = Vec::new();
                         let mut first_person_heads = Vec::new();
-                        for surface in &body.surfaces {
+                        let mut bindings = Vec::new();
+                        for (surface_index, surface) in body.surfaces.iter().enumerate() {
                             let head = body.native.surfaces[surface.surface_index]
                                 .sources
                                 .iter()
@@ -76,16 +79,37 @@ pub(super) fn preparation(
                                 std::slice::from_ref(surface),
                             )?;
                             first_person_heads.extend(std::iter::repeat_n(head, batch.len()));
+                            let mut partitions = std::collections::BTreeMap::new();
+                            for (face, names) in surface.material_memberships.iter().enumerate() {
+                                partitions.entry(names).or_insert_with(Vec::new).push(face);
+                            }
+                            for faces in partitions.values() {
+                                bindings.push(
+                                    faces
+                                        .iter()
+                                        .flat_map(|face| {
+                                            (0..3).map(move |corner| {
+                                                (surface_index, face * 3 + corner)
+                                            })
+                                        })
+                                        .collect(),
+                                );
+                            }
                             meshes.extend(batch);
                         }
                         let image = crate::viewer::native_skin::decode_atlas(&body.atlas_png)?;
+                        let surface_count = body.surfaces.len();
+                        let skin_offsets = body.native.skin_offsets;
+                        let animation = Some(Mutex::new(body.into_animation(&mount.mount)?));
                         Ok(PreparedRenderAvatar {
-                            surface_count: body.surfaces.len(),
-                            skin_offsets: body.native.skin_offsets,
+                            surface_count,
+                            skin_offsets,
                             meshes,
                             image,
                             camera,
                             first_person_heads,
+                            animation,
+                            bindings,
                         })
                     })()
                     .map_err(|error| error.to_string());

@@ -80,7 +80,14 @@ discarding raw helper metadata. Station/weapon interaction poses remain pending.
 W/A/S/D and C/Z use a prototype radial basis, with
 prototype speed and camera sensitivity. Mouse-look changes the local camera;
 wire rotation convention is not guessed. The default view is first person and
-Backspace toggles top-down; [/] adjusts tactical height. The synthetic GUI test
+Backspace toggles an elevated eye with the same pitch/yaw mouse-look. Its height
+is now in native world units (default eight above the normal eye), not unscaled
+display units. At the user's request, holding [/] lowers/raises smoothly at six
+units/second, bounded to 0.1–100; this deliberately replaces original stepped
+height changes. Speed starts at 24.3 units/second and ramps to 89.1 over two
+seconds held; releasing or reversing
+resets the ramp. Elevated mode renders the entire local avatar, including its
+head; look down to inspect it. The synthetic GUI test
 avatar is seeded above the reference base surface. No original-physics or
 original-art/appearance parity is claimed. Unsupported station/weapon/unit-order
 shortcuts are reserved, not mapped to unrelated debug actions.
