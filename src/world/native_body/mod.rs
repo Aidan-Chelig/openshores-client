@@ -16,6 +16,7 @@ pub use avatar_seams::{NativeAvatarEndCap, NativeAvatarSeamRepair, native_avatar
 mod dp;
 mod textures;
 pub use avatar::{NativeDpAvatarGeometry, NativeDpAvatarSource, NativeDpAvatarSurface};
+pub use dp::NativeDpArmJump;
 pub use dp::NativeDpArmLocomotion;
 pub use dp::NativeDpArmSkinGeometry;
 pub use dp::NativeDpArmStandAngles;

@@ -339,3 +339,14 @@ The combined offline regression passes ten static checks, 789 library tests
 (six ignored), both received-DNA tests and all six mounted limb tests. Strict
 client Clippy and formatting/diff checks also pass.
 
+Jump arm/composition checkpoint: native JumpArms spread and first-only override
+are now verified and ported. The internal compositor combines legs, tail, torso,
+head and arms with native height/reset order. Preparation warms Jump and then
+discards mount access. Full mounted received-DNA samples pass 0/125/0-ms phase,
+finite-eye, exact-repeat and subsequent Stand checks. Multi-arm coverage now
+includes Jump (72 arm-action combinations); a dedicated override test confirms
+only the first selected arm changes. All seven mounted limb tests and 790 client
+library tests pass (six ignored). The source adapter still rejects Jump pending
+explicit receive admission and connected visual acceptance; no jump physics is
+claimed from CPU pose composition.
+

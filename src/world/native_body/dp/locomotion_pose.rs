@@ -51,7 +51,7 @@ impl NativeDpInitialization {
         if !speed.is_finite()
             || pose.field_6c
             || pose.fields_3c.iter().enumerate().any(|(index, code)| {
-                !(matches!(code, 0x12 | 0x15 | 0x24..=0x26)
+                !(matches!(code, 0x12 | 0x15 | 0x1c | 0x24..=0x26)
                     || matches!(index, 2 | 5) && *code == 0x30)
             })
         {
@@ -64,6 +64,10 @@ impl NativeDpInitialization {
         self.bones.reset_for_animation(&self.dna);
         for selector in [0, 1] {
             let code = pose.fields_3c[if selector == 0 { 4 } else { 0 }];
+            if code == 0x1c {
+                self.jump_legs(height, speed, selector, field_4068, feet, timer)?;
+                continue;
+            }
             if matches!(code, 0x12 | 0x15) {
                 self.dead_legs_facing_down(selector, field_4068, feet)?;
                 continue;
@@ -97,6 +101,20 @@ impl NativeDpInitialization {
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
                 let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
+                if code == 0x1c {
+                    self.jump_arms(
+                        NativeDpArmJump {
+                            height,
+                            speed,
+                            side,
+                            override_field_30: None,
+                            field_4068,
+                        },
+                        hands,
+                        timer,
+                    )?;
+                    continue;
+                }
                 if code == 0x30 {
                     self.wave_arms(side, 0., timer)?;
                     continue;

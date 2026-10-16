@@ -226,3 +226,22 @@ wrist-bend DNA. An explicit override instead uses ownerPitch-animatedShoulder
 for elbow and float(-2degrees) wrist. Application is shoulder/wrist/elbow/splay/
 stored lift. The body JumpArms wrapper, spread and override consumption still
 need checking before implementation; these observations alone do not admit it.
+
+Jump arm/full-body checkpoint: bounded JumpArms disassembly
+(`0x1412ed8e0`–`0x1412eda62`) establishes spread float(-2degrees), lift
+float(5degrees), ordinary-arm forward/side traversal and an override consumed
+only by the first selected arm. The wrapper and concrete arm interpolation are
+now ported, using Relax's existing shoulder/wrist/elbow/splay/lift path and its
+override against the animated shoulder. Static jump anchors include both arm
+routines and verify override clearing, owner pitch and f32 operation widths.
+
+The internal compositor now supports 0x1c in native stage order, using existing
+CGHeight, tail, torso and head dispatch. Worker preparation warms it before
+freezing mount access. Mounted received-DNA tests sample full Jump at 0/125/0ms,
+requiring changing surfaces, finite eye, exact repeat and later Stand restoration.
+The multi-arm matrix includes Jump (72 combinations total across four arm
+actions), and a separate three-pair test proves override affects only the first
+selected arm for either/both sides and both wrist branches. All seven mounted
+limb tests pass. Source admission/connected Jump acceptance still remain open;
+the runtime adapter continues to reject0x1c. No root motion or jump physics is
+implied by this completed native composition dependency.

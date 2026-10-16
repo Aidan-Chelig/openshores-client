@@ -48,7 +48,7 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
             let initial = body.clone();
             let mut hands = hands.into_cached_only();
             let mut feet = feet.into_cached_only();
-            for code in [0x25, 0x26, 0x30] {
+            for code in [0x25, 0x26, 0x30, 0x1c] {
                 for side in [0, 1, 2] {
                     let mut pose = NativeDpBodyPoseState {
                         fields_3c: [0x24; 10],
@@ -101,6 +101,76 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
                     body.pose_neutral_standing(0, &mut hands, &mut feet)
                         .unwrap();
                     assert_eq!(body.bones(), initial.bones());
+                }
+            }
+        }
+    }
+}
+
+#[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; native first-selected jump arm override"]
+fn mounted_jump_arm_override_changes_only_first_selected_arm() {
+    use openshores_client::world::{
+        native_body::NativeDpArmJump, native_creature::NativePoseRhythmTimer,
+    };
+    struct Timer;
+    impl NativePoseRhythmTimer for Timer {
+        fn start(&mut self) -> std::io::Result<()> {
+            Ok(())
+        }
+        fn msecs_since_reference(&mut self) -> std::io::Result<i64> {
+            Ok(125)
+        }
+    }
+    let mount =
+        AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
+    for wrist in [0x60, 0x80] {
+        let mut dna = NativeDhDna([0; 24]);
+        dna.0[1] = 3;
+        dna.0[11] = wrist;
+        dna.0[12] = 4;
+        let mut hands = NativeDpHandCache::new(&mount);
+        let mut feet = NativeDpFootCache::new(&mount);
+        let mut base = NativeDpInitialization::begin(&dna);
+        base.finish_part_calculations(0, &mut hands).unwrap();
+        let height = feet
+            .standing_height(&dna, base.dimensions(), 0, false)
+            .unwrap();
+        for side in [0, 1, 2] {
+            let mut ordinary = base.clone();
+            let mut overridden = base.clone();
+            let mut input = NativeDpArmJump {
+                height,
+                speed: 4.,
+                side,
+                override_field_30: None,
+                field_4068: 0,
+            };
+            ordinary.jump_arms(input, &mut hands, &mut Timer).unwrap();
+            input.override_field_30 = Some(0.4);
+            overridden.jump_arms(input, &mut hands, &mut Timer).unwrap();
+            let first = base
+                .parts()
+                .iter()
+                .find(|part| {
+                    (side != 1 && part.allocation.kind == NativeDpPartKind::LeftArmAndHand)
+                        || (side != 0 && part.allocation.kind == NativeDpPartKind::RightArmAndHand)
+                })
+                .unwrap()
+                .limb_bones()
+                .unwrap();
+            assert!(
+                first
+                    .iter()
+                    .any(|&index| ordinary.bones().slots[index] != overridden.bones().slots[index])
+            );
+            for (index, bone) in ordinary.bones().slots.iter().enumerate() {
+                if !first.contains(&index) {
+                    assert_eq!(
+                        bone,
+                        &overridden.bones().slots[index],
+                        "override leaked beyond first selected arm"
+                    );
                 }
             }
         }
