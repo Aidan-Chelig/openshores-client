@@ -286,6 +286,11 @@ def main() -> None:
                                         assert (directory / f"{gait}-{phase}.png").is_file()
                                 if received_animation:
                                     assert "received mixed phases and unsupported/recovery verified" in result.stdout
+                                    report_log = log_path.read_text()
+                                    assert "AVATAR POSE parsed client report during bootstrap" in report_log
+                                    assert "AVATAR POSE parsed client report during stand" in report_log
+                                    assert "AVATAR POSE unexpected report during" not in report_log, "local prediction overwrote a received action"
+                                    print("Connected avatar animation: source decoder observed neutral reports and no action-overwriting reports after transport grace", flush=True)
                                     for request in ("mixed", "dying", "dead", "unsupported", "stand"):
                                         assert f"AVATAR POSE sent {request}:" in log_path.read_text()
                                     for phase in ("a", "b"):

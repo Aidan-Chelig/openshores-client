@@ -269,3 +269,18 @@ and persisted position reports. Captures are under
 `target/connected-avatar-5c_g9ye5`. This is actual supplied-server receive evidence,
 not a client-generated assertion that a report was delivered.
 
+Outgoing/received coexistence acceptance now observes the supplied server's real
+delta-tick decoder, returning its original result unchanged. The connected
+received-action rerun passes: neutral/bootstrap and restored-Stand client reports
+are observed, but no reports override mixed/Dying/Dead/unsupported states after
+a 0.3-second grace for already-queued transport. The GPU pose/resource/recovery
+checks also pass; captures are in `target/connected-avatar-oesnaupi`. This is a
+bounded local test, not a claim about arbitrary server echo semantics.
+
+`just test-native-avatar-animation` now runs eight existing SHA-bound static
+anchor checks, the client-library suite and mounted received-DNA checks in one
+dev-shell entry. The combined run passes: 787 library tests (six ignored) and
+both mounted/ownership tests. It does not execute original binaries or launch
+new disassembler analysis. Connected GPU recipes remain separate because the
+offline suite cannot prove rendering or network behavior.
+

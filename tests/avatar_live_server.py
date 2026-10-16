@@ -1,8 +1,10 @@
-"""Owned-test-only sparse appearance/rotation echo fixture.
+"""Owned-test-only sparse appearance/rotation and pose fixtures.
 
 Runs the supplied server's real login, bootstrap and position-report receiver.
 Its player transform writer currently emits zero rotation and no DNA updates;
 this explicit fixture emits two source-profile updates after actual reports.
+Pose mode instead emits requested sparse pose updates and observes the unchanged
+source delta-tick parser to detect client reports overriding received actions.
 It does not edit the reference source or claim unmodified-server echo parity.
 """
 import asyncio
@@ -20,6 +22,23 @@ from openshores.protocol.framing import write_framed
 from openshores.protocol.login_reply import _default_dna
 
 original = connection.handle_scene
+pose_phase = ("bootstrap", 0.)
+
+if os.environ.get("OPENSHORES_TEST_AVATAR_POSE_CONTROL"):
+    original_parse_delta = connection._parse_delta_tick
+
+    @functools.wraps(original_parse_delta)
+    def observe_pose_reports(payload):
+        result = original_parse_delta(payload)
+        if isinstance(result, dict) and result.get("poses"):
+            phase, sent = pose_phase
+            print(f"AVATAR POSE parsed client report during {phase}", flush=True)
+            # Allow transport already queued before the sparse server update.
+            if phase in ("mixed", "dying", "dead", "unsupported") and time.monotonic() - sent > 0.3:
+                print(f"AVATAR POSE unexpected report during {phase}", flush=True)
+        return result
+
+    connection._parse_delta_tick = observe_pose_reports
 
 if os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"):
     from openshores.gameplay.natives.village import gravity_align_euler
@@ -85,6 +104,7 @@ async def observe_reports(live, writer):
 
 async def observe_pose_requests(live, writer):
     """Explicit test writer: real framed sparse packets, never client injection."""
+    global pose_phase
     control = Path(os.environ["OPENSHORES_TEST_AVATAR_POSE_CONTROL"])
     previous = None
     channels = {
@@ -108,6 +128,7 @@ async def observe_pose_requests(live, writer):
                       + b"\x00\x08" + channels[request] + struct.pack(">I", 0)
                       + b"\x00\x00\x00")
             await write_framed(writer, packet)
+            pose_phase = (request, time.monotonic())
             previous = request
             print(f"AVATAR POSE sent {request}: player={auid}", flush=True)
             break

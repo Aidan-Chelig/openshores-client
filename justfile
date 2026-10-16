@@ -64,6 +64,10 @@ test-native-avatar-torso installation="reference/hazeron":
 test-local-avatar-preparation installation="reference/hazeron":
     nix develop .#server-test --command python tests/local_avatar_preparation.py {{quote(installation)}}
 
+# One dev-shell entry: bounded static anchors, client CPU suite and mounted DNA.
+test-native-avatar-animation installation="reference/hazeron":
+    nix develop .#server-test --command python tests/avatar_animation_checks.py {{quote(installation)}}
+
 # Focused native Stand/CG anchor checks; no original runtime or Ghidra import.
 test-native-avatar-anchor:
     nix develop .#server-test --command python tests/native_avatar_anchor.py
