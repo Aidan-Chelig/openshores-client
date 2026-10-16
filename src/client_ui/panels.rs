@@ -225,6 +225,7 @@ pub(super) fn rebuild_panels(
                 );
                 label(&mut commands, root, &ui.model.status);
                 label(&mut commands, root, &ui.avatar_status);
+                label(&mut commands, root, &ui.avatar_placement_status);
             }
             if ui.windows_open {
                 super::chat::panel(&mut commands, root, &ui);

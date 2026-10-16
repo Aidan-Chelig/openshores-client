@@ -1,8 +1,9 @@
 # In-world local-player avatar: progress ledger
 
 Objective and acceptance criteria: [in-world avatar goal](in-world-avatar-goal.md).
-This milestone is active. The connected renderer still draws primitive person
-markers; the following work is preparation, not completed in-game rendering.
+This milestone is active. The connected renderer now attaches prepared local
+avatar meshes, but connected GPU output, ground anchoring and globe-relative
+facing remain unverified. Earlier checkpoints below describe their own scope.
 
 ## Received appearance boundary
 
@@ -83,13 +84,45 @@ or connected GPU visual acceptance is claimed for this checkpoint.
 
 ## Renderer integration points and next work
 
-`client_ui/scene.rs` currently despawns/recreates markers on every scene revision.
-Mounted item meshes have a resource cache, but persons always use a sphere and
-StandardMaterial. Reusing that rebuild loop for expensive avatar generation would
+`client_ui/scene.rs` despawns/recreates diagnostic markers on every scene revision.
+Mounted item meshes have a resource cache. Reusing that rebuild loop for expensive avatar generation would
 violate the goal's movement/lifecycle requirements.
 
-Next: attach prepared batches to a persistent local-player render root, reuse the
-body skin material without the offline viewer's display normalization, and
-establish scale/frame/ground-anchor behavior before connected GPU acceptance.
-No world placement, armor mapping, GPU avatar mesh lifecycle or connected visual
-acceptance is claimed by this preparation checkpoint.
+## Persistent renderer integration checkpoint
+
+`client_ui/avatar_rendering.rs` attaches prepared batches beneath a separate
+local-player root, outside the diagnostic-marker rebuild loop. Movement updates
+the root transform in place; request changes replace it. Only the successfully
+attached player's marker is removed. Other entity diagnostics remain unchanged.
+Missing/invalid globe-child transforms retain diagnostics and show a placement
+status instead of inventing an ancestor transform.
+
+The shared native skin plugin/material is registered in the client. Mesh expansion
+and PNG decoding run in the appearance worker. Its bounded completed cache keeps
+the render meshes, decoded image and skin offsets, not an additional copy of the
+native body and posed corners. GPU assets are uploaded once per attached request;
+replacement/disconnect/removal explicitly releases mesh, material and image assets
+and despawns the body hierarchy.
+
+The world mesh adapter retains native units and origin (including homogeneous W,
+UVs and posed normals), without the offline preview's centering or size fitting.
+The root applies the existing source-profile rotation and display scale once,
+using predicted local position when available. It deliberately does not add a
+body-height offset or snap to terrain. This is provisional placement, not proof
+of the correct body origin, globe-facing convention or ground contact; the HUD
+says that verification is pending.
+
+CPU tests check raw coordinates/W, persistent root and mesh identity across a
+position change, removal cleanup, child/resource cleanup and preservation of
+unrelated markers. These are render-world/ECS tests, not GPU visual acceptance.
+
+Next: establish body origin and globe-local facing, implement/report turning,
+provide full-body connected inspection and verify real owned-server GPU output.
+Second received appearances and the remaining connected acceptance cases are
+still required. No armor mapping or completed in-world milestone is claimed.
+
+Renderer checkpoint verification: 768 client-library tests pass, with six
+pre-existing asset/GPU-dependent cases ignored. Both supplied-server-DNA
+preparation integration cases pass. Client-library Clippy with warnings denied,
+formatting and diff whitespace checks pass. No connected GPU capture was taken
+for this checkpoint.

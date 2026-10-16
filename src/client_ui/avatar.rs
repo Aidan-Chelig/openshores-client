@@ -1,4 +1,4 @@
-//! CPU body preparation only; world-placement/render attachment follows separately.
+//! Background native geometry, mesh expansion and skin-atlas decoding.
 use super::*;
 use crate::client_model::{
     AvatarContentKey, AvatarPreparation, AvatarPreparationStatus, AvatarRequest,
@@ -7,7 +7,14 @@ use crate::client_model::{
 use std::sync::mpsc::channel;
 
 #[derive(Resource, Default)]
-pub(super) struct Preparation(pub Mutex<AvatarPreparation<PreparedNormalAvatar>>);
+pub(super) struct Preparation(pub Mutex<AvatarPreparation<PreparedRenderAvatar>>);
+
+pub(super) struct PreparedRenderAvatar {
+    pub surface_count: usize,
+    pub skin_offsets: [f64; 4],
+    pub meshes: Vec<Mesh>,
+    pub image: Image,
+}
 
 pub(super) fn preparation(
     mut resource: ResMut<Preparation>,
@@ -49,8 +56,19 @@ pub(super) fn preparation(
             if let Err(error) = std::thread::Builder::new()
                 .name("openshores-avatar".into())
                 .spawn(move || {
-                    let result = PreparedNormalAvatar::generate(&mount.mount, &key)
-                        .map_err(|error| error.to_string());
+                    let result = (|| -> io::Result<_> {
+                        let body = PreparedNormalAvatar::generate(&mount.mount, &key)?;
+                        let meshes =
+                            crate::viewer::native_skin::world_avatar_meshes(&body.surfaces)?;
+                        let image = crate::viewer::native_skin::decode_atlas(&body.atlas_png)?;
+                        Ok(PreparedRenderAvatar {
+                            surface_count: body.surfaces.len(),
+                            skin_offsets: body.native.skin_offsets,
+                            meshes,
+                            image,
+                        })
+                    })()
+                    .map_err(|error| error.to_string());
                     let _ = tx.send(result);
                 })
             {
@@ -69,8 +87,8 @@ pub(super) fn preparation(
         }
         AvatarPreparationStatus::Ready => {
             status = format!(
-                "Avatar body prepared: {} surfaces (normal skin); world placement pending.",
-                state.ready().unwrap().1.surfaces.len()
+                "Avatar body prepared: {} surfaces (normal skin).",
+                state.ready().unwrap().1.surface_count
             )
         }
         AvatarPreparationStatus::Failed(error) => {

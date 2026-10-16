@@ -10,7 +10,7 @@ use bevy::{
 };
 use std::io;
 mod auto_smooth;
-mod native_skin;
+pub(crate) mod native_skin;
 pub use native_skin::{
     NativeAvatarView, NativeSkinPreviewOptions, run_textured_avatar, run_textured_body,
 };

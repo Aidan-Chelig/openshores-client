@@ -17,6 +17,7 @@ use bevy::{
 };
 use std::path::PathBuf;
 mod avatar;
+pub(crate) use avatar::world_avatar_meshes;
 pub use avatar::{NativeAvatarView, run_textured_avatar};
 
 pub struct NativeSkinPreviewOptions {
@@ -28,14 +29,14 @@ pub struct NativeSkinPreviewOptions {
 }
 
 #[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
-struct SkinExtension {
+pub(crate) struct SkinExtension {
     #[texture(100)]
     #[sampler(101)]
-    atlas: Handle<Image>,
+    pub(crate) atlas: Handle<Image>,
     #[uniform(102)]
-    offsets: Vec4,
+    pub(crate) offsets: Vec4,
 }
-type SkinMaterial = ExtendedMaterial<StandardMaterial, SkinExtension>;
+pub(crate) type SkinMaterial = ExtendedMaterial<StandardMaterial, SkinExtension>;
 impl MaterialExtension for SkinExtension {
     fn vertex_shader() -> ShaderRef {
         "embedded://openshores_client/viewer/native_skin_vertex.wgsl".into()
@@ -55,7 +56,7 @@ pub(super) struct SkinPreview {
     pub(super) view: Option<NativeAvatarView>,
 }
 
-pub(super) struct SkinPlugin;
+pub(crate) struct SkinPlugin;
 impl Plugin for SkinPlugin {
     fn build(&self, app: &mut App) {
         embedded_asset!(app, "native_skin.wgsl");
@@ -75,7 +76,7 @@ fn invalid(message: &str) -> io::Error {
 
 /// Bevy's existing PNG decoder, bounded before decode, with the native bottom-up
 /// row order. sRGB and repeat wrapping are explicit modern preview choices.
-fn decode_atlas(bytes: &[u8]) -> io::Result<Image> {
+pub(crate) fn decode_atlas(bytes: &[u8]) -> io::Result<Image> {
     if bytes.len() > 32 * 1024 * 1024
         || bytes.get(..8) != Some(b"\x89PNG\r\n\x1a\n")
         || bytes.get(8..16) != Some(b"\0\0\0\rIHDR")

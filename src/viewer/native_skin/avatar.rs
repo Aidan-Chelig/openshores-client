@@ -28,6 +28,20 @@ impl NativeAvatarView {
 fn render_avatar(
     surfaces: &[NativeDpPosedAvatarSurface],
 ) -> io::Result<(DisplayGeometry, Vec<Mesh>)> {
+    render_avatar_frame(surfaces, true)
+}
+
+/// Real native model units/origin, with no preview centering or size fitting.
+pub(crate) fn world_avatar_meshes(
+    surfaces: &[NativeDpPosedAvatarSurface],
+) -> io::Result<Vec<Mesh>> {
+    render_avatar_frame(surfaces, false).map(|(_, meshes)| meshes)
+}
+
+fn render_avatar_frame(
+    surfaces: &[NativeDpPosedAvatarSurface],
+    fit: bool,
+) -> io::Result<(DisplayGeometry, Vec<Mesh>)> {
     let mut low = [f64::INFINITY; 3];
     let mut high = [f64::NEG_INFINITY; 3];
     for c in surfaces.iter().flat_map(|s| &s.corners) {
@@ -46,7 +60,12 @@ fn render_avatar(
     if !span.is_finite() || span <= 0. {
         return Err(invalid("avatar has no finite drawable extent"));
     }
-    let center: [f64; 3] = std::array::from_fn(|a| (low[a] + high[a]) * 0.5);
+    let center: [f64; 3] = if fit {
+        std::array::from_fn(|a| (low[a] + high[a]) * 0.5)
+    } else {
+        [0.; 3]
+    };
+    let scale = if fit { 2. / span } else { 1. };
     let mut display = Vec::new();
     let mut meshes = Vec::new();
     for surface in surfaces {
@@ -58,8 +77,8 @@ fn render_avatar(
             .iter()
             .map(|c| {
                 std::array::from_fn(|a| {
-                    ((f64::from(c.position[a]) / f64::from(c.position[3]) - center[a])
-                        * (2. / span)) as f32
+                    ((f64::from(c.position[a]) / f64::from(c.position[3]) - center[a]) * scale)
+                        as f32
                 })
             })
             .collect();
@@ -216,6 +235,23 @@ mod tests {
                 .collect(),
             material_memberships: vec![vec![vec![65]]],
         }
+    }
+
+    #[test]
+    fn world_adapter_preserves_native_units_and_origin() {
+        let meshes = world_avatar_meshes(&[posed()]).unwrap();
+        let Some(VertexAttributeValues::Float32x3(positions)) =
+            meshes[0].attribute(Mesh::ATTRIBUTE_POSITION)
+        else {
+            panic!()
+        };
+        assert_eq!(positions, &vec![[0., 0., 0.], [1., 0., 0.], [0., 1., 0.]]);
+        let Some(VertexAttributeValues::Float32x4(controls)) =
+            meshes[0].attribute(Mesh::ATTRIBUTE_COLOR)
+        else {
+            panic!()
+        };
+        assert_eq!(controls[1][0], 2.);
     }
 
     #[test]

@@ -11,6 +11,7 @@ mod actions;
 mod assets;
 mod auto_login;
 mod avatar;
+mod avatar_rendering;
 mod camera;
 mod chat;
 mod controls;
@@ -54,6 +55,7 @@ struct Presentation {
     asset_browse: bool,
     assets_ready: bool,
     avatar_status: String,
+    avatar_placement_status: String,
     chat_focus: bool,
     chat_draft: String,
     chat_channel: u8,
@@ -210,6 +212,7 @@ fn launch(
         .init_resource::<assets::Setup>()
         .init_resource::<models::Cache>()
         .init_resource::<avatar::Preparation>()
+        .init_resource::<avatar_rendering::State>()
         .insert_resource(Presentation {
             model,
             chat_channel: 2,
@@ -235,6 +238,7 @@ fn launch(
             }),
             ..default()
         }))
+        .add_plugins(crate::viewer::native_skin::SkinPlugin)
         .add_systems(Startup, setup)
         .add_systems(
             Update,
@@ -246,6 +250,7 @@ fn launch(
                 chat::typing,
                 controls::keyboard,
                 scene::scene,
+                avatar_rendering::render,
                 native_scene::scene,
                 panels::rebuild_panels,
             )

@@ -2,6 +2,29 @@
 
 Implementation status: [progress ledger](in-world-avatar-progress.md).
 
+## Milestone in one sentence
+
+Run `just quick-dev` and see the logged-in player's actual received, textured
+avatar standing, moving and turning correctly in the world—not just in a preview.
+
+## Delivery checkpoints
+
+1. **Receive and prepare:** map the selected player's received DNA and prepare
+   its geometry and textures asynchronously, with ownership-safe invalidation.
+   This checkpoint is implemented; see the progress ledger for verification.
+2. **Render in-world:** attach the prepared body to a persistent player render
+   root, replace only that player's marker, and preserve native model units.
+   Moving must update the transform without regenerating the body.
+3. **Verify placement:** establish the body origin, globe-local orientation and
+   ground-contact convention. Cover turning, southern-hemisphere placement and
+   deliberately off-ground positions without corrective terrain snapping.
+4. **Prove the connected workflow:** exercise appearance changes and session
+   cleanup against the owned local server, inspect real GPU captures, run
+   regressions and document the reproducible result.
+
+Checkpoint completion is not milestone completion: the goal is done only when
+the connected-client acceptance criteria below pass.
+
 ## Objective
 
 Connect the locally logged-in player's received appearance to the verified
