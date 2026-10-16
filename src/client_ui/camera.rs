@@ -52,6 +52,20 @@ pub(super) fn near(scale: f64) -> f32 {
     (NEAR_DISTANCE * scale).max(1e-7) as f32
 }
 
+/// Preserve the prepared native eye, only lifting a buried CAMERA above the
+/// actual diagnostic mesh. Never feeds back into entity/body state.
+pub(super) fn clear_eye(eye: Vec3, terrain: Option<&TerrainMesh>, scale: f64) -> Vec3 {
+    let point = eye.as_dvec3() / scale;
+    let up = point.normalize_or_zero();
+    let Some(floor) = terrain.and_then(|mesh| surface_radius(mesh, up)) else {
+        return eye;
+    };
+    if point.length() >= floor + NEAR_DISTANCE {
+        return eye;
+    }
+    (up * (floor + NEAR_DISTANCE) * scale).as_vec3()
+}
+
 #[cfg(test)]
 #[path = "camera_tests.rs"]
 mod tests;

@@ -14,6 +14,8 @@ pub(super) struct PreparedRenderAvatar {
     pub skin_offsets: [f64; 4],
     pub meshes: Vec<Mesh>,
     pub image: Image,
+    pub camera: Vec3,
+    pub first_person_heads: Vec<bool>,
 }
 
 pub(super) fn preparation(
@@ -58,14 +60,32 @@ pub(super) fn preparation(
                 .spawn(move || {
                     let result = (|| -> io::Result<_> {
                         let body = PreparedNormalAvatar::generate(&mount.mount, &key)?;
-                        let meshes =
-                            crate::viewer::native_skin::world_avatar_meshes(&body.surfaces)?;
+                        let camera = Vec3::from_array(
+                            body.native
+                                .standing_camera_location(false)?
+                                .map(|v| v as f32),
+                        );
+                        let mut meshes = Vec::new();
+                        let mut first_person_heads = Vec::new();
+                        for surface in &body.surfaces {
+                            let head = body.native.surfaces[surface.surface_index]
+                                .sources
+                                .iter()
+                                .any(|source| source.resource.contains("Skull"));
+                            let batch = crate::viewer::native_skin::world_avatar_meshes(
+                                std::slice::from_ref(surface),
+                            )?;
+                            first_person_heads.extend(std::iter::repeat_n(head, batch.len()));
+                            meshes.extend(batch);
+                        }
                         let image = crate::viewer::native_skin::decode_atlas(&body.atlas_png)?;
                         Ok(PreparedRenderAvatar {
                             surface_count: body.surfaces.len(),
                             skin_offsets: body.native.skin_offsets,
                             meshes,
                             image,
+                            camera,
+                            first_person_heads,
                         })
                     })()
                     .map_err(|error| error.to_string());

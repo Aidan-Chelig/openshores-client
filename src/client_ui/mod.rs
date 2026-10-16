@@ -11,6 +11,7 @@ mod actions;
 mod assets;
 mod auto_login;
 mod avatar;
+mod avatar_camera;
 mod avatar_inspection;
 mod avatar_lifecycle;
 mod avatar_live;
@@ -227,7 +228,9 @@ fn launch(
             "live avatar acceptance requires synthetic auto-login and capture",
         ));
     }
-    let inspect = capture.is_some();
+    let inspect = capture
+        .as_ref()
+        .is_some_and(avatar_inspection::Capture::inspection);
     app.insert_resource(Bridge(Mutex::new(runtime)))
         .init_resource::<assets::Setup>()
         .init_resource::<models::Cache>()
@@ -272,6 +275,7 @@ fn launch(
                 controls::keyboard,
                 scene::scene,
                 avatar_rendering::render,
+                avatar_camera::view,
                 avatar_inspection::camera,
                 avatar_inspection::ground_reference,
                 native_scene::scene,

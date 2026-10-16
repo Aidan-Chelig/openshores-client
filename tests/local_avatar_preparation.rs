@@ -85,6 +85,9 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     let prepared = PreparedNormalAvatar::generate(&mount, &key).unwrap();
     assert_eq!(prepared.native.dna, received.model);
     let ground_height = prepared.native.standing_ground_clearance(&mount).unwrap();
+    let camera = prepared.native.standing_camera_location(false).unwrap();
+    println!("Received native Stand camera location: {camera:?}");
+    assert!(camera.iter().all(|value| value.is_finite()));
     let low = prepared
         .surfaces
         .iter()
@@ -121,5 +124,6 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     );
     let mut native = prepared.native;
     native.standing.pose.fields_3c[0] = 0;
+    assert!(native.standing_camera_location(false).is_err());
     assert!(native.standing_ground_clearance(&mount).is_err());
 }

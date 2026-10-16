@@ -83,6 +83,7 @@ def main() -> None:
     fixture = {}
     lifecycle = action == "avatar-live" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_LIFECYCLE"))
     south = action in ("avatar", "avatar-live") and bool(os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"))
+    first_person = action == "avatar" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_FIRST_PERSON"))
     # Hold distinct ephemeral ports until the server is ready to start.
     reservations = [socket.socket() for _ in range(5)]
     for sock in reservations:
@@ -128,6 +129,8 @@ def main() -> None:
                 os.environ["OPENSHORES_TEST_AVATAR_LIFECYCLE"] = "1"
             if south:
                 os.environ["OPENSHORES_TEST_AVATAR_SOUTH"] = "1"
+            if first_person:
+                os.environ["OPENSHORES_TEST_AVATAR_FIRST_PERSON"] = "1"
             if graphical:
                 if installation.is_dir():
                     os.environ["HAZERON_INSTALL"] = str(installation)
@@ -209,6 +212,8 @@ def main() -> None:
                         if south:
                             cases = [("south-landed", 0., original_dna, anchor),
                                      ("south-off-ground", 5., original_dna, anchor)]
+                        if first_person:
+                            cases = [("first-person", 0., original_dna, anchor)]
                         if action == "avatar-live":
                             cases = [("live-update", 0., original_dna, smaller_anchor)]
                             if south:

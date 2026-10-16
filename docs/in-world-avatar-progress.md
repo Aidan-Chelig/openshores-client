@@ -6,6 +6,14 @@ avatar meshes. Connected front/back captures now verify the default received
 body is drawn; ground anchoring and broader connected acceptance remain open.
 Earlier checkpoints below describe their own scope.
 
+Latest checkpoint: first-person avatar-interior occlusion is fixed using the
+prepared native neutral eye point and local-view head suppression. An ordinary
+connected GPU capture now shows an unobstructed terrain horizon. Body coordinates
+are unchanged. See [camera evidence and remaining checks](native-avatar-camera.md).
+Current client library: 777 passed, six ignored. Warnings-denied client Clippy
+passed before the final small lateral-offset correction. Final-binary captures,
+looking-down behavior and full offline/local-client regressions remain open.
+
 ## Received appearance boundary
 
 - `client_runtime/worker.rs` receives the owned session's scene updates;

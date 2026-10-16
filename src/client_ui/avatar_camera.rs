@@ -1,0 +1,100 @@
+//! Native neutral eye point and local-view head suppression; no body offsets.
+use super::*;
+type CameraFilter = (With<SliceCamera>, Without<avatar_rendering::LocalAvatar>);
+
+pub(super) fn view(
+    ui: Res<Presentation>,
+    state: Res<avatar_rendering::State>,
+    roots: Query<&Transform, With<avatar_rendering::LocalAvatar>>,
+    mut cameras: Query<&mut Transform, CameraFilter>,
+    mut heads: Query<&mut Visibility, With<avatar_rendering::FirstPersonHead>>,
+) {
+    let first_person = !ui.avatar_inspect && !ui.top_down;
+    for mut head in &mut heads {
+        *head = if first_person {
+            Visibility::Hidden
+        } else {
+            Visibility::Inherited
+        };
+    }
+    if !first_person {
+        return;
+    }
+    let Some((root, eye)) = state.camera else {
+        return;
+    };
+    let Ok(body) = roots.get(root) else {
+        return;
+    };
+    let Some(position) = ui.local_position.or_else(|| ui.model.position()) else {
+        return;
+    };
+    let Some(frame) = placement::tangent_frame(position, ui.yaw) else {
+        return;
+    };
+    let eye = camera::clear_eye(
+        body.transform_point(eye),
+        ui.camera_terrain.as_ref(),
+        ui.scale,
+    );
+    let look = frame.y_axis * ui.pitch.cos() + frame.z_axis * ui.pitch.sin();
+    for mut camera in &mut cameras {
+        *camera = Transform::from_translation(eye).looking_at(eye + look, frame.z_axis);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn first_person_uses_native_point_without_moving_body_and_restores_head_for_inspection() {
+        let mut app = App::new();
+        app.insert_resource(Presentation {
+            local_position: Some([0., 0., -3000.]),
+            scale: 0.001,
+            ..default()
+        })
+        .init_resource::<avatar_rendering::State>()
+        .add_systems(Update, view);
+        let body = Transform::from_xyz(0., 0., -3.)
+            .with_rotation(Quat::from_rotation_x(std::f32::consts::PI))
+            .with_scale(Vec3::splat(0.001));
+        let root = app
+            .world_mut()
+            .spawn((avatar_rendering::LocalAvatar, body))
+            .id();
+        let point = Vec3::new(0., 0.6, 2.5);
+        app.world_mut()
+            .resource_mut::<avatar_rendering::State>()
+            .camera = Some((root, point));
+        let head = app
+            .world_mut()
+            .spawn((avatar_rendering::FirstPersonHead, Visibility::Inherited))
+            .id();
+        let camera = app
+            .world_mut()
+            .spawn((SliceCamera, Transform::default()))
+            .id();
+        app.update();
+        assert!(
+            (app.world().get::<Transform>(camera).unwrap().translation
+                - body.transform_point(point))
+            .length()
+                < 1e-7
+        );
+        assert_eq!(app.world().get::<Transform>(root), Some(&body));
+        assert_eq!(
+            app.world().get::<Visibility>(head),
+            Some(&Visibility::Hidden)
+        );
+        app.world_mut()
+            .resource_mut::<Presentation>()
+            .avatar_inspect = true;
+        app.update();
+        assert_eq!(
+            app.world().get::<Visibility>(head),
+            Some(&Visibility::Inherited)
+        );
+        assert_eq!(app.world().get::<Transform>(root), Some(&body));
+    }
+}

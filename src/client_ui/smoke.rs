@@ -11,6 +11,8 @@ use std::{
 
 #[derive(bevy::ecs::system::SystemParam)]
 pub(super) struct SceneEvidence<'w, 's> {
+    avatar: Res<'w, avatar_rendering::State>,
+    roots: Query<'w, 's, &'static Transform, With<avatar_rendering::LocalAvatar>>,
     terrain: Query<'w, 's, Entity, With<TerrainEntity>>,
     models: Query<'w, 's, &'static models::MountedItemModel>,
     placements:
@@ -106,11 +108,19 @@ pub(super) fn workflow(
             assert_eq!(ui.model.world.commodities.len(), 615);
             assert!(ui.terrain.is_some() && evidence.terrain.iter().count() == 1);
             let (view, projection) = camera.single().unwrap();
-            let expected = super::camera::eye(
-                ui.local_position.unwrap(),
-                ui.camera_terrain.as_ref(),
-                ui.scale,
-            );
+            let expected = if let Some((root, eye)) = evidence.avatar.camera {
+                super::camera::clear_eye(
+                    evidence.roots.get(root).unwrap().transform_point(eye),
+                    ui.camera_terrain.as_ref(),
+                    ui.scale,
+                )
+            } else {
+                super::camera::eye(
+                    ui.local_position.unwrap(),
+                    ui.camera_terrain.as_ref(),
+                    ui.scale,
+                )
+            };
             assert!(view.translation.distance(expected) < 1e-5);
             let Projection::Perspective(perspective) = projection else {
                 panic!("expected perspective camera")

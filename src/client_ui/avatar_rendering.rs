@@ -16,10 +16,13 @@ pub(super) struct State {
     image: Option<Handle<Image>>,
     pub(super) focus: Option<(Entity, Vec3, f32)>,
     native_height: Option<f32>,
+    pub(super) camera: Option<(Entity, Vec3)>,
 }
 
 #[derive(Component)]
 pub(super) struct LocalAvatar;
+#[derive(Component)]
+pub(super) struct FirstPersonHead;
 
 pub(super) struct GpuSnapshot {
     pub root: Entity,
@@ -70,6 +73,7 @@ impl State {
         self.owner = None;
         self.focus = None;
         self.native_height = None;
+        self.camera = None;
     }
 }
 
@@ -149,12 +153,15 @@ pub(super) fn render(
         let root = commands
             .spawn((LocalAvatar, transform, Visibility::default()))
             .with_children(|parent| {
-                for mesh in &meshes {
-                    parent.spawn((
+                for (mesh, head) in meshes.iter().zip(&body.first_person_heads) {
+                    let mut child = parent.spawn((
                         Mesh3d(mesh.clone()),
                         MeshMaterial3d(material.clone()),
                         NotShadowCaster,
                     ));
+                    if *head {
+                        child.insert(FirstPersonHead);
+                    }
                 }
             })
             .id();
@@ -163,6 +170,7 @@ pub(super) fn render(
         state.meshes = meshes;
         state.image = Some(image);
         state.material = Some(material);
+        state.camera = Some((root, body.camera));
         // Bounds affect only the inspection camera, never avatar placement.
         let mut low = Vec3::splat(f32::INFINITY);
         let mut high = Vec3::splat(f32::NEG_INFINITY);
@@ -284,6 +292,8 @@ mod tests {
                     skin_offsets: [0.; 4],
                     image: Image::default(),
                     meshes: vec![Sphere::new(1.).mesh().uv(8, 4)],
+                    camera: Vec3::new(0., 0.6, 2.5),
+                    first_person_heads: vec![false],
                 }))
                 .unwrap_or_else(|_| panic!("receiver disappeared"));
                 rx
