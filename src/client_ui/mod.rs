@@ -11,6 +11,7 @@ mod actions;
 mod assets;
 mod auto_login;
 mod avatar;
+mod avatar_inspection;
 mod avatar_rendering;
 mod camera;
 mod chat;
@@ -56,6 +57,7 @@ struct Presentation {
     assets_ready: bool,
     avatar_status: String,
     avatar_placement_status: String,
+    avatar_inspect: bool,
     chat_focus: bool,
     chat_draft: String,
     chat_channel: u8,
@@ -210,6 +212,8 @@ fn launch(
     // Explicit scripted fixture mode can still test without proprietary assets.
     let bypass_assets = profile.is_some() && asset_path.is_empty();
     let mut app = App::new();
+    let capture = avatar_inspection::Capture::from_environment(auto_profile.is_some())?;
+    let inspect = capture.is_some();
     app.insert_resource(Bridge(Mutex::new(runtime)))
         .init_resource::<assets::Setup>()
         .init_resource::<models::Cache>()
@@ -227,6 +231,7 @@ fn launch(
             bio_open: true,
             windows_open: true,
             hud: true,
+            avatar_inspect: inspect,
             scale: 1.0,
             top_height: 1.2,
             ..default()
@@ -253,11 +258,18 @@ fn launch(
                 controls::keyboard,
                 scene::scene,
                 avatar_rendering::render,
+                avatar_inspection::camera,
                 native_scene::scene,
                 panels::rebuild_panels,
             )
                 .chain(),
         );
+    if let Some(capture) = capture {
+        app.insert_resource(capture).add_systems(
+            Update,
+            avatar_inspection::capture.after(avatar_inspection::camera),
+        );
+    }
     if let Some(frames) = smoke_frames {
         app.insert_resource(Smoke(frames, auto_profile.is_some()))
             .add_systems(Update, smoke_exit);

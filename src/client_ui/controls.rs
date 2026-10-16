@@ -155,6 +155,10 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
     if keys.just_pressed(KeyCode::Backspace) && !alt && !ctrl && !shift {
         ui.top_down = !ui.top_down;
     }
+    if keys.just_pressed(KeyCode::Backspace) && shift && !alt && !ctrl {
+        ui.avatar_inspect = !ui.avatar_inspect;
+        ui.dirty = true;
+    }
     if ui.top_down && !alt && !ctrl && !shift {
         if keys.just_pressed(KeyCode::BracketLeft) {
             ui.top_height = (ui.top_height - 0.2).max(0.1);

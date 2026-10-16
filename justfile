@@ -84,6 +84,10 @@ build-client:
 quick-dev: build-client
     nix develop .#server-test --command python tests/local_server.py quick-dev
 
+# Actual received local avatar: warm pipelines, capture full body, then exit.
+test-connected-avatar: build-client
+    nix develop .#server-test --command python tests/local_server.py avatar
+
 # Disposable server + client, manual login.
 play: build-client
     nix develop .#server-test --command python tests/local_server.py play

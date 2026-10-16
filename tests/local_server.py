@@ -67,9 +67,9 @@ async def seed(dsn: str, username: str = USERNAME) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play", "quick-dev", "quick-smoke", "conversation") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play|quick-dev|quick-smoke|conversation]")
-    graphical = action in ("gui", "play", "quick-dev", "quick-smoke", "conversation")
+    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play", "quick-dev", "quick-smoke", "avatar", "conversation") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play|quick-dev|quick-smoke|avatar|conversation]")
+    graphical = action in ("gui", "play", "quick-dev", "quick-smoke", "avatar", "conversation")
     binary = str(ROOT / "target/debug" / ("openshores-client-slice" if graphical else "openshores-client"))
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
@@ -166,14 +166,27 @@ def main() -> None:
                         raise RuntimeError("reference server failed to start:\n" + log_path.read_text()[-8000:])
                     time.sleep(0.2)
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
-                if action in ("play", "quick-dev", "quick-smoke"):
+                if action in ("play", "quick-dev", "quick-smoke", "avatar"):
                     command = [binary, f"127.0.0.1:{login}", "--scene-port", str(scene), "--chat-port", str(chat)]
                     if action == "play":
                         print(f"Owned disposable demo credentials: {USERNAME} / {PASSWORD}", flush=True)
                     else:
                         command += ["--auto-login", USERNAME, str(avatar)]
                     print("Close the client window to clean up the disposable local world.", flush=True)
-                    if action == "quick-smoke":
+                    if action == "avatar":
+                        directory = Path(tempfile.mkdtemp(prefix="connected-avatar-", dir=ROOT / "target"))
+                        screenshot = directory / "received-avatar.png"
+                        os.environ["OPENSHORES_TEST_AVATAR_CAPTURE"] = str(screenshot)
+                        result = run(*command, input=PASSWORD + "\n", timeout=180)
+                        print(result.stdout, end="", flush=True)
+                        assert "Avatar body prepared:" in result.stdout
+                        assert "Connected avatar capture saved:" in result.stdout
+                        assert PASSWORD not in result.stdout
+                        assert screenshot.is_file() and screenshot.stat().st_size > 1000
+                        assert "Shader compilation error" not in result.stdout
+                        assert "warning[B0004]" not in result.stdout
+                        print(f"Connected avatar inspection: {screenshot}", flush=True)
+                    elif action == "quick-smoke":
                         result = run(*command, "--smoke-frames", "30", input=PASSWORD + "\n")
                         print(result.stdout, end="", flush=True)
                         assert "Quick-dev connected to avatar" in result.stdout

@@ -64,6 +64,13 @@ repurposed. Movement speed/camera tuning are prototype choices, not reconstructe
 physics. Drop has no invented default shortcut. See
 [slice scope and evidence](docs/vertical-slice.md).
 
+For avatar development, Shift+Backspace toggles a full-body inspection camera
+(an explicit Rust diagnostic addition, not an original-game binding). It follows
+the actual connected body without changing its placement. `just
+test-connected-avatar` launches the disposable server, auto-selects Rust Explorer,
+waits for body preparation and shader warmup, saves a new capture under ignored
+`target/connected-avatar-*`, then exits. Ground-contact acceptance is still pending.
+
 For an already running local server:
 
 ```sh

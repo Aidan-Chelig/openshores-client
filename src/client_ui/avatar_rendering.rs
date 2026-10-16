@@ -14,6 +14,7 @@ pub(super) struct State {
     meshes: Vec<Handle<Mesh>>,
     material: Option<Handle<SkinMaterial>>,
     image: Option<Handle<Image>>,
+    pub(super) focus: Option<(Entity, Vec3, f32)>,
 }
 
 #[derive(Component)]
@@ -43,6 +44,7 @@ impl State {
             assets.images.remove(image.id());
         }
         self.owner = None;
+        self.focus = None;
     }
 }
 
@@ -120,7 +122,7 @@ pub(super) fn render(
             .map(|mesh| assets.meshes.add(mesh.clone()))
             .collect();
         let root = commands
-            .spawn((LocalAvatar, transform))
+            .spawn((LocalAvatar, transform, Visibility::default()))
             .with_children(|parent| {
                 for mesh in &meshes {
                     parent.spawn((
@@ -136,6 +138,24 @@ pub(super) fn render(
         state.meshes = meshes;
         state.image = Some(image);
         state.material = Some(material);
+        // Bounds affect only the inspection camera, never avatar placement.
+        let mut low = Vec3::splat(f32::INFINITY);
+        let mut high = Vec3::splat(f32::NEG_INFINITY);
+        for mesh in &body.meshes {
+            if let Some(bevy::mesh::VertexAttributeValues::Float32x3(points)) =
+                mesh.attribute(Mesh::ATTRIBUTE_POSITION)
+            {
+                for point in points {
+                    let point = Vec3::from_array(*point);
+                    low = low.min(point);
+                    high = high.max(point);
+                }
+            }
+        }
+        let radius = (high - low).length() * 0.5;
+        if low.is_finite() && high.is_finite() && radius > 0. {
+            state.focus = Some((root, (low + high) * 0.5, radius));
+        }
     } else if let Some(root) = state.root
         && let Ok(mut current) = roots.get_mut(root)
     {
@@ -248,6 +268,8 @@ mod tests {
         app.update();
         assert!(app.world().get_entity(marker).is_err());
         let root = app.world().resource::<State>().root.unwrap();
+        assert!(app.world().get::<Visibility>(root).is_some());
+        assert!(app.world().get::<InheritedVisibility>(root).is_some());
         let mesh = app.world().resource::<State>().meshes[0].id();
         assert_eq!(
             app.world().get::<Transform>(root).unwrap().translation,

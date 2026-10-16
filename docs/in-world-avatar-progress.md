@@ -2,8 +2,9 @@
 
 Objective and acceptance criteria: [in-world avatar goal](in-world-avatar-goal.md).
 This milestone is active. The connected renderer now attaches prepared local
-avatar meshes, but connected GPU output, ground anchoring and globe-relative
-facing remain unverified. Earlier checkpoints below describe their own scope.
+avatar meshes. Connected front/back captures now verify the default received
+body is drawn; ground anchoring and broader connected acceptance remain open.
+Earlier checkpoints below describe their own scope.
 
 ## Received appearance boundary
 
@@ -163,3 +164,39 @@ inspection of `protocol/atoms/person.py::_build_daperson_xform_update` confirms
 that writer emits three zero rotation floats; server orientation echo must be
 tested explicitly rather than assumed from client prediction tests. Formatting
 and diff whitespace checks also pass.
+
+## Connected full-body capture checkpoint
+
+`just test-connected-avatar` uses the same disposable server/login/account path
+as quick-dev. It waits for the received body to attach, warms 600 frames after
+attachment, captures the real connected window to a new ignored
+`target/connected-avatar-*` directory and exits. Output uses create-new semantics;
+the installation and supplied reference server source are not modified.
+Timeout/failure produces a non-success exit. A replacement render root restarts
+warmup. The test rejects shader compilation errors and hierarchy warnings.
+
+Shift+Backspace toggles the minimal full-body inspection camera during normal
+connected play. Native mesh bounds frame only the camera; neither the body
+transform nor authoritative/predicted position is adjusted. A CPU test checks
+that fitting remains camera-only under a scaled, rotated southern body.
+
+Two actual Vulkan captures were opened and inspected locally:
+
+- `target/connected-avatar-twabd4n7/received-avatar.png`: rear view, complete body
+  and no duplicate sphere. This run exposed missing visibility components on the
+  parent root; those were fixed rather than ignoring the hierarchy warnings.
+- `target/connected-avatar-8xzntru0/received-avatar.png`: front view after the
+  visibility fix, showing face/eyes/hair, skin material, torso, arms/hands and
+  legs/feet. No hierarchy or shader errors were emitted. This uses the account's
+  actual default received DNA, not either offline fixture.
+
+Both show an off-ground body over the coarse terrain. The disposable fixture
+deliberately spawns above terrain; this is not proof of correct landed placement
+or native-unit scale, since the camera fits the body. There is no ground snap or
+bounding-box body correction. Captures remain local and ignored, not redistributed.
+
+The client build, 771 client-library tests (six ignored), warnings-denied Clippy,
+formatting and diff checks pass. Remaining acceptance includes established body
+origin/ground contact, scale against world geometry, connected turning/movement,
+a second received appearance and connected lifecycle cases. The milestone stays
+active.
