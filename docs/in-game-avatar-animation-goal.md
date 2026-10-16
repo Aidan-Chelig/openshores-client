@@ -4,6 +4,15 @@ Status: active. User objective: add animations to the in-game avatar, retaining
 the OpenShores experience and user-mounted assets. A moving connected avatar,
 not merely an offline animated fixture, is the required final result.
 
+Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
+received Jump posing and arm-channel Wave. Mixed admitted channels are preserved;
+local movement predicts and reports locomotion only over received all-Stand.
+Other actions, nonzero source pose parameters/head tilt, guided mode, winged and
+legless body animation remain explicit unsupported inputs, not silent fallbacks.
+Jump/death posing does not implement displacement, gravity, landing or corpse
+settling. The goal remains active; checkpoints below record evidence, not a claim
+of the complete OpenShores animation catalog.
+
 ## Acceptance
 
 - Retain the actual received appearance, native units, correct globe orientation,
@@ -363,4 +372,15 @@ changes between tucked and extended limb phases with no assembly break or root
 motion. The existing source-decoder non-overwrite, persistent GPU identity and
 exact Stand/eye recovery checks pass, as do all 790 client-library tests (six
 ignored). Broader actions and physical jumping remain outside this checkpoint.
+
+First-person received-action checkpoint: `just test-connected-avatar-actions-first-person`
+now runs the same source-driven mixed/death/Wave/Jump/rejection/recovery sequence
+through the normal animated-eye camera. Warmed-frame assertions require a real
+camera, exact expected eye position (with existing terrain clearance), preserved
+mouse-look rotation and hidden local head batches. The connected run passes all
+pose/resource/report/recovery gates and the new camera gates. Both Jump phases
+in `target/connected-avatar-zm36w_7h` were opened: terrain remains unobstructed;
+hands appear at the bottom during the extended phase, without skull interior.
+Strict client Clippy passes. This is not native physics or coverage of actions
+that the adapter still explicitly rejects.
 

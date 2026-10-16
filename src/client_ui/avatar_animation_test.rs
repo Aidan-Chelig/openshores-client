@@ -148,10 +148,17 @@ pub(super) fn workflow(
                 ui.camera_terrain.as_ref(),
                 ui.scale,
             );
+            let frame = placement::tangent_frame(ui.local_position.unwrap(), ui.yaw).unwrap();
+            let expected_view = camera::view(expected, frame, ui.pitch, 0., ui.scale);
+            assert!(!views.cameras.is_empty(), "missing first-person camera");
             for camera in &views.cameras {
                 assert!(
                     camera.translation.distance(expected) < 1e-6,
                     "first-person camera lost animated eye"
+                );
+                assert!(
+                    camera.rotation.abs_diff_eq(expected_view.rotation, 1e-5),
+                    "received animation changed first-person mouse-look orientation"
                 );
             }
             assert!(
@@ -292,6 +299,11 @@ pub(super) fn workflow(
                 println!(
                     "Connected avatar animation: received mixed phases and unsupported/recovery verified; persistent assets and exact Stand/eye preserved"
                 );
+                if flow.first_person {
+                    println!(
+                        "Connected avatar animation: received actions followed animated eye and mouse-look with hidden skull"
+                    );
+                }
                 flow.advance();
             }
         }

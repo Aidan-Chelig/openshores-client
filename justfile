@@ -108,6 +108,10 @@ test-connected-avatar-received-poses: build-client
 test-connected-avatar-animation-first-person: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 python tests/local_server.py avatar
 
+# Mixed limbs, death, Wave and Jump through the animated first-person camera.
+test-connected-avatar-actions-first-person: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_RECEIVED_POSES=1 OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 python tests/local_server.py avatar
+
 # Real report receiver + explicit sparse-update fixture; reference source untouched.
 test-connected-avatar-live: build-client
     nix develop .#server-test --command python tests/local_server.py avatar-live

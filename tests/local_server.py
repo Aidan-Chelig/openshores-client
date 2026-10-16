@@ -286,6 +286,8 @@ def main() -> None:
                                         assert (directory / f"{gait}-{phase}.png").is_file()
                                 if received_animation:
                                     assert "received mixed phases and unsupported/recovery verified" in result.stdout
+                                    if animation_first_person:
+                                        assert "received actions followed animated eye and mouse-look with hidden skull" in result.stdout
                                     report_log = log_path.read_text()
                                     assert "AVATAR POSE parsed client report during bootstrap" in report_log
                                     assert "AVATAR POSE parsed client report during stand" in report_log
