@@ -49,7 +49,8 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
         ));
     }
     if received.iter().enumerate().any(|(index, code)| {
-        !(matches!(code, 0x12 | 0x15 | 0x24..=0x26) || matches!(index, 2 | 5) && *code == 0x30)
+        !(matches!(code, 0x12 | 0x15 | 0x1c | 0x24..=0x26)
+            || matches!(index, 2 | 5) && *code == 0x30)
     }) {
         return Err(io::Error::new(
             io::ErrorKind::Unsupported,
@@ -133,6 +134,16 @@ mod tests {
         );
         model.world.ingest(&packet(Some([0x13; 10]))).unwrap();
         assert!(model.local_player_pose(12.).is_err());
+        model.world.ingest(&packet(Some([0x1c; 10]))).unwrap();
+        assert_eq!(
+            model
+                .local_player_pose(0.)
+                .unwrap()
+                .unwrap()
+                .native
+                .fields_3c,
+            [0x1c; 10]
+        );
         model.world.ingest(&packet(Some([0x25; 10]))).unwrap();
         assert_eq!(
             model
@@ -186,6 +197,10 @@ mod tests {
         );
         person.poses = Some([0x13; 10]);
         assert!(select(&person, 12.).is_err());
+        person.poses = Some([0x1c; 10]);
+        let jump = select(&person, 12.).unwrap().unwrap();
+        assert!(!jump.predicted);
+        assert_eq!(jump.native.fields_3c, [0x1c; 10]);
         let mut wave = [0x24; 10];
         wave[2] = 0x30;
         person.poses = Some(wave);

@@ -350,3 +350,17 @@ library tests pass (six ignored). The source adapter still rejects Jump pending
 explicit receive admission and connected visual acceptance; no jump physics is
 claimed from CPU pose composition.
 
+Received Jump admission checkpoint: the explicit source adapter now accepts
+0x1c on the ten pose channels, preserving it instead of predicting Walk/Run.
+Packet-ingestion and selection tests cover it. The connected owned-server
+fixture requests uniform Jump after Wave, captures two changed GPU phases and
+then requires unsupported-action handling plus exact Stand restoration.
+Existing root/mesh/material/atlas/UV and outgoing-report non-overwrite checks
+remain active. This verifies pose animation only, not keyboard jump input,
+world displacement, gravity or landing. The first connected run passes. Jump-A/B
+in `target/connected-avatar-6sh8tgso` were opened: the complete textured body
+changes between tucked and extended limb phases with no assembly break or root
+motion. The existing source-decoder non-overwrite, persistent GPU identity and
+exact Stand/eye recovery checks pass, as do all 790 client-library tests (six
+ignored). Broader actions and physical jumping remain outside this checkpoint.
+

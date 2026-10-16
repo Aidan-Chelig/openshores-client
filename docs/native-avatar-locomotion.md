@@ -245,3 +245,12 @@ selected arm for either/both sides and both wrist branches. All seven mounted
 limb tests pass. Source admission/connected Jump acceptance still remain open;
 the runtime adapter continues to reject0x1c. No root motion or jump physics is
 implied by this completed native composition dependency.
+
+Received Jump acceptance: source0x1c is now explicitly admitted and preserved,
+including real packet-ingestion coverage. The owned-server received-pose fixture
+adds two Jump phases after Wave. The connected run passes with unchanged
+root/mesh/material/atlas/UV identities, changed geometry and exact Stand/eye
+recovery. Both Jump images under `target/connected-avatar-6sh8tgso` were opened
+and show intact tucked/extended body phases. No local pose reports overwrite
+the received action. This implements received jump posing, not keyboard jump
+input, root displacement, native physics or landing synchronization.

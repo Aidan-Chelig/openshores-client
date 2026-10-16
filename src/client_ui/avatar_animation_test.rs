@@ -39,7 +39,7 @@ impl Workflow {
         }
     }
     pub(super) fn complete(&self) -> bool {
-        self.stage == if self.pose_control.is_some() { 7 } else { 4 }
+        self.stage == if self.pose_control.is_some() { 8 } else { 4 }
     }
     pub(super) fn side_view(&self) -> bool {
         self.stage > 0 && !self.complete()
@@ -215,14 +215,15 @@ pub(super) fn workflow(
             2 => "Avatar animation: dying (face down)",
             3 => "Avatar animation: dead (face down)",
             4 => "Avatar animation: received wave channels",
-            5 => "Avatar animation unavailable:",
+            5 => "Avatar animation: received jump pose",
+            6 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
             flow.frames = 0;
             return;
         }
-        if matches!(flow.stage, 1 | 4) {
+        if matches!(flow.stage, 1 | 4 | 5) {
             if matches!(frames, 37 | 83) {
                 assert_ne!(current.positions, initial.positions);
                 if let Some(previous) = &flow.last_phase {
@@ -231,7 +232,11 @@ pub(super) fn workflow(
                 if flow.stage == 4 {
                     assert_eq!(current.eye, initial.eye, "arm wave moved the eye");
                 }
-                let label = if flow.stage == 4 { "wave" } else { "received" };
+                let label = match flow.stage {
+                    4 => "wave",
+                    5 => "jump",
+                    _ => "received",
+                };
                 commands
                     .spawn(Screenshot::primary_window())
                     .observe(save_to_disk(flow.directory.join(format!(
@@ -245,6 +250,8 @@ pub(super) fn workflow(
                     control,
                     if flow.stage == 1 {
                         "dying"
+                    } else if flow.stage == 4 {
+                        "jump"
                     } else {
                         "unsupported"
                     },
@@ -273,7 +280,7 @@ pub(super) fn workflow(
                 std::fs::write(control, if flow.stage == 2 { "dead" } else { "wave" }).unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 5 {
+        } else if flow.stage == 6 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();
