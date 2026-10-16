@@ -1,5 +1,6 @@
 """Bounded offline animation regressions; no original runtime or new analysis."""
 from pathlib import Path
+import os
 import subprocess
 import sys
 
@@ -19,4 +20,8 @@ for check in (
 run("cargo", "test", "--offline", "--features", "client", "--lib", "--quiet")
 run(sys.executable, str(ROOT / "tests/local_avatar_preparation.py"),
     sys.argv[1] if len(sys.argv) > 1 else "reference/hazeron")
+environment = dict(os.environ, OPENSHORES_HAZERON_INSTALLATION=(
+    sys.argv[1] if len(sys.argv) > 1 else "reference/hazeron"))
+subprocess.run(["cargo", "test", "--offline", "--test", "native_body_mounted_standing",
+                "--", "--ignored"], cwd=ROOT, env=environment, check=True)
 print("Offline avatar animation anchors, library and mounted received-DNA checks passed.", flush=True)

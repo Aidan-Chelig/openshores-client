@@ -11,6 +11,103 @@ use openshores_client::{
 };
 
 #[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; cached-only multi-arm animation, no GPU"]
+fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() {
+    use openshores_client::world::native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer};
+    struct Timer {
+        millis: i64,
+        samples: usize,
+        starts: usize,
+    }
+    impl NativePoseRhythmTimer for Timer {
+        fn start(&mut self) -> std::io::Result<()> {
+            self.starts += 1;
+            Ok(())
+        }
+        fn msecs_since_reference(&mut self) -> std::io::Result<i64> {
+            self.samples += 1;
+            Ok(self.millis)
+        }
+    }
+    let mount =
+        AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
+    for pairs in [1, 2, 3] {
+        for wrist in [0x60, 0x80] {
+            let mut dna = NativeDhDna([0; 24]);
+            dna.0[1] = pairs;
+            dna.0[11] = wrist;
+            dna.0[12] = 4;
+            dna.0[14] = 0x51;
+            dna.0[20] = 0x80;
+            let mut hands = NativeDpHandCache::new(&mount);
+            let mut feet = NativeDpFootCache::new(&mount);
+            let mut body = NativeDpInitialization::begin(&dna);
+            body.finish_part_calculations(0, &mut hands).unwrap();
+            body.pose_neutral_standing(0, &mut hands, &mut feet)
+                .unwrap();
+            let initial = body.clone();
+            let mut hands = hands.into_cached_only();
+            let mut feet = feet.into_cached_only();
+            for code in [0x25, 0x26, 0x30] {
+                for side in [0, 1, 2] {
+                    let mut pose = NativeDpBodyPoseState {
+                        fields_3c: [0x24; 10],
+                        field_6c: false,
+                    };
+                    if side != 1 {
+                        pose.fields_3c[2] = code;
+                    }
+                    if side != 0 {
+                        pose.fields_3c[5] = code;
+                    }
+                    let selected: std::collections::BTreeSet<_> = initial
+                        .parts()
+                        .iter()
+                        .filter(|part| {
+                            (side != 1 && part.allocation.kind == NativeDpPartKind::LeftArmAndHand)
+                                || (side != 0
+                                    && part.allocation.kind == NativeDpPartKind::RightArmAndHand)
+                        })
+                        .flat_map(|part| part.limb_bones().unwrap())
+                        .collect();
+                    let mut samples = Vec::new();
+                    for millis in [0, 125, 0] {
+                        let mut timer = Timer {
+                            millis,
+                            starts: 0,
+                            samples: 0,
+                        };
+                        body.pose_locomotion_channels(
+                            &pose, 4., 0, &mut hands, &mut feet, &mut timer,
+                        )
+                        .unwrap();
+                        let expected = usize::from(pairs) * if side == 2 { 2 } else { 1 };
+                        assert_eq!(timer.starts, expected);
+                        assert_eq!(timer.samples, expected);
+                        for (index, bone) in body.bones().slots.iter().enumerate() {
+                            assert!(bone.matrix_00.iter().all(|value| value.is_finite()));
+                            if !selected.contains(&index) {
+                                assert_eq!(
+                                    bone,
+                                    &initial.bones().slots[index],
+                                    "unselected bone {index}, pairs={pairs}, side={side}, code={code:#x}"
+                                );
+                            }
+                        }
+                        samples.push(body.bones().clone());
+                    }
+                    assert_eq!(samples[0], samples[2], "repeat accumulated transforms");
+                    assert_ne!(samples[0], samples[1], "animation phase did not change");
+                    body.pose_neutral_standing(0, &mut hands, &mut feet)
+                        .unwrap();
+                    assert_eq!(body.bones(), initial.bones());
+                }
+            }
+        }
+    }
+}
+
+#[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; static native locomotion port, no original runtime"]
 fn mounted_walk_run_leg_samples_change_selected_bones_without_accumulation() {
     use openshores_client::world::{

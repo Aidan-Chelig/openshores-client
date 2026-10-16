@@ -309,3 +309,16 @@ Persistent GPU identities and actual server-decoder non-overwrite gates pass.
 The combined offline suite passes nine static checks, 788 library tests (six
 ignored) and both mounted received-DNA tests. Broader action support remains open.
 
+Multi-arm coverage checkpoint: a mounted test now composes arm-only Walk, Run
+and Wave over Stand on the SAME body across one/two/three arm pairs, either/both
+sides and both wrist-bend branches (54 combinations, each sampled 0/125/0 ms).
+After the initial Stand warmup, hand/foot caches have no mount reference. It
+requires one rhythm sample per selected arm, finite matrices, unchanged
+unselected bones, changing phases, exact repeats and exact Stand restoration.
+The matrix passes and is included in `test-native-avatar-animation` along with
+all six mounted standing/limb tests. The combined nine static checks, 788 client
+tests, two received-DNA tests and six mounted limb tests all pass.
+
+The full offline GPU preview regression is running separately; CPU multi-arm
+coverage is not substituted for visual verification or complete action support.
+
