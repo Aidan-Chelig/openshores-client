@@ -1,6 +1,8 @@
 # Next goal: render the logged-in player's actual avatar in-world
 
-Implementation status: [progress ledger](in-world-avatar-progress.md).
+Status: complete for this neutral in-world-avatar milestone. See the
+[acceptance audit](in-world-avatar-acceptance.md) and historical
+[progress ledger](in-world-avatar-progress.md). The broader Rust port continues.
 
 ## Milestone in one sentence
 

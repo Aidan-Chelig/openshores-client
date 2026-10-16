@@ -74,7 +74,14 @@ airborne and smaller received-appearance captures under ignored
 and render origins without snapping. The gold inspection ruler has one native
 world unit per tick; its base cross marks the rendered-terrain radial hit.
 Mounted quick-dev/play spawns use native nominal CG clearance, not a guessed
-five-unit height. Broader placement/appearance acceptance is still pending.
+five-unit height. Placement, sparse appearance updates, lifecycle cleanup and
+southern orientation have connected acceptance coverage; see the
+[progress ledger](docs/in-world-avatar-progress.md).
+
+`just test-connected-avatar-first-person` checks forward view, looking down and
+restoring full-body inspection. The ordinary view uses the prepared native Skull
+eye point and hides only head batches, without shifting the body; see
+[camera evidence and limits](docs/native-avatar-camera.md).
 
 `just test-connected-avatar-live` additionally checks motion/turning without mesh
 rebuilds and an in-session sparse DNA update with old-mesh cleanup. It uses the

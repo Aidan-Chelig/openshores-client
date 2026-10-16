@@ -32,6 +32,7 @@ fn render_avatar(
 }
 
 /// Real native model units/origin, with no preview centering or size fitting.
+#[cfg(any(feature = "client", test))]
 pub(crate) fn world_avatar_meshes(
     surfaces: &[NativeDpPosedAvatarSurface],
 ) -> io::Result<Vec<Mesh>> {

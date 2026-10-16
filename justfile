@@ -105,7 +105,7 @@ test-connected-avatar-south: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_SOUTH=1 python tests/local_server.py avatar
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_SOUTH=1 python tests/local_server.py avatar-live
 
-# Capture the ordinary camera, not the fitted full-body inspection camera.
+# Capture forward/down first-person views, then verify full-body inspection restoration.
 test-connected-avatar-first-person: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_FIRST_PERSON=1 python tests/local_server.py avatar
 

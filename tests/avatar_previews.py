@@ -1,6 +1,7 @@
 """Offline GPU captures and nonblank-image checks. No original target execution."""
 import argparse
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import tempfile
@@ -18,6 +19,10 @@ def main():
     directory = Path(tempfile.mkdtemp(prefix="avatar-textures-", dir="target")).resolve()
     if directory.is_relative_to(installation):
         raise RuntimeError("capture output must be outside the installation")
+    # Other local workflows build this same Cargo target with different features.
+    # Keep this batch bound to the viewer executable we just built.
+    executable = directory / "openshores-viewer"
+    shutil.copy2("target/debug/openshores-client", executable)
     print(f"Local captures (not redistributable game assets): {directory}", flush=True)
     cases = [(part, part, []) for part in ["head", "torso"]]
     if args.body:
@@ -27,7 +32,7 @@ def main():
     for name, part, flags in cases:
         print(f"Rendering {name}; allow cold shader compilation to finish", flush=True)
         result = subprocess.run([
-            "target/debug/openshores-client", "view-native-body", str(installation), part,
+            str(executable), "view-native-body", str(installation), part,
             "--smoke-frames", "1000", "--screenshot", str(directory / f"{name}.png"), *flags,
         ], text=True, capture_output=True, timeout=120)
         print(result.stdout, end="", flush=True)

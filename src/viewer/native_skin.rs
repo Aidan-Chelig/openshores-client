@@ -17,6 +17,7 @@ use bevy::{
 };
 use std::path::PathBuf;
 mod avatar;
+#[cfg(feature = "client")]
 pub(crate) use avatar::world_avatar_meshes;
 pub use avatar::{NativeAvatarView, run_textured_avatar};
 

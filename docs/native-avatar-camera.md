@@ -48,4 +48,10 @@ CPU coverage checks southern camera composition without moving the body,
 inspection head restoration, ignored lateral offset and metadata operation order.
 The GUI regression checks the prepared eye when present, otherwise the prototype
 fallback. Terrain clearance affects only the camera, using rendered tessellation.
-Looking down, final GPU reruns and full regressions remain open.
+Final camera rerun: `target/connected-avatar-ttoj5lhc/first-person.png`,
+`first-person-down.png` and `inspection-restored.png` all passed and were opened.
+Forward view has a clear horizon; looking down shows unobstructed terrain (not
+a claim that feet must enter that frustum). Inspection restores the complete
+textured head/body after 300 first-person frames, without replacing the body.
+The native lateral-zero correction is included. Southern CPU coverage also
+checks pitched/yawed camera direction and that non-head visibility is untouched.

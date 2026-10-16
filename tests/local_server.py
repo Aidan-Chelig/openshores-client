@@ -213,7 +213,9 @@ def main() -> None:
                             cases = [("south-landed", 0., original_dna, anchor),
                                      ("south-off-ground", 5., original_dna, anchor)]
                         if first_person:
-                            cases = [("first-person", 0., original_dna, anchor)]
+                            cases = [("first-person", 0., original_dna, anchor),
+                                     ("first-person-down", 0., original_dna, anchor),
+                                     ("inspection-restored", 0., original_dna, anchor)]
                         if action == "avatar-live":
                             cases = [("live-update", 0., original_dna, smaller_anchor)]
                             if south:
@@ -222,6 +224,11 @@ def main() -> None:
                             if lifecycle:
                                 cases = [("live-lifecycle", 0., original_dna, anchor)]
                         for label, elevation, dna, metrics in cases:
+                            if first_person:
+                                os.environ["OPENSHORES_TEST_AVATAR_FIRST_PERSON"] = {
+                                    "first-person": "1", "first-person-down": "down",
+                                    "inspection-restored": "restore",
+                                }[label]
                             z = fixture["floor"] + (anchor[0] if action == "avatar-live" else metrics[0]) + elevation
                             if south:
                                 z = -z

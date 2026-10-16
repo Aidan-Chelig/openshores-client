@@ -1,18 +1,35 @@
 # In-world local-player avatar: progress ledger
 
 Objective and acceptance criteria: [in-world avatar goal](in-world-avatar-goal.md).
-This milestone is active. The connected renderer now attaches prepared local
-avatar meshes. Connected front/back captures now verify the default received
-body is drawn; ground anchoring and broader connected acceptance remain open.
+This milestone is complete; see the [acceptance audit](in-world-avatar-acceptance.md).
+Connected received-avatar rendering, placement,
+appearance updates, southern orientation, lifecycle and first-person camera
+acceptance are verified. Final offline preview/gameplay reruns and the final
+requirement audit pass. Earlier entries retain their checkpoint-local status.
 Earlier checkpoints below describe their own scope.
 
 Latest checkpoint: first-person avatar-interior occlusion is fixed using the
 prepared native neutral eye point and local-view head suppression. An ordinary
 connected GPU capture now shows an unobstructed terrain horizon. Body coordinates
 are unchanged. See [camera evidence and remaining checks](native-avatar-camera.md).
-Current client library: 777 passed, six ignored. Warnings-denied client Clippy
-passed before the final small lateral-offset correction. Final-binary captures,
-looking-down behavior and full offline/local-client regressions remain open.
+Final-binary forward/down/restored-inspection captures passed and were inspected
+in `target/connected-avatar-ttoj5lhc`. Current tests: 734 default library,
+754 viewer library, 11 viewer CLI and 777 client library pass (asset-dependent
+ignores are exercised separately). All 11 selected mounted CPU tests and nine
+static verifiers pass. Warnings-denied viewer/client Clippy, format and diff
+checks pass. The full GUI inventory/chat/position/disconnect workflow,
+quick-dev auto-login and all eight isolated gameplay regressions pass. The fresh
+eleven-image offline GPU batch passes image-content checks; every image in
+`target/avatar-textures-ah15hldu` was opened and inspected. The final connected
+live/lifecycle rerun also passes with the new camera/batch partitioning;
+`target/connected-avatar-c4loabo7/live-lifecycle.png` was opened and inspected.
+This final verification and the acceptance audit are committed together.
+
+The first offline GPU batch stopped when another workflow rebuilt the shared
+CLI without viewer features between captures. The preview harness now copies
+its just-built viewer into the new ignored capture directory before rendering,
+isolating the batch from subsequent feature-specific builds. The fresh complete
+batch passed; the partial run is not counted as a pass.
 
 ## Received appearance boundary
 

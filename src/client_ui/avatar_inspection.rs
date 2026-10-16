@@ -94,10 +94,12 @@ pub(super) struct Capture {
     expected_appearance: Option<([u8; 24], f32)>,
     southern: bool,
     first_person: bool,
+    look_down: bool,
+    restore_inspection: bool,
 }
 impl Capture {
     pub(super) fn inspection(&self) -> bool {
-        !self.first_person
+        !self.first_person || (self.restore_inspection && self.frames >= 300)
     }
     pub(super) fn from_environment(auto_login: bool) -> io::Result<Option<Self>> {
         let Some(path) = std::env::var_os("OPENSHORES_TEST_AVATAR_CAPTURE") else {
@@ -148,6 +150,10 @@ impl Capture {
             expected_appearance,
             southern: std::env::var_os("OPENSHORES_TEST_AVATAR_SOUTH").is_some(),
             first_person: std::env::var_os("OPENSHORES_TEST_AVATAR_FIRST_PERSON").is_some(),
+            look_down: std::env::var("OPENSHORES_TEST_AVATAR_FIRST_PERSON").as_deref()
+                == Ok("down"),
+            restore_inspection: std::env::var("OPENSHORES_TEST_AVATAR_FIRST_PERSON").as_deref()
+                == Ok("restore"),
         }))
     }
 }
@@ -184,6 +190,9 @@ pub(super) fn capture(
         capture.frames = 0;
     }
     ui.avatar_inspect = capture.inspection();
+    if capture.look_down {
+        ui.pitch = -1.2;
+    }
     if ui.windows_open || ui.hud {
         ui.windows_open = false;
         ui.hud = false;

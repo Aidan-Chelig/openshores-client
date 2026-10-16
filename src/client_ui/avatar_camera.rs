@@ -71,6 +71,7 @@ mod tests {
             .world_mut()
             .spawn((avatar_rendering::FirstPersonHead, Visibility::Inherited))
             .id();
+        let torso = app.world_mut().spawn(Visibility::Inherited).id();
         let camera = app
             .world_mut()
             .spawn((SliceCamera, Transform::default()))
@@ -86,6 +87,27 @@ mod tests {
         assert_eq!(
             app.world().get::<Visibility>(head),
             Some(&Visibility::Hidden)
+        );
+        {
+            let mut ui = app.world_mut().resource_mut::<Presentation>();
+            ui.pitch = -1.2;
+            ui.yaw = 0.7;
+        }
+        app.update();
+        let frame = placement::tangent_frame([0., 0., -3000.], 0.7).unwrap();
+        let look = frame.y_axis * (-1.2_f32).cos() + frame.z_axis * (-1.2_f32).sin();
+        assert!(
+            app.world()
+                .get::<Transform>(camera)
+                .unwrap()
+                .forward()
+                .distance(look)
+                < 1e-6
+        );
+        assert_eq!(app.world().get::<Transform>(root), Some(&body));
+        assert_eq!(
+            app.world().get::<Visibility>(torso),
+            Some(&Visibility::Inherited)
         );
         app.world_mut()
             .resource_mut::<Presentation>()
