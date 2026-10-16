@@ -84,6 +84,7 @@ pub(super) struct Capture {
     frames: u32,
     root: Option<Entity>,
     expected_position: Option<[f64; 3]>,
+    expected_appearance: Option<([u8; 24], f32)>,
 }
 impl Capture {
     pub(super) fn from_environment(auto_login: bool) -> io::Result<Option<Self>> {
@@ -114,12 +115,25 @@ impl Capture {
                 Ok(position)
             })
             .transpose()?;
+        let expected_appearance = match (
+            std::env::var("OPENSHORES_TEST_AVATAR_DNA").ok(),
+            std::env::var("OPENSHORES_TEST_AVATAR_HEIGHT").ok(),
+        ) {
+            (None, None) => None,
+            (Some(dna), Some(height)) => Some(parse_appearance(&dna, &height)?),
+            _ => {
+                return Err(io::Error::other(
+                    "avatar appearance check requires both DNA and height",
+                ));
+            }
+        };
         Ok(Some(Self {
             path: Some(path),
             started: Instant::now(),
             frames: 0,
             root: None,
             expected_position,
+            expected_appearance,
         }))
     }
 }
@@ -131,6 +145,7 @@ pub(super) fn capture(
     mut ui: ResMut<Presentation>,
     mut exit: MessageWriter<AppExit>,
     roots: Query<&Transform, With<avatar_rendering::LocalAvatar>>,
+    live: Option<Res<avatar_live::Workflow>>,
 ) {
     if capture.started.elapsed().as_secs() > 150 {
         eprintln!(
@@ -138,6 +153,9 @@ pub(super) fn capture(
             ui.avatar_status, ui.avatar_placement_status
         );
         exit.write(AppExit::error());
+        return;
+    }
+    if live.is_some_and(|flow| !flow.complete()) {
         return;
     }
     let Some((root, _, _)) = state.focus else {
@@ -179,6 +197,36 @@ pub(super) fn capture(
             return;
         }
         println!("Connected avatar received/render origin verified: {expected:?}");
+    }
+    if let Some((expected, height)) = capture.expected_appearance {
+        let valid = ui
+            .model
+            .local_player_dna()
+            .ok()
+            .flatten()
+            .zip(state.appearance())
+            .is_some_and(|(received, (owner, actual_height))| {
+                received.received == expected
+                    && owner.content.dna == received.model
+                    && (actual_height - height).abs() < 1e-4
+                    && roots.get(root).is_ok_and(|body| {
+                        (body.scale - Vec3::splat(ui.scale as f32))
+                            .abs()
+                            .max_element()
+                            < 1e-8
+                    })
+            });
+        if !valid {
+            eprintln!(
+                "Connected avatar appearance mismatch: expected DNA {expected:?}, height {height}, attached {:?}",
+                state.appearance()
+            );
+            exit.write(AppExit::error());
+            return;
+        }
+        println!(
+            "Connected avatar received/render appearance verified: DNA={expected:02x?}, native height={height}"
+        );
     }
     let Some(path) = capture.path.take() else {
         return;
@@ -236,9 +284,41 @@ fn verify_origin(expected: [f64; 3], received: [f64; 3], rendered: Vec3, scale: 
         })
 }
 
+fn parse_appearance(dna: &str, height: &str) -> io::Result<([u8; 24], f32)> {
+    if dna.len() != 48 || !dna.is_ascii() {
+        return Err(io::Error::other("expected 48 hex DNA digits"));
+    }
+    let mut bytes = [0; 24];
+    for (index, value) in bytes.iter_mut().enumerate() {
+        *value = u8::from_str_radix(&dna[index * 2..index * 2 + 2], 16)
+            .map_err(|_| io::Error::other("invalid expected DNA hex"))?;
+    }
+    let height: f32 = height
+        .parse()
+        .map_err(|_| io::Error::other("invalid expected avatar height"))?;
+    if !height.is_finite() || height <= 0. {
+        return Err(io::Error::other("expected positive finite avatar height"));
+    }
+    Ok((bytes, height))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn appearance_expectations_are_exact_and_finite() {
+        assert_eq!(
+            parse_appearance(&"ab".repeat(24), "6.2").unwrap(),
+            ([0xab; 24], 6.2)
+        );
+        for dna in ["00".repeat(23), "gg".repeat(24), "é".repeat(24)] {
+            assert!(parse_appearance(&dna, "1").is_err());
+        }
+        for height in ["NaN", "inf", "0", "-1", "invalid"] {
+            assert!(parse_appearance(&"00".repeat(24), height).is_err());
+        }
+    }
 
     #[test]
     fn origin_gate_rejects_offsets_snapping_double_scale_and_nonfinite_values() {

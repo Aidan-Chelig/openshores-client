@@ -67,18 +67,18 @@ async def seed(dsn: str, username: str = USERNAME) -> int:
 
 def main() -> None:
     action = sys.argv[1] if len(sys.argv) == 2 else "move"
-    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play", "quick-dev", "quick-smoke", "avatar", "conversation") or len(sys.argv) > 2:
-        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play|quick-dev|quick-smoke|avatar|conversation]")
-    graphical = action in ("gui", "play", "quick-dev", "quick-smoke", "avatar", "conversation")
+    if action not in ("move", "drop", "pickup", "position", "peer", "pose", "use", "use-noop", "gui", "play", "quick-dev", "quick-smoke", "avatar", "avatar-live", "conversation") or len(sys.argv) > 2:
+        raise ValueError("usage: local_server.py [move|drop|pickup|position|peer|pose|use|use-noop|gui|play|quick-dev|quick-smoke|avatar|avatar-live|conversation]")
+    graphical = action in ("gui", "play", "quick-dev", "quick-smoke", "avatar", "avatar-live", "conversation")
     binary = str(ROOT / "target/debug" / ("openshores-client-slice" if graphical else "openshores-client"))
     if not Path(binary).is_file():
         raise RuntimeError("run cargo build first")
     anchor = None
     installation = Path(os.environ.get("HAZERON_INSTALL", ROOT / "reference/hazeron")).resolve()
-    if action in ("avatar", "quick-dev", "quick-smoke", "play") and installation.is_dir():
+    if action in ("avatar", "avatar-live", "quick-dev", "quick-smoke", "play") and installation.is_dir():
         from local_avatar_preparation import anchor_metrics
         anchor = anchor_metrics(str(installation))
-    if action == "avatar" and anchor is None:
+    if action in ("avatar", "avatar-live") and anchor is None:
         raise RuntimeError("connected avatar placement test requires a mounted installation")
     fixture = {}
     # Hold distinct ephemeral ports until the server is ready to start.
@@ -169,6 +169,8 @@ def main() -> None:
             with log_path.open("w") as log:
                 server_command = ([sys.executable, str(ROOT / "tests/conversation_server.py")]
                                   if action == "conversation" else [sys.executable, "-m", "openshores"])
+                if action == "avatar-live":
+                    server_command = [sys.executable, str(ROOT / "tests/avatar_live_server.py")]
                 server = subprocess.Popen(server_command, stdout=log, stderr=log)
                 deadline = time.monotonic() + 120
                 while "[boot] login  listening" not in log_path.read_text():
@@ -176,38 +178,64 @@ def main() -> None:
                         raise RuntimeError("reference server failed to start:\n" + log_path.read_text()[-8000:])
                     time.sleep(0.2)
                 print("Checking authenticated login, redirect, resume, chat ACK, and manifest", flush=True)
-                if action in ("play", "quick-dev", "quick-smoke", "avatar"):
+                if action in ("play", "quick-dev", "quick-smoke", "avatar", "avatar-live"):
                     command = [binary, f"127.0.0.1:{login}", "--scene-port", str(scene), "--chat-port", str(chat)]
                     if action == "play":
                         print(f"Owned disposable demo credentials: {USERNAME} / {PASSWORD}", flush=True)
                     else:
                         command += ["--auto-login", USERNAME, str(avatar)]
                     print("Close the client window to clean up the disposable local world.", flush=True)
-                    if action == "avatar":
+                    if action in ("avatar", "avatar-live"):
                         directory = Path(tempfile.mkdtemp(prefix="connected-avatar-", dir=ROOT / "target"))
-                        for label, elevation in [("landed", 0.), ("off-ground", 5.)]:
-                            z = fixture["z"] + elevation
+                        from openshores.protocol.login_reply import _default_dna
+                        original_dna = _default_dna()
+                        smaller_dna = bytearray(original_dna)
+                        # Change only the verified size selector, retaining anatomy.
+                        smaller_dna[13] = (6 << 3) | (smaller_dna[13] & 7)
+                        smaller_dna = bytes(smaller_dna)
+                        from local_avatar_preparation import anchor_metrics
+                        smaller_anchor = anchor_metrics(str(installation), smaller_dna)
+                        assert smaller_anchor[2] - smaller_anchor[1] < anchor[2] - anchor[1]
+                        cases = [("landed", 0., original_dna, anchor),
+                                 ("off-ground", 5., original_dna, anchor),
+                                 ("smaller-received", 0., smaller_dna, smaller_anchor)]
+                        if action == "avatar-live":
+                            cases = [("live-update", 0., original_dna, smaller_anchor)]
+                            os.environ["OPENSHORES_TEST_AVATAR_LIVE"] = "1"
+                        for label, elevation, dna, metrics in cases:
+                            z = fixture["floor"] + (anchor[0] if action == "avatar-live" else metrics[0]) + elevation
                             async def place_avatar():
                                 import asyncpg
                                 conn = await asyncpg.connect(dsn)
                                 try:
-                                    await conn.execute('UPDATE "a_Person" SET "locX"=0, "locY"=0, "locZ"=$1 WHERE "id"=$2', z, avatar)
+                                    await conn.execute('UPDATE "a_Person" SET "locX"=0, "locY"=0, "locZ"=$1, "dna"=$2 WHERE "id"=$3', z, dna, avatar)
                                 finally:
                                     await conn.close()
                             asyncio.run(place_avatar())
                             screenshot = directory / f"{label}.png"
                             os.environ["OPENSHORES_TEST_AVATAR_CAPTURE"] = str(screenshot)
                             os.environ["OPENSHORES_TEST_AVATAR_POSITION"] = f"0,0,{z}"
+                            if action == "avatar-live":
+                                os.environ.pop("OPENSHORES_TEST_AVATAR_POSITION", None)
+                            os.environ["OPENSHORES_TEST_AVATAR_DNA"] = (smaller_dna if action == "avatar-live" else dna).hex()
+                            os.environ["OPENSHORES_TEST_AVATAR_HEIGHT"] = str(metrics[2] - metrics[1])
                             result = run(*command, input=PASSWORD + "\n", timeout=180)
                             print(result.stdout, end="", flush=True)
                             assert "Avatar body prepared:" in result.stdout
                             assert "Connected avatar capture saved:" in result.stdout
-                            assert "Connected avatar received/render origin verified" in result.stdout
+                            if action == "avatar-live":
+                                assert "server-received motion/turn echoed; root and meshes reused" in result.stdout
+                                assert "sparse received DNA update replaced root and released old meshes" in result.stdout
+                                assert "AVATAR LIVE report 2:" in log_path.read_text()
+                            else:
+                                assert "Connected avatar received/render origin verified" in result.stdout
+                            assert "Connected avatar received/render appearance verified" in result.stdout
                             assert PASSWORD not in result.stdout
                             assert screenshot.is_file() and screenshot.stat().st_size > 1000
                             assert "Shader compilation error" not in result.stdout
                             assert "warning[B0004]" not in result.stdout
-                            print(f"Connected avatar {label}: {screenshot}; nominal ground clearance={anchor[0]}, sole residual={anchor[0]+anchor[1]}, elevation={elevation}", flush=True)
+                            expected_dna = smaller_dna if action == "avatar-live" else dna
+                            print(f"Connected avatar {label}: {screenshot}; initial DNA={dna.hex()}, rendered DNA={expected_dna.hex()}, nominal ground clearance={metrics[0]}, sole residual={metrics[0]+metrics[1]}, elevation={elevation}", flush=True)
                     elif action == "quick-smoke":
                         result = run(*command, "--smoke-frames", "30", input=PASSWORD + "\n")
                         print(result.stdout, end="", flush=True)

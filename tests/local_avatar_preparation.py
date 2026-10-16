@@ -10,11 +10,11 @@ sys.path.insert(0, str(ROOT / "reference/OpenShores-server/src"))
 from openshores.protocol.login_reply import _default_dna
 
 
-def anchor_metrics(installation: str) -> tuple[float, float, float]:
+def anchor_metrics(installation: str, dna: bytes | None = None) -> tuple[float, float, float]:
     """Ask the Rust received-DNA pipeline; never duplicate its clearance formula."""
     environment = dict(os.environ,
                        OPENSHORES_HAZERON_INSTALLATION=installation,
-                       OPENSHORES_TEST_PLAYER_DNA_HEX=_default_dna().hex())
+                       OPENSHORES_TEST_PLAYER_DNA_HEX=(dna if dna is not None else _default_dna()).hex())
     result = subprocess.run([
         "cargo", "test", "--offline", "--test", "local_avatar_preparation",
         "mounted_received_server_dna", "--", "--include-ignored", "--nocapture"],

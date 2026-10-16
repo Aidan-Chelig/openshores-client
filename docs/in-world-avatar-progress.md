@@ -248,3 +248,47 @@ resolved before the harness changes into its disposable runtime directory.
 Remaining gates include a second received appearance, connected motion/turning,
 southern placement, lifecycle workflows and normal camera acceptance; this is not
 completion of the full milestone.
+
+## Second received appearance and live-update checkpoint
+
+`just test-connected-avatar` now includes a third authenticated launch after a
+disposable SQL DNA update. Only size selector byte13 changes (`0x46` to `0x36`);
+anatomy and normal skin remain supported. Rust measures each DNA independently.
+Before capture the exact received bytes, normalized attached appearance key,
+actual mesh Z extent and root scale must agree with the expected values.
+Malformed/nonfinite expectations are rejected. Native height changes from
+6.0297766 to 5.240967 units, not merely a camera-fit difference. All three cases
+completed in the fresh `target/connected-avatar-3inlmrs_/` run. The earlier
+`target/connected-avatar-u139s936/smaller-received.png` was opened and inspected:
+the complete smaller body and skin are visible against the native-unit ruler.
+
+`just test-connected-avatar-live` tests one continuous authenticated session.
+`avatar_live.rs` sends two actual position/rotation reports through the production
+runtime/serializer. The first echo must update the entity's received transform
+while retaining the same root and mesh IDs. The second sparse received DNA update
+must change the appearance key/root, release every old mesh, and leave one local
+root with no duplicate marker. The replacement remains attached for 120 frames,
+then receives the usual 600-frame capture warmup and exact DNA/height checks.
+
+This workflow explicitly runs `tests/avatar_live_server.py`: it retains the real
+supplied login/bootstrap and report receiver, observes their live report cache,
+then emits source-profile transform echoes and a second-report DNA change. The
+supplied normal writer emits zero rotations and no such DNA update; this fixture
+does not claim unmodified-server echo support. Reference files remain unchanged.
+An initial fixture dependency-injection failure was fixed by preserving the
+original callable signature; the successful rerun completed all gates. Repeated
+identical reports handle the source dispatch's first-seen-opcode logging branch;
+the fixture counts distinct received values, not attempts.
+
+`target/connected-avatar-wpdj3q7g/live-update.png` was opened and inspected after
+the successful live run. It shows the complete updated textured body. Its origin
+does not jump when the body becomes smaller, so the new soles remain slightly
+above the previous ground plane: deliberately no terrain snap or height rewrite.
+The image is local/ignored, not redistributed.
+
+Verification: 773 client-library tests pass (six pre-existing asset/GPU cases
+ignored); strict client library/binary/integration Clippy, formatting and diff
+checks pass. The three ordinary connected cases and the explicit live-update
+fixture pass on Vulkan. Connected southern placement, reconnect/removal/session
+workflows, normal first-person camera acceptance and final offline regressions
+remain required. The full milestone is not complete.

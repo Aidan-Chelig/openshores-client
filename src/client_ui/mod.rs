@@ -12,6 +12,7 @@ mod assets;
 mod auto_login;
 mod avatar;
 mod avatar_inspection;
+mod avatar_live;
 mod avatar_rendering;
 mod camera;
 mod chat;
@@ -213,6 +214,12 @@ fn launch(
     let bypass_assets = profile.is_some() && asset_path.is_empty();
     let mut app = App::new();
     let capture = avatar_inspection::Capture::from_environment(auto_profile.is_some())?;
+    let live_test = std::env::var_os("OPENSHORES_TEST_AVATAR_LIVE").is_some();
+    if live_test && (auto_profile.is_none() || capture.is_none()) {
+        return Err(io::Error::other(
+            "live avatar acceptance requires synthetic auto-login and capture",
+        ));
+    }
     let inspect = capture.is_some();
     app.insert_resource(Bridge(Mutex::new(runtime)))
         .init_resource::<assets::Setup>()
@@ -269,6 +276,14 @@ fn launch(
         app.insert_resource(capture).add_systems(
             Update,
             avatar_inspection::capture.after(avatar_inspection::camera),
+        );
+    }
+    if live_test {
+        app.init_resource::<avatar_live::Workflow>().add_systems(
+            Update,
+            avatar_live::workflow
+                .after(avatar_inspection::camera)
+                .before(avatar_inspection::capture),
         );
     }
     if let Some(frames) = smoke_frames {

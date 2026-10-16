@@ -15,6 +15,7 @@ pub(super) struct State {
     material: Option<Handle<SkinMaterial>>,
     image: Option<Handle<Image>>,
     pub(super) focus: Option<(Entity, Vec3, f32)>,
+    native_height: Option<f32>,
 }
 
 #[derive(Component)]
@@ -28,6 +29,14 @@ pub(super) struct RenderAssets<'w> {
 }
 
 impl State {
+    pub(super) fn mesh_ids(&self) -> Vec<bevy::asset::AssetId<Mesh>> {
+        self.meshes.iter().map(Handle::id).collect()
+    }
+
+    pub(super) fn appearance(&self) -> Option<(&AvatarRequest, f32)> {
+        Some((self.owner.as_ref()?, self.native_height?))
+    }
+
     fn clear(&mut self, commands: &mut Commands, assets: &mut RenderAssets) {
         if let Some(root) = self.root.take()
             && let Ok(mut entity) = commands.get_entity(root)
@@ -45,6 +54,7 @@ impl State {
         }
         self.owner = None;
         self.focus = None;
+        self.native_height = None;
     }
 }
 
@@ -155,6 +165,7 @@ pub(super) fn render(
         let radius = (high - low).length() * 0.5;
         if low.is_finite() && high.is_finite() && radius > 0. {
             state.focus = Some((root, (low + high) * 0.5, radius));
+            state.native_height = Some(high.z - low.z);
         }
     } else if let Some(root) = state.root
         && let Ok(mut current) = roots.get_mut(root)

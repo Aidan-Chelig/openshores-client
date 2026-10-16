@@ -92,6 +92,10 @@ quick-dev: build-client
 test-connected-avatar: build-client
     nix develop .#server-test --command python tests/local_server.py avatar
 
+# Real report receiver + explicit sparse-update fixture; reference source untouched.
+test-connected-avatar-live: build-client
+    nix develop .#server-test --command python tests/local_server.py avatar-live
+
 # Disposable server + client, manual login.
 play: build-client
     nix develop .#server-test --command python tests/local_server.py play
