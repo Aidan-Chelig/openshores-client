@@ -17,6 +17,7 @@ mod avatar_camera;
 mod avatar_inspection;
 mod avatar_lifecycle;
 mod avatar_live;
+mod avatar_pose_reports;
 mod avatar_rendering;
 mod camera;
 mod chat;
@@ -276,6 +277,7 @@ fn launch(
         }))
         .add_plugins(crate::viewer::native_skin::SkinPlugin)
         .init_resource::<avatar_animation::State>()
+        .init_resource::<avatar_pose_reports::State>()
         .add_systems(Startup, setup)
         .add_systems(
             Update,
@@ -286,6 +288,7 @@ fn launch(
                 avatar::preparation,
                 chat::typing,
                 controls::keyboard,
+                avatar_pose_reports::report,
                 camera::transition,
                 scene::scene,
                 avatar_rendering::render,

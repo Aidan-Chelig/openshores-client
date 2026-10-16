@@ -250,3 +250,22 @@ is claimed. All 786 client-library tests pass (six ignored), strict client Clipp
 passes, and mounted tests pass for both default and smaller received DNA.
 The wider animation goal remains active; this is not complete action coverage.
 
+Outgoing locomotion checkpoint: the source-profile client now sends ten-channel
+Stand/Walk/Run reports from actual local tangential movement, including release
+to Stand and a 0.5-second heartbeat. A report is marked sent only after the
+runtime accepts it, so failed sends retry. Ownership resets across sessions.
+Reporting is permitted only while the actual received request is all-Stand;
+mixed poses, actions and externally requested locomotion are not overwritten.
+This matches the supplied server's non-echo pose profile, not a generic policy
+for servers that echo client pose state. It does not change native physics,
+received pose interpretation or add a fabricated server animation clock.
+
+CPU tests cover transitions, retries, heartbeat, received-action preservation
+and same-ID/new-generation reset. All 787 client-library tests pass and strict
+Clippy passes. Connected keyboard acceptance now additionally requires the real
+server's pose-tracking log to observe Stand→Walk→Run→Stand. That run passes,
+alongside persistent mesh phases, exact stopped pose/eye, received appearance
+and persisted position reports. Captures are under
+`target/connected-avatar-5c_g9ye5`. This is actual supplied-server receive evidence,
+not a client-generated assertion that a report was delivered.
+

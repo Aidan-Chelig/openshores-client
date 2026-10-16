@@ -127,7 +127,7 @@ def main() -> None:
                 "OPENSHORES_SCENE_PORT": str(scene),
                 "OPENSHORES_MAIL_PORT": str(mail),
                 "OPENSHORES_CONTROL_PORT": str(control),
-                "OPENSHORES_LOG_LEVEL": "INFO",
+                "OPENSHORES_LOG_LEVEL": "DEBUG" if animation and not received_animation else "INFO",
             })
             if lifecycle:
                 os.environ["OPENSHORES_TEST_AVATAR_LIFECYCLE"] = "1"
@@ -298,6 +298,10 @@ def main() -> None:
                                     assert PASSWORD not in result.stdout
                                     continue
                                 assert "released input restored exact Stand/eye" in result.stdout
+                                pose_log = log_path.read_text()
+                                for before, after in (("24", "26"), ("26", "25"), ("25", "24")):
+                                    assert f"pose 0x{before} -> 0x{after}" in pose_log, "actual server did not receive locomotion pose transition"
+                                print("Connected avatar animation: actual server tracked Walk/Run/Stand pose reports", flush=True)
                                 if animation_first_person:
                                     assert "moving first-person followed animated eye with hidden skull" in result.stdout
                                 async def verify_animation_reports():
