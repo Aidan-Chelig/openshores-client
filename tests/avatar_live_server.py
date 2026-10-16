@@ -10,6 +10,7 @@ import contextlib
 import functools
 import inspect
 import os
+from pathlib import Path
 import runpy
 import struct
 import time
@@ -37,6 +38,9 @@ if os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"):
 
 
 async def observe_reports(live, writer):
+    if os.environ.get("OPENSHORES_TEST_AVATAR_POSE_CONTROL"):
+        await observe_pose_requests(live, writer)
+        return
     previous = None
     count = 0
     lifecycle = bool(os.environ.get("OPENSHORES_TEST_AVATAR_LIFECYCLE"))
@@ -77,6 +81,34 @@ async def observe_reports(live, writer):
             packet += b"\x00\x00\x00"  # stamina, growth, omitted person fields
             await write_framed(writer, packet)
             print(f"AVATAR LIVE report {count}: player={auid}, position={position}, rotation={rotation}, DNA update={count == 2}", flush=True)
+
+
+async def observe_pose_requests(live, writer):
+    """Explicit test writer: real framed sparse packets, never client injection."""
+    control = Path(os.environ["OPENSHORES_TEST_AVATAR_POSE_CONTROL"])
+    previous = None
+    channels = {
+        "mixed": bytes([0x26, 0x24, 0x25, 0x24, 0x25, 0x24, 0x24, 0x24, 0x24, 0x24]),
+        "unsupported": bytes([0x12] * 10),
+        "stand": bytes([0x24] * 10),
+    }
+    while not writer.is_closing():
+        await asyncio.sleep(0.05)
+        if not control.exists():
+            continue
+        request = control.read_text().strip()
+        if request == previous or request not in channels:
+            continue
+        for auid, entry in list(live.items()):
+            if entry.get("writer") is not writer:
+                continue
+            packet = (b"\x12" + struct.pack(">IqB", auid, int(time.time()*1000), 0)
+                      + b"\x00\x08" + channels[request] + struct.pack(">I", 0)
+                      + b"\x00\x00\x00")
+            await write_framed(writer, packet)
+            previous = request
+            print(f"AVATAR POSE sent {request}: player={auid}", flush=True)
+            break
 
 
 @functools.wraps(original)

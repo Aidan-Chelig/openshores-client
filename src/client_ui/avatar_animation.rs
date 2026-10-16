@@ -1,6 +1,5 @@
 //! Movement-driven native poses on persistent meshes. No installation I/O here.
 use super::*;
-use crate::world::native_body::NativeDpGait;
 
 #[derive(Resource, Default)]
 pub(super) struct State {
@@ -8,6 +7,11 @@ pub(super) struct State {
     elapsed: f64,
     standing: bool,
     failure: Option<String>,
+}
+impl State {
+    pub(super) fn owner(&self) -> Option<(u64, u32, Entity)> {
+        self.owner
+    }
 }
 fn status(ui: &mut Presentation, text: &str) {
     if ui.avatar_animation_status != text {
@@ -55,26 +59,32 @@ pub(super) fn animate(
         status(&mut ui, error);
         return;
     }
-    // This is local movement prediction, not an interpretation of the source
-    // server's opaque person_pose byte or a native production locomotion solver.
-    let speed = ui.avatar_motion_speed;
-    let gait = if speed >= 8. {
-        Some(NativeDpGait::Run)
-    } else if speed > 0. {
-        Some(NativeDpGait::Walk)
-    } else {
-        None
+    let selected = match ui.model.local_player_pose(ui.avatar_motion_speed) {
+        Ok(Some(selected)) => selected,
+        Ok(None) => {
+            state.standing = false;
+            status(
+                &mut ui,
+                "Avatar animation: waiting for received pose channels",
+            );
+            return;
+        }
+        Err(error) => {
+            state.standing = false;
+            status(&mut ui, &format!("Avatar animation unavailable: {error}"));
+            return;
+        }
     };
-    if gait.is_none() && state.standing {
+    if selected.is_standing() && state.standing {
         return;
     }
     state.elapsed += time.delta_secs_f64();
     let result = (|| -> io::Result<()> {
-        let frame =
-            animation
-                .lock()
-                .unwrap()
-                .sample(gait, speed, (state.elapsed * 1000.) as i64)?;
+        let frame = animation.lock().unwrap().sample_channels(
+            &selected.native,
+            selected.speed,
+            (state.elapsed * 1000.) as i64,
+        )?;
         let ids = rendered.mesh_ids();
         if ids.len() != body.bindings.len() {
             return Err(io::Error::other("animation mesh binding count changed"));
@@ -108,13 +118,17 @@ pub(super) fn animate(
         status(&mut ui, &message);
         state.failure = Some(message);
     } else {
-        state.standing = gait.is_none();
+        state.standing = selected.is_standing();
         status(
             &mut ui,
-            match gait {
-                None => "Avatar animation: standing",
-                Some(NativeDpGait::Walk) => "Avatar animation: walking",
-                Some(NativeDpGait::Run) => "Avatar animation: running",
+            if selected.is_standing() {
+                "Avatar animation: standing"
+            } else if selected.native.fields_3c == [0x26; 10] {
+                "Avatar animation: walking"
+            } else if selected.native.fields_3c == [0x25; 10] {
+                "Avatar animation: running"
+            } else {
+                "Avatar animation: received mixed locomotion channels"
             },
         );
     }

@@ -23,13 +23,6 @@ impl NativeDpInitialization {
         feet: &mut NativeDpFootCache<'_>,
         timer: &mut impl NativePoseRhythmTimer,
     ) -> io::Result<NativeDpLocomotionSample> {
-        self.validate_neutral_standing()?;
-        if !speed.is_finite() {
-            return Err(io::Error::new(
-                io::ErrorKind::InvalidInput,
-                "nonfinite locomotion speed",
-            ));
-        }
         let code = match gait {
             NativeDpGait::Walk => 0x26,
             NativeDpGait::Run => 0x25,
@@ -38,9 +31,47 @@ impl NativeDpInitialization {
             fields_3c: [code; 10],
             field_6c: false,
         };
-        let height = feet.pose_height(&self.dna, &self.dimensions, field_4068, &pose, false)?;
+        self.pose_locomotion_channels(&pose, speed, field_4068, hands, feet, timer)
+    }
+
+    /// Explicit admitted ten-channel subset: Stand/Walk/Run, normal mode.
+    /// Preserve mixed limb/head/torso channels; reject unsupported actions
+    /// before changing the skeleton instead of replacing them with Stand.
+    pub fn pose_locomotion_channels(
+        &mut self,
+        pose: &NativeDpBodyPoseState,
+        speed: f32,
+        field_4068: i32,
+        hands: &mut NativeDpHandCache<'_>,
+        feet: &mut NativeDpFootCache<'_>,
+        timer: &mut impl NativePoseRhythmTimer,
+    ) -> io::Result<NativeDpLocomotionSample> {
+        self.validate_neutral_standing()?;
+        if !speed.is_finite()
+            || pose.field_6c
+            || pose
+                .fields_3c
+                .iter()
+                .any(|code| !matches!(code, 0x24..=0x26))
+        {
+            return Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "unsupported locomotion channels/mode or nonfinite speed",
+            ));
+        }
+        let height = feet.pose_height(&self.dna, &self.dimensions, field_4068, pose, false)?;
         self.bones.reset_for_animation(&self.dna);
         for selector in [0, 1] {
+            let code = pose.fields_3c[if selector == 0 { 4 } else { 0 }];
+            if code == 0x24 {
+                self.stand_legs(height, selector, field_4068, feet)?;
+                continue;
+            }
+            let gait = if code == 0x25 {
+                NativeDpGait::Run
+            } else {
+                NativeDpGait::Walk
+            };
             self.locomote_legs(
                 NativeDpLegLocomotion {
                     gait,
@@ -54,12 +85,22 @@ impl NativeDpInitialization {
             )?;
         }
         if self.dna.0[14] & 0x30 != 0 {
-            self.position_tail(&pose, height, speed, false, timer)?;
+            self.position_tail(pose, height, speed, false, timer)?;
         }
-        let torso_angle = self.position_torso(&pose, height, speed, field_4068, hands, timer)?;
-        self.position_heads(&pose, 0., 0., timer)?;
+        let torso_angle = self.position_torso(pose, height, speed, field_4068, hands, timer)?;
+        self.position_heads(pose, 0., 0., timer)?;
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
+                let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
+                if code == 0x24 {
+                    self.stand_arms(height, side, None, field_4068, hands)?;
+                    continue;
+                }
+                let gait = if code == 0x25 {
+                    NativeDpGait::Run
+                } else {
+                    NativeDpGait::Walk
+                };
                 self.locomote_arms(
                     NativeDpArmLocomotion {
                         gait,
@@ -88,7 +129,7 @@ impl NativeDpInitialization {
             ));
         }
         Ok(NativeDpLocomotionSample {
-            pose,
+            pose: pose.clone(),
             height,
             torso_angle,
         })

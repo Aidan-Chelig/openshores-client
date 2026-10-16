@@ -166,3 +166,63 @@ These implementation/connected-animation checkpoints are committed together
 with the preceding requested camera controls. No captures or game assets are
 included in the commit.
 
+Seventh checkpoint: an explicit source-profile adapter now reads the selected
+person's separate ten-byte pose array, never its DNA prefix tag. It admits only
+Stand (0x24), Run (0x25) and Walk (0x26), preserves mixed channels, and predicts
+local movement only over an all-Stand request. Sparse updates retain the last
+received channels. Unsupported actions, nonzero pose parameters and head tilt
+produce a visible status rather than a silent Stand fallback; a later supported
+update can recover without replacing the render owner.
+
+The compositor dispatches each supported leg/arm channel independently and keeps
+the existing native head/tail/torso stages. A received moving pose without local
+velocity uses nominal animation rate 1: this is an explicit rendering policy,
+not inferred server motion or native time synchronization. CPU receive tests
+exercise actual packet ingestion, omitted fields, unsupported input and recovery.
+Mounted received-DNA tests verify repeatable mixed-channel sampling and exact
+all-Stand geometry/eye restoration through the new channel compositor. Both
+mounted tests pass; 784 client-library tests and strict client Clippy pass.
+Connected receive-driven captures, moving first-person and lifecycle regression
+remain required. Broad native action support is not claimed.
+
+The rebuilt connected keyboard-animation regression also passes with this
+adapter enabled. Captures are under `target/connected-avatar-_g50_2zu`; opened
+Walk-A and Run-B confirm intact textured assembly and the larger running stride.
+Persistent-resource, changed-phase, exact stopped geometry/eye and server SQL
+movement-report gates all pass. Terrain overlap remains visible and unchanged;
+this run does not prove received mixed-pose GPU dispatch or ground following.
+
+Receive-driven acceptance is now available as
+`just test-connected-avatar-received-poses`. Its owned server wrapper sends
+explicit sparse source-profile packets through the real scene writer; the
+reference source is untouched. A disposable control file coordinates requests
+only, never substitutes client model state. The client waits for actual received
+mixed channels, captures two changed mesh phases, observes an unsupported-action
+status, and requires exact Stand/eye recovery. Root position must remain fixed
+and root/mesh/material/atlas/UV identities must remain unchanged throughout.
+The first connected run passes all those gates. Both received phase images in
+`target/connected-avatar-vjf_h_cu` were opened: one arm uses the larger Run bend
+while the other stays neutral, and walking leg phases change without moving the
+root. The final capture also passes received-appearance checks. Unsupported
+0x12 is explicitly rejected and a subsequent server Stand update recovers.
+This proves the admitted subset only, not the unsupported action catalog.
+
+Moving first-person acceptance now runs with
+`just test-connected-avatar-animation-first-person`. The normal keyboard
+workflow remains active, but inspection is disabled and each warmed frame checks
+the camera against the current animated authored eye (including the existing
+terrain-clearance policy) and requires every local head batch to stay hidden.
+The connected run passes all motion/phase/resource/stop/SQL gates; captures are
+under `target/connected-avatar-re1e5w6k`. Run-B was opened and shows unobstructed
+terrain, not skull interior. This downward-looking capture is not proof of
+visible first-person limbs or terrain-following correctness.
+
+Lifecycle acceptance additionally checks that animation ownership is absent
+after removal/disconnect and exactly matches the restored/reconnected session,
+player and root, with a supported standing status. This strengthened connected
+rerun passes, including sparse appearance replacement, manifest removal/restore,
+30 disconnected frames and authenticated same-ID reconnect. Its final capture
+is `target/connected-avatar-9z4n0xft/live-lifecycle.png`. The current client-library
+suite passes 784 tests (six ignored), and strict client Clippy passes. Broader
+action dispatch and final preview/regression acceptance remain open.
+

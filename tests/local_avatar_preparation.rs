@@ -229,9 +229,34 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             assert_eq!(a.corners, b.corners);
         }
     }
+    let mut mixed = openshores_client::world::native_creature::NativeDpBodyPoseState {
+        fields_3c: [0x24; 10],
+        field_6c: false,
+    };
+    mixed.fields_3c[0] = 0x26;
+    mixed.fields_3c[2] = 0x25;
+    mixed.fields_3c[4] = 0x25;
+    let a = animation.sample_channels(&mixed, 4., 125).unwrap();
+    let mut bad = mixed.clone();
+    bad.fields_3c[2] = 0x12;
+    assert!(animation.sample_channels(&bad, 4., 125).is_err());
+    let repeat = animation.sample_channels(&mixed, 4., 125).unwrap();
+    assert_eq!(a.eye, repeat.eye);
+    for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
+        assert_eq!(a.corners, b.corners);
+    }
     let stopped = animation.sample(None, 0., 500).unwrap();
     assert_eq!(stopped.eye, stand.eye);
     for (a, b) in stand.surfaces.iter().zip(&stopped.surfaces) {
+        assert_eq!(a.corners, b.corners);
+    }
+    let neutral = openshores_client::world::native_creature::NativeDpBodyPoseState {
+        fields_3c: [0x24; 10],
+        field_6c: false,
+    };
+    let received_stand = animation.sample_channels(&neutral, 0., 500).unwrap();
+    assert_eq!(received_stand.eye, stand.eye);
+    for (a, b) in stand.surfaces.iter().zip(&received_stand.surfaces) {
         assert_eq!(a.corners, b.corners);
     }
 }

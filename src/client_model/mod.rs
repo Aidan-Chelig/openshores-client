@@ -11,12 +11,14 @@ mod avatar_preparation;
 pub use avatar_animation::{AvatarAnimationFrame, PreparedAvatarAnimation};
 mod native;
 mod player_appearance;
+mod player_pose;
 pub use avatar_preparation::{
     AvatarContentKey, AvatarPreparation, AvatarPreparationStatus, AvatarRequest,
     PreparedNormalAvatar,
 };
 pub use native::NativeAvatarPresentation;
 pub use player_appearance::LocalPlayerDna;
+pub use player_pose::LocalPlayerPose;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Phase {

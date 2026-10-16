@@ -86,6 +86,8 @@ def main() -> None:
     first_person_mode = os.environ.get("OPENSHORES_TEST_AVATAR_FIRST_PERSON")
     first_person = action == "avatar" and bool(first_person_mode)
     animation = action == "avatar" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION"))
+    received_animation = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_RECEIVED_POSES"))
+    animation_first_person = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON"))
     # Hold distinct ephemeral ports until the server is ready to start.
     reservations = [socket.socket() for _ in range(5)]
     for sock in reservations:
@@ -135,6 +137,10 @@ def main() -> None:
                 os.environ["OPENSHORES_TEST_AVATAR_FIRST_PERSON"] = "1"
             if animation:
                 os.environ["OPENSHORES_TEST_AVATAR_ANIMATION"] = "1"
+            if animation_first_person:
+                os.environ["OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON"] = "1"
+            if received_animation:
+                os.environ["OPENSHORES_TEST_AVATAR_POSE_CONTROL"] = str(runtime / "pose-control")
             if graphical:
                 if installation.is_dir():
                     os.environ["HAZERON_INSTALL"] = str(installation)
@@ -183,7 +189,7 @@ def main() -> None:
             with log_path.open("w") as log:
                 server_command = ([sys.executable, str(ROOT / "tests/conversation_server.py")]
                                   if action == "conversation" else [sys.executable, "-m", "openshores"])
-                if action == "avatar-live" or south:
+                if action == "avatar-live" or south or received_animation:
                     server_command = [sys.executable, str(ROOT / "tests/avatar_live_server.py")]
                 server = subprocess.Popen(server_command, stdout=log, stderr=log)
                 deadline = time.monotonic() + 120
@@ -274,11 +280,24 @@ def main() -> None:
                                     assert "AVATAR LIFECYCLE manifest removed" in log_path.read_text()
                                     assert "AVATAR LIFECYCLE manifest restored" in log_path.read_text()
                             elif animation:
-                                for gait in ("walk", "run"):
+                                for gait in (() if received_animation else ("walk", "run")):
                                     assert f"{gait} keyboard input moved player and changed native mesh phases" in result.stdout
                                     for phase in ("a", "b"):
                                         assert (directory / f"{gait}-{phase}.png").is_file()
+                                if received_animation:
+                                    assert "received mixed phases and unsupported/recovery verified" in result.stdout
+                                    for request in ("mixed", "unsupported", "stand"):
+                                        assert f"AVATAR POSE sent {request}:" in log_path.read_text()
+                                    for phase in ("a", "b"):
+                                        assert (directory / f"received-{phase}.png").is_file()
+                                    assert "Connected avatar received/render appearance verified" in result.stdout
+                                    assert screenshot.is_file() and screenshot.stat().st_size > 1000
+                                    assert "Shader compilation error" not in result.stdout
+                                    assert PASSWORD not in result.stdout
+                                    continue
                                 assert "released input restored exact Stand/eye" in result.stdout
+                                if animation_first_person:
+                                    assert "moving first-person followed animated eye with hidden skull" in result.stdout
                                 async def verify_animation_reports():
                                     import asyncpg
                                     conn = await asyncpg.connect(dsn)

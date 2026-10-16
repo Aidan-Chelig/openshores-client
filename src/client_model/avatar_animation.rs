@@ -2,7 +2,10 @@
 use super::PreparedNormalAvatar;
 use crate::{
     asset_mount::AssetMount,
-    world::{native_body::*, native_creature::NativePoseRhythmTimer},
+    world::{
+        native_body::*,
+        native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer},
+    },
 };
 use std::io;
 
@@ -47,6 +50,22 @@ impl PreparedNormalAvatar {
     }
 }
 impl PreparedAvatarAnimation {
+    pub fn sample_channels(
+        &mut self,
+        pose: &NativeDpBodyPoseState,
+        speed: f32,
+        reference_millis: i64,
+    ) -> io::Result<AvatarAnimationFrame> {
+        self.body.pose_locomotion_channels(
+            pose,
+            speed,
+            0,
+            &mut self.hands,
+            &mut self.feet,
+            &mut Timer(reference_millis),
+        )?;
+        self.frame()
+    }
     pub fn sample(
         &mut self,
         gait: Option<NativeDpGait>,
@@ -66,6 +85,9 @@ impl PreparedAvatarAnimation {
             self.body
                 .pose_neutral_standing(0, &mut self.hands, &mut self.feet)?;
         }
+        self.frame()
+    }
+    fn frame(&self) -> io::Result<AvatarAnimationFrame> {
         Ok(AvatarAnimationFrame {
             surfaces: self
                 .surfaces

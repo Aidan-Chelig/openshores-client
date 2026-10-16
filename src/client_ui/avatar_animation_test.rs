@@ -19,6 +19,8 @@ pub(super) struct Workflow {
     initial: Option<Snapshot>,
     last_phase: Option<Vec<Vec<[f32; 3]>>>,
     stopped_position: Option<Vec3>,
+    pose_control: Option<PathBuf>,
+    first_person: bool,
 }
 impl Workflow {
     pub(super) fn new(path: PathBuf) -> Self {
@@ -30,6 +32,10 @@ impl Workflow {
             initial: None,
             last_phase: None,
             stopped_position: None,
+            pose_control: std::env::var_os("OPENSHORES_TEST_AVATAR_POSE_CONTROL")
+                .map(PathBuf::from),
+            first_person: std::env::var_os("OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON")
+                .is_some(),
         }
     }
     pub(super) fn complete(&self) -> bool {
@@ -51,7 +57,10 @@ pub(super) fn input(
 ) {
     keys.release(KeyCode::KeyW);
     keys.release(KeyCode::ShiftLeft);
-    if rendered.gpu_snapshot().is_some() && matches!(flow.stage, 1 | 2) {
+    if flow.pose_control.is_none()
+        && rendered.gpu_snapshot().is_some()
+        && matches!(flow.stage, 1 | 2)
+    {
         keys.press(KeyCode::KeyW);
         if flow.stage == 2 {
             keys.press(KeyCode::ShiftLeft);
@@ -98,6 +107,11 @@ fn snapshot(
         position,
     })
 }
+#[derive(bevy::ecs::system::SystemParam)]
+pub(super) struct ViewChecks<'w, 's> {
+    cameras: Query<'w, 's, &'static Transform, With<SliceCamera>>,
+    heads: Query<'w, 's, &'static Visibility, With<avatar_rendering::FirstPersonHead>>,
+}
 pub(super) fn workflow(
     mut flow: ResMut<Workflow>,
     mut ui: ResMut<Presentation>,
@@ -105,6 +119,7 @@ pub(super) fn workflow(
     meshes: Res<Assets<Mesh>>,
     roots: Query<&Transform, With<avatar_rendering::LocalAvatar>>,
     mut commands: Commands,
+    views: ViewChecks,
 ) {
     assert!(
         flow.started.elapsed().as_secs() < 145,
@@ -122,7 +137,36 @@ pub(super) fn workflow(
         "{}",
         ui.avatar_animation_status
     );
-    ui.avatar_inspect = true;
+    ui.avatar_inspect = !flow.first_person;
+    if flow.first_person {
+        ui.top_down = false;
+        ui.pitch = -0.8;
+        if flow.frames > 2 {
+            let body = roots.get(current.gpu.root).unwrap();
+            let expected = camera::clear_eye(
+                body.transform_point(current.eye),
+                ui.camera_terrain.as_ref(),
+                ui.scale,
+            );
+            for camera in &views.cameras {
+                assert!(
+                    camera.translation.distance(expected) < 1e-6,
+                    "first-person camera lost animated eye"
+                );
+            }
+            assert!(
+                !views.heads.is_empty(),
+                "missing local head visibility check"
+            );
+            for visibility in &views.heads {
+                assert_eq!(
+                    *visibility,
+                    Visibility::Hidden,
+                    "animated skull blocks first-person view"
+                );
+            }
+        }
+    }
     if ui.windows_open || ui.hud {
         ui.windows_open = false;
         ui.hud = false;
@@ -149,6 +193,9 @@ pub(super) fn workflow(
         }
         assert_eq!(ui.avatar_animation_status, "Avatar animation: standing");
         flow.initial = Some(current);
+        if let Some(path) = &flow.pose_control {
+            std::fs::write(path, "mixed").unwrap();
+        }
         flow.advance();
         return;
     }
@@ -158,6 +205,56 @@ pub(super) fn workflow(
     assert_eq!(current.gpu.image, initial.gpu.image);
     assert_eq!(current.gpu.material, initial.gpu.material);
     assert_eq!(current.uvs, initial.uvs);
+    if let Some(control) = flow.pose_control.clone() {
+        assert_eq!(
+            current.position, initial.position,
+            "received pose invented world motion"
+        );
+        let expected = match flow.stage {
+            1 => "Avatar animation: received mixed locomotion channels",
+            2 => "Avatar animation unavailable:",
+            _ => "Avatar animation: standing",
+        };
+        if !ui.avatar_animation_status.starts_with(expected) {
+            flow.frames = 0;
+            return;
+        }
+        if flow.stage == 1 {
+            if matches!(frames, 37 | 83) {
+                assert_ne!(current.positions, initial.positions);
+                if let Some(previous) = &flow.last_phase {
+                    assert_ne!(&current.positions, previous);
+                }
+                commands
+                    .spawn(Screenshot::primary_window())
+                    .observe(save_to_disk(flow.directory.join(if frames == 37 {
+                        "received-a.png"
+                    } else {
+                        "received-b.png"
+                    })));
+                flow.last_phase = Some(current.positions);
+            }
+            if frames == 120 {
+                std::fs::write(control, "unsupported").unwrap();
+                flow.advance();
+            }
+        } else if flow.stage == 2 {
+            if frames == 30 {
+                std::fs::write(control, "stand").unwrap();
+                flow.advance();
+            }
+        } else {
+            assert_eq!(current.positions, initial.positions);
+            assert_eq!(current.eye, initial.eye);
+            if frames == 30 {
+                println!(
+                    "Connected avatar animation: received mixed phases and unsupported/recovery verified; persistent assets and exact Stand/eye preserved"
+                );
+                flow.advance();
+            }
+        }
+        return;
+    }
     if flow.stage == 3 {
         assert_eq!(ui.avatar_animation_status, "Avatar animation: standing");
         assert_eq!(
@@ -174,6 +271,11 @@ pub(super) fn workflow(
             "release continued moving"
         );
         if frames == 30 {
+            if flow.first_person {
+                println!(
+                    "Connected avatar animation: moving first-person followed animated eye with hidden skull"
+                );
+            }
             println!(
                 "Connected avatar animation: released input restored exact Stand/eye; persistent mesh/root/material/atlas/UVs preserved"
             );

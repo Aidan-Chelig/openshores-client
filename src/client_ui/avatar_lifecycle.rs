@@ -34,6 +34,7 @@ impl Workflow {
 
 #[derive(SystemParam)]
 pub(super) struct Evidence<'w, 's> {
+    animation: Res<'w, avatar_animation::State>,
     meshes: Res<'w, Assets<Mesh>>,
     materials: Res<'w, Assets<SkinMaterial>>,
     images: Res<'w, Assets<Image>>,
@@ -42,6 +43,10 @@ pub(super) struct Evidence<'w, 's> {
 }
 impl Evidence<'_, '_> {
     fn released(&self, snapshot: &avatar_rendering::GpuSnapshot) {
+        assert!(
+            self.animation.owner().is_none(),
+            "released avatar retained animation owner"
+        );
         assert!(!self.roots.contains(snapshot.root));
         assert!(snapshot.meshes.iter().all(|id| !self.meshes.contains(*id)));
         assert!(!self.materials.contains(snapshot.material));
@@ -116,6 +121,11 @@ pub(super) fn workflow(
             );
             assert_eq!(evidence.roots.iter().count(), 1);
             let snapshot = state.gpu_snapshot().unwrap();
+            assert_eq!(
+                evidence.animation.owner(),
+                Some((ui.model.session_generation, flow.avatar, snapshot.root))
+            );
+            assert_eq!(ui.avatar_animation_status, "Avatar animation: standing");
             assert_ne!(snapshot.root, flow.snapshot.as_ref().unwrap().root);
             flow.snapshot = Some(snapshot);
             println!(
@@ -156,6 +166,18 @@ pub(super) fn workflow(
             );
             assert_ne!(state.focus.unwrap().0, flow.snapshot.as_ref().unwrap().root);
             assert_eq!(evidence.roots.iter().count(), 1);
+            assert_eq!(
+                evidence.animation.owner(),
+                Some((
+                    ui.model.session_generation,
+                    flow.avatar,
+                    state.focus.unwrap().0
+                ))
+            );
+            assert_eq!(ui.avatar_animation_status, "Avatar animation: standing");
+            println!(
+                "Connected avatar lifecycle: animation owner cleared and rebound to restored/reconnected generation"
+            );
             println!(
                 "Connected avatar lifecycle: same-player authenticated reconnect advanced generation and attached received bootstrap DNA once"
             );

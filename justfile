@@ -96,6 +96,14 @@ test-connected-avatar: build-client
 test-connected-avatar-animation: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 python tests/local_server.py avatar
 
+# Explicit sparse server pose packets: mixed limbs, rejection and recovery.
+test-connected-avatar-received-poses: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_RECEIVED_POSES=1 python tests/local_server.py avatar
+
+# Walking/running through the animated native eye with local skull suppressed.
+test-connected-avatar-animation-first-person: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 python tests/local_server.py avatar
+
 # Real report receiver + explicit sparse-update fixture; reference source untouched.
 test-connected-avatar-live: build-client
     nix develop .#server-test --command python tests/local_server.py avatar-live
