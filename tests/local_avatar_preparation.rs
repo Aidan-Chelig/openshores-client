@@ -84,6 +84,27 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     let key = AvatarContentKey::new(received.model.clone(), 1, 60., true).unwrap();
     let prepared = PreparedNormalAvatar::generate(&mount, &key).unwrap();
     assert_eq!(prepared.native.dna, received.model);
+    let ground_height = prepared.native.standing_ground_clearance(&mount).unwrap();
+    let low = prepared
+        .surfaces
+        .iter()
+        .flat_map(|s| &s.corners)
+        .map(|c| c.position[2] / c.position[3])
+        .fold(f32::INFINITY, f32::min);
+    let high = prepared
+        .surfaces
+        .iter()
+        .flat_map(|s| &s.corners)
+        .map(|c| c.position[2] / c.position[3])
+        .fold(f32::NEG_INFINITY, f32::max);
+    println!(
+        "Received avatar anchor: pose height={}, ground CG height={ground_height}, drawn Z=[{low},{high}], sole residual={}",
+        prepared.native.standing.height,
+        low + ground_height
+    );
+    assert!(ground_height.is_finite() && ground_height > 0.);
+    assert!(low < 0. && high > 0., "origin is not a soles origin");
+    assert!(ground_height >= prepared.native.standing.height);
     assert!(!prepared.surfaces.is_empty());
     assert!(!prepared.atlas_png.is_empty());
     assert!(
@@ -97,4 +118,7 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
         prepared.native.body.parts().len(),
         prepared.surfaces.len()
     );
+    let mut native = prepared.native;
+    native.standing.pose.fields_3c[0] = 0;
+    assert!(native.standing_ground_clearance(&mount).is_err());
 }

@@ -64,6 +64,10 @@ test-native-avatar-torso installation="reference/hazeron":
 test-local-avatar-preparation installation="reference/hazeron":
     nix develop .#server-test --command python tests/local_avatar_preparation.py {{quote(installation)}}
 
+# Focused native Stand/CG anchor checks; no original runtime or Ghidra import.
+test-native-avatar-anchor:
+    nix develop .#server-test --command python tests/native_avatar_anchor.py
+
 # Inspect assets without extraction; installation files are never executed.
 assets installation="reference/hazeron": build
     nix develop .#server-test --command target/debug/openshores-client inspect-mount {{quote(installation)}}

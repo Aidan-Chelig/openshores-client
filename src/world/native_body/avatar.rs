@@ -48,6 +48,27 @@ enum Merge {
 type Piece = (String, NativeBodyModelGeometry, [usize; 3]);
 
 impl NativeDpAvatarGeometry {
+    /// Native nominal ground distance below the adult neutral Stand origin.
+    /// Stand's CGOffset is zero and BodyPoseAdjustTransform is a no-op. The
+    /// ground query uses CGHeight(true), not the false height used for posing.
+    /// This metadata is NEVER a render translation or mesh-bounds correction.
+    /// Authored sole vertices need not lie exactly on this collision plane.
+    /// Other poses/growth contexts are not inferred.
+    pub fn standing_ground_clearance(&self, mount: &AssetMount) -> io::Result<f32> {
+        if self.standing.pose.fields_3c != [0x24; 10] || self.standing.pose.field_6c {
+            return Err(unsupported(
+                "ground clearance requires the neutral Stand context",
+            ));
+        }
+        NativeDpFootCache::new(mount).pose_height(
+            &self.dna,
+            self.body.dimensions(),
+            self.field_4068,
+            &self.standing.pose,
+            true,
+        )
+    }
+
     /// Generate normal body skin plus its verified Stand skeleton from explicit
     /// DNA/owner appearance. Bone skinning and smoothing remain separate stages;
     /// never reapply object deformation/projection when consuming these inputs.

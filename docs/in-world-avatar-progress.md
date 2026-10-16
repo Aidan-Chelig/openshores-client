@@ -200,3 +200,25 @@ formatting and diff checks pass. Remaining acceptance includes established body
 origin/ground contact, scale against world geometry, connected turning/movement,
 a second received appearance and connected lifecycle cases. The milestone stays
 active.
+
+## Neutral anchor evidence checkpoint
+
+[Neutral world-placement evidence](native-avatar-world-placement.md) now records
+SHA-bound Stand CGOffset/pose-adjustment dispatch and native ground-clearance
+call sites. `just test-native-avatar-anchor` verifies these with a focused static
+check, without executing reference code or importing Ghidra. The rejected old
+snapshot's profile mismatch is recorded; no broad replacement analysis was run.
+
+`NativeDpAvatarGeometry::standing_ground_clearance` exposes the existing native
+`CGHeight(true)` result for neutral adult validation. The mounted received-DNA
+test measures it separately from `CGHeight(false)` and the drawn sole envelope,
+and checks that changing the pose context is rejected. The difference is not
+used to move the render body. A controlled received grounded/off-ground test is
+still required; nominal ground clearance alone does not prove wire-origin or
+landed visual acceptance.
+
+Anchor checkpoint verification: the SHA-bound static check and both mounted
+receive/preparation integration cases pass; 732 default-library tests pass
+(one ignored). Client-library/integration-test Clippy with warnings denied,
+formatting and diff whitespace checks pass. No new GPU acceptance is claimed
+for this metadata/evidence-only placement checkpoint.
