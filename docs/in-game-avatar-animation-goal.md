@@ -5,7 +5,8 @@ the OpenShores experience and user-mounted assets. A moving connected avatar,
 not merely an offline animated fixture, is the required final result.
 
 Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
-received Jump posing and arm-channel Wave. Mixed admitted channels are preserved;
+received Jump posing, arm-channel Wave and folded-limb codes0x18/0x19/0x1b/0x35.
+Mixed admitted channels are preserved;
 local movement predicts and reports locomotion only over received all-Stand.
 Other actions, nonzero source pose parameters/head tilt, guided mode, winged and
 legless body animation remain explicit unsupported inputs, not silent fallbacks.
@@ -396,4 +397,19 @@ offline checks pass eleven static verifiers, 791 library tests (six ignored),
 both received-DNA tests and all eight mounted limb tests; strict client Clippy
 passes. Source admission and connected Fold captures remain required, so the
 runtime adapter still rejects these codes instead of drawing an unverified pose.
+
+Received Fold admission checkpoint: source codes0x18/0x19/0x1b/0x35 are now
+explicitly admitted, preserved through real packet-ingestion tests and given
+distinct numeric HUD statuses without guessed action names. The owned-server
+fixture requests each after Jump and captures two samples per code while keeping
+the same root/meshes/material/atlas/UVs. Native0x1b is intentionally static;
+the other three change through existing timed torso dispatch. Mounted tests
+confirm that exact distinction, repeats and Stand restoration. Connected
+verification passes: all four codes are received with distinct statuses, the
+expected timed/fixed samples, persistent GPU identities, no outgoing action
+overwrite and exact Stand/eye restoration. All A captures plus Fold18-B under
+`target/connected-avatar-1q9_rh52` were opened: limbs stay folded and the timed
+codes have modest torso changes. The unchanged root remains visibly above
+terrain; no seat placement or physics is implied by posing. The current library
+suite passes 791 tests (six ignored), and strict client Clippy passes.
 

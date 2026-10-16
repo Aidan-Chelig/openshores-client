@@ -293,12 +293,14 @@ def main() -> None:
                                     assert "AVATAR POSE parsed client report during stand" in report_log
                                     assert "AVATAR POSE unexpected report during" not in report_log, "local prediction overwrote a received action"
                                     print("Connected avatar animation: source decoder observed neutral reports and no action-overwriting reports after transport grace", flush=True)
-                                    for request in ("mixed", "dying", "dead", "wave", "jump", "unsupported", "stand"):
+                                    for request in ("mixed", "dying", "dead", "wave", "jump", "fold-18", "fold-19", "fold-1b", "fold-35", "unsupported", "stand"):
                                         assert f"AVATAR POSE sent {request}:" in log_path.read_text()
                                     for phase in ("a", "b"):
                                         assert (directory / f"received-{phase}.png").is_file()
                                         assert (directory / f"wave-{phase}.png").is_file()
                                         assert (directory / f"jump-{phase}.png").is_file()
+                                        for code in ("18", "19", "1b", "35"):
+                                            assert (directory / f"fold-{code}-{phase}.png").is_file()
                                     for pose in ("dying", "dead"):
                                         assert (directory / f"received-{pose}.png").is_file()
                                     assert "Connected avatar received/render appearance verified" in result.stdout

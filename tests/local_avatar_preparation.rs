@@ -280,6 +280,14 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
         let repeat = animation.sample_channels(&pose, 0., 0).unwrap();
         assert!(b.eye.iter().all(|v| v.is_finite()));
         assert_eq!(a.eye, repeat.eye);
+        assert_eq!(
+            a.surfaces
+                .iter()
+                .zip(&b.surfaces)
+                .any(|(a, b)| a.corners != b.corners),
+            code != 0x1b,
+            "fold rhythm/default dispatch for {code:#x}"
+        );
         assert!(
             a.surfaces
                 .iter()

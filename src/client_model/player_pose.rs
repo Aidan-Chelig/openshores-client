@@ -49,7 +49,7 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
         ));
     }
     if received.iter().enumerate().any(|(index, code)| {
-        !(matches!(code, 0x12 | 0x15 | 0x1c | 0x24..=0x26)
+        !(matches!(code, 0x12 | 0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
             || matches!(index, 2 | 5) && *code == 0x30)
     }) {
         return Err(io::Error::new(
@@ -134,6 +134,18 @@ mod tests {
         );
         model.world.ingest(&packet(Some([0x13; 10]))).unwrap();
         assert!(model.local_player_pose(12.).is_err());
+        for code in [0x18, 0x19, 0x1b, 0x35] {
+            model.world.ingest(&packet(Some([code; 10]))).unwrap();
+            assert_eq!(
+                model
+                    .local_player_pose(12.)
+                    .unwrap()
+                    .unwrap()
+                    .native
+                    .fields_3c,
+                [u32::from(code); 10]
+            );
+        }
         model.world.ingest(&packet(Some([0x1c; 10]))).unwrap();
         assert_eq!(
             model
@@ -201,6 +213,12 @@ mod tests {
         let jump = select(&person, 12.).unwrap().unwrap();
         assert!(!jump.predicted);
         assert_eq!(jump.native.fields_3c, [0x1c; 10]);
+        for code in [0x18, 0x19, 0x1b, 0x35] {
+            person.poses = Some([code; 10]);
+            let folded = select(&person, 12.).unwrap().unwrap();
+            assert!(!folded.predicted);
+            assert_eq!(folded.native.fields_3c, [u32::from(code); 10]);
+        }
         let mut wave = [0x24; 10];
         wave[2] = 0x30;
         person.poses = Some(wave);

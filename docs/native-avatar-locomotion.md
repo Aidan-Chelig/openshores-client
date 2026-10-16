@@ -282,3 +282,14 @@ pairs, all selectors and both ankle branches on one cached-only body, preserving
 all unselected bones and requesting no clock for the leg-only request. The arm
 unit test proves override changes only the first selected arm and rejects NaN
 pitch before writes. Runtime source admission and connected captures remain open.
+
+Received Fold acceptance: all four numeric codes are explicitly admitted by the
+source adapter and tested through packet ingestion. The expanded owned-server
+sequence passes both captures per code, changing torso phases for0x18/0x19/0x35
+and fixed0x1b, unchanged root/mesh/material/atlas/UVs, non-overwriting client reports
+and exact Stand/eye recovery. All four A images and Fold18-B in
+`target/connected-avatar-1q9_rh52` were inspected: folded limbs and modest torso
+motion are visible. Root elevation is deliberately unchanged, so the pose floats
+above this fixture's terrain; no seat/root-placement correction is introduced.
+User-facing action names, seating interaction and physical transitions remain
+separate from these verified received numeric pose channels.

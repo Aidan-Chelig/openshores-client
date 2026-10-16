@@ -133,6 +133,14 @@ pub(super) fn animate(
                 "Avatar animation: dead (face down)"
             } else if selected.native.fields_3c == [0x1c; 10] {
                 "Avatar animation: received jump pose"
+            } else if selected.native.fields_3c == [0x18; 10] {
+                "Avatar animation: folded-limb pose 0x18"
+            } else if selected.native.fields_3c == [0x19; 10] {
+                "Avatar animation: folded-limb pose 0x19"
+            } else if selected.native.fields_3c == [0x1b; 10] {
+                "Avatar animation: folded-limb pose 0x1b"
+            } else if selected.native.fields_3c == [0x35; 10] {
+                "Avatar animation: folded-limb pose 0x35"
             } else if selected.native.fields_3c[2] == 0x30 || selected.native.fields_3c[5] == 0x30 {
                 "Avatar animation: received wave channels"
             } else {
