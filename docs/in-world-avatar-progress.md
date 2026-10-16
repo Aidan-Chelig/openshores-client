@@ -126,3 +126,40 @@ pre-existing asset/GPU-dependent cases ignored. Both supplied-server-DNA
 preparation integration cases pass. Client-library Clippy with warnings denied,
 formatting and diff whitespace checks pass. No connected GPU capture was taken
 for this checkpoint.
+
+## Source-client turning checkpoint
+
+Movement, camera heading and predicted body facing now share one tangent-frame
+helper: local X right, Y forward, Z radial up. Clockwise UI yaw is converted into
+the existing Rx*Ry*Rz Euler representation, rather than incorrectly treating it
+as a global Z angle. Tests round-trip the encoded angles through the actual
+placement matrix at both poles, the equator and an off-axis southern position.
+
+Bootstrap initializes camera heading from the received rotation's projected
+forward direction. The body retains received rotation until local input predicts
+a new facing. Moving or turning updates that predicted rotation immediately and
+sends it with the next position report. A dirty flag preserves short mouse turns
+that finish before the report interval, instead of losing their final report.
+Pitch remains camera-only. Bootstrap/disconnect reset prediction/report state.
+
+The render-world regression now verifies southern-facing rotation changes while
+retaining the same root and mesh handles. A control-system test checks immediate
+south-pole body rotation and pending short-turn retention. All 770 client-library
+tests pass (six asset/GPU cases remain ignored); warnings-denied client-library
+Clippy passes.
+
+This establishes the Rust source-client prediction convention, not original
+runtime parity or proof that the supplied server persists/echoes orientation.
+An initially received zero rotation is not silently replaced with inferred
+gravity alignment. Ground origin/contact and connected GPU acceptance remain
+open; the provisional-placement HUD status is deliberately retained.
+
+The graphical client builds and `python tests/local_server.py quick-smoke` passes
+against its disposable PostgreSQL/server world on loopback, using Vulkan on the
+local AMD adapter. It mounts 4882 assets and reaches selected-player preparation,
+but its 30-frame exit happens before body readiness. This is login/mount/GPU
+startup regression evidence only, not body draw or visual acceptance. Source
+inspection of `protocol/atoms/person.py::_build_daperson_xform_update` confirms
+that writer emits three zero rotation floats; server orientation echo must be
+tested explicitly rather than assumed from client prediction tests. Formatting
+and diff whitespace checks also pass.

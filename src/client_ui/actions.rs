@@ -23,8 +23,16 @@ pub(super) fn network_events(mut ui: ResMut<Presentation>, bridge: Res<Bridge>) 
         }
         if bootstrap {
             ui.local_position = ui.model.position();
+            ui.local_rotation = None;
+            ui.report_dirty = false;
+            ui.report_timer = 0.;
             ui.hand = false;
-            ui.yaw = 0.;
+            ui.yaw = ui
+                .model
+                .position()
+                .zip(ui.model.rotation())
+                .and_then(|(position, rotation)| placement::received_heading(position, rotation))
+                .unwrap_or(0.);
             ui.pitch = 0.;
             ui.mappings = [None; 10];
         }

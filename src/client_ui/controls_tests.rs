@@ -1,6 +1,39 @@
 use super::*;
 
 #[test]
+fn short_mouse_turn_predicts_body_and_remains_pending_until_report_interval() {
+    let mut app = app();
+    {
+        let mut ui = app.world_mut().resource_mut::<Presentation>();
+        ui.local_position = Some([0., 0., -100.]);
+        ui.report_timer = -1.; // keep this frame below the send interval
+    }
+    app.world_mut()
+        .resource_mut::<AccumulatedMouseMotion>()
+        .delta = Vec2::new(100., 0.);
+    app.update();
+    {
+        let ui = app.world().resource::<Presentation>();
+        assert!(ui.report_dirty);
+        let angles = ui
+            .local_rotation
+            .expect("body turns before a network report");
+        let body = placement::local_model([0.; 3], angles.map(|v| v as f32), 1.).unwrap();
+        let frame = placement::tangent_frame([0., 0., -100.], ui.yaw).unwrap();
+        assert!((body.rotation * Vec3::Y - frame.y_axis).length() < 1e-5);
+        assert!((body.rotation * Vec3::Z + Vec3::Z).length() < 1e-5);
+    }
+    app.world_mut()
+        .resource_mut::<AccumulatedMouseMotion>()
+        .delta = Vec2::ZERO;
+    app.update();
+    assert!(
+        app.world().resource::<Presentation>().report_dirty,
+        "a turn must not be dropped when the mouse stops before the report tick"
+    );
+}
+
+#[test]
 fn rightward_mouse_motion_turns_camera_right_at_both_poles() {
     let mut app = app();
     app.world_mut()

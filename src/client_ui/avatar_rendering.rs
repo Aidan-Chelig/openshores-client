@@ -75,7 +75,10 @@ pub(super) fn render(
         }
         let source = entity.transform?;
         let position = ui.local_position.unwrap_or(source.position.map(f64::from));
-        let rotation = ui.model.rotation()?.map(|v| v as f32);
+        let rotation = ui
+            .local_rotation
+            .or_else(|| ui.model.rotation())?
+            .map(|v| v as f32);
         placement::local_model(position, rotation, ui.scale)
             .map(|transform| transform.with_scale(Vec3::splat(ui.scale as f32)))
     });
@@ -253,6 +256,7 @@ mod tests {
         {
             let mut ui = app.world_mut().resource_mut::<Presentation>();
             ui.local_position = Some([20., 30., -100.]);
+            ui.local_rotation = placement::heading_rotation([20., 30., -100.], 0.7);
             ui.model.revision += 1;
         }
         app.update();
@@ -261,6 +265,9 @@ mod tests {
         let transform = app.world().get::<Transform>(root).unwrap();
         assert!((transform.translation - Vec3::new(0.2, 0.3, -1.)).length() < 1e-6);
         assert_eq!(transform.scale, Vec3::splat(0.01));
+        let frame = placement::tangent_frame([20., 30., -100.], 0.7).unwrap();
+        assert!((transform.rotation * Vec3::Y - frame.y_axis).length() < 1e-5);
+        assert!((transform.rotation * Vec3::Z - frame.z_axis).length() < 1e-5);
         app.world_mut()
             .resource_mut::<Presentation>()
             .model

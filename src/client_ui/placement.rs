@@ -2,6 +2,46 @@
 use crate::atom_position::PackedPosition;
 use bevy::prelude::*;
 
+/// Source-client locomotion frame: +X right, +Y forward, +Z radial up.
+/// Yaw is the UI's clockwise/rightward heading, not a global Z Euler angle.
+pub(super) fn tangent_frame(position: [f64; 3], yaw: f32) -> Option<Mat3> {
+    let point = bevy::math::DVec3::from_array(position);
+    if !point.is_finite() || !yaw.is_finite() {
+        return None;
+    }
+    let radial = point.normalize_or_zero();
+    let up = if radial.length_squared() > 0. {
+        radial.as_vec3()
+    } else {
+        Vec3::Z
+    };
+    let basis = if up.dot(Vec3::Z).abs() > 0.95 {
+        Vec3::Y
+    } else {
+        Vec3::Z
+    };
+    let right = basis.cross(up).normalize();
+    let north = up.cross(right);
+    let forward = north * yaw.cos() + right * yaw.sin();
+    Some(Mat3::from_cols(forward.cross(up), forward, up))
+}
+
+/// Encode our source-profile predicted frame in the existing Rx*Ry*Rz path.
+pub(super) fn heading_rotation(position: [f64; 3], yaw: f32) -> Option<[f64; 3]> {
+    let frame = tangent_frame(position, yaw)?;
+    let (x, y, z) = Quat::from_mat3(&frame).normalize().to_euler(EulerRot::XYZ);
+    Some([x, y, z].map(f64::from))
+}
+
+pub(super) fn received_heading(position: [f64; 3], rotation: [f64; 3]) -> Option<f32> {
+    let frame = tangent_frame(position, 0.)?;
+    let rotation = local_model([0.; 3], rotation.map(|v| v as f32), 1.)?.rotation;
+    let forward = rotation * Vec3::Y;
+    let x = forward.dot(frame.x_axis);
+    let y = forward.dot(frame.y_axis);
+    (x * x + y * y > 1e-10).then(|| x.atan2(y))
+}
+
 pub(super) fn local_model(position: [f64; 3], rotation: [f32; 3], scale: f64) -> Option<Transform> {
     if !scale.is_finite() || scale <= 0.0 {
         return None;
@@ -43,6 +83,35 @@ pub(super) fn local_model(position: [f64; 3], rotation: [f32; 3], scale: f64) ->
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn reported_heading_roundtrips_native_axes_at_poles_and_off_axis() {
+        for position in [
+            [0., 0., 100.],
+            [0., 0., -100.],
+            [100., 0., 0.],
+            [30., -40., -50.],
+        ] {
+            for yaw in [-3.1, -1.57, -0.3, 0., 0.7, 1.57, 3.1] {
+                let frame = tangent_frame(position, yaw).unwrap();
+                let angles = heading_rotation(position, yaw).unwrap();
+                let placement = local_model(position, angles.map(|v| v as f32), 0.001).unwrap();
+                for (axis, expected) in [
+                    (Vec3::X, frame.x_axis),
+                    (Vec3::Y, frame.y_axis),
+                    (Vec3::Z, frame.z_axis),
+                ] {
+                    assert!(
+                        (placement.rotation * axis - expected).length() < 2e-5,
+                        "{position:?} {yaw}"
+                    );
+                }
+                let recovered = received_heading(position, angles).unwrap();
+                assert!((recovered - yaw).sin().abs() < 2e-5);
+                assert!(frame.determinant() > 0.99999);
+            }
+        }
+    }
 
     #[test]
     fn bevy_rotation_preserves_native_columns_and_scaled_translation() {

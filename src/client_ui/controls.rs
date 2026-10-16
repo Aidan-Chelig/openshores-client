@@ -220,21 +220,12 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
     let Some(position) = ui.local_position else {
         return;
     };
-    let radial = DVec3::from_array(position).normalize_or_zero();
-    let up = if radial.length_squared() > 0. {
-        radial
-    } else {
-        DVec3::Z
+    let Some(frame) = placement::tangent_frame(position, ui.yaw) else {
+        return;
     };
-    let basis = if up.dot(DVec3::Z).abs() > 0.95 {
-        DVec3::Y
-    } else {
-        DVec3::Z
-    };
-    let right = basis.cross(up).normalize();
-    let north = up.cross(right);
-    let forward = north * f64::from(ui.yaw.cos()) + right * f64::from(ui.yaw.sin());
-    let lateral = forward.cross(up);
+    let up = frame.z_axis.as_dvec3();
+    let forward = frame.y_axis.as_dvec3();
+    let lateral = frame.x_axis.as_dvec3();
     let mut direction = DVec3::ZERO;
     if keys.pressed(KeyCode::KeyW) {
         direction += forward;
@@ -267,19 +258,26 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
                 .to_array(),
         );
     }
-    if ui.report_timer >= 0.1
-        && (direction.length_squared() > 0. || motion.delta.length_squared() > 0.)
-    {
+    if direction.length_squared() > 0. || motion.delta.length_squared() > 0. {
+        ui.local_rotation = placement::heading_rotation(ui.local_position.unwrap(), ui.yaw);
+        ui.report_dirty = true;
+    }
+    if ui.report_timer >= 0.1 && ui.report_dirty {
         ui.report_timer = 0.;
         let projected = ui.local_position.unwrap();
-        let rotation = ui.model.rotation().unwrap_or([0.; 3]);
-        send(
+        let rotation = ui
+            .local_rotation
+            .or_else(|| ui.model.rotation())
+            .unwrap_or([0.; 3]);
+        if send(
             &mut ui,
             &bridge,
             Request::Scene(SceneCommand::PositionReport {
                 projected,
                 rotation,
             }),
-        );
+        ) {
+            ui.report_dirty = false;
+        }
     }
 }

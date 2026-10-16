@@ -19,6 +19,8 @@ pub(super) fn scene(
         ui.terrain = None;
         ui.camera_terrain = None;
         ui.local_position = None;
+        ui.local_rotation = None;
+        ui.report_dirty = false;
         return;
     }
     let Some(home) = ui.model.home_globe() else {
@@ -147,20 +149,11 @@ pub(super) fn scene(
                 transform.translation = point;
             }
         }
-        let up = point.normalize_or_zero();
-        let up = if up.length_squared() > 0. {
-            up
-        } else {
-            Vec3::Z
+        let Some(frame) = placement::tangent_frame(position, ui.yaw) else {
+            return;
         };
-        let basis = if up.dot(Vec3::Z).abs() > 0.95 {
-            Vec3::Y
-        } else {
-            Vec3::Z
-        };
-        let right = basis.cross(up).normalize();
-        let north = up.cross(right);
-        let forward = north * ui.yaw.cos() + right * ui.yaw.sin();
+        let up = frame.z_axis;
+        let forward = frame.y_axis;
         let look = forward * ui.pitch.cos() + up * ui.pitch.sin();
         if let Ok((mut transform, mut projection)) = camera.single_mut() {
             if let Projection::Perspective(perspective) = &mut *projection {
