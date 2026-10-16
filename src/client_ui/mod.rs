@@ -10,6 +10,7 @@ use crate::{
 mod actions;
 mod assets;
 mod auto_login;
+mod avatar;
 mod camera;
 mod chat;
 mod controls;
@@ -52,6 +53,7 @@ struct Presentation {
     asset_request: bool,
     asset_browse: bool,
     assets_ready: bool,
+    avatar_status: String,
     chat_focus: bool,
     chat_draft: String,
     chat_channel: u8,
@@ -207,6 +209,7 @@ fn launch(
     app.insert_resource(Bridge(Mutex::new(runtime)))
         .init_resource::<assets::Setup>()
         .init_resource::<models::Cache>()
+        .init_resource::<avatar::Preparation>()
         .insert_resource(Presentation {
             model,
             chat_channel: 2,
@@ -239,6 +242,7 @@ fn launch(
                 actions::network_events,
                 assets::preparation,
                 actions::buttons,
+                avatar::preparation,
                 chat::typing,
                 controls::keyboard,
                 scene::scene,

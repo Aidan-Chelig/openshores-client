@@ -60,6 +60,10 @@ test-native-avatar-attachments installation="reference/hazeron":
 test-native-avatar-torso installation="reference/hazeron":
     nix develop .#server-test --command env OPENSHORES_HAZERON_INSTALLATION={{quote(installation)}} cargo test --offline --test native_avatar_torso -- --include-ignored --nocapture
 
+# Actual supplied-server default DNA through receive and mounted CPU preparation.
+test-local-avatar-preparation installation="reference/hazeron":
+    nix develop .#server-test --command python tests/local_avatar_preparation.py {{quote(installation)}}
+
 # Inspect assets without extraction; installation files are never executed.
 assets installation="reference/hazeron": build
     nix develop .#server-test --command target/debug/openshores-client inspect-mount {{quote(installation)}}

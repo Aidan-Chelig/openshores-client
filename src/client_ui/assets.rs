@@ -8,7 +8,7 @@ pub(super) struct Setup {
     pub(super) revision: u64,
     picker: Option<Mutex<Receiver<Option<std::path::PathBuf>>>>,
     pending: Option<Mutex<Receiver<io::Result<PreparedAssets>>>>,
-    pub(super) prepared: Option<PreparedAssets>,
+    pub(super) prepared: Option<std::sync::Arc<PreparedAssets>>,
 }
 
 pub(super) fn preparation(mut setup: ResMut<Setup>, mut ui: ResMut<Presentation>) {
@@ -88,7 +88,7 @@ pub(super) fn preparation(mut setup: ResMut<Setup>, mut ui: ResMut<Presentation>
                     prepared.opaque_models
                 );
                 println!("{}; cache {}", ui.asset_status, prepared.cache.display());
-                setup.prepared = Some(prepared);
+                setup.prepared = Some(std::sync::Arc::new(prepared));
                 ui.assets_ready = true;
             }
             Err(error) => ui.asset_status = format!("Asset preparation failed: {error}"),

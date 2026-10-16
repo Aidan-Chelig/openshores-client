@@ -6,8 +6,13 @@ use crate::{
     world::{AtomKind, WorldState},
 };
 use std::io;
+mod avatar_preparation;
 mod native;
 mod player_appearance;
+pub use avatar_preparation::{
+    AvatarContentKey, AvatarPreparation, AvatarPreparationStatus, AvatarRequest,
+    PreparedNormalAvatar,
+};
 pub use native::NativeAvatarPresentation;
 pub use player_appearance::LocalPlayerDna;
 
@@ -24,6 +29,8 @@ pub enum Phase {
 }
 #[derive(Default)]
 pub struct ClientModel {
+    /// Successful source-session bootstrap generation; independent of movement.
+    pub session_generation: u64,
     pub native_avatar: Option<Box<NativeAvatarPresentation>>,
     pub story_open: bool,
     pub story: std::collections::VecDeque<crate::chat::StoryText>,
@@ -121,6 +128,10 @@ impl ClientModel {
                 self.status = "Select an avatar (empty slots remain empty)".into();
             }
             Event::Bootstrap(bootstrap) => {
+                let generation = self
+                    .session_generation
+                    .checked_add(1)
+                    .ok_or_else(|| io::Error::other("source session generation exhausted"))?;
                 let mut world = WorldState::default();
                 for packet in &bootstrap.packets {
                     world.ingest(packet)?;
@@ -129,6 +140,7 @@ impl ClientModel {
                     return Err(io::Error::other("bootstrap avatar mismatch"));
                 }
                 self.avatar = Some(bootstrap.avatar_id);
+                self.session_generation = generation;
                 self.world = world;
                 self.chat.clear();
                 self.story.clear();

@@ -224,6 +224,7 @@ pub(super) fn rebuild_panels(
                     "Base terrain / raw item models / prototype physics",
                 );
                 label(&mut commands, root, &ui.model.status);
+                label(&mut commands, root, &ui.avatar_status);
             }
             if ui.windows_open {
                 super::chat::panel(&mut commands, root, &ui);
