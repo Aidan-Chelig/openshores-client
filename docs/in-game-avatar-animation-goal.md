@@ -319,6 +319,11 @@ The matrix passes and is included in `test-native-avatar-animation` along with
 all six mounted standing/limb tests. The combined nine static checks, 788 client
 tests, two received-DNA tests and six mounted limb tests all pass.
 
-The full offline GPU preview regression is running separately; CPU multi-arm
-coverage is not substituted for visual verification or complete action support.
+The full offline GPU preview regression also passes: all 11 head/torso,
+base/many-body four-view and untextured captures were produced without renderer
+errors, and both captured-image nonblank tests pass. Output is under
+`target/avatar-textures-uhs_hfuh`. Base-front, many-oblique and many-front were
+opened and inspected; the existing textured anatomy/geometry remains consistent.
+These are standing previews, not proof of animated multi-limb GPU behavior:
+CPU multi-arm coverage is not substituted for complete connected action support.
 
