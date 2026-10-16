@@ -21,6 +21,13 @@ pub(super) struct State {
 #[derive(Component)]
 pub(super) struct LocalAvatar;
 
+pub(super) struct GpuSnapshot {
+    pub root: Entity,
+    pub meshes: Vec<bevy::asset::AssetId<Mesh>>,
+    pub material: bevy::asset::AssetId<SkinMaterial>,
+    pub image: bevy::asset::AssetId<Image>,
+}
+
 #[derive(SystemParam)]
 pub(super) struct RenderAssets<'w> {
     meshes: ResMut<'w, Assets<Mesh>>,
@@ -29,6 +36,14 @@ pub(super) struct RenderAssets<'w> {
 }
 
 impl State {
+    pub(super) fn gpu_snapshot(&self) -> Option<GpuSnapshot> {
+        Some(GpuSnapshot {
+            root: self.root?,
+            meshes: self.mesh_ids(),
+            material: self.material.as_ref()?.id(),
+            image: self.image.as_ref()?.id(),
+        })
+    }
     pub(super) fn mesh_ids(&self) -> Vec<bevy::asset::AssetId<Mesh>> {
         self.meshes.iter().map(Handle::id).collect()
     }
@@ -357,6 +372,11 @@ mod tests {
             state.material = Some(material.clone());
             state.image = Some(image.clone());
         }
+        let snapshot = app.world().resource::<State>().gpu_snapshot().unwrap();
+        assert_eq!(snapshot.root, root);
+        assert_eq!(snapshot.meshes, [mesh.id()]);
+        assert_eq!(snapshot.material, material.id());
+        assert_eq!(snapshot.image, image.id());
         app.update();
         assert!(app.world().get_entity(root).is_err());
         assert!(app.world().get_entity(child).is_err());
@@ -369,6 +389,7 @@ mod tests {
         );
         assert!(!app.world().resource::<Assets<Image>>().contains(image.id()));
         assert!(app.world().resource::<State>().root.is_none());
+        assert!(app.world().resource::<State>().gpu_snapshot().is_none());
         app.update(); // repeated cleanup is harmless
     }
 }

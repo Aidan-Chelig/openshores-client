@@ -11,6 +11,9 @@ pub(super) struct Workflow {
     target: Option<([f64; 3], [f64; 3])>,
 }
 impl Workflow {
+    pub(super) fn initial_dna(&self) -> Option<&NativeDhDna> {
+        self.original.as_ref().map(|(_, _, dna)| dna)
+    }
     pub(super) fn complete(&self) -> bool {
         self.stage == 4
     }

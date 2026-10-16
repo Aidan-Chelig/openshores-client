@@ -12,6 +12,7 @@ mod assets;
 mod auto_login;
 mod avatar;
 mod avatar_inspection;
+mod avatar_lifecycle;
 mod avatar_live;
 mod avatar_rendering;
 mod camera;
@@ -215,6 +216,12 @@ fn launch(
     let mut app = App::new();
     let capture = avatar_inspection::Capture::from_environment(auto_profile.is_some())?;
     let live_test = std::env::var_os("OPENSHORES_TEST_AVATAR_LIVE").is_some();
+    let lifecycle_test = std::env::var_os("OPENSHORES_TEST_AVATAR_LIFECYCLE").is_some();
+    if lifecycle_test && !live_test {
+        return Err(io::Error::other(
+            "avatar lifecycle acceptance requires live acceptance",
+        ));
+    }
     if live_test && (auto_profile.is_none() || capture.is_none()) {
         return Err(io::Error::other(
             "live avatar acceptance requires synthetic auto-login and capture",
@@ -283,6 +290,17 @@ fn launch(
             Update,
             avatar_live::workflow
                 .after(avatar_inspection::camera)
+                .before(avatar_inspection::capture),
+        );
+    }
+    if lifecycle_test {
+        app.insert_resource(avatar_lifecycle::Workflow::new(
+            auto_profile.as_ref().unwrap(),
+        ))
+        .add_systems(
+            Update,
+            avatar_lifecycle::workflow
+                .after(avatar_live::workflow)
                 .before(avatar_inspection::capture),
         );
     }

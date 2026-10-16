@@ -1,8 +1,15 @@
 //! Inspection changes the connected camera only, never body coordinates.
 use super::*;
+use bevy::ecs::system::SystemParam;
 use bevy::render::view::screenshot::{Screenshot, ScreenshotCaptured};
 use std::{path::PathBuf, time::Instant};
 type InspectionCamera = (With<SliceCamera>, Without<avatar_rendering::LocalAvatar>);
+
+#[derive(SystemParam)]
+pub(super) struct Acceptance<'w> {
+    live: Option<Res<'w, avatar_live::Workflow>>,
+    lifecycle: Option<Res<'w, avatar_lifecycle::Workflow>>,
+}
 
 pub(super) fn camera(
     ui: Res<Presentation>,
@@ -145,7 +152,7 @@ pub(super) fn capture(
     mut ui: ResMut<Presentation>,
     mut exit: MessageWriter<AppExit>,
     roots: Query<&Transform, With<avatar_rendering::LocalAvatar>>,
-    live: Option<Res<avatar_live::Workflow>>,
+    acceptance: Acceptance,
 ) {
     if capture.started.elapsed().as_secs() > 150 {
         eprintln!(
@@ -155,7 +162,9 @@ pub(super) fn capture(
         exit.write(AppExit::error());
         return;
     }
-    if live.is_some_and(|flow| !flow.complete()) {
+    if acceptance.live.is_some_and(|flow| !flow.complete())
+        || acceptance.lifecycle.is_some_and(|flow| !flow.complete())
+    {
         return;
     }
     let Some((root, _, _)) = state.focus else {

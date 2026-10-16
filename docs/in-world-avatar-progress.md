@@ -292,3 +292,40 @@ checks pass. The three ordinary connected cases and the explicit live-update
 fixture pass on Vulkan. Connected southern placement, reconnect/removal/session
 workflows, normal first-person camera acceptance and final offline regressions
 remain required. The full milestone is not complete.
+
+## Connected removal, restoration and reconnect checkpoint
+
+`just test-connected-avatar-lifecycle` extends the explicit live fixture in the
+same client process. After motion and the sparse DNA update, a third distinct
+real position report causes the test server to withdraw only the selected player
+from its actual generated manifest, then restore the full generated manifest one
+second later. Other manifest IDs are preserved; no client-side event is injected.
+
+On received removal, acceptance checks that the old root is absent, every owned
+mesh/material/atlas asset is removed, and no child draw references the removed
+meshes. On restoration, it requires one new GPU root and the same completed CPU
+body Arc, proving deliberate bounded-cache reuse rather than geometry regeneration.
+
+The client then requests a real disconnect. The render state must remain empty
+for 30 disconnected frames before reauthenticating with the synthetic account
+and selecting the same player. The successful new bootstrap must advance session
+generation, match the current attached owner, restore the actual received default
+DNA (not the earlier smaller sparse update), and leave exactly one local root.
+Credentials retained for this opt-in workflow use zeroizing storage and are
+cleared after successful reconnect; normal quick-dev authentication is unchanged.
+
+The Vulkan run completed all lifecycle gates and the final DNA/height capture.
+`target/connected-avatar-enxi7zms/live-lifecycle.png` was opened and inspected:
+the complete default textured body is present after reconnect, with no duplicate
+marker or stale smaller body. Captures remain local and ignored.
+
+CPU cleanup tests also verify that the diagnostic GPU snapshot names the exact
+owned handles before cleanup and becomes unavailable afterward. The existing
+scheduler race tests remain the evidence for stale asynchronous completion during
+session/selection changes; this connected scenario disconnects a ready body and
+does not pretend to force a slow-worker race.
+
+Verification: 773 client-library tests pass (six ignored); strict client library
+and binary Clippy, formatting and diff checks pass. Connected southern placement,
+normal first-person camera acceptance and final offline regressions remain open.
+The milestone is active, not complete.

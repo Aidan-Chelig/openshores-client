@@ -82,6 +82,11 @@ real report receiver plus an explicit owned-server echo/update fixture because
 the supplied writer does not preserve rotation or emit these DNA changes. The
 reference source is untouched; this is not unmodified-server echo parity.
 
+`just test-connected-avatar-lifecycle` extends that same-process test with a
+received manifest removal/restore, GPU-resource cleanup, cached CPU-body reuse,
+disconnect and authenticated reconnect to the same selected player. Its final
+capture checks the new bootstrap DNA rather than retaining the previous update.
+
 For an already running local server:
 
 ```sh

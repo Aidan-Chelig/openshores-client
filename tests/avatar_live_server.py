@@ -9,6 +9,7 @@ import asyncio
 import contextlib
 import functools
 import inspect
+import os
 import runpy
 import struct
 import time
@@ -23,7 +24,8 @@ original = connection.handle_scene
 async def observe_reports(live, writer):
     previous = None
     count = 0
-    while not writer.is_closing() and count < 2:
+    lifecycle = bool(os.environ.get("OPENSHORES_TEST_AVATAR_LIFECYCLE"))
+    while not writer.is_closing() and count < (3 if lifecycle else 2):
         await asyncio.sleep(0.05)
         for auid, entry in list(live.items()):
             if entry.get("writer") is not writer:
@@ -36,6 +38,19 @@ async def observe_reports(live, writer):
                 continue
             previous = report
             count += 1
+            if count == 3:
+                full = writer._scene_manifest_builder()
+                assert full[0] == 0x18 and full[5] == 1
+                ids = [value[0] for value in struct.iter_unpack(">I", full[8:])]
+                assert auid in ids
+                remaining = [value for value in ids if value != auid]
+                removed = full[:6] + struct.pack(">h", len(remaining)) + b"".join(struct.pack(">I", value) for value in remaining)
+                await write_framed(writer, removed)
+                print(f"AVATAR LIFECYCLE manifest removed player={auid}", flush=True)
+                await asyncio.sleep(1)
+                await write_framed(writer, writer._scene_manifest_builder())
+                print(f"AVATAR LIFECYCLE manifest restored player={auid}", flush=True)
+                continue
             packet = (b"\x12" + struct.pack(">IqB", auid, int(time.time()*1000), 8)
                       + struct.pack(">6f", *position, *rotation) + b"\x00")
             if count == 2:
