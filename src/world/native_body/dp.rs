@@ -48,6 +48,7 @@ mod arm_wrist;
 mod body_waist;
 mod foot;
 mod height;
+mod leg_jump;
 mod leg_locomotion;
 mod leg_pose;
 pub use leg_locomotion::{NativeDpGait, NativeDpLegLocomotion, NativeDpLegLocomotionAngles};

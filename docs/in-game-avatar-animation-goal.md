@@ -327,3 +327,15 @@ opened and inspected; the existing textured anatomy/geometry remains consistent.
 These are standing previews, not proof of animated multi-limb GPU behavior:
 CPU multi-arm coverage is not substituted for complete connected action support.
 
+Jump dependency checkpoint: the native Jump leg stage is now ported from bounded
+symbol disassembly, with SHA-bound literal/dispatch checks and f32 crouch-to-Stand
+interpolation. Unlike Stand/Walk/Run, it always applies the interpolated ankle,
+including DNA without ankle bend. Static and targeted CPU checks pass. Mounted
+Walk/Run/Jump leg coverage passes one/two/three pairs, all selectors and both
+ankle branches with phase changes, exact repeats and unchanged unselected bones.
+Jump arm dispatch and full composition are still required before runtime0x1c
+admission; no jump physics or in-game jump support is claimed yet.
+The combined offline regression passes ten static checks, 789 library tests
+(six ignored), both received-DNA tests and all six mounted limb tests. Strict
+client Clippy and formatting/diff checks also pass.
+

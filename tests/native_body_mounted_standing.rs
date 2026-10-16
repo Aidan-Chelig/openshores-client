@@ -109,7 +109,7 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
 
 #[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; static native locomotion port, no original runtime"]
-fn mounted_walk_run_leg_samples_change_selected_bones_without_accumulation() {
+fn mounted_walk_run_jump_leg_samples_change_selected_bones_without_accumulation() {
     use openshores_client::world::{
         native_body::{NativeDpGait, NativeDpLegLocomotion},
         native_creature::NativePoseRhythmTimer,
@@ -133,9 +133,10 @@ fn mounted_walk_run_leg_samples_change_selected_bones_without_accumulation() {
         AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
     let mut hands = NativeDpHandCache::new(&mount);
     let mut feet = NativeDpFootCache::new(&mount);
-    for pairs in [1, 2, 3] {
+    for (pairs, ankle) in [(1, 0), (1, 0x80), (2, 0), (2, 0x80), (3, 0), (3, 0x80)] {
         let mut dna = NativeDhDna([0; 24]);
         dna.0[1] = 1;
+        dna.0[10] = ankle;
         dna.0[12] = pairs << 2;
         dna.0[14] = 0x51;
         dna.0[20] = 0x80;
@@ -144,15 +145,8 @@ fn mounted_walk_run_leg_samples_change_selected_bones_without_accumulation() {
         let height = feet
             .standing_height(&dna, base.dimensions(), 0, false)
             .unwrap();
-        for gait in [NativeDpGait::Walk, NativeDpGait::Run] {
+        for gait in [Some(NativeDpGait::Walk), Some(NativeDpGait::Run), None] {
             for selector in [0, 1, 2] {
-                let input = NativeDpLegLocomotion {
-                    gait,
-                    selector,
-                    height,
-                    speed: 4.,
-                    field_4068: 0,
-                };
                 let mut sampled = Vec::new();
                 for millis in [0, 125, 0] {
                     let mut body = base.clone();
@@ -161,7 +155,23 @@ fn mounted_walk_run_leg_samples_change_selected_bones_without_accumulation() {
                         starts: 0,
                         samples: 0,
                     };
-                    body.locomote_legs(input, &mut feet, &mut timer).unwrap();
+                    if let Some(gait) = gait {
+                        body.locomote_legs(
+                            NativeDpLegLocomotion {
+                                gait,
+                                selector,
+                                height,
+                                speed: 4.,
+                                field_4068: 0,
+                            },
+                            &mut feet,
+                            &mut timer,
+                        )
+                        .unwrap();
+                    } else {
+                        body.jump_legs(height, 4., selector, 0, &mut feet, &mut timer)
+                            .unwrap();
+                    }
                     let mut selected_bones = std::collections::BTreeSet::new();
                     let mut count = 0;
                     for (before, part) in base.parts().iter().zip(body.parts()) {

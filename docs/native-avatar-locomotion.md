@@ -192,3 +192,37 @@ eye and standing body stay stable. The corrected death body remains face-down
 at the unchanged received elevation. Exact Stand recovery, persistent assets
 and source-decoder non-overwrite checks all pass. The offline combined suite
 passes nine static anchors, 788 library tests and both mounted tests.
+
+## Jump leg stage (not admitted in-game)
+
+Retained PositionLegs dispatch maps 0x1c to JumpLegs. Bounded complete symbol
+disassembly of JumpLegs (`0x1412efdd0`–`0x1412eff09`) and LegAndFoot::Jump
+(`0x1412d9880`–`0x1412d99f9`) establishes the new isolated stage.
+`tests/native_jump_pose.py` binds the original SHA, float literals, pair selectors,
+rhythm ID, scalar widths and joint order. No original executable was run.
+
+The body spreads at float 0x3e32b8c2, scans trailing legs in reverse, and selects
+later/first/all pairs. Each selected leg samples rhythm0x1c, phase0, caller speed,
+then obtains the real measured standing angles for caller height. With rhythm r,
+standing angle s and crouch angle c, each joint uses f32
+`(r*(s-c)+(s-c))*0.5+c`, retaining the observed operation order.
+Crouch hip/knee are float bits c016cbe4/be860a92. Ankle crouch is 3eb2b8c2
+when HasAnkleBend, otherwise bd0efa35. Application is hip, knee, **unconditional
+ankle**, stored splay; reusing Stand's conditional ankle application would be
+incorrect. No root/world translation is introduced.
+
+The pure angle test covers rhythm extrema/midpoint and both ankle branches.
+The mounted limb matrix now includes Jump alongside Walk/Run across one/two/three
+leg pairs, all pair selectors and both ankle branches; changed phases, exact
+repeats, finite bones and untouched unselected bones all pass. Jump arm/body
+composition and connected acceptance remain open; runtime source0x1c still fails
+explicitly rather than rendering a partial jump.
+
+Arm dependency observation (not ported): bounded ArmAndHand::Jump
+(`0x1412d8190`–`0x1412d8342`) also samples rhythm0x1c with phase0 and caller speed.
+Shoulder interpolates from float(-5degrees) to measured Stand; elbow from
+float(10degrees); wrist from float(10degrees) or float(-2degrees) according to
+wrist-bend DNA. An explicit override instead uses ownerPitch-animatedShoulder
+for elbow and float(-2degrees) wrist. Application is shoulder/wrist/elbow/splay/
+stored lift. The body JumpArms wrapper, spread and override consumption still
+need checking before implementation; these observations alone do not admit it.
