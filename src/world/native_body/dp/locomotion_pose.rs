@@ -48,8 +48,28 @@ impl NativeDpInitialization {
         feet: &mut NativeDpFootCache<'_>,
         timer: &mut impl NativePoseRhythmTimer,
     ) -> io::Result<NativeDpLocomotionSample> {
+        self.pose_channels_with_head_angles(pose, [0., 0.], speed, field_4068, hands, feet, timer)
+    }
+
+    /// Compose with already-established native body angles at30/34, in radians.
+    /// This does not implement Creature::TiltHeadTo's angle limits, pose/parent
+    /// gates, timer or callbacks, nor interpret a source-profile wire value.
+    /// Point/Wave use pitch for every selected arm; ordinary unguided limbs
+    /// retain their existing no-override behavior.
+    #[allow(clippy::too_many_arguments)]
+    pub fn pose_channels_with_head_angles(
+        &mut self,
+        pose: &NativeDpBodyPoseState,
+        head_angles: [f32; 2],
+        speed: f32,
+        field_4068: i32,
+        hands: &mut NativeDpHandCache<'_>,
+        feet: &mut NativeDpFootCache<'_>,
+        timer: &mut impl NativePoseRhythmTimer,
+    ) -> io::Result<NativeDpLocomotionSample> {
         self.validate_neutral_standing()?;
         if !speed.is_finite()
+            || head_angles.iter().any(|v| !v.is_finite())
             || pose.field_6c
             || pose.fields_3c.iter().enumerate().any(|(index, code)| {
                 !(matches!(code, 0x12 | 0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
@@ -58,7 +78,7 @@ impl NativeDpInitialization {
         {
             return Err(io::Error::new(
                 io::ErrorKind::Unsupported,
-                "unsupported locomotion channels/mode or nonfinite speed",
+                "unsupported locomotion channels/mode or nonfinite speed/head angles",
             ));
         }
         let height = feet.pose_height(&self.dna, &self.dimensions, field_4068, pose, false)?;
@@ -102,12 +122,12 @@ impl NativeDpInitialization {
             self.position_tail(pose, height, speed, false, timer)?;
         }
         let torso_angle = self.position_torso(pose, height, speed, field_4068, hands, timer)?;
-        self.position_heads(pose, 0., 0., timer)?;
+        self.position_heads(pose, head_angles[0], head_angles[1], timer)?;
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
                 let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
                 if code == 0x1f {
-                    self.point_arms(side, 0.)?;
+                    self.point_arms(side, head_angles[0])?;
                     continue;
                 }
                 if matches!(code, 0x18 | 0x19 | 0x1b | 0x35) {
@@ -129,7 +149,7 @@ impl NativeDpInitialization {
                     continue;
                 }
                 if code == 0x30 {
-                    self.wave_arms(side, 0., timer)?;
+                    self.wave_arms(side, head_angles[0], timer)?;
                     continue;
                 }
                 if matches!(code, 0x12 | 0x15) {

@@ -329,3 +329,15 @@ non-overwriting reports and exact Stand recovery. Both Point images under
 and the rest of the body remains standing. This is arm posing at owner pitch0,
 not recovered source aiming/pitch semantics, finger articulation or a targeting
 interaction. First-person checks for the expanded sequence remain to be rerun.
+
+Head-angle bridge checkpoint: the compositor now accepts established native
+body30/34 angles, preserving zero-angle wrappers. PositionHeads receives both;
+Point/Wave receive owner pitch, while ordinary unguided limb overrides remain
+absent. The explicit source float-radian adapter, its limits and its distinction
+from native Creature timer/parent/callback effects are documented in
+`native-head-tilt.md`. Mounted tests hold head channels at a fixed override to
+prove angle-dependent geometry changes come from Point/Wave arms, then restore
+exact Stand/eye. The complete expanded first-person action sequence now passes
+in `target/connected-avatar-prcnc1al`, including Fold/Point and sparse stationary
+head tilt/reset, animated-eye tracking, unchanged mouse-look and hidden skull.
+This does not add local targeting controls, finger articulation or physics.

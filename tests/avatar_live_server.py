@@ -117,6 +117,9 @@ async def observe_pose_requests(live, writer):
         "dead": bytes([0x15] * 10),
         "unsupported": bytes([0x13] * 10),
         "stand": bytes([0x24] * 10),
+        "tilt-up": bytes([0x24] * 10),
+        "tilt-down": bytes([0x24] * 10),
+        "tilt-reset": bytes([0x24] * 10),
     }
     while not writer.is_closing():
         await asyncio.sleep(0.05)
@@ -128,9 +131,19 @@ async def observe_pose_requests(live, writer):
         for auid, entry in list(live.items()):
             if entry.get("writer") is not writer:
                 continue
+            # Source received head tilt is a float, independent of the client's
+            # outgoing i16 delta-tick field. Down/reset omit pose channels to
+            # exercise sparse merge and the stationary animation fast path.
+            tilt = {"tilt-up": 0.45, "tilt-down": -0.45, "tilt-reset": 0.}.get(request)
+            with_pose = request not in ("tilt-down", "tilt-reset")
+            flags = (2 if tilt is not None else 0) | (8 if with_pose else 0)
+            body = b"\x00" + bytes([flags])
+            if tilt is not None:
+                body += struct.pack(">f", tilt)
+            if with_pose:
+                body += channels[request] + struct.pack(">I", 0)
             packet = (b"\x12" + struct.pack(">IqB", auid, int(time.time()*1000), 0)
-                      + b"\x00\x08" + channels[request] + struct.pack(">I", 0)
-                      + b"\x00\x00\x00")
+                      + body + b"\x00\x00\x00")
             await write_framed(writer, packet)
             pose_phase = (request, time.monotonic())
             previous = request

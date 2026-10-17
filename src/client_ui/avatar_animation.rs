@@ -6,6 +6,7 @@ pub(super) struct State {
     owner: Option<(u64, u32, Entity)>,
     elapsed: f64,
     standing: bool,
+    head_angles: [f32; 2],
     failure: Option<String>,
 }
 impl State {
@@ -75,13 +76,14 @@ pub(super) fn animate(
             return;
         }
     };
-    if selected.is_standing() && state.standing {
+    if selected.is_standing() && state.standing && selected.head_angles == state.head_angles {
         return;
     }
     state.elapsed += time.delta_secs_f64();
     let result = (|| -> io::Result<()> {
-        let frame = animation.lock().unwrap().sample_channels(
+        let frame = animation.lock().unwrap().sample_channels_with_head_angles(
             &selected.native,
+            selected.head_angles,
             selected.speed,
             (state.elapsed * 1000.) as i64,
         )?;
@@ -119,6 +121,7 @@ pub(super) fn animate(
         state.failure = Some(message);
     } else {
         state.standing = selected.is_standing();
+        state.head_angles = selected.head_angles;
         status(
             &mut ui,
             if selected.is_standing() {

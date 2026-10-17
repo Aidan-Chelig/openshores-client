@@ -34,5 +34,56 @@ pre-clamp equality, pose constraints, parent gates, callback failure order and
 partial state retention. Complete native Person packet fixtures now compose the
 actual head-angle function through Creature's scalar stage in all float profiles.
 Their speed/parent/animation observations are explicitly synthetic; this is not
-production skeletal rendering. Actual movement-speed dependencies and model
-animation, the production Creature context and client presentation remain open.
+production skeletal rendering. Actual native movement-speed dependencies, model
+animation callbacks and the production Creature context remain open. The source
+rendering bridge below is separate from those native runtime requirements.
+
+## Source-profile rendering bridge
+
+The supplied source writer `protocol/atoms/daanimal.py` writes received head tilt
+as a big-endian float and its self-test expresses that float in radians (lines
+111 and209–212). This is not the outgoing delta-tick i16 angle encoding.
+The source-profile player adapter now accepts finite tilt for its existing
+admitted normal-body channels, bounds it to the verified native body30 limits,
+and supplies body34 as zero. Missing sparse fields retain their previous value;
+missing initial tilt defaults to zero. Unsupported channels and nonzero pose
+parameters still fail explicitly.
+
+This is a **rendering bridge**, not an implementation of the native Creature
+runtime effects above: it does not invent movement-speed dependencies, restart
+Creature timers, bypass parent callbacks by faking success, or claim native
+SetInMotion. Its admitted channel table excludes the special general39/0f and
+part17 constraints. The source-profile presentation already samples an owned
+normal body; native parent/guided/Animalia animation remains separate work.
+
+`pose_channels_with_head_angles` consumes established native body30/34 angles
+without applying Creature constraints. PositionHeads receives both angles;
+Point/Wave receive pitch on each selected arm. Other unguided limb overrides
+remain absent. The cached sampler rejects nonfinite angles before bone writes,
+keeps mount access absent, and preserves exact zero-angle wrappers. The UI idle
+fast path compares angles as well as standing state, so sparse stationary tilt
+updates and zero resets update persistent geometry and the animated eye.
+Camera mouse-look orientation remains independently controlled, unchanged.
+
+Mounted tests cover positive/negative pitch, roll, deterministic repeats after
+rejected inputs, exact Stand/eye restoration and Point/Wave pitch with head
+channels held at a fixed native override (so head movement cannot satisfy the
+arm assertion). Packet-ingestion tests cover combined pose+tilt, omission,
+tilt-only changes and explicit zero reset.
+
+Connected third-person acceptance passes in `target/connected-avatar-vd2ue1mk`:
+the owned source-server fixture sends real framed Stand+tilt, then tilt-only
+negative/reset updates. Persistent root/meshes/material/atlas/UVs remain the
+same; the eye and vertices change on stationary tilt and restore exactly on
+zero. Both tilt images were inspected: the head visibly looks up/down while
+the rest of the body stays standing. No original EXE or public server was run.
+
+First-person acceptance also passes in `target/connected-avatar-prcnc1al`:
+stationary tilt updates follow the animated authored eye, preserve mouse-look
+orientation, keep the skull hidden, and restore exact Stand/eye on reset. The
+negative update explicitly differs from the previous positive eye position.
+This runs the complete admitted action sequence, not just isolated tilt. The
+test capture reuses the sequence's initial600-frame cold warmup instead of
+repeating it after completion, preserving the unchanged60-second local runtime
+bound. The earlier first-person attempt reached passing action assertions but
+timed out after that redundant warmup; it is not counted as passing acceptance.

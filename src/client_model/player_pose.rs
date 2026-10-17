@@ -11,6 +11,9 @@ pub struct LocalPlayerPose {
     pub received: [u8; 10],
     pub native: NativeDpBodyPoseState,
     pub speed: f32,
+    /// Source-profile radians, bounded to native body30; body34 is zero.
+    /// Rendering input only, not Creature::TiltHeadTo runtime side effects.
+    pub head_angles: [f32; 2],
     pub predicted: bool,
 }
 impl LocalPlayerPose {
@@ -57,12 +60,28 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
             format!("unsupported received action channels {received:02x?}"),
         ));
     }
-    if person.pose_parameter != Some(0) || person.head_tilt.is_some_and(|v| v != 0.) {
+    if person.pose_parameter != Some(0) {
         return Err(io::Error::new(
             io::ErrorKind::Unsupported,
-            "received pose parameter/head tilt requires its own supported adapter",
+            "received pose parameter requires its own supported adapter",
         ));
     }
+    let tilt = person.head_tilt.unwrap_or(0.);
+    if !tilt.is_finite() {
+        return Err(io::Error::new(
+            io::ErrorKind::InvalidData,
+            "nonfinite received head tilt",
+        ));
+    }
+    // The supplied source writer sends float radians, not the outgoing i16
+    // delta-tick angle. All admitted general/part channels exclude native
+    // TiltHeadTo's special 0x39/0x0f/0x17 gates. This maps stored rendering
+    // angles only: native Creature timers, parent gates and callbacks are not
+    // claimed by the source-profile presentation path.
+    let head_angles = [
+        tilt.clamp(f32::from_bits(0xbfc9_0fdb), f32::from_bits(0x3fc9_0fdb)),
+        0.,
+    ];
     // This narrow table is explicit source->native compatibility, not packet
     // auto-detection. Predict movement only over the source's neutral Stand.
     let predicted = received == [0x24; 10] && predicted_speed > 0.;
@@ -87,6 +106,7 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
             field_6c: false,
         },
         speed,
+        head_angles,
         predicted,
     }))
 }
@@ -94,6 +114,46 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn sparse_source_head_tilt_updates_preserve_channels_and_reset_to_zero() {
+        let mut model = ClientModel {
+            phase: Phase::Playing,
+            avatar: Some(42),
+            ..Default::default()
+        };
+        for (tilt, with_pose, expected) in [
+            (Some(0.25f32), true, 0.25),
+            (None, false, 0.25),
+            (Some(-0.5), false, -0.5),
+            (Some(0.), false, 0.),
+        ] {
+            let mut body = crate::protocol::QtWriter::default();
+            body.write_u8(0);
+            body.write_u8(if tilt.is_some() { 2 } else { 0 } | if with_pose { 8 } else { 0 });
+            if let Some(tilt) = tilt {
+                body.write_u32(tilt.to_bits());
+            }
+            if with_pose {
+                for _ in 0..10 {
+                    body.write_u8(0x24);
+                }
+                body.write_u32(0);
+            }
+            for _ in 0..3 {
+                body.write_u8(0);
+            }
+            let mut packet = vec![0x12];
+            packet.extend(42u32.to_be_bytes());
+            packet.extend(0i64.to_be_bytes());
+            packet.push(0);
+            packet.extend(body.into_bytes());
+            model.world.ingest(&packet).unwrap();
+            let selected = model.local_player_pose(0.).unwrap().unwrap();
+            assert!(selected.is_standing());
+            assert_eq!(selected.head_angles, [expected, 0.]);
+            assert_eq!(selected.received, [0x24; 10]);
+        }
+    }
     #[test]
     fn received_pose_updates_use_selected_source_owner_and_preserve_omissions() {
         fn packet(poses: Option<[u8; 10]>) -> Vec<u8> {
@@ -246,6 +306,21 @@ mod tests {
         assert!(select(&person, 0.).is_err());
         person.pose_parameter = Some(0);
         person.head_tilt = Some(0.5);
-        assert!(select(&person, 0.).is_err());
+        assert_eq!(select(&person, 0.).unwrap().unwrap().head_angles, [0.5, 0.]);
+        for (input, expected) in [
+            (10., f32::from_bits(0x3fc9_0fdb)),
+            (-10., f32::from_bits(0xbfc9_0fdb)),
+            (-0.25, -0.25),
+        ] {
+            person.head_tilt = Some(input);
+            assert_eq!(
+                select(&person, 0.).unwrap().unwrap().head_angles,
+                [expected, 0.]
+            );
+        }
+        for input in [f32::NAN, f32::INFINITY, f32::NEG_INFINITY] {
+            person.head_tilt = Some(input);
+            assert!(select(&person, 0.).is_err());
+        }
     }
 }

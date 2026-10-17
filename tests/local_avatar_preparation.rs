@@ -365,4 +365,59 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     for (a, b) in stand.surfaces.iter().zip(&received_stand.surfaces) {
         assert_eq!(a.corners, b.corners);
     }
+    // Native body angles are explicit inputs, not a source-wire conversion.
+    // Exercise the mount-free sampler, including rejected input and restoration.
+    for angles in [[0.25, 0.], [-0.25, 0.], [0., 0.15]] {
+        let tilted = animation
+            .sample_channels_with_head_angles(&neutral, angles, 0., 125)
+            .unwrap();
+        assert_ne!(tilted.eye, stand.eye);
+        assert!(tilted.eye.iter().all(|v| v.is_finite()));
+        assert!(
+            tilted
+                .surfaces
+                .iter()
+                .zip(&stand.surfaces)
+                .any(|(a, b)| a.corners != b.corners)
+        );
+        for invalid in [[f32::NAN, 0.], [0., f32::INFINITY]] {
+            assert!(
+                animation
+                    .sample_channels_with_head_angles(&neutral, invalid, 0., 125)
+                    .is_err()
+            );
+        }
+        let repeated = animation
+            .sample_channels_with_head_angles(&neutral, angles, 0., 125)
+            .unwrap();
+        assert_eq!(tilted.eye, repeated.eye);
+        for (a, b) in tilted.surfaces.iter().zip(&repeated.surfaces) {
+            assert_eq!(a.corners, b.corners);
+        }
+    }
+    for code in [0x1f, 0x30] {
+        let mut gesture = neutral.clone();
+        gesture.fields_3c[2] = code;
+        // These head channels override owner pitch. Any changed geometry then
+        // proves pitch reached the arm stage, rather than merely tilting a head.
+        gesture.fields_3c[1] = 0x12;
+        gesture.fields_3c[6] = 0x12;
+        let level = animation.sample_channels(&gesture, 0., 125).unwrap();
+        let tilted = animation
+            .sample_channels_with_head_angles(&gesture, [0.25, 0.], 0., 125)
+            .unwrap();
+        assert_eq!(level.eye, tilted.eye);
+        assert!(
+            level
+                .surfaces
+                .iter()
+                .zip(&tilted.surfaces)
+                .any(|(a, b)| a.corners != b.corners)
+        );
+    }
+    let restored = animation.sample_channels(&neutral, 0., 500).unwrap();
+    assert_eq!(restored.eye, stand.eye);
+    for (a, b) in stand.surfaces.iter().zip(&restored.surfaces) {
+        assert_eq!(a.corners, b.corners);
+    }
 }

@@ -8,8 +8,10 @@ Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
 received Jump posing, arm-channel Wave/Point and folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
 local movement predicts and reports locomotion only over received all-Stand.
-Other actions, nonzero source pose parameters/head tilt, guided mode, winged and
-legless body animation remain explicit unsupported inputs, not silent fallbacks.
+Finite source head tilt now reaches normal-body rendering with connected
+third-/first-person acceptance. Other actions, nonzero source pose parameters, guided
+mode, winged and legless body animation remain explicit unsupported inputs,
+not silent fallbacks.
 Jump/death posing does not implement displacement, gravity, landing or corpse
 settling. The goal remains active; checkpoints below record evidence, not a claim
 of the complete OpenShores animation catalog.
@@ -441,4 +443,41 @@ action overwrite and Stand recovery all pass. The client-library suite passes
 792 tests (six ignored); strict client Clippy passes. Finger articulation,
 nonzero source pitch mapping and a user-triggered targeting action are not
 claimed from this arm-pose checkpoint.
+
+Received head-tilt checkpoint: the source float-radian field is now mapped
+explicitly to bounded native body30 pitch and zero body34 roll, separately from
+the outgoing delta-tick i16 encoding and native Creature runtime callbacks.
+Normal-body composition passes established angles to PositionHeads and pitch
+to Point/Wave. Idle optimization now notices angle changes. Mounted tests prove
+positive/negative pitch and roll, deterministic repeats, Point/Wave pitch with
+fixed head overrides, rejection and exact zero-angle Stand/eye restoration.
+Real packet-ingestion tests cover sparse omission/change/reset and finite
+limits. Third-person owned-server acceptance passes in
+`target/connected-avatar-vd2ue1mk`; both tilt captures were inspected and show
+up/down head motion without root movement or GPU resource replacement.
+
+The first expanded first-person run (`target/connected-avatar-8_7whe38`)
+passed action, tilt and camera/skull assertions, but failed final acceptance:
+the redundant post-sequence600-frame capture warmup crossed the existing
+60-second local runtime bound and lost the body. The harness now retains its
+initial600-frame cold warmup and both37/83 action samples, transitions after90
+rather than120 frames, and uses30 final camera-settle frames for an already
+warmed animation sequence. The runtime session bound remains unchanged.
+If the action catalog outgrows this bound, split connected sequences into
+separately owned sessions rather than weakening samples or extending the bound.
+First-person revalidation passes in `target/connected-avatar-prcnc1al`, including
+all mixed/death/Wave/Jump/Fold/Point/tilt/unsupported/reset stages, an explicit
+positive-to-negative eye change, persistent GPU identities, animated-eye camera
+tracking, unchanged mouse-look orientation and hidden skull. Final capture and
+received-appearance checks complete before the unchanged session bound. This
+also revalidates first-person Fold/Point, which were added after the earlier
+first-person checkpoint. The failed run above is retained as failure evidence,
+not relabeled as a passing gate.
+
+Offline regression passes13 digest-bound static checks (now including head
+tilt),793 client-library tests with six ignored, both received-DNA/ownership
+tests and all eight mounted limb checks. No public server or original binary
+execution was used. The broader animation goal remains active: unsupported
+actions/anatomies, native runtime effects, user-triggered gesture/aiming
+interaction and physical action transitions are not proven complete here.
 

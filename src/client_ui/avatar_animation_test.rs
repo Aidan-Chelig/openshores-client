@@ -39,7 +39,7 @@ impl Workflow {
         }
     }
     pub(super) fn complete(&self) -> bool {
-        self.stage == if self.pose_control.is_some() { 13 } else { 4 }
+        self.stage == if self.pose_control.is_some() { 16 } else { 4 }
     }
     pub(super) fn side_view(&self) -> bool {
         self.stage > 0 && !self.complete()
@@ -121,14 +121,14 @@ pub(super) fn workflow(
     mut commands: Commands,
     views: ViewChecks,
 ) {
+    if flow.complete() {
+        return;
+    }
     assert!(
         flow.started.elapsed().as_secs() < 145,
         "animation acceptance timed out: {}",
         ui.avatar_animation_status
     );
-    if flow.complete() {
-        return;
-    }
     let Some(current) = snapshot(&rendered, &meshes, &roots) else {
         return;
     };
@@ -228,11 +228,57 @@ pub(super) fn workflow(
             8 => "Avatar animation: folded-limb pose 0x1b",
             9 => "Avatar animation: folded-limb pose 0x35",
             10 => "Avatar animation: received point channels",
-            11 => "Avatar animation unavailable:",
+            14 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
             flow.frames = 0;
+            return;
+        }
+        if matches!(flow.stage, 11..=13) {
+            let tilt = match flow.stage {
+                11 => 0.45,
+                12 => -0.45,
+                _ => 0.,
+            };
+            if ui.model.local_player_pose(0.).unwrap().unwrap().head_angles != [tilt, 0.] {
+                flow.frames = 0;
+                return;
+            }
+            if flow.stage == 13 {
+                assert_eq!(current.positions, initial.positions);
+                assert_eq!(current.eye, initial.eye);
+            } else {
+                assert_ne!(current.positions, initial.positions);
+                assert_ne!(current.eye, initial.eye);
+                if flow.stage == 12 {
+                    assert_ne!(
+                        Some(current.eye),
+                        flow.stopped_position,
+                        "negative tilt retained the previous positive tilt"
+                    );
+                }
+            }
+            if let Some(previous) = &flow.last_phase {
+                assert_eq!(
+                    &current.positions, previous,
+                    "stationary head tilt accumulated transforms"
+                );
+            }
+            flow.last_phase = Some(current.positions);
+            if frames == 30 {
+                flow.stopped_position = Some(current.eye);
+                let (label, next) = match flow.stage {
+                    11 => ("tilt-up", "tilt-down"),
+                    12 => ("tilt-down", "tilt-reset"),
+                    _ => ("tilt-reset", "unsupported"),
+                };
+                commands
+                    .spawn(Screenshot::primary_window())
+                    .observe(save_to_disk(flow.directory.join(format!("{label}.png"))));
+                std::fs::write(control, next).unwrap();
+                flow.advance();
+            }
             return;
         }
         if matches!(flow.stage, 1 | 4..=10) {
@@ -269,7 +315,9 @@ pub(super) fn workflow(
                     ))));
                 flow.last_phase = Some(current.positions);
             }
-            if frames == 120 {
+            // Both required phases (37/83) have been captured. Keep the full
+            // catalog sequence within the unchanged 60-second local session.
+            if frames == 90 {
                 std::fs::write(
                     control,
                     match flow.stage {
@@ -280,6 +328,7 @@ pub(super) fn workflow(
                         7 => "fold-1b",
                         8 => "fold-35",
                         9 => "point",
+                        10 => "tilt-up",
                         _ => "unsupported",
                     },
                 )
@@ -307,7 +356,7 @@ pub(super) fn workflow(
                 std::fs::write(control, if flow.stage == 2 { "dead" } else { "wave" }).unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 11 {
+        } else if flow.stage == 14 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();

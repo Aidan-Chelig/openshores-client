@@ -78,8 +78,20 @@ impl PreparedAvatarAnimation {
         speed: f32,
         reference_millis: i64,
     ) -> io::Result<AvatarAnimationFrame> {
-        self.body.pose_locomotion_channels(
+        self.sample_channels_with_head_angles(pose, [0., 0.], speed, reference_millis)
+    }
+    /// Sample with established native body pitch/roll, not raw wire head tilt.
+    /// No installation I/O or Creature angle/timer side effects occur here.
+    pub fn sample_channels_with_head_angles(
+        &mut self,
+        pose: &NativeDpBodyPoseState,
+        head_angles: [f32; 2],
+        speed: f32,
+        reference_millis: i64,
+    ) -> io::Result<AvatarAnimationFrame> {
+        self.body.pose_channels_with_head_angles(
             pose,
+            head_angles,
             speed,
             0,
             &mut self.hands,

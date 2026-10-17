@@ -187,7 +187,10 @@ pub(super) fn capture(
     }
     if acceptance.live.is_some_and(|flow| !flow.complete())
         || acceptance.lifecycle.is_some_and(|flow| !flow.complete())
-        || acceptance.animation.is_some_and(|flow| !flow.complete())
+        || acceptance
+            .animation
+            .as_ref()
+            .is_some_and(|flow| !flow.complete())
     {
         return;
     }
@@ -215,8 +218,15 @@ pub(super) fn capture(
         ui.dirty = true;
     }
     capture.frames += 1;
-    // Match the offline preview's cold-pipeline warmup, starting AFTER attachment.
-    if capture.frames != 600 {
+    // Animation acceptance already warmed the attached body for600 frames and
+    // sampled every action. Only settle the final camera here; another cold
+    // warmup can cross the runtime's deliberate60-second session bound.
+    let warmup = if acceptance.animation.is_some() {
+        30
+    } else {
+        600
+    };
+    if capture.frames != warmup {
         return;
     }
     if capture.southern {
@@ -290,7 +300,7 @@ pub(super) fn capture(
     let Some(path) = capture.path.take() else {
         return;
     };
-    println!("Connected avatar attached; capturing after 600 warmup frames");
+    println!("Connected avatar attached; capturing after {warmup} warmup frames");
     commands.spawn(Screenshot::primary_window()).observe(
         move |event: On<ScreenshotCaptured>, mut exit: MessageWriter<AppExit>| {
             let save = || -> io::Result<()> {
