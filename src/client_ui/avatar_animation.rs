@@ -141,6 +141,8 @@ pub(super) fn animate(
                 "Avatar animation: folded-limb pose 0x1b"
             } else if selected.native.fields_3c == [0x35; 10] {
                 "Avatar animation: folded-limb pose 0x35"
+            } else if selected.native.fields_3c[2] == 0x1f || selected.native.fields_3c[5] == 0x1f {
+                "Avatar animation: received point channels"
             } else if selected.native.fields_3c[2] == 0x30 || selected.native.fields_3c[5] == 0x30 {
                 "Avatar animation: received wave channels"
             } else {

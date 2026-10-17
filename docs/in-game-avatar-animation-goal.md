@@ -5,7 +5,7 @@ the OpenShores experience and user-mounted assets. A moving connected avatar,
 not merely an offline animated fixture, is the required final result.
 
 Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
-received Jump posing, arm-channel Wave and folded-limb codes0x18/0x19/0x1b/0x35.
+received Jump posing, arm-channel Wave/Point and folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
 local movement predicts and reports locomotion only over received all-Stand.
 Other actions, nonzero source pose parameters/head tilt, guided mode, winged and
@@ -424,4 +424,21 @@ fixed samples, unchanged unselected bones/eye and exact Stand restoration.
 The combined offline suite passes twelve static checks,792 library tests (six
 ignored), both received-DNA tests and all eight mounted limb tests. Source pitch
 mapping and complete action support are not claimed.
+
+Received Point admission checkpoint: the source adapter now admits0x1f only on
+arm slots2/5, preserving the other received channels and rejecting non-arm Point
+requests. Packet-ingestion tests exercise the real sparse update path. The
+connected fixture now requests a left-arm Point after the four Fold codes,
+captures two fixed samples, checks an unchanged authored eye/root and persistent
+GPU identities, then verifies unsupported-action handling and exact Stand
+recovery. Point still uses owner pitch0 in the admitted normal mode; nonzero
+source head-tilt mapping and targeting interaction are not implemented here.
+The expanded connected run passes, including all earlier action/recovery gates.
+Both Point images in `target/connected-avatar-2mag2wpy` were opened and show the
+same extended arm while the rest of the standing body stays unchanged. Exact
+fixed mesh samples, authored eye/root, persistent GPU resources, no outgoing
+action overwrite and Stand recovery all pass. The client-library suite passes
+792 tests (six ignored); strict client Clippy passes. Finger articulation,
+nonzero source pitch mapping and a user-triggered targeting action are not
+claimed from this arm-pose checkpoint.
 

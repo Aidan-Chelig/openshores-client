@@ -39,7 +39,7 @@ impl Workflow {
         }
     }
     pub(super) fn complete(&self) -> bool {
-        self.stage == if self.pose_control.is_some() { 12 } else { 4 }
+        self.stage == if self.pose_control.is_some() { 13 } else { 4 }
     }
     pub(super) fn side_view(&self) -> bool {
         self.stage > 0 && !self.complete()
@@ -227,28 +227,29 @@ pub(super) fn workflow(
             7 => "Avatar animation: folded-limb pose 0x19",
             8 => "Avatar animation: folded-limb pose 0x1b",
             9 => "Avatar animation: folded-limb pose 0x35",
-            10 => "Avatar animation unavailable:",
+            10 => "Avatar animation: received point channels",
+            11 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
             flow.frames = 0;
             return;
         }
-        if matches!(flow.stage, 1 | 4..=9) {
+        if matches!(flow.stage, 1 | 4..=10) {
             if matches!(frames, 37 | 83) {
                 assert_ne!(current.positions, initial.positions);
                 if let Some(previous) = &flow.last_phase {
-                    if flow.stage == 8 {
+                    if matches!(flow.stage, 8 | 10) {
                         assert_eq!(
                             &current.positions, previous,
-                            "native fixed pose 0x1b changed without an active rhythm"
+                            "native fixed pose changed without an active rhythm"
                         );
                     } else {
                         assert_ne!(&current.positions, previous);
                     }
                 }
-                if flow.stage == 4 {
-                    assert_eq!(current.eye, initial.eye, "arm wave moved the eye");
+                if matches!(flow.stage, 4 | 10) {
+                    assert_eq!(current.eye, initial.eye, "arm-only gesture moved the eye");
                 }
                 let label = match flow.stage {
                     4 => "wave",
@@ -257,6 +258,7 @@ pub(super) fn workflow(
                     7 => "fold-19",
                     8 => "fold-1b",
                     9 => "fold-35",
+                    10 => "point",
                     _ => "received",
                 };
                 commands
@@ -277,6 +279,7 @@ pub(super) fn workflow(
                         6 => "fold-19",
                         7 => "fold-1b",
                         8 => "fold-35",
+                        9 => "point",
                         _ => "unsupported",
                     },
                 )
@@ -304,7 +307,7 @@ pub(super) fn workflow(
                 std::fs::write(control, if flow.stage == 2 { "dead" } else { "wave" }).unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 10 {
+        } else if flow.stage == 11 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();

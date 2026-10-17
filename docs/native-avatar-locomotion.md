@@ -319,3 +319,13 @@ combinations across five actions, with Point requesting no rhythm and remaining
 fixed. The full offline suite passes12 static checks,792 library tests (six
 ignored), two received-DNA tests and eight mounted limb tests. No original
 runtime was executed; nonzero source head-tilt/pitch mapping remains unsupported.
+
+Received Point acceptance: source0x1f is now explicitly accepted only on arm
+slots2/5, with packet-ingestion coverage and non-arm rejection. The owned-server
+sequence requests left-arm Point after Fold, retains the neutral other channels,
+and passes fixed samples, unchanged eye/root, persistent GPU identities,
+non-overwriting reports and exact Stand recovery. Both Point images under
+`target/connected-avatar-2mag2wpy` were inspected: the selected arm is extended
+and the rest of the body remains standing. This is arm posing at owner pitch0,
+not recovered source aiming/pitch semantics, finger articulation or a targeting
+interaction. First-person checks for the expanded sequence remain to be rerun.
