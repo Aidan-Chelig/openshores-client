@@ -17,9 +17,17 @@ pub(super) fn network_events(mut ui: ResMut<Presentation>, bridge: Res<Bridge>) 
             Err(_) => break,
         };
         let bootstrap = matches!(event, Event::Bootstrap(_));
+        let packet = matches!(event, Event::Packet(_));
+        let before = (
+            ui.model.received_transform_revision,
+            ui.model.received_player_transform(),
+        );
         if let Err(error) = ui.model.apply(event) {
             ui.model.status = format!("Invalid server state: {error}");
             send(&mut ui, &bridge, Request::Disconnect);
+        }
+        if packet {
+            position_corrections::apply(&mut ui, before);
         }
         avatar_gestures::reconcile(&mut ui);
         if bootstrap {

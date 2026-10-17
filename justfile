@@ -112,6 +112,11 @@ test-connected-avatar-local-gestures: build-client
 test-connected-avatar-received-crouch: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH=1 python tests/local_server.py avatar
 
+# Authoritative Stand/Crouch roots measured by Rust; set
+# OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 for camera/skull checks too.
+test-connected-avatar-grounded-crouch: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH=1 OPENSHORES_TEST_AVATAR_CROUCH_GROUNDED=1 python tests/local_server.py avatar
+
 # Walking/running through the animated native eye with local skull suppressed.
 test-connected-avatar-animation-first-person: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 python tests/local_server.py avatar

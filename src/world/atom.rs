@@ -53,6 +53,14 @@ pub struct Transform {
     /// Raw wire rotations; conversion/units are not established for every kind.
     pub rotation: [f32; 3],
 }
+impl Transform {
+    /// Source-profile f64 position reports are rebroadcast as f32. Compare at
+    /// that wire precision so an echo need not destroy sub-f32 local precision.
+    /// This is not a sequence acknowledgement or a native transform comparison.
+    pub fn matches_report(&self, position: [f64; 3], rotation: [f64; 3]) -> bool {
+        self.position == position.map(|v| v as f32) && self.rotation == rotation.map(|v| v as f32)
+    }
+}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WorldIdentity {

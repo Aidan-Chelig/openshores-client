@@ -128,10 +128,18 @@ impl WorldState {
     }
 
     pub fn ingest(&mut self, packet: &[u8]) -> io::Result<()> {
+        self.ingest_transform(packet).map(|_| ())
+    }
+
+    /// Explicit source transform receipt, including identical values.
+    /// Sparse omissions and non-atom packets return None.
+    pub fn ingest_transform(&mut self, packet: &[u8]) -> io::Result<Option<(u32, Transform)>> {
+        let mut transformed = None;
         let opcode = *packet
             .first()
             .ok_or_else(|| invalid("empty scene packet"))?;
         if let Some(update) = decode_atom(packet)? {
+            transformed = update.transform.map(|value| (update.id, value));
             self.apply(update)?;
         } else {
             match opcode {
@@ -153,7 +161,7 @@ impl WorldState {
             }
         }
         *self.packet_counts.entry(opcode).or_default() += 1;
-        Ok(())
+        Ok(transformed)
     }
 
     pub fn missing_manifest_ids(&self) -> Vec<u32> {

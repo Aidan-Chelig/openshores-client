@@ -561,3 +561,43 @@ hidden-skull assertions throughout. The offline bundle passes14 static checks,
 797 library tests (six ignored), both received-DNA/ownership tests and all eight
 mounted limb checks. Strict client Clippy, formatting and diff checks pass.
 
+Posture placement follow-up: Stand and both crouch codes share native zero
+CGOffset/no-op render adjustment; adult nominal ground clearance is CGHeight(true).
+Prepared animations now retain immutable Stand/Crouch clearance metadata computed
+off-thread. Default received DNA measures2.957287/1.9715247; smaller DNA measures
+2.5704176/1.7136118. These values do not translate received roots automatically.
+
+A real source correction bug was found: cached local/report positions could
+mask later authoritative transforms. World ingestion now returns explicit
+transform receipt metadata, even for unchanged coordinates, without a second
+decode. Selected-player receipts reconcile model/UI predictions; sparse/other
+entity packets do not. Quantized echoes preserve f64 precision and newer unsent
+input; differing receipts clear obsolete dirty reports and update heading while
+preserving mouse pitch. This is an explicit source-profile reconciliation policy,
+not native acknowledgement or out-of-order echo proof.
+
+The new grounded-crouch fixture supplies authoritative roots using Rust's nominal
+clearances. Initial first-person acceptance passes in
+`target/connected-avatar-8g_px72y`, including exact root/Stand recovery, persistent
+resources, animated-eye/mouse-look/skull assertions and no action overwrite.
+Explicit receipt/reassertion and newer-unsent-input refinements then passed CPU
+regression and final third-person revalidation in
+`target/connected-avatar-ik2zmjdl`. Crouch-A and crouch-walk-B were inspected;
+the received lower root is visible, with the contact discrepancy below preserved.
+The pose-only fixture is retained separately. See
+`native-avatar-world-placement.md` for scope and limits.
+
+Contact remains imperfect: default stationary crouch has a measured skinned-sole
+residual-0.38020396 at nominal clearance. No geometry-fit offset or collision
+parity is claimed. Caps Lock input and native physical posture transitions remain
+unfinished; this correction/metadata work is their prerequisite, not completion.
+
+Final regression passes15 static verifiers (now including Stand/Crouch anchor
+checks),798 client-library tests with six ignored, both mounted received-DNA/
+ownership tests and all eight limb tests. Strict client Clippy passes. The local
+gesture/keyboard Walk/Run/neutral workflow also passes on the final reconciliation
+path (`target/connected-avatar-wty3t6be`), including actual source-decoder channel
+delivery and persistent render resources. No public server or original binary
+execution was used. The default library configuration passes749 tests (one
+ignored); final formatting and diff checks pass.
+

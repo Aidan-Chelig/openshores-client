@@ -87,6 +87,13 @@ def main() -> None:
     first_person = action == "avatar" and bool(first_person_mode)
     animation = action == "avatar" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION"))
     received_crouch = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH"))
+    crouch_grounded = received_crouch and bool(os.environ.get("OPENSHORES_TEST_AVATAR_CROUCH_GROUNDED"))
+    posture_clearances = None
+    if crouch_grounded:
+        if south:
+            raise RuntimeError("grounded crouch fixture currently selects the north-pole adult context")
+        from local_avatar_preparation import posture_metrics
+        posture_clearances = posture_metrics(str(installation))
     received_animation = animation and (received_crouch or bool(os.environ.get("OPENSHORES_TEST_AVATAR_RECEIVED_POSES")))
     animation_first_person = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON"))
     local_gestures = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES"))
@@ -187,6 +194,9 @@ def main() -> None:
                     finally:
                         await conn.close()
                 asyncio.run(hungry_avatar())
+            if posture_clearances is not None:
+                standing, crouched = posture_clearances
+                os.environ["OPENSHORES_TEST_AVATAR_CROUCH_ROOTS"] = f"{fixture['floor'] + standing},{fixture['floor'] + crouched}"
             observer_avatar = asyncio.run(seed(dsn, "rust-local-observer")) if action == "peer" else None
             for sock in reservations:
                 sock.close()
@@ -262,6 +272,9 @@ def main() -> None:
                                 finally:
                                     await conn.close()
                             asyncio.run(place_avatar())
+                            if posture_clearances is not None:
+                                standing, crouched = posture_clearances
+                                assert abs(standing - metrics[0]) < 1e-6
                             screenshot = directory / f"{label}.png"
                             os.environ["OPENSHORES_TEST_AVATAR_CAPTURE"] = str(screenshot)
                             os.environ["OPENSHORES_TEST_AVATAR_POSITION"] = f"0,0,{z}"
@@ -287,7 +300,7 @@ def main() -> None:
                                     assert "AVATAR LIFECYCLE manifest restored" in log_path.read_text()
                             elif animation:
                                 if received_crouch:
-                                    assert "Connected received crouch: fixed/dynamic phases, unchanged root/resources and exact Stand/eye recovery verified" in result.stdout
+                                    assert "Connected received crouch: fixed/dynamic phases, persistent resources and exact Stand/eye recovery verified" in result.stdout
                                     for label in ("crouch", "crouch-walk"):
                                         for phase in ("a", "b"):
                                             assert (directory / f"{label}-{phase}.png").is_file()
@@ -297,6 +310,8 @@ def main() -> None:
                                     assert "AVATAR POSE parsed client report during stand" in pose_log
                                     assert "AVATAR POSE unexpected report during" not in pose_log
                                     assert "Connected avatar received/render appearance verified" in result.stdout
+                                    if crouch_grounded:
+                                        assert "Connected received crouch: authoritative ground roots and exact root recovery verified" in result.stdout
                                     assert screenshot.is_file() and screenshot.stat().st_size > 1000
                                     assert "Shader compilation error" not in result.stdout
                                     assert PASSWORD not in result.stdout

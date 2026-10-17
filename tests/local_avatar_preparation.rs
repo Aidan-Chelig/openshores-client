@@ -163,6 +163,12 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
         );
     }
     let ground_height = prepared.native.standing_ground_clearance(&mount).unwrap();
+    let crouch_ground_height = prepared
+        .native
+        .stand_crouch_ground_clearance(&mount, true)
+        .unwrap();
+    assert!(crouch_ground_height.is_finite() && crouch_ground_height > 0.);
+    println!("AVATAR_POSTURE_METRICS {ground_height} {crouch_ground_height}");
     let camera = prepared.native.standing_camera_location(false).unwrap();
     println!("Received native Stand camera location: {camera:?}");
     assert!(camera.iter().all(|value| value.is_finite()));
@@ -204,8 +210,16 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     prepared.native.standing.pose.fields_3c[0] = 0;
     assert!(prepared.native.standing_camera_location(false).is_err());
     assert!(prepared.native.standing_ground_clearance(&mount).is_err());
+    assert!(
+        prepared
+            .native
+            .stand_crouch_ground_clearance(&mount, true)
+            .is_err()
+    );
     prepared.native.standing.pose.fields_3c[0] = 0x24;
     let mut animation = prepared.into_animation(&mount).unwrap();
+    assert_eq!(animation.ground_clearances().standing, ground_height);
+    assert_eq!(animation.ground_clearances().crouched, crouch_ground_height);
     // Cached-only samplers no longer retain mount access, including zero-offset
     // sentinel cases. Every runtime sample here must succeed without asset I/O.
     let stand = animation.sample(None, 0., 0).unwrap();
@@ -423,6 +437,18 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
         let a = animation.sample_channels(&pose, 1., 0).unwrap();
         let b = animation.sample_channels(&pose, 1., 125).unwrap();
         let repeat = animation.sample_channels(&pose, 1., 0).unwrap();
+        if code == 0x10 {
+            let low = a
+                .surfaces
+                .iter()
+                .flat_map(|surface| &surface.corners)
+                .map(|corner| corner.position[2] / corner.position[3])
+                .fold(f32::INFINITY, f32::min);
+            println!(
+                "AVATAR_CROUCH_CONTACT_DIAGNOSTIC clearance={crouch_ground_height} minimum_z={low} residual={}",
+                low + crouch_ground_height
+            );
+        }
         assert!(a.eye.iter().all(|v| v.is_finite()));
         assert!(
             a.surfaces

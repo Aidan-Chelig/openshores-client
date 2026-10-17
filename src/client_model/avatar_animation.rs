@@ -15,6 +15,12 @@ pub struct PreparedAvatarAnimation {
     feet: NativeDpFootCache<'static>,
     surfaces: Vec<NativeDpPreparedAvatarSurface>,
     eye: NativeDpAvatarEye,
+    ground_clearances: AvatarGroundClearances,
+}
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct AvatarGroundClearances {
+    pub standing: f32,
+    pub crouched: f32,
 }
 pub struct AvatarAnimationFrame {
     pub surfaces: Vec<NativeDpPosedAvatarSurface>,
@@ -33,6 +39,10 @@ impl PreparedNormalAvatar {
     /// Warm every admitted locomotion dependency off-thread, then discard mount access.
     pub fn into_animation(self, mount: &AssetMount) -> io::Result<PreparedAvatarAnimation> {
         let eye = self.native.prepare_eye(false)?;
+        let ground_clearances = AvatarGroundClearances {
+            standing: self.native.stand_crouch_ground_clearance(mount, false)?,
+            crouched: self.native.stand_crouch_ground_clearance(mount, true)?,
+        };
         let mut body = self.native.body;
         let mut hands = NativeDpHandCache::new(mount);
         let mut feet = NativeDpFootCache::new(mount);
@@ -68,10 +78,15 @@ impl PreparedNormalAvatar {
             feet: feet.into_cached_only(),
             surfaces: self.animation_surfaces,
             eye,
+            ground_clearances,
         })
     }
 }
 impl PreparedAvatarAnimation {
+    /// Immutable nominal adult Stand/Crouch collision metadata, not a root offset.
+    pub fn ground_clearances(&self) -> AvatarGroundClearances {
+        self.ground_clearances
+    }
     pub fn sample_channels(
         &mut self,
         pose: &NativeDpBodyPoseState,

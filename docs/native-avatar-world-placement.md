@@ -1,8 +1,9 @@
 # Neutral avatar origin and ground clearance
 
-Scope: adult, normal-skin, neutral Stand composition only. This is static native
-evidence and mounted Rust measurements, not an observation of the original game
-running or proof of connected landed acceptance.
+Scope: adult normal-skin body-origin and ground-clearance checkpoints, initially
+neutral Stand, with a Stand/Crouch follow-up below. Native observations are
+static; mounted Rust measurements and bounded connected fixture proofs are
+identified separately. The original game was not executed.
 
 Target: `reference/openshores-full/OpenShores.exe`, SHA-256
 `285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
@@ -119,3 +120,47 @@ helper for the southern person record. This bounds the result to correct
 source-profile received transforms; it does not prove unmodified selected-player
 bootstrap at the south pole or original native environment parity. See the
 [progress ledger](in-world-avatar-progress.md) for inspected captures and gates.
+
+## Adult Stand/Crouch clearance and source correction bridge
+
+The SHA-bound anchor check now also verifies0x10/0x11. Both share Stand's zero
+CGOffset target140978b10 and no-op BodyPoseAdjustTransform target1409808e7.
+Neither matches GroundHeightAboveCG's39/0f special cases, so the existing adult
+no-growth ground rule remains CGHeight(true), not AnimatePose's false height.
+`stand_crouch_ground_clearance(mount, crouched)` evaluates those two contexts
+from the neutral normal-body anatomy. `PreparedAvatarAnimation::ground_clearances`
+returns immutable cached metadata after preparation; it performs no runtime I/O
+and never moves a render root. Default received DNA measures Stand2.957287 and
+Crouch1.9715247; the smaller test DNA measures2.5704176 and1.7136118.
+
+The source UI previously retained its bootstrap/local position even after a
+received selected-player transform changed, while ClientModel preferred the
+last sent report indefinitely. That could mask an authoritative crouch root.
+World ingestion now exposes explicit transform receipts, including identical
+coordinates, without decoding the atom twice. The model tracks selected-player
+receipts separately from sparse omissions. A receipt that differs from the
+last written report clears report caches; UI correction replaces local position/
+rotation, updates heading, and clears the obsolete dirty prediction. It leaves
+mouse pitch unchanged. Unrelated entities and sparse packets do not reset motion.
+
+Matching f64 reports rebroadcast as f32 are treated as echoes, preserving local
+precision and newer unsent input. This is an explicit source-profile policy,
+not native acknowledgement reconstruction: no sequence number is invented and
+an old echo cannot universally be distinguished from a correction without one.
+CPU packet tests cover corrections, identical-coordinate reassertions, sparse
+omission, other entities, quantized echoes, newer unsent input and rotation-only
+updates. Local report values never overwrite the received WorldState transform.
+
+`just test-connected-avatar-grounded-crouch` selects an explicit owned north-pole
+fixture whose Stand/Crouch root positions use the Rust measurements. It does not
+duplicate the height formula in Python or add a render offset. Set
+`OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1` to include camera/skull checks.
+This is a controlled authoritative-transform test, not a native collision or
+Caps Lock controller. The previous pose-only crouch recipe remains unchanged.
+
+Nominal clearance is not exact skinned-foot contact. Default stationary crouch
+currently measures minimum Z-2.3517287, leaving a-0.38020396 residual at nominal
+clearance. This is a reconstructed geometry/contact discrepancy, not established
+original-game parity. It is recorded rather than hidden with mesh-bounds fitting.
+Native posture/physics transitions, local held crouch, growth and other parent
+contexts still need their own implementation/evidence.

@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT / "reference/OpenShores-server/src"))
 from openshores.protocol.login_reply import _default_dna
 
 
-def anchor_metrics(installation: str, dna: bytes | None = None) -> tuple[float, float, float]:
+def _measure(installation: str, dna: bytes | None = None) -> str:
     """Ask the Rust received-DNA pipeline; never duplicate its clearance formula."""
     environment = dict(os.environ,
                        OPENSHORES_HAZERON_INSTALLATION=installation,
@@ -21,10 +21,23 @@ def anchor_metrics(installation: str, dna: bytes | None = None) -> tuple[float, 
         cwd=ROOT, env=environment, check=True, text=True, stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT)
     print(result.stdout, end="", flush=True)
-    metrics = [line.split()[1:] for line in result.stdout.splitlines()
+    return result.stdout
+
+
+def anchor_metrics(installation: str, dna: bytes | None = None) -> tuple[float, float, float]:
+    metrics = [line.split()[1:] for line in _measure(installation, dna).splitlines()
                if line.startswith("AVATAR_ANCHOR_METRICS ")]
     if len(metrics) != 1 or len(metrics[0]) != 3:
         raise RuntimeError("Rust avatar clearance measurement missing or ambiguous")
+    return tuple(map(float, metrics[0]))
+
+
+def posture_metrics(installation: str, dna: bytes | None = None) -> tuple[float, float]:
+    """Native adult Stand/Crouch CGHeight(true), never a Python height formula."""
+    metrics = [line.split()[1:] for line in _measure(installation, dna).splitlines()
+               if line.startswith("AVATAR_POSTURE_METRICS ")]
+    if len(metrics) != 1 or len(metrics[0]) != 2:
+        raise RuntimeError("Rust avatar posture clearances missing or ambiguous")
     return tuple(map(float, metrics[0]))
 
 if __name__ == "__main__":

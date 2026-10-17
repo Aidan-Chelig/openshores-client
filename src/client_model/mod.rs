@@ -8,7 +8,7 @@ use crate::{
 use std::io;
 mod avatar_animation;
 mod avatar_preparation;
-pub use avatar_animation::{AvatarAnimationFrame, PreparedAvatarAnimation};
+pub use avatar_animation::{AvatarAnimationFrame, AvatarGroundClearances, PreparedAvatarAnimation};
 mod native;
 mod player_appearance;
 mod player_pose;
@@ -53,6 +53,8 @@ pub struct ClientModel {
     pub reported_rotation: Option<[f64; 3]>,
     pub status: String,
     pub revision: u64,
+    /// Explicit selected-player transform receipts, not sparse field changes.
+    pub received_transform_revision: u64,
 }
 impl ClientModel {
     pub fn apply(&mut self, event: Event) -> io::Result<()> {
@@ -160,7 +162,21 @@ impl ClientModel {
                 self.status = "Connected to local world; actions await server updates".into();
             }
             Event::Packet(packet) => {
-                self.world.ingest(&packet)?;
+                if let Some((id, received)) = self.world.ingest_transform(&packet)?
+                    && Some(id) == self.avatar
+                {
+                    self.received_transform_revision += 1;
+                    if !self
+                        .reported_position
+                        .zip(self.reported_rotation)
+                        .is_some_and(|(position, rotation)| {
+                            received.matches_report(position, rotation)
+                        })
+                    {
+                        self.reported_position = None;
+                        self.reported_rotation = None;
+                    }
+                }
                 if let Some(target) = self.target
                     && !self.world.visible_ids.contains(&target)
                 {
@@ -231,6 +247,9 @@ impl ClientModel {
                 .and_then(|entity| entity.transform)
                 .map(|transform| transform.position.map(f64::from))
         })
+    }
+    pub fn received_player_transform(&self) -> Option<crate::world::Transform> {
+        self.world.entities.get(&self.avatar?)?.transform
     }
     pub fn rotation(&self) -> Option<[f64; 3]> {
         self.reported_rotation.or_else(|| {

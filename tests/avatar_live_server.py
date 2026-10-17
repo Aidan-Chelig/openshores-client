@@ -149,8 +149,13 @@ async def observe_pose_requests(live, writer):
                 body += struct.pack(">f", tilt)
             if with_pose:
                 body += channels[request] + struct.pack(">I", 0)
-            packet = (b"\x12" + struct.pack(">IqB", auid, int(time.time()*1000), 0)
-                      + body + b"\x00\x00\x00")
+            roots = os.environ.get("OPENSHORES_TEST_AVATAR_CROUCH_ROOTS")
+            prefix = b""
+            if roots and request in ("crouch", "crouch-walk", "stand"):
+                standing, crouched = map(float, roots.split(","))
+                prefix = struct.pack(">6f", 0., 0., standing if request == "stand" else crouched, 0., 0., 0.)
+            packet = (b"\x12" + struct.pack(">IqB", auid, int(time.time()*1000), 8 if prefix else 0)
+                      + prefix + body + b"\x00\x00\x00")
             await write_framed(writer, packet)
             pose_phase = (request, time.monotonic())
             previous = request

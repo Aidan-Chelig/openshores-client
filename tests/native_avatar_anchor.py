@@ -18,8 +18,9 @@ def dispatch(table, index):
     return table + struct.unpack("<i", read(table + index * 4, 4))[0]
 
 
-# General Stand is fourth pose word at DpBody+0x48. Its CGOffset is zero.
-assert dispatch(0x1421C5E34, 0x24 - 3) == 0x140978B10
+# Stand and crouch share zero CGOffset and no render transform adjustment.
+for pose in (0x10, 0x11, 0x24):
+    assert dispatch(0x1421C5E34, pose - 3) == 0x140978B10
 offset = assembly(0x140978AC0, 0x140978CD0)
 assert "mov    0x48(%rdx),%ecx" in offset
 assert "sub    $0x3,%ecx" in offset
@@ -27,7 +28,8 @@ assert "140978b10:" in offset and "movq   $0x0,0x10(%rax)" in offset
 assert "pxor   %xmm0,%xmm0" in offset and "movups %xmm0,(%rax)" in offset
 
 # Stand does not add a separate pose-specific world rotation/translation.
-assert dispatch(0x1421C664C, 0x24 - 4) == 0x1409808E7
+for pose in (0x10, 0x11, 0x24):
+    assert dispatch(0x1421C664C, pose - 4) == 0x1409808E7
 adjust = assembly(0x140980830, 0x1409809E0)
 assert "mov    0x48(%rax),%ebx" in adjust
 assert "sub    $0x4,%ebx" in adjust
@@ -45,4 +47,4 @@ assert "mov    $0x1,%edx" in height
 assert "DpBody::CGHeight(bool) const" in height
 assert "DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)" in height
 assert "subsd  0x40(%rsp),%xmm6" in height
-print("Verified Stand zero CGOffset, no BodyPoseAdjustTransform, and ground clearance via CGHeight(true). Static checks only; wire origin and terrain contact require separate evidence.")
+print("Verified Stand/Crouch zero CGOffset, no BodyPoseAdjustTransform, and clearance via CGHeight(true). Static checks only; wire origin and terrain contact require separate evidence.")

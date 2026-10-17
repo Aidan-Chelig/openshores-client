@@ -23,6 +23,7 @@ pub(super) struct Workflow {
     first_person: bool,
     local_gestures: bool,
     crouch_only: bool,
+    crouch_grounded: bool,
 }
 impl Workflow {
     pub(super) fn new(path: PathBuf) -> Self {
@@ -40,6 +41,7 @@ impl Workflow {
                 .is_some(),
             local_gestures: std::env::var_os("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES").is_some(),
             crouch_only: std::env::var_os("OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH").is_some(),
+            crouch_grounded: std::env::var_os("OPENSHORES_TEST_AVATAR_CROUCH_ROOTS").is_some(),
         }
     }
     pub(super) fn complete(&self) -> bool {
@@ -579,10 +581,19 @@ fn received_crouch(
     commands: &mut Commands,
 ) {
     let initial = flow.initial.as_ref().unwrap();
-    assert_eq!(
-        current.position, initial.position,
-        "received crouch invented world displacement"
-    );
+    if flow.crouch_grounded {
+        let source = ui.model.received_player_transform().unwrap();
+        let expected = Vec3::from_array(source.position) * ui.scale as f32;
+        assert!(
+            current.position.distance(expected) < 1e-6,
+            "received ground root lost or double-adjusted"
+        );
+    } else {
+        assert_eq!(
+            current.position, initial.position,
+            "received crouch invented world displacement"
+        );
+    }
     let code = match flow.stage {
         1 => 0x10,
         2 => 0x11,
@@ -594,17 +605,26 @@ fn received_crouch(
     }
     let frames = flow.frames;
     if flow.stage == 3 {
+        assert_eq!(current.position, initial.position);
         assert_eq!(current.positions, initial.positions);
         assert_eq!(current.eye, initial.eye);
         if frames == 30 {
+            if flow.crouch_grounded {
+                println!(
+                    "Connected received crouch: authoritative ground roots and exact root recovery verified"
+                );
+            }
             println!(
-                "Connected received crouch: fixed/dynamic phases, unchanged root/resources and exact Stand/eye recovery verified"
+                "Connected received crouch: fixed/dynamic phases, persistent resources and exact Stand/eye recovery verified"
             );
             flow.advance();
         }
         return;
     }
     if matches!(frames, 37 | 83) {
+        if flow.crouch_grounded {
+            assert!(current.position.z < initial.position.z);
+        }
         assert_ne!(current.positions, initial.positions);
         if let Some(previous) = &flow.last_phase {
             if flow.stage == 1 {

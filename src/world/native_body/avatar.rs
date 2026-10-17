@@ -55,16 +55,31 @@ impl NativeDpAvatarGeometry {
     /// Authored sole vertices need not lie exactly on this collision plane.
     /// Other poses/growth contexts are not inferred.
     pub fn standing_ground_clearance(&self, mount: &AssetMount) -> io::Result<f32> {
+        self.stand_crouch_ground_clearance(mount, false)
+    }
+
+    /// Adult normal-body nominal clearance for Stand or Crouch. Their CGOffset
+    /// is zero and BodyPoseAdjustTransform is a no-op. This is metadata, never
+    /// an automatic translation of a received render root or a physics solver.
+    pub fn stand_crouch_ground_clearance(
+        &self,
+        mount: &AssetMount,
+        crouched: bool,
+    ) -> io::Result<f32> {
         if self.standing.pose.fields_3c != [0x24; 10] || self.standing.pose.field_6c {
             return Err(unsupported(
                 "ground clearance requires the neutral Stand context",
             ));
         }
+        let mut pose = self.standing.pose.clone();
+        if crouched {
+            pose.fields_3c = [0x10; 10];
+        }
         NativeDpFootCache::new(mount).pose_height(
             &self.dna,
             self.body.dimensions(),
             self.field_4068,
-            &self.standing.pose,
+            &pose,
             true,
         )
     }
