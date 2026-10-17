@@ -56,9 +56,11 @@ impl PreparedNormalAvatar {
             fields_3c: [0x24; 10],
             field_6c: false,
         };
-        wave.fields_3c[2] = 0x30;
-        wave.fields_3c[5] = 0x30;
-        body.pose_locomotion_channels(&wave, 0., 0, &mut hands, &mut feet, &mut Timer(0))?;
+        for code in [0x30, 0x1f] {
+            wave.fields_3c[2] = code;
+            wave.fields_3c[5] = code;
+            body.pose_locomotion_channels(&wave, 0., 0, &mut hands, &mut feet, &mut Timer(0))?;
+        }
         body.pose_neutral_standing(0, &mut hands, &mut feet)?;
         Ok(PreparedAvatarAnimation {
             body,

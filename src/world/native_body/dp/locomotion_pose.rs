@@ -1,4 +1,4 @@
-//! Complete normal Walk/Run stage composition in native AnimatePose order.
+//! Admitted normal-body pose stages in native AnimatePose order.
 use super::*;
 use crate::world::native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer};
 use std::io;
@@ -34,8 +34,9 @@ impl NativeDpInitialization {
         self.pose_locomotion_channels(&pose, speed, field_4068, hands, feet, timer)
     }
 
-    /// Explicit admitted ten-channel subset: Stand/Walk/Run and face-down dead,
-    /// normal mode. Source-profile admission remains the caller's responsibility.
+    /// Explicit admitted ten-channel subset in normal mode. Arm-only gestures
+    /// remain restricted to arm slots. Source-profile admission is the caller's
+    /// responsibility; this is not a generic source-wire/native enum conversion.
     /// Preserve mixed limb/head/torso channels; reject unsupported actions
     /// before changing the skeleton instead of replacing them with Stand.
     pub fn pose_locomotion_channels(
@@ -52,7 +53,7 @@ impl NativeDpInitialization {
             || pose.field_6c
             || pose.fields_3c.iter().enumerate().any(|(index, code)| {
                 !(matches!(code, 0x12 | 0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
-                    || matches!(index, 2 | 5) && *code == 0x30)
+                    || matches!(index, 2 | 5) && matches!(code, 0x1f | 0x30))
             })
         {
             return Err(io::Error::new(
@@ -105,6 +106,10 @@ impl NativeDpInitialization {
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
                 let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
+                if code == 0x1f {
+                    self.point_arms(side, 0.)?;
+                    continue;
+                }
                 if matches!(code, 0x18 | 0x19 | 0x1b | 0x35) {
                     self.fold_arms(side, None)?;
                     continue;

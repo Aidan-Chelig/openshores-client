@@ -127,7 +127,7 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
             let initial = body.clone();
             let mut hands = hands.into_cached_only();
             let mut feet = feet.into_cached_only();
-            for code in [0x25, 0x26, 0x30, 0x1c] {
+            for code in [0x25, 0x26, 0x30, 0x1c, 0x1f] {
                 for side in [0, 1, 2] {
                     let mut pose = NativeDpBodyPoseState {
                         fields_3c: [0x24; 10],
@@ -161,8 +161,8 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
                         )
                         .unwrap();
                         let expected = usize::from(pairs) * if side == 2 { 2 } else { 1 };
-                        assert_eq!(timer.starts, expected);
-                        assert_eq!(timer.samples, expected);
+                        assert_eq!(timer.starts, if code == 0x1f { 0 } else { expected });
+                        assert_eq!(timer.samples, if code == 0x1f { 0 } else { expected });
                         for (index, bone) in body.bones().slots.iter().enumerate() {
                             assert!(bone.matrix_00.iter().all(|value| value.is_finite()));
                             if !selected.contains(&index) {
@@ -176,7 +176,14 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
                         samples.push(body.bones().clone());
                     }
                     assert_eq!(samples[0], samples[2], "repeat accumulated transforms");
-                    assert_ne!(samples[0], samples[1], "animation phase did not change");
+                    if code == 0x1f {
+                        assert_eq!(
+                            samples[0], samples[1],
+                            "fixed Point sampled a fabricated rhythm"
+                        );
+                    } else {
+                        assert_ne!(samples[0], samples[1], "animation phase did not change");
+                    }
                     body.pose_neutral_standing(0, &mut hands, &mut feet)
                         .unwrap();
                     assert_eq!(body.bones(), initial.bones());

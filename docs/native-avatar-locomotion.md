@@ -293,3 +293,29 @@ motion are visible. Root elevation is deliberately unchanged, so the pose floats
 above this fixture's terrain; no seat/root-placement correction is introduced.
 User-facing action names, seating interaction and physical transitions remain
 separate from these verified received numeric pose channels.
+
+## Point arm stage (not admitted by source adapter yet)
+
+Retained PositionArms evidence
+`ev_17f36040ffbb5a56c997011ed3faac068c5298cb20355ac571cdd958fd71f315`
+maps each arm's0x1f to PointArms with its side selector. Bounded complete symbol
+disassembly of PointArms (entry`0x1412ebbb0`, last branch`0x1412ebd6e`) supplies
+the concrete port, with SHA-bound anchors in `tests/native_point_pose.py`.
+
+Spread/lift are float bits bc8efa35/3db2b8c2. Ordinary arms are scanned forward
+and selected by side. Every selected arm rotates shoulder by ownerPitch minus
+float3db2b8c2, then elbow by float3db2b8c2, followed by stored splay and lift.
+There is no wrist rotation, rhythm or first-arm-only override. The port reuses
+Relax with zero wrist, whose native joint helper returns without writes for0.
+Nonfinite owner pitch is explicitly rejected before spreading or bone writes.
+
+Internal composition admits0x1f only on arm slots2/5, retaining other channels.
+The source adapter still rejects it pending connected verification. Worker
+preparation warms both Point arms before removing mount references. Pure tests
+prove pitch affects every selected arm and leaves all others untouched. Mounted
+received-DNA tests cover either/both arms, fixed0/125/0-ms samples, unchanged eye,
+non-arm rejection and exact Stand restoration. The multi-arm matrix now has90
+combinations across five actions, with Point requesting no rhythm and remaining
+fixed. The full offline suite passes12 static checks,792 library tests (six
+ignored), two received-DNA tests and eight mounted limb tests. No original
+runtime was executed; nonzero source head-tilt/pitch mapping remains unsupported.

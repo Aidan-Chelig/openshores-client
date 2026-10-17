@@ -44,6 +44,7 @@ mod locomotion_pose;
 mod neutral_pose;
 pub use locomotion_pose::NativeDpLocomotionSample;
 pub use neutral_pose::NativeDpStandingPose;
+mod arm_point;
 mod arm_shoulder;
 mod arm_standing;
 mod arm_wave;

@@ -413,3 +413,15 @@ codes have modest torso changes. The unchanged root remains visibly above
 terrain; no seat placement or physics is implied by posing. The current library
 suite passes 791 tests (six ignored), and strict client Clippy passes.
 
+Point dependency checkpoint: the native Point arm stage is ported from bounded
+static evidence, preserving pitch-minus-five-degree shoulder, five-degree elbow,
+ordinary-arm side traversal, stored splay/lift and the absence of wrist/rhythm.
+Unlike Fold's optional override, pitch affects every selected Point arm.
+Internal arm-slot composition and worker warmup are connected; source0x1f is
+still rejected pending receive/connected acceptance. Pure tests, either/both-arm
+mounted samples and the expanded90-combination multi-arm matrix pass, including
+fixed samples, unchanged unselected bones/eye and exact Stand restoration.
+The combined offline suite passes twelve static checks,792 library tests (six
+ignored), both received-DNA tests and all eight mounted limb tests. Source pitch
+mapping and complete action support are not claimed.
+

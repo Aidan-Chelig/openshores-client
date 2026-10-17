@@ -322,31 +322,34 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     for (a, b) in jump_a.surfaces.iter().zip(&jump_repeat.surfaces) {
         assert_eq!(a.corners, b.corners);
     }
-    for sides in [[true, false], [false, true], [true, true]] {
-        let mut pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
-            fields_3c: [0x24; 10],
-            field_6c: false,
-        };
-        for (index, enabled) in [2, 5].into_iter().zip(sides) {
-            if enabled {
-                pose.fields_3c[index] = 0x30;
+    for code in [0x30, 0x1f] {
+        for sides in [[true, false], [false, true], [true, true]] {
+            let mut pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
+                fields_3c: [0x24; 10],
+                field_6c: false,
+            };
+            for (index, enabled) in [2, 5].into_iter().zip(sides) {
+                if enabled {
+                    pose.fields_3c[index] = code;
+                }
             }
+            let a = animation.sample_channels(&pose, 0., 0).unwrap();
+            let b = animation.sample_channels(&pose, 0., 125).unwrap();
+            let repeat = animation.sample_channels(&pose, 0., 0).unwrap();
+            assert_eq!(a.eye, stand.eye, "arm-only gesture moved the eye");
+            assert_eq!(
+                a.surfaces
+                    .iter()
+                    .zip(&b.surfaces)
+                    .any(|(a, b)| a.corners != b.corners),
+                code == 0x30,
+            );
+            for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
+                assert_eq!(a.corners, b.corners);
+            }
+            pose.fields_3c[0] = code;
+            assert!(animation.sample_channels(&pose, 0., 0).is_err());
         }
-        let a = animation.sample_channels(&pose, 0., 0).unwrap();
-        let b = animation.sample_channels(&pose, 0., 125).unwrap();
-        let repeat = animation.sample_channels(&pose, 0., 0).unwrap();
-        assert_eq!(a.eye, stand.eye, "arm-only wave moved the eye");
-        assert!(
-            a.surfaces
-                .iter()
-                .zip(&b.surfaces)
-                .any(|(a, b)| a.corners != b.corners)
-        );
-        for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
-            assert_eq!(a.corners, b.corners);
-        }
-        pose.fields_3c[0] = 0x30;
-        assert!(animation.sample_channels(&pose, 0., 0).is_err());
     }
     let stopped = animation.sample(None, 0., 500).unwrap();
     assert_eq!(stopped.eye, stand.eye);
