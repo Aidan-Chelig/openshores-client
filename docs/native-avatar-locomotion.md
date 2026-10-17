@@ -341,3 +341,40 @@ exact Stand/eye. The complete expanded first-person action sequence now passes
 in `target/connected-avatar-prcnc1al`, including Fold/Point and sparse stationary
 head tilt/reset, animated-eye tracking, unchanged mouse-look and hidden skull.
 This does not add local targeting controls, finger articulation or physics.
+
+## Received crouch stages
+
+Bounded GNU disassembly of `DaCreature::IsCrouched` at`0x14097eae0` reads
+DpBody's general word48 (or Animalia's word6c) and applies unsigned
+`word -0x10 <=1`. Thus0x10/0x11 are native crouched states, not guessed Fold
+aliases. `tests/native_crouch_pose.py` binds this predicate and four dispatch
+tables to the selected PE SHA256. Both leg selectors map0x10 to the same block
+as Stand0x24, and0x11 to Walk0x26. Both arm sides do likewise. The second leg
+table uses an explicit pose-minus4 index; the others use the pose directly.
+Tables are at1422bf404/1422bf534 (legs) and1422bf080/1422bf1b0 (arms).
+
+This agrees with retained PositionLegs evidence
+`ev_2519dd7344a1badc224e6107dd2daf6acaefcb4edfcf9b8bb8abaa2783f3c74d`
+and PositionArms evidence
+`ev_17f36040ffbb5a56c997011ed3faac068c5298cb20355ac571cdd958fd71f315`.
+The compositor reuses actual Stand/Walk stage implementations, not new guessed
+crouch joint angles. Walk's limb consumers still use rhythm0x26 internally;
+torso/tail retain their own0x11 dispatch/rhythm behavior. Native CGHeight's
+existing RelativeStanding branch handles both codes, including the exact
+2/3 multiplier when owner DNA byte1 bit8 is set, otherwise1.5, and the existing
+half-dimension lower bound. This is not a universal hard-coded crouch offset.
+
+The explicit source adapter admits both received codes and preserves mixed
+channels. Preparation warms both before discarding installation access. No new
+outgoing crouch prediction is admitted by the local source-report inverse table.
+Mounted received-DNA tests check changed geometry, fixed0x10 versus animated
+0x11, deterministic0/125/0-ms samples and exact Stand/eye recovery. Existing
+SHA-bound height, torso, head and tail checks still apply.
+
+This checkpoint renders a received posture at the actual received root. It does
+not add Caps Lock controls, local movement-rate changes, collision-height or CG
+ground-placement transitions. The saved Controls page documents held Caps Lock
+crouch, but binding it before those placement rules would hide a physical gap
+behind an invented visual offset. The owned pose-only fixture keeps its root at
+standing elevation deliberately; any resulting hover is not proof of native
+crouch grounding or a reason to double-adjust a real received transform.

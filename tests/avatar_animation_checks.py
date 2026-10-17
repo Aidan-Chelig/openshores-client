@@ -14,7 +14,7 @@ for check in (
     "native_pose_rhythm.py", "native_leg_locomotion.py",
     "native_arm_locomotion.py", "native_dead_pose.py", "native_wave_pose.py", "native_jump_pose.py", "native_fold_pose.py", "native_point_pose.py",
     "native_dp_height.py", "native_dp_position_tail.py",
-    "native_dp_position_torso.py", "native_dp_position_heads.py", "native_head_tilt.py",
+    "native_dp_position_torso.py", "native_dp_position_heads.py", "native_head_tilt.py", "native_crouch_pose.py",
 ):
     run(sys.executable, str(ROOT / "tests" / check))
 run("cargo", "test", "--offline", "--features", "client", "--lib", "--quiet")

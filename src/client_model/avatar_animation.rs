@@ -39,7 +39,7 @@ impl PreparedNormalAvatar {
         for gait in [NativeDpGait::Walk, NativeDpGait::Run] {
             body.pose_locomotion(gait, 1., 0, &mut hands, &mut feet, &mut Timer(0))?;
         }
-        for code in [0x12, 0x15, 0x1c, 0x18, 0x19, 0x1b, 0x35] {
+        for code in [0x10, 0x11, 0x12, 0x15, 0x1c, 0x18, 0x19, 0x1b, 0x35] {
             body.pose_locomotion_channels(
                 &NativeDpBodyPoseState {
                     fields_3c: [code; 10],

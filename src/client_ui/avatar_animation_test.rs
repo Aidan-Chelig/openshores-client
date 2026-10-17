@@ -22,6 +22,7 @@ pub(super) struct Workflow {
     pose_control: Option<PathBuf>,
     first_person: bool,
     local_gestures: bool,
+    crouch_only: bool,
 }
 impl Workflow {
     pub(super) fn new(path: PathBuf) -> Self {
@@ -38,11 +39,14 @@ impl Workflow {
             first_person: std::env::var_os("OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON")
                 .is_some(),
             local_gestures: std::env::var_os("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES").is_some(),
+            crouch_only: std::env::var_os("OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH").is_some(),
         }
     }
     pub(super) fn complete(&self) -> bool {
         self.stage
-            == if self.local_gestures {
+            == if self.crouch_only {
+                4
+            } else if self.local_gestures {
                 6
             } else if self.pose_control.is_some() {
                 16
@@ -215,7 +219,7 @@ pub(super) fn workflow(
         assert_eq!(ui.avatar_animation_status, "Avatar animation: standing");
         flow.initial = Some(current);
         if let Some(path) = &flow.pose_control {
-            std::fs::write(path, "mixed").unwrap();
+            std::fs::write(path, if flow.crouch_only { "crouch" } else { "mixed" }).unwrap();
         }
         if flow.local_gestures {
             activate(
@@ -233,6 +237,10 @@ pub(super) fn workflow(
     assert_eq!(current.gpu.image, initial.gpu.image);
     assert_eq!(current.gpu.material, initial.gpu.material);
     assert_eq!(current.uvs, initial.uvs);
+    if flow.crouch_only {
+        received_crouch(&mut flow, &mut ui, current, &mut commands);
+        return;
+    }
     if flow.local_gestures {
         local_gestures(&mut flow, &mut ui, &views.bridge, current, &mut commands);
         return;
@@ -560,6 +568,74 @@ fn local_gestures(
             _ => None,
         };
         activate(Action::Gesture(next), ui, bridge);
+        flow.advance();
+    }
+}
+
+fn received_crouch(
+    flow: &mut Workflow,
+    ui: &mut Presentation,
+    current: Snapshot,
+    commands: &mut Commands,
+) {
+    let initial = flow.initial.as_ref().unwrap();
+    assert_eq!(
+        current.position, initial.position,
+        "received crouch invented world displacement"
+    );
+    let code = match flow.stage {
+        1 => 0x10,
+        2 => 0x11,
+        _ => 0x24,
+    };
+    if ui.model.local_player_pose(0.).unwrap().unwrap().received != [code; 10] {
+        flow.frames = 0;
+        return;
+    }
+    let frames = flow.frames;
+    if flow.stage == 3 {
+        assert_eq!(current.positions, initial.positions);
+        assert_eq!(current.eye, initial.eye);
+        if frames == 30 {
+            println!(
+                "Connected received crouch: fixed/dynamic phases, unchanged root/resources and exact Stand/eye recovery verified"
+            );
+            flow.advance();
+        }
+        return;
+    }
+    if matches!(frames, 37 | 83) {
+        assert_ne!(current.positions, initial.positions);
+        if let Some(previous) = &flow.last_phase {
+            if flow.stage == 1 {
+                assert_eq!(&current.positions, previous);
+            } else {
+                assert_ne!(&current.positions, previous);
+            }
+        }
+        let label = if flow.stage == 1 {
+            "crouch"
+        } else {
+            "crouch-walk"
+        };
+        commands
+            .spawn(Screenshot::primary_window())
+            .observe(save_to_disk(flow.directory.join(format!(
+                "{label}-{}.png",
+                if frames == 37 { "a" } else { "b" }
+            ))));
+        flow.last_phase = Some(current.positions);
+    }
+    if frames == 90 {
+        std::fs::write(
+            flow.pose_control.as_ref().unwrap(),
+            if flow.stage == 1 {
+                "crouch-walk"
+            } else {
+                "stand"
+            },
+        )
+        .unwrap();
         flow.advance();
     }
 }

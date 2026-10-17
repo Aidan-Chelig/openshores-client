@@ -108,6 +108,10 @@ test-connected-avatar-received-poses: build-client
 test-connected-avatar-local-gestures: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_LOCAL_GESTURES=1 python tests/local_server.py avatar
 
+# Separate bounded session for received crouch poses and Stand recovery.
+test-connected-avatar-received-crouch: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH=1 python tests/local_server.py avatar
+
 # Walking/running through the animated native eye with local skull suppressed.
 test-connected-avatar-animation-first-person: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 python tests/local_server.py avatar

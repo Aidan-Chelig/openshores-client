@@ -5,7 +5,8 @@ the OpenShores experience and user-mounted assets. A moving connected avatar,
 not merely an offline animated fixture, is the required final result.
 
 Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
-received Jump posing, arm-channel Wave/Point and folded-limb codes0x18/0x19/0x1b/0x35.
+received crouch/crouch-walk and Jump posing, arm-channel Wave/Point and
+folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
 local movement and optional arm gestures predict/report only over received all-Stand.
 Finite source head tilt now reaches normal-body rendering with connected
@@ -13,7 +14,8 @@ third-/first-person acceptance. Other actions, nonzero source pose parameters, g
 mode, winged and legless body animation remain explicit unsupported inputs,
 not silent fallbacks.
 Jump/death posing does not implement displacement, gravity, landing or corpse
-settling. The goal remains active; checkpoints below record evidence, not a claim
+settling. Crouch is received rendering only, not held Caps Lock or local grounding.
+The goal remains active; checkpoints below record evidence, not a claim
 of the complete OpenShores animation catalog.
 
 ## Acceptance
@@ -523,4 +525,39 @@ reports. This is independent of the local-gesture mode's no-injection proof.
 The final offline bundle passes all13 static verifiers,797 library tests (six
 ignored), both received-DNA/ownership tests and all eight mounted limb tests;
 strict client Clippy and formatting/diff checks also pass.
+
+Received crouch checkpoint: native `DaCreature::IsCrouched` identifies0x10/0x11.
+The new SHA-bound verifier checks that predicate and both leg/arm-side dispatch
+tables (including the second leg table's minus4 index): stationary crouch reuses
+Stand stages; crouch-walk reuses Walk stages. Existing CGHeight RelativeStanding,
+torso/head/tail dispatch determines the rest, not guessed joint angles. See
+`native-avatar-locomotion.md` for evidence IDs and exact DNA-dependent factors.
+Both received codes are admitted explicitly, warmed off-thread, and sampled
+using cached-only hands/feet. Mixed channels remain intact; local gestures and
+pose reports cannot overwrite crouch. The source-report inverse table still
+rejects local crouch prediction until control/placement behavior is implemented.
+
+Mounted received-DNA sampling passes fixed0x10 and animated0x11 at0/125/0 ms,
+finite eyes, deterministic repeats and exact Stand/eye restoration. Real packet
+tests include both received codes. `just test-connected-avatar-received-crouch`
+uses a separate bounded owned-server session rather than extending the full
+catalog sequence beyond the unchanged60-second runtime bound. Third-person
+acceptance passes in `target/connected-avatar-2mulmqwp`: both phase captures,
+unchanged root/mesh/material/atlas/UVs, exact Stand recovery and actual source
+decoder evidence of no action-overwriting reports. Crouch-A and both crouch-walk
+captures were opened: bent knees and differing gait phases are visible.
+
+The fixture sends pose-only updates at standing root elevation. The images
+therefore show a hover; this explicitly does not establish native crouch ground
+placement. Held Caps Lock, movement-rate/collision changes and CG transitions
+remain work, not a hidden render-only offset. Prone mapping was located but no
+prone implementation or keyboard behavior is claimed in this checkpoint.
+No original binary or public server ran; retained REA evidence and bounded GNU
+symbol/table checks avoided a new Ghidra import.
+
+The same crouch sequence with `OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1`
+passes in `target/connected-avatar-16gscyfc`, running animated-eye, mouse-look and
+hidden-skull assertions throughout. The offline bundle passes14 static checks,
+797 library tests (six ignored), both received-DNA/ownership tests and all eight
+mounted limb checks. Strict client Clippy, formatting and diff checks pass.
 
