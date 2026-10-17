@@ -104,6 +104,10 @@ test-connected-avatar-animation: build-client
 test-connected-avatar-received-poses: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_RECEIVED_POSES=1 python tests/local_server.py avatar
 
+# Normal UI action dispatch plus real keyboard locomotion, without server pose injection.
+test-connected-avatar-local-gestures: build-client
+    nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_LOCAL_GESTURES=1 python tests/local_server.py avatar
+
 # Walking/running through the animated native eye with local skull suppressed.
 test-connected-avatar-animation-first-person: build-client
     nix develop .#server-test --command env OPENSHORES_TEST_AVATAR_ANIMATION=1 OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1 python tests/local_server.py avatar

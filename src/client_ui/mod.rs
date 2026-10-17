@@ -14,6 +14,7 @@ mod avatar;
 mod avatar_animation;
 mod avatar_animation_test;
 mod avatar_camera;
+mod avatar_gestures;
 mod avatar_inspection;
 mod avatar_lifecycle;
 mod avatar_live;
@@ -92,6 +93,7 @@ struct Presentation {
     top_blend: f32,
     avatar_motion_speed: f32,
     avatar_animation_status: String,
+    gestures: avatar_gestures::State,
 }
 
 #[derive(Component)]
@@ -128,6 +130,7 @@ enum Action {
     Disconnect,
     Gear,
     Bio,
+    Gesture(Option<crate::client_model::LocalPlayerGesture>),
 }
 
 #[derive(Resource)]

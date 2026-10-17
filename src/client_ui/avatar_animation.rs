@@ -60,7 +60,7 @@ pub(super) fn animate(
         status(&mut ui, error);
         return;
     }
-    let selected = match ui.model.local_player_pose(ui.avatar_motion_speed) {
+    let selected = match ui.avatar_pose() {
         Ok(Some(selected)) => selected,
         Ok(None) => {
             state.standing = false;
@@ -145,9 +145,17 @@ pub(super) fn animate(
             } else if selected.native.fields_3c == [0x35; 10] {
                 "Avatar animation: folded-limb pose 0x35"
             } else if selected.native.fields_3c[2] == 0x1f || selected.native.fields_3c[5] == 0x1f {
-                "Avatar animation: received point channels"
+                if selected.predicted {
+                    "Avatar animation: local point channels"
+                } else {
+                    "Avatar animation: received point channels"
+                }
             } else if selected.native.fields_3c[2] == 0x30 || selected.native.fields_3c[5] == 0x30 {
-                "Avatar animation: received wave channels"
+                if selected.predicted {
+                    "Avatar animation: local wave channels"
+                } else {
+                    "Avatar animation: received wave channels"
+                }
             } else {
                 "Avatar animation: received mixed locomotion channels"
             },

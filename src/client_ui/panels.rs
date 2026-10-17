@@ -236,6 +236,24 @@ pub(super) fn rebuild_panels(
                 super::chat::panel(&mut commands, root, &ui);
                 if ui.bio_open {
                     label(&mut commands, root, "Bio (F8)");
+                    label(
+                        &mut commands,
+                        root,
+                        "Local arm gestures (prototype controls)",
+                    );
+                    for (gesture, text) in [
+                        (
+                            Some(crate::client_model::LocalPlayerGesture::Wave),
+                            "Wave (left arm)",
+                        ),
+                        (
+                            Some(crate::client_model::LocalPlayerGesture::Point),
+                            "Point (left arm)",
+                        ),
+                        (None, "Neutral / end gesture"),
+                    ] {
+                        button(&mut commands, root, Action::Gesture(gesture), text);
+                    }
                     if let Some(person) = ui
                         .model
                         .avatar

@@ -18,7 +18,7 @@ pub use avatar_preparation::{
 };
 pub use native::NativeAvatarPresentation;
 pub use player_appearance::LocalPlayerDna;
-pub use player_pose::LocalPlayerPose;
+pub use player_pose::{LocalPlayerGesture, LocalPlayerPose};
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Phase {

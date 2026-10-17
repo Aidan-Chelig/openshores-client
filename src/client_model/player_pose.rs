@@ -6,6 +6,12 @@ use crate::{
 };
 use std::io;
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LocalPlayerGesture {
+    Wave,
+    Point,
+}
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct LocalPlayerPose {
     pub received: [u8; 10],
@@ -17,6 +23,40 @@ pub struct LocalPlayerPose {
     pub predicted: bool,
 }
 impl LocalPlayerPose {
+    /// Local source-profile prediction is permitted only over received Stand.
+    /// Keep the predicted gait on every other channel and never mutate receipt.
+    /// Apply to a freshly selected base pose; None leaves that pose unchanged.
+    pub fn with_gesture(mut self, gesture: Option<LocalPlayerGesture>) -> Self {
+        if self.received == [0x24; 10]
+            && let Some(gesture) = gesture
+        {
+            self.native.fields_3c[2] = match gesture {
+                LocalPlayerGesture::Wave => 0x30,
+                LocalPlayerGesture::Point => 0x1f,
+            };
+            self.predicted = true;
+        }
+        self
+    }
+    /// Explicit inverse table for this source profile's local predictions only.
+    /// Never serialize arbitrary native pose words as source enum bytes.
+    pub fn source_report_channels(&self) -> Option<[u8; 10]> {
+        if self.received != [0x24; 10] || self.native.field_6c {
+            return None;
+        }
+        let mut result = [0; 10];
+        for (index, (&native, byte)) in self.native.fields_3c.iter().zip(&mut result).enumerate() {
+            *byte = match native {
+                0x24 => 0x24,
+                0x25 => 0x25,
+                0x26 => 0x26,
+                0x30 if index == 2 => 0x30,
+                0x1f if index == 2 => 0x1f,
+                _ => return None,
+            };
+        }
+        Some(result)
+    }
     pub fn is_standing(&self) -> bool {
         self.native.fields_3c == [0x24; 10]
     }
@@ -114,6 +154,51 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn local_arm_gestures_preserve_gait_receipt_and_head_angles_but_yield_to_server_actions() {
+        let mut person = PersonState {
+            poses: Some([0x24; 10]),
+            pose_parameter: Some(0),
+            head_tilt: Some(0.25),
+            ..Default::default()
+        };
+        for (speed, gait) in [(0., 0x24), (4., 0x26), (12., 0x25)] {
+            let base = select(&person, speed).unwrap().unwrap();
+            assert_eq!(base.clone().with_gesture(None), base);
+            for (gesture, code) in [
+                (LocalPlayerGesture::Wave, 0x30),
+                (LocalPlayerGesture::Point, 0x1f),
+            ] {
+                let selected = base.clone().with_gesture(Some(gesture));
+                let mut expected = [gait; 10];
+                expected[2] = code;
+                assert_eq!(selected.native.fields_3c, expected);
+                assert_eq!(
+                    selected.source_report_channels(),
+                    Some(expected.map(|v| v as u8))
+                );
+                assert_eq!(selected.received, [0x24; 10]);
+                assert_eq!(selected.head_angles, [0.25, 0.]);
+                assert_eq!(selected.speed, base.speed);
+                assert!(selected.predicted);
+            }
+        }
+        for code in [0x12, 0x15, 0x1c, 0x25] {
+            person.poses = Some([code; 10]);
+            let base = select(&person, 12.).unwrap().unwrap();
+            assert!(base.source_report_channels().is_none());
+            assert_eq!(
+                base.clone().with_gesture(Some(LocalPlayerGesture::Wave)),
+                base
+            );
+        }
+        person.poses = Some([0x24; 10]);
+        let mut invalid = select(&person, 0.).unwrap().unwrap();
+        for code in [0x13, 0x100, 0x1f, 0x30] {
+            invalid.native.fields_3c[0] = code;
+            assert!(invalid.source_report_channels().is_none());
+        }
+    }
     #[test]
     fn sparse_source_head_tilt_updates_preserve_channels_and_reset_to_zero() {
         let mut model = ClientModel {

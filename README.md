@@ -46,6 +46,14 @@ Use `just play` instead for manual login; that harness prints synthetic credenti
 Right-click switches mouse-look/hand-cursor; Ctrl gives
 a temporary cursor. Select a gear entry, move/drop it, select the dropped world
 item and pick it back up. Use Beans to observe server-updated hunger and inventory.
+Open Bio with F8 and use its prototype **Wave**, **Point**, or **Neutral** buttons
+to control the left-arm gesture. Right-click for the cursor; F1 shows hidden
+windows. Gestures persist until Neutral, work while walking/running, and are
+cancelled by received server actions or a new avatar/session. Shift+Backspace
+opens full-body inspection to see them. These are explicit prototype buttons,
+not recovered original keyboard bindings; Point does not add targeting or finger
+articulation. `just test-connected-avatar-local-gestures` verifies action dispatch,
+keyboard locomotion and the actual local server's received gesture channels.
 The connected development session is currently bounded to 60 seconds; closing
 the window shuts down the owned server and disposable database.
 

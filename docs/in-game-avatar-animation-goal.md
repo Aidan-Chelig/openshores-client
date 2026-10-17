@@ -7,7 +7,7 @@ not merely an offline animated fixture, is the required final result.
 Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
 received Jump posing, arm-channel Wave/Point and folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
-local movement predicts and reports locomotion only over received all-Stand.
+local movement and optional arm gestures predict/report only over received all-Stand.
 Finite source head tilt now reaches normal-body rendering with connected
 third-/first-person acceptance. Other actions, nonzero source pose parameters, guided
 mode, winged and legless body animation remain explicit unsupported inputs,
@@ -480,4 +480,47 @@ tests and all eight mounted limb checks. No public server or original binary
 execution was used. The broader animation goal remains active: unsupported
 actions/anatomies, native runtime effects, user-triggered gesture/aiming
 interaction and physical action transitions are not proven complete here.
+
+Local gesture controls checkpoint: Bio now has explicit prototype Wave/Point/
+Neutral buttons. The saved Controls page supplies no Wave/Point shortcuts, so
+none are invented or claimed as recovered originals. Buttons use the same
+action handler as the connected acceptance driver. Prediction is permitted
+only over received all-Stand, replaces arm channel2 only, preserves the other
+predicted gait channels and head angles, and never mutates received Person
+state. A per-session/avatar request survives sparse neutral omissions but is
+cancelled after each received action/unsupported state, removal or ownership
+change; a later Stand cannot silently resume an old gesture. Neutral returns
+the arm to the current gait, not always to an unrelated standing arm.
+
+Rendering and outgoing reports now share the composed selected pose, removing
+the duplicate report-only gait classifier. A bounded explicit inverse table
+admits only Stand/Walk/Run and the local left-arm Wave/Point source bytes;
+arbitrary native pose words are not cast into wire enums. Reports retain retry/heartbeat
+behavior and zero auxiliary fields; mixed gesture reports do not flood every
+frame. Packet-ingestion/action tests verify received-state authority, sparse
+omission, action rejection/cancellation, same-ID generation change, removal/
+restore and explicit Neutral. The client library passes797 tests (six ignored).
+
+`just test-connected-avatar-local-gestures` passes against the owned source
+server. No received pose is injected or echoed in this mode: the wrapper only
+observes the original delta-tick decoder and returns its original result. The
+driver selects gestures through the normal action handler and uses actual
+W/Shift keyboard input for Point+Walk and Wave+Run. It verifies changing Wave
+and gait phases, fixed Point, root movement only while moving, persistent GPU
+identities/UVs, unchanged received channels and exact neutral geometry/eye.
+The actual source decoder observes all five composed channel vectors with
+auxiliary i16/i32 both zero. This proves dispatch and protocol delivery, not a
+mouse-click automation or source-server pose echo/remote-peer render.
+Wave-A, Point-A and Wave+Run-B in `target/connected-avatar-ad4d35vu` were opened:
+the selected arm is visibly raised/extended while the other limbs retain their
+standing/running behavior. Finger articulation and mouse-driven targeting remain
+unimplemented; these buttons do not fabricate either.
+
+The complete received-action/tilt/unsupported/recovery regression also passes
+after the local-control changes (`target/connected-avatar-qtdpjx9e`), including
+actual decoder evidence that received actions are not overwritten by local
+reports. This is independent of the local-gesture mode's no-injection proof.
+The final offline bundle passes all13 static verifiers,797 library tests (six
+ignored), both received-DNA/ownership tests and all eight mounted limb tests;
+strict client Clippy and formatting/diff checks also pass.
 

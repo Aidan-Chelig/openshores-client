@@ -88,6 +88,7 @@ def main() -> None:
     animation = action == "avatar" and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION"))
     received_animation = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_RECEIVED_POSES"))
     animation_first_person = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON"))
+    local_gestures = animation and bool(os.environ.get("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES"))
     # Hold distinct ephemeral ports until the server is ready to start.
     reservations = [socket.socket() for _ in range(5)]
     for sock in reservations:
@@ -139,6 +140,8 @@ def main() -> None:
                 os.environ["OPENSHORES_TEST_AVATAR_ANIMATION"] = "1"
             if animation_first_person:
                 os.environ["OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON"] = "1"
+            if local_gestures:
+                os.environ["OPENSHORES_TEST_AVATAR_LOCAL_GESTURES"] = "1"
             if received_animation:
                 os.environ["OPENSHORES_TEST_AVATAR_POSE_CONTROL"] = str(runtime / "pose-control")
             if graphical:
@@ -189,7 +192,7 @@ def main() -> None:
             with log_path.open("w") as log:
                 server_command = ([sys.executable, str(ROOT / "tests/conversation_server.py")]
                                   if action == "conversation" else [sys.executable, "-m", "openshores"])
-                if action == "avatar-live" or south or received_animation:
+                if action == "avatar-live" or south or received_animation or local_gestures:
                     server_command = [sys.executable, str(ROOT / "tests/avatar_live_server.py")]
                 server = subprocess.Popen(server_command, stdout=log, stderr=log)
                 deadline = time.monotonic() + 120
@@ -280,6 +283,24 @@ def main() -> None:
                                     assert "AVATAR LIFECYCLE manifest removed" in log_path.read_text()
                                     assert "AVATAR LIFECYCLE manifest restored" in log_path.read_text()
                             elif animation:
+                                if local_gestures:
+                                    assert "Connected local gestures: action dispatch, Wave/Point with keyboard Walk/Run, persistent meshes and exact neutral recovery verified" in result.stdout
+                                    for label in ("gesture-wave", "gesture-point", "gesture-point-walk", "gesture-wave-run"):
+                                        for phase in ("a", "b"):
+                                            assert (directory / f"{label}-{phase}.png").is_file()
+                                    assert (directory / "gesture-neutral.png").is_file()
+                                    records = [line for line in log_path.read_text().splitlines() if line.startswith("AVATAR GESTURE received poses=")]
+                                    assert records and all(line.endswith("aux=0,0") for line in records), "gesture reports must not set auxiliary weapon/angle fields"
+                                    for gait, arm in ((0x24,0x30), (0x24,0x1f), (0x26,0x1f), (0x25,0x30), (0x24,0x24)):
+                                        poses = bytearray([gait] * 10)
+                                        poses[2] = arm
+                                        assert any(f"poses={poses.hex()} " in line for line in records), "actual source decoder missed a composed gesture/gait report"
+                                    assert "Connected avatar received/render appearance verified" in result.stdout
+                                    assert screenshot.is_file() and screenshot.stat().st_size > 1000
+                                    assert "Shader compilation error" not in result.stdout
+                                    assert PASSWORD not in result.stdout
+                                    print("Connected local gestures: actual source decoder received all composed channels with zero auxiliary fields", flush=True)
+                                    continue
                                 for gait in (() if received_animation else ("walk", "run")):
                                     assert f"{gait} keyboard input moved player and changed native mesh phases" in result.stdout
                                     for phase in ("a", "b"):

@@ -21,6 +21,7 @@ pub(super) struct Workflow {
     stopped_position: Option<Vec3>,
     pose_control: Option<PathBuf>,
     first_person: bool,
+    local_gestures: bool,
 }
 impl Workflow {
     pub(super) fn new(path: PathBuf) -> Self {
@@ -36,10 +37,18 @@ impl Workflow {
                 .map(PathBuf::from),
             first_person: std::env::var_os("OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON")
                 .is_some(),
+            local_gestures: std::env::var_os("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES").is_some(),
         }
     }
     pub(super) fn complete(&self) -> bool {
-        self.stage == if self.pose_control.is_some() { 16 } else { 4 }
+        self.stage
+            == if self.local_gestures {
+                6
+            } else if self.pose_control.is_some() {
+                16
+            } else {
+                4
+            }
     }
     pub(super) fn side_view(&self) -> bool {
         self.stage > 0 && !self.complete()
@@ -59,10 +68,14 @@ pub(super) fn input(
     keys.release(KeyCode::ShiftLeft);
     if flow.pose_control.is_none()
         && rendered.gpu_snapshot().is_some()
-        && matches!(flow.stage, 1 | 2)
+        && if flow.local_gestures {
+            matches!(flow.stage, 3 | 4)
+        } else {
+            matches!(flow.stage, 1 | 2)
+        }
     {
         keys.press(KeyCode::KeyW);
-        if flow.stage == 2 {
+        if flow.stage == if flow.local_gestures { 4 } else { 2 } {
             keys.press(KeyCode::ShiftLeft);
         }
     }
@@ -108,9 +121,10 @@ fn snapshot(
     })
 }
 #[derive(bevy::ecs::system::SystemParam)]
-pub(super) struct ViewChecks<'w, 's> {
+pub(super) struct TestContext<'w, 's> {
     cameras: Query<'w, 's, &'static Transform, With<SliceCamera>>,
     heads: Query<'w, 's, &'static Visibility, With<avatar_rendering::FirstPersonHead>>,
+    bridge: Res<'w, Bridge>,
 }
 pub(super) fn workflow(
     mut flow: ResMut<Workflow>,
@@ -119,7 +133,7 @@ pub(super) fn workflow(
     meshes: Res<Assets<Mesh>>,
     roots: Query<&Transform, With<avatar_rendering::LocalAvatar>>,
     mut commands: Commands,
-    views: ViewChecks,
+    views: TestContext,
 ) {
     if flow.complete() {
         return;
@@ -203,6 +217,13 @@ pub(super) fn workflow(
         if let Some(path) = &flow.pose_control {
             std::fs::write(path, "mixed").unwrap();
         }
+        if flow.local_gestures {
+            activate(
+                Action::Gesture(Some(crate::client_model::LocalPlayerGesture::Wave)),
+                &mut ui,
+                &views.bridge,
+            );
+        }
         flow.advance();
         return;
     }
@@ -212,6 +233,10 @@ pub(super) fn workflow(
     assert_eq!(current.gpu.image, initial.gpu.image);
     assert_eq!(current.gpu.material, initial.gpu.material);
     assert_eq!(current.uvs, initial.uvs);
+    if flow.local_gestures {
+        local_gestures(&mut flow, &mut ui, &views.bridge, current, &mut commands);
+        return;
+    }
     if let Some(control) = flow.pose_control.clone() {
         assert_eq!(
             current.position, initial.position,
@@ -447,6 +472,94 @@ pub(super) fn workflow(
         if flow.stage == 2 {
             flow.stopped_position = Some(current.position);
         }
+        flow.advance();
+    }
+}
+
+fn local_gestures(
+    flow: &mut Workflow,
+    ui: &mut Presentation,
+    bridge: &Bridge,
+    current: Snapshot,
+    commands: &mut Commands,
+) {
+    use crate::client_model::LocalPlayerGesture::{Point, Wave};
+    let initial = flow.initial.as_ref().unwrap();
+    let frames = flow.frames;
+    let selected = ui.avatar_pose().unwrap().unwrap();
+    assert_eq!(
+        selected.received, [0x24; 10],
+        "local prediction mutated received channels"
+    );
+    let gait = match flow.stage {
+        3 => 0x26,
+        4 => 0x25,
+        _ => 0x24,
+    };
+    let gesture = match flow.stage {
+        1 | 4 => 0x30,
+        2 | 3 => 0x1f,
+        _ => 0x24,
+    };
+    let mut expected = [gait; 10];
+    expected[2] = gesture;
+    assert_eq!(selected.native.fields_3c, expected);
+    if flow.stage == 5 {
+        assert_eq!(current.positions, initial.positions);
+        assert_eq!(current.eye, initial.eye);
+        if frames == 1 {
+            flow.stopped_position = Some(current.position);
+        }
+        assert_eq!(Some(current.position), flow.stopped_position);
+        if frames == 30 {
+            commands
+                .spawn(Screenshot::primary_window())
+                .observe(save_to_disk(flow.directory.join("gesture-neutral.png")));
+            println!(
+                "Connected local gestures: action dispatch, Wave/Point with keyboard Walk/Run, persistent meshes and exact neutral recovery verified"
+            );
+            flow.advance();
+        }
+        return;
+    }
+    if matches!(flow.stage, 1 | 2) {
+        assert_eq!(current.position, initial.position);
+        assert_eq!(current.eye, initial.eye);
+    }
+    if matches!(frames, 37 | 83) {
+        assert_ne!(current.positions, initial.positions);
+        if matches!(flow.stage, 3 | 4) {
+            assert_ne!(current.position, initial.position);
+        }
+        if let Some(previous) = &flow.last_phase {
+            if flow.stage == 2 {
+                assert_eq!(&current.positions, previous);
+            } else {
+                assert_ne!(&current.positions, previous);
+            }
+        }
+        let label = match flow.stage {
+            1 => "gesture-wave",
+            2 => "gesture-point",
+            3 => "gesture-point-walk",
+            _ => "gesture-wave-run",
+        };
+        commands
+            .spawn(Screenshot::primary_window())
+            .observe(save_to_disk(flow.directory.join(format!(
+                "{label}-{}.png",
+                if frames == 37 { "a" } else { "b" }
+            ))));
+        flow.last_phase = Some(current.positions);
+    }
+    if frames == 90 {
+        let next = match flow.stage {
+            1 => Some(Point),
+            2 => Some(Point),
+            3 => Some(Wave),
+            _ => None,
+        };
+        activate(Action::Gesture(next), ui, bridge);
         flow.advance();
     }
 }

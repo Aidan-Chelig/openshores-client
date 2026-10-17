@@ -21,6 +21,7 @@ pub(super) fn network_events(mut ui: ResMut<Presentation>, bridge: Res<Bridge>) 
             ui.model.status = format!("Invalid server state: {error}");
             send(&mut ui, &bridge, Request::Disconnect);
         }
+        avatar_gestures::reconcile(&mut ui);
         if bootstrap {
             ui.local_position = ui.model.position();
             ui.local_rotation = None;
@@ -41,6 +42,7 @@ pub(super) fn network_events(mut ui: ResMut<Presentation>, bridge: Res<Bridge>) 
 }
 pub(super) fn activate(action: Action, ui: &mut Presentation, bridge: &Bridge) {
     match action {
+        Action::Gesture(gesture) => avatar_gestures::choose(ui, gesture),
         Action::StoryControl(control) if ui.model.phase == Phase::Playing => {
             send(ui, bridge, Request::StoryControl(control));
         }

@@ -24,13 +24,16 @@ from openshores.protocol.login_reply import _default_dna
 original = connection.handle_scene
 pose_phase = ("bootstrap", 0.)
 
-if os.environ.get("OPENSHORES_TEST_AVATAR_POSE_CONTROL"):
+if os.environ.get("OPENSHORES_TEST_AVATAR_POSE_CONTROL") or os.environ.get("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES"):
     original_parse_delta = connection._parse_delta_tick
 
     @functools.wraps(original_parse_delta)
     def observe_pose_reports(payload):
         result = original_parse_delta(payload)
         if isinstance(result, dict) and result.get("poses"):
+            if os.environ.get("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES"):
+                poses = bytes(int(v) & 255 for v in result["poses"])
+                print(f"AVATAR GESTURE received poses={poses.hex()} aux={result.get('flag08_i16')},{result.get('flag08_i32')}", flush=True)
             phase, sent = pose_phase
             print(f"AVATAR POSE parsed client report during {phase}", flush=True)
             # Allow transport already queued before the sparse server update.
@@ -57,6 +60,8 @@ if os.environ.get("OPENSHORES_TEST_AVATAR_SOUTH"):
 
 
 async def observe_reports(live, writer):
+    if os.environ.get("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES"):
+        return  # Decoder observation only; no appearance/pose echo injection.
     if os.environ.get("OPENSHORES_TEST_AVATAR_POSE_CONTROL"):
         await observe_pose_requests(live, writer)
         return
