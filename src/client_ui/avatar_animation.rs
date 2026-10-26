@@ -145,7 +145,11 @@ pub(super) fn animate(
             } else if selected.native.fields_3c == [0x12; 10] {
                 "Avatar animation: dying (face down)"
             } else if selected.native.fields_3c == [0x15; 10] {
-                "Avatar animation: dead (face down)"
+                "Avatar animation: dead (face up)"
+            } else if selected.native.fields_3c == [0x13; 10] {
+                "Avatar animation: received death pose (left)"
+            } else if selected.native.fields_3c == [0x14; 10] {
+                "Avatar animation: received death pose (right)"
             } else if selected.native.fields_3c == [0x1c; 10] {
                 "Avatar animation: received jump pose"
             } else if selected.native.fields_3c == [0x18; 10] {

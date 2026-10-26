@@ -4,8 +4,8 @@ Status: active. User objective: add animations to the in-game avatar, retaining
 the OpenShores experience and user-mounted assets. A moving connected avatar,
 not merely an offline animated fixture, is the required final result.
 
-Current supported normal-body inputs: Stand/Walk/Run, Dying/Dead skeletal posing
-(0x15 whole-body render orientation remains incorrect; see the latest checkpoint),
+Current supported normal-body inputs: Stand/Walk/Run, Dying/Dead and left/right
+death posing with the admitted native whole-body render rotations,
 received crouch/crouch-walk and Jump posing, arm-channel Wave/Point and
 folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
@@ -684,4 +684,34 @@ but do not establish correct whole-body orientation. This newly identified
 gap must be fixed alongside enabling side-death receipt; geometry, normals and
 animated eye must share the adjustment while the authoritative root stays intact.
 Raw dispatch, exact f64 constants and RotateY are retained and SHA-checked.
+
+Death-render checkpoint: the missing native render rotation is now applied to
+freshly sampled geometry, normals and animated eye, using general channel3 and
+the existing f64 RotateY implementation. Homogeneous W, UVs, controls, material
+memberships and source identities stay intact. No bone/prepared-surface mutation,
+new asset I/O or normal regeneration is introduced. Native0x15 is now rendered
+face up; the HUD description is corrected. The source profile admits0x13/0x14
+and preserves receipt authority over local gait/crouch/gesture predictions.
+They remain excluded from outgoing local action prediction.
+
+The connected sequence now captures left/right death after tilt recovery, then
+rejects0x17 and restores exact Stand geometry/eye. Root position, rotation and
+scale, plus persistent mesh/material/atlas/UV identities, remain unchanged.
+Third-person acceptance passes in `target/connected-avatar-ap41u818`; all three
+death captures were inspected, showing distinct side orientations and face-up
+0x15. Bodies remain elevated at the fixture's standing root: this is not corpse
+settling/contact parity. First-person acceptance passes in
+`target/connected-avatar-6kz71jvg`, including animated eye, independent mouse-look
+and hidden skull throughout. The actual local source decoder confirms no
+received-action-overwriting reports, then receives neutral reports on recovery.
+
+Offline verification passes all17 static verifiers,809 client tests (six
+ignored), both mounted received-DNA/ownership tests and nine mounted limb tests.
+The received-DNA test independently composes skeletal references and checks
+every death corner, normal and eye against cardinal-axis rotation expectations,
+including controls/identity preservation, repeated samples and Stand recovery.
+Only the owned local server was used. Collision, corpse settling, growth,
+broader actions/anatomies and the crouched sole discrepancy remain open.
+The default library passes756 tests (one ignored); strict client Clippy,
+formatting and diff checks pass.
 

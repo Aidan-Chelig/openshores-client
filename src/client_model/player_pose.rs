@@ -102,7 +102,7 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
         ));
     }
     if received.iter().enumerate().any(|(index, code)| {
-        !(matches!(code, 0x10..=0x12 | 0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
+        !(matches!(code, 0x10..=0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
             || matches!(index, 2 | 5) && matches!(code, 0x1f | 0x30))
     }) {
         return Err(io::Error::new(
@@ -327,9 +327,9 @@ mod tests {
             model.local_player_pose(4.).unwrap().unwrap().received,
             mixed
         );
-        model.world.ingest(&packet(Some([0x13; 10]))).unwrap();
+        model.world.ingest(&packet(Some([0x17; 10]))).unwrap();
         assert!(model.local_player_pose(12.).is_err());
-        for code in [0x10, 0x11, 0x18, 0x19, 0x1b, 0x35] {
+        for code in [0x10, 0x11, 0x13, 0x14, 0x18, 0x19, 0x1b, 0x35] {
             model.world.ingest(&packet(Some([code; 10]))).unwrap();
             assert_eq!(
                 model
@@ -402,7 +402,21 @@ mod tests {
             select(&person, 0.).unwrap().unwrap().native.fields_3c,
             [0x15; 10]
         );
-        person.poses = Some([0x13; 10]);
+        for code in [0x13, 0x14] {
+            person.poses = Some([code; 10]);
+            let selected = select(&person, 12.).unwrap().unwrap();
+            assert!(!selected.predicted);
+            assert_eq!(selected.native.fields_3c, [u32::from(code); 10]);
+            assert!(selected.source_report_channels().is_none());
+            assert_eq!(
+                selected
+                    .clone()
+                    .with_crouch(true)
+                    .with_gesture(Some(LocalPlayerGesture::Wave)),
+                selected
+            );
+        }
+        person.poses = Some([0x17; 10]);
         assert!(select(&person, 12.).is_err());
         person.poses = Some([0x1c; 10]);
         let jump = select(&person, 12.).unwrap().unwrap();

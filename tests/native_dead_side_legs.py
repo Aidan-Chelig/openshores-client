@@ -44,6 +44,9 @@ for pose, destination in [(0x12, 0x1409808E7), (0x13, 0x140980978),
     assert table + struct.unpack("<i", read(table + (pose - 4) * 4, 4))[0] == destination
     table = 0x1421C5E34
     assert table + struct.unpack("<i", read(table + (pose - 3) * 4, 4))[0] == 0x140978B10
+for pose in [0x10, 0x11, 0x12, 0x18, 0x19, 0x1b, 0x1c, 0x24, 0x25, 0x26, 0x35]:
+    table = 0x1421C664C
+    assert table + struct.unpack("<i", read(table + (pose - 4) * 4, 4))[0] == 0x1409808E7
 for address, bits in [(0x1421CA1A8, 0x400921FB54442D18),
                       (0x1421C9C48, 0x3FF921FB54442D18),
                       (0x1421CA180, 0xBFF921FB54442D18)]:

@@ -93,6 +93,12 @@ received action dispatch and terrain-following physics are not claimed complete.
 owned local server, captures two phases per gait and checks exact stop recovery,
 stable render assets/UVs and persisted movement reports. See the
 [animation progress](docs/in-game-avatar-animation-goal.md).
+`just test-connected-avatar-received-poses` also exercises received actions,
+including left/right and face-up death poses with native draw rotations,
+unsupported-action rejection and exact standing recovery. Use
+`just test-connected-avatar-actions-first-person` for animated-eye and hidden-skull
+checks. Death poses currently preserve the received actor root; corpse settling
+and collision physics remain unfinished.
 
 The inspection camera is an explicit Rust diagnostic addition, not an
 original-game binding. It follows

@@ -458,3 +458,37 @@ captures establish skeletal posing only and have an outstanding whole-body
 orientation discrepancy. Apply that transform coherently to geometry, normals
 and animated eye without changing the authoritative actor root, then enable the
 source side-death codes and verify connected recovery in both camera modes.
+
+## Death render adjustment and source admission
+
+The cached frame sampler now applies the admitted BodyPoseAdjustTransform
+branches after skeletal skinning: general0x13 +PI/2,0x14 -PI/2,0x15 PI,
+using the existing native f64 RotateY implementation. The static verifier also
+checks that all other currently admitted general codes select the no-op branch.
+Only general channel3 selects the adjustment; individual arm/leg channels do
+not roll an otherwise standing actor.
+
+This is a draw-coordinate implementation of the native render matrix's
+post-rotation. It leaves bone matrices and immutable prepared surfaces intact.
+Each newly sampled frame rotates its weighted homogeneous XYZ and normals,
+preserving W, UVs, material controls and source identity. The eye receives the
+same rotation in f64. Actor position, heading, scale and outgoing position
+reports are not altered. Following that eye while preserving independent mouse
+look is the existing client camera policy, not a claim about native camera
+side effects. No extra mesh-bound ground offset is applied.
+
+The explicit source profile now admits received0x13/0x14, preserves mixed
+channels and continues to suppress local movement/crouch/gesture prediction
+over received actions. These actions are absent from the outgoing local
+prediction inverse table. Unsupported receipt testing uses0x17 instead.
+Code0x15's HUD now identifies its resulting face-up orientation, correcting
+the earlier description based only on its face-down skeletal limb consumers.
+
+Pure regression checks all three rotations against cardinal-axis expectations,
+including nonunit homogeneous W, normals and animated eye; other admitted
+general poses remain exactly untouched. Mounted received-DNA regression
+independently composes unadjusted skeletal references and checks every sampled
+corner, normal, source identity, UV, material and eye against the expected
+rotation, then repeats and restores Stand. Connected acceptance adds both side
+poses after head-tilt recovery and before unsupported/Stand recovery, checking
+fixed geometry, distinct left/right eye positions and unchanged actor transform.

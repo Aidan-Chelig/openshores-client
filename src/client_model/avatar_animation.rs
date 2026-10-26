@@ -8,6 +8,7 @@ use crate::{
     },
 };
 use std::io;
+mod render_adjustment;
 
 pub struct PreparedAvatarAnimation {
     body: NativeDpInitialization,
@@ -115,7 +116,9 @@ impl PreparedAvatarAnimation {
             &mut self.feet,
             &mut Timer(reference_millis),
         )?;
-        self.frame()
+        let mut frame = self.frame()?;
+        frame.adjust_render_pose(pose.fields_3c[3]);
+        Ok(frame)
     }
     pub fn sample(
         &mut self,

@@ -40,7 +40,7 @@ if os.environ.get("OPENSHORES_TEST_AVATAR_POSE_CONTROL") or os.environ.get("OPEN
             phase, sent = pose_phase
             print(f"AVATAR POSE parsed client report during {phase}", flush=True)
             # Allow transport already queued before the sparse server update.
-            if (phase in ("mixed", "wave", "point", "jump", "dying", "dead", "unsupported", "crouch", "crouch-walk") or phase.startswith("fold-")) and time.monotonic() - sent > 0.3:
+            if (phase in ("mixed", "wave", "point", "jump", "dying", "dead", "dead-left", "dead-right", "unsupported", "crouch", "crouch-walk") or phase.startswith("fold-")) and time.monotonic() - sent > 0.3:
                 print(f"AVATAR POSE unexpected report during {phase}", flush=True)
         return result
 
@@ -125,7 +125,9 @@ async def observe_pose_requests(live, writer):
         "mixed": bytes([0x26, 0x24, 0x25, 0x24, 0x25, 0x24, 0x24, 0x24, 0x24, 0x24]),
         "dying": bytes([0x12] * 10),
         "dead": bytes([0x15] * 10),
-        "unsupported": bytes([0x13] * 10),
+        "dead-left": bytes([0x13] * 10),
+        "dead-right": bytes([0x14] * 10),
+        "unsupported": bytes([0x17] * 10),
         "stand": bytes([0x24] * 10),
         "tilt-up": bytes([0x24] * 10),
         "tilt-down": bytes([0x24] * 10),

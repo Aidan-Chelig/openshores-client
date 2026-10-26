@@ -9,6 +9,8 @@ struct Snapshot {
     uvs: Vec<Vec<[f32; 2]>>,
     eye: Vec3,
     position: Vec3,
+    rotation: Quat,
+    scale: Vec3,
 }
 #[derive(Resource)]
 pub(super) struct Workflow {
@@ -55,7 +57,7 @@ impl Workflow {
             } else if self.local_gestures {
                 6
             } else if self.pose_control.is_some() {
-                16
+                18
             } else {
                 4
             }
@@ -152,13 +154,16 @@ fn snapshot(
         })
         .collect();
     let eye = rendered.camera?.1;
-    let position = roots.get(gpu.root).unwrap().translation;
+    let transform = roots.get(gpu.root).unwrap();
+    let position = transform.translation;
     Some(Snapshot {
         gpu,
         positions,
         uvs,
         eye,
         position,
+        rotation: transform.rotation,
+        scale: transform.scale,
     })
 }
 #[derive(bevy::ecs::system::SystemParam)]
@@ -287,10 +292,18 @@ pub(super) fn workflow(
             current.position, initial.position,
             "received pose invented world motion"
         );
+        assert_eq!(
+            current.rotation, initial.rotation,
+            "received pose changed actor rotation"
+        );
+        assert_eq!(
+            current.scale, initial.scale,
+            "received pose changed actor scale"
+        );
         let expected = match flow.stage {
             1 => "Avatar animation: received mixed locomotion channels",
             2 => "Avatar animation: dying (face down)",
-            3 => "Avatar animation: dead (face down)",
+            3 => "Avatar animation: dead (face up)",
             4 => "Avatar animation: received wave channels",
             5 => "Avatar animation: received jump pose",
             6 => "Avatar animation: folded-limb pose 0x18",
@@ -298,7 +311,9 @@ pub(super) fn workflow(
             8 => "Avatar animation: folded-limb pose 0x1b",
             9 => "Avatar animation: folded-limb pose 0x35",
             10 => "Avatar animation: received point channels",
-            14 => "Avatar animation unavailable:",
+            14 => "Avatar animation: received death pose (left)",
+            15 => "Avatar animation: received death pose (right)",
+            16 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
@@ -341,7 +356,7 @@ pub(super) fn workflow(
                 let (label, next) = match flow.stage {
                     11 => ("tilt-up", "tilt-down"),
                     12 => ("tilt-down", "tilt-reset"),
-                    _ => ("tilt-reset", "unsupported"),
+                    _ => ("tilt-reset", "dead-left"),
                 };
                 commands
                     .spawn(Screenshot::primary_window())
@@ -405,9 +420,16 @@ pub(super) fn workflow(
                 .unwrap();
                 flow.advance();
             }
-        } else if matches!(flow.stage, 2 | 3) {
+        } else if matches!(flow.stage, 2 | 3 | 14 | 15) {
             assert_ne!(current.positions, initial.positions);
             assert_ne!(current.eye, initial.eye);
+            if flow.stage == 15 {
+                assert_ne!(
+                    Some(current.eye),
+                    flow.stopped_position,
+                    "right death retained left death eye"
+                );
+            }
             if let Some(previous) = &flow.last_phase {
                 assert_eq!(
                     &current.positions, previous,
@@ -416,17 +438,30 @@ pub(super) fn workflow(
             }
             flow.last_phase = Some(current.positions);
             if frames == 30 {
+                if flow.stage == 14 {
+                    flow.stopped_position = Some(current.eye);
+                }
                 commands
                     .spawn(Screenshot::primary_window())
-                    .observe(save_to_disk(flow.directory.join(if flow.stage == 2 {
-                        "received-dying.png"
-                    } else {
-                        "received-dead.png"
+                    .observe(save_to_disk(flow.directory.join(match flow.stage {
+                        2 => "received-dying.png",
+                        3 => "received-dead.png",
+                        14 => "received-dead-left.png",
+                        _ => "received-dead-right.png",
                     })));
-                std::fs::write(control, if flow.stage == 2 { "dead" } else { "wave" }).unwrap();
+                std::fs::write(
+                    control,
+                    match flow.stage {
+                        2 => "dead",
+                        3 => "wave",
+                        14 => "dead-right",
+                        _ => "unsupported",
+                    },
+                )
+                .unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 14 {
+        } else if flow.stage == 16 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();

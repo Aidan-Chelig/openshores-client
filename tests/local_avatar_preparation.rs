@@ -217,6 +217,48 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             .is_err()
     );
     prepared.native.standing.pose.fields_3c[0] = 0x24;
+    // Independent skeletal references: the runtime additionally applies the
+    // general-pose render rotation, never an actor/root or bone mutation.
+    let mut death_references = Vec::new();
+    {
+        use openshores_client::world::{
+            native_body::{NativeDpFootCache, NativeDpHandCache},
+            native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer},
+        };
+        struct NoTimer;
+        impl NativePoseRhythmTimer for NoTimer {
+            fn start(&mut self) -> std::io::Result<()> {
+                panic!("fixed death pose requested rhythm")
+            }
+            fn msecs_since_reference(&mut self) -> std::io::Result<i64> {
+                panic!("fixed death pose requested time")
+            }
+        }
+        let eye = prepared.native.prepare_eye(false).unwrap();
+        let mut body = prepared.native.body.clone();
+        let mut hands = NativeDpHandCache::new(&mount);
+        let mut feet = NativeDpFootCache::new(&mount);
+        for code in [0x12, 0x13, 0x14, 0x15] {
+            body.pose_locomotion_channels(
+                &NativeDpBodyPoseState {
+                    fields_3c: [code; 10],
+                    field_6c: false,
+                },
+                0.,
+                0,
+                &mut hands,
+                &mut feet,
+                &mut NoTimer,
+            )
+            .unwrap();
+            let surfaces = prepared
+                .animation_surfaces
+                .iter()
+                .map(|surface| surface.skin(body.bones()).unwrap())
+                .collect::<Vec<_>>();
+            death_references.push((code, surfaces, eye.location(body.bones()).unwrap()));
+        }
+    }
     let mut animation = prepared.into_animation(&mount).unwrap();
     assert_eq!(animation.ground_clearances().standing, ground_height);
     assert_eq!(animation.ground_clearances().crouched, crouch_ground_height);
@@ -265,6 +307,40 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             field_6c: false,
         };
         let dead = animation.sample_channels(&pose, 0., 0).unwrap();
+        let (_, reference, reference_eye) = death_references
+            .iter()
+            .find(|(key, _, _)| *key == code)
+            .unwrap();
+        let rotate = |[x, y, z]: [f64; 3]| match code {
+            0x13 => [z, y, -x],
+            0x14 => [-z, y, x],
+            0x15 => [-x, y, -z],
+            _ => [x, y, z],
+        };
+        for (actual, expected) in dead.eye.into_iter().zip(rotate(*reference_eye)) {
+            assert!((actual - expected).abs() < 1e-12);
+        }
+        for (actual, reference) in dead.surfaces.iter().zip(reference) {
+            assert_eq!(actual.material_memberships, reference.material_memberships);
+            for (actual, reference) in actual.corners.iter().zip(&reference.corners) {
+                let [x, y, z, w] = reference.position;
+                let expected = rotate([x, y, z].map(f64::from));
+                for (actual, expected) in actual.position[..3].iter().zip(expected) {
+                    assert!((f64::from(*actual) - expected).abs() < 1e-6);
+                }
+                for (actual, expected) in actual
+                    .normal
+                    .into_iter()
+                    .zip(rotate(reference.normal.map(f64::from)))
+                {
+                    assert!((f64::from(actual) - expected).abs() < 1e-6);
+                }
+                assert_eq!(actual.position[3], w);
+                assert_eq!(actual.source_vertex, reference.source_vertex);
+                assert_eq!(actual.uv, reference.uv);
+                assert_eq!(actual.top_face, reference.top_face);
+            }
+        }
         let repeat = animation.sample_channels(&pose, 0., 500).unwrap();
         assert!(dead.eye.iter().all(|v| v.is_finite()));
         assert_eq!(dead.eye, repeat.eye);

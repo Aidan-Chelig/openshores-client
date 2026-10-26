@@ -1,5 +1,11 @@
 # Neutral avatar origin and ground clearance
 
+Death-pose follow-up: the connected sampler now applies the separate native
+render-only Y rotation for general0x13/0x14/0x15 to sampled geometry, normals
+and the animated eye. The actor root remains the received/predicted world
+transform. This changes draw orientation, not nominal collision clearance,
+gravity, landing or corpse settling; see the final locomotion checkpoint.
+
 Scope: adult normal-skin body-origin and ground-clearance checkpoints, initially
 neutral Stand, with a Stand/Crouch follow-up below. Native observations are
 static; mounted Rust measurements and bounded connected fixture proofs are
