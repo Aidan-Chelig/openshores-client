@@ -72,7 +72,7 @@ impl NativeDpInitialization {
             || head_angles.iter().any(|v| !v.is_finite())
             || pose.field_6c
             || pose.fields_3c.iter().enumerate().any(|(index, code)| {
-                !(matches!(code, 0x10..=0x12 | 0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
+                !(matches!(code, 0x10..=0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
                     || matches!(index, 2 | 5) && matches!(code, 0x1f | 0x30))
             })
         {
@@ -85,6 +85,14 @@ impl NativeDpInitialization {
         self.bones.reset_for_animation(&self.dna);
         for selector in [0, 1] {
             let code = pose.fields_3c[if selector == 0 { 4 } else { 0 }];
+            if code == 0x13 {
+                self.dead_legs_facing_left(selector, field_4068, feet)?;
+                continue;
+            }
+            if code == 0x14 {
+                self.dead_legs_facing_right(selector, field_4068, feet)?;
+                continue;
+            }
             if matches!(code, 0x18 | 0x19 | 0x1b | 0x35) {
                 self.fold_legs(selector, field_4068, feet)?;
                 continue;
@@ -126,6 +134,14 @@ impl NativeDpInitialization {
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
                 let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
+                if code == 0x13 {
+                    self.dead_arms_facing_left(side)?;
+                    continue;
+                }
+                if code == 0x14 {
+                    self.dead_arms_facing_right(side)?;
+                    continue;
+                }
                 if code == 0x1f {
                     self.point_arms(side, head_angles[0])?;
                     continue;

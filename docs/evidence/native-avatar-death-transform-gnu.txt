@@ -1,0 +1,138 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140980830 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const>:
+   140980830:	41 56                	push   %r14
+   140980832:	41 55                	push   %r13
+   140980834:	41 54                	push   %r12
+   140980836:	57                   	push   %rdi
+   140980837:	56                   	push   %rsi
+   140980838:	53                   	push   %rbx
+   140980839:	48 83 ec 48          	sub    $0x48,%rsp
+   14098083d:	0f 29 74 24 30       	movaps %xmm6,0x30(%rsp)
+   140980842:	48 8b 3d df 1f f1 01 	mov    0x1f11fdf(%rip),%rdi        # 142892828 <__imp__ZN14QReadWriteLock11lockForReadEv>
+   140980849:	49 89 cc             	mov    %rcx,%r12
+   14098084c:	4c 8d a9 98 04 00 00 	lea    0x498(%rcx),%r13
+   140980853:	49 89 d6             	mov    %rdx,%r14
+   140980856:	4c 89 e9             	mov    %r13,%rcx
+   140980859:	ff d7                	call   *%rdi
+   14098085b:	49 8b 9c 24 b0 05 00 	mov    0x5b0(%r12),%rbx
+   140980862:	00 
+   140980863:	48 8b 35 d6 1f f1 01 	mov    0x1f11fd6(%rip),%rsi        # 142892840 <__imp__ZN14QReadWriteLock6unlockEv>
+   14098086a:	4c 89 e9             	mov    %r13,%rcx
+   14098086d:	ff d6                	call   *%rsi
+   14098086f:	48 85 db             	test   %rbx,%rbx
+   140980872:	0f 84 98 00 00 00    	je     140980910 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0xe0>
+   140980878:	4c 89 e9             	mov    %r13,%rcx
+   14098087b:	ff d7                	call   *%rdi
+   14098087d:	49 8b 84 24 b0 05 00 	mov    0x5b0(%r12),%rax
+   140980884:	00 
+   140980885:	48 85 c0             	test   %rax,%rax
+   140980888:	74 76                	je     140980900 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0xd0>
+   14098088a:	8b 58 48             	mov    0x48(%rax),%ebx
+   14098088d:	4c 89 e9             	mov    %r13,%rcx
+   140980890:	ff d6                	call   *%rsi
+   140980892:	83 fb 37             	cmp    $0x37,%ebx
+   140980895:	77 21                	ja     1409808b8 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x88>
+   140980897:	83 fb 03             	cmp    $0x3,%ebx
+   14098089a:	76 4b                	jbe    1409808e7 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0xb7>
+   14098089c:	83 eb 04             	sub    $0x4,%ebx
+   14098089f:	83 fb 33             	cmp    $0x33,%ebx
+   1409808a2:	77 43                	ja     1409808e7 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0xb7>
+   1409808a4:	48 8d 15 a1 5d 84 01 	lea    0x1845da1(%rip),%rdx        # 1421c664c <.rdata+0xa8c>
+   1409808ab:	48 63 04 9a          	movslq (%rdx,%rbx,4),%rax
+   1409808af:	48 01 d0             	add    %rdx,%rax
+   1409808b2:	ff e0                	jmp    *%rax
+   1409808b4:	0f 1f 40 00          	nopl   0x0(%rax)
+   1409808b8:	8d 4b b3             	lea    -0x4d(%rbx),%ecx
+   1409808bb:	83 f9 3b             	cmp    $0x3b,%ecx
+   1409808be:	77 27                	ja     1409808e7 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0xb7>
+   1409808c0:	48 ba 44 00 00 80 00 	movabs $0x800000080000044,%rdx
+   1409808c7:	00 00 08 
+   1409808ca:	b8 01 00 00 00       	mov    $0x1,%eax
+   1409808cf:	48 d3 e0             	shl    %cl,%rax
+   1409808d2:	48 85 d0             	test   %rdx,%rax
+   1409808d5:	75 79                	jne    140980950 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x120>
+   1409808d7:	a8 22                	test   $0x22,%al
+   1409808d9:	0f 85 a9 00 00 00    	jne    140980988 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x158>
+   1409808df:	a8 11                	test   $0x11,%al
+   1409808e1:	0f 85 91 00 00 00    	jne    140980978 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x148>
+   1409808e7:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   1409808ec:	48 83 c4 48          	add    $0x48,%rsp
+   1409808f0:	5b                   	pop    %rbx
+   1409808f1:	5e                   	pop    %rsi
+   1409808f2:	5f                   	pop    %rdi
+   1409808f3:	41 5c                	pop    %r12
+   1409808f5:	41 5d                	pop    %r13
+   1409808f7:	41 5e                	pop    %r14
+   1409808f9:	c3                   	ret
+   1409808fa:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   140980900:	49 8b 84 24 a0 04 00 	mov    0x4a0(%r12),%rax
+   140980907:	00 
+   140980908:	8b 58 6c             	mov    0x6c(%rax),%ebx
+   14098090b:	eb 80                	jmp    14098088d <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x5d>
+   14098090d:	0f 1f 00             	nopl   (%rax)
+   140980910:	48 8d 4c 24 2c       	lea    0x2c(%rsp),%rcx
+   140980915:	4c 89 e2             	mov    %r12,%rdx
+   140980918:	e8 03 e4 ff ff       	call   14097ed20 <DaCreature::CurrentGeneralPose() const>
+   14098091d:	83 7c 24 2c 37       	cmpl   $0x37,0x2c(%rsp)
+   140980922:	75 c3                	jne    1409808e7 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0xb7>
+   140980924:	4c 89 e1             	mov    %r12,%rcx
+   140980927:	e8 a4 fe ff ff       	call   1409807d0 <DaCreature::CurrentHeadTilt() const>
+   14098092c:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   140980930:	f3 0f 5a c8          	cvtss2sd %xmm0,%xmm1
+   140980934:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   140980939:	4c 89 f1             	mov    %r14,%rcx
+   14098093c:	48 83 c4 48          	add    $0x48,%rsp
+   140980940:	5b                   	pop    %rbx
+   140980941:	5e                   	pop    %rsi
+   140980942:	5f                   	pop    %rdi
+   140980943:	41 5c                	pop    %r12
+   140980945:	41 5d                	pop    %r13
+   140980947:	41 5e                	pop    %r14
+   140980949:	e9 02 a3 de 00       	jmp    14176ac50 <AuMatrix4x4::RotateX(double)>
+   14098094e:	66 90                	xchg   %ax,%ax
+   140980950:	f2 0f 10 0d 50 98 84 	movsd  0x1849850(%rip),%xmm1        # 1421ca1a8 <CSWTCH.2080+0x698>
+   140980957:	01 
+   140980958:	0f 28 74 24 30       	movaps 0x30(%rsp),%xmm6
+   14098095d:	4c 89 f1             	mov    %r14,%rcx
+   140980960:	48 83 c4 48          	add    $0x48,%rsp
+   140980964:	5b                   	pop    %rbx
+   140980965:	5e                   	pop    %rsi
+   140980966:	5f                   	pop    %rdi
+   140980967:	41 5c                	pop    %r12
+   140980969:	41 5d                	pop    %r13
+   14098096b:	41 5e                	pop    %r14
+   14098096d:	e9 9e a3 de 00       	jmp    14176ad10 <AuMatrix4x4::RotateY(double)>
+   140980972:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   140980978:	f2 0f 10 0d c8 92 84 	movsd  0x18492c8(%rip),%xmm1        # 1421c9c48 <CSWTCH.2080+0x138>
+   14098097f:	01 
+   140980980:	eb d6                	jmp    140980958 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x128>
+   140980982:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   140980988:	f2 0f 10 0d f0 97 84 	movsd  0x18497f0(%rip),%xmm1        # 1421ca180 <CSWTCH.2080+0x670>
+   14098098f:	01 
+   140980990:	eb c6                	jmp    140980958 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x128>
+   140980992:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   140980998:	4c 89 e9             	mov    %r13,%rcx
+   14098099b:	ff d7                	call   *%rdi
+   14098099d:	49 8b 84 24 b0 05 00 	mov    0x5b0(%r12),%rax
+   1409809a4:	00 
+   1409809a5:	48 85 c0             	test   %rax,%rax
+   1409809a8:	74 1e                	je     1409809c8 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x198>
+   1409809aa:	f3 0f 10 70 30       	movss  0x30(%rax),%xmm6
+   1409809af:	4c 89 e9             	mov    %r13,%rcx
+   1409809b2:	ff d6                	call   *%rsi
+   1409809b4:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   1409809b8:	f3 0f 5a ce          	cvtss2sd %xmm6,%xmm1
+   1409809bc:	e9 73 ff ff ff       	jmp    140980934 <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x104>
+   1409809c1:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1409809c8:	49 8b 84 24 a0 04 00 	mov    0x4a0(%r12),%rax
+   1409809cf:	00 
+   1409809d0:	f3 0f 10 70 64       	movss  0x64(%rax),%xmm6
+   1409809d5:	eb d8                	jmp    1409809af <DaCreature::BodyPoseAdjustTransform(AuMatrix4x4&) const+0x17f>
+   1409809d7:	90                   	nop
+   1409809d8:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1409809df:	00 

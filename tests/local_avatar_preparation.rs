@@ -252,14 +252,14 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     mixed.fields_3c[4] = 0x25;
     let a = animation.sample_channels(&mixed, 4., 125).unwrap();
     let mut bad = mixed.clone();
-    bad.fields_3c[2] = 0x13;
+    bad.fields_3c[2] = 0x17;
     assert!(animation.sample_channels(&bad, 4., 125).is_err());
     let repeat = animation.sample_channels(&mixed, 4., 125).unwrap();
     assert_eq!(a.eye, repeat.eye);
     for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
         assert_eq!(a.corners, b.corners);
     }
-    for code in [0x12, 0x15] {
+    for code in [0x12, 0x13, 0x14, 0x15] {
         let pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
             fields_3c: [code; 10],
             field_6c: false,

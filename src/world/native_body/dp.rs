@@ -6,6 +6,7 @@ mod bones;
 pub use bones::{NativeDpBoneTransform, NativeDpBoneTransforms, NativeDpSkinnedVertex};
 mod dead_pose;
 mod dead_side_arms;
+mod dead_side_legs;
 mod dimensions;
 mod fold_pose;
 pub use dimensions::NativeDpDimensions;

@@ -11,6 +11,107 @@ use openshores_client::{
 };
 
 #[test]
+#[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; cached-only side-death legs"]
+fn mounted_side_death_legs_preserve_unselected_bones_and_restore_stand() {
+    use openshores_client::world::native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer};
+    struct NoTimer;
+    impl NativePoseRhythmTimer for NoTimer {
+        fn start(&mut self) -> std::io::Result<()> {
+            panic!("fixed side-death legs requested rhythm")
+        }
+        fn msecs_since_reference(&mut self) -> std::io::Result<i64> {
+            panic!("fixed side-death legs requested time")
+        }
+    }
+    let mount =
+        AssetMount::open(std::env::var_os("OPENSHORES_HAZERON_INSTALLATION").unwrap()).unwrap();
+    for pairs in [1, 2, 3] {
+        for ankle in [0, 0x80] {
+            let mut dna = NativeDhDna([0; 24]);
+            dna.0[1] = 1;
+            dna.0[12] = pairs << 2;
+            dna.0[10] = ankle;
+            dna.0[14] = 0x51;
+            dna.0[20] = 0x80;
+            let mut hands = NativeDpHandCache::new(&mount);
+            let mut feet = NativeDpFootCache::new(&mount);
+            let mut body = NativeDpInitialization::begin(&dna);
+            body.finish_part_calculations(0, &mut hands).unwrap();
+            body.pose_neutral_standing(0, &mut hands, &mut feet)
+                .unwrap();
+            let initial = body.bones().clone();
+            let mut hands = hands.into_cached_only();
+            let mut feet = feet.into_cached_only();
+            let mut facing_results = Vec::new();
+            for code in [0x13, 0x14] {
+                for selector in [0, 1, 2] {
+                    let mut pose = NativeDpBodyPoseState {
+                        fields_3c: [0x24; 10],
+                        field_6c: false,
+                    };
+                    if selector != 1 {
+                        pose.fields_3c[4] = code;
+                    }
+                    if selector != 0 {
+                        pose.fields_3c[0] = code;
+                    }
+                    let selected: std::collections::BTreeSet<_> = body
+                        .parts()
+                        .iter()
+                        .filter(|part| {
+                            matches!(
+                                part.allocation.kind,
+                                NativeDpPartKind::LeftLegAndFoot
+                                    | NativeDpPartKind::RightLegAndFoot
+                            ) && (selector == 2
+                                || (selector == 0 && part.allocation.index != 0)
+                                || (selector == 1 && part.allocation.index == 0))
+                        })
+                        .flat_map(|part| part.limb_bones().unwrap())
+                        .collect();
+                    body.pose_locomotion_channels(
+                        &pose,
+                        0.,
+                        0,
+                        &mut hands,
+                        &mut feet,
+                        &mut NoTimer,
+                    )
+                    .unwrap();
+                    let posed = body.bones().clone();
+                    if !selected.is_empty() {
+                        assert_ne!(posed, initial);
+                    }
+                    for (index, bone) in posed.slots.iter().enumerate() {
+                        assert!(bone.matrix_00.iter().all(|value| value.is_finite()));
+                        if !selected.contains(&index) {
+                            assert_eq!(bone, &initial.slots[index]);
+                        }
+                    }
+                    body.pose_locomotion_channels(
+                        &pose,
+                        0.,
+                        0,
+                        &mut hands,
+                        &mut feet,
+                        &mut NoTimer,
+                    )
+                    .unwrap();
+                    assert_eq!(body.bones(), &posed);
+                    body.pose_neutral_standing(0, &mut hands, &mut feet)
+                        .unwrap();
+                    assert_eq!(body.bones(), &initial);
+                    if selector == 2 {
+                        facing_results.push(posed);
+                    }
+                }
+            }
+            assert_ne!(facing_results[0], facing_results[1]);
+        }
+    }
+}
+
+#[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; cached-only Fold leg selector coverage"]
 fn mounted_fold_legs_preserve_other_bones_and_restore_stand() {
     use openshores_client::world::native_creature::{NativeDpBodyPoseState, NativePoseRhythmTimer};

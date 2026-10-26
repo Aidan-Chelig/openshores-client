@@ -4,7 +4,8 @@ Status: active. User objective: add animations to the in-game avatar, retaining
 the OpenShores experience and user-mounted assets. A moving connected avatar,
 not merely an offline animated fixture, is the required final result.
 
-Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
+Current supported normal-body inputs: Stand/Walk/Run, Dying/Dead skeletal posing
+(0x15 whole-body render orientation remains incorrect; see the latest checkpoint),
 received crouch/crouch-walk and Jump posing, arm-channel Wave/Point and
 folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
@@ -667,4 +668,20 @@ The optional fresh Ghidra pseudocode request timed out during whole-image
 analysis and supplied no evidence; its session was closed and owned process
 termination checked. The retained SHA-bound GNU disassembly supplies the static
 evidence for this checkpoint instead.
+
+Side-death leg checkpoint: both native stages and normal-body composition now
+support0x13/0x14. The cached sampler warms both; received-DNA samples verify
+their finite, repeatable geometry and eyes. A mounted regression covers one/
+two/three leg pairs, ankle/no-ankle anatomy, first/later/all selectors,
+unchanged other bones and exact Stand recovery. The client library passes807
+tests (six ignored); all17 static verifiers, both mounted ownership/appearance
+tests and the new mounted side-leg test pass.
+
+The source codes remain gated for a concrete fidelity dependency: native render
+adjustment rotates the whole body aroundY by +PI/2 for0x13, -PI/2 for0x14,
+and PI for already-admitted0x15. Existing0x15 captures prove skeletal posing
+but do not establish correct whole-body orientation. This newly identified
+gap must be fixed alongside enabling side-death receipt; geometry, normals and
+animated eye must share the adjustment while the authoritative root stays intact.
+Raw dispatch, exact f64 constants and RotateY are retained and SHA-checked.
 

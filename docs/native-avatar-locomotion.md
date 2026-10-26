@@ -416,3 +416,45 @@ For subsequent exact-symbol work, use the retained SHA-bound disassembly and
 bounded objdump checks first. Starting a fresh Ghidra import to check these four
 known symbols incurs whole-image analysis; reserve it for unresolved control
 flow or missing evidence, and reuse an already open matching session.
+
+## Side-facing death leg and compositor dependency
+
+The leg stages are now ported, and native normal-body composition admits0x13/
+0x14 with each actual leg-pair and arm-side channel preserved. Preparation warms
+both uniform poses before discarding mount access. The source adapter continues
+to reject these codes pending the separate render adjustment below.
+
+`evidence/native-dp-dead-side-legs-gnu.txt` retains the body consumers at
+0x1412f1090/0x1412f11b0 and concrete part consumers at0x1412d9ac0/0x1412d9ca0.
+`tests/native_dead_side_legs.py` binds these observations and constants to the
+same executable digest as the arm stages. Both body consumers spread legs
+by-2degrees, then scan trailing legs backward using first/later/all pair
+selection. A single-pair DNA mask with signed splay strictly below45degrees
+selects fixed angles without requesting a standing-angle solution. Near side:
+hip-145, knee-50, ankle40degrees; far side: hip-175, knee-10, ankle90degrees.
+
+Otherwise the native consumer requests owner CGHeightStanding(false), then
+CalcStandAngles for the part. Its positive-hip comparison selects near-side
+hip70/knee-170 or far-side hip88/knee-2degrees; nonpositive or unordered
+selects near-side hip-75/knee-30 or far-side hip-90/knee-30degrees. The
+calculated ankle is retained. Hip, knee, conditional ankle and stored splay
+are applied in that order. Left/right facing reverses IsLeft, not the literals.
+
+Pure tests cover the strict signed threshold, DNA mask, lazy measurement,
+positive/zero/negative/unordered hip branches and retained ankle. Mounted tests
+cover all three pair counts, ankle/no-ankle anatomy, all pair selectors,
+unselected bones, finite results, repeated samples and exact Stand recovery.
+The actual received-DNA cached sampler additionally checks uniform0x13/0x14
+geometry and eyes at repeated times. These are skeletal samples, not complete
+side-death rendering.
+
+New render dependency: `DaCreature::BodyPoseAdjustTransform` selects a separate
+RotateY(double) by general pose:0x12 no-op,0x13 +PI/2,0x14 -PI/2,0x15 PI.
+Their CGOffset vectors are zero. Signed raw dispatch entries, exact f64 literals
+and the actual RotateY call are checked by the same verifier, with disassembly
+in `evidence/native-avatar-death-transform-gnu.txt`. The connected sampler does
+not yet apply this separate render adjustment. Thus existing0x15 connected
+captures establish skeletal posing only and have an outstanding whole-body
+orientation discrepancy. Apply that transform coherently to geometry, normals
+and animated eye without changing the authoritative actor root, then enable the
+source side-death codes and verify connected recovery in both camera modes.
