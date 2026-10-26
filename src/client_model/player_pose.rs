@@ -102,7 +102,7 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
         ));
     }
     if received.iter().enumerate().any(|(index, code)| {
-        !(matches!(code, 0x10..=0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x24..=0x26 | 0x35)
+        !(matches!(code, 0x10..=0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x20 | 0x24..=0x26 | 0x35)
             || matches!(index, 2 | 5) && matches!(code, 0x1f | 0x30))
     }) {
         return Err(io::Error::new(
@@ -329,7 +329,7 @@ mod tests {
         );
         model.world.ingest(&packet(Some([0x17; 10]))).unwrap();
         assert!(model.local_player_pose(12.).is_err());
-        for code in [0x10, 0x11, 0x13, 0x14, 0x18, 0x19, 0x1b, 0x35] {
+        for code in [0x10, 0x11, 0x13, 0x14, 0x18, 0x19, 0x1b, 0x20, 0x35] {
             model.world.ingest(&packet(Some([code; 10]))).unwrap();
             assert_eq!(
                 model
@@ -402,7 +402,7 @@ mod tests {
             select(&person, 0.).unwrap().unwrap().native.fields_3c,
             [0x15; 10]
         );
-        for code in [0x13, 0x14] {
+        for code in [0x13, 0x14, 0x20] {
             person.poses = Some([code; 10]);
             let selected = select(&person, 12.).unwrap().unwrap();
             assert!(!selected.predicted);

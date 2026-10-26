@@ -492,3 +492,39 @@ corner, normal, source identity, UV, material and eye against the expected
 rotation, then repeats and restores Stand. Connected acceptance adds both side
 poses after head-tilt recovery and before unsupported/Stand recovery, checking
 fixed geometry, distinct left/right eye positions and unchanged actor transform.
+
+## Stationary prone
+
+Native0x20 selects DeadLegsFacingDown for both leg selectors, as established
+by equal signed jump-table destinations to0x12. Both arm sides select
+ProneArms(side, first-selected override). This is a fixed pose, not0x21
+ProneCreep. The admitted normal unguided compositor uses no pitch override;
+the isolated arm API retains the native optional first-selected behavior.
+
+`tests/native_prone_pose.py` binds exact literals, raw leg dispatch, arm
+traversal/order and no-op render adjustment to the existing executable digest.
+`evidence/native-dp-prone-stages-gnu.txt` retains ProneArms at0x1412ecce0,
+plus the separate body/concrete ProneCreep routines for subsequent work.
+ProneArms spreads by10degrees with80degree lift spacing, then applies the
+same fixed joint sequence as FoldArms: shoulder literalc0384e89, ordinary
+elbow40384e88, stored splay and stored lift. Only an enabled first-selected
+override adds owner pitch to the one-ULP-higher40384e89 elbow constant and
+rotates the wrist by-2degrees. The implementation shares that verified sequence
+with Fold while keeping their spacing distinct. Nonfinite override input fails
+before mutation. Other arms and bones are preserved.
+
+Preparation warms the uniform prone pose before discarding mount access.
+The explicit source profile now admits0x20 receipt while preserving received
+authority and excluding it from local prediction/report generation. General
+0x20 has no additional native render rotation. Terrain collision, physical
+posture/root clearance and crawling movement are not inferred from this pose.
+Crawling0x21 remains unsupported until its rhythmic limbs are ported and checked.
+
+Placement boundary: prone selects CGOffset dispatch target `0x140978be7`,
+not Stand's zero-offset branch. With no growth scaling it negates the native
+HeadLocation; the other branch scales that result using growth counters.
+`evidence/native-prone-cg-offset-gnu.txt` retains this separate static observation,
+and the prone verifier checks its dispatch and HeadLocation call. No draw/root
+offset is inferred from this helper alone: its caller semantics and source-wire
+origin relationship remain to be traced. Current acceptance establishes skeletal
+posing at the received root, not complete native prone placement/contact parity.

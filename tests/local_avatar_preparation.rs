@@ -238,7 +238,7 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
         let mut body = prepared.native.body.clone();
         let mut hands = NativeDpHandCache::new(&mount);
         let mut feet = NativeDpFootCache::new(&mount);
-        for code in [0x12, 0x13, 0x14, 0x15] {
+        for code in [0x12, 0x13, 0x14, 0x15, 0x20] {
             body.pose_locomotion_channels(
                 &NativeDpBodyPoseState {
                     fields_3c: [code; 10],
@@ -301,7 +301,7 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
     for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {
         assert_eq!(a.corners, b.corners);
     }
-    for code in [0x12, 0x13, 0x14, 0x15] {
+    for code in [0x12, 0x13, 0x14, 0x15, 0x20] {
         let pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
             fields_3c: [code; 10],
             field_6c: false,

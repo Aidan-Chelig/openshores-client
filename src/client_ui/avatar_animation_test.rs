@@ -57,7 +57,7 @@ impl Workflow {
             } else if self.local_gestures {
                 6
             } else if self.pose_control.is_some() {
-                18
+                19
             } else {
                 4
             }
@@ -311,9 +311,10 @@ pub(super) fn workflow(
             8 => "Avatar animation: folded-limb pose 0x1b",
             9 => "Avatar animation: folded-limb pose 0x35",
             10 => "Avatar animation: received point channels",
-            14 => "Avatar animation: received death pose (left)",
-            15 => "Avatar animation: received death pose (right)",
-            16 => "Avatar animation unavailable:",
+            14 => "Avatar animation: received prone pose",
+            15 => "Avatar animation: received death pose (left)",
+            16 => "Avatar animation: received death pose (right)",
+            17 => "Avatar animation unavailable:",
             _ => "Avatar animation: standing",
         };
         if !ui.avatar_animation_status.starts_with(expected) {
@@ -356,7 +357,7 @@ pub(super) fn workflow(
                 let (label, next) = match flow.stage {
                     11 => ("tilt-up", "tilt-down"),
                     12 => ("tilt-down", "tilt-reset"),
-                    _ => ("tilt-reset", "dead-left"),
+                    _ => ("tilt-reset", "prone"),
                 };
                 commands
                     .spawn(Screenshot::primary_window())
@@ -420,10 +421,10 @@ pub(super) fn workflow(
                 .unwrap();
                 flow.advance();
             }
-        } else if matches!(flow.stage, 2 | 3 | 14 | 15) {
+        } else if matches!(flow.stage, 2 | 3 | 14..=16) {
             assert_ne!(current.positions, initial.positions);
             assert_ne!(current.eye, initial.eye);
-            if flow.stage == 15 {
+            if flow.stage == 16 {
                 assert_ne!(
                     Some(current.eye),
                     flow.stopped_position,
@@ -438,7 +439,7 @@ pub(super) fn workflow(
             }
             flow.last_phase = Some(current.positions);
             if frames == 30 {
-                if flow.stage == 14 {
+                if flow.stage == 15 {
                     flow.stopped_position = Some(current.eye);
                 }
                 commands
@@ -446,7 +447,8 @@ pub(super) fn workflow(
                     .observe(save_to_disk(flow.directory.join(match flow.stage {
                         2 => "received-dying.png",
                         3 => "received-dead.png",
-                        14 => "received-dead-left.png",
+                        14 => "received-prone.png",
+                        15 => "received-dead-left.png",
                         _ => "received-dead-right.png",
                     })));
                 std::fs::write(
@@ -454,14 +456,15 @@ pub(super) fn workflow(
                     match flow.stage {
                         2 => "dead",
                         3 => "wave",
-                        14 => "dead-right",
+                        14 => "dead-left",
+                        15 => "dead-right",
                         _ => "unsupported",
                     },
                 )
                 .unwrap();
                 flow.advance();
             }
-        } else if flow.stage == 16 {
+        } else if flow.stage == 17 {
             if frames == 30 {
                 std::fs::write(control, "stand").unwrap();
                 flow.advance();

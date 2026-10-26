@@ -1,0 +1,137 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+0000000140978ac0 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)>:
+   140978ac0:	48 83 ec 68          	sub    $0x68,%rsp
+   140978ac4:	0f 29 74 24 50       	movaps %xmm6,0x50(%rsp)
+   140978ac9:	83 7a 40 17          	cmpl   $0x17,0x40(%rdx)
+   140978acd:	48 89 c8             	mov    %rcx,%rax
+   140978ad0:	8b 8c 24 90 00 00 00 	mov    0x90(%rsp),%ecx
+   140978ad7:	74 37                	je     140978b10 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x50>
+   140978ad9:	83 7a 54 17          	cmpl   $0x17,0x54(%rdx)
+   140978add:	74 31                	je     140978b10 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x50>
+   140978adf:	83 7a 5c 17          	cmpl   $0x17,0x5c(%rdx)
+   140978ae3:	74 2b                	je     140978b10 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x50>
+   140978ae5:	84 c9                	test   %cl,%cl
+   140978ae7:	75 27                	jne    140978b10 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x50>
+   140978ae9:	8b 4a 48             	mov    0x48(%rdx),%ecx
+   140978aec:	83 e9 03             	sub    $0x3,%ecx
+   140978aef:	81 f9 86 00 00 00    	cmp    $0x86,%ecx
+   140978af5:	77 19                	ja     140978b10 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x50>
+   140978af7:	4c 8d 15 36 d3 84 01 	lea    0x184d336(%rip),%r10        # 1421c5e34 <.rdata+0x274>
+   140978afe:	49 63 0c 8a          	movslq (%r10,%rcx,4),%rcx
+   140978b02:	4c 01 d1             	add    %r10,%rcx
+   140978b05:	ff e1                	jmp    *%rcx
+   140978b07:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   140978b0e:	00 00 
+   140978b10:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   140978b17:	00 
+   140978b18:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   140978b1c:	0f 11 00             	movups %xmm0,(%rax)
+   140978b1f:	0f 28 74 24 50       	movaps 0x50(%rsp),%xmm6
+   140978b24:	48 83 c4 68          	add    $0x68,%rsp
+   140978b28:	c3                   	ret
+   140978b29:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   140978b30:	48 8d 4c 24 30       	lea    0x30(%rsp),%rcx
+   140978b35:	44 89 44 24 28       	mov    %r8d,0x28(%rsp)
+   140978b3a:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+   140978b3f:	44 89 4c 24 2c       	mov    %r9d,0x2c(%rsp)
+   140978b44:	e8 e7 7a 95 00       	call   1412d0630 <DpBody::HeadLocation() const>
+   140978b49:	44 8b 44 24 28       	mov    0x28(%rsp),%r8d
+   140978b4e:	66 0f 28 44 24 30    	movapd 0x30(%rsp),%xmm0
+   140978b54:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+   140978b59:	66 0f 57 05 8f 10 85 	xorpd  0x185108f(%rip),%xmm0        # 1421c9bf0 <CSWTCH.2080+0xe0>
+   140978b60:	01 
+   140978b61:	45 84 c0             	test   %r8b,%r8b
+   140978b64:	0f 84 c6 00 00 00    	je     140978c30 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x170>
+   140978b6a:	44 8b 4c 24 2c       	mov    0x2c(%rsp),%r9d
+   140978b6f:	66 0f ef d2          	pxor   %xmm2,%xmm2
+   140978b73:	45 84 c9             	test   %r9b,%r9b
+   140978b76:	74 4a                	je     140978bc2 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x102>
+   140978b78:	45 0f b6 c9          	movzbl %r9b,%r9d
+   140978b7c:	66 0f ef c9          	pxor   %xmm1,%xmm1
+   140978b80:	66 0f ef db          	pxor   %xmm3,%xmm3
+   140978b84:	45 0f b6 c0          	movzbl %r8b,%r8d
+   140978b88:	44 89 c9             	mov    %r9d,%ecx
+   140978b8b:	f3 41 0f 2a d9       	cvtsi2ss %r9d,%xmm3
+   140978b90:	41 8d 50 ff          	lea    -0x1(%r8),%edx
+   140978b94:	29 d1                	sub    %edx,%ecx
+   140978b96:	f3 0f 2a c9          	cvtsi2ss %ecx,%xmm1
+   140978b9a:	f3 0f 5e cb          	divss  %xmm3,%xmm1
+   140978b9e:	f3 0f 59 0d f2 0f 85 	mulss  0x1850ff2(%rip),%xmm1        # 1421c9b98 <CSWTCH.2080+0x88>
+   140978ba5:	01 
+   140978ba6:	f3 0f 58 0d ee 0f 85 	addss  0x1850fee(%rip),%xmm1        # 1421c9b9c <CSWTCH.2080+0x8c>
+   140978bad:	01 
+   140978bae:	f3 0f 5a c9          	cvtss2sd %xmm1,%xmm1
+   140978bb2:	f2 0f 59 d1          	mulsd  %xmm1,%xmm2
+   140978bb6:	66 0f 28 d9          	movapd %xmm1,%xmm3
+   140978bba:	66 0f 14 db          	unpcklpd %xmm3,%xmm3
+   140978bbe:	66 0f 59 c3          	mulpd  %xmm3,%xmm0
+   140978bc2:	0f 11 00             	movups %xmm0,(%rax)
+   140978bc5:	f2 0f 11 50 10       	movsd  %xmm2,0x10(%rax)
+   140978bca:	e9 50 ff ff ff       	jmp    140978b1f <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x5f>
+   140978bcf:	f3 0f 7e 05 d9 11 85 	movq   0x18511d9(%rip),%xmm0        # 1421c9db0 <CSWTCH.2080+0x2a0>
+   140978bd6:	01 
+   140978bd7:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   140978bde:	00 
+   140978bdf:	0f 11 00             	movups %xmm0,(%rax)
+   140978be2:	e9 38 ff ff ff       	jmp    140978b1f <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x5f>
+   140978be7:	48 89 44 24 70       	mov    %rax,0x70(%rsp)
+   140978bec:	45 84 c0             	test   %r8b,%r8b
+   140978bef:	74 05                	je     140978bf6 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x136>
+   140978bf1:	45 84 c9             	test   %r9b,%r9b
+   140978bf4:	75 4a                	jne    140978c40 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x180>
+   140978bf6:	48 8d 4c 24 30       	lea    0x30(%rsp),%rcx
+   140978bfb:	e8 30 7a 95 00       	call   1412d0630 <DpBody::HeadLocation() const>
+   140978c00:	f2 0f 10 44 24 40    	movsd  0x40(%rsp),%xmm0
+   140978c06:	66 0f 28 4c 24 30    	movapd 0x30(%rsp),%xmm1
+   140978c0c:	66 0f 57 05 2c 0f 85 	xorpd  0x1850f2c(%rip),%xmm0        # 1421c9b40 <CSWTCH.2080+0x30>
+   140978c13:	01 
+   140978c14:	66 0f 57 0d d4 0f 85 	xorpd  0x1850fd4(%rip),%xmm1        # 1421c9bf0 <CSWTCH.2080+0xe0>
+   140978c1b:	01 
+   140978c1c:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+   140978c21:	0f 11 08             	movups %xmm1,(%rax)
+   140978c24:	f2 0f 11 40 10       	movsd  %xmm0,0x10(%rax)
+   140978c29:	e9 f1 fe ff ff       	jmp    140978b1f <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x5f>
+   140978c2e:	66 90                	xchg   %ax,%ax
+   140978c30:	48 c7 40 10 00 00 00 	movq   $0x0,0x10(%rax)
+   140978c37:	00 
+   140978c38:	0f 11 00             	movups %xmm0,(%rax)
+   140978c3b:	e9 df fe ff ff       	jmp    140978b1f <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x5f>
+   140978c40:	45 0f b6 c9          	movzbl %r9b,%r9d
+   140978c44:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   140978c48:	66 0f ef c0          	pxor   %xmm0,%xmm0
+   140978c4c:	45 0f b6 c0          	movzbl %r8b,%r8d
+   140978c50:	f3 41 0f 2a c1       	cvtsi2ss %r9d,%xmm0
+   140978c55:	41 8d 48 ff          	lea    -0x1(%r8),%ecx
+   140978c59:	45 89 c8             	mov    %r9d,%r8d
+   140978c5c:	41 29 c8             	sub    %ecx,%r8d
+   140978c5f:	48 8d 4c 24 30       	lea    0x30(%rsp),%rcx
+   140978c64:	f3 41 0f 2a f0       	cvtsi2ss %r8d,%xmm6
+   140978c69:	f3 0f 5e f0          	divss  %xmm0,%xmm6
+   140978c6d:	f3 0f 59 35 23 0f 85 	mulss  0x1850f23(%rip),%xmm6        # 1421c9b98 <CSWTCH.2080+0x88>
+   140978c74:	01 
+   140978c75:	f3 0f 58 35 1f 0f 85 	addss  0x1850f1f(%rip),%xmm6        # 1421c9b9c <CSWTCH.2080+0x8c>
+   140978c7c:	01 
+   140978c7d:	e8 ae 79 95 00       	call   1412d0630 <DpBody::HeadLocation() const>
+   140978c82:	66 0f 28 54 24 30    	movapd 0x30(%rsp),%xmm2
+   140978c88:	f2 0f 10 44 24 40    	movsd  0x40(%rsp),%xmm0
+   140978c8e:	0f 2e 35 ab 0e 85 01 	ucomiss 0x1850eab(%rip),%xmm6        # 1421c9b40 <CSWTCH.2080+0x30>
+   140978c95:	66 0f 57 15 53 0f 85 	xorpd  0x1850f53(%rip),%xmm2        # 1421c9bf0 <CSWTCH.2080+0xe0>
+   140978c9c:	01 
+   140978c9d:	48 8b 44 24 70       	mov    0x70(%rsp),%rax
+   140978ca2:	7a 06                	jp     140978caa <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x1ea>
+   140978ca4:	0f 84 66 fe ff ff    	je     140978b10 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x50>
+   140978caa:	f3 0f 5a f6          	cvtss2sd %xmm6,%xmm6
+   140978cae:	66 0f 57 05 8a 0e 85 	xorpd  0x1850e8a(%rip),%xmm0        # 1421c9b40 <CSWTCH.2080+0x30>
+   140978cb5:	01 
+   140978cb6:	66 0f 28 ce          	movapd %xmm6,%xmm1
+   140978cba:	66 0f 14 c9          	unpcklpd %xmm1,%xmm1
+   140978cbe:	66 0f 59 ca          	mulpd  %xmm2,%xmm1
+   140978cc2:	f2 0f 59 c6          	mulsd  %xmm6,%xmm0
+   140978cc6:	e9 56 ff ff ff       	jmp    140978c21 <DaCreature::CGOffset(DpBody const&, unsigned char, unsigned char, bool)+0x161>
+   140978ccb:	90                   	nop
+   140978ccc:	0f 1f 40 00          	nopl   0x0(%rax)

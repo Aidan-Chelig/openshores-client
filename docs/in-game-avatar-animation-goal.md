@@ -7,7 +7,7 @@ not merely an offline animated fixture, is the required final result.
 Current supported normal-body inputs: Stand/Walk/Run, Dying/Dead and left/right
 death posing with the admitted native whole-body render rotations,
 received crouch/crouch-walk and Jump posing, arm-channel Wave/Point and
-folded-limb codes0x18/0x19/0x1b/0x35.
+folded-limb codes0x18/0x19/0x1b/0x35, plus stationary prone0x20.
 Mixed admitted channels are preserved;
 local movement, held crouch and optional arm gestures predict/report only over
 received all-Stand.
@@ -714,4 +714,32 @@ Only the owned local server was used. Collision, corpse settling, growth,
 broader actions/anatomies and the crouched sole discrepancy remain open.
 The default library passes756 tests (one ignored); strict client Clippy,
 formatting and diff checks pass.
+
+Stationary prone checkpoint: received `0x20` now reaches the cached native
+compositor. It uses the actual shared face-down death-leg dispatch and distinct
+ProneArms spacing, with no whole-body render adjustment. Fold and Prone share
+their verified joint sequence while retaining different lift spacing. The
+isolated API preserves the optional first-selected-arm pitch override; normal
+unguided composition passes none. Source receipt remains authoritative and this
+action is excluded from local prediction/report generation.
+
+The offline bundle passes 18 static verifiers, 810 client tests (six ignored),
+both mounted received-DNA/ownership tests and all nine mounted limb tests.
+Coverage includes fixed geometry and eyes at repeated times, exact return to
+Stand, cached-only sampling on one/two/three arm pairs with both wrist anatomies,
+unchanged unselected bones and no fabricated rhythm. The separate `0x21`
+crawling routines are retained for the next implementation step; crawling,
+prone ground-clearance physics and collision remain unfinished.
+
+Third-person connected acceptance passes in `target/connected-avatar-zvkh3c0d`;
+the prone capture was inspected and shows the distinct fixed posture at the
+unchanged fixture root. First-person acceptance passes in
+`target/connected-avatar-x_zf5ai3`, with animated eye, independent mouse look,
+hidden skull, stable render resources and exact Stand recovery. The actual local
+source decoder confirms no received-action overwrite. A separate placement
+audit found prone's nonzero, head-derived native CGOffset; its dispatch and
+HeadLocation call are retained and checked. Its caller/source-origin semantics
+remain open, so these captures do not establish complete native prone placement.
+Strict client Clippy, formatting and diff checks pass. The default library
+passes 757 tests (one ignored). No public server or original executable was used.
 

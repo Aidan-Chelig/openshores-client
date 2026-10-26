@@ -1,0 +1,693 @@
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412ecce0 <_ZN6DpBody9ProneArmsEib>:
+   1412ecce0:	41 55                	push   %r13
+   1412ecce2:	41 54                	push   %r12
+   1412ecce4:	55                   	push   %rbp
+   1412ecce5:	57                   	push   %rdi
+   1412ecce6:	56                   	push   %rsi
+   1412ecce7:	53                   	push   %rbx
+   1412ecce8:	48 83 ec 48          	sub    $0x48,%rsp
+   1412eccec:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   1412eccf1:	0f 29 7c 24 30       	movaps %xmm7,0x30(%rsp)
+   1412eccf6:	f3 0f 10 15 de 2f fd 	movss  0xfd2fde(%rip),%xmm2        # 1422bfcdc <CSWTCH.2328+0x53c>
+   1412eccfd:	00 
+   1412eccfe:	f3 0f 10 0d 7a 2f fd 	movss  0xfd2f7a(%rip),%xmm1        # 1422bfc80 <CSWTCH.2328+0x4e0>
+   1412ecd05:	00 
+   1412ecd06:	48 89 ce             	mov    %rcx,%rsi
+   1412ecd09:	41 89 d1             	mov    %edx,%r9d
+   1412ecd0c:	89 d7                	mov    %edx,%edi
+   1412ecd0e:	44 89 c5             	mov    %r8d,%ebp
+   1412ecd11:	e8 9a e2 ff ff       	call   1412eafb0 <_ZN6DpBody10SpreadArmsEffi>
+   1412ecd16:	48 8b 06             	mov    (%rsi),%rax
+   1412ecd19:	8b 10                	mov    (%rax),%edx
+   1412ecd1b:	83 fa 01             	cmp    $0x1,%edx
+   1412ecd1e:	76 3e                	jbe    1412ecd5e <_ZN6DpBody9ProneArmsEib+0x7e>
+   1412ecd20:	8b 50 08             	mov    0x8(%rax),%edx
+   1412ecd23:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412ecd29:	75 25                	jne    1412ecd50 <_ZN6DpBody9ProneArmsEib+0x70>
+   1412ecd2b:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412ecd30:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412ecd36:	45 31 c0             	xor    %r8d,%r8d
+   1412ecd39:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412ecd3e:	ff 15 6c 58 5a 01    	call   *0x15a586c(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412ecd44:	48 89 06             	mov    %rax,(%rsi)
+   1412ecd47:	48 89 c2             	mov    %rax,%rdx
+   1412ecd4a:	eb 15                	jmp    1412ecd61 <_ZN6DpBody9ProneArmsEib+0x81>
+   1412ecd4c:	0f 1f 40 00          	nopl   0x0(%rax)
+   1412ecd50:	45 31 c0             	xor    %r8d,%r8d
+   1412ecd53:	48 89 f1             	mov    %rsi,%rcx
+   1412ecd56:	e8 25 24 57 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412ecd5b:	48 8b 06             	mov    (%rsi),%rax
+   1412ecd5e:	48 89 c2             	mov    %rax,%rdx
+   1412ecd61:	48 8b 5a 10          	mov    0x10(%rdx),%rbx
+   1412ecd65:	4c 8b 25 44 58 5a 01 	mov    0x15a5844(%rip),%r12        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412ecd6c:	48 01 d3             	add    %rdx,%rbx
+   1412ecd6f:	48 83 c3 08          	add    $0x8,%rbx
+   1412ecd73:	eb 5c                	jmp    1412ecdd1 <_ZN6DpBody9ProneArmsEib+0xf1>
+   1412ecd75:	0f 1f 00             	nopl   (%rax)
+   1412ecd78:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412ecd7e:	45 31 c0             	xor    %r8d,%r8d
+   1412ecd81:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412ecd86:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412ecd8b:	41 ff d4             	call   *%r12
+   1412ecd8e:	48 89 06             	mov    %rax,(%rsi)
+   1412ecd91:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   1412ecd95:	48 01 c2             	add    %rax,%rdx
+   1412ecd98:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1412ecd9c:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1412ecda0:	48 39 c3             	cmp    %rax,%rbx
+   1412ecda3:	0f 84 c7 00 00 00    	je     1412ece70 <_ZN6DpBody9ProneArmsEib+0x190>
+   1412ecda9:	48 8b 0b             	mov    (%rbx),%rcx
+   1412ecdac:	48 8b 01             	mov    (%rcx),%rax
+   1412ecdaf:	ff 50 38             	call   *0x38(%rax)
+   1412ecdb2:	84 c0                	test   %al,%al
+   1412ecdb4:	74 11                	je     1412ecdc7 <_ZN6DpBody9ProneArmsEib+0xe7>
+   1412ecdb6:	4c 8b 2b             	mov    (%rbx),%r13
+   1412ecdb9:	41 f6 45 19 03       	testb  $0x3,0x19(%r13)
+   1412ecdbe:	74 38                	je     1412ecdf8 <_ZN6DpBody9ProneArmsEib+0x118>
+   1412ecdc0:	41 f6 45 1a 06       	testb  $0x6,0x1a(%r13)
+   1412ecdc5:	74 31                	je     1412ecdf8 <_ZN6DpBody9ProneArmsEib+0x118>
+   1412ecdc7:	48 8b 06             	mov    (%rsi),%rax
+   1412ecdca:	48 83 c3 08          	add    $0x8,%rbx
+   1412ecdce:	48 89 c2             	mov    %rax,%rdx
+   1412ecdd1:	8b 12                	mov    (%rdx),%edx
+   1412ecdd3:	83 fa 01             	cmp    $0x1,%edx
+   1412ecdd6:	76 b9                	jbe    1412ecd91 <_ZN6DpBody9ProneArmsEib+0xb1>
+   1412ecdd8:	8b 50 08             	mov    0x8(%rax),%edx
+   1412ecddb:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412ecde1:	74 95                	je     1412ecd78 <_ZN6DpBody9ProneArmsEib+0x98>
+   1412ecde3:	45 31 c0             	xor    %r8d,%r8d
+   1412ecde6:	48 89 f1             	mov    %rsi,%rcx
+   1412ecde9:	e8 92 23 57 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412ecdee:	48 8b 06             	mov    (%rsi),%rax
+   1412ecdf1:	eb 9e                	jmp    1412ecd91 <_ZN6DpBody9ProneArmsEib+0xb1>
+   1412ecdf3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412ecdf8:	83 ff 02             	cmp    $0x2,%edi
+   1412ecdfb:	74 19                	je     1412ece16 <_ZN6DpBody9ProneArmsEib+0x136>
+   1412ecdfd:	85 ff                	test   %edi,%edi
+   1412ecdff:	0f 85 8b 00 00 00    	jne    1412ece90 <_ZN6DpBody9ProneArmsEib+0x1b0>
+   1412ece05:	49 8b 45 00          	mov    0x0(%r13),%rax
+   1412ece09:	4c 89 e9             	mov    %r13,%rcx
+   1412ece0c:	ff 90 a8 00 00 00    	call   *0xa8(%rax)
+   1412ece12:	84 c0                	test   %al,%al
+   1412ece14:	74 b1                	je     1412ecdc7 <_ZN6DpBody9ProneArmsEib+0xe7>
+   1412ece16:	40 84 ed             	test   %bpl,%bpl
+   1412ece19:	0f 85 98 00 00 00    	jne    1412eceb7 <_ZN6DpBody9ProneArmsEib+0x1d7>
+   1412ece1f:	f3 0f 10 0d 95 2f fd 	movss  0xfd2f95(%rip),%xmm1        # 1422bfdbc <CSWTCH.2328+0x61c>
+   1412ece26:	00 
+   1412ece27:	4c 89 e9             	mov    %r13,%rcx
+   1412ece2a:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1412ece2e:	e8 9d d1 fc ff       	call   1412b9fd0 <_ZN12DpArmAndHand14RotateShoulderEf.part.0>
+   1412ece33:	f3 0f 10 35 65 2f fd 	movss  0xfd2f65(%rip),%xmm6        # 1422bfda0 <CSWTCH.2328+0x600>
+   1412ece3a:	00 
+   1412ece3b:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412ece3e:	4c 89 e9             	mov    %r13,%rcx
+   1412ece41:	e8 da 0f fd ff       	call   1412bde20 <_ZN12DpArmAndHand11RotateElbowEf.part.0>
+   1412ece46:	f3 41 0f 10 4d 4c    	movss  0x4c(%r13),%xmm1
+   1412ece4c:	0f 2e cf             	ucomiss %xmm7,%xmm1
+   1412ece4f:	7a 02                	jp     1412ece53 <_ZN6DpBody9ProneArmsEib+0x173>
+   1412ece51:	74 08                	je     1412ece5b <_ZN6DpBody9ProneArmsEib+0x17b>
+   1412ece53:	4c 89 e9             	mov    %r13,%rcx
+   1412ece56:	e8 05 e0 fc ff       	call   1412bae60 <_ZN12DpArmAndHand13SplayShoulderEf.part.0>
+   1412ece5b:	f3 41 0f 10 4d 48    	movss  0x48(%r13),%xmm1
+   1412ece61:	4c 89 e9             	mov    %r13,%rcx
+   1412ece64:	31 ed                	xor    %ebp,%ebp
+   1412ece66:	e8 65 8c fe ff       	call   1412d5ad0 <_ZN12DpArmAndHand12LiftShoulderEf>
+   1412ece6b:	e9 57 ff ff ff       	jmp    1412ecdc7 <_ZN6DpBody9ProneArmsEib+0xe7>
+   1412ece70:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1412ece75:	0f 28 7c 24 30       	movaps 0x30(%rsp),%xmm7
+   1412ece7a:	48 83 c4 48          	add    $0x48,%rsp
+   1412ece7e:	5b                   	pop    %rbx
+   1412ece7f:	5e                   	pop    %rsi
+   1412ece80:	5f                   	pop    %rdi
+   1412ece81:	5d                   	pop    %rbp
+   1412ece82:	41 5c                	pop    %r12
+   1412ece84:	41 5d                	pop    %r13
+   1412ece86:	c3                   	ret
+   1412ece87:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
+   1412ece8e:	00 00 
+   1412ece90:	83 ff 01             	cmp    $0x1,%edi
+   1412ece93:	0f 85 2e ff ff ff    	jne    1412ecdc7 <_ZN6DpBody9ProneArmsEib+0xe7>
+   1412ece99:	49 8b 45 00          	mov    0x0(%r13),%rax
+   1412ece9d:	4c 89 e9             	mov    %r13,%rcx
+   1412ecea0:	ff 90 a8 00 00 00    	call   *0xa8(%rax)
+   1412ecea6:	84 c0                	test   %al,%al
+   1412ecea8:	0f 85 19 ff ff ff    	jne    1412ecdc7 <_ZN6DpBody9ProneArmsEib+0xe7>
+   1412eceae:	40 84 ed             	test   %bpl,%bpl
+   1412eceb1:	0f 84 68 ff ff ff    	je     1412ece1f <_ZN6DpBody9ProneArmsEib+0x13f>
+   1412eceb7:	49 8b 45 08          	mov    0x8(%r13),%rax
+   1412ecebb:	f3 0f 10 0d f9 2e fd 	movss  0xfd2ef9(%rip),%xmm1        # 1422bfdbc <CSWTCH.2328+0x61c>
+   1412ecec2:	00 
+   1412ecec3:	4c 89 e9             	mov    %r13,%rcx
+   1412ecec6:	66 0f ef ff          	pxor   %xmm7,%xmm7
+   1412ececa:	f3 0f 10 35 d2 2e fd 	movss  0xfd2ed2(%rip),%xmm6        # 1422bfda4 <CSWTCH.2328+0x604>
+   1412eced1:	00 
+   1412eced2:	f3 0f 58 70 30       	addss  0x30(%rax),%xmm6
+   1412eced7:	e8 f4 d0 fc ff       	call   1412b9fd0 <_ZN12DpArmAndHand14RotateShoulderEf.part.0>
+   1412ecedc:	f3 0f 10 0d 4c 2e fd 	movss  0xfd2e4c(%rip),%xmm1        # 1422bfd30 <CSWTCH.2328+0x590>
+   1412ecee3:	00 
+   1412ecee4:	4c 89 e9             	mov    %r13,%rcx
+   1412ecee7:	e8 d4 d8 fc ff       	call   1412ba7c0 <_ZN12DpArmAndHand11RotateWristEf.part.0>
+   1412eceec:	0f 2e f7             	ucomiss %xmm7,%xmm6
+   1412eceef:	0f 8a 46 ff ff ff    	jp     1412ece3b <_ZN6DpBody9ProneArmsEib+0x15b>
+   1412ecef5:	0f 84 4b ff ff ff    	je     1412ece46 <_ZN6DpBody9ProneArmsEib+0x166>
+   1412ecefb:	e9 3b ff ff ff       	jmp    1412ece3b <_ZN6DpBody9ProneArmsEib+0x15b>
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412ecf00 <_ZN6DpBody14ProneCreepArmsEfibf>:
+   1412ecf00:	41 55                	push   %r13
+   1412ecf02:	41 54                	push   %r12
+   1412ecf04:	55                   	push   %rbp
+   1412ecf05:	57                   	push   %rdi
+   1412ecf06:	56                   	push   %rsi
+   1412ecf07:	53                   	push   %rbx
+   1412ecf08:	48 83 ec 38          	sub    $0x38,%rsp
+   1412ecf0c:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   1412ecf11:	f3 0f 10 15 c3 2d fd 	movss  0xfd2dc3(%rip),%xmm2        # 1422bfcdc <CSWTCH.2328+0x53c>
+   1412ecf18:	00 
+   1412ecf19:	0f 28 f1             	movaps %xmm1,%xmm6
+   1412ecf1c:	48 89 ce             	mov    %rcx,%rsi
+   1412ecf1f:	44 89 cd             	mov    %r9d,%ebp
+   1412ecf22:	45 89 c1             	mov    %r8d,%r9d
+   1412ecf25:	f3 0f 10 0d 53 2d fd 	movss  0xfd2d53(%rip),%xmm1        # 1422bfc80 <CSWTCH.2328+0x4e0>
+   1412ecf2c:	00 
+   1412ecf2d:	44 89 c7             	mov    %r8d,%edi
+   1412ecf30:	e8 7b e0 ff ff       	call   1412eafb0 <_ZN6DpBody10SpreadArmsEffi>
+   1412ecf35:	48 8b 06             	mov    (%rsi),%rax
+   1412ecf38:	8b 10                	mov    (%rax),%edx
+   1412ecf3a:	83 fa 01             	cmp    $0x1,%edx
+   1412ecf3d:	76 3f                	jbe    1412ecf7e <_ZN6DpBody14ProneCreepArmsEfibf+0x7e>
+   1412ecf3f:	8b 50 08             	mov    0x8(%rax),%edx
+   1412ecf42:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412ecf48:	75 26                	jne    1412ecf70 <_ZN6DpBody14ProneCreepArmsEfibf+0x70>
+   1412ecf4a:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412ecf4f:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412ecf55:	45 31 c0             	xor    %r8d,%r8d
+   1412ecf58:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412ecf5d:	ff 15 4d 56 5a 01    	call   *0x15a564d(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412ecf63:	48 89 06             	mov    %rax,(%rsi)
+   1412ecf66:	48 89 c2             	mov    %rax,%rdx
+   1412ecf69:	eb 16                	jmp    1412ecf81 <_ZN6DpBody14ProneCreepArmsEfibf+0x81>
+   1412ecf6b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412ecf70:	45 31 c0             	xor    %r8d,%r8d
+   1412ecf73:	48 89 f1             	mov    %rsi,%rcx
+   1412ecf76:	e8 05 22 57 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412ecf7b:	48 8b 06             	mov    (%rsi),%rax
+   1412ecf7e:	48 89 c2             	mov    %rax,%rdx
+   1412ecf81:	48 8b 5a 10          	mov    0x10(%rdx),%rbx
+   1412ecf85:	4c 8b 25 24 56 5a 01 	mov    0x15a5624(%rip),%r12        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412ecf8c:	48 01 d3             	add    %rdx,%rbx
+   1412ecf8f:	48 83 c3 08          	add    $0x8,%rbx
+   1412ecf93:	eb 5c                	jmp    1412ecff1 <_ZN6DpBody14ProneCreepArmsEfibf+0xf1>
+   1412ecf95:	0f 1f 00             	nopl   (%rax)
+   1412ecf98:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412ecf9e:	45 31 c0             	xor    %r8d,%r8d
+   1412ecfa1:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412ecfa6:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412ecfab:	41 ff d4             	call   *%r12
+   1412ecfae:	48 89 06             	mov    %rax,(%rsi)
+   1412ecfb1:	48 8b 50 10          	mov    0x10(%rax),%rdx
+   1412ecfb5:	48 01 c2             	add    %rax,%rdx
+   1412ecfb8:	48 63 40 04          	movslq 0x4(%rax),%rax
+   1412ecfbc:	48 8d 04 c2          	lea    (%rdx,%rax,8),%rax
+   1412ecfc0:	48 39 c3             	cmp    %rax,%rbx
+   1412ecfc3:	0f 84 87 00 00 00    	je     1412ed050 <_ZN6DpBody14ProneCreepArmsEfibf+0x150>
+   1412ecfc9:	48 8b 0b             	mov    (%rbx),%rcx
+   1412ecfcc:	48 8b 01             	mov    (%rcx),%rax
+   1412ecfcf:	ff 50 38             	call   *0x38(%rax)
+   1412ecfd2:	84 c0                	test   %al,%al
+   1412ecfd4:	74 11                	je     1412ecfe7 <_ZN6DpBody14ProneCreepArmsEfibf+0xe7>
+   1412ecfd6:	4c 8b 2b             	mov    (%rbx),%r13
+   1412ecfd9:	41 f6 45 19 03       	testb  $0x3,0x19(%r13)
+   1412ecfde:	74 38                	je     1412ed018 <_ZN6DpBody14ProneCreepArmsEfibf+0x118>
+   1412ecfe0:	41 f6 45 1a 06       	testb  $0x6,0x1a(%r13)
+   1412ecfe5:	74 31                	je     1412ed018 <_ZN6DpBody14ProneCreepArmsEfibf+0x118>
+   1412ecfe7:	48 8b 06             	mov    (%rsi),%rax
+   1412ecfea:	48 83 c3 08          	add    $0x8,%rbx
+   1412ecfee:	48 89 c2             	mov    %rax,%rdx
+   1412ecff1:	8b 12                	mov    (%rdx),%edx
+   1412ecff3:	83 fa 01             	cmp    $0x1,%edx
+   1412ecff6:	76 b9                	jbe    1412ecfb1 <_ZN6DpBody14ProneCreepArmsEfibf+0xb1>
+   1412ecff8:	8b 50 08             	mov    0x8(%rax),%edx
+   1412ecffb:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412ed001:	74 95                	je     1412ecf98 <_ZN6DpBody14ProneCreepArmsEfibf+0x98>
+   1412ed003:	45 31 c0             	xor    %r8d,%r8d
+   1412ed006:	48 89 f1             	mov    %rsi,%rcx
+   1412ed009:	e8 72 21 57 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412ed00e:	48 8b 06             	mov    (%rsi),%rax
+   1412ed011:	eb 9e                	jmp    1412ecfb1 <_ZN6DpBody14ProneCreepArmsEfibf+0xb1>
+   1412ed013:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412ed018:	83 ff 02             	cmp    $0x2,%edi
+   1412ed01b:	74 15                	je     1412ed032 <_ZN6DpBody14ProneCreepArmsEfibf+0x132>
+   1412ed01d:	85 ff                	test   %edi,%edi
+   1412ed01f:	75 47                	jne    1412ed068 <_ZN6DpBody14ProneCreepArmsEfibf+0x168>
+   1412ed021:	49 8b 45 00          	mov    0x0(%r13),%rax
+   1412ed025:	4c 89 e9             	mov    %r13,%rcx
+   1412ed028:	ff 90 a8 00 00 00    	call   *0xa8(%rax)
+   1412ed02e:	84 c0                	test   %al,%al
+   1412ed030:	74 b5                	je     1412ecfe7 <_ZN6DpBody14ProneCreepArmsEfibf+0xe7>
+   1412ed032:	f3 0f 10 9c 24 90 00 	movss  0x90(%rsp),%xmm3
+   1412ed039:	00 00 
+   1412ed03b:	44 0f b6 c5          	movzbl %bpl,%r8d
+   1412ed03f:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412ed042:	4c 89 e9             	mov    %r13,%rcx
+   1412ed045:	31 ed                	xor    %ebp,%ebp
+   1412ed047:	e8 24 9f fe ff       	call   1412d6f70 <_ZN12DpArmAndHand10ProneCreepEfbf>
+   1412ed04c:	eb 99                	jmp    1412ecfe7 <_ZN6DpBody14ProneCreepArmsEfibf+0xe7>
+   1412ed04e:	66 90                	xchg   %ax,%ax
+   1412ed050:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1412ed055:	48 83 c4 38          	add    $0x38,%rsp
+   1412ed059:	5b                   	pop    %rbx
+   1412ed05a:	5e                   	pop    %rsi
+   1412ed05b:	5f                   	pop    %rdi
+   1412ed05c:	5d                   	pop    %rbp
+   1412ed05d:	41 5c                	pop    %r12
+   1412ed05f:	41 5d                	pop    %r13
+   1412ed061:	c3                   	ret
+   1412ed062:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412ed068:	83 ff 01             	cmp    $0x1,%edi
+   1412ed06b:	0f 85 76 ff ff ff    	jne    1412ecfe7 <_ZN6DpBody14ProneCreepArmsEfibf+0xe7>
+   1412ed071:	49 8b 45 00          	mov    0x0(%r13),%rax
+   1412ed075:	4c 89 e9             	mov    %r13,%rcx
+   1412ed078:	ff 90 a8 00 00 00    	call   *0xa8(%rax)
+   1412ed07e:	84 c0                	test   %al,%al
+   1412ed080:	74 b0                	je     1412ed032 <_ZN6DpBody14ProneCreepArmsEfibf+0x132>
+   1412ed082:	e9 60 ff ff ff       	jmp    1412ecfe7 <_ZN6DpBody14ProneCreepArmsEfibf+0xe7>
+   1412ed087:	90                   	nop
+   1412ed088:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1412ed08f:	00 
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412f0ac0 <_ZN6DpBody14ProneCreepLegsEif>:
+   1412f0ac0:	55                   	push   %rbp
+   1412f0ac1:	57                   	push   %rdi
+   1412f0ac2:	56                   	push   %rsi
+   1412f0ac3:	53                   	push   %rbx
+   1412f0ac4:	48 83 ec 38          	sub    $0x38,%rsp
+   1412f0ac8:	0f 29 74 24 20       	movaps %xmm6,0x20(%rsp)
+   1412f0acd:	f3 0f 10 0d 17 f3 fc 	movss  0xfcf317(%rip),%xmm1        # 1422bfdec <CSWTCH.2328+0x64c>
+   1412f0ad4:	00 
+   1412f0ad5:	48 89 ce             	mov    %rcx,%rsi
+   1412f0ad8:	41 89 d0             	mov    %edx,%r8d
+   1412f0adb:	0f 28 f2             	movaps %xmm2,%xmm6
+   1412f0ade:	89 d7                	mov    %edx,%edi
+   1412f0ae0:	e8 9b ea ff ff       	call   1412ef580 <_ZN6DpBody10SpreadLegsEfi>
+   1412f0ae5:	48 8b 06             	mov    (%rsi),%rax
+   1412f0ae8:	8b 10                	mov    (%rax),%edx
+   1412f0aea:	83 fa 01             	cmp    $0x1,%edx
+   1412f0aed:	76 3f                	jbe    1412f0b2e <_ZN6DpBody14ProneCreepLegsEif+0x6e>
+   1412f0aef:	8b 50 08             	mov    0x8(%rax),%edx
+   1412f0af2:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412f0af8:	75 26                	jne    1412f0b20 <_ZN6DpBody14ProneCreepLegsEif+0x60>
+   1412f0afa:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412f0aff:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412f0b05:	45 31 c0             	xor    %r8d,%r8d
+   1412f0b08:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412f0b0d:	ff 15 9d 1a 5a 01    	call   *0x15a1a9d(%rip)        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412f0b13:	48 89 06             	mov    %rax,(%rsi)
+   1412f0b16:	48 89 c2             	mov    %rax,%rdx
+   1412f0b19:	eb 16                	jmp    1412f0b31 <_ZN6DpBody14ProneCreepLegsEif+0x71>
+   1412f0b1b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412f0b20:	45 31 c0             	xor    %r8d,%r8d
+   1412f0b23:	48 89 f1             	mov    %rsi,%rcx
+   1412f0b26:	e8 55 e6 56 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412f0b2b:	48 8b 06             	mov    (%rsi),%rax
+   1412f0b2e:	48 89 c2             	mov    %rax,%rdx
+   1412f0b31:	48 8b 4a 10          	mov    0x10(%rdx),%rcx
+   1412f0b35:	4c 63 42 04          	movslq 0x4(%rdx),%r8
+   1412f0b39:	48 8b 2d 70 1a 5a 01 	mov    0x15a1a70(%rip),%rbp        # 1428925b0 <__imp__ZN10QArrayData8allocateEyyy6QFlagsINS_16AllocationOptionEE>
+   1412f0b40:	48 01 d1             	add    %rdx,%rcx
+   1412f0b43:	4a 8d 5c c1 f8       	lea    -0x8(%rcx,%r8,8),%rbx
+   1412f0b48:	eb 1f                	jmp    1412f0b69 <_ZN6DpBody14ProneCreepLegsEif+0xa9>
+   1412f0b4a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412f0b50:	8b 51 4c             	mov    0x4c(%rcx),%edx
+   1412f0b53:	85 d2                	test   %edx,%edx
+   1412f0b55:	74 08                	je     1412f0b5f <_ZN6DpBody14ProneCreepLegsEif+0x9f>
+   1412f0b57:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412f0b5a:	e8 a1 94 fe ff       	call   1412da000 <_ZN12DpLegAndFoot10ProneCreepEf>
+   1412f0b5f:	48 8b 06             	mov    (%rsi),%rax
+   1412f0b62:	48 83 eb 08          	sub    $0x8,%rbx
+   1412f0b66:	48 89 c2             	mov    %rax,%rdx
+   1412f0b69:	8b 12                	mov    (%rdx),%edx
+   1412f0b6b:	83 fa 01             	cmp    $0x1,%edx
+   1412f0b6e:	76 23                	jbe    1412f0b93 <_ZN6DpBody14ProneCreepLegsEif+0xd3>
+   1412f0b70:	8b 50 08             	mov    0x8(%rax),%edx
+   1412f0b73:	81 e2 ff ff ff 7f    	and    $0x7fffffff,%edx
+   1412f0b79:	75 4d                	jne    1412f0bc8 <_ZN6DpBody14ProneCreepLegsEif+0x108>
+   1412f0b7b:	41 b9 02 00 00 00    	mov    $0x2,%r9d
+   1412f0b81:	45 31 c0             	xor    %r8d,%r8d
+   1412f0b84:	ba 08 00 00 00       	mov    $0x8,%edx
+   1412f0b89:	b9 08 00 00 00       	mov    $0x8,%ecx
+   1412f0b8e:	ff d5                	call   *%rbp
+   1412f0b90:	48 89 06             	mov    %rax,(%rsi)
+   1412f0b93:	48 03 40 10          	add    0x10(%rax),%rax
+   1412f0b97:	48 39 c3             	cmp    %rax,%rbx
+   1412f0b9a:	74 43                	je     1412f0bdf <_ZN6DpBody14ProneCreepLegsEif+0x11f>
+   1412f0b9c:	48 8b 0b             	mov    (%rbx),%rcx
+   1412f0b9f:	48 8b 01             	mov    (%rcx),%rax
+   1412f0ba2:	ff 50 48             	call   *0x48(%rax)
+   1412f0ba5:	84 c0                	test   %al,%al
+   1412f0ba7:	74 36                	je     1412f0bdf <_ZN6DpBody14ProneCreepLegsEif+0x11f>
+   1412f0ba9:	48 8b 0b             	mov    (%rbx),%rcx
+   1412f0bac:	83 ff 02             	cmp    $0x2,%edi
+   1412f0baf:	74 a6                	je     1412f0b57 <_ZN6DpBody14ProneCreepLegsEif+0x97>
+   1412f0bb1:	85 ff                	test   %edi,%edi
+   1412f0bb3:	74 9b                	je     1412f0b50 <_ZN6DpBody14ProneCreepLegsEif+0x90>
+   1412f0bb5:	83 ff 01             	cmp    $0x1,%edi
+   1412f0bb8:	75 a5                	jne    1412f0b5f <_ZN6DpBody14ProneCreepLegsEif+0x9f>
+   1412f0bba:	8b 41 4c             	mov    0x4c(%rcx),%eax
+   1412f0bbd:	85 c0                	test   %eax,%eax
+   1412f0bbf:	75 9e                	jne    1412f0b5f <_ZN6DpBody14ProneCreepLegsEif+0x9f>
+   1412f0bc1:	eb 94                	jmp    1412f0b57 <_ZN6DpBody14ProneCreepLegsEif+0x97>
+   1412f0bc3:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412f0bc8:	45 31 c0             	xor    %r8d,%r8d
+   1412f0bcb:	48 89 f1             	mov    %rsi,%rcx
+   1412f0bce:	e8 ad e5 56 00       	call   14185f180 <_ZN7QVectorIP10DpBodyPartE7reallocEi6QFlagsIN10QArrayData16AllocationOptionEE>
+   1412f0bd3:	48 8b 06             	mov    (%rsi),%rax
+   1412f0bd6:	48 03 40 10          	add    0x10(%rax),%rax
+   1412f0bda:	48 39 c3             	cmp    %rax,%rbx
+   1412f0bdd:	75 bd                	jne    1412f0b9c <_ZN6DpBody14ProneCreepLegsEif+0xdc>
+   1412f0bdf:	0f 28 74 24 20       	movaps 0x20(%rsp),%xmm6
+   1412f0be4:	48 83 c4 38          	add    $0x38,%rsp
+   1412f0be8:	5b                   	pop    %rbx
+   1412f0be9:	5e                   	pop    %rsi
+   1412f0bea:	5f                   	pop    %rdi
+   1412f0beb:	5d                   	pop    %rbp
+   1412f0bec:	c3                   	ret
+   1412f0bed:	90                   	nop
+   1412f0bee:	66 90                	xchg   %ax,%ax
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412d6f70 <_ZN12DpArmAndHand10ProneCreepEfbf>:
+   1412d6f70:	41 54                	push   %r12
+   1412d6f72:	53                   	push   %rbx
+   1412d6f73:	48 83 ec 68          	sub    $0x68,%rsp
+   1412d6f77:	0f 29 74 24 40       	movaps %xmm6,0x40(%rsp)
+   1412d6f7c:	0f 29 7c 24 50       	movaps %xmm7,0x50(%rsp)
+   1412d6f81:	48 8b 01             	mov    (%rcx),%rax
+   1412d6f84:	f3 0f 11 5c 24 2c    	movss  %xmm3,0x2c(%rsp)
+   1412d6f8a:	49 89 cc             	mov    %rcx,%r12
+   1412d6f8d:	44 89 c3             	mov    %r8d,%ebx
+   1412d6f90:	ff 90 a8 00 00 00    	call   *0xa8(%rax)
+   1412d6f96:	f3 0f 10 5c 24 2c    	movss  0x2c(%rsp),%xmm3
+   1412d6f9c:	84 c0                	test   %al,%al
+   1412d6f9e:	0f 85 fc 00 00 00    	jne    1412d70a0 <_ZN12DpArmAndHand10ProneCreepEfbf+0x130>
+   1412d6fa4:	41 0f b6 44 24 19    	movzbl 0x19(%r12),%eax
+   1412d6faa:	f3 0f 10 0d 46 8d fe 	movss  0xfe8d46(%rip),%xmm1        # 1422bfcf8 <CSWTCH.2328+0x558>
+   1412d6fb1:	00 
+   1412d6fb2:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1412d6fb6:	f3 0f 10 25 3e 8d fe 	movss  0xfe8d3e(%rip),%xmm4        # 1422bfcfc <CSWTCH.2328+0x55c>
+   1412d6fbd:	00 
+   1412d6fbe:	f3 0f 10 05 3a 8d fe 	movss  0xfe8d3a(%rip),%xmm0        # 1422bfd00 <CSWTCH.2328+0x560>
+   1412d6fc5:	00 
+   1412d6fc6:	83 e0 03             	and    $0x3,%eax
+   1412d6fc9:	f3 0f 10 15 5b 8b fe 	movss  0xfe8b5b(%rip),%xmm2        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412d6fd0:	00 
+   1412d6fd1:	3c 02                	cmp    $0x2,%al
+   1412d6fd3:	0f 84 f7 00 00 00    	je     1412d70d0 <_ZN12DpArmAndHand10ProneCreepEfbf+0x160>
+   1412d6fd9:	3c 03                	cmp    $0x3,%al
+   1412d6fdb:	0f 84 2f 01 00 00    	je     1412d7110 <_ZN12DpArmAndHand10ProneCreepEfbf+0x1a0>
+   1412d6fe1:	48 8d 54 24 3c       	lea    0x3c(%rsp),%rdx
+   1412d6fe6:	49 8d 4c 24 10       	lea    0x10(%r12),%rcx
+   1412d6feb:	c7 44 24 3c 21 00 00 	movl   $0x21,0x3c(%rsp)
+   1412d6ff2:	00 
+   1412d6ff3:	e8 68 8e fd ff       	call   1412afe60 <_ZNK5DhDNA6RhythmERK6AuPoseff>
+   1412d6ff8:	f3 0f 59 05 10 8b fe 	mulss  0xfe8b10(%rip),%xmm0        # 1422bfb10 <CSWTCH.2328+0x370>
+   1412d6fff:	00 
+   1412d7000:	f3 0f 10 0d c8 8a fe 	movss  0xfe8ac8(%rip),%xmm1        # 1422bfad0 <CSWTCH.2328+0x330>
+   1412d7007:	00 
+   1412d7008:	f3 0f 5c c8          	subss  %xmm0,%xmm1
+   1412d700c:	f3 0f 59 0d 7c 8c fe 	mulss  0xfe8c7c(%rip),%xmm1        # 1422bfc90 <CSWTCH.2328+0x4f0>
+   1412d7013:	00 
+   1412d7014:	f3 0f 5c 0d 88 8d fe 	subss  0xfe8d88(%rip),%xmm1        # 1422bfda4 <CSWTCH.2328+0x604>
+   1412d701b:	00 
+   1412d701c:	84 db                	test   %bl,%bl
+   1412d701e:	0f 84 c4 00 00 00    	je     1412d70e8 <_ZN12DpArmAndHand10ProneCreepEfbf+0x178>
+   1412d7024:	49 8b 44 24 08       	mov    0x8(%r12),%rax
+   1412d7029:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d702c:	f3 0f 10 78 30       	movss  0x30(%rax),%xmm7
+   1412d7031:	f3 0f 5c f9          	subss  %xmm1,%xmm7
+   1412d7035:	7a 02                	jp     1412d7039 <_ZN12DpArmAndHand10ProneCreepEfbf+0xc9>
+   1412d7037:	74 08                	je     1412d7041 <_ZN12DpArmAndHand10ProneCreepEfbf+0xd1>
+   1412d7039:	4c 89 e1             	mov    %r12,%rcx
+   1412d703c:	e8 8f 2f fe ff       	call   1412b9fd0 <_ZN12DpArmAndHand14RotateShoulderEf.part.0>
+   1412d7041:	f3 0f 10 0d e7 8c fe 	movss  0xfe8ce7(%rip),%xmm1        # 1422bfd30 <CSWTCH.2328+0x590>
+   1412d7048:	00 
+   1412d7049:	4c 89 e1             	mov    %r12,%rcx
+   1412d704c:	e8 6f 37 fe ff       	call   1412ba7c0 <_ZN12DpArmAndHand11RotateWristEf.part.0>
+   1412d7051:	0f 2e fe             	ucomiss %xmm6,%xmm7
+   1412d7054:	7a 02                	jp     1412d7058 <_ZN12DpArmAndHand10ProneCreepEfbf+0xe8>
+   1412d7056:	74 0b                	je     1412d7063 <_ZN12DpArmAndHand10ProneCreepEfbf+0xf3>
+   1412d7058:	0f 28 cf             	movaps %xmm7,%xmm1
+   1412d705b:	4c 89 e1             	mov    %r12,%rcx
+   1412d705e:	e8 bd 6d fe ff       	call   1412bde20 <_ZN12DpArmAndHand11RotateElbowEf.part.0>
+   1412d7063:	f3 41 0f 10 4c 24 4c 	movss  0x4c(%r12),%xmm1
+   1412d706a:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d706d:	7a 02                	jp     1412d7071 <_ZN12DpArmAndHand10ProneCreepEfbf+0x101>
+   1412d706f:	74 08                	je     1412d7079 <_ZN12DpArmAndHand10ProneCreepEfbf+0x109>
+   1412d7071:	4c 89 e1             	mov    %r12,%rcx
+   1412d7074:	e8 e7 3d fe ff       	call   1412bae60 <_ZN12DpArmAndHand13SplayShoulderEf.part.0>
+   1412d7079:	f3 41 0f 10 4c 24 48 	movss  0x48(%r12),%xmm1
+   1412d7080:	0f 28 74 24 40       	movaps 0x40(%rsp),%xmm6
+   1412d7085:	4c 89 e1             	mov    %r12,%rcx
+   1412d7088:	0f 28 7c 24 50       	movaps 0x50(%rsp),%xmm7
+   1412d708d:	48 83 c4 68          	add    $0x68,%rsp
+   1412d7091:	5b                   	pop    %rbx
+   1412d7092:	41 5c                	pop    %r12
+   1412d7094:	e9 37 ea ff ff       	jmp    1412d5ad0 <_ZN12DpArmAndHand12LiftShoulderEf>
+   1412d7099:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1412d70a0:	41 0f b6 44 24 19    	movzbl 0x19(%r12),%eax
+   1412d70a6:	66 0f ef f6          	pxor   %xmm6,%xmm6
+   1412d70aa:	f3 0f 10 0d 3e 8c fe 	movss  0xfe8c3e(%rip),%xmm1        # 1422bfcf0 <CSWTCH.2328+0x550>
+   1412d70b1:	00 
+   1412d70b2:	f3 0f 10 25 3a 8c fe 	movss  0xfe8c3a(%rip),%xmm4        # 1422bfcf4 <CSWTCH.2328+0x554>
+   1412d70b9:	00 
+   1412d70ba:	f3 0f 10 05 6a 8a fe 	movss  0xfe8a6a(%rip),%xmm0        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412d70c1:	00 
+   1412d70c2:	0f 28 d6             	movaps %xmm6,%xmm2
+   1412d70c5:	83 e0 03             	and    $0x3,%eax
+   1412d70c8:	3c 02                	cmp    $0x2,%al
+   1412d70ca:	0f 85 09 ff ff ff    	jne    1412d6fd9 <_ZN12DpArmAndHand10ProneCreepEfbf+0x69>
+   1412d70d0:	41 83 7c 24 50 01    	cmpl   $0x1,0x50(%r12)
+   1412d70d6:	0f 85 05 ff ff ff    	jne    1412d6fe1 <_ZN12DpArmAndHand10ProneCreepEfbf+0x71>
+   1412d70dc:	0f 28 d0             	movaps %xmm0,%xmm2
+   1412d70df:	e9 fd fe ff ff       	jmp    1412d6fe1 <_ZN12DpArmAndHand10ProneCreepEfbf+0x71>
+   1412d70e4:	0f 1f 40 00          	nopl   0x0(%rax)
+   1412d70e8:	0f 2e ce             	ucomiss %xmm6,%xmm1
+   1412d70eb:	7a 0e                	jp     1412d70fb <_ZN12DpArmAndHand10ProneCreepEfbf+0x18b>
+   1412d70ed:	f3 0f 10 3d ab 8c fe 	movss  0xfe8cab(%rip),%xmm7        # 1422bfda0 <CSWTCH.2328+0x600>
+   1412d70f4:	00 
+   1412d70f5:	0f 84 5d ff ff ff    	je     1412d7058 <_ZN12DpArmAndHand10ProneCreepEfbf+0xe8>
+   1412d70fb:	4c 89 e1             	mov    %r12,%rcx
+   1412d70fe:	e8 cd 2e fe ff       	call   1412b9fd0 <_ZN12DpArmAndHand14RotateShoulderEf.part.0>
+   1412d7103:	f3 0f 10 3d 95 8c fe 	movss  0xfe8c95(%rip),%xmm7        # 1422bfda0 <CSWTCH.2328+0x600>
+   1412d710a:	00 
+   1412d710b:	e9 48 ff ff ff       	jmp    1412d7058 <_ZN12DpArmAndHand10ProneCreepEfbf+0xe8>
+   1412d7110:	41 8b 44 24 50       	mov    0x50(%r12),%eax
+   1412d7115:	83 f8 01             	cmp    $0x1,%eax
+   1412d7118:	74 16                	je     1412d7130 <_ZN12DpArmAndHand10ProneCreepEfbf+0x1c0>
+   1412d711a:	83 f8 02             	cmp    $0x2,%eax
+   1412d711d:	0f 85 be fe ff ff    	jne    1412d6fe1 <_ZN12DpArmAndHand10ProneCreepEfbf+0x71>
+   1412d7123:	0f 28 d4             	movaps %xmm4,%xmm2
+   1412d7126:	e9 b6 fe ff ff       	jmp    1412d6fe1 <_ZN12DpArmAndHand10ProneCreepEfbf+0x71>
+   1412d712b:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+   1412d7130:	0f 28 d1             	movaps %xmm1,%xmm2
+   1412d7133:	e9 a9 fe ff ff       	jmp    1412d6fe1 <_ZN12DpArmAndHand10ProneCreepEfbf+0x71>
+   1412d7138:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1412d713f:	00 
+
+
+reference/openshores-full/OpenShores.exe:     file format pei-x86-64
+
+
+Disassembly of section .text:
+
+00000001412da000 <_ZN12DpLegAndFoot10ProneCreepEf>:
+   1412da000:	41 55                	push   %r13
+   1412da002:	41 54                	push   %r12
+   1412da004:	48 83 ec 78          	sub    $0x78,%rsp
+   1412da008:	0f 29 74 24 40       	movaps %xmm6,0x40(%rsp)
+   1412da00d:	0f 29 7c 24 50       	movaps %xmm7,0x50(%rsp)
+   1412da012:	44 0f 29 44 24 60    	movaps %xmm8,0x60(%rsp)
+   1412da018:	48 8b 01             	mov    (%rcx),%rax
+   1412da01b:	49 89 cc             	mov    %rcx,%r12
+   1412da01e:	f3 0f 11 4c 24 2c    	movss  %xmm1,0x2c(%rsp)
+   1412da024:	ff 90 a8 00 00 00    	call   *0xa8(%rax)
+   1412da02a:	4d 8d 6c 24 10       	lea    0x10(%r12),%r13
+   1412da02f:	f3 0f 10 5c 24 2c    	movss  0x2c(%rsp),%xmm3
+   1412da035:	84 c0                	test   %al,%al
+   1412da037:	0f 84 13 01 00 00    	je     1412da150 <_ZN12DpLegAndFoot10ProneCreepEf+0x150>
+   1412da03d:	41 0f b6 44 24 24    	movzbl 0x24(%r12),%eax
+   1412da043:	83 e0 0c             	and    $0xc,%eax
+   1412da046:	3c 08                	cmp    $0x8,%al
+   1412da048:	0f 84 aa 01 00 00    	je     1412da1f8 <_ZN12DpLegAndFoot10ProneCreepEf+0x1f8>
+   1412da04e:	3c 04                	cmp    $0x4,%al
+   1412da050:	0f 84 da 01 00 00    	je     1412da230 <_ZN12DpLegAndFoot10ProneCreepEf+0x230>
+   1412da056:	f3 0f 10 05 9a 5c fe 	movss  0xfe5c9a(%rip),%xmm0        # 1422bfcf8 <CSWTCH.2328+0x558>
+   1412da05d:	00 
+   1412da05e:	f3 0f 10 25 96 5c fe 	movss  0xfe5c96(%rip),%xmm4        # 1422bfcfc <CSWTCH.2328+0x55c>
+   1412da065:	00 
+   1412da066:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1412da06b:	f3 0f 10 15 b9 5a fe 	movss  0xfe5ab9(%rip),%xmm2        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412da072:	00 
+   1412da073:	3c 0c                	cmp    $0xc,%al
+   1412da075:	75 19                	jne    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da077:	41 8b 44 24 4c       	mov    0x4c(%r12),%eax
+   1412da07c:	83 f8 01             	cmp    $0x1,%eax
+   1412da07f:	0f 84 9b 01 00 00    	je     1412da220 <_ZN12DpLegAndFoot10ProneCreepEf+0x220>
+   1412da085:	83 f8 02             	cmp    $0x2,%eax
+   1412da088:	75 06                	jne    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da08a:	0f 28 d4             	movaps %xmm4,%xmm2
+   1412da08d:	0f 1f 00             	nopl   (%rax)
+   1412da090:	48 8d 54 24 3c       	lea    0x3c(%rsp),%rdx
+   1412da095:	4c 89 e9             	mov    %r13,%rcx
+   1412da098:	c7 44 24 3c 21 00 00 	movl   $0x21,0x3c(%rsp)
+   1412da09f:	00 
+   1412da0a0:	e8 bb 5d fd ff       	call   1412afe60 <_ZNK5DhDNA6RhythmERK6AuPoseff>
+   1412da0a5:	41 0f b6 44 24 24    	movzbl 0x24(%r12),%eax
+   1412da0ab:	f3 41 0f 10 5c 24 48 	movss  0x48(%r12),%xmm3
+   1412da0b2:	83 e0 0c             	and    $0xc,%eax
+   1412da0b5:	3c 04                	cmp    $0x4,%al
+   1412da0b7:	0f 84 e3 00 00 00    	je     1412da1a0 <_ZN12DpLegAndFoot10ProneCreepEf+0x1a0>
+   1412da0bd:	f3 0f 10 0d 27 5d fe 	movss  0xfe5d27(%rip),%xmm1        # 1422bfdec <CSWTCH.2328+0x64c>
+   1412da0c4:	00 
+   1412da0c5:	f3 0f 10 15 b3 5b fe 	movss  0xfe5bb3(%rip),%xmm2        # 1422bfc80 <CSWTCH.2328+0x4e0>
+   1412da0cc:	00 
+   1412da0cd:	0f 28 e0             	movaps %xmm0,%xmm4
+   1412da0d0:	4c 89 e1             	mov    %r12,%rcx
+   1412da0d3:	f3 0f 10 3d 55 59 fe 	movss  0xfe5955(%rip),%xmm7        # 1422bfa30 <CSWTCH.2328+0x290>
+   1412da0da:	00 
+   1412da0db:	f3 0f 10 35 ad 57 fe 	movss  0xfe57ad(%rip),%xmm6        # 1422bf890 <CSWTCH.2328+0xf0>
+   1412da0e2:	00 
+   1412da0e3:	f3 0f 59 e2          	mulss  %xmm2,%xmm4
+   1412da0e7:	f3 0f 5c f0          	subss  %xmm0,%xmm6
+   1412da0eb:	f3 0f 59 f3          	mulss  %xmm3,%xmm6
+   1412da0ef:	f3 0f 5c d4          	subss  %xmm4,%xmm2
+   1412da0f3:	f3 0f 5c fa          	subss  %xmm2,%xmm7
+   1412da0f7:	e8 c4 25 fe ff       	call   1412bc6c0 <_ZN12DpLegAndFoot9RotateHipEf.part.0>
+   1412da0fc:	41 0f 2e f8          	ucomiss %xmm8,%xmm7
+   1412da100:	7a 02                	jp     1412da104 <_ZN12DpLegAndFoot10ProneCreepEf+0x104>
+   1412da102:	74 0b                	je     1412da10f <_ZN12DpLegAndFoot10ProneCreepEf+0x10f>
+   1412da104:	0f 28 cf             	movaps %xmm7,%xmm1
+   1412da107:	4c 89 e1             	mov    %r12,%rcx
+   1412da10a:	e8 e1 1d fe ff       	call   1412bbef0 <_ZN12DpLegAndFoot10RotateKneeEf.part.0>
+   1412da10f:	4c 89 e9             	mov    %r13,%rcx
+   1412da112:	e8 99 31 fd ff       	call   1412ad2b0 <_ZNK5DhDNA12HasAnkleBendEv>
+   1412da117:	84 c0                	test   %al,%al
+   1412da119:	0f 85 c1 00 00 00    	jne    1412da1e0 <_ZN12DpLegAndFoot10ProneCreepEf+0x1e0>
+   1412da11f:	41 0f 2e f0          	ucomiss %xmm8,%xmm6
+   1412da123:	7a 06                	jp     1412da12b <_ZN12DpLegAndFoot10ProneCreepEf+0x12b>
+   1412da125:	0f 84 95 00 00 00    	je     1412da1c0 <_ZN12DpLegAndFoot10ProneCreepEf+0x1c0>
+   1412da12b:	0f 28 ce             	movaps %xmm6,%xmm1
+   1412da12e:	0f 28 7c 24 50       	movaps 0x50(%rsp),%xmm7
+   1412da133:	0f 28 74 24 40       	movaps 0x40(%rsp),%xmm6
+   1412da138:	4c 89 e1             	mov    %r12,%rcx
+   1412da13b:	44 0f 28 44 24 60    	movaps 0x60(%rsp),%xmm8
+   1412da141:	48 83 c4 78          	add    $0x78,%rsp
+   1412da145:	41 5c                	pop    %r12
+   1412da147:	41 5d                	pop    %r13
+   1412da149:	e9 f2 2c fe ff       	jmp    1412bce40 <_ZN12DpLegAndFoot8SplayHipEf.part.0>
+   1412da14e:	66 90                	xchg   %ax,%ax
+   1412da150:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1412da155:	f3 0f 10 0d cf 59 fe 	movss  0xfe59cf(%rip),%xmm1        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412da15c:	00 
+   1412da15d:	f3 0f 10 25 8f 5b fe 	movss  0xfe5b8f(%rip),%xmm4        # 1422bfcf4 <CSWTCH.2328+0x554>
+   1412da164:	00 
+   1412da165:	f3 0f 10 05 83 5b fe 	movss  0xfe5b83(%rip),%xmm0        # 1422bfcf0 <CSWTCH.2328+0x550>
+   1412da16c:	00 
+   1412da16d:	41 0f 28 d0          	movaps %xmm8,%xmm2
+   1412da171:	41 0f b6 44 24 24    	movzbl 0x24(%r12),%eax
+   1412da177:	83 e0 0c             	and    $0xc,%eax
+   1412da17a:	3c 08                	cmp    $0x8,%al
+   1412da17c:	0f 85 f1 fe ff ff    	jne    1412da073 <_ZN12DpLegAndFoot10ProneCreepEf+0x73>
+   1412da182:	41 83 7c 24 4c 01    	cmpl   $0x1,0x4c(%r12)
+   1412da188:	0f 85 02 ff ff ff    	jne    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da18e:	0f 28 d1             	movaps %xmm1,%xmm2
+   1412da191:	e9 fa fe ff ff       	jmp    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da196:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+   1412da19d:	00 00 00 
+   1412da1a0:	f3 0f 10 15 78 58 fe 	movss  0xfe5878(%rip),%xmm2        # 1422bfa20 <CSWTCH.2328+0x280>
+   1412da1a7:	00 
+   1412da1a8:	f3 0f 10 0d 40 5c fe 	movss  0xfe5c40(%rip),%xmm1        # 1422bfdf0 <CSWTCH.2328+0x650>
+   1412da1af:	00 
+   1412da1b0:	0f 2f d3             	comiss %xmm3,%xmm2
+   1412da1b3:	0f 87 0c ff ff ff    	ja     1412da0c5 <_ZN12DpLegAndFoot10ProneCreepEf+0xc5>
+   1412da1b9:	e9 ff fe ff ff       	jmp    1412da0bd <_ZN12DpLegAndFoot10ProneCreepEf+0xbd>
+   1412da1be:	66 90                	xchg   %ax,%ax
+   1412da1c0:	0f 28 74 24 40       	movaps 0x40(%rsp),%xmm6
+   1412da1c5:	0f 28 7c 24 50       	movaps 0x50(%rsp),%xmm7
+   1412da1ca:	44 0f 28 44 24 60    	movaps 0x60(%rsp),%xmm8
+   1412da1d0:	48 83 c4 78          	add    $0x78,%rsp
+   1412da1d4:	41 5c                	pop    %r12
+   1412da1d6:	41 5d                	pop    %r13
+   1412da1d8:	c3                   	ret
+   1412da1d9:	0f 1f 80 00 00 00 00 	nopl   0x0(%rax)
+   1412da1e0:	f3 0f 10 0d 0c 5c fe 	movss  0xfe5c0c(%rip),%xmm1        # 1422bfdf4 <CSWTCH.2328+0x654>
+   1412da1e7:	00 
+   1412da1e8:	4c 89 e1             	mov    %r12,%rcx
+   1412da1eb:	e8 60 16 fe ff       	call   1412bb850 <_ZN12DpLegAndFoot11RotateAnkleEf.part.0>
+   1412da1f0:	e9 2a ff ff ff       	jmp    1412da11f <_ZN12DpLegAndFoot10ProneCreepEf+0x11f>
+   1412da1f5:	0f 1f 00             	nopl   (%rax)
+   1412da1f8:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1412da1fd:	41 83 7c 24 4c 01    	cmpl   $0x1,0x4c(%r12)
+   1412da203:	f3 0f 10 0d 21 59 fe 	movss  0xfe5921(%rip),%xmm1        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412da20a:	00 
+   1412da20b:	41 0f 28 d0          	movaps %xmm8,%xmm2
+   1412da20f:	0f 85 7b fe ff ff    	jne    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da215:	e9 74 ff ff ff       	jmp    1412da18e <_ZN12DpLegAndFoot10ProneCreepEf+0x18e>
+   1412da21a:	66 0f 1f 44 00 00    	nopw   0x0(%rax,%rax,1)
+   1412da220:	0f 28 d0             	movaps %xmm0,%xmm2
+   1412da223:	e9 68 fe ff ff       	jmp    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da228:	0f 1f 84 00 00 00 00 	nopl   0x0(%rax,%rax,1)
+   1412da22f:	00 
+   1412da230:	41 0f b6 44 24 19    	movzbl 0x19(%r12),%eax
+   1412da236:	83 e0 03             	and    $0x3,%eax
+   1412da239:	74 55                	je     1412da290 <_ZN12DpLegAndFoot10ProneCreepEf+0x290>
+   1412da23b:	41 f6 44 24 1a 06    	testb  $0x6,0x1a(%r12)
+   1412da241:	74 04                	je     1412da247 <_ZN12DpLegAndFoot10ProneCreepEf+0x247>
+   1412da243:	3c 01                	cmp    $0x1,%al
+   1412da245:	76 49                	jbe    1412da290 <_ZN12DpLegAndFoot10ProneCreepEf+0x290>
+   1412da247:	4c 89 e9             	mov    %r13,%rcx
+   1412da24a:	f3 0f 11 5c 24 2c    	movss  %xmm3,0x2c(%rsp)
+   1412da250:	e8 8b 35 fd ff       	call   1412ad7e0 <_ZNK5DhDNA12WalksOnHandsEv>
+   1412da255:	f3 0f 10 5c 24 2c    	movss  0x2c(%rsp),%xmm3
+   1412da25b:	84 c0                	test   %al,%al
+   1412da25d:	0f 85 ed fe ff ff    	jne    1412da150 <_ZN12DpLegAndFoot10ProneCreepEf+0x150>
+   1412da263:	f3 0f 10 0d 95 5a fe 	movss  0xfe5a95(%rip),%xmm1        # 1422bfd00 <CSWTCH.2328+0x560>
+   1412da26a:	00 
+   1412da26b:	f3 0f 10 25 89 5a fe 	movss  0xfe5a89(%rip),%xmm4        # 1422bfcfc <CSWTCH.2328+0x55c>
+   1412da272:	00 
+   1412da273:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1412da278:	f3 0f 10 05 78 5a fe 	movss  0xfe5a78(%rip),%xmm0        # 1422bfcf8 <CSWTCH.2328+0x558>
+   1412da27f:	00 
+   1412da280:	f3 0f 10 15 a4 58 fe 	movss  0xfe58a4(%rip),%xmm2        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412da287:	00 
+   1412da288:	e9 e4 fe ff ff       	jmp    1412da171 <_ZN12DpLegAndFoot10ProneCreepEf+0x171>
+   1412da28d:	0f 1f 00             	nopl   (%rax)
+   1412da290:	f3 0f 10 15 94 58 fe 	movss  0xfe5894(%rip),%xmm2        # 1422bfb2c <CSWTCH.2328+0x38c>
+   1412da297:	00 
+   1412da298:	66 45 0f ef c0       	pxor   %xmm8,%xmm8
+   1412da29d:	e9 ee fd ff ff       	jmp    1412da090 <_ZN12DpLegAndFoot10ProneCreepEf+0x90>
+   1412da2a2:	0f 1f 00             	nopl   (%rax)
+   1412da2a5:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+   1412da2ac:	00 00 00 00 

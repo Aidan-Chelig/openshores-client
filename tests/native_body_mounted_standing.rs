@@ -228,7 +228,7 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
             let initial = body.clone();
             let mut hands = hands.into_cached_only();
             let mut feet = feet.into_cached_only();
-            for code in [0x25, 0x26, 0x30, 0x1c, 0x1f] {
+            for code in [0x25, 0x26, 0x30, 0x1c, 0x1f, 0x20] {
                 for side in [0, 1, 2] {
                     let mut pose = NativeDpBodyPoseState {
                         fields_3c: [0x24; 10],
@@ -262,8 +262,22 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
                         )
                         .unwrap();
                         let expected = usize::from(pairs) * if side == 2 { 2 } else { 1 };
-                        assert_eq!(timer.starts, if code == 0x1f { 0 } else { expected });
-                        assert_eq!(timer.samples, if code == 0x1f { 0 } else { expected });
+                        assert_eq!(
+                            timer.starts,
+                            if matches!(code, 0x1f | 0x20) {
+                                0
+                            } else {
+                                expected
+                            }
+                        );
+                        assert_eq!(
+                            timer.samples,
+                            if matches!(code, 0x1f | 0x20) {
+                                0
+                            } else {
+                                expected
+                            }
+                        );
                         for (index, bone) in body.bones().slots.iter().enumerate() {
                             assert!(bone.matrix_00.iter().all(|value| value.is_finite()));
                             if !selected.contains(&index) {
@@ -277,10 +291,10 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
                         samples.push(body.bones().clone());
                     }
                     assert_eq!(samples[0], samples[2], "repeat accumulated transforms");
-                    if code == 0x1f {
+                    if matches!(code, 0x1f | 0x20) {
                         assert_eq!(
                             samples[0], samples[1],
-                            "fixed Point sampled a fabricated rhythm"
+                            "fixed Point/Prone sampled a fabricated rhythm"
                         );
                     } else {
                         assert_ne!(samples[0], samples[1], "animation phase did not change");

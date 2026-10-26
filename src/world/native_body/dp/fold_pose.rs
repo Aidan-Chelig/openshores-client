@@ -1,4 +1,4 @@
-//! Native FoldLegs/FoldArms stages; full action admission is separate.
+//! Native FoldLegs/FoldArms and stationary ProneArms stages.
 use super::*;
 use std::io;
 
@@ -36,13 +36,29 @@ impl NativeDpInitialization {
         Ok(())
     }
     pub fn fold_arms(&mut self, side: i32, override_field_30: Option<f32>) -> io::Result<()> {
+        self.fixed_folded_arms(side, override_field_30, f32::from_bits(0x3e32b8c2))
+    }
+
+    /// Native ProneArms shares the fixed joint sequence with FoldArms but uses
+    /// an eighty-degree lift spacing instead of ten degrees. The optional
+    /// owner pitch affects only the first selected ordinary arm.
+    pub fn prone_arms(&mut self, side: i32, override_field_30: Option<f32>) -> io::Result<()> {
+        self.fixed_folded_arms(side, override_field_30, f32::from_bits(0x3fb2b8c2))
+    }
+
+    fn fixed_folded_arms(
+        &mut self,
+        side: i32,
+        override_field_30: Option<f32>,
+        lift: f32,
+    ) -> io::Result<()> {
         if override_field_30.is_some_and(|v| !v.is_finite()) {
             return Err(io::Error::new(
                 io::ErrorKind::InvalidInput,
-                "nonfinite Fold owner pitch",
+                "nonfinite fixed arm owner pitch",
             ));
         }
-        self.spread_arms(f32::from_bits(0x3e32b8c2), f32::from_bits(0x3e32b8c2), side)?;
+        self.spread_arms(f32::from_bits(0x3e32b8c2), lift, side)?;
         let mut pending = override_field_30;
         for part in self
             .parts
@@ -72,6 +88,57 @@ impl NativeDpInitialization {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn prone_arms_preserve_unselected_bones_and_override_only_first_selected() {
+        let mut dna = NativeDhDna([0; 24]);
+        dna.0[1] = 3;
+        let mut base = NativeDpInitialization::begin(&dna);
+        for part in &mut base.parts {
+            part.calculate(&base.dimensions, &mut || Ok(0.5)).unwrap();
+        }
+        for side in [-1, 0, 1, 2, 3] {
+            let mut normal = base.clone();
+            let mut overridden = base.clone();
+            normal.prone_arms(side, None).unwrap();
+            overridden.prone_arms(side, Some(0.4)).unwrap();
+            let selected: Vec<_> = base
+                .parts
+                .iter()
+                .filter(|part| {
+                    super::super::spread_arms::ordinary_arm(part)
+                        && super::super::spread_arms::selected(part, side)
+                })
+                .collect();
+            let first = selected.first().map(|part| part.limb_bones().unwrap());
+            for (index, bone) in normal.bones.slots.iter().enumerate() {
+                assert!(bone.matrix_00.iter().all(|v| v.is_finite()));
+                if !selected
+                    .iter()
+                    .any(|part| part.limb_bones().unwrap().contains(&index))
+                {
+                    assert_eq!(bone, &base.bones.slots[index]);
+                }
+                if first.is_none_or(|indices| !indices.contains(&index)) {
+                    assert_eq!(bone, &overridden.bones.slots[index]);
+                }
+            }
+            if let Some(first) = first {
+                assert!(
+                    first
+                        .iter()
+                        .any(|&i| normal.bones.slots[i] != overridden.bones.slots[i])
+                );
+            }
+            let expected = normal.bones.clone();
+            normal.bones.reset_for_animation(&dna);
+            normal.prone_arms(side, None).unwrap();
+            assert_eq!(normal.bones, expected);
+        }
+        let mut body = base.clone();
+        assert!(body.prone_arms(2, Some(f32::NAN)).is_err());
+        assert_eq!(body.bones, base.bones);
+    }
+
     #[test]
     fn fold_arm_override_is_first_selected_only_and_preserves_other_bones() {
         let mut dna = NativeDhDna([0; 24]);
