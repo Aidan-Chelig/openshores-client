@@ -86,6 +86,28 @@ impl PreparedNormalAvatar {
     }
 }
 impl PreparedAvatarAnimation {
+    /// Calculate native nominal prone clearance at the supplied established
+    /// head angles, using only cached anatomy. This samples the skeleton, not
+    /// draw corners; the next animation sample resets/composes its own pose.
+    /// Adult, unguided, nonvehicle context only. Does not move the actor root.
+    pub fn prone_ground_clearance(&mut self, head_angles: [f32; 2]) -> io::Result<f64> {
+        let pose = NativeDpBodyPoseState {
+            fields_3c: [0x20; 10],
+            field_6c: false,
+        };
+        self.body.pose_channels_with_head_angles(
+            &pose,
+            head_angles,
+            0.,
+            0,
+            &mut self.hands,
+            &mut self.feet,
+            &mut Timer(0),
+        )?;
+        self.body
+            .adult_prone_ground_clearance(&pose, 0, &mut self.feet)
+    }
+
     /// Immutable nominal adult Stand/Crouch collision metadata, not a root offset.
     pub fn ground_clearances(&self) -> AvatarGroundClearances {
         self.ground_clearances

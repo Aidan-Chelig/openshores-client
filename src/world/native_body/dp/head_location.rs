@@ -3,6 +3,38 @@ use super::*;
 use std::io;
 
 impl NativeDpInitialization {
+    /// Nominal adult nonvehicle clearance for an already posed uniform
+    /// Prone/ProneCreep body. This is not a mesh-bound offset or collision solver.
+    pub fn adult_prone_ground_clearance(
+        &self,
+        pose: &crate::world::native_creature::NativeDpBodyPoseState,
+        field_4068: i32,
+        feet: &mut NativeDpFootCache<'_>,
+    ) -> io::Result<f64> {
+        if pose.field_6c
+            || ![0x20, 0x21]
+                .iter()
+                .any(|&code| pose.fields_3c == [code; 10])
+        {
+            return Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "clearance requires uniform normal prone/crawling pose",
+            ));
+        }
+        let head = self.head_location(pose.fields_3c[3], false)?;
+        let height = feet.pose_height(&self.dna, &self.dimensions, field_4068, pose, true)?;
+        // CGOffset is negative HeadLocation; preserve the native f64 subtraction.
+        let offset_z = -head[2];
+        let result = f64::from(height) - offset_z;
+        if !result.is_finite() {
+            return Err(io::Error::new(
+                io::ErrorKind::Unsupported,
+                "nonfinite prone ground clearance",
+            ));
+        }
+        Ok(result)
+    }
+
     pub fn head_location(&self, general: u32, field_3a: bool) -> io::Result<[f64; 3]> {
         if general == 0x37 {
             return Ok([0.; 3]);
