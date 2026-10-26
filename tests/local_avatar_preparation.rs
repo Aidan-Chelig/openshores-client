@@ -256,7 +256,12 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
                 .iter()
                 .map(|surface| surface.skin(body.bones()).unwrap())
                 .collect::<Vec<_>>();
-            death_references.push((code, surfaces, eye.location(body.bones()).unwrap()));
+            let offset = if code == 0x20 {
+                body.head_location(code, false).unwrap().map(|v| -v)
+            } else {
+                [0.; 3]
+            };
+            death_references.push((code, surfaces, eye.location(body.bones()).unwrap(), offset));
         }
     }
     let mut animation = prepared.into_animation(&mount).unwrap();
@@ -307,9 +312,9 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             field_6c: false,
         };
         let dead = animation.sample_channels(&pose, 0., 0).unwrap();
-        let (_, reference, reference_eye) = death_references
+        let (_, reference, reference_eye, offset) = death_references
             .iter()
-            .find(|(key, _, _)| *key == code)
+            .find(|(key, _, _, _)| *key == code)
             .unwrap();
         let rotate = |[x, y, z]: [f64; 3]| match code {
             0x13 => [z, y, -x],
@@ -317,14 +322,17 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
             0x15 => [-x, y, -z],
             _ => [x, y, z],
         };
-        for (actual, expected) in dead.eye.into_iter().zip(rotate(*reference_eye)) {
+        let expected_eye = std::array::from_fn(|i| reference_eye[i] + offset[i]);
+        for (actual, expected) in dead.eye.into_iter().zip(rotate(expected_eye)) {
             assert!((actual - expected).abs() < 1e-12);
         }
         for (actual, reference) in dead.surfaces.iter().zip(reference) {
             assert_eq!(actual.material_memberships, reference.material_memberships);
             for (actual, reference) in actual.corners.iter().zip(&reference.corners) {
                 let [x, y, z, w] = reference.position;
-                let expected = rotate([x, y, z].map(f64::from));
+                let expected = rotate(std::array::from_fn(|i| {
+                    f64::from([x, y, z][i]) + offset[i] * f64::from(w)
+                }));
                 for (actual, expected) in actual.position[..3].iter().zip(expected) {
                     assert!((f64::from(*actual) - expected).abs() < 1e-6);
                 }

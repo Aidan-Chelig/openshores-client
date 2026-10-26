@@ -1,5 +1,9 @@
 # Neutral avatar origin and ground clearance
 
+Prone/crawling follow-up: the adult globe-child sampler now includes the native
+head-derived local draw translation. The actor root remains the source transform;
+this resolves a render adjustment, not the remaining posture/contact physics.
+
 Death-pose follow-up: the connected sampler now applies the separate native
 render-only Y rotation for general0x13/0x14/0x15 to sampled geometry, normals
 and the animated eye. The actor root remains the received/predicted world
@@ -10,6 +14,44 @@ Scope: adult normal-skin body-origin and ground-clearance checkpoints, initially
 neutral Stand, with a Stand/Crouch follow-up below. Native observations are
 static; mounted Rust measurements and bounded connected fixture proofs are
 identified separately. The original game was not executed.
+
+## Adult prone and crawling draw anchor
+
+The `0x20`/`0x21` CGOffset dependency is now traced through its actual render
+caller. Person/Creature vtables bind slot `0xf8` to `DaCreature::CGOffset()`.
+The wrapper suppresses offsets for vehicle parents. In the normal nonvehicle,
+no-growth branch, both general codes select negative `DpBody::HeadLocation()`.
+Native HeadLocation selects the first head, or the second when the dual-head
+DNA flag is set and field3a is false. It projects the selected head's stored
+field50 through current bone7/12. This is not authored EyePosition and not a
+mesh bound. Its general `0x37` and missing-head branches return zero.
+
+`RenderEnvironmentObject` calls BodyPoseAdjustTransform at `0x1409a17ca`, then
+CGOffset through slot `0xf8` at `0x1409a1a19`. The ordinary parent path copies
+that matrix at `0x1409a2748`, loads the returned XYZ at `0x1409a27f5` and
+post-translates at `0x1409a1c53`. Thus the local draw transform is rotation
+followed by translation (`R*T`, acting on points as `R*(point+offset)`). The
+actor transform itself is not changed by these draw operations. Vehicle,
+creature-parent/rider and special seating branches have different gates and
+are outside this connected renderer's existing globe-child scope.
+
+`tests/native_prone_placement.py` binds these typed vtable entries, dispatches,
+head selection/bone fields and caller operations to the executable digest.
+Disassembly is retained in `evidence/native-prone-placement-callers-gnu.txt`.
+These are static observations, not original execution or general wire parity.
+
+The sampler now derives HeadLocation from the current posed skeleton on each
+prone/crawl sample and applies its negative offset to fresh draw corners and
+the animated eye. Weighted vertex XYZ receives offset multiplied by W; W,
+source identity, UVs/materials and normals remain intact. Existing death rotations
+retain their order. Prepared surfaces and bones are not adjusted a second time.
+The source adapter requires received growth state zero for these general poses;
+unknown/nonzero growth is explicitly unsupported. Arm-only prone/crawl channels
+over another general pose do not change its draw origin.
+
+This does not supply native grounded prone/crawl movement, headroom, growth
+transitions or collision. The pose-only fixture still retains its standing root;
+remaining hover/contact differences must not be corrected by mesh fitting.
 
 Target: `reference/openshores-full/OpenShores.exe`, SHA-256
 `285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.

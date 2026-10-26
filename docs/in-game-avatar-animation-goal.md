@@ -776,3 +776,37 @@ was used; no original executable was run.
 Final crawling checks: strict client Clippy and formatting/diff checks pass;
 the default library passes 760 tests (one ignored).
 
+Adult prone/crawling draw-anchor checkpoint: traced typed CGOffset slot0xf8
+through the actual ordinary render path. Native post-translation uses negative
+current HeadLocation after BodyPoseAdjustTransform. The sampler now ports that
+draw adjustment for received adult globe-child general0x20/0x21, applying it to
+weighted corners and the authored animated eye while preserving actor root,
+normals, W, UVs, controls and immutable prepared geometry. Native head selection
+and bone7/12 projection are ported separately from camera EyePosition. Unknown/
+nonzero received growth is rejected for these general poses; arm-only channels
+do not alter the general draw origin. The earlier caller uncertainty is resolved
+within this supported context; native physics and broader parent/growth cases
+remain open. See `native-avatar-world-placement.md` for addresses and scope.
+
+The offline bundle passes 20 static verifiers, 816 client tests (six ignored),
+both mounted received-DNA/ownership tests and all nine mounted limb tests.
+Pure coverage checks head selection, current-bone projection, zero/default
+branches, invalid initialization, adult receipt gates and homogeneous translation
+before rotation. Mounted corner/normal/eye comparisons use independently composed
+skeletal references plus the current head offset, then verify repeated samples
+and exact Stand recovery. No mesh fit, asset I/O or normal regeneration was added.
+
+Third-person connected acceptance passes in `target/connected-avatar-cewijf0w`.
+Prone and crawling captures were inspected; the head-derived draw anchor is
+visible at the unchanged actor origin. All received actions, unsupported receipt
+and exact Stand recovery pass with stable root rotation/scale and render assets.
+The fixture still retains its standing root height; ground contact and native
+posture displacement remain unimplemented.
+
+First-person acceptance passes in `target/connected-avatar-s6ej783d`, following
+the translated authored eye with independent mouse look and hidden skull through
+the complete received-action sequence. Actual source-decoder checks confirm no
+action-overwriting reports, followed by neutral recovery. Strict client Clippy
+passes. Only the owned local server was used; no original executable was run.
+The default library passes 763 tests (one ignored); formatting and diff checks pass.
+

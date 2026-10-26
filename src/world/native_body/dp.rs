@@ -80,6 +80,7 @@ pub use foot::{NativeDpFootCache, NativeDpFootResource, native_dh_has_ankle_bend
 mod hand_cache;
 pub use hand_cache::NativeDpHandCache;
 mod connection;
+mod head_location;
 mod head_pose;
 mod initialization;
 mod neck;

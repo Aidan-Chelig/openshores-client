@@ -117,7 +117,15 @@ impl PreparedAvatarAnimation {
             &mut Timer(reference_millis),
         )?;
         let mut frame = self.frame()?;
-        frame.adjust_render_pose(pose.fields_3c[3]);
+        let general = pose.fields_3c[3];
+        // Adult normal body, field3a=false, nonvehicle parent. The connected
+        // renderer admits globe children; its source adapter rejects growth.
+        let offset = if matches!(general, 0x20 | 0x21) {
+            self.body.head_location(general, false)?.map(|v| -v)
+        } else {
+            [0.; 3]
+        };
+        frame.adjust_render_pose(general, offset);
         Ok(frame)
     }
     pub fn sample(

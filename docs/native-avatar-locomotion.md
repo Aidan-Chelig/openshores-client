@@ -572,3 +572,11 @@ General `0x21` has no extra render rotation and shares prone's head-derived
 CGOffset branch. Its world-placement caller/source-origin semantics remain
 open. The connected path preserves the authoritative root; this is received
 skeletal animation, not reconstructed crawling physics or a new local keybind.
+
+Placement follow-up: the adult nonvehicle render caller is now traced and its
+head-derived local translation is implemented for prone/crawling. The source
+adapter requires received adult growth state, and the connected renderer already
+requires a globe-child actor. Geometry and animated eye share the adjustment;
+the actor transform stays authoritative. See
+[the draw-anchor evidence](native-avatar-world-placement.md#adult-prone-and-crawling-draw-anchor).
+Physical posture displacement/contact, vehicle/rider paths and growth remain open.

@@ -116,6 +116,12 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
             "received pose parameter requires its own supported adapter",
         ));
     }
+    if matches!(received[3], 0x20 | 0x21) && person.growth != Some(0) {
+        return Err(io::Error::new(
+            io::ErrorKind::Unsupported,
+            "prone/crawling render placement requires received adult growth state",
+        ));
+    }
     let tilt = person.head_tilt.unwrap_or(0.);
     if !tilt.is_finite() {
         return Err(io::Error::new(
@@ -164,6 +170,30 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn anchored_prone_receipt_requires_adult_growth_but_arm_channels_do_not_move_origin() {
+        let mut person = PersonState {
+            pose_parameter: Some(0),
+            ..Default::default()
+        };
+        for code in [0x20, 0x21] {
+            person.poses = Some([code; 10]);
+            for growth in [None, Some(1), Some(255)] {
+                person.growth = growth;
+                assert!(select(&person, 0.).is_err());
+            }
+            person.growth = Some(0);
+            assert!(select(&person, 0.).is_ok());
+            let mut mixed = [0x24; 10];
+            mixed[2] = code;
+            person.poses = Some(mixed);
+            person.growth = None;
+            assert_eq!(
+                select(&person, 0.).unwrap().unwrap().native.fields_3c,
+                mixed.map(u32::from)
+            );
+        }
+    }
     #[test]
     fn crouch_prediction_preserves_received_authority_and_composes_arm_gestures() {
         let mut person = PersonState {
@@ -371,6 +401,7 @@ mod tests {
     fn source_channels_are_preserved_and_dna_tag_is_never_a_pose_fallback() {
         let mut person = PersonState {
             dna_tag: Some(0x25),
+            growth: Some(0),
             ..Default::default()
         };
         assert!(select(&person, 4.).unwrap().is_none());

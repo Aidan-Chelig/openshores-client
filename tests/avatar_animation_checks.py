@@ -13,7 +13,7 @@ def run(*command):
 for check in (
     "native_pose_rhythm.py", "native_leg_locomotion.py",
     "native_arm_locomotion.py", "native_dead_pose.py", "native_dead_side_arms.py", "native_dead_side_legs.py", "native_wave_pose.py", "native_jump_pose.py", "native_fold_pose.py", "native_point_pose.py",
-    "native_prone_pose.py", "native_creep_pose.py", "native_dp_height.py", "native_dp_position_tail.py",
+    "native_prone_pose.py", "native_creep_pose.py", "native_prone_placement.py", "native_dp_height.py", "native_dp_position_tail.py",
     "native_dp_position_torso.py", "native_dp_position_heads.py", "native_head_tilt.py", "native_crouch_pose.py", "native_avatar_anchor.py",
 ):
     run(sys.executable, str(ROOT / "tests" / check))

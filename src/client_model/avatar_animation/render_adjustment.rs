@@ -4,26 +4,41 @@
 use super::{AvatarAnimationFrame, NativeDpBoneTransform};
 
 impl AvatarAnimationFrame {
-    pub(super) fn adjust_render_pose(&mut self, general: u32) {
+    pub(super) fn adjust_render_pose(&mut self, general: u32, offset: [f64; 3]) {
         let angle = match general {
             0x13 => f64::from_bits(0x3ff921fb54442d18),
             0x14 => f64::from_bits(0xbff921fb54442d18),
             0x15 => f64::from_bits(0x400921fb54442d18),
-            _ => return,
+            _ if offset == [0.; 3] => return,
+            _ => 0.,
         };
         let mut rotation = NativeDpBoneTransform::identity();
-        rotation.rotate_y(angle);
-        self.eye = rotation.project(self.eye);
+        if angle != 0. {
+            rotation.rotate_y(angle);
+        }
+        let mut transform = rotation;
+        transform.translate(offset);
+        self.eye = transform.project(self.eye);
+        let translation = [
+            transform.matrix_00[12],
+            transform.matrix_00[13],
+            transform.matrix_00[14],
+        ];
         for surface in &mut self.surfaces {
             for corner in &mut surface.corners {
                 let [x, y, z, w] = corner.position;
-                // Pure rotation: weighted XYZ and W remain homogeneous. Never
-                // divide by W here or alter native raw influence/material data.
+                // Homogeneous translation uses offset*W, never offset alone.
+                // Preserve the weighted shader result rather than dividing W.
                 let [x, y, z] = rotation.project([x, y, z].map(f64::from));
+                let [x, y, z] = std::array::from_fn::<_, 3, _>(|i| {
+                    [x, y, z][i] + translation[i] * f64::from(w)
+                });
                 corner.position = [x as f32, y as f32, z as f32, w];
-                corner.normal = rotation
-                    .project(corner.normal.map(f64::from))
-                    .map(|v| v as f32);
+                if angle != 0. {
+                    corner.normal = rotation
+                        .project(corner.normal.map(f64::from))
+                        .map(|v| v as f32);
+                }
             }
         }
     }
@@ -53,6 +68,25 @@ mod tests {
     }
 
     #[test]
+    fn translation_preserves_homogeneous_weights_normals_and_precedes_rotation() {
+        for (code, expected) in [(0x20, [-2., -2., -2., 2.]), (0x13, [-2., -2., 2., 2.])] {
+            let mut result = frame();
+            result.adjust_render_pose(code, [-3., -4., -5.]);
+            for (actual, expected) in result.surfaces[0].corners[0]
+                .position
+                .into_iter()
+                .zip(expected)
+            {
+                assert!((actual - expected).abs() < 1e-6);
+            }
+            assert!(result.eye.iter().all(|v| v.abs() < 1e-12));
+            if code == 0x20 {
+                assert_eq!(result.surfaces[0].corners[0].normal, [1., 0., 0.]);
+            }
+        }
+    }
+
+    #[test]
     fn body_rotations_keep_weighted_geometry_normals_and_eye_coherent() {
         for (code, point, normal, eye) in [
             (0x13, [8., 6., -4., 2.], [0., 0., -1.], [5., 4., -3.]),
@@ -60,7 +94,7 @@ mod tests {
             (0x15, [-4., 6., -8., 2.], [-1., 0., 0.], [-3., 4., -5.]),
         ] {
             let mut result = frame();
-            result.adjust_render_pose(code);
+            result.adjust_render_pose(code, [0.; 3]);
             let surface = &result.surfaces[0];
             let corner = &surface.corners[0];
             for (actual, expected) in corner.position.into_iter().zip(point) {
@@ -88,7 +122,7 @@ mod tests {
         ] {
             let mut result = frame();
             let original = frame();
-            result.adjust_render_pose(code);
+            result.adjust_render_pose(code, [0.; 3]);
             assert_eq!(result.eye, original.eye);
             assert_eq!(result.surfaces[0].corners, original.surfaces[0].corners);
         }
