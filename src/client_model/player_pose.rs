@@ -23,6 +23,14 @@ pub struct LocalPlayerPose {
     pub predicted: bool,
 }
 impl LocalPlayerPose {
+    /// Held local posture over source Stand only; received actions stay intact.
+    pub fn with_crouch(mut self, crouched: bool) -> Self {
+        if crouched && self.received == [0x24; 10] {
+            self.native.fields_3c = [if self.speed > 0. { 0x11 } else { 0x10 }; 10];
+            self.predicted = true;
+        }
+        self
+    }
     /// Local source-profile prediction is permitted only over received Stand.
     /// Keep the predicted gait on every other channel and never mutate receipt.
     /// Apply to a freshly selected base pose; None leaves that pose unchanged.
@@ -47,6 +55,8 @@ impl LocalPlayerPose {
         let mut result = [0; 10];
         for (index, (&native, byte)) in self.native.fields_3c.iter().zip(&mut result).enumerate() {
             *byte = match native {
+                0x10 => 0x10,
+                0x11 => 0x11,
                 0x24 => 0x24,
                 0x25 => 0x25,
                 0x26 => 0x26,
@@ -155,6 +165,35 @@ fn select(person: &PersonState, predicted_speed: f32) -> io::Result<Option<Local
 mod tests {
     use super::*;
     #[test]
+    fn crouch_prediction_preserves_received_authority_and_composes_arm_gestures() {
+        let mut person = PersonState {
+            poses: Some([0x24; 10]),
+            pose_parameter: Some(0),
+            head_tilt: Some(0.25),
+            ..Default::default()
+        };
+        for speed in [0., 4.] {
+            let base = select(&person, speed).unwrap().unwrap();
+            let code = if speed > 0. { 0x11 } else { 0x10 };
+            let crouch = base.clone().with_crouch(true);
+            assert_eq!(crouch.native.fields_3c, [code; 10]);
+            assert_eq!(crouch.received, [0x24; 10]);
+            assert_eq!(crouch.head_angles, [0.25, 0.]);
+            assert_eq!(crouch.source_report_channels(), Some([code as u8; 10]));
+            let wave = crouch.with_gesture(Some(LocalPlayerGesture::Wave));
+            let mut expected = [code as u8; 10];
+            expected[2] = 0x30;
+            assert_eq!(wave.source_report_channels(), Some(expected));
+            assert_eq!(base.clone().with_crouch(false), base);
+        }
+        for action in [0x10, 0x11, 0x12, 0x15, 0x25] {
+            person.poses = Some([action; 10]);
+            let received = select(&person, 4.).unwrap().unwrap();
+            assert_eq!(received.clone().with_crouch(true), received);
+            assert!(received.source_report_channels().is_none());
+        }
+    }
+    #[test]
     fn local_arm_gestures_preserve_gait_receipt_and_head_angles_but_yield_to_server_actions() {
         let mut person = PersonState {
             poses: Some([0x24; 10]),
@@ -194,7 +233,7 @@ mod tests {
         }
         person.poses = Some([0x24; 10]);
         let mut invalid = select(&person, 0.).unwrap().unwrap();
-        for code in [0x10, 0x11, 0x13, 0x100, 0x1f, 0x30] {
+        for code in [0x13, 0x100, 0x1f, 0x30] {
             invalid.native.fields_3c[0] = code;
             assert!(invalid.source_report_channels().is_none());
         }

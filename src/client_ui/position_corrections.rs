@@ -40,6 +40,7 @@ pub(super) fn apply(ui: &mut Presentation, before: (u64, Option<crate::world::Tr
     // Mouse pitch remains the user's ordinary view control.
     ui.report_dirty = false;
     ui.report_timer = 0.;
+    ui.posture.cancel();
 }
 
 #[cfg(test)]

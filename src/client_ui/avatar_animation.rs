@@ -127,9 +127,17 @@ pub(super) fn animate(
             if selected.is_standing() {
                 "Avatar animation: standing"
             } else if selected.native.fields_3c == [0x10; 10] {
-                "Avatar animation: received crouch pose"
+                if selected.predicted {
+                    "Avatar animation: local crouch pose"
+                } else {
+                    "Avatar animation: received crouch pose"
+                }
             } else if selected.native.fields_3c == [0x11; 10] {
-                "Avatar animation: received crouch-walk pose"
+                if selected.predicted {
+                    "Avatar animation: local crouch-walk pose"
+                } else {
+                    "Avatar animation: received crouch-walk pose"
+                }
             } else if selected.native.fields_3c == [0x26; 10] {
                 "Avatar animation: walking"
             } else if selected.native.fields_3c == [0x25; 10] {

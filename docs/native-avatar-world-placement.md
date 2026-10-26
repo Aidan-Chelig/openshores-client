@@ -162,5 +162,32 @@ Nominal clearance is not exact skinned-foot contact. Default stationary crouch
 currently measures minimum Z-2.3517287, leaving a-0.38020396 residual at nominal
 clearance. This is a reconstructed geometry/contact discrepancy, not established
 original-game parity. It is recorded rather than hidden with mesh-bounds fitting.
-Native posture/physics transitions, local held crouch, growth and other parent
-contexts still need their own implementation/evidence.
+Native posture/physics transitions, growth and other parent contexts still need
+their own implementation/evidence. The bounded held-crouch controller below is
+separate from those native runtime requirements.
+
+## Grounded held-crouch source controller
+
+The source slice now uses held Caps Lock for local crouch prediction over received
+all-Stand only. It requires the matching prepared adult body (source growth
+counter0), a visible selected globe-child actor and the current terrain mesh.
+The pre-input radial position must be within0.02 native units of that posture's
+nominal clearance plane. Airborne/buried positions and received actions are not
+snapped. Once grounded, ordinary walking and crouch follow the actual mesh's
+radial surface; release restores Stand clearance. This changes the predicted
+position that is reported, not a hidden mesh/camera offset or received atom data.
+
+This is declared source-controller policy, not reconstructed native collision
+physics. Crouch uses the existing slice Walk rate; Shift does not select Run while
+crouched. Vertical C/Z motion exits crouch without cancelling the vertical input.
+Chat/hand-cursor/Alt/Ctrl modes suppress local crouch. New owners/prepared profiles
+and real source corrections inhibit a held request until release. Loss of a
+prepared body undoes only a still-grounded same-actor local stance; old metadata
+cannot move another session or an already cancelled correction.
+
+The frame order is input -> posture/terrain adjustment -> position report ->
+pose report -> persistent skinning -> camera. Explicit inverse source mapping
+now admits predicted0x10/0x11, with optional arm gestures composed afterward.
+No native movement-speed modifier, headroom/building collision, gravity, growth
+transition or physical received-action transition is claimed. The measured
+crouched sole residual above is unchanged; no mesh-bounds fitting was added.

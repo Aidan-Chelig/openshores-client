@@ -19,6 +19,7 @@ mod avatar_inspection;
 mod avatar_lifecycle;
 mod avatar_live;
 mod avatar_pose_reports;
+mod avatar_posture;
 mod avatar_rendering;
 mod camera;
 mod chat;
@@ -95,6 +96,7 @@ struct Presentation {
     avatar_motion_speed: f32,
     avatar_animation_status: String,
     gestures: avatar_gestures::State,
+    posture: avatar_posture::State,
 }
 
 #[derive(Component)]
@@ -292,6 +294,8 @@ fn launch(
                 avatar::preparation,
                 chat::typing,
                 controls::keyboard,
+                avatar_posture::update,
+                controls::report_position,
                 avatar_pose_reports::report,
                 camera::transition,
                 scene::scene,

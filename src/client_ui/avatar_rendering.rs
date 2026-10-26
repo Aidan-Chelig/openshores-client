@@ -116,7 +116,7 @@ pub(super) fn render(
     let status = if ready.is_some() && placement.is_none() {
         "Avatar placement unavailable: waiting for a valid visible globe-child transform."
     } else if placement.is_some() {
-        "Avatar attached at received origin; ground anchor and globe-facing verification pending."
+        "Avatar attached at source-profile origin (local prediction when active)."
     } else {
         ""
     };

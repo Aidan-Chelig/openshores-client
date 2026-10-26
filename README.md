@@ -54,6 +54,14 @@ opens full-body inspection to see them. These are explicit prototype buttons,
 not recovered original keyboard bindings; Point does not add targeting or finger
 articulation. `just test-connected-avatar-local-gestures` verifies action dispatch,
 keyboard locomotion and the actual local server's received gesture channels.
+Hold Caps Lock to crouch while grounded; release it to stand. Walking remains
+available while crouched, with Shift capped to the slice's walking rate. Chat,
+hand-cursor mode and received actions suppress local crouch. Ground following
+uses the rendered terrain and native nominal clearances, not mesh-bounds fitting
+or a complete native collision solver; the known crouched sole residual remains.
+`just test-connected-avatar-local-crouch` checks held input, gait/root transitions
+and actual server reports. Set `OPENSHORES_TEST_AVATAR_ANIMATION_FIRST_PERSON=1`
+when running that recipe to include animated-eye and hidden-skull checks.
 The connected development session is currently bounded to 60 seconds; closing
 the window shuts down the owned server and disposable database.
 

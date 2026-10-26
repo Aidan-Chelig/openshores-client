@@ -8,13 +8,15 @@ Current supported normal-body inputs: Stand/Walk/Run, face-down Dying/Dead,
 received crouch/crouch-walk and Jump posing, arm-channel Wave/Point and
 folded-limb codes0x18/0x19/0x1b/0x35.
 Mixed admitted channels are preserved;
-local movement and optional arm gestures predict/report only over received all-Stand.
+local movement, held crouch and optional arm gestures predict/report only over
+received all-Stand.
 Finite source head tilt now reaches normal-body rendering with connected
 third-/first-person acceptance. Other actions, nonzero source pose parameters, guided
 mode, winged and legless body animation remain explicit unsupported inputs,
 not silent fallbacks.
 Jump/death posing does not implement displacement, gravity, landing or corpse
-settling. Crouch is received rendering only, not held Caps Lock or local grounding.
+settling. Held Caps Lock now predicts crouch over grounded adult source Stand;
+native collision/growth physics and the crouched sole discrepancy remain open.
 The goal remains active; checkpoints below record evidence, not a claim
 of the complete OpenShores animation catalog.
 
@@ -600,4 +602,53 @@ path (`target/connected-avatar-wty3t6be`), including actual source-decoder chann
 delivery and persistent render resources. No public server or original binary
 execution was used. The default library configuration passes749 tests (one
 ignored); final formatting and diff checks pass.
+
+Held-crouch checkpoint: Caps Lock now selects local0x10/0x11 over received
+all-Stand, with optional arm gestures composed afterward. The matching prepared
+adult (source growth counter0), visible globe-child actor and current terrain
+are required. Near-ground positions follow the actual terrain mesh at cached
+native nominal Stand/Crouch clearance; off-ground positions and received actions
+are not snapped. Shift is capped to the existing source-slice Walk rate while
+crouched, not claimed as a reconstructed native movement-speed modifier.
+Chat/hand-cursor/Alt/Ctrl modes suppress crouch; vertical C/Z input exits it while
+retaining vertical displacement. Pose reports remain explicit source-profile
+mappings with zero auxiliary fields. Position reports now flush after posture
+adjustment, avoiding a stale standing-height report ahead of the crouched frame.
+
+Requests are bound to session/avatar/prepared appearance. Real corrections and
+changed owners require release before a held request can reapply. Losing a body
+undoes only the same actor's still-grounded local stance, never another session
+or an already-cancelled correction. CPU tests cover these guards, radial
+grounding/release at both poles and an equator, modal requests, off-ground/invalid
+inputs, received authority and composed gestures. No mesh-bounds fit or frame
+asset I/O was introduced; the known crouched sole residual remains unchanged.
+
+`just test-connected-avatar-local-crouch` passes through actual Caps Lock/W/Shift
+ButtonInput and normal controls, without server-pose injection. Stationary,
+crouch-walk, release-to-walk, Shift+crouch and final Stand are checked against
+native clearances and persistent root/mesh/material/atlas/UV identities. The
+actual source decoder receives all expected channel vectors with zero auxiliary
+fields. Three captures in `target/connected-avatar-cck8wodk` were inspected,
+showing bent-leg stance/gait and standing recovery. First-person acceptance also
+passes in `target/connected-avatar-616hxn6e`. The complete received-action,
+tilt/unsupported/recovery regression passes in `target/connected-avatar-n4zbwzru`.
+
+After restart, a fresh first-person run (`target/connected-avatar-hcjhu9_q`)
+failed during warmup: the checker forced its pitch after camera evaluation,
+allowing ambient desktop mouse events to create an inconsistent expected view.
+View setup now precedes controls/camera evaluation; the opt-in driver owns its
+keyboard/mouse inputs. The orientation assertion is unchanged. A new CPU
+regression verifies fixture setup against the real avatar camera system.
+Fresh first-person acceptance passes in `target/connected-avatar-j2nwvkff`, with
+animated-eye, mouse-look and hidden-skull assertions throughout. The failed run
+is not counted as passing evidence. Native collision/headroom/gravity, growth
+transitions, broader action/anatomy support and the sole discrepancy remain open.
+
+Final held-crouch verification: the offline bundle passes all 15 static
+verifiers, 803 client-library tests (six ignored), both mounted received-DNA/
+ownership tests and all eight mounted limb tests. The default library passes
+750 tests (one ignored). Strict client Clippy and formatting/diff checks pass.
+The fresh complete received-action/tilt/unsupported/Stand-recovery workflow
+also passes with isolated fixture inputs in `target/connected-avatar-mderewgw`.
+Only the owned local server was used; no original executable was run.
 

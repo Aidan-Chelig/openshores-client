@@ -24,6 +24,7 @@ pub(super) struct Workflow {
     local_gestures: bool,
     crouch_only: bool,
     crouch_grounded: bool,
+    local_crouch: bool,
 }
 impl Workflow {
     pub(super) fn new(path: PathBuf) -> Self {
@@ -42,11 +43,14 @@ impl Workflow {
             local_gestures: std::env::var_os("OPENSHORES_TEST_AVATAR_LOCAL_GESTURES").is_some(),
             crouch_only: std::env::var_os("OPENSHORES_TEST_AVATAR_RECEIVED_CROUCH").is_some(),
             crouch_grounded: std::env::var_os("OPENSHORES_TEST_AVATAR_CROUCH_ROOTS").is_some(),
+            local_crouch: std::env::var_os("OPENSHORES_TEST_AVATAR_LOCAL_CROUCH").is_some(),
         }
     }
     pub(super) fn complete(&self) -> bool {
         self.stage
-            == if self.crouch_only {
+            == if self.local_crouch {
+                6
+            } else if self.crouch_only {
                 4
             } else if self.local_gestures {
                 6
@@ -69,9 +73,40 @@ pub(super) fn input(
     flow: Res<Workflow>,
     rendered: Res<avatar_rendering::State>,
     mut keys: ResMut<ButtonInput<KeyCode>>,
+    mut ui: ResMut<Presentation>,
+    mut motion: ResMut<AccumulatedMouseMotion>,
+    mut mouse: ResMut<ButtonInput<MouseButton>>,
 ) {
+    // Configure the fixture BEFORE controls/camera evaluation. Doing this in
+    // the post-camera checker compared a new pitch against the previous view
+    // whenever ambient desktop mouse events arrived during the run.
+    motion.delta = Vec2::ZERO;
+    keys.reset_all();
+    mouse.reset_all();
+    if !flow.complete() {
+        ui.hand = false;
+        ui.chat_focus = false;
+        ui.avatar_inspect = !flow.first_person;
+        if flow.first_person {
+            ui.top_down = false;
+            ui.pitch = -0.8;
+        }
+    }
     keys.release(KeyCode::KeyW);
     keys.release(KeyCode::ShiftLeft);
+    if flow.local_crouch {
+        keys.release(KeyCode::CapsLock);
+        if matches!(flow.stage, 1 | 2 | 4) {
+            keys.press(KeyCode::CapsLock);
+        }
+        if matches!(flow.stage, 2..=4) {
+            keys.press(KeyCode::KeyW);
+        }
+        if flow.stage == 4 {
+            keys.press(KeyCode::ShiftLeft);
+        }
+        return;
+    }
     if flow.pose_control.is_none()
         && rendered.gpu_snapshot().is_some()
         && if flow.local_gestures {
@@ -131,6 +166,7 @@ pub(super) struct TestContext<'w, 's> {
     cameras: Query<'w, 's, &'static Transform, With<SliceCamera>>,
     heads: Query<'w, 's, &'static Visibility, With<avatar_rendering::FirstPersonHead>>,
     bridge: Res<'w, Bridge>,
+    prepared: Res<'w, avatar::Preparation>,
 }
 pub(super) fn workflow(
     mut flow: ResMut<Workflow>,
@@ -157,41 +193,36 @@ pub(super) fn workflow(
         "{}",
         ui.avatar_animation_status
     );
-    ui.avatar_inspect = !flow.first_person;
-    if flow.first_person {
-        ui.top_down = false;
-        ui.pitch = -0.8;
-        if flow.frames > 2 {
-            let body = roots.get(current.gpu.root).unwrap();
-            let expected = camera::clear_eye(
-                body.transform_point(current.eye),
-                ui.camera_terrain.as_ref(),
-                ui.scale,
-            );
-            let frame = placement::tangent_frame(ui.local_position.unwrap(), ui.yaw).unwrap();
-            let expected_view = camera::view(expected, frame, ui.pitch, 0., ui.scale);
-            assert!(!views.cameras.is_empty(), "missing first-person camera");
-            for camera in &views.cameras {
-                assert!(
-                    camera.translation.distance(expected) < 1e-6,
-                    "first-person camera lost animated eye"
-                );
-                assert!(
-                    camera.rotation.abs_diff_eq(expected_view.rotation, 1e-5),
-                    "received animation changed first-person mouse-look orientation"
-                );
-            }
+    if flow.first_person && flow.frames > 2 {
+        let body = roots.get(current.gpu.root).unwrap();
+        let expected = camera::clear_eye(
+            body.transform_point(current.eye),
+            ui.camera_terrain.as_ref(),
+            ui.scale,
+        );
+        let frame = placement::tangent_frame(ui.local_position.unwrap(), ui.yaw).unwrap();
+        let expected_view = camera::view(expected, frame, ui.pitch, 0., ui.scale);
+        assert!(!views.cameras.is_empty(), "missing first-person camera");
+        for camera in &views.cameras {
             assert!(
-                !views.heads.is_empty(),
-                "missing local head visibility check"
+                camera.translation.distance(expected) < 1e-6,
+                "first-person camera lost animated eye"
             );
-            for visibility in &views.heads {
-                assert_eq!(
-                    *visibility,
-                    Visibility::Hidden,
-                    "animated skull blocks first-person view"
-                );
-            }
+            assert!(
+                camera.rotation.abs_diff_eq(expected_view.rotation, 1e-5),
+                "received animation changed first-person mouse-look orientation"
+            );
+        }
+        assert!(
+            !views.heads.is_empty(),
+            "missing local head visibility check"
+        );
+        for visibility in &views.heads {
+            assert_eq!(
+                *visibility,
+                Visibility::Hidden,
+                "animated skull blocks first-person view"
+            );
         }
     }
     if ui.windows_open || ui.hud {
@@ -239,6 +270,10 @@ pub(super) fn workflow(
     assert_eq!(current.gpu.image, initial.gpu.image);
     assert_eq!(current.gpu.material, initial.gpu.material);
     assert_eq!(current.uvs, initial.uvs);
+    if flow.local_crouch {
+        local_crouch(&mut flow, &mut ui, current, &mut commands, &views.prepared);
+        return;
+    }
     if flow.crouch_only {
         received_crouch(&mut flow, &mut ui, current, &mut commands);
         return;
@@ -657,5 +692,158 @@ fn received_crouch(
         )
         .unwrap();
         flow.advance();
+    }
+}
+
+fn local_crouch(
+    flow: &mut Workflow,
+    ui: &mut Presentation,
+    current: Snapshot,
+    commands: &mut Commands,
+    prepared: &avatar::Preparation,
+) {
+    let frames = flow.frames;
+    let initial = flow.initial.as_ref().unwrap();
+    let crouched = matches!(flow.stage, 1 | 2 | 4);
+    let code = match flow.stage {
+        1 => 0x10,
+        2 | 4 => 0x11,
+        3 => 0x26,
+        _ => 0x24,
+    };
+    let pose = ui.avatar_pose().unwrap().unwrap();
+    assert_eq!(
+        pose.received, [0x24; 10],
+        "held crouch changed received state"
+    );
+    assert_eq!(pose.native.fields_3c, [code; 10]);
+    assert_eq!(avatar_posture::crouched(ui), crouched);
+    let ready = prepared.0.lock().unwrap();
+    let values = ready
+        .ready()
+        .unwrap()
+        .1
+        .animation
+        .as_ref()
+        .unwrap()
+        .lock()
+        .unwrap()
+        .ground_clearances();
+    let point = DVec3::from_array(ui.local_position.unwrap());
+    let floor =
+        camera::surface_radius(ui.camera_terrain.as_ref().unwrap(), point.normalize()).unwrap();
+    let height = if crouched {
+        values.crouched
+    } else {
+        values.standing
+    };
+    assert!(
+        (point.length() - floor - f64::from(height)).abs() < 0.002,
+        "held crouch lost the nominal ground plane"
+    );
+    assert!(current.position.distance((point * ui.scale).as_vec3()) < 1e-6);
+    if flow.stage == 5 {
+        assert_eq!(current.positions, initial.positions);
+        assert_eq!(current.eye, initial.eye);
+        if frames == 1 {
+            flow.stopped_position = Some(current.position);
+        }
+        assert_eq!(Some(current.position), flow.stopped_position);
+        if frames == 30 {
+            commands
+                .spawn(Screenshot::primary_window())
+                .observe(save_to_disk(
+                    flow.directory.join("local-crouch-stopped.png"),
+                ));
+            println!(
+                "Connected local crouch: held Caps Lock, keyboard gait transitions, nominal ground roots, persistent resources and exact Stand geometry/eye verified"
+            );
+            flow.advance();
+        }
+        return;
+    }
+    if matches!(frames, 37 | 83) {
+        assert_ne!(current.positions, initial.positions);
+        if flow.stage == 1 {
+            assert!(current.position.z < initial.position.z);
+        }
+        if let Some(previous) = &flow.last_phase {
+            if flow.stage == 1 {
+                assert_eq!(&current.positions, previous);
+            } else {
+                assert_ne!(&current.positions, previous);
+            }
+        }
+        let label = match flow.stage {
+            1 => "local-crouch",
+            2 => "local-crouch-walk",
+            3 => "local-crouch-release-walk",
+            _ => "local-crouch-shift-walk",
+        };
+        commands
+            .spawn(Screenshot::primary_window())
+            .observe(save_to_disk(flow.directory.join(format!(
+                "{label}-{}.png",
+                if frames == 37 { "a" } else { "b" }
+            ))));
+        flow.last_phase = Some(current.positions);
+    }
+    if frames == 90 {
+        flow.advance();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn fixture_view_setup_precedes_camera_and_isolates_desktop_mouse_motion() {
+        let mut flow = Workflow::new(PathBuf::new());
+        flow.first_person = true;
+        let mut app = App::new();
+        app.insert_resource(flow)
+            .insert_resource(Presentation {
+                local_position: Some([0., 0., 100.]),
+                scale: 0.001,
+                avatar_inspect: true,
+                ..default()
+            })
+            .init_resource::<avatar_rendering::State>()
+            .init_resource::<ButtonInput<KeyCode>>()
+            .init_resource::<ButtonInput<MouseButton>>()
+            .insert_resource(AccumulatedMouseMotion {
+                delta: Vec2::new(20., -30.),
+            })
+            .add_systems(Update, (input, avatar_camera::view).chain());
+        let body = Transform::from_xyz(0., 0., 0.1).with_scale(Vec3::splat(0.001));
+        let root = app
+            .world_mut()
+            .spawn((avatar_rendering::LocalAvatar, body))
+            .id();
+        let eye = Vec3::new(0., 0.6, 2.5);
+        app.world_mut()
+            .resource_mut::<avatar_rendering::State>()
+            .camera = Some((root, eye));
+        let camera = app
+            .world_mut()
+            .spawn((SliceCamera, Transform::default()))
+            .id();
+        app.update();
+        let ui = app.world().resource::<Presentation>();
+        assert_eq!(ui.pitch, -0.8);
+        assert!(!ui.avatar_inspect && !ui.top_down);
+        assert_eq!(
+            app.world().resource::<AccumulatedMouseMotion>().delta,
+            Vec2::ZERO
+        );
+        let frame = placement::tangent_frame([0., 0., 100.], 0.).unwrap();
+        let expected = camera::view(body.transform_point(eye), frame, ui.pitch, 0., ui.scale);
+        assert!(
+            app.world()
+                .get::<Transform>(camera)
+                .unwrap()
+                .rotation
+                .abs_diff_eq(expected.rotation, 1e-6)
+        );
     }
 }

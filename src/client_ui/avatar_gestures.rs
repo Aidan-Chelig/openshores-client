@@ -63,7 +63,10 @@ impl Presentation {
         Ok(self
             .model
             .local_player_pose(self.avatar_motion_speed)?
-            .map(|pose| pose.with_gesture(gesture)))
+            .map(|pose| {
+                pose.with_crouch(avatar_posture::crouched(self))
+                    .with_gesture(gesture)
+            }))
     }
 }
 

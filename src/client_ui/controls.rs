@@ -65,6 +65,7 @@ fn cycle_gear(ui: &mut Presentation, forward: bool) {
 }
 
 pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input: InputFrame) {
+    ui.posture.frame_start = ui.local_position;
     ui.avatar_motion_speed = 0.;
     let InputFrame {
         keys,
@@ -295,9 +296,16 @@ pub(super) fn keyboard(mut ui: ResMut<Presentation>, bridge: Res<Bridge>, input:
         ui.local_rotation = placement::heading_rotation(ui.local_position.unwrap(), ui.yaw);
         ui.report_dirty = true;
     }
-    if ui.report_timer >= 0.1 && ui.report_dirty {
+}
+
+/// Flush only after grounded posture adjustment, so no obsolete standing-height
+/// position is sent ahead of the crouched frame's actual predicted position.
+pub(super) fn report_position(mut ui: ResMut<Presentation>, bridge: Res<Bridge>) {
+    if ui.model.phase == Phase::Playing && ui.report_timer >= 0.1 && ui.report_dirty {
         ui.report_timer = 0.;
-        let projected = ui.local_position.unwrap();
+        let Some(projected) = ui.local_position else {
+            return;
+        };
         let rotation = ui
             .local_rotation
             .or_else(|| ui.model.rotation())
