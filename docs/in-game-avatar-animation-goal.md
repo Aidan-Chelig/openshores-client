@@ -652,3 +652,19 @@ The fresh complete received-action/tilt/unsupported/Stand-recovery workflow
 also passes with isolated fixture inputs in `target/connected-avatar-mderewgw`.
 Only the owned local server was used; no original executable was run.
 
+Side-facing death dependency: native left/right arm stages are now ported,
+including asymmetric shoulder/wrist/elbow/lift operations, signed pair index,
+ordinary-arm filtering and all selectors. The new SHA-bound static verifier
+checks both body and concrete part consumers. CPU tests verify selection,
+repeatability, distinct facing directions and wrist-only anatomy effects.
+The client library passes805 tests (six ignored). This is a dependency toward
+complete0x13/0x14 support: the leg stages and connected acceptance remain open,
+so the compositor and source adapter still reject those codes. See the
+locomotion ledger for source locations, exact operations and analysis-cost notes.
+All16 offline static verifiers, both mounted received-DNA/ownership tests,
+eight mounted limb tests, strict client Clippy and formatting/diff checks pass.
+The optional fresh Ghidra pseudocode request timed out during whole-image
+analysis and supplied no evidence; its session was closed and owned process
+termination checked. The retained SHA-bound GNU disassembly supplies the static
+evidence for this checkpoint instead.
+

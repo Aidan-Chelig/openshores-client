@@ -378,3 +378,41 @@ crouch, but binding it before those placement rules would hide a physical gap
 behind an invented visual offset. The owned pose-only fixture keeps its root at
 standing elevation deliberately; any resulting hover is not proof of native
 crouch grounding or a reason to double-adjust a real received transform.
+
+## Side-facing death arm stages
+
+The later held-crouch controller is documented in
+[world placement](native-avatar-world-placement.md); the previous paragraph
+describes the earlier received-pose checkpoint.
+
+Normal-body dispatch maps0x13/0x14 to left/right death limbs. Their arm
+consumers are now ported as isolated native stages; neither code is yet admitted
+by the complete compositor or source adapter. The leg consumers require their
+own standing-height/standing-angle dependency and side-specific branches.
+
+Static evidence is retained in
+`evidence/native-dp-dead-side-arms-gnu.txt`, bound by
+`tests/native_dead_side_arms.py` to executable SHA-256
+`285047485af36d98bc9fe3c1c0a1f7bed4693f7ef3abcafc2c6d39d5e0d81d80`.
+Body consumers at0x1412ec0a0/0x1412ec200 call SpreadArms(0,35degrees,side),
+scan ordinary arms forward and preserve the native left/right/all selectors.
+Part consumers at0x1412d69a0/0x1412d6ae0 reverse the IsLeft condition while
+retaining the same constants and operation order:
+
+- Facing-side shoulder: negative(pair index*8+75) degrees; other side:
+  negative(pair index*10+125) degrees. The signed field50 conversion and
+  separate scalar f32 multiply/add/negation/multiply are preserved.
+- Facing-side bent wrist15degrees, elbow65degrees, then shoulder lift-20degrees.
+  Other-side bent wrist-25degrees and elbow10degrees, without a shoulder lift.
+- Both use wrist-2degrees when HasWristBend is false, then apply stored splay.
+  SpreadArms' stored lift is not substituted for the explicit shoulder lift.
+
+CPU coverage verifies all selectors, untouched nonselected bones, finite output,
+repeat sampling after reset, distinct left/right results and wrist-anatomy
+changes confined to hands. These are static reconstruction and Rust tests,
+not observations of original execution or connected side-death rendering.
+
+For subsequent exact-symbol work, use the retained SHA-bound disassembly and
+bounded objdump checks first. Starting a fresh Ghidra import to check these four
+known symbols incurs whole-image analysis; reserve it for unresolved control
+flow or missing evidence, and reuse an already open matching session.
