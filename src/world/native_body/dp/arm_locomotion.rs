@@ -88,7 +88,7 @@ impl NativeDpInitialization {
     }
 }
 
-fn phase(part: &NativeDpAllocatedPart) -> f32 {
+pub(super) fn phase(part: &NativeDpAllocatedPart) -> f32 {
     let left = part.kind == NativeDpPartKind::LeftArmAndHand;
     match (part.dna.0[1] & 3, part.index, left) {
         (2, 1, true) => f32::from_bits(0x40490fdb),

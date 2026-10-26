@@ -148,6 +148,8 @@ pub(super) fn animate(
                 "Avatar animation: dead (face up)"
             } else if selected.native.fields_3c == [0x20; 10] {
                 "Avatar animation: received prone pose"
+            } else if selected.native.fields_3c == [0x21; 10] {
+                "Avatar animation: received crawling pose"
             } else if selected.native.fields_3c == [0x13; 10] {
                 "Avatar animation: received death pose (left)"
             } else if selected.native.fields_3c == [0x14; 10] {

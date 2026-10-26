@@ -72,7 +72,7 @@ impl NativeDpInitialization {
             || head_angles.iter().any(|v| !v.is_finite())
             || pose.field_6c
             || pose.fields_3c.iter().enumerate().any(|(index, code)| {
-                !(matches!(code, 0x10..=0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x20 | 0x24..=0x26 | 0x35)
+                !(matches!(code, 0x10..=0x15 | 0x18..=0x19 | 0x1b..=0x1c | 0x20..=0x21 | 0x24..=0x26 | 0x35)
                     || matches!(index, 2 | 5) && matches!(code, 0x1f | 0x30))
             })
         {
@@ -85,6 +85,10 @@ impl NativeDpInitialization {
         self.bones.reset_for_animation(&self.dna);
         for selector in [0, 1] {
             let code = pose.fields_3c[if selector == 0 { 4 } else { 0 }];
+            if code == 0x21 {
+                self.creep_legs(selector, speed, field_4068, feet, timer)?;
+                continue;
+            }
             if code == 0x13 {
                 self.dead_legs_facing_left(selector, field_4068, feet)?;
                 continue;
@@ -134,6 +138,10 @@ impl NativeDpInitialization {
         if self.dna.0[1] & 3 != 0 {
             for side in [0, 1] {
                 let code = pose.fields_3c[if side == 0 { 2 } else { 5 }];
+                if code == 0x21 {
+                    self.creep_arms(side, speed, None, timer)?;
+                    continue;
+                }
                 if code == 0x20 {
                     self.prone_arms(side, None)?;
                     continue;

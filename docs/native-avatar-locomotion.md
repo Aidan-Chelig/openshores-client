@@ -528,3 +528,47 @@ and the prone verifier checks its dispatch and HeadLocation call. No draw/root
 offset is inferred from this helper alone: its caller semantics and source-wire
 origin relationship remain to be traced. Current acceptance establishes skeletal
 posing at the received root, not complete native prone placement/contact parity.
+
+## Crawling (ProneCreep)
+
+Received `0x21` now composes native ProneCreep legs and arms. The concrete
+consumers are retained in `evidence/native-dp-prone-stages-gnu.txt`:
+arms at `0x1412d6f70`, legs at `0x1412da000`, body dispatch at
+`0x1412ecf00` / `0x1412f0ac0`. `tests/native_creep_pose.py` checks the target
+digest, all four raw limb dispatch entries and actual consumers, phase and
+angle literals, scalar arithmetic, traversal and joint order. These are static
+observations, not original-runtime parity.
+
+Both limbs call DhDNA rhythm `0x21` with copied part DNA and the caller's speed.
+The arm phase table equals the existing native WalkArm table; the leg phase
+table equals RunLeg, including the single left leg on hand-walking anatomy.
+Only those verified phase helpers are shared; crawling has its own rhythm ID
+and joint calculations. CPU coverage independently enumerates all side/pair
+phase literals and the hand-walking exception.
+
+Arms use Prone's ten-degree spread and eighty-degree lift spacing. Shoulder
+is `(5 - wave * 10) * degree - literal40384e89`; the normal elbow retains
+literal40384e88. An optional pitch override is consumed only by the first
+selected ordinary arm, setting elbow to pitch minus shoulder and wrist to
+minus two degrees. The concrete height argument is unused. Shoulder, optional
+wrist, elbow, stored splay and lift retain native order.
+
+Legs spread by minus five degrees, scan trailing parts in reverse and select
+first/later/all pairs. Hip uses the same strict signed single-pair splay gate
+as the death/prone stages. Knee is `-ten - (ten - wave * ten)` with separate
+f32 operations; ankle is the native forty-degree literal when bendable; applied
+splay is `(1 - wave) * stored_splay`. Stored splay itself is not overwritten.
+Rhythm is sampled once per selected limb, with the existing DNA rate policy.
+
+Preparation warms crawling before mount access is discarded. Repeated mounted
+samples cover all three pair counts, both wrist/ankle anatomies, selectors,
+untouched other bones, changing phases and exact stopped/Stand recovery.
+The actual received-DNA sampler checks changing surfaces and repeatable eyes
+without asset I/O or rebuilt topology/materials. The source adapter preserves
+received crawling against local gait/crouch/gesture prediction and excludes it
+from the outgoing local prediction table.
+
+General `0x21` has no extra render rotation and shares prone's head-derived
+CGOffset branch. Its world-placement caller/source-origin semantics remain
+open. The connected path preserves the authoritative root; this is received
+skeletal animation, not reconstructed crawling physics or a new local keybind.

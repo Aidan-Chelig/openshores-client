@@ -505,7 +505,7 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
                 .any(|(a, b)| a.corners != b.corners)
         );
     }
-    for code in [0x10, 0x11] {
+    for code in [0x10, 0x11, 0x21] {
         let pose = openshores_client::world::native_creature::NativeDpBodyPoseState {
             fields_3c: [code; 10],
             field_6c: false,
@@ -537,7 +537,7 @@ fn mounted_received_server_dna_prepares_without_a_preview_fixture_substitution()
                 .iter()
                 .zip(&b.surfaces)
                 .any(|(a, b)| a.corners != b.corners),
-            code == 0x11
+            code != 0x10
         );
         assert_eq!(a.eye, repeat.eye);
         for (a, b) in a.surfaces.iter().zip(&repeat.surfaces) {

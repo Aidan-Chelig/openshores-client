@@ -7,7 +7,7 @@ not merely an offline animated fixture, is the required final result.
 Current supported normal-body inputs: Stand/Walk/Run, Dying/Dead and left/right
 death posing with the admitted native whole-body render rotations,
 received crouch/crouch-walk and Jump posing, arm-channel Wave/Point and
-folded-limb codes0x18/0x19/0x1b/0x35, plus stationary prone0x20.
+folded-limb codes0x18/0x19/0x1b/0x35, plus prone0x20 and crawling0x21.
 Mixed admitted channels are preserved;
 local movement, held crouch and optional arm gestures predict/report only over
 received all-Stand.
@@ -742,4 +742,37 @@ HeadLocation call are retained and checked. Its caller/source-origin semantics
 remain open, so these captures do not establish complete native prone placement.
 Strict client Clippy, formatting and diff checks pass. The default library
 passes 757 tests (one ignored). No public server or original executable was used.
+
+Crawling checkpoint: received `0x21` now reaches distinct native ProneCreep
+arm/leg consumers, preserving their anatomy-specific phase tables, rhythm ID,
+ordered f32 angle operations and first-selected arm override. The verified
+existing phase helpers are shared; Walk/Run joint motion is not substituted.
+Preparation warms crawling, then the connected sampler remains mount-free and
+updates the existing geometry and eye. Receipt stays authoritative over local
+movement/crouch/gesture predictions and is excluded from local pose reports.
+
+The offline bundle passes 19 static verifiers, 813 client tests (six ignored),
+both mounted received-DNA/ownership tests and all nine mounted limb tests.
+Coverage includes one/two/three limb-pair selectors, both wrist/ankle anatomies,
+exact phase literals and the hand-walking exception, one rhythm sample per
+selected limb, unchanged other bones, repeated timestamps and Stand recovery.
+The received-DNA sampler shows changing crawl surfaces and reproducible eyes.
+
+Third-person connected acceptance passes in `target/connected-avatar-aulhggv6`.
+Both crawl captures were inspected; alternating knee/foot motion is visible.
+The sequence preserves actor transform and persistent mesh/material/atlas/UVs,
+then verifies the remaining death/unsupported/Stand recovery sequence. Prone and
+crawling share the native head-derived CGOffset placement dependency; the
+fixture retains its standing root, so these captures do not establish physical
+ground contact or native crawling displacement. Local crawl controls, placement
+semantics, collision and the wider action/anatomy catalog remain open.
+
+First-person connected acceptance also passes in
+`target/connected-avatar-rc6ekp8z`, including animated-eye/mouse-look/hidden-skull
+checks through crawling and the complete received-action sequence. The actual
+source decoder observes neutral reports on recovery and no reports overwriting
+received actions after the transport grace period. Only the owned local server
+was used; no original executable was run.
+Final crawling checks: strict client Clippy and formatting/diff checks pass;
+the default library passes 760 tests (one ignored).
 

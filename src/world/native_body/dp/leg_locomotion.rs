@@ -113,7 +113,7 @@ impl NativeDpInitialization {
     }
 }
 
-fn phase(part: &NativeDpAllocatedPart, gait: NativeDpGait) -> f32 {
+pub(super) fn phase(part: &NativeDpAllocatedPart, gait: NativeDpGait) -> f32 {
     let left = part.kind == NativeDpPartKind::LeftLegAndFoot;
     let count = (part.dna.0[12] >> 2) & 3;
     let index = part.index;

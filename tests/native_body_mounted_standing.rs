@@ -228,7 +228,7 @@ fn mounted_multi_arm_actions_preserve_unselected_bones_and_repeat_on_one_body() 
             let initial = body.clone();
             let mut hands = hands.into_cached_only();
             let mut feet = feet.into_cached_only();
-            for code in [0x25, 0x26, 0x30, 0x1c, 0x1f, 0x20] {
+            for code in [0x25, 0x26, 0x30, 0x1c, 0x1f, 0x20, 0x21] {
                 for side in [0, 1, 2] {
                     let mut pose = NativeDpBodyPoseState {
                         fields_3c: [0x24; 10],
@@ -380,7 +380,7 @@ fn mounted_jump_arm_override_changes_only_first_selected_arm() {
 
 #[test]
 #[ignore = "requires OPENSHORES_HAZERON_INSTALLATION; static native locomotion port, no original runtime"]
-fn mounted_walk_run_jump_leg_samples_change_selected_bones_without_accumulation() {
+fn mounted_walk_run_jump_creep_leg_samples_change_selected_bones_without_accumulation() {
     use openshores_client::world::{
         native_body::{NativeDpGait, NativeDpLegLocomotion},
         native_creature::NativePoseRhythmTimer,
@@ -416,7 +416,7 @@ fn mounted_walk_run_jump_leg_samples_change_selected_bones_without_accumulation(
         let height = feet
             .standing_height(&dna, base.dimensions(), 0, false)
             .unwrap();
-        for gait in [Some(NativeDpGait::Walk), Some(NativeDpGait::Run), None] {
+        for code in [0x26, 0x25, 0x1c, 0x21] {
             for selector in [0, 1, 2] {
                 let mut sampled = Vec::new();
                 for millis in [0, 125, 0] {
@@ -426,10 +426,17 @@ fn mounted_walk_run_jump_leg_samples_change_selected_bones_without_accumulation(
                         starts: 0,
                         samples: 0,
                     };
-                    if let Some(gait) = gait {
+                    if code == 0x21 {
+                        body.creep_legs(selector, 4., 0, &mut feet, &mut timer)
+                            .unwrap();
+                    } else if code != 0x1c {
                         body.locomote_legs(
                             NativeDpLegLocomotion {
-                                gait,
+                                gait: if code == 0x26 {
+                                    NativeDpGait::Walk
+                                } else {
+                                    NativeDpGait::Run
+                                },
                                 selector,
                                 height,
                                 speed: 4.,

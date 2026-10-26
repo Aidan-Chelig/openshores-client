@@ -65,7 +65,7 @@ impl NativeDpInitialization {
     }
 }
 
-fn dead_hip(dna: &NativeDhDna, splay: f32) -> f32 {
+pub(super) fn dead_hip(dna: &NativeDhDna, splay: f32) -> f32 {
     // Native compares the stored signed splay directly, not abs(splay).
     f32::from_bits(
         // Part +0x24 = DhDNA object +0x14 = packed byte 12, after

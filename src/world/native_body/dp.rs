@@ -4,6 +4,7 @@
 use crate::world::native_dna::NativeDhDna;
 mod bones;
 pub use bones::{NativeDpBoneTransform, NativeDpBoneTransforms, NativeDpSkinnedVertex};
+mod creep_pose;
 mod dead_pose;
 mod dead_side_arms;
 mod dead_side_legs;
